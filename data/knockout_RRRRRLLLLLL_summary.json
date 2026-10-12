@@ -1,0 +1,46 @@
+{
+ "rule": "RRRRRLLLLLL",
+ "baseline_near_home": 0.4737,
+ "baseline_own": 0.5418,
+ "baseline_spread": 14.378,
+ "failed_runs": 0,
+ "blank_tiles": 20,
+ "blank_max_abs_loss": 0.0,
+ "swap": {
+  "n": 100,
+  "mean_loss": 0.009318000000000014,
+  "sd": 0.01179772333969567,
+  "p95_single": 0.03304499999999998,
+  "p95_mean_of_3": 0.023033333333333333,
+  "mean_dose": 0.8611999999999999
+ },
+ "tiles": 310,
+ "frac_tiles_loss_le_null_p95_mean3": 0.9483870967741935,
+ "hot_tiles": 11,
+ "hot_frac": 0.035483870967741936,
+ "max_tile_loss": 0.09866666666666668,
+ "mean_tile_loss": 0.005313548387096785,
+ "patch_vs_swap_mean_loss": [
+  0.005313548387096785,
+  0.009318000000000014
+ ],
+ "patch_vs_swap_dose": [
+  0.8420579569892472,
+  0.8611999999999999
+ ],
+ "repro_pearson": 0.9127909356568885,
+ "repro_spearman": 0.4083366135865747,
+ "rho_loss_route": 0.30657053830391673,
+ "rho_loss_occ": 0.28090795563597487,
+ "rho_loss_dist": -0.2610020574943582,
+ "rho_route_occ": 0.8828096291838893,
+ "partial_rho_route": 0.1267042451562112,
+ "rho_loss_routefrac": 0.02025678865560925,
+ "partial_rho_routefrac": 0.1473152705855385,
+ "partial_rho_route_ci95": [
+  -0.03653390723542344,
+  0.26236686394774983
+ ],
+ "hot_mean_own_loss": 0.0582575757575757,
+ "hot_mean_spread": 15.371272727272727
+}

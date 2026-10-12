@@ -1,0 +1,48 @@
+
+RRRRRLLLLLL: tether centre (0.54,-5.49); hot tiles 11
+  hot tile centre mean offset from tether centre: (-1.7, -5.2); from start: (-1.1, -10.7)
+  hot tiles by octant around tether centre (0=east, 90=south): [0, 0, 0, 2, 2, 2, 4, 1]
+  hot tiles by octant around start cell: [0, 0, 0, 2, 0, 4, 4, 1]
+  mean loss by ring about start : [(0, 10, np.float64(0.0105)), (10, 15, np.float64(0.0226)), (15, 20, np.float64(0.0127)), (20, 30, np.float64(0.0065)), (30, 80, np.float64(0.0021))]
+  mean loss by ring about centre: [(0, 10, np.float64(0.0244)), (10, 15, np.float64(0.0213)), (15, 20, np.float64(0.0128)), (20, 30, np.float64(0.0046)), (30, 80, np.float64(0.002))]
+  hot tiles by ring about centre : [4, 5, 2, 0, 0]
+  partial rho(route), origin dist (primary): 0.127
+  partial rho(route), + centred dist       : 0.128
+  partial rho(route), centred dist replaces: 0.128
+  tiles: mean nvis 23.4, full (nvis==25) 264 of 310; mean loss full tiles 0.0060 vs swaps 0.0093 (swap dose 0.86, full-tile dose 0.85)
+  top 5x5 windows: selected loss -> fresh-permutation loss
+    (-8,-12): 0.124 -> 0.122  (0.127, 0.098, 0.140)
+    (-7,-11): 0.119 -> 0.136  (0.151, 0.118, 0.139)
+    (5,-13): 0.118 -> 0.093  (0.094, 0.078, 0.107)
+    (-7,-12): 0.115 -> 0.129  (0.147, 0.097, 0.143)
+    (-5,-16): 0.113 -> 0.091  (0.069, 0.101, 0.103)
+  top 3x3 windows: selected loss -> fresh-permutation loss
+    (-7,-10): 0.072 -> 0.071  (0.053, 0.080, 0.079)
+    (-7,-11): 0.072 -> 0.062  (0.038, 0.090, 0.057)
+    (-5,-15): 0.071 -> 0.080  (0.069, 0.080, 0.091)
+    (-7,-12): 0.071 -> 0.055  (0.061, 0.045, 0.060)
+    (-6,-15): 0.065 -> 0.050  (0.058, 0.048, 0.044)
+
+RLLLLRRRRLR: tether centre (1.63,4.53); hot tiles 17
+  hot tile centre mean offset from tether centre: (-0.8, -0.2); from start: (0.9, 4.3)
+  hot tiles by octant around tether centre (0=east, 90=south): [5, 2, 1, 4, 2, 2, 1, 0]
+  hot tiles by octant around start cell: [3, 4, 3, 3, 1, 2, 1, 0]
+  mean loss by ring about start : [(0, 10, np.float64(0.0151)), (10, 15, np.float64(0.0382)), (15, 20, np.float64(0.0122)), (20, 30, np.float64(0.0062)), (30, 80, np.float64(0.0031))]
+  mean loss by ring about centre: [(0, 10, np.float64(0.0338)), (10, 15, np.float64(0.0251)), (15, 20, np.float64(0.0121)), (20, 30, np.float64(0.0065)), (30, 80, np.float64(0.003))]
+  hot tiles by ring about centre : [6, 7, 3, 1, 0]
+  partial rho(route), origin dist (primary): 0.027
+  partial rho(route), + centred dist       : 0.027
+  partial rho(route), centred dist replaces: 0.022
+  tiles: mean nvis 23.3, full (nvis==25) 417 of 477; mean loss full tiles 0.0060 vs swaps 0.0094 (swap dose 0.82, full-tile dose 0.74)
+  top 5x5 windows: selected loss -> fresh-permutation loss
+    (7,6): 0.151 -> 0.147  (0.157, 0.150, 0.134)
+    (8,7): 0.124 -> 0.096  (0.107, 0.092, 0.087)
+    (-1,6): 0.121 -> 0.092  (0.113, 0.093, 0.068)
+    (-2,6): 0.121 -> 0.118  (0.136, 0.090, 0.129)
+    (6,8): 0.120 -> 0.133  (0.129, 0.139, 0.131)
+  top 3x3 windows: selected loss -> fresh-permutation loss
+    (-1,7): 0.089 -> 0.075  (0.067, 0.064, 0.093)
+    (1,6): 0.081 -> 0.070  (0.059, 0.069, 0.083)
+    (-2,8): 0.080 -> 0.105  (0.098, 0.093, 0.123)
+    (1,5): 0.078 -> 0.054  (0.043, 0.072, 0.046)
+    (0,6): 0.075 -> 0.073  (0.079, 0.076, 0.066)
