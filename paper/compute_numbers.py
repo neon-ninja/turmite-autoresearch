@@ -170,3 +170,57 @@ N4["mixing_random"] = {
     "uni_expo_med": float(ur["msd_expo"].median()),
 }
 (R / "paper" / "numbers.json").write_text(json.dumps(N4, indent=1, default=float))
+
+# ---- long-run ensembles produced by other scripts (parsed from their outputs / CSVs) ----
+import re
+N5 = json.loads((R / "paper" / "numbers.json").read_text())
+
+
+def shape(path):
+    lines = [l.strip().split(",") for l in open(path) if l.startswith(("cp,", "prof,"))]
+    cp = [l for l in lines if l[0] == "cp"]
+    cols = "kind,spec,k,A,rg2,aniso,rbar,rsd,h2,h4,h8,Wsurf,fill".split(",")
+    df = pl.DataFrame(cp, schema=cols, orient="row").with_columns([pl.col(c).cast(pl.Float64) for c in cols[2:]])
+    prof = {}
+    for l in lines:
+        if l[0] == "prof":
+            prof.setdefault(l[1].split("@")[0], []).append([float(x) for x in l[3].split(";")])
+    P = np.array([np.mean(v, 0) for v in prof.values()])  # one mean profile per walker type
+    W = df.group_by("k", maintain_order=True).agg(pl.col("Wsurf").mean()).sort("k")
+    k, w = W["k"].to_numpy(), W["Wsurf"].to_numpy()
+    s = k >= 18
+    dW = float(np.polyfit(k[s] * np.log(2), np.log(w[s]), 1)[0])
+    kmax = int(df["k"].max())
+    last = df.filter(pl.col("k") == kmax)
+    return {"runs": df["spec"].n_unique(), "kmax": kmax, "profile": P.mean(0).tolist(), "profile_rel_sd_shell6": float(P[:, 6].std(ddof=1) / P[:, 6].mean()) if len(P) > 1 else None,
+            "dW": dW, "aniso": float(last["aniso"].median()), "h4": float(last["h4"].median()), "fill": float(last["fill"].median())}
+
+
+sr, sa = shape(D / "shape_rotor.csv"), shape(D / "shape_ants.csv")
+x = np.arange(15) * 0.075 + 0.0375
+cone = 3 * (1 - x)  # mean-visit density of a cone, units t/A; mean over the disc is 1
+N5["shape"] = {
+    "rotor": sr, "ants": sa,
+    "max_rel_diff_ants_rotor_shells0_9": float(max(abs(a - r) / r for a, r in zip(sa["profile"][:10], sr["profile"][:10]))),
+    "max_rel_diff_ants_cone_shells0_9": float(max(abs(a - c) / c for a, c in zip(sa["profile"][:10], cone[:10]))),
+}
+t4 = (D / "item4_stats.txt").read_text()
+t4r = (D / "item4_rotor_stats.txt").read_text()
+m = re.search(r"mean of last-6 a\(k\): across-rule mean ([\d.]+) sd ([\d.]+); range ([\d.]+)\.\.([\d.]+)", t4)
+rows = re.findall(r"^(\w+)\s+[\d.+\-()]+\s+[\d.+\-()]+\s+[\d.+\-()]+\s+\|\s+([\d.]+)\+-", t4, re.M)
+rot6 = float(re.search(r"mean of last-6 a\(k\): across-rule mean ([\d.]+)", t4r).group(1))
+last6 = {r: float(v) for r, v in rows if r != "rotor"}
+N5["item4"] = {
+    "ant_last6_mean": float(m.group(1)), "ant_last6_sd": float(m.group(2)), "ant_range": [float(m.group(3)), float(m.group(4))],
+    "rotor_last6": rot6, "rules": len(last6),
+    "within_0006_of_rotor": sum(abs(v - rot6) <= 0.0065 for v in last6.values()),
+    "runs_kept": int(re.search(r"runs (\d+)", t4).group(1)),
+}
+t21 = (D / "item21_stats.txt").read_text()
+hi = re.search(r"== high: (\d+) rules.*?regress below 0.37: ([\d.]+) of rules; persistent.*?: (\d+) rules", t21, re.S)
+lo = re.search(r"== low: (\d+) rules.*?rise above 0.30: ([\d.]+) of rules; persistent.*?: (\d+) rules", t21, re.S)
+N5["item21"] = {"high_n": int(hi.group(1)), "high_regress": float(hi.group(2)), "high_persist": int(hi.group(3)),
+               "low_n": int(lo.group(1)), "low_regress": float(lo.group(2)), "low_persist": int(lo.group(3)),
+               "spearman_census": float(re.search(r"Spearman\(census alpha, 12-seed mean\) over outliers: ([\d.]+)", t21).group(1)),
+               "spearman_gk": float(re.search(r"Spearman\(g_k, 12-seed mean\) over outliers: ([\d.]+)", t21).group(1))}
+(R / "paper" / "numbers.json").write_text(json.dumps(N5, indent=1, default=float))
