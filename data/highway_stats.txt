@@ -1,0 +1,59 @@
+v2 stop: [{'stop': 'escaped', 'len': 578}, {'stop': 'budget', 'len': 3505}]
+v2 primitive escaped (highway) rules: 562  with onset null: 2
+onset decade counts (len<=10 primitive; bins [0,1e1),[1e1,1e2)...): [0, 39, 25, 13, 17, 14, 17, 26, 11, 0]
+  of which found only by the 1e9 rerun: 12  onsets of those: [98645078, 108307758, 167486677, 178739152, 287240145, 333086651, 607738416, 643494213, 756289068, 822854955, 886984171, 900683144]
+  still unresolved at 1e9 (len<=10, incl repeats): 829
+  decade counts 1e3..1e9: [17, 14, 17, 26, 11, 0]
+  ratios of successive decades: [0.82, 1.21, 1.53, 0.42, 0.0]
+  slope of log10(count) per decade: -0.011
+  of 854 survivors at 1e8, 12 (1.4%) turned into highways in the next decade
+  if decade yield decays by x1.0 per decade, expected further highways among survivors: inf
+  if decade yield decays by x0.7 per decade, expected further highways among survivors: 28
+  if decade yield decays by x0.5 per decade, expected further highways among survivors: 12
+  if decade yield decays by x0.3 per decade, expected further highways among survivors: 5
+onset median by n (primitive, v2): {7: 976.0, 8: 3502.0, 9: 10832.0, 10: 17681.0, 11: 2753.0, 12: 5404.0}
+largest onset in v2 / 1B: 99015725 900683144
+  n=7: highways 13, onset>=1e4: 0.38, >=1e6: 0.31
+  n=8: highways 16, onset>=1e4: 0.44, >=1e6: 0.19
+  n=9: highways 35, onset>=1e4: 0.51, >=1e6: 0.31
+  n=10: highways 78, onset>=1e4: 0.53, >=1e6: 0.29
+  n=11: highways 137, onset>=1e4: 0.41, >=1e6: 0.20
+  n=12: highways 273, onset>=1e4: 0.48, >=1e6: 0.24
+
+catalogue: confirmed primitive highways 555
+  |dx|==|dy| fraction 0.957  period even fraction 1.000
+  Spearman(period, n) = -0.013
+shape: (10, 4)
+┌────────┬──────┬──────┬─────┐
+│ period ┆ dmin ┆ dmax ┆ len │
+│ ---    ┆ ---  ┆ ---  ┆ --- │
+│ i64    ┆ i64  ┆ i64  ┆ u32 │
+╞════════╪══════╪══════╪═════╡
+│ 18     ┆ 1    ┆ 1    ┆ 125 │
+│ 52     ┆ 2    ┆ 2    ┆ 30  │
+│ 88     ┆ 2    ┆ 2    ┆ 18  │
+│ 42     ┆ 1    ┆ 1    ┆ 11  │
+│ 168    ┆ 2    ┆ 2    ┆ 11  │
+│ 108    ┆ 2    ┆ 2    ┆ 10  │
+│ 180    ┆ 2    ┆ 2    ┆ 10  │
+│ 38     ┆ 1    ┆ 1    ┆ 9   │
+│ 148    ┆ 2    ┆ 2    ┆ 9   │
+│ 100    ┆ 2    ┆ 2    ┆ 8   │
+└────────┴──────┴──────┴─────┘
+  distinct (period,dmin,dmax): 188 distinct periods: 171
+  period mod 4 counts: [{'period': 0, 'len': 349}, {'period': 2, 'len': 206}]
+  dx+dy parity vs period/2 parity: [{'dx': 0, 'period': 0, 'len': 349}, {'dx': 0, 'period': 1, 'len': 206}]
+  speed (max coord / step): max 0.056 median 0.0152
+  period quantiles by n: {7: [20, 110, 264], 8: [18, 112, 484], 9: [18, 124, 554], 10: [18, 144, 590], 11: [18, 132, 545], 12: [18, 132, 580]}
+
+classifier set: primitive n>=6 rules 3990 highways 557
+  single-feature AUC: {'n': 0.489, '#R': 0.611, 'fracR': 0.632, 'longest_run': 0.403, 'flips': 0.503, 'palindrome': 0.504, 'antipalin': 0.497, 'R_in_pos1-2': 0.637, 'R_in_first4': 0.625}
+  5-fold CV AUC, logistic on all features: 0.698
+  highways the model finds least plausible: ['RLLLLRLLLRLL', 'RRLRRLLLLLLL', 'RLRLLLLLRLLR', 'RLLLLRLLLR', 'RLRRLLRLLLLL', 'RRLRRLLLLLL', 'RRLLLRLLLLLR', 'RLRLLLLRLLLL']
+  chaotic rules the model finds most highway-like: ['RRRRLRRLRRRR', 'RRRLRRR', 'RRRLRRLLRRR', 'RRRLRRLRRRLR', 'RRRLRRLRLRRR', 'RRRLLRRR', 'RRRRLRRRLRRR', 'RRRLRLRLRRR']
+
+== H18 corrected: onsets per decade, length<=10 primitive (v2 + 1B rerun)
+decades (1e3,1e4] ... (1e8,1e9]: [13, 17, 14, 17, 26, 11]
+log10 slope per decade 0.015 +- 0.026  (counts multiply by 1.04 per decade)
+last decade 11 vs mean of the previous five 17.4: Poisson P(X <= 11) = 0.071
+web page (build.py) decade counts (1e2..1e8) + found: [26, 17, 17, 15, 17, 23] + 10 (+1 older)

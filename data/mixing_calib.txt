@@ -1,0 +1,12 @@
+q=0.3 rep=0 measured=0.7371 pred=0.7241 ratio=1.018
+q=0.3 rep=1 measured=0.7296 pred=0.7241 ratio=1.008
+q=0.3 rep=2 measured=0.7302 pred=0.7241 ratio=1.008
+q=0.5 rep=0 measured=1.0015 pred=1.0000 ratio=1.002
+q=0.5 rep=1 measured=1.0042 pred=1.0000 ratio=1.004
+q=0.5 rep=2 measured=0.9986 pred=1.0000 ratio=0.999
+q=0.7 rep=0 measured=0.7290 pred=0.7241 ratio=1.007
+q=0.7 rep=1 measured=0.7299 pred=0.7241 ratio=1.008
+q=0.7 rep=2 measured=0.7308 pred=0.7241 ratio=1.009
+q=0.9 rep=0 measured=0.2370 pred=0.2195 ratio=1.080
+q=0.9 rep=1 measured=0.2365 pred=0.2195 ratio=1.077
+q=0.9 rep=2 measured=0.2366 pred=0.2195 ratio=1.078

@@ -1,0 +1,6 @@
+distinct spread_real values (2 decimals): 203 of 560 rules
+values shared by >=2 rules: 86 covering 443 rules
+[(2.66, 29), (2.32, 25), (2.67, 17), (6.99, 16), (2.41, 15), (6.94, 13), (1.33, 11), (6.93, 11), (7.02, 11), (6.97, 10), (7.0, 10), (1.24, 9)]
+most common value 2.66 shared by 29 rules, e.g. ['RLRLLLLLLLL', 'RRLLLRRLLLL', 'RRRRRRLLRLL', 'RRRRRLLRRLL', 'RRRLLRRRRLL', 'RRLLRRRRRLL'] areas [929, 1564, 737, 764, 833, 876]
+distinct values if the same values were jittered by +-0.005: [203, 203, 203, 203, 203]
+rules with spread_real < 5: 251  5-10: 171  >=10: 138

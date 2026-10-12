@@ -1,0 +1,6 @@
+k14-18: volume exp median 0.847 (IQR 0.828-0.872); extent exp median 0.279
+k18-22: volume exp median 0.830 (IQR 0.809-0.852); extent exp median 0.262
+k20-24: volume exp median 0.816 (IQR 0.797-0.836); extent exp median 0.254
+median V/E^3 by k: {12: 0.195, 13: 0.2, 14: 0.184, 15: 0.18, 16: 0.173, 17: 0.177, 18: 0.182, 19: 0.19, 20: 0.197, 21: 0.2, 22: 0.206, 23: 0.212, 24: 0.226}
+rotor3 runs reaching k=20: 0 of 12  (others escaped the 512 board)
+rotor3: area / t at 2^15 (1 = ballistic): mean 0.69

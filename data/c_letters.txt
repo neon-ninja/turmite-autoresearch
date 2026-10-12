@@ -1,0 +1,11 @@
+rules 2515 sd(c) 0.122
+letter1      R2 = 0.578
+letter2      R2 = 0.192
+letters1-2   R2 = 0.747
+letters3-5   R2 = 0.026
+letters1-5   R2 = 0.789
+fracR only R2 = 0.159
+letters1-2 + later-letters ... R2 0.789; all five + fracR 0.789
+coefficients (letters 1..5, effect of R vs L on c): [-0.185 -0.104 -0.05  -0.003 -0.004]
+CV R2 letters1-2: 0.747
+CV R2 letters1-5: 0.788

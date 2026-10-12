@@ -1,0 +1,75 @@
+
+RRRRRLLLLLL: spread of a fresh ant on the real field / on a shuffled field, by age 2^k (mean over 25 starts; sd of real in brackets); area
+  k= 7: real  11.8 (0.4)  shuffled  11.9  area      39 extent     7
+  k= 8: real  11.7 (0.3)  shuffled  11.9  area      50 extent     8
+  k= 9: real  11.9 (0.4)  shuffled  12.0  area      66 extent     9
+  k=10: real  11.9 (0.4)  shuffled  12.4  area      89 extent    11
+  k=11: real  11.9 (0.5)  shuffled  12.4  area     129 extent    13
+  k=12: real  11.8 (0.3)  shuffled  12.9  area     187 extent    15
+  k=14: real  12.1 (0.5)  shuffled  14.4  area     400 extent    22
+  k=16: real  12.5 (0.5)  shuffled  17.0  area     846 extent    32
+  k=18: real  13.0 (0.7)  shuffled  20.2  area    1625 extent    44
+  k=20: real  13.5 (0.9)  shuffled  24.7  area    2897 extent    59
+  k=22: real  14.1 (0.9)  shuffled  29.8  area    4731 extent    76
+  k=24: real  14.4 (1.0)  shuffled  34.9  area    7227 extent    95
+  starts whose real spread at k>=16 ever exceeds 1.5 x the rule's median late real spread (13.3): []
+
+RLLLLRRRRLR: spread of a fresh ant on the real field / on a shuffled field, by age 2^k (mean over 25 starts; sd of real in brackets); area
+  k= 7: real  13.2 (0.8)  shuffled  12.9  area      55 extent     9
+  k= 8: real  13.3 (0.6)  shuffled  13.5  area      85 extent    10
+  k= 9: real  13.2 (0.5)  shuffled  13.9  area     144 extent    13
+  k=10: real  13.4 (0.7)  shuffled  14.1  area     209 extent    16
+  k=11: real  13.1 (0.8)  shuffled  14.7  area     282 extent    18
+  k=12: real  13.2 (0.5)  shuffled  15.3  area     385 extent    21
+  k=14: real  13.8 (0.8)  shuffled  17.4  area     820 extent    30
+  k=16: real  14.0 (0.9)  shuffled  21.1  area    1632 extent    42
+  k=18: real  14.1 (1.1)  shuffled  25.6  area    2978 extent    56
+  k=20: real  14.7 (1.2)  shuffled  31.9  area    5111 extent    73
+  k=22: real  14.9 (1.0)  shuffled  37.7  area    8019 extent    91
+  k=24: real  15.4 (1.6)  shuffled  44.9  area   11732 extent   110
+  starts whose real spread at k>=16 ever exceeds 1.5 x the rule's median late real spread (14.5): []
+
+RRRLLRLLR: spread of a fresh ant on the real field / on a shuffled field, by age 2^k (mean over 25 starts; sd of real in brackets); area
+  k= 7: real   4.7 (0.2)  shuffled   5.0  area      41 extent     8
+  k= 8: real   4.8 (0.3)  shuffled   5.2  area      55 extent     9
+  k= 9: real   4.8 (0.3)  shuffled   5.3  area      76 extent    10
+  k=10: real   4.9 (0.3)  shuffled   5.5  area     101 extent    12
+  k=11: real   4.8 (0.3)  shuffled   5.7  area     138 extent    13
+  k=12: real   4.9 (0.3)  shuffled   5.8  area     184 extent    15
+  k=14: real   4.8 (0.3)  shuffled   5.9  area     307 extent    20
+  k=16: real   4.9 (0.4)  shuffled   6.2  area     487 extent    25
+  k=18: real   4.9 (0.3)  shuffled   7.2  area     717 extent    30
+  k=20: real   5.0 (0.4)  shuffled   6.9  area    1002 extent    36
+  k=22: real   4.9 (0.3)  shuffled   6.4  area    1333 extent    41
+  k=24: real   4.9 (0.4)  shuffled   6.6  area    1716 extent    47
+  starts whose real spread at k>=16 ever exceeds 1.5 x the rule's median late real spread (4.9): []
+
+RLLRRRRRLRLR: spread of a fresh ant on the real field / on a shuffled field, by age 2^k (mean over 25 starts; sd of real in brackets); area
+  k= 7: real   7.3 (0.5)  shuffled   7.6  area      45 extent     8
+  k= 8: real   7.4 (0.4)  shuffled   8.2  area      75 extent    10
+  k= 9: real   7.4 (0.5)  shuffled   8.5  area     116 extent    12
+  k=10: real   7.5 (0.6)  shuffled   8.5  area     174 extent    15
+  k=11: real   7.6 (1.2)  shuffled   9.6  area     243 extent    17
+  k=12: real   7.6 (0.6)  shuffled   9.8  area     382 extent    22
+  k=14: real   7.6 (0.7)  shuffled  11.1  area     793 extent    31
+  k=16: real   7.6 (0.8)  shuffled  11.3  area    1258 extent    39
+  k=18: real   7.9 (0.8)  shuffled  13.0  area    2090 extent    51
+  k=20: real   7.7 (0.6)  shuffled  13.2  area    2826 extent    59
+  k=22: real   7.6 (0.6)  shuffled  14.4  area    4204 extent    72
+  k=24: real   7.5 (0.6)  shuffled  15.8  area    5486 extent    82
+  starts whose real spread at k>=16 ever exceeds 1.5 x the rule's median late real spread (7.5): []
+
+RRRLLLLRRRLL: spread of a fresh ant on the real field / on a shuffled field, by age 2^k (mean over 25 starts; sd of real in brackets); area
+  k= 7: real   7.2 (0.2)  shuffled   7.4  area      42 extent     8
+  k= 8: real   7.3 (0.2)  shuffled   7.6  area      57 extent     9
+  k= 9: real   7.3 (0.3)  shuffled   7.8  area      79 extent    10
+  k=10: real   7.3 (0.3)  shuffled   8.2  area     115 extent    12
+  k=11: real   7.4 (0.3)  shuffled   8.6  area     162 extent    14
+  k=12: real   7.4 (0.4)  shuffled   9.2  area     235 extent    17
+  k=14: real   7.4 (0.4)  shuffled  10.3  area     443 extent    23
+  k=16: real   7.5 (0.4)  shuffled  12.3  area     777 extent    31
+  k=18: real   7.6 (0.5)  shuffled  13.2  area    1247 extent    39
+  k=20: real   7.6 (0.3)  shuffled  15.6  area    1844 extent    48
+  k=22: real   7.6 (0.4)  shuffled  16.9  area    2586 extent    57
+  k=24: real   7.6 (0.4)  shuffled  19.0  area    3483 extent    66
+  starts whose real spread at k>=16 ever exceeds 1.5 x the rule's median late real spread (7.5): []

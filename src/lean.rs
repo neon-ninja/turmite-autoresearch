@@ -1,0 +1,229 @@
+//! A leaner fast ant (frontier item 31).
+//!
+//! `fast::run` spends most of each step on bookkeeping that is not the ant: x/y coordinates, an
+//! escape test, four min/max updates and an 8-byte trail write. Here the hot loop is only
+//! "read cell, turn, write cell, move". Everything else is recovered afterwards:
+//! - escape: the grid is ringed by a sentinel colour that the ant stops on (no per-step coordinate test);
+//! - extent: each cell's byte carries a *touched* flag in bit 7 (colour in bits 0..7), scanned at the end;
+//! - trail: the dynamics is exactly reversible, so the last `history` positions are rebuilt by
+//!   stepping backwards from the final state (then stepping forward again to restore it).
+//! `run_lean` must return the same `RunResult` as `fast::run` (tests/lean.rs).
+
+use crate::detect::{MIN_SPAN, exit_confirms, find_highway};
+use crate::fast::{Config, RunResult, Stop};
+use crate::{DIRS, Rule};
+
+const SENT: u8 = 0x7F;
+const TOUCHED: u8 = 0x80;
+
+pub struct LeanGrid {
+    /// Side of the inner (usable) square, as in `fast::Grid`.
+    pub size: usize,
+    stride: usize,
+    cells: Vec<u8>,
+}
+
+impl LeanGrid {
+    pub fn new(size: usize) -> LeanGrid {
+        let stride = size + 2;
+        let mut g = LeanGrid { size, stride, cells: vec![0; stride * stride] };
+        g.clear();
+        g
+    }
+
+    fn clear(&mut self) {
+        let s = self.stride;
+        self.cells.fill(0);
+        for i in 0..s {
+            self.cells[i] = SENT;
+            self.cells[(s - 1) * s + i] = SENT;
+            self.cells[i * s] = SENT;
+            self.cells[i * s + s - 1] = SENT;
+        }
+    }
+}
+
+struct Tables {
+    turn: [u8; 256],
+    next: [u8; 256],
+    n: usize,
+    /// Fused transition, indexed by (heading << 8 | cell byte): (new heading, index delta). One dependent
+    /// load instead of two on the critical path (turn lookup then delta lookup).
+    fused: Vec<(u32, i32)>,
+}
+
+fn tables(rule: &Rule) -> Tables {
+    let n = rule.len();
+    assert!(n < 100, "lean ant supports fewer than 100 colours");
+    let mut t = Tables { turn: [0; 256], next: [0; 256], n, fused: vec![] };
+    for b in 0..128usize {
+        let col = b & 127;
+        if col < n {
+            t.turn[b] = rule.0[col].delta();
+            t.turn[b | 128] = t.turn[b];
+            t.next[b] = (((col + 1) % n) as u8) | TOUCHED;
+            t.next[b | 128] = t.next[b];
+        }
+    }
+    t
+}
+
+/// Run up to `k` steps from (idx, h). Returns (steps done, hit the sentinel).
+#[inline(never)]
+fn advance(cells: &mut [u8], t: &Tables, idx: &mut usize, h: &mut u8, k: u64) -> (u64, bool) {
+    let (mut i, mut hh) = (*idx, *h);
+    let mut done = 0u64;
+    let mut hit = false;
+    while done < k {
+        // SAFETY: i always indexes a cell of the padded grid: the ring of SENT cells stops the ant
+        // before it can step outside (the step onto the ring completes, the next read stops).
+        let b = unsafe { *cells.get_unchecked(i) };
+        if b == SENT {
+            hit = true;
+            break;
+        }
+        let (nh, delta) = unsafe { *t.fused.get_unchecked(((hh as usize) << 8) | b as usize) };
+        unsafe { *cells.get_unchecked_mut(i) = *t.next.get_unchecked(b as usize) };
+        hh = nh as u8;
+        i = i.wrapping_add_signed(delta as isize);
+        done += 1;
+    }
+    *idx = i;
+    *h = hh;
+    (done, hit)
+}
+
+/// Same contract as `fast::run`, on a fresh blank grid (the grid is cleared first).
+pub fn run_lean(rule: &Rule, grid: &mut LeanGrid, cfg: &Config) -> RunResult {
+    grid.clear();
+    let mut t = tables(rule);
+    let s = grid.stride;
+    let didx: [isize; 4] = DIRS.map(|(dx, dy)| dy as isize * s as isize + dx as isize);
+    t.fused = (0..1024usize).map(|k| { let (h0, b) = (k >> 8, k & 255); let nh = (h0 + t.turn[b] as usize) & 3; (nh as u32, didx[nh] as i32) }).collect();
+    let c = grid.size / 2;
+    let mut idx = (c + 1) * s + c + 1;
+    let start = idx;
+    let mut h = 0u8;
+    let mut steps = 0u64;
+    let mut stop = Stop::Budget;
+    while steps < cfg.max_steps {
+        let (d, hit) = advance(&mut grid.cells, &t, &mut idx, &mut h, cfg.max_steps - steps);
+        steps += d;
+        if hit {
+            stop = Stop::Escaped;
+            break;
+        }
+    }
+    let pos_of = |i: usize| ((i % s) as i64 - 1 - c as i64, (i / s) as i64 - 1 - c as i64);
+    let pos = pos_of(idx);
+
+    // Trail: positions at times T-len+1..=T where T is the last in-grid time (steps-1 if escaped).
+    let last_t = if stop == Stop::Escaped { steps - 1 } else { steps };
+    let len = (cfg.history as u64).min(last_t + 1);
+    let mut trail = vec![(0i32, 0i32); len as usize];
+    let back = steps - (last_t + 1 - len); // steps to undo to reach the oldest retained position
+    // undo `back` steps, recording positions on the way forward
+    let mut undone = 0u64;
+    let (mut ui, mut uh) = (idx, h);
+    let mut hist_idx: Vec<usize> = Vec::with_capacity(back as usize + 1);
+    hist_idx.push(ui);
+    while undone < back {
+        // reverse one step: move back, then undo the cell update and the turn
+        ui = ui.wrapping_add_signed(-didx[uh as usize]);
+        let b = grid.cells[ui];
+        let col = (b & 127) as usize;
+        let prev = (col + t.n - 1) % t.n;
+        let pb = prev as u8 | TOUCHED;
+        grid.cells[ui] = pb;
+        uh = (uh + 4 - t.turn[pb as usize]) & 3;
+        hist_idx.push(ui);
+        undone += 1;
+    }
+    // hist_idx is newest-first: hist_idx[j] is the position at time steps - j.
+    for (k, slot) in trail.iter_mut().enumerate() {
+        // time of this entry: (last_t + 1 - len) + k; j = steps - time
+        let time = last_t + 1 - len + k as u64;
+        let j = (steps - time) as usize;
+        let p = pos_of(hist_idx[j]);
+        *slot = (p.0 as i32, p.1 as i32);
+    }
+    // restore the final state by stepping forward again
+    let (mut ri, mut rh) = (ui, uh);
+    advance(&mut grid.cells, &t, &mut ri, &mut rh, back);
+    debug_assert_eq!((ri, rh), (idx, h));
+
+    let periodic_tail = find_highway(&trail, cfg.max_period, MIN_SPAN);
+    let highway = if stop == Stop::Escaped {
+        periodic_tail.or_else(|| find_highway(&trail, cfg.max_period, 2_000)).filter(|&hw| exit_confirms(hw, h))
+    } else {
+        None
+    };
+
+    // Extent of touched cells (excluding the ring). The start cell is always touched.
+    let (mut minx, mut miny, mut maxx, mut maxy) = (usize::MAX, usize::MAX, 0usize, 0usize);
+    for y in 1..=grid.size {
+        let row = &grid.cells[y * s + 1..y * s + 1 + grid.size];
+        if let (Some(a), Some(b)) = (row.iter().position(|&b| b & TOUCHED != 0), row.iter().rposition(|&b| b & TOUCHED != 0)) {
+            minx = minx.min(a);
+            maxx = maxx.max(b);
+            miny = miny.min(y - 1);
+            maxy = maxy.max(y - 1);
+        }
+    }
+    // The start cell and (if the run did not escape) the final cell are touched by arrival, not by a write.
+    let mut extra = vec![((start % s) - 1, (start / s) - 1)];
+    if stop == Stop::Budget {
+        extra.push(((idx % s) - 1, (idx / s) - 1));
+    }
+    for (ex, ey) in extra {
+        minx = minx.min(ex);
+        maxx = if minx == usize::MAX { ex } else { maxx.max(ex) };
+        miny = miny.min(ey);
+        maxy = maxy.max(ey);
+    }
+    RunResult {
+        steps,
+        stop,
+        pos: (pos.0 as i32, pos.1 as i32),
+        heading: h,
+        highway,
+        periodic_tail,
+        extent: ((maxx - minx + 1) as u32, (maxy - miny + 1) as u32),
+    }
+}
+
+/// As `fast::highway_onset` (first step s after which pos[t] - pos[t-p] == d for all t >= s + p), but on a flat grid
+/// instead of a HashMap: the HashMap replay needs memory proportional to every cell ever written and took >10 GB for
+/// runs of billions of steps. `size` must be at least the grid the original run used (the replay stays inside it).
+pub fn highway_onset_flat(rule: &Rule, hw: crate::detect::Highway, until: u64, size: usize) -> u64 {
+    let n = rule.len();
+    let p = hw.period as usize;
+    let t = tables(rule);
+    let s = size + 2;
+    let mut cells = vec![0u8; s * s];
+    let c = size / 2;
+    let (mut x, mut y) = ((c + 1) as i64, (c + 1) as i64);
+    let mut ring = vec![(0i32, 0i32); p];
+    let mut h = 0u8;
+    let mut last_bad: u64 = 0;
+    for step in 1..=until {
+        let idx = y as usize * s + x as usize;
+        let b = cells[idx] & 127;
+        h = (h + t.turn[b as usize]) & 3;
+        cells[idx] = (((b as usize + 1) % n) as u8) | TOUCHED;
+        let (dx, dy) = DIRS[h as usize];
+        x += dx as i64;
+        y += dy as i64;
+        let pos = ((x - 1 - c as i64) as i32, (y - 1 - c as i64) as i32);
+        let slot = (step as usize) % p;
+        let prev = ring[slot];
+        ring[slot] = pos;
+        if step < p as u64 || (pos.0 - prev.0, pos.1 - prev.1) != (hw.dx, hw.dy) {
+            last_bad = step;
+        }
+        if x < 1 || y < 1 || x >= s as i64 - 1 || y >= s as i64 - 1 {
+            break; // left the grid (only possible on the final step of an escaped run)
+        }
+    }
+    (last_bad + 1).saturating_sub(p as u64)
+}

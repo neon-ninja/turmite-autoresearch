@@ -1,0 +1,14 @@
+{
+ "chunks": 4,
+ "seeds": 20000,
+ "pooled_ray": 145.344,
+ "pooled_triangles": 145.344,
+ "chunk_radii": [
+  145.302,
+  145.322,
+  145.267,
+  145.48
+ ],
+ "se": 0.047,
+ "kapri_dhar": 145.436
+}

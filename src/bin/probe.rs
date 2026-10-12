@@ -1,0 +1,64 @@
+//! Instrumented runs: one CSV row per (rule, octave window).
+//!
+//! usage: probe MAX_LOG2 [GRID] < walkers.txt > probe.csv
+//! Each input line is an ant rule (e.g. RLR), `rotor:SEED`, `rw:SEED`, or
+//! `RULE@SEED` (the ant on a blank board with a random 5x5 patch at the start).
+
+use rayon::prelude::*;
+use std::io::Write;
+use turmite::Rule;
+use turmite::probe::{probe, probe_walker};
+use turmite::walkers::{PatchedAnt, RandomWalk, Rotor};
+
+fn main() {
+    let a: Vec<String> = std::env::args().collect();
+    let max_log2: u32 = a[1].parse().unwrap();
+    let size: usize = a.get(2).map(|s| s.parse().unwrap()).unwrap_or(8192);
+    let rules: Vec<String> = std::io::stdin().lines().map(|l| l.unwrap().trim().to_string()).filter(|l| !l.is_empty()).collect();
+    eprintln!("{} rules", rules.len());
+    let done = std::sync::atomic::AtomicUsize::new(0);
+    let blocks: Vec<String> = rules
+        .par_iter()
+        .map(|r| {
+            let res = if let Some(seed) = r.strip_prefix("rotor:") {
+                probe_walker(Rotor { seed: seed.parse().unwrap() }, size, 8, max_log2)
+            } else if let Some(seed) = r.strip_prefix("rw:") {
+                probe_walker(RandomWalk { state: seed.parse().unwrap() }, size, 8, max_log2)
+            } else if let Some((rule, seed)) = r.split_once('@') {
+                probe_walker(PatchedAnt::new(&rule.parse::<Rule>().unwrap(), seed.parse().unwrap(), 2), size, 8, max_log2)
+            } else {
+                probe(&r.parse::<Rule>().unwrap(), size, 8, max_log2)
+            };
+            let k = done.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+            if k % 200 == 0 {
+                eprintln!("{k}");
+            }
+            res.windows
+                .iter()
+                .map(|w| {
+                    format!(
+                        "{r},{},{},{},{},{},{},{},{},{:.3},{:.3},{:.3},{},{}\n",
+                        w.t_end.trailing_zeros(),
+                        w.t_end,
+                        w.area,
+                        w.perimeter,
+                        w.new_cells,
+                        w.boundary_steps,
+                        w.fresh_nbrs,
+                        res.escaped,
+                        w.rg2,
+                        w.ant_r2,
+                        w.ant_var,
+                        w.width,
+                        w.height
+                    )
+                })
+                .collect()
+        })
+        .collect();
+    let mut out = std::io::stdout().lock();
+    writeln!(out, "rule,k,t,area,perimeter,new_cells,boundary_steps,fresh_nbrs,escaped,rg2,ant_r2,ant_var,width,height").unwrap();
+    for b in blocks {
+        out.write_all(b.as_bytes()).unwrap();
+    }
+}

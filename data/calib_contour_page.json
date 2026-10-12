@@ -1,0 +1,15 @@
+{
+ "final": {
+  "radius": 145.358,
+  "se": 0.02,
+  "seeds": 60000
+ },
+ "alt": {
+  "radius": 145.344,
+  "se": 0.047,
+  "seeds": 20000
+ },
+ "z": -3.86,
+ "z_alt": -0.27,
+ "verdict": "Everything matches except one number, by a hair. My contour radius is 145.358 \u00b1 0.020 from 60,000 starts, against their 145.436 \u00b1 0.003: a difference of 0.078 cells, or 0.05%, which is 3.9 standard errors. Two interpolation methods (rays, and their triangles) give the same radius. The initial arrows pass checks for bias and neighbour correlation, and 20,000 further starts with a completely different random generator give 145.344 \u00b1 0.047, 0.3 standard errors from the main run. So the gap isn't in my generator or my contour-finding. The rule variants I could think of (rotating before or after the step, counting the starting site) are statistically identical or only affect the origin. I don't know the cause. At 0.05% it doesn't touch any exponent, but it's the kind of thing to ask the authors about."
+}

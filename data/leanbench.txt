@@ -1,0 +1,5 @@
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+RLL 500000000 steps: fast 3.59s (139 Msteps/s)  lean 1.75s (285 Msteps/s)  speedup 2.05x
+RLRLLRRLL 500000000 steps: fast 3.56s (140 Msteps/s)  lean 1.65s (303 Msteps/s)  speedup 2.16x
+RLLRLLRLRRRL 500000000 steps: fast 3.54s (141 Msteps/s)  lean 1.68s (298 Msteps/s)  speedup 2.10x

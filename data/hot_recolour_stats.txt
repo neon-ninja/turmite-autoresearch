@@ -1,0 +1,10 @@
+RRRRRLLLLLL: intact 14.28
+  recolour the 47 rare-colour cells inside the hot tiles: spread 16.95 +- 0.31  (12 recolourings)
+  recolour 47 other cells from the same hot tiles (6 different draws, 12 recolourings each): [16.28, 16.31, 16.4, 16.31, 16.53, 16.43]  mean 16.38
+  recolour ALL visited cells in the hot tiles: 18.87 +- 0.27
+  rare effect = +2.67, control effect = +2.10, whole tiles +4.59
+RLLLLRRRRLR: intact 14.66
+  recolour the 62 rare-colour cells inside the hot tiles: spread 16.39 +- 0.33  (12 recolourings)
+  recolour 62 other cells from the same hot tiles (6 different draws, 12 recolourings each): [17.02, 17.48, 17.26, 16.96, 17.47, 17.33]  mean 17.25
+  recolour ALL visited cells in the hot tiles: 20.42 +- 0.32
+  rare effect = +1.73, control effect = +2.59, whole tiles +5.76

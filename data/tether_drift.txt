@@ -1,0 +1,25 @@
+
+RRRRRLLLLLL: observed d ln(time per cell)/dr = -0.172 per cell (fit over all r)
+  tau=2: v/D weighted mean -0.202;  by r: 1:-0.36 4:-0.24 7:-0.20 10:-0.18 14:-0.17 20:-0.16
+  tau=4: v/D weighted mean -0.195;  by r: 1:-0.23 4:-0.24 7:-0.20 10:-0.18 14:-0.17 20:-0.16
+  tau=8: v/D weighted mean -0.187;  by r: 1:-0.16 4:-0.23 7:-0.20 10:-0.18 14:-0.17 20:-0.16
+
+RLLLLRRRRLR: observed d ln(time per cell)/dr = -0.172 per cell (fit over all r)
+  tau=2: v/D weighted mean -0.203;  by r: 1:-0.35 4:-0.24 7:-0.20 10:-0.18 14:-0.17 20:-0.16
+  tau=4: v/D weighted mean -0.196;  by r: 1:-0.23 4:-0.24 7:-0.20 10:-0.18 14:-0.17 20:-0.16
+  tau=8: v/D weighted mean -0.188;  by r: 1:-0.16 4:-0.23 7:-0.20 10:-0.18 14:-0.17 20:-0.16
+
+RRRLLRLLR: observed d ln(time per cell)/dr = -0.549 per cell (fit over all r)
+  tau=2: v/D weighted mean -0.636;  by r: 1:-0.68 3:-0.72 4:-0.56 6:-0.54
+  tau=4: v/D weighted mean -0.561;  by r: 1:-0.44 3:-0.68 4:-0.55 6:-0.54
+  tau=8: v/D weighted mean -0.511;  by r: 1:-0.35 3:-0.61 4:-0.54 6:-0.52
+
+RLLRRRRRLRLR: observed d ln(time per cell)/dr = -0.338 per cell (fit over all r)
+  tau=2: v/D weighted mean -0.408;  by r: 1:-0.56 3:-0.41 4:-0.39 6:-0.36 9:-0.34 17:-0.32
+  tau=4: v/D weighted mean -0.377;  by r: 1:-0.35 3:-0.40 4:-0.39 6:-0.36 9:-0.34 17:-0.31
+  tau=8: v/D weighted mean -0.361;  by r: 1:-0.29 3:-0.39 4:-0.38 6:-0.35 9:-0.33 17:-0.31
+
+RRRLLLLRRRLL: observed d ln(time per cell)/dr = -0.338 per cell (fit over all r)
+  tau=2: v/D weighted mean -0.406;  by r: 1:-0.51 3:-0.45 4:-0.39 6:-0.36 9:-0.34 17:-0.31
+  tau=4: v/D weighted mean -0.377;  by r: 1:-0.33 3:-0.44 4:-0.39 6:-0.36 9:-0.34 17:-0.31
+  tau=8: v/D weighted mean -0.350;  by r: 1:-0.24 3:-0.40 4:-0.38 6:-0.36 9:-0.34 17:-0.31

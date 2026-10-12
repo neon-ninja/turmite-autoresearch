@@ -1,0 +1,19 @@
+calib_rotor columns: ['rule', 'k', 't', 'area', 'perimeter', 'new_cells', 'boundary_steps', 'fresh_nbrs', 'escaped', 'rg2', 'ant_r2', 'ant_var', 'width', 'height']
+
+== ants: six rules to 2^32; local slope (k..k+4) of log P vs log A
+RLR            k14:0.500 k18:0.617 k22:0.568 k26:0.523 k28:0.548
+   k>=17 free beta=0.569; P=c1*sqrt(A)+c0: c1=8.357 c0=-276.0; rms log-resid: fixed+offset 0.0732 free 0.0491 pure-sqrt 0.1632
+RLRLRRRRLR     k14:0.589 k18:0.550 k22:0.533 k26:0.520 k28:0.523
+   k>=17 free beta=0.529; P=c1*sqrt(A)+c0: c1=5.505 c0=-75.4; rms log-resid: fixed+offset 0.0238 free 0.0194 pure-sqrt 0.0654
+RLLLRLLRRLR    k14:0.546 k18:0.550 k22:0.528 k26:0.513 k28:0.525
+   k>=17 free beta=0.527; P=c1*sqrt(A)+c0: c1=5.326 c0=-62.4; rms log-resid: fixed+offset 0.0320 free 0.0227 pure-sqrt 0.0632
+RLRLLRRLL      k14:0.481 k18:0.524 k22:0.555 k26:0.483 k28:0.496
+   k>=17 free beta=0.518; P=c1*sqrt(A)+c0: c1=4.593 c0=-36.3; rms log-resid: fixed+offset 0.0214 free 0.0253 pure-sqrt 0.0454
+RLRLRRRLLR     k14:0.538 k18:0.511 k22:0.528 k26:0.510 k28:0.506
+   k>=17 free beta=0.518; P=c1*sqrt(A)+c0: c1=5.000 c0=-48.6; rms log-resid: fixed+offset 0.0177 free 0.0204 pure-sqrt 0.0445
+RLLRLLRLRRRL   k14:0.609 k18:0.517 k22:0.567 k26:0.508 k28:0.534
+   k>=17 free beta=0.527; P=c1*sqrt(A)+c0: c1=5.826 c0=-69.9; rms log-resid: fixed+offset 0.0354 free 0.0233 pure-sqrt 0.0620
+mean local slope across the six rules: k14:0.544 k16:0.563 k18:0.545 k20:0.527 k22:0.547 k24:0.523 k26:0.510 k28:0.522
+
+== rotor (calib_rotor.csv)
+64 walkers; mean local slope: k10:0.628 k12:0.597 k14:0.551 k16:0.546 k18:0.549 k20:0.531 k22:0.521

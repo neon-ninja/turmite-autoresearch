@@ -1,0 +1,28 @@
+data/ext_cube.csv specs 1136
+shape: (5, 2)
+┌─────────┬─────┐
+│ cls     ┆ len │
+│ ---     ┆ --- │
+│ str     ┆ u32 │
+╞═════════╪═════╡
+│ escaped ┆ 578 │
+│ blob    ┆ 400 │
+│ bounded ┆ 114 │
+│ slow    ┆ 22  │
+│ fast    ┆ 22  │
+└─────────┴─────┘
+blob-like (0.5<=a<0.9): n=400; area/volume exponent quantiles 10/25/50/75/90%: [0.795 0.809 0.828 0.846 0.87 ] mean 0.829
+  extent exponent quantiles: [0.234 0.245 0.26  0.276 0.294]
+  fraction with a within 0.1 of 2/3: 0.01; within 0.1 of 3/4: 0.78
+shape: (3, 4)
+┌─────┬─────┬──────────┬──────────┐
+│ n   ┆ cnt ┆ med_a    ┆ med_w    │
+│ --- ┆ --- ┆ ---      ┆ ---      │
+│ u32 ┆ u32 ┆ f64      ┆ f64      │
+╞═════╪═════╪══════════╪══════════╡
+│ 4   ┆ 12  ┆ 0.834753 ┆ 0.267516 │
+│ 5   ┆ 68  ┆ 0.832824 ┆ 0.268772 │
+│ 6   ┆ 320 ┆ 0.825166 ┆ 0.258909 │
+└─────┴─────┴──────────┴──────────┘
+slow-growth (a<0.5) examples: ['cube:RRLLL', 'cube:UUDDD', 'cube:RLLRR', 'cube:UDDUU', 'cube:RRLLLL'] median a 0.198
+fast (a>=0.9) examples: ['cube:RURDD', 'cube:URULL', 'cube:RLURDU', 'cube:RRLRUL', 'cube:RRLRUU'] median a 0.912

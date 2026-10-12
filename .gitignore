@@ -4,3 +4,5 @@
 /knock
 .venv/
 __pycache__/
+/web/dist
+/dumps_f

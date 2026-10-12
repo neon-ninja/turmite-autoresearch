@@ -1,0 +1,32 @@
+== H27 many ants: area exponent over k=18..26 (per tick), and A_m(t)/A_1(m t)
+RLR m=1: a=0.716 ratio(k16..26) 1.00-1.00 last 1.00 first 1.00 | m=2: a=0.718 ratio(k16..26) 0.93-1.04 last 1.02 first 1.04 | m=4: a=0.730 ratio(k16..26) 0.89-1.05 last 1.03 first 0.89 | m=8: a=0.696 ratio(k16..26) 0.97-1.14 last 0.98 first 1.14
+RLL m=1: a=0.674 ratio(k16..26) 1.00-1.00 last 1.00 first 1.00 | m=2: a=0.694 ratio(k16..26) 0.90-1.06 last 1.06 first 1.06 | m=4: a=0.696 ratio(k16..26) 0.87-1.06 last 1.06 first 0.90 | m=8: a=0.676 ratio(k16..26) 0.96-1.04 last 0.99 first 0.97
+RLRLRRRLLR m=1: a=0.691 ratio(k16..26) 1.00-1.00 last 1.00 first 1.00 | m=2: a=0.671 ratio(k16..26) 0.97-1.10 last 0.98 first 1.06 | m=4: a=0.680 ratio(k16..26) 0.93-1.03 last 0.97 first 1.03 | m=8: a=0.685 ratio(k16..26) 0.90-1.04 last 0.94 first 1.01
+RRRLR m=1: a=0.740 ratio(k16..26) 1.00-1.00 last 1.00 first 1.00 | m=2: a=0.708 ratio(k16..26) 0.95-1.23 last 0.95 first 1.04 | m=4: a=0.709 ratio(k16..26) 0.93-1.09 last 0.93 first 1.09 | m=8: a=0.700 ratio(k16..26) 0.91-1.16 last 0.97 first 1.05
+
+== H26b noise: local area exponent (mean over rules and seeds) and extent exponent
+eps=0: k14-18: a=0.699 w=0.317 (n=9) | k18-22: a=0.718 w=0.351 (n=9) | k22-26: a=0.673 w=0.340 (n=9) | k24-27: a=0.686 w=0.337 (n=9)
+eps=0.0001: k14-18: a=0.722 w=0.342 (n=9) | k18-22: a=0.689 w=0.342 (n=9) | k22-26: a=0.693 w=0.335 (n=9) | k24-27: a=0.676 w=0.325 (n=9)
+eps=0.001: k14-18: a=0.707 w=0.366 (n=9) | k18-22: a=0.701 w=0.335 (n=9) | k22-26: a=0.679 w=0.325 (n=9) | k24-27: a=0.679 w=0.317 (n=9)
+eps=0.01: k14-18: a=0.711 w=0.349 (n=9) | k18-22: a=0.726 w=0.357 (n=9) | k22-26: a=0.681 w=0.332 (n=9) | k24-27: a=0.691 w=0.337 (n=9)
+eps=0.1: k14-18: a=0.757 w=0.376 (n=9) | k18-22: a=0.755 w=0.373 (n=9) | k22-26: a=0.755 w=0.360 (n=9) | k24-27: a=0.712 w=0.312 (n=9)
+area/t^(2/3) at k=24 (mean over seeds/rules) by eps: {0.0: 2.7, 0.0001: 2.7, 0.001: 2.7, 0.01: 2.9, 0.1: 6.4}
+
+== H26a random background: exponents over k=16..24 (area, extent)
+escaped/short: sq:RLR:bg:seed=2 22.0
+escaped/short: sq:RLR:bg:seed=3 23.0
+escaped/short: sq:RLR:bg:seed=4 23.0
+escaped/short: sq:RLL:bg:seed=1 23.0
+escaped/short: sq:RLRLRRRLLR:bg:seed=2 23.0
+escaped/short: sq:RLRLRRRLLR:bg:seed=3 23.0
+escaped/short: sq:RRRLR:bg:seed=1 23.0
+9 runs: area exponent mean 0.924 sd 0.013; extent exponent mean 0.466 sd 0.031; extent exp k20-24 mean 0.468
+   RLL area 0.927 extent 0.467
+   RLR area 0.905 extent 0.471
+   RLRLRRRLLR area 0.914 extent 0.448
+   RRRLR area 0.933 extent 0.474
+
+== H26b high noise (data/ext_noise_high.csv), exponents over k=14..26 and k=22..26
+eps=0.3: n=8 area a(14-26)=0.829 a(22-26)=0.814 width w(14-26)=0.417 w(22-26)=0.339
+eps=0.6: n=3 area a(14-26)=0.896 a(22-26)=0.921 width w(14-26)=0.461 w(22-26)=0.502
+eps=1: all runs escaped the 8192 board; max k reached 23

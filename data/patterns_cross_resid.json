@@ -1,0 +1,112 @@
+{
+ "RRRRRLLLLLL shuffle": {
+  "pairs": 0.927,
+  "b2": 0.545,
+  "b3": 0.192
+ },
+ "RRRRRLLLLLL radial": {
+  "pairs": 0.93,
+  "b2": 0.547,
+  "b3": 0.194
+ },
+ "RRRRRLLLLLL pairs": {
+  "pairs": 0.999,
+  "b2": 0.589,
+  "b3": 0.199
+ },
+ "RRRRRLLLLLL b2": {
+  "pairs": 0.987,
+  "b2": 0.914,
+  "b3": 0.213
+ },
+ "RRRRRLLLLLL b3": {
+  "pairs": 0.98,
+  "b2": 0.879,
+  "b3": 0.804
+ },
+ "RRRRRLLLLLL keep_rand_0.5": {
+  "pairs": 0.941,
+  "b2": 0.586,
+  "b3": 0.205
+ },
+ "RRRRRLLLLLL keep_rand_0.75": {
+  "pairs": 0.963,
+  "b2": 0.688,
+  "b3": 0.295
+ },
+ "RRRRRLLLLLL keep_rand_0.9": {
+  "pairs": 0.977,
+  "b2": 0.818,
+  "b3": 0.551
+ },
+ "RRRRRLLLLLL keep_rand_0.97": {
+  "pairs": 0.989,
+  "b2": 0.932,
+  "b3": 0.837
+ },
+ "RRRRRLLLLLL keep_disc_40": {
+  "pairs": 0.958,
+  "b2": 0.786,
+  "b3": 0.693
+ },
+ "RRRRRLLLLLL keep_out_10": {
+  "pairs": 0.99,
+  "b2": 0.966,
+  "b3": 0.958
+ },
+ "RLLLLRRRRLR shuffle": {
+  "pairs": 0.785,
+  "b2": 0.445,
+  "b3": 0.06
+ },
+ "RLLLLRRRRLR radial": {
+  "pairs": 0.892,
+  "b2": 0.528,
+  "b3": 0.085
+ },
+ "RLLLLRRRRLR pairs": {
+  "pairs": 0.999,
+  "b2": 0.597,
+  "b3": 0.142
+ },
+ "RLLLLRRRRLR b2": {
+  "pairs": 0.988,
+  "b2": 0.932,
+  "b3": 0.24
+ },
+ "RLLLLRRRRLR b3": {
+  "pairs": 0.972,
+  "b2": 0.841,
+  "b3": 0.726
+ },
+ "RLLLLRRRRLR keep_rand_0.5": {
+  "pairs": 0.839,
+  "b2": 0.508,
+  "b3": 0.076
+ },
+ "RLLLLRRRRLR keep_rand_0.75": {
+  "pairs": 0.904,
+  "b2": 0.647,
+  "b3": 0.193
+ },
+ "RLLLLRRRRLR keep_rand_0.9": {
+  "pairs": 0.954,
+  "b2": 0.797,
+  "b3": 0.495
+ },
+ "RLLLLRRRRLR keep_rand_0.97": {
+  "pairs": 0.983,
+  "b2": 0.922,
+  "b3": 0.81
+ },
+ "RLLLLRRRRLR keep_disc_40": {
+  "pairs": 0.83,
+  "b2": 0.611,
+  "b3": 0.445
+ },
+ "RLLLLRRRRLR keep_out_10": {
+  "pairs": 0.992,
+  "b2": 0.973,
+  "b3": 0.968
+ }
+}

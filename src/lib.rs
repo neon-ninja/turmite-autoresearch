@@ -1,0 +1,25 @@
+//! Generalised Langton's ants ("turmites" with one internal state).
+//!
+//! A rule is a string over {L, R}. Each cell holds a colour `0..n`. On every
+//! step the ant reads the colour `c` under it, turns according to `rule[c]`,
+//! advances the cell to colour `(c + 1) % n`, then moves one cell forward.
+//! Classic Langton's ant is the rule "RL".
+//!
+//! Two implementations live here: [`reference`] favours obviousness and is the
+//! oracle; [`fast`] is what the sweep uses and is tested against the oracle.
+
+pub mod detect;
+pub mod ext;
+pub mod fast;
+pub mod lean;
+pub mod probe;
+pub mod reference;
+pub mod rule;
+pub mod synth;
+pub mod walkers;
+
+pub use rule::{Rule, Turn};
+
+/// Headings: 0 = north, 1 = east, 2 = south, 3 = west. Screen coordinates,
+/// so north is -y.
+pub const DIRS: [(i32, i32); 4] = [(0, -1), (1, 0), (0, 1), (-1, 0)];

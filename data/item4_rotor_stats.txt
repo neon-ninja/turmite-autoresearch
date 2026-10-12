@@ -1,0 +1,25 @@
+/home/tim/.cache/uv/archive-v0/WOpBSnZYVepGTAe7EKkyZ/lib/python3.12/site-packages/numpy/_core/_methods.py:219: RuntimeWarning: Degrees of freedom <= 0 for slice
+  ret = _var(a, axis=axis, dtype=dtype, out=out, ddof=ddof,
+/home/tim/.cache/uv/archive-v0/WOpBSnZYVepGTAe7EKkyZ/lib/python3.12/site-packages/numpy/_core/_methods.py:211: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/mnt/f/Code/turmite/data/item4_stats.py:63: RuntimeWarning: Degrees of freedom <= 0 for slice
+  print("a_inf (delta=1/3): mean %.4f, sd across rules %.4f, mean SE %.4f => between-rule true sd ~ %.4f" % (a_inf.mean(), a_inf.std(ddof=1), se.mean(), np.sqrt(max(a_inf.var(ddof=1) - (se ** 2).mean(), 0))))
+rows 528 runs 24
+
+rule           seeds | local area exponent a(k) (3-octave windows, mean of seeds) at k= 16 20 24 28 29(=k-2..k)
+rotor             24 | 0.737 0.712 0.682 0.674 0.673 | last k=30
+
+asymptotic area exponent a_inf from a(k) = a_inf + b 2^(-delta k), k=16..last (weights 1/SE^2); chi2 per dof in brackets; target 2/3 = 0.667
+rule           delta=1/6              delta=1/3              delta=1/2              | mean of last 6 a(k)
+rotor          0.656+-0.001(1.2)   0.670+-0.001(2.4)   0.674+-0.001(6.0)  | 0.677+-0.001
+
+z = (a_inf - 2/3)/SE for delta=1/3: [4.7]
+rules within 2 SE of 2/3: 0 of 1
+a_inf (delta=1/3): mean 0.6701, sd across rules nan, mean SE 0.0007 => between-rule true sd ~ nan
+mean of last-6 a(k): across-rule mean 0.6775 sd nan; range 0.677..0.677
+
+CV across seeds of A / t^(2/3):
+rule               k=16     k=22     k=28     last
+rotor            0.0558   0.0248   0.0075   0.0062 (k=30)
+
+b (delta=1/3) amplitude: {'rotor': np.float64(3.45)}

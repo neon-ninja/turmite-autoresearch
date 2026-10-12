@@ -1,0 +1,491 @@
+<title>Waiting for the Highway</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a lab notebook. One reading column, figures break wider; the live ant sits beside the headline. */
+:root {
+  --bg: #eef1f4;
+  --panel: #f8f9fb;
+  --ink: #14202e;
+  --muted: #566577;
+  --line: #cfd7e0;
+  --accent: #3b4cc0;
+  --c-indigo: #3b4cc0;
+  --c-teal: #1f9a82;
+  --c-amber: #c98a22;
+  --c-rose: #c63f55;
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --measure: 40rem;
+  --wide: 68rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e131a; --panel: #151c25; --ink: #e4e9ef; --muted: #8e9cab; --line: #273341;
+    --accent: #8796ff; --c-indigo: #7d8cff; --c-teal: #3cc4a7; --c-amber: #e8a93f; --c-rose: #ef6b80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e131a; --panel: #151c25; --ink: #e4e9ef; --muted: #8e9cab; --line: #273341;
+  --accent: #8796ff; --c-indigo: #7d8cff; --c-teal: #3cc4a7; --c-amber: #e8a93f; --c-rose: #ef6b80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.6;
+  padding-inline: 16px; padding-block: 0 4rem;
+}
+.wrap { max-width: var(--wide); margin-inline: auto; }
+.col { max-width: var(--measure); }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.08; margin: 0; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.1rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.05rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.05rem; font-weight: 700; }
+p { margin: 0; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted);
+}
+.mono { font-family: var(--font-mono); font-size: 0.9em; }
+.rule {
+  font-family: var(--font-mono); font-weight: 600; letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Hero */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 30rem); gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start; padding-block: clamp(2rem, 6vw, 4.5rem) 2.5rem;
+}
+.hero-text { display: grid; gap: 1.25rem; min-width: 0; }
+.dek { font-size: 1.2rem; line-height: 1.5; color: var(--ink); max-width: 34rem; }
+.dek em { font-style: italic; }
+@media (max-width: 860px) { .hero { grid-template-columns: minmax(0, 1fr); } }
+
+/* Simulator */
+.sim { display: grid; gap: 0.75rem; min-width: 0; }
+.board {
+  position: relative; aspect-ratio: 1; max-width: 100%; width: 100%;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 4px; overflow: hidden;
+}
+.board canvas { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+.board .hud {
+  position: absolute; left: 10px; top: 8px; right: 10px; display: flex; justify-content: space-between; gap: 1rem;
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.board .hud span, .board .note:not(:empty) {
+  background: color-mix(in srgb, var(--panel) 85%, transparent); padding: 0.1rem 0.35rem; border-radius: 3px;
+}
+.board .note { justify-self: start; width: fit-content; max-width: calc(100% - 20px); }
+.board .note {
+  position: absolute; left: 10px; bottom: 8px; right: 10px; font-family: var(--font-mono); font-size: 0.78rem;
+  color: var(--ink);
+}
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+.controls input[type="text"] {
+  font-family: var(--font-mono); font-size: 0.95rem; letter-spacing: 0.05em; text-transform: uppercase;
+  width: 11.5rem; max-width: 100%; padding: 0.45rem 0.6rem; border: 1px solid var(--line); border-radius: 4px;
+  background: var(--panel); color: var(--ink);
+}
+button {
+  font-family: var(--font-mono); font-size: 0.82rem; padding: 0.45rem 0.75rem; border-radius: 4px;
+  border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 600; }
+.speed { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+.speed input { width: 7rem; accent-color: var(--accent); }
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.presets button { font-size: 0.75rem; padding: 0.25rem 0.5rem; }
+.err { font-family: var(--font-mono); font-size: 0.8rem; color: var(--c-rose); min-height: 1.2em; }
+
+/* Sections */
+section { padding-block: 3rem 0; display: grid; gap: 1.25rem; }
+section > .col { display: grid; gap: 1rem; }
+hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
+
+/* Fates */
+.fates { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem 1.25rem; }
+@media (max-width: 1000px) { .fates { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .fates { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 440px) { .fates { grid-template-columns: minmax(0, 1fr); } }
+.fate { display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.fate .pic {
+  aspect-ratio: 1; max-width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 4px;
+  display: grid; place-items: center; padding: 6%; cursor: pointer;
+}
+.fate .pic:hover { border-color: var(--accent); }
+.fate img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; }
+.fate .tag { display: flex; gap: 0.5rem; align-items: baseline; flex-wrap: wrap; }
+.pill {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.12rem 0.45rem; border-radius: 999px; border: 1px solid currentColor;
+}
+.pill.highway { color: var(--c-teal); }
+.pill.chaotic { color: var(--c-rose); }
+.pill.builder { color: var(--c-amber); }
+.pill.expander { color: var(--c-indigo); }
+.pill.counter { color: var(--muted); }
+.fate p { font-size: 0.95rem; color: var(--muted); line-height: 1.5; }
+
+/* Figures */
+figure { margin: 0; display: grid; gap: 0.6rem; min-width: 0; }
+figcaption { font-size: 0.9rem; color: var(--muted); max-width: var(--measure); }
+.chart { width: 100%; overflow-x: auto; }
+.chart svg { display: block; width: 100%; height: auto; min-width: 520px; }
+.chart text { font-family: var(--font-mono); fill: var(--muted); font-size: 11px; }
+.chart .v { fill: var(--ink); font-weight: 600; }
+
+.tally { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: 1rem; }
+.tally div { display: grid; gap: 0.15rem; padding-block: 0.75rem; border-top: 2px solid var(--line); }
+.tally b { font-family: var(--font-display); font-size: 2rem; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+.tally span { font-size: 0.9rem; color: var(--muted); }
+.tally .miss { border-top-color: var(--c-rose); }
+.tally .miss b { color: var(--c-rose); }
+
+.census-bar { display: flex; height: 2.4rem; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
+.census-bar div { display: flex; align-items: center; padding-inline: 0.5rem; min-width: 0; overflow: hidden; white-space: nowrap;
+  font-family: var(--font-mono); font-size: 0.74rem; color: var(--bg); font-weight: 600; }
+.census-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.census-legend i { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: -0.05rem; }
+
+
+/* Cube root section */
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 2.5rem; }
+@media (max-width: 700px) { .duo { grid-template-columns: minmax(0, 1fr); } }
+.duo .chart svg { min-width: 0; }
+.mech { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: 1.5rem 2.5rem; align-items: start; }
+@media (max-width: 760px) { .mech { grid-template-columns: minmax(0, 1fr); } }
+.diagram svg { display: block; width: 100%; height: auto; max-width: 22rem; }
+.mech-list { display: grid; gap: 1rem; margin: 0; max-width: var(--measure); }
+.mech-list div { display: grid; gap: 0.2rem; }
+.mech-list dt { font-family: var(--font-display); font-weight: 700; }
+.mech-list dd { margin: 0; color: var(--muted); font-size: 0.97rem; }
+.formula {
+  font-family: var(--font-mono); font-size: 0.95rem; padding: 0.75rem 1rem; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 4px;
+}
+.formula i { font-family: var(--font-body); }
+h3 { margin-top: 1rem; }
+.occ { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+@media (max-width: 640px) { .occ { grid-template-columns: minmax(0, 1fr); max-width: 24rem; } }
+.occ figure .pic { aspect-ratio: 1; max-width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 5%; }
+.occ img { width: 100%; height: 100%; object-fit: contain; image-rendering: pixelated; display: block; }
+.occ figcaption { font-size: 0.9rem; }
+.occ .tag { display: flex; gap: 0.5rem; align-items: baseline; flex-wrap: wrap; }
+.occ-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; font-family: var(--font-mono); font-size: 0.76rem; color: var(--muted); }
+.occ-legend .ramp { width: 9rem; height: 0.6rem; border-radius: 2px; }
+.occ-legend .idle { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 2px; background: rgba(140, 148, 158, 0.35); vertical-align: -0.1rem; margin-right: 0.3rem; }
+.pill.mixed { color: var(--c-teal); }
+.pill.tethered { color: var(--muted); }
+.pill.ferried { color: var(--c-amber); }
+
+/* Second follow-up */
+.chart.narrow svg { max-width: 46rem; }
+.tablewrap.slim { max-width: 44rem; max-height: none; }
+.tablewrap.slim td, .tablewrap.slim th { white-space: normal; }
+#tbl-transplant td, #tbl-pipeline td { white-space: nowrap; }
+.yes { color: var(--c-teal); font-weight: 600; }
+.no { color: var(--muted); }
+
+/* Table */
+.tablebar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.tablebar select, .tablebar input {
+  font-family: var(--font-mono); font-size: 0.8rem; padding: 0.3rem 0.45rem; border: 1px solid var(--line);
+  border-radius: 4px; background: var(--panel); color: var(--ink);
+}
+.tablewrap { max-height: 28rem; overflow: auto; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
+table { border-collapse: collapse; width: 100%; font-family: var(--font-mono); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 0.4rem 0.75rem; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--line); }
+th:first-child, td:first-child { text-align: left; }
+th { position: sticky; top: 0; background: var(--panel); color: var(--muted); font-weight: 600; cursor: pointer; user-select: none; }
+th[aria-sort] { color: var(--ink); }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: color-mix(in srgb, var(--accent) 9%, transparent); }
+td .bar { display: inline-block; height: 0.5rem; background: var(--c-teal); border-radius: 1px; vertical-align: middle; margin-right: 0.4rem; opacity: 0.8; }
+
+.methods { display: grid; gap: 1rem; }
+.methods li { margin-bottom: 0.5rem; }
+.methods ul { padding-left: 1.2rem; margin: 0; }
+footer { padding-block: 3rem 0; color: var(--muted); font-size: 0.85rem; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">Generalised Langton's ants · every rule up to 12 colours</span>
+      <h1>Waiting for the highway</h1>
+      <p class="dek">Langton's ant wanders chaotically for 9,976 steps, then suddenly builds a perfectly straight road and leaves forever. I ran all <b>4,083</b> rule strings up to length 12 to see how common that is. For six orders of magnitude, <em>every tenfold increase in patience found about the same number of new highways.</em> Then I predicted the seventh decade, ran a billion steps, and was wrong.</p>
+      <p class="col" style="color: var(--muted); font-size: 0.95rem;">Each cell has a colour. The ant reads the colour under it, turns left or right as the rule says (<span class="rule">R</span> for colour 0, <span class="rule">L</span> for colour 1, and so on), bumps the cell to the next colour, and steps forward. Type a rule and watch.</p>
+    </div>
+    <div class="sim" aria-label="Live ant simulator">
+      <div class="board">
+        <canvas id="board" width="480" height="480"></canvas>
+        <div class="hud"><span id="hud-rule">RL</span><span id="hud-steps">0 steps</span></div>
+        <div class="note" id="hud-note"></div>
+      </div>
+      <div class="controls">
+        <input id="rule-input" type="text" value="RL" aria-label="Rule string" spellcheck="false" autocomplete="off">
+        <button id="btn-load" class="primary">Run</button>
+        <button id="btn-pause">Pause</button>
+        <label class="speed" for="speed">speed <input id="speed" type="range" min="0" max="6" step="0.25" value="1.6"><span id="speed-val"></span></label>
+        <label for="chk-mech" title="Highlights the cells on the edge of the territory and shows c, kappa and P/A live. Restarts the run.">
+          <input id="chk-mech" type="checkbox"> show the cup (edge cells, c, κ)</label>
+      </div>
+      <div class="note-line" id="mech-readout" role="status" hidden style="font-size: 0.9rem; color: var(--muted);"></div>
+      <div class="presets" id="presets"></div>
+      <div class="err" id="err" role="status"></div>
+    </div>
+  </header>
+
+  <hr>
+
+  <section id="fates">
+    <div class="col">
+      <span class="eyebrow">Fates</span>
+      <h2>Five ways an ant's story ends</h2>
+      <p>Most rules settle into one of a few long-run behaviours. These portraits are the actual cell grids after up to 170 million steps, coloured by cell colour. Tap one to run it above.</p>
+    </div>
+    <div class="fates" id="fate-grid"></div>
+  </section>
+
+  <section id="census">
+    <div class="col">
+      <span class="eyebrow">Census</span>
+      <h2>Two speeds of growth</h2>
+      <p id="census-intro"></p>
+    </div>
+    <div class="census-bar" id="census-bar" role="img"></div>
+    <div class="census-legend" id="census-legend"></div>
+    <figure>
+      <div class="chart" id="chart-growth"></div>
+      <figcaption id="cap-growth"></figcaption>
+    </figure>
+    <div class="col"><p>Both clusters hold at every rule length from 3 to 12. The slow growers look genuinely logarithmic: their width rises by a few cells each time the step count doubles, so their fitted exponent keeps falling the longer you run them (it did for 95% of them). The chaotic blobs are the opposite: their exponent stays put near ⅓ from 65,000 steps to 134 million. I expected ½, which is what a blob would do if it filled new area in proportion to time. Why it is ⅓ instead gets its own section <a href="#cuberoot">further down</a>.</p></div>
+  </section>
+
+  <section id="patience">
+    <div class="col">
+      <span class="eyebrow">The main result</span>
+      <h2>Patience pays at a constant rate</h2>
+      <p>For each rule that eventually builds a highway, I measured the step at which the periodic motion begins. Grouped by order of magnitude, the new arrivals per decade barely change from a hundred steps out to a hundred million.</p>
+    </div>
+    <figure>
+      <div class="chart" id="chart-decades"></div>
+      <figcaption id="cap-decades"></figcaption>
+    </figure>
+    <div class="col">
+      <p>A constant count per decade means the onset times are spread evenly in <em>log</em> time: the density falls off as 1/<i>t</i>. If that held forever, the consequence would be unsettling. After a hundred million steps about 3,500 rules have no highway, and every further decade of computing would keep converting a steady trickle of them, with no point at which "chaotic" could be trusted.</p>
+    </div>
+  </section>
+
+  <section id="test">
+    <div class="col">
+      <span class="eyebrow">A falsifiable prediction</span>
+      <h2>One more decade</h2>
+      <p id="test-intro"></p>
+    </div>
+    <div class="tally" id="tally"></div>
+    <figure>
+      <div class="chart" id="chart-test"></div>
+      <figcaption>New highways per decade among rules of length 2 to 10. The shaded band is the range of the six earlier decades, which was the prediction for the last one.</figcaption>
+    </figure>
+    <div class="col"><p id="test-verdict"></p></div>
+  </section>
+
+
+  <section id="cuberoot">
+    <div class="col">
+      <span class="eyebrow">Follow-up</span>
+      <h2>Why a cube root</h2>
+      <p>Almost every chaotic ant's width grows as the cube root of time. Before measuring anything, I wrote down a mechanism and the predictions it makes. Then I built an instrumented ant that tracks the visited region, its edge, and every step taken from the edge, and checked it against a brute-force recount on random rules.</p>
+    </div>
+    <div class="mech">
+      <figure class="mech-fig">
+        <div id="mech-diagram" class="diagram"></div>
+        <figcaption>The visited region (filled), its edge cells (outlined) and the fresh ground around it (dotted). Growth happens only when the ant steps from an edge cell onto fresh ground.</figcaption>
+      </figure>
+      <dl class="mech-list">
+        <div><dt>Fresh ground pushes back</dt><dd>Every rule here turns right on a blank cell, so an ant that steps onto new ground curls straight back. The blank plane acts as a wall the ant can only chip at.</dd></div>
+        <div><dt>The ant is well mixed</dt><dd>Inside the visited region the ant's path is irregular enough that it spends roughly equal time on every cell. So its share of time on the edge is about (edge cells) ÷ (area).</dd></div>
+        <div><dt>The edge is compact</dt><dd>The region stays a solid, roughly round blob, so its edge has about √area cells.</dd></div>
+      </dl>
+    </div>
+    <div class="col">
+      <p class="formula">new cells per step = <i>c</i> × <i>κ</i> × edge ÷ area ∝ 1 ÷ √area</p>
+      <p>Here <i>c</i> is the chance that a step from an edge cell breaks new ground, and <i>κ</i> is the ant's time on the edge relative to its fair share. If both stay constant, area grows as <i>t</i><sup>2/3</sup> and width as <i>t</i><sup>1/3</sup>. The prediction is that <i>c</i> and <i>κ</i> don't drift with time. If the walker weren't well mixed, or the edge were fractal, the exponent would come out differently: ½ for a fractal edge, ¼ if the ant had to return home between growth spurts.</p>
+    </div>
+
+    <div class="col"><h3>The prediction holds for 16 octaves</h3></div>
+    <figure>
+      <div class="duo" id="chart-long"></div>
+      <figcaption id="cap-long"></figcaption>
+    </figure>
+
+    <div class="col">
+      <h3>Where the ant spends its time</h3>
+      <p>The assumption that does the work is that the ant is well mixed. These maps show time spent per cell over the final doubling, from 67 to 134 million steps. Grey is ground the ant had visited before but didn't return to.</p>
+    </div>
+    <div class="occ" id="occ"></div>
+    <div class="occ-legend" id="occ-legend"></div>
+    <figure>
+      <div class="chart" id="chart-profile"></div>
+      <figcaption>Time per cell against distance from the centre of the visited region, in units of its equivalent radius. A flat line is a well-mixed ant.</figcaption>
+    </figure>
+    <div class="col">
+      <p id="modes-text"></p>
+    </div>
+
+    <div class="col">
+      <h3>One knob sets the exponent</h3>
+      <p id="knob-intro"></p>
+    </div>
+    <figure>
+      <div class="duo" id="chart-knob"></div>
+      <figcaption id="cap-knob"></figcaption>
+    </figure>
+
+    <div class="col methods">
+      <h3>Loose ends</h3>
+      <ul id="loose-ends"></ul>
+    </div>
+  </section>
+
+  <section id="answers">
+    <div class="col">
+      <span class="eyebrow">Second follow-up</span>
+      <h2>A chiral edge, a random interior, and a habit called home</h2>
+      <p>The section above left two loose ends: why the chance of breaking new ground sits near 0.44, and why the ant is well mixed inside its territory. I wrote down hypotheses for both before measuring. One was right in outline but wrong in its details, one was right, and the experiments turned up a third question about the ants that never leave home.</p>
+    </div>
+
+    <div class="col">
+      <h3>The edge is chiral</h3>
+      <p id="chiral-intro"></p>
+    </div>
+    <figure>
+      <div class="chart" id="chart-letters"></div>
+      <figcaption id="cap-letters"></figcaption>
+    </figure>
+    <div class="col"><p id="chiral-mech"></p></div>
+    <div class="tablewrap slim">
+      <table id="tbl-chiral"><thead><tr><th>edge step starts on</th><th>share of edge steps</th><th>breaks new ground</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="col"><p id="cmodel-text"></p></div>
+    <figure>
+      <div class="chart narrow" id="chart-cmodel"></div>
+      <figcaption id="cap-cmodel"></figcaption>
+    </figure>
+
+    <div class="col">
+      <h3>Inside, the ant is a random walker</h3>
+      <p id="mix-intro"></p>
+      <p class="formula">spread per step = (1 − <i>a</i>) ÷ (1 + <i>a</i>), where <i>a</i> = (2<i>q</i> − 1)² and <i>q</i> = share of R letters</p>
+    </div>
+    <figure>
+      <div class="chart narrow" id="chart-mix"></div>
+      <figcaption id="cap-mix"></figcaption>
+    </figure>
+    <div class="col"><p id="mix-text"></p></div>
+
+    <div class="col">
+      <h3>What holds a tethered ant</h3>
+      <p id="tether-intro"></p>
+    </div>
+    <div class="tablewrap slim">
+      <table id="tbl-tether"><thead><tr><th>rule</th><th>pull ÷ diffusion, from local motion</th><th>slope of occupancy, observed</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="col"><p id="runs-text"></p></div>
+    <figure>
+      <div class="chart narrow" id="chart-runs"></div>
+      <figcaption>Share of 12-colour rules that are tethered, by their longest run of identical letters (counting runs that wrap from the end of the rule to its start). Numbers above the bars are how many rules have that run length.</figcaption>
+    </figure>
+    <div class="col"><p id="transplant-intro"></p></div>
+    <div class="tablewrap">
+      <table id="tbl-transplant"><thead><tr><th>rule</th><th>dropped at home</th><th>dropped 20 cells east</th><th>dropped 15 cells north</th><th>shuffled field (3 shuffles)</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="col"><p id="transplant-text"></p></div>
+
+    <div class="col methods">
+      <h3>Still open</h3>
+      <ul id="still-open"></ul>
+    </div>
+  </section>
+
+  <section id="calibration">
+    <div class="col">
+      <span class="eyebrow">Calibration</span>
+      <h2>Checking the instruments on a walker with known answers</h2>
+      <p id="cal-intro"></p>
+    </div>
+    <div class="tablewrap slim">
+      <table id="tbl-kd"><thead><tr><th>rotor walker, measured quantity</th><th>published</th><th>mine</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="col"><p id="cal-kd-text"></p></div>
+    <div class="col"><h3>The same fits, on rotor, ants and a random walk</h3></div>
+    <div class="tablewrap">
+      <table id="tbl-pipeline"><thead><tr><th>walker</th><th>width exp.</th><th>radius exp.</th><th>area exp.</th><th>edge exp.</th><th>box filled</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="col"><p id="cal-pipe-text"></p></div>
+    <div class="col"><h3>How much of the ants' spread is real</h3><p id="cal-noise-text"></p></div>
+  </section>
+
+  <section id="catalogue">
+    <div class="col">
+      <span class="eyebrow">Catalogue</span>
+      <h2>Every highway found</h2>
+      <p>Each one was confirmed twice: the ant keeps its period all the way off the board, and it starts at exactly the same step on boards of 8,192 and 16,384 cells. Rows marked ◆ came from the billion-step run. Tap a row to run it; the simulator fast-forwards to shortly before the highway starts, which for the latest ones takes several seconds.</p>
+    </div>
+    <div class="tablebar">
+      <label>length <select id="f-len"><option value="">any</option></select></label>
+      <label>contains <input id="f-text" type="text" size="8" placeholder="e.g. LLR" spellcheck="false"></label>
+      <span id="f-count"></span>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr>
+          <th data-k="rule">rule</th><th data-k="n">colours</th><th data-k="onset" aria-sort="descending">highway starts at step</th><th data-k="period">period</th><th data-k="speed">steps per cell</th><th data-k="drift">drift per period</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="method">
+    <div class="col methods">
+      <span class="eyebrow">How it was checked</span>
+      <h2>Method, and the trap I fell into</h2>
+      <p>The simulator is written in Rust in two versions: a deliberately plain one on a hash map, used as the oracle, and a fast flat-array one (about 10&nbsp;ns per step) that the sweep uses. Property tests run random rules through both and compare every cell. The ant's rule is reversible, so another test runs it forwards and backwards and checks the board comes back blank. A single injected wrong turn at step 777 makes the suite fail.</p>
+      <p>A highway is periodic motion with a net drift: for some period <i>p</i>, the ant's position after <i>p</i> steps has always moved by the same non-zero vector. My first detector accepted 20,000 steps of that as proof. It reported a cluster of highways starting about 22,000 steps before each million-step checkpoint, which is not how real onsets would be distributed. They were <b>square-builders</b>: the ant walks the edge of a growing square, and each edge is a perfect imitation of a highway until it turns the corner.</p>
+      <p>The fix was to demand proof. A highway is now only counted when the ant keeps its periodic march all the way off the board and leaves in the direction it is travelling. Re-running everything that way removed 94 false highways, including the apparent record holder (period 36,416), and recovered 4 real ones that false alarms had cut short.</p>
+      <p>That still was not enough. Some square-builders lay down each row in straight passes with period 4, and if a pass happens to cross the board's edge it looks exactly like a highway leaving. Five of those survived into the catalogue, all claiming to start three steps before leaving the board. The final check is that a real highway's onset belongs to the rule, not the board: every highway here starts at the identical step on two board sizes. That caught the five, and one more in the billion-step run. Each trap now has a regression test that fails if its guard is removed.</p>
+      <ul>
+        <li>Rules and their mirror images (swap every L and R) behave identically, so only rules starting with <span class="rule">R</span> are counted. Rules that turn the same way on every colour are excluded; they spin in place.</li>
+        <li>Onset is the first step after which every position is the previous period's position plus the drift.</li>
+        <li>Langton's ant checks out against the literature: onset at step 9,976, period 104, drift of 2 cells diagonally.</li>
+        <li>"Chaotic" here only means no highway, builder or escape within the budget. It is a statement about patience, not a proof.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="col">Rust simulator, Python and polars for the analysis. Langton's ant was introduced by Chris Langton in 1986; the multi-colour generalisation is due to Greg Turk and Jim Propp.</footer>
+</div>
+
+<script>
+const DATA = /*DATA*/null;
+const IMGS = /*IMGS*/null;
+</script>
+<script>
+/*SIM*/
+</script>
+<script>
+/*PAGE*/
+</script>

@@ -1,0 +1,44 @@
+shuffled trials that left the board (NaN spread, counted as lost): 1
+rules screened 560  escaped/failed: 0
+tethered on the real field (spread<25): 556 of 560
+hard (tethered real, spread_shuf>=30): 184 = 33.1% of tethered
+intermediate shuffled spread 15-30: 108
+spread_shuf quantiles over tethered rules 10/25/50/75/90/99%: [  2.3   3.3  15.7  37.1  60.3 107.2]
+histogram of spread_shuf (edges 0,5,10,15,20,25,30,35,40,50,100,1000): [181, 29, 54, 62, 26, 20, 33, 31, 40, 67, 13]
+Spearman(spread_shuf, n) over tethered: rho=0.091    Spearman(hard, n): -0.007
+Spearman(spread_shuf, area) over tethered: rho=0.952    Spearman(hard, area): 0.793
+Spearman(spread_shuf, extent) over tethered: rho=0.954    Spearman(hard, extent): 0.790
+Spearman(spread_shuf, fracR) over tethered: rho=-0.253    Spearman(hard, fracR): -0.167
+hard fraction by n: {5: (0.0, 5), 6: (0.0, 6), 7: (0.0, 7), 8: (0.14, 22), 9: (0.0, 42), 10: (0.04, 48), 11: (0.68, 198), 12: (0.2, 228)}
+check on the five known rules:
+shape: (4, 6)
+┌──────────────┬───────┬─────────────┬─────────────┬───────────┬───────────┐
+│ rule         ┆ area  ┆ spread_real ┆ spread_shuf ┆ near_real ┆ near_shuf │
+│ ---          ┆ ---   ┆ ---         ┆ ---         ┆ ---       ┆ ---       │
+│ str          ┆ i64   ┆ f64         ┆ f64         ┆ f64       ┆ f64       │
+╞══════════════╪═══════╪═════════════╪═════════════╪═══════════╪═══════════╡
+│ RRRLLRLLR    ┆ 1668  ┆ 4.24        ┆ 6.05        ┆ 0.97      ┆ 0.899     │
+│ RLLLLRRRRLR  ┆ 11144 ┆ 14.66       ┆ 45.6        ┆ 0.479     ┆ 0.03      │
+│ RRRLLLLRRRLL ┆ 3414  ┆ 7.03        ┆ 18.04       ┆ 0.341     ┆ 0.321     │
+│ RLLRRRRRLRLR ┆ 4534  ┆ 7.03        ┆ 11.69       ┆ 0.717     ┆ 0.623     │
+└──────────────┴───────┴─────────────┴─────────────┴───────────┴───────────┘
+hard rules (first 40): ['RLLRRLRLRRRR', 'RLRRRRRRRRRL', 'RRRLRRLLLLR', 'RLRLLRRRRRL', 'RRRLLLRRLLR', 'RLLRRRLRLRR', 'RLLRRLLLLRR', 'RLLLLLLRRRR', 'RRLRLLLRRRR', 'RLLRRRLLLLR', 'RRRLLRRLLLR', 'RLLLLRRRLLR', 'RLLRRRRLLLR', 'RRLLRLRLRRR', 'RRLLLLLLRRR', 'RLLLRRRRLLR', 'RRLLLLLRRRR', 'RRRRLLRRLLL', 'RLLLLRRLLRR', 'RLLLRLRLLLR', 'RRLLRRLLLRR', 'RRLLLLRRLLR', 'RRLLLRRLRRL', 'RRLRLRRRLLR', 'RRRLLLLLRRR', 'RLRRLLRRLLR', 'RLLRRLLLRRR', 'RRLLLRRLLRR', 'RRLLRRRRLLL', 'RLLRRLRRLLR', 'RLRRLLLRRLR', 'RRLLRRLRRLL', 'RRRRLRRLLLL', 'RLLLLRRRRLL', 'RRRLLLLLLRR', 'RRLLLLRRRLL', 'RLLRRLLRLLR', 'RLLRLLRRLLR', 'RRRLLLLRRLR', 'RLLLRRRRRRL']
+
+single-feature AUC for 'hard' among tethered rules: {'n': 0.496, 'fracR': 0.398, 'n_runs': 0.735, 'longest_run': 0.337, 'R_in_1-2': 0.399, 'R_in_first4': 0.427, 'R_in_last3': 0.483}
+AUC of territory area alone: 0.987
+  area in [0,1486): n=185, hard 0.01, median spread_shuf 2.7, median spread_real 2.3
+  area in [1486,5278): n=185, hard 0.05, median spread_shuf 15.7, median spread_real 6.9
+  area in [5278,1000000000): n=186, hard 0.94, median spread_shuf 45.7, median spread_real 14.3
+spread_shuf / cup-RMS-radius: quantiles 10/50/90%: [0.2  0.73 1.14] ; spread_real / cup: [0.18 0.24 0.34]
+
+== size-free hardness
+q = spread_shuf/cup_rms over tethered rules: quantiles 10/25/50/75/90%: [0.2  0.25 0.73 1.1  1.14]
+rho = spread_shuf/spread_real: quantiles 10/25/50/75/90%: [1.01 1.19 2.56 4.06 5.11]
+histogram of q (0.1 bins from 0): [0, 54, 112, 28, 21, 21, 28, 31, 25, 21, 77, 112, 11, 8, 1]
+hard_q := spread_shuf >= 0.4 cup_rms: 362 of 556 = 65.1%; Spearman(hard_q, area) = 0.757; Spearman(hard_q, n) = 0.258; AUC(area) = 0.959
+hard_q := spread_shuf >= 0.5 cup_rms: 341 of 556 = 61.3%; Spearman(hard_q, area) = 0.754; Spearman(hard_q, n) = 0.247; AUC(area) = 0.947
+hard_q := spread_shuf >= 0.6 cup_rms: 320 of 556 = 57.6%; Spearman(hard_q, area) = 0.733; Spearman(hard_q, n) = 0.206; AUC(area) = 0.928
+by n, share with q >= 0.5: {5: (0.2, 5), 6: (0.17, 6), 7: (0.0, 7), 8: (0.64, 22), 9: (0.33, 42), 10: (0.21, 48), 11: (0.72, 198), 12: (0.69, 228)}
+single-feature AUC for q>=0.5: {'n': 0.638, 'fracR': 0.402, 'n_runs': 0.805, 'longest_run': 0.355, 'R_in_1-2': 0.424, 'R_in_first4': 0.433, 'R_in_last3': 0.482}
+Spearman(q, spread_real) = 0.841 ; Spearman(q, area) = 0.840
+known five: [('RRRLLRLLR', 1668, 4.24, 6.05, 0.371319097039411, 1.4268867924528301), ('RLLLLRRRRLR', 11144, 14.66, 45.6, 1.0827650404575906, 3.110504774897681), ('RRRLLLLRRRLL', 3414, 7.03, 18.04, 0.7739175745922471, 2.5661450924608817), ('RLLRRRRRLRLR', 4534, 7.03, 11.69, 0.435174748946865, 1.6628733997155047)]

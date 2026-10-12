@@ -1,0 +1,28 @@
+home~14.5 RRLLRRRRLRL   real  14.5 shuf  38.1 rare colours [3, 10, 9] counts [190, 201, 207] ratios [1.92, 1.85, 1.81] | abundant [4, 2, 1] ratios [0.78, 0.82, 0.82]
+home~14.5 RRLLRLLRLLR   real  14.0 shuf  42.6 rare colours [3, 9, 6] counts [208, 213, 231] ratios [2.25, 2.25, 2.26] | abundant [4, 2, 1] ratios [0.71, 0.76, 0.76]
+home~14.5 RRLLRRRLRLR   real  14.7 shuf  39.6 rare colours [8, 3, 9] counts [174, 177, 196] ratios [2.05, 2.05, 2.1] | abundant [4, 2, 1] ratios [0.74, 0.79, 0.8]
+home~14.5 RLLRLLRRRLL   real  14.9 shuf  54.3 rare colours [10, 2, 5] counts [256, 565, 577] ratios [2.36, 2.08, 1.97] | abundant [7, 6, 4] ratios [0.76, 0.77, 0.79]
+home~14.5 RLLLLRRLLRR   real  14.7 shuf  78.9 rare colours [8, 4, 6] counts [702, 959, 2255] ratios [1.3, 0.94, 1.0] | abundant [3, 1, 2] ratios [1.02, 1.03, 0.99]
+home~14.5 RRLLLLLLRRR   real  16.2 shuf  91.0 rare colours [7, 5, 3] counts [1075, 1540, 1751] ratios [1.85, 1.24, 1.54] | abundant [6, 1, 4] ratios [0.88, 0.83, 1.03]
+home~14.5 RLLLLLLRLRR   real  14.2 shuf  40.0 rare colours [8, 0, 9] counts [130, 136, 146] ratios [2.08, 2.05, 2.09] | abundant [5, 1, 2] ratios [0.76, 0.73, 0.91]
+home~14.5 RRRRLLRRLLL   real  17.4 shuf  80.0 rare colours [7, 3, 1] counts [714, 865, 1087] ratios [2.34, 1.83, 1.46] | abundant [4, 6, 2] ratios [0.87, 0.82, 0.88]
+home~14.5 RLRRLRRRRRR   real  14.0 shuf  38.1 rare colours [4, 2, 3] counts [196, 282, 282] ratios [1.87, 1.69, 1.67] | abundant [7, 1, 6] ratios [0.8, 0.86, 0.91]
+home~14.5 RRRLRLRLLRR   real  14.7 shuf  53.4 rare colours [8, 4, 5] counts [280, 306, 337] ratios [2.5, 2.5, 2.44] | abundant [0, 1, 2] ratios [0.66, 0.71, 0.66]
+home~14.5 RRLRRRRLLLL   real  14.2 shuf  56.5 rare colours [1, 4, 6] counts [317, 319, 560] ratios [3.43, 5.41, 2.34] | abundant [7, 9, 8] ratios [0.18, 0.31, 1.04]
+home~14.5 RLRRLLRRRRL   real  14.8 shuf  65.7 rare colours [0, 5, 1] counts [395, 639, 721] ratios [2.41, 2.5, 2.29] | abundant [4, 6, 8] ratios [0.65, 0.8, 0.72]
+== home~14.5: class/control ratio, rare colours: median 2.06 (share > 1.3: 0.92); abundant: median 0.80 (share < 0.9: 0.81)
+
+home~7.0 RRLLRLLLLRRR  real   7.0 shuf  24.9 rare colours [3, 8, 6] counts [78, 80, 92] ratios [2.05, 2.03, 2.36] | abundant [7, 2, 1] ratios [0.68, 0.69, 0.64]
+home~7.0 RRLLLLRLLRRR  real   7.0 shuf  25.2 rare colours [3, 8, 5] counts [62, 91, 106] ratios [1.62, 2.27, 2.45] | abundant [4, 1, 10] ratios [0.77, 0.79, 0.71]
+home~7.0 RRRLRLRRLLRR  real   6.8 shuf  15.6 rare colours [9, 5, 4] counts [35, 41, 42] ratios [1.44, 1.6, 1.7] | abundant [10, 6, 2] ratios [0.82, 0.81, 0.8]
+home~7.0 RRLRLRRRRRLL  real   7.3 shuf  30.5 rare colours [11, 4, 3] counts [45, 48, 337] ratios [1.57, 1.58, 2.39] | abundant [9, 7, 8] ratios [0.64, 0.52, 0.44]
+home~7.0 RLLRRLLLLLRL  real   7.0 shuf  11.5 rare colours [4, 11, 0] counts [24, 30, 31] ratios [1.38, 1.42, 1.5] | abundant [5, 2, 6] ratios [0.89, 0.89, 0.83]
+home~7.0 RRRRLLLRRLLL  real   7.5 shuf  24.2 rare colours [8, 3, 1] counts [89, 99, 105] ratios [1.83, 1.99, 1.84] | abundant [7, 2, 4] ratios [0.79, 0.71, 0.74]
+home~7.0 RRLRLRRRRLLR  real   7.2 shuf  33.0 rare colours [4, 10, 3] counts [68, 88, 343] ratios [1.6, 1.61, 2.69] | abundant [9, 7, 8] ratios [0.69, 0.58, 0.45]
+home~7.0 RRRLLLLLLLRL  real   6.9 shuf  27.7 rare colours [11, 0, 2] counts [56, 57, 127] ratios [1.93, 1.88, 2.87] | abundant [9, 6, 3] ratios [0.68, 0.74, 0.66]
+home~7.0 RRLLRRRLRLRR  real   7.0 shuf  19.1 rare colours [9, 8, 3] counts [44, 50, 53] ratios [1.73, 1.87, 1.85] | abundant [4, 2, 1] ratios [0.74, 0.75, 0.76]
+home~7.0 RLLLLLRRLLRL  real   6.9 shuf  14.1 rare colours [11, 0, 7] counts [29, 34, 36] ratios [1.54, 1.71, 1.61] | abundant [3, 1, 2] ratios [0.8, 0.75, 0.8]
+home~7.0 RRLLLLRLRLLL  real   7.0 shuf  34.9 rare colours [7, 8, 1] counts [59, 111, 440] ratios [1.54, 2.4, 2.54] | abundant [6, 3, 4] ratios [0.55, 0.54, 0.51]
+home~7.0 RRRLRLLLLLLL  real   6.8 shuf  28.8 rare colours [4, 1, 3] counts [47, 98, 249] ratios [1.58, 2.04, 2.77] | abundant [9, 8, 7] ratios [0.71, 0.64, 0.52]
+== home~7.0: class/control ratio, rare colours: median 1.84 (share > 1.3: 1.00); abundant: median 0.71 (share < 0.9: 1.00)
+

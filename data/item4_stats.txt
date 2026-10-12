@@ -1,0 +1,49 @@
+rows 5522 runs 251
+
+rule           seeds | local area exponent a(k) (3-octave windows, mean of seeds) at k= 16 20 24 28 29(=k-2..k)
+RLL               24 | 0.687 0.691 0.677 0.676 0.676 | last k=30
+RLR               24 | 0.725 0.731 0.748 0.695 0.699 | last k=30
+RLRR              17 | 0.696 0.680 0.679 0.670 0.674 | last k=30
+RRRLR             24 | 0.761 0.710 0.705 0.694 0.697 | last k=30
+RLRLLL            19 | 0.658 0.676 0.682 0.672 0.682 | last k=30
+RLRLRRL           24 | 0.694 0.690 0.689 0.678 0.678 | last k=30
+RRRLRLLL          24 | 0.696 0.682 0.686 0.675 0.673 | last k=30
+RRLLLLLLR         23 | 0.702 0.711 0.773 0.660 0.708 | last k=30
+RLRLLRRLRL        24 | 0.668 0.692 0.675 0.682 0.676 | last k=30
+RRRLRLRRRRL       24 | 0.712 0.696 0.683 0.678 0.675 | last k=30
+RLLLRRLRRRLR      24 | 0.686 0.673 0.659 0.666 0.659 | last k=30
+
+asymptotic area exponent a_inf from a(k) = a_inf + b 2^(-delta k), k=16..last (weights 1/SE^2); chi2 per dof in brackets; target 2/3 = 0.667
+rule           delta=1/6              delta=1/3              delta=1/2              | mean of last 6 a(k)
+RLL            0.674+-0.003(0.8)   0.675+-0.002(0.8)   0.676+-0.001(0.8)  | 0.677+-0.002
+RLR            0.682+-0.004(4.0)   0.698+-0.003(4.8)   0.702+-0.002(5.6)  | 0.696+-0.003
+RLRR           0.665+-0.004(0.4)   0.670+-0.002(0.4)   0.671+-0.002(0.4)  | 0.673+-0.002
+RRRLR          0.680+-0.004(1.2)   0.693+-0.002(1.1)   0.697+-0.002(1.3)  | 0.696+-0.002
+RLRLLL         0.677+-0.003(1.1)   0.677+-0.002(1.1)   0.677+-0.001(1.1)  | 0.676+-0.002
+RLRLRRL        0.675+-0.003(1.2)   0.681+-0.002(1.5)   0.683+-0.001(1.7)  | 0.685+-0.002
+RRRLRLLL       0.667+-0.002(0.3)   0.673+-0.001(0.6)   0.674+-0.001(0.8)  | 0.675+-0.001
+RRLLLLLLR      0.693+-0.021(1.3)   0.707+-0.014(1.3)   0.713+-0.012(1.4)  | 0.709+-0.018
+RLRLLRRLRL     0.678+-0.002(1.1)   0.678+-0.001(1.1)   0.678+-0.001(1.0)  | 0.678+-0.001
+RRRLRLRRRRL    0.670+-0.003(2.9)   0.680+-0.002(3.6)   0.682+-0.001(4.1)  | 0.683+-0.002
+RLLLRRLRRRLR   0.661+-0.006(0.8)   0.661+-0.003(0.8)   0.661+-0.003(0.8)  | 0.660+-0.003
+
+z = (a_inf - 2/3)/SE for delta=1/3: [4.9, 12.1, 1.4, 10.7, 6.6, 8.5, 5.0, 2.9, 8.1, 7.3, -1.7]
+rules within 2 SE of 2/3: 2 of 11
+a_inf (delta=1/3): mean 0.6812, sd across rules 0.0133, mean SE 0.0031 => between-rule true sd ~ 0.0125
+mean of last-6 a(k): across-rule mean 0.6825 sd 0.0135; range 0.660..0.709
+
+CV across seeds of A / t^(2/3):
+rule               k=16     k=22     k=28     last
+RLL              0.0925   0.0339   0.0188   0.0168 (k=30)
+RLR              0.0790   0.0708   0.0322   0.0276 (k=30)
+RLRR             0.1043   0.0548   0.0238   0.0170 (k=30)
+RRRLR            0.0654   0.0663   0.0333   0.0178 (k=30)
+RLRLLL           0.0535   0.0241   0.0204   0.0087 (k=30)
+RLRLRRL          0.0617   0.0401   0.0208   0.0153 (k=30)
+RRRLRLLL         0.0524   0.0261   0.0150   0.0094 (k=30)
+RRLLLLLLR        0.1211   0.2591   0.3817   0.3869 (k=30)
+RLRLLRRLRL       0.0496   0.0249   0.0175   0.0095 (k=30)
+RRRLRLRRRRL      0.0867   0.0320   0.0195   0.0177 (k=30)
+RLLLRRLRRRLR     0.1095   0.0992   0.0362   0.0319 (k=30)
+
+b (delta=1/3) amplitude: {'RLL': np.float64(0.47), 'RLR': np.float64(2.49), 'RLRR': np.float64(1.03), 'RRRLR': np.float64(2.46), 'RLRLLL': np.float64(-0.0), 'RLRLRRL': np.float64(0.92), 'RRRLRLLL': np.float64(1.09), 'RRLLLLLLR': np.float64(0.91), 'RLRLLRRLRL': np.float64(-0.16), 'RRRLRLRRRRL': np.float64(1.37), 'RLLLRRLRRRLR': np.float64(-0.01)}

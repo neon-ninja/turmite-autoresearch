@@ -1,0 +1,29 @@
+data/ext_hex.csv specs 2718
+shape: (4, 2)
+┌─────────┬──────┐
+│ cls     ┆ len  │
+│ ---     ┆ ---  │
+│ str     ┆ u32  │
+╞═════════╪══════╡
+│ blob    ┆ 2041 │
+│ escaped ┆ 637  │
+│ slow    ┆ 24   │
+│ fast    ┆ 16   │
+└─────────┴──────┘
+blob-like (0.5<=a<0.9): n=2041; area/volume exponent quantiles 10/25/50/75/90%: [0.681 0.694 0.712 0.737 0.768] mean 0.720
+  extent exponent quantiles: [0.317 0.331 0.346 0.366 0.39 ]
+  fraction with a within 0.1 of 2/3: 0.89; within 0.1 of 3/4: 0.99
+shape: (5, 4)
+┌─────┬──────┬──────────┬──────────┐
+│ n   ┆ cnt  ┆ med_a    ┆ med_w    │
+│ --- ┆ ---  ┆ ---      ┆ ---      │
+│ u32 ┆ u32  ┆ f64      ┆ f64      │
+╞═════╪══════╪══════════╪══════════╡
+│ 2   ┆ 4    ┆ 0.736291 ┆ 0.358524 │
+│ 3   ┆ 20   ┆ 0.718116 ┆ 0.348009 │
+│ 4   ┆ 85   ┆ 0.722723 ┆ 0.353235 │
+│ 5   ┆ 359  ┆ 0.711369 ┆ 0.346521 │
+│ 6   ┆ 1573 ┆ 0.711513 ┆ 0.345442 │
+└─────┴──────┴──────────┴──────────┘
+slow-growth (a<0.5) examples: ['hex:rrLLLL', 'hex:rrLLL', 'hex:RllRRR', 'hex:RllRR', 'hex:RRRllR'] median a 0.223
+fast (a>=0.9) examples: ['hex:rRR', 'hex:rRrr', 'hex:rRRR', 'hex:rRrrR', 'hex:rRRrR'] median a 0.998

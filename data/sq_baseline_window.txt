@@ -1,0 +1,1 @@
+square ants core rules: 2405 area exponent k16-24 quantiles 10/25/50/75/90: [0.653 0.667 0.682 0.697 0.714]

@@ -1,0 +1,14 @@
+
+RRRRRLLLLLL: colour counts [892, 758, 766, 893, 875, 800, 222, 859, 188, 821, 190] -> rare colours [8, 10, 6] (8.3% of cells)
+  tiles with visited cells: 310; hot tiles: 11
+  Spearman(loss, rare cells in tile) = 0.458 ; Spearman(loss, rare fraction) = 0.443 ; Spearman(loss, nvis) = 0.199
+  rare cells per tile: hot mean 4.27 vs all-tile mean 1.94; rare fraction hot 0.171 vs all 0.080
+  permutation p(hot tiles have >= this many rare cells) = 0.0030
+  partial Spearman(loss, rare cells | nvis, dist, occupancy) = 0.484
+
+RLLLLRRRRLR: colour counts [185, 1432, 3076, 1152, 1011, 1006, 176, 999, 177, 980, 950] -> rare colours [6, 8, 0] (4.8% of cells)
+  tiles with visited cells: 477; hot tiles: 17
+  Spearman(loss, rare cells in tile) = 0.492 ; Spearman(loss, rare fraction) = 0.492 ; Spearman(loss, nvis) = 0.317
+  rare cells per tile: hot mean 3.65 vs all-tile mean 1.13; rare fraction hot 0.146 vs all 0.045
+  permutation p(hot tiles have >= this many rare cells) = 0.0000
+  partial Spearman(loss, rare cells | nvis, dist, occupancy) = 0.407
