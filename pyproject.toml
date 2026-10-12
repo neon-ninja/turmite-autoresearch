@@ -1,0 +1,15 @@
+[project]
+name = "turmite-analysis"
+version = "0.1.0"
+description = "Analysis and rendering scripts for the turmite study"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy",
+    "scipy",
+    "polars",
+    "matplotlib",
+    "pillow",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,6 @@
+/target
+/dumps
+/synth
+/knock
+.venv/
+__pycache__/
