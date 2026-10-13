@@ -10,7 +10,7 @@ From the repo root (WSL; see AGENTS.md for the env):
 Typst is installed via `cargo install --locked typst-cli`. Numbers in main.typ are generated, with the exceptions below;
 inputs are the data files listed in the scripts, produced by the commands in notes/. Most numbers come from numbers.json; the sweep tallies (4083, 578, 3505+7, 304 builders), the 24-seed item4 and 12-patch item21 designs, the a4c edge exponents (0.22-0.25, 0.10-0.13) and the 300-rule c-model sample are typed by hand from the cited data/*.txt files and should be moved into compute_numbers.py.
 Exception: numbers quoted from the text outputs `data/a1b_icc.txt`, `a1_kappa_proxy.txt`, `a1c_predict.txt`, `a1_edge_q.txt`,
-`edge_exponent.txt`, `shape_stats.txt`, `b4_stats.txt`, `b5_stats.txt` are typed in main.typ with the file named beside them.
+`edge_exponent.txt`, `shape_stats.txt`, `b4_stats.txt`, `b5_stats.txt` are typed in main.typ with the file named beside them (the 2026-10-13 PM numbers h1, h3, g1 are instead parsed from `data/h1_lacunarity.txt`, `h3_collapse.txt`, `g1_stats.txt`, `g1_ribbon.log` by compute_numbers.py).
 Data files were produced from an uncommitted working tree (no commit hash available yet).
 
 Illustrative figures (`fig/gallery.pdf`, `fig/growth_curves.pdf`): `uv run paper/gallery.py`. The ant grids come from

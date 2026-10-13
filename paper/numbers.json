@@ -1625,5 +1625,29 @@
   "low_persist": 20,
   "spearman_census": 0.843,
   "spearman_gk": 0.815
+ },
+ "h1": {
+  "r2_geta_vs_excess": 0.454,
+  "icc_geta": 0.113,
+  "icc_a": 0.337,
+  "icc_ax": 0.122,
+  "icc_ay": 0.091,
+  "mean_geta": 0.0059,
+  "frac_geta_pos": 0.85,
+  "share_ax": 0.4322033898305085,
+  "share_ay": 0.4011299435028249,
+  "share_geta": 0.16949152542372883,
+  "corr_axay": 0.6211616832473602
+ },
+ "h3": {
+  "reduction": 0.586,
+  "fit_power": 0.695,
+  "fit_r2": 0.727
+ },
+ "g1": {
+  "onset_t": 12677000000,
+  "steady_windows": 299,
+  "steady_steps_per_new": 4.022,
+  "exit_step": 12974495927
  }
 }

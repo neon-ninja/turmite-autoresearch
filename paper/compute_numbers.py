@@ -224,3 +224,34 @@ N5["item21"] = {"high_n": int(hi.group(1)), "high_regress": float(hi.group(2)), 
                "spearman_census": float(re.search(r"Spearman\(census alpha, 12-seed mean\) over outliers: ([\d.]+)", t21).group(1)),
                "spearman_gk": float(re.search(r"Spearman\(g_k, 12-seed mean\) over outliers: ([\d.]+)", t21).group(1))}
 (R / "paper" / "numbers.json").write_text(json.dumps(N5, indent=1, default=float))
+
+# --- 2026-10-13 PM follow-ups: H1 (filling fraction), H3 (c*kappa prefactor), G1 (RLRLLL switch). Parsed from the text outputs of
+# data/h1_lacunarity.py, data/h3_collapse.py, data/g1_stats.py (+ the examples/ribbon_trace.rs log); notes/research-frontier-2026-10-13-pm.md.
+N6 = json.loads((R / "paper" / "numbers.json").read_text())
+h1t = (D / "h1_lacunarity.txt").read_text().split("== core band")[1]  # core-band section, the same filter as b2_anova.py / h3_collapse.py
+h3t = (D / "h3_collapse.txt").read_text()
+icc = lambda txt, name: float(re.search(rf"(?:ICC )?\b{name}\s+rules \d+\s+sd_within [\d.]+\s+sd_between [\d.]+\s+ICC ([\d.]+)", txt).group(1))
+cov = [float(v) for v in re.search(r"Cov\(term, a\): ax ([\d.]+)\s+ay ([\d.]+)\s+geta ([\d.]+)\s+\(sum ([\d.]+)\)", h3t).groups()]
+cm = [[float(v) for v in row.split()] for row in re.findall(r"^\s*\[?\[\s*([-\d.e+ ]+?)\s*\]", h3t.split("rule-mean covariance")[1], re.M)]
+N6["h1"] = {
+    "r2_geta_vs_excess": float(re.search(r"R\^2\(g_eta -> a-2alpha_w\) = ([\d.]+)", h1t).group(1)),
+    "icc_geta": icc(h1t, "geta"), "icc_a": icc(h1t, "a"),
+    "icc_ax": icc(h3t, "ax"), "icc_ay": icc(h3t, "ay"),
+    "mean_geta": float(re.search(r"mean g_eta ([+-][\d.]+)", h1t).group(1)),
+    "frac_geta_pos": float(re.search(r"frac rules g_eta>0: ([\d.]+)", h1t).group(1)),
+    "share_ax": cov[0] / cov[3], "share_ay": cov[1] / cov[3], "share_geta": cov[2] / cov[3],
+    "corr_axay": cm[0][1] / (cm[0][0] * cm[1][1]) ** 0.5,
+}
+N6["h3"] = {
+    "reduction": float(re.search(r"reduction ([\d.]+)%", h3t).group(1)) / 100,
+    "fit_power": float(re.search(r"log K = [\d.]+ \+ ([\d.]+) log\(c kappa\)", h3t).group(1)),
+    "fit_r2": float(re.search(r"log\(c kappa\); R\^2 = ([\d.]+)", h3t).group(1)),
+}
+g1t = (D / "g1_stats.txt").read_text()
+g1m = re.search(r"ONSET of the steady phase: window ending t = (\d+) \((\d+) windows", g1t)
+N6["g1"] = {
+    "onset_t": int(g1m.group(1)), "steady_windows": int(g1m.group(2)),
+    "steady_steps_per_new": float(re.search(r"steady phase: steps/new median ([\d.]+)", g1t).group(1)),
+    "exit_step": int(re.search(r"left the board at step (\d+)", (D / "g1_ribbon.log").read_text()).group(1)),
+}
+(R / "paper" / "numbers.json").write_text(json.dumps(N6, indent=1, default=float))
