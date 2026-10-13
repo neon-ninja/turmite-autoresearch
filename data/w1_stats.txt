@@ -1,0 +1,37 @@
+Reading inline script metadata from `data/w1_stats.py`
+escaped: []
+shape: (24, 4)
+┌──────────────┬───────┬────────┬───────┐
+│ spec         ┆ crust ┆ kappa  ┆ D     │
+│ ---          ┆ ---   ┆ ---    ┆ ---   │
+│ str          ┆ bool  ┆ f64    ┆ f64   │
+╞══════════════╪═══════╪════════╪═══════╡
+│ RRRLRLLLLLRR ┆ false ┆ 0.852  ┆ 0.213 │
+│ RLRLLLLRLLL  ┆ false ┆ 0.910  ┆ 0.217 │
+│ RLRLRRRRLRRL ┆ false ┆ 0.911  ┆ 0.245 │
+│ RLLLRLLLRLR  ┆ false ┆ 0.825  ┆ 0.255 │
+│ RLRLRRRRRL   ┆ false ┆ 0.956  ┆ 0.274 │
+│ RRRRLLLRRRLL ┆ false ┆ 0.889  ┆ 0.293 │
+│ RRRLRLLLLRL  ┆ false ┆ 0.916  ┆ 0.300 │
+│ RLRLRRRLRRRR ┆ false ┆ 0.831  ┆ 0.307 │
+│ RLLLRLLLRLRR ┆ false ┆ 0.862  ┆ 0.346 │
+│ RLRLLRRLLLLR ┆ true  ┆ 0.410  ┆ 0.165 │
+│ RLLLRRRLRLRR ┆ true  ┆ 7.354  ┆ 0.233 │
+│ RLLRRRLLLLLL ┆ true  ┆ 1.136  ┆ 0.250 │
+│ RLLRRRRLLLLR ┆ true  ┆ 0.398  ┆ 0.286 │
+│ RLLLLRRLLRRR ┆ true  ┆ 0.184  ┆ 0.291 │
+│ RLLRRLLLLRRR ┆ true  ┆ 0.506  ┆ 0.291 │
+│ RLLLLLLRRRRR ┆ true  ┆ 0.130  ┆ 0.302 │
+│ RRLRLLLRLRRR ┆ true  ┆ 3.202  ┆ 0.320 │
+│ RLLRRLLLRLR  ┆ true  ┆ 0.927  ┆ 0.320 │
+│ RLLLLRRLRRRR ┆ true  ┆ 0.371  ┆ 0.323 │
+│ RLLRRLLRRRL  ┆ true  ┆ 1.013  ┆ 0.343 │
+│ RLLRRLRRRRR  ┆ true  ┆ 3.551  ┆ 0.350 │
+│ RLLRLLRLLLLR ┆ true  ┆ 9.084  ┆ 0.403 │
+│ RLLRRRLRRRRR ┆ true  ┆ 18.294 ┆ 0.417 │
+│ RLLLRRRLLRLL ┆ true  ┆ 7.626  ┆ 0.446 │
+└──────────────┴───────┴────────┴───────┘
+n crust 15, uniform 9; mean D crust 0.316 (sd 0.072), uniform 0.272 (sd 0.044); diff +0.044
+W1a Mann-Whitney one-sided (crust > uniform): MannwhitneyuResult(statistic=np.float64(95.0), pvalue=np.float64(0.05370231816512683))
+W1b Spearman(D, log kappa): SignificanceResult(statistic=np.float64(0.3956521739130434), pvalue=np.float64(0.05565238288922829))
+W1c uniform class: min D 0.213, median 0.274; all > 0.18: True; rotor reference 0.10-0.13

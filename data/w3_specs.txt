@@ -1,0 +1,15 @@
+nrotor:0.001:1
+nrotor:0.001:2
+nrotor:0.001:3
+nrotor:0.001:4
+nrotor:0.003:1
+nrotor:0.003:2
+nrotor:0.003:3
+nrotor:0.003:4
+nrotor:0.01:1
+nrotor:0.01:2
+nrotor:0.01:3
+nrotor:0.01:4
+pw:0.5:1
+pw:0.5:2
+pw:0.5:3

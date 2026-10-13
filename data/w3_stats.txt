@@ -1,0 +1,14 @@
+nrotor:0.001:1 a=0.777 centre=2.12 formula-centre=3.80 rms formula 0.68 cone 0.38
+nrotor:0.001:2 a=0.767 centre=1.96 formula-centre=3.71 rms formula 0.70 cone 0.43
+nrotor:0.001:3 a=0.749 centre=1.88 formula-centre=3.54 rms formula 0.67 cone 0.45
+nrotor:0.001:4 a=0.760 centre=1.97 formula-centre=3.64 rms formula 0.67 cone 0.42
+nrotor:0.003:1 a=0.856 centre=1.10 formula-centre=4.65 rms formula 1.43 cone 0.91
+nrotor:0.003:2 a=0.836 centre=1.60 formula-centre=4.41 rms formula 1.07 cone 0.59
+nrotor:0.003:3 a=0.857 centre=1.72 formula-centre=4.65 rms formula 1.16 cone 0.63
+nrotor:0.003:4 a=0.845 centre=1.60 formula-centre=4.52 rms formula 1.15 cone 0.65
+nrotor:0.01:1  a=0.927 centre=1.58 formula-centre=5.53 rms formula 1.74 cone 1.12
+nrotor:0.01:2  a=0.928 centre=0.40 formula-centre=5.55 rms formula 2.01 cone 1.25
+nrotor:0.01:3  a=0.902 centre=1.21 formula-centre=5.20 rms formula 1.81 cone 1.22
+nrotor:0.01:4  a=0.918 centre=0.94 formula-centre=5.42 rms formula 1.79 cone 1.09
+pw:0.5:2       a=0.948 centre=0.00 formula-centre=5.81 rms formula 2.40 cone 1.62
+runs with a >= 0.75: 12; formula beats cone in 0; centre > 3.5 in 0; centre within 3+-0.5 in 0

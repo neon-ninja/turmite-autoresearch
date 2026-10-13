@@ -199,3 +199,88 @@ impl Walker for SparseBgAnt {
         self.ant.step(cell, heading);
     }
 }
+
+/// Memoryless persistent walker (A1d): every step turns right with
+/// probability `q` and left otherwise, independent of the board. This is the
+/// "independent turns" model of the mixing test, and it has no memory in the
+/// environment, so it separates what a persistent random walk alone explains
+/// from what the ant's colour field adds.
+pub struct PersistentWalk {
+    pub state: u64,
+    /// Turn-right probability scaled to 2^32.
+    pub q32: u64,
+}
+
+impl PersistentWalk {
+    pub fn new(seed: u64, q: f64) -> PersistentWalk {
+        PersistentWalk { state: seed, q32: (q * 4294967296.0) as u64 }
+    }
+}
+
+impl Walker for PersistentWalk {
+    const RANDOM_INIT: bool = false;
+    fn initial_cell(&self, _: i64, _: i64) -> u8 {
+        0
+    }
+    #[inline(always)]
+    fn step(&mut self, _cell: &mut u8, heading: &mut u8) {
+        let r = (splitmix_next(&mut self.state) >> 32) < self.q32;
+        *heading = (*heading + if r { 1 } else { 3 }) & 3;
+    }
+}
+
+/// Rotor with memory noise (A1 Arm B): as `Rotor`, but with probability `eps`
+/// per visit the new arrow is uniform random instead of the next clockwise one.
+/// eps = 0 is the rotor; eps = 1 is a memoryless random walk that never turns
+/// back on its own board.
+pub struct NoisyRotor {
+    pub seed: u64,
+    pub state: u64,
+    pub eps32: u64,
+}
+
+impl NoisyRotor {
+    pub fn new(seed: u64, eps: f64) -> NoisyRotor {
+        NoisyRotor { seed, state: mix64(seed ^ 0x2545_F491_4F6C_DD1D), eps32: (eps * 4294967296.0) as u64 }
+    }
+}
+
+impl Walker for NoisyRotor {
+    const RANDOM_INIT: bool = true;
+    fn initial_cell(&self, x: i64, y: i64) -> u8 {
+        initial_arrow(self.seed, x, y)
+    }
+    #[inline(always)]
+    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
+        let r = splitmix_next(&mut self.state);
+        *cell = if (r >> 32) < self.eps32 { (r & 3) as u8 } else { (*cell + 1) & 3 };
+        *heading = *cell;
+    }
+}
+
+/// Multi-state turmite (`ext::Turmite`) as a probe/shape walker: same table semantics as
+/// `ext::SqSim` (write colour, quarter-turn clockwise, next state), blank board, heading north.
+pub struct TurmiteWalker {
+    tm: crate::ext::Turmite,
+    state: u8,
+}
+
+impl TurmiteWalker {
+    pub fn new(tm: crate::ext::Turmite) -> TurmiteWalker {
+        TurmiteWalker { tm, state: 0 }
+    }
+}
+
+impl Walker for TurmiteWalker {
+    const RANDOM_INIT: bool = false;
+    fn initial_cell(&self, _: i64, _: i64) -> u8 {
+        0
+    }
+    #[inline(always)]
+    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
+        let (w, turn, ns) = self.tm.table[self.state as usize * self.tm.colours + *cell as usize];
+        *cell = w;
+        self.state = ns;
+        *heading = (*heading + turn) & 3;
+    }
+}

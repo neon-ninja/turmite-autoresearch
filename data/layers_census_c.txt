@@ -1,0 +1,5 @@
+Reading inline script metadata from `data/layers_census_c.py`
+blob rules: 2622  c quantiles 5/25/50/75/95: [0.234 0.343 0.438 0.484 0.662]
+c >= 0.55: 387 rules (15%); kappa median 0.82 IQR [0.59 1.13]; c < 0.55: kappa median 0.92
+c >= 0.6: 319 rules (12%); kappa median 0.80 IQR [0.57 1.17]; c < 0.6: kappa median 0.91
+c histogram (0.05 bins from 0): {np.float64(0.0): np.int64(0), np.float64(0.05): np.int64(0), np.float64(0.1): np.int64(9), np.float64(0.15): np.int64(38), np.float64(0.2): np.int64(157), np.float64(0.25): np.int64(224), np.float64(0.3): np.int64(290), np.float64(0.35): np.int64(271), np.float64(0.4): np.int64(456), np.float64(0.45): np.int64(687), np.float64(0.5): np.int64(103), np.float64(0.55): np.int64(68), np.float64(0.6): np.int64(56), np.float64(0.65): np.int64(263), np.float64(0.7): np.int64(0)}

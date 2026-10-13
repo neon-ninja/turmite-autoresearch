@@ -148,6 +148,15 @@ fn main() {
         .map(|r| {
             if let Some(seed) = r.strip_prefix("rotor:") {
                 run(Rotor { seed: seed.parse().unwrap() }, r, size, max_log2)
+            } else if let Some(t) = r.strip_prefix("nrotor:") {
+                let (eps, seed) = t.split_once(':').unwrap();
+                run(turmite::walkers::NoisyRotor::new(seed.parse().unwrap(), eps.parse().unwrap()), r, size, max_log2)
+            } else if let Some(t) = r.strip_prefix("pw:") {
+                let (q, seed) = t.split_once(':').unwrap();
+                run(turmite::walkers::PersistentWalk::new(seed.parse().unwrap(), q.parse().unwrap()), r, size, max_log2)
+            } else if let Some(t) = r.strip_prefix("tm:") {
+                let p: Vec<&str> = t.split(':').collect();
+                run(turmite::walkers::TurmiteWalker::new(turmite::ext::Turmite::from_id(p[0].parse().unwrap(), p[1].parse().unwrap(), p[2].parse().unwrap())), r, size, max_log2)
             } else if r.contains('@') {
                 // RULE@SEED or RULE@SEED@RADIUS (A3 control: radius >= size/2 gives a full random-colour background)
                 let mut it = r.split('@');

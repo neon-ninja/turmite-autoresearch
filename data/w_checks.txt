@@ -1,0 +1,38 @@
+(1) W2 chaotic turmites: a(22-24), a(24-26), a(26-28), centre density
+  tm:2:2:24143     0.671 0.704 0.660  centre 2.80
+  tm:2:2:27539     0.749 0.677 0.712  centre 2.74
+  tm:2:2:31483     0.660 0.663 0.664  centre 0.08
+  tm:2:2:33269     0.724 0.657 0.689  centre 2.70
+  tm:2:2:3854      0.765 0.771 0.629  centre 1.92
+  tm:2:2:3931      0.666 0.666 0.666  centre 2.27
+  tm:2:2:42430     0.726 0.640 0.670  centre 3.09
+  tm:2:2:45251     0.600 0.863 0.657  centre 2.66
+  tm:2:2:46382     0.744 0.756 0.736  centre 2.80
+  tm:2:2:7982      0.701 0.697 0.740  centre 3.08
+(2) W3 last checkpoint: spec k aniso fill rsd
+  nrotor:0.001:1 k=26 aniso=0.027 fill=0.965 rsd=0.078
+  nrotor:0.001:2 k=26 aniso=0.169 fill=0.965 rsd=0.106
+  nrotor:0.001:3 k=26 aniso=0.311 fill=0.972 rsd=0.136
+  nrotor:0.001:4 k=26 aniso=0.195 fill=0.964 rsd=0.100
+  nrotor:0.003:1 k=26 aniso=0.549 fill=1.023 rsd=0.339
+  nrotor:0.003:2 k=26 aniso=0.469 fill=0.976 rsd=0.246
+  nrotor:0.003:3 k=26 aniso=0.315 fill=0.967 rsd=0.248
+  nrotor:0.003:4 k=26 aniso=0.253 fill=0.951 rsd=0.145
+  nrotor:0.01:1  k=26 aniso=0.921 fill=1.164 rsd=0.866
+  nrotor:0.01:2  k=26 aniso=0.768 fill=0.913 rsd=0.624
+  nrotor:0.01:3  k=26 aniso=0.763 fill=1.076 rsd=0.651
+  nrotor:0.01:4  k=26 aniso=0.841 fill=1.009 rsd=0.607
+  pw:0.5:1       k=24 aniso=0.770 fill=0.295 rsd=0.724
+  pw:0.5:2       k=26 aniso=0.592 fill=0.453 rsd=0.500
+  pw:0.5:3       k=24 aniso=0.901 fill=0.500 rsd=0.944
+(3) W2 sqrt tables last checkpoint: spec k aniso
+  tm:2:2:29114     k=24 aniso=1.0000 A=20473 fill=0.758
+  tm:2:2:29727     k=24 aniso=1.0000 A=17366 fill=0.653
+  tm:2:2:32279     k=24 aniso=1.0000 A=11584 fill=0.445
+  tm:2:2:39705     k=24 aniso=1.0000 A=11584 fill=0.445
+  tm:2:2:39774     k=24 aniso=1.0000 A=11584 fill=0.445
+  tm:2:2:39912     k=24 aniso=1.0000 A=11584 fill=0.445
+  tm:2:2:40778     k=24 aniso=1.0000 A=11584 fill=0.445
+  tm:2:2:48659     k=24 aniso=1.0000 A=11584 fill=0.445
+  tm:2:2:58647     k=24 aniso=1.0000 A=11584 fill=0.445
+  tm:2:2:8979      k=24 aniso=1.0000 A=11584 fill=0.445

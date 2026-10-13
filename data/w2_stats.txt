@@ -1,0 +1,24 @@
+Reading inline script metadata from `data/w2_stats.py`
+escaped/missing: ['# tm:2:2:29114 escaped at t=67002410', '# tm:2:2:29727 escaped at t=33542134', '# tm:2:2:32279 escaped at t=33525765', '# tm:2:2:39705 escaped at t=33525765', '# tm:2:2:39774 escaped at t=33517578', '# tm:2:2:39912 escaped at t=33517578', '# tm:2:2:40778 escaped at t=33517578', '# tm:2:2:48659 escaped at t=33525765', '# tm:2:2:58647 escaped at t=33525765', '# tm:2:2:8979 escaped at t=33525765']
+tm:2:2:29114 sqrt no profile
+tm:2:2:29727 sqrt no profile
+tm:2:2:32279 sqrt no profile
+tm:2:2:39705 sqrt no profile
+tm:2:2:39774 sqrt no profile
+tm:2:2:39912 sqrt no profile
+tm:2:2:40778 sqrt no profile
+tm:2:2:48659 sqrt no profile
+tm:2:2:58647 sqrt no profile
+tm:2:2:8979 sqrt no profile
+chaotic  tm:2:2:24143     a=0.678 centre=2.80 formula-centre=2.97 rms formula 0.06 cone 0.04 in-class-range=True
+chaotic  tm:2:2:27539     a=0.712 centre=2.74 formula-centre=3.23 rms formula 0.18 cone 0.06 in-class-range=True
+chaotic  tm:2:2:31483     a=0.662 centre=0.08 formula-centre=2.86 rms formula 1.45 cone 1.46 in-class-range=True
+chaotic  tm:2:2:33269     a=0.690 centre=2.70 formula-centre=3.06 rms formula 0.11 cone 0.06 in-class-range=True
+chaotic  tm:2:2:3854      a=0.722 centre=1.92 formula-centre=3.31 rms formula 0.55 cone 0.42 in-class-range=True
+chaotic  tm:2:2:3931      a=0.666 centre=2.27 formula-centre=2.88 rms formula 0.31 cone 0.31 in-class-range=True
+chaotic  tm:2:2:42430     a=0.679 centre=3.09 formula-centre=2.97 rms formula 0.06 cone 0.07 in-class-range=True
+chaotic  tm:2:2:45251     a=0.707 centre=2.66 formula-centre=3.19 rms formula 0.17 cone 0.12 in-class-range=True
+chaotic  tm:2:2:46382     a=0.745 centre=2.80 formula-centre=3.51 rms formula 0.28 cone 0.12 in-class-range=True
+chaotic  tm:2:2:7982      a=0.713 centre=3.08 formula-centre=3.23 rms formula 0.06 cone 0.10 in-class-range=True
+sqrt: n=0; formula beats cone in 0; centre within 2+-0.5 in 0, within 3+-0.5 in 0; in-range runs 0
+chaotic: n=10; formula beats cone in 4; centre within 2+-0.5 in 2, within 3+-0.5 in 7; in-range runs 10
