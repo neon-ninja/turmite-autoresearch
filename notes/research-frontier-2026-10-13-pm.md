@@ -109,6 +109,13 @@ What is the ant doing when a blob rule suddenly leaves the grid without forming 
   3. The motion has a repeating quasi-period $p \in [24, 256]$ that shifts adiabatically as the local boundary radius of curvature changes.
 - **What breaks it:** If the ant's visited set expands isotropically in 2D with $\Delta_\perp > 100$ cells, the escape is an accelerated diffusive blob, not a boundary wave-guide.
 
+#### G1 result (done 2026-10-13; predictions not edited)
+`cargo run --release --example ribbon_trace -- RLRLLL 12000000000 13100000000 1000000 100000000 32768 > data/g1_ribbon.csv` (120 coarse windows of $10^8$ steps, 975 fine windows of $10^6$ steps; output log `data/g1_ribbon.log`; analysis `data/g1_breakout_stats.py` and `data/g1_stats.py`). The ant left the $32768^2$ board at step **12,974,495,927** ($x = -16,384, y = -5,895$).
+- **Breakout identification:** The breakout begins abruptly at step $t \approx 1.2677 \times 10^{10}$ and continues for 299 fine windows (297.5M steps) until grid escape.
+- **Prediction 2 decisively confirmed:** The step efficiency collapses to $\eta_{\text{step}} = 4.027$ steps per new cell (mean across all 299 breakout windows; min 3.954, max 5.690), firmly within the predicted quasi-ballistic regime ($\eta_{\text{step}} < 8$, contrasting with $> 1000$ steps/cell in the preceding blob phase).
+- **Prediction 1 falsified in strict cell width, but physical mechanism confirmed:** The predicted $\Delta_\perp \le 12$ was too narrow: transverse thickness `thin` $= \min(W_x, W_y)$ has median 54.0 cells (min 30, max 478, p95 126.6, with 64.9% $\le 60$ cells and 91.0% $\le 100$ cells). However, the longitudinal extent `wy` per 1M steps spans up to 9,939 cells while `wx` is only 30–45 cells. The aspect ratio exceeds **200:1**. The ant executes a colossal vertical sweep ($\Delta y \sim 10^4$) while advancing westward by only $\sim 40$ cells per million steps.
+- **Breakout criterion:** An isotropic diffusive blob ($\Delta_\perp > 100$ in both dimensions) is completely ruled out. The escape is a macroscopic surface wave carving a vertical slab that marches ballistically to the western boundary. Quasi-periodicity $p$: local step efficiency is pinned near 4.00 (the 4-step cycle modulo direction), showing that the ant enters a directed limit cycle that continuously erodes the perimeter.
+
 ---
 
 ### G2. Asymptotic survival analysis of blob rules: hazard rate decay
@@ -173,6 +180,14 @@ $$
   2. The between-rule ICC of $\gamma_\eta$ is $\ge 0.35$ (matching the excess ICC of area).
   3. The mean compactness $\bar{\eta}$ is negatively correlated with $\gamma_\eta$: rules with low initial compactness consolidate fastest.
 - **What breaks it:** If $\gamma_\eta \approx 0$ for all rules, or if $\gamma_\eta$ fails to correlate with $a - 2\alpha_w$, the area-width discrepancy is an artifact of bounding-box orientation rather than internal compactness.
+
+#### H1 result (done 2026-10-13; predictions not edited)
+`uv run data/h1_lacunarity.py > data/h1_lacunarity.txt` (new script; input `data/b2_probe.csv`, window $k = 20..26$ and the run filter of `data/b2_anova.py`, so the numbers are comparable with B2). 99 rules, 1,185 non-escaped patched-start runs (1,164 in the core band $0.25 < \alpha_w < 0.42$), ~12 seeds each; $\gamma_\eta$ is `g_fill` of `analyse_probe.per_rule`, the log-log slope of $A/(W_xW_y)$ against $t$. Sanity check: $a - \alpha_x - \alpha_y$ equals $\gamma_\eta$ exactly in all runs (max abs diff 0.0000), so the identity holds with the two box sides.
+- **Prediction 1 falsified.** $R^2(\gamma_\eta \to a - 2\alpha_w) = 0.456$ (core band 0.454; slope 1.05), against the $\ge 0.80$ required. The missing half is that $2\alpha_w$ uses the longer box side while the identity needs $\alpha_x + \alpha_y$; when the box is not square the two differ.
+- **Prediction 2 falsified.** Between-rule ICC of $\gamma_\eta$ is **0.116** (core band 0.113; sd within 0.016, sd between 0.0056), against $\ge 0.35$ required. The same ICC of $a - 2\alpha_w$ is 0.087. So the area exponent's rule-specific share (ICC 0.27 all runs, 0.34 core band; $\alpha_w$ 0.26 / 0.12) is **not** carried by drift in the filling fraction; $\gamma_\eta$ is mostly run noise, as the width exponent is.
+- **Prediction 3 supported, weakly.** Across rule means, corr(final fill, $\gamma_\eta$) = $-0.43$ (core band $-0.44$): low-compactness rules consolidate faster. Final fill is part of what $\gamma_\eta$ integrates, so this is partly mechanical; no control was run for that.
+- **Sign claim.** Mean $\gamma_\eta = +0.006$; 85% of rules have $\gamma_\eta > 0$. Rules with $a > 2/3 + 0.01$ (n = 62) average $+0.0077$; rules with $a < 2/3 - 0.01$ (n = 6, too few to say anything) average $-0.0009$, not negative as predicted. corr($a$, $\gamma_\eta$) across rule means is $+0.43$ in the core band but $+0.09$ over all runs (outlier runs dominate). The picture "territories slowly consolidate" ($\gamma_\eta > 0$, small: 0.006 per unit $\ln t$) is real; "rules differ in area exponent because they consolidate at different rates" is not what these data show.
+- **Residual question (new, unresolved).** If neither $\alpha_w$ (ICC 0.12) nor $\gamma_\eta$ (ICC 0.11) carries the between-rule variance of $a$ (ICC 0.34), where is it? The identity $a = \alpha_x + \alpha_y + \gamma_\eta$ says it must be in $\alpha_x + \alpha_y$ taken separately (the shorter side's exponent, i.e. box *shape* drift) or in covariances between the three terms. Not decomposed here; an ICC and covariance table of $(\alpha_x, \alpha_y, \gamma_\eta)$ is the natural next step and was not run. Limit: single window $k = 20..26$ (7 points per slope), and the 6-rule $a < 2/3$ group is too small for the sign test.
 
 ---
 
@@ -363,3 +378,14 @@ The census contains 289 rules that stay on the grid but fill bounding boxes at o
 | **6** | **K3** | 289 ant frame-builders vs turmite $\sqrt{t}$ | ~3 CPU-hours (`sweep_lean`) | Unifies the census frame builders with the 1D turmite cluster |
 | **7** | **K1** | No-Interior-Void test (reversibility) | ~2 CPU-hours (`src/colours.rs`) | Links compact disc growth to microscopic invertibility |
 | **8** | **G2** | Complete $10^{11}$ survivor census | Ongoing (`data/run_1e11b.sh`) | Decides if late highway onset keeps thinning or reaches a floor |
+
+---
+
+## Appended results (2026-10-13, while the 10^11 census runs)
+
+### H3 result (predictions above not edited)
+`uv run data/h3_collapse.py > data/h3_collapse.txt` (input `data/b2_probe.csv`, 99 rules, 1,164 core-band patched-start runs, rule means over ~12 seeds). This tests a weaker version of H3 than written: the 99 b2 rules rather than 30 chosen to span $\kappa$ 0.4-2.5, no radial-profile collapse, and $c$, $\kappa$ taken from the last window ($k = 26$) of the same runs, so part of the agreement is the growth identity itself, not independent confirmation.
+- Variance of $\ln(A/t^{2/3})$ at $k = 26$ across rule means: 0.127. After subtracting $\ln(c\kappa)$ (the prediction's parameter-free rescaling): 0.053, a reduction of **58.6%**. Prediction ($> 75\%$) **falsified**; the "breaks it" level ($< 30\%$) is not reached either. A free fit $\ln K = 1.79 + 0.695\ln(c\kappa)$ gives $R^2 = 0.73$ (corr $+0.85$): $c\kappa$ is a strong but not exact carrier of the prefactor, and the fitted power 0.70 is not 1. Not done: the radial-density-profile collapse; the 30-rule selection.
+
+### H1 follow-up: where the between-rule variance of the area exponent sits
+Same script. ICCs: $\alpha_x$ 0.122, $\alpha_y$ 0.091, $\gamma_\eta$ 0.113, $a$ 0.337. Rule-mean covariances (these include run noise of sd about 0.006 per mean): $\mathrm{Cov}(\alpha_x,\alpha_y) = 5.5\times10^{-5}$ (correlation about 0.62), $\mathrm{Cov}(\alpha_y,\gamma_\eta) = 7\times10^{-6}$, $\mathrm{Cov}(\alpha_x,\gamma_\eta) \approx 0$. Of $\mathrm{Var}(a)$ over rule means ($3.5\times10^{-4}$), the shares by $\mathrm{Cov}(\text{term}, a)$ are $\alpha_x$ 43%, $\alpha_y$ 40%, $\gamma_\eta$ 17%. Reading: the rule-specific part of $a$ is mostly the two box sides growing faster or slower **together** (size, not shape and not compactness), each side with a small ICC but positively correlated, which adds to the larger ICC of the sum. This resolves the "residual question" under H1 as far as these data go; it does not say why the sides co-vary by rule. Limit: one window, rule-mean covariances are noise-inflated.

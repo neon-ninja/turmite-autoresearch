@@ -1,0 +1,5 @@
+rotor a4c+a4 (k 22..32): runs 14; gamma = dlogW/dlogR: mean 0.401 sd 0.073 SE 0.020; R-exponent in t: 0.339; W-exponent in t: 0.136
+ants a4c+a4 (k 22..32): runs 36; gamma = dlogW/dlogR: mean 0.714 sd 0.138 SE 0.023; R-exponent in t: 0.341; W-exponent in t: 0.243
+   between-rule sd of gamma (rule means, 6 rules): 0.066
+ants w1 blank (k 22..30): runs 24; gamma = dlogW/dlogR: mean 0.918 sd 0.143 SE 0.029; R-exponent in t: 0.331; W-exponent in t: 0.302
+   between-rule sd of gamma (rule means, 24 rules): 0.143

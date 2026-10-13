@@ -310,7 +310,7 @@ This revises our earlier statement that most between-rule scatter is noise: for 
   [Outliers are noise], [Refuted for most: #pct(N.item21.high_regress) / #pct(N.item21.low_regress) regress], [@sec:ens],
   [Surface width matches the rotor], [Not supported: ants' exponent is about twice the rotor's (#f(N.shape.ants.dW, d: 2) against #f(N.shape.rotor.dW, d: 2) for a fit over $k >= 18$; 0.22–0.25 against 0.10–0.13 at matched $k$ = 22–32)], [@sec:ens],
   [$kappa$ is rule-specific but not predicted by the rule string], [Moderately reproducible (ICC 0.58); held-out $R^2$ 0.003 (letters) against 0.78 for $c$], [@sec:factors],
-  [Why $kappa$ takes its value, why it drifts in some rules], [*Unexplained*; a memoryless persistent walker (A1d) gives $kappa approx 1.4$ and area exponent 0.95, so board memory is required; edge-layer anatomy (A1-typical) separates a crust class from a uniform class but does not predict $kappa$ (predictions failed); $kappa$ is not shared between cyclic rotations of a rule (ICC 0.20, K1)], [@sec:factors],
+  [Why $kappa$ takes its value, why it drifts in some rules], [*Unexplained*; a memoryless persistent walker (A1d) gives $kappa approx 1.4$ and area exponent 0.95, so board memory is required; edge-layer anatomy (A1-typical) separates a crust class from a uniform class but does not predict $kappa$ (predictions failed); $kappa$ is not shared between cyclic rotations of a rule (ICC 0.20, K1); a stochastic true self-avoiding walk gets $kappa$ up to 1.97 with area exponent 0.98 (E1), so $kappa approx 2$ is not specific to the rotor], [@sec:factors],
   [Whether the edge exponent is 1/2 asymptotically], [*Unexplained*; the finite-window $beta$ is #f(N.mf_core.beta.at(1), d: 3) for ants and #f(N.calib_A.rotor.beta.median, d: 3) for the rotor], [],
 )
 ]
@@ -334,7 +334,7 @@ Non-highway generalised Langton's ants of length 3–12 grow, to within the bias
 
 *Data and code availability.* [PLACEHOLDER: repository URL and archived DOI (e.g. Zenodo) to be added once the working tree is committed.] The Rust simulator, the Python analysis scripts, the generated data files, `paper/compute_numbers.py` (every number in this text) and `paper/figures.py` are in the repository; the exact commands are in `paper/README.md` and `notes/`. At the time of writing the tree is uncommitted, so no commit hash is quoted.
 
-*Use of AI tools.* The code, analyses and draft of this paper were produced with substantial assistance from Claude (Anthropic) via Claude Code, under the author's direction. The author is responsible for the content and has reviewed the results. [Check wording against the target venue's policy.]
+*Use of AI tools.* The code, analyses, and draft of this paper were produced with substantial assistance from Claude (Anthropic) via Claude Code and Google Gemini via Antigravity, under the author's direction. The author is responsible for the content and has reviewed the results. [Check wording against the target venue's policy.]
 
 *Competing interests and funding.* [PLACEHOLDER]
 

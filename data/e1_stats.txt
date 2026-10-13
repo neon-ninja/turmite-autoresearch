@@ -1,11 +1,6 @@
-Reading inline script metadata from `data/e1_stats.py`
-map | base near_home | tiles | hot tiles | lobe bearing (deg clockwise from north) | resultant length | mean hot distance from tether centre
-k24 (original)  | 0.4737 | 310 | 11 |  345.4 | 0.49 | 11.4   (tether centre 0.54,-5.49)
-k22             | 0.4280 | 199 | 9 |  221.9 | 0.47 | 9.1   (tether centre -4.51,5.49)
-k25             | 0.0611 | 375 | 13 |  122.8 | 0.82 | 17.1   (tether centre 10.44,16.59)
-k26             | 0.3568 | 434 | 9 |  253.7 | 0.45 | 14.0   (tether centre -8.32,-2.43)
-rot90b          | 0.4737 | 308 | 10 |  119.6 | 0.50 | 13.5   (tether centre 5.49,0.54)
-rotated-minus-original lobe bearing: 134 degrees (exact rotation covariance predicts 90)
-k22: bearing difference from the 2^24 lobe: -124 degrees; fixed-direction criterion (|d| <= 30 and >= 5 hot tiles): no/NA
-k25: bearing difference from the 2^24 lobe: +137 degrees; fixed-direction criterion (|d| <= 30 and >= 5 hot tiles): no/NA
-k26: bearing difference from the 2^24 lobe: -92 degrees; fixed-direction criterion (|d| <= 30 and >= 5 hot tiles): no/NA
+27 of 30 runs left the 16384 board before 2^26
+g=0.0   runs 6  area exponent k16..22: 0.954 (sd 0.030)  kappa(k=22): 1.31 (sd 0.08)  last full window k: 24-26
+g=0.25  runs 6  area exponent k16..22: 0.961 (sd 0.008)  kappa(k=22): 1.71 (sd 0.04)  last full window k: 24-26
+g=0.5   runs 6  area exponent k16..22: 0.980 (sd 0.020)  kappa(k=22): 1.82 (sd 0.03)  last full window k: 22-25
+g=1.0   runs 6  area exponent k16..22: 0.978 (sd 0.009)  kappa(k=22): 1.92 (sd 0.05)  last full window k: 22-24
+g=2.0   runs 6  area exponent k16..22: 0.979 (sd 0.008)  kappa(k=22): 1.97 (sd 0.06)  last full window k: 22-24
