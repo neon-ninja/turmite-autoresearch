@@ -14,6 +14,7 @@
 #set math.equation(numbering: "(1)")
 
 #align(center)[
+  #set par(justify: false)
   #text(16pt, weight: "bold")[Cube-root growth of most non-highway generalised Langton's ants (length $<= 12$):\ a calibrated mean-field decomposition]
   #v(0.6em)
   Tim McNamara \
@@ -186,7 +187,7 @@ Genuine rule-to-rule differences in $alpha$ are small; for $R_g$ and $a$ they ar
 
 For the #N.probe.core core rules (those with $0.30 < alpha < 0.37$), the medians (and quartile ranges) of the factors are $c = #f(N.mf_core.c.at(1), d: 2)$ #iqr(N.mf_core.c), $kappa = #f(N.mf_core.kappa.at(1), d: 2)$ #iqr(N.mf_core.kappa) and $beta = #f(N.mf_core.beta.at(1), d: 3)$ #iqr(N.mf_core.beta, d: 3), with territory fill (area over bounding box) #f(N.mf_core.fill.at(1), d: 2) #iqr(N.mf_core.fill).
 
-The drift exponents are small, but the 0.05 threshold is loose: through @eq:a a drift of 0.05 shifts $a$ by about 0.033 and $alpha$ by about 0.017, as much as the rule-to-rule differences we are trying to explain. The fractions below therefore say that $c$ and $kappa$ drift by less than the effect size of interest, not that they are exactly constant, and only the six $2^32$ runs probe much smaller drifts. $|gamma_c| < 0.05$ for #pct(N.identity.frac_blob_gc_small) and $|gamma_kappa| < 0.05$ for #pct(N.identity.frac_blob_gk_small) of all #N.probe.blob blob rules (the fractions are computed on the whole class, because "core" is itself defined by a width exponent near 1/3 and would make small drifts nearly automatic).
+The drift exponents are small, but the 0.05 threshold is loose: through @eq:a a drift of 0.05 shifts $a$ by about 0.033 and $alpha$ by about 0.017, as much as the rule-to-rule differences we are trying to explain. These fractions therefore say that $c$ and $kappa$ drift by less than the effect size of interest, not that they are exactly constant, and only the six $2^32$ runs probe much smaller drifts. $|gamma_c| < 0.05$ for #pct(N.identity.frac_blob_gc_small) and $|gamma_kappa| < 0.05$ for #pct(N.identity.frac_blob_gk_small) of all #N.probe.blob blob rules (the fractions are computed on the whole class, because "core" is itself defined by a width exponent near 1/3 and would make small drifts nearly automatic).
 
 @fig:ck shows the long runs: both factors plateau from $2^17$ to $2^32$ for six rules. These are the observations that the cube root rests on; the predictions P1–P4 were written down before the analysis (`notes/cube-root-hypothesis.md`, dated 2026-10-10, three days before this draft) and could have failed; P4 predicted $beta$ close to $1/2$, and the measured $beta$ is #f(N.mf_core.beta.at(1), d: 3) (core median), equal to the rotor's #f(N.calib_A.rotor.beta.median, d: 3) in the same window (@tab:calib).
 
@@ -201,7 +202,7 @@ The medians quoted here are for the core class, which is selected on the outcome
 
 The cube root does not require the same $c$ and $kappa$ as the rotor; it requires that they be constant and that the edge scale as $A^(1/2)$. The ant's edge occupation is _lower_ than uniform ($kappa < 1$ for most rules); we have no explanation of the value of $kappa$.
 
-*Is $kappa$ a property of the rule?* The abstract's claim that $kappa$ differs between rules moderately reproducibly, yet is not carried by the letters, rests on three measurements, drawn from four data files; the between-rule fractions are intraclass correlations as in the Noise paragraph.
+*Is $kappa$ a property of the rule?* The claim that $kappa$ differs between rules moderately reproducibly, yet is not carried by the letters, rests on three measurements, drawn from four data files; the between-rule fractions are intraclass correlations as in the Noise paragraph.
 
 - (i) _Moderately reproducible_ (`data/a1b_icc.txt`; the within-rule sd is nearly as large as the between-rule sd): 99 random rules, each run from 12 random $5 times 5$ patches, have a between-rule sd of $kappa$ of 0.44 against a within-rule sd of 0.37 in the core band (ICC 0.58; 0.63 for $log kappa$; 58 further core rules give 0.50 and 0.63). The width exponent on this design (`data/b2_probe.csv`) has ICC 0.12 (0.065 in the Noise paragraph, a different set of rules and starts), so $kappa$ is much more rule-specific than the exponent it controls.
 - (ii) _Not carried by the letters_ (`data/a1_kappa_proxy.txt`, `data/a1c_predict.txt`): a linear regression on string features (turn probability $q$, $n$, run count, letters 1--6), fitted on a random half of the #N.probe.blob non-bursty blob rules and scored on the other half, has held-out $R^2$ = 0.003 for $kappa$ and 0.002 for its drift $gamma_kappa$, against 0.78 for $c$ with the same features and split (a different, simpler model than the chirality model of the next section, which reaches #f(N.followup.c_model.r2, d: 2) on a larger held-out set); Spearman($kappa$, $q$) = 0.08. On 192 rules with at least six core-band runs, leave-one-rule-out $R^2$ for the rule-mean $log kappa$ is $-0.06$ to $-0.04$ for ridge on letter-by-position, about 0 for ridge on 2- and 3-letter substring counts, and 0.04 for a prefix-5 neighbour mean.
