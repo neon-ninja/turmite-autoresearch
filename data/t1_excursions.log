@@ -1,0 +1,37 @@
+   Compiling turmite v0.1.0 (/mnt/f/Code/turmite)
+warning: value assigned to `current_exc_steps_in_window` is never read
+   --> examples/excursions.rs:151:43
+    |
+151 |     let mut current_exc_steps_in_window = 0u64;
+    |                                           ^^^^ this value is reassigned later and never used
+...
+163 |         current_exc_steps_in_window = 0;
+    |         ------------------------------- `current_exc_steps_in_window` is overwritten here before the previous value is read
+    |
+    = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: `turmite` (example "excursions") generated 1 warning
+    Finished `release` profile [optimized] target(s) in 24.99s
+     Running `target/release/examples/excursions 26 8192`
+404 specs to run to 2^26
+20/404
+40/404
+60/404
+80/404
+100/404
+120/404
+140/404
+160/404
+180/404
+200/404
+220/404
+240/404
+260/404
+280/404
+300/404
+320/404
+340/404
+360/404
+380/404
+400/404
+404/404

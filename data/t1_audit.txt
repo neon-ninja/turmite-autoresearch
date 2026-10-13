@@ -1,0 +1,45 @@
+rows 1403 escaped rows 3
+
+k=22, 44 rules
+  rho(disp_med        , kappa) = -0.889 (p=7.7e-16)
+  rho(D_cells         , kappa) = +0.087 (p=5.8e-01)
+  rho(depth_med       , kappa) = -0.879 (p=4.1e-15)
+  rho(depth_cells     , kappa) = -0.625 (p=5.7e-06)
+  rho(depthmean_cells , kappa) = -0.804 (p=4.9e-11)
+  rho(R               , kappa) = +0.895 (p=2.5e-16)
+  rho(area            , kappa) = +0.895 (p=2.6e-16)
+  rho(n_completed     , kappa) = +0.811 (p=2.5e-11)
+  rho(l_mean          , kappa) = -0.727 (p=2.3e-08)
+  rho(l_med           , kappa) = -0.414 (p=5.3e-03)
+  rho(top1_share      , kappa) = +0.473 (p=1.2e-03)
+  rho(edge_dwell_mean , kappa) = +0.302 (p=4.6e-02)
+  rho(unresolved_share, kappa) = +0.557 (p=8.6e-05)
+  D_cells quantiles [1.24 1.41 1.41 1.42 1.42]
+  R quantiles [102. 154. 169. 199. 436.]
+  partial r(ln D/R, ln kappa | ln A) = +0.476 (p=1.1e-03)
+  r(ln A, ln kappa) = +0.900
+
+k=25, 44 rules
+  rho(disp_med        , kappa) = -0.877 (p=6.0e-15)
+  rho(D_cells         , kappa) = -0.138 (p=3.7e-01)
+  rho(depth_med       , kappa) = -0.857 (p=1.2e-13)
+  rho(depth_cells     , kappa) = -0.545 (p=1.3e-04)
+  rho(depthmean_cells , kappa) = -0.792 (p=1.5e-10)
+  rho(R               , kappa) = +0.879 (p=4.2e-15)
+  rho(area            , kappa) = +0.879 (p=4.0e-15)
+  rho(n_completed     , kappa) = +0.832 (p=2.5e-12)
+  rho(l_mean          , kappa) = -0.640 (p=2.9e-06)
+  rho(l_med           , kappa) = -0.357 (p=1.7e-02)
+  rho(top1_share      , kappa) = +0.280 (p=6.6e-02)
+  rho(edge_dwell_mean , kappa) = +0.271 (p=7.5e-02)
+  rho(unresolved_share, kappa) = +0.619 (p=7.6e-06)
+  D_cells quantiles [1.39 1.41 1.41 1.42 1.42]
+  R quantiles [ 203.  309.  333.  412. 1128.]
+  partial r(ln D/R, ln kappa | ln A) = +0.861 (p=6.8e-14)
+  r(ln A, ln kappa) = +0.915
+depth_cells quantiles [0.86 0.89 0.93 0.96 1.32]
+depthmean_cells quantiles [0.95 1.16 2.22 3.   5.87]
+l_mean quantiles [ 115.99  207.02  290.06  422.36 1156.77]
+l_med quantiles [1.   1.   1.06 2.   3.  ]
+lowest-6 kappa rules: depth_cells [0.92 0.89 0.98 1.   1.32 0.99] R [221. 254. 240. 244. 203. 238.]
+highest-6 kappa rules: depth_cells [0.95 0.88 0.88 0.9  0.89 0.9 ] R [ 446.  645.  669.  903. 1032. 1128.]

@@ -1,0 +1,30 @@
+Loaded 1602 rows from data/t1_excursions.csv
+Instrument check 1: Exact budget satisfied for 100% of rows: True
+Instrument check 2: Any escapes: True
+Rotor controls (N=16): mean kappa=1.999, c=0.498
+Random walk controls (N=7): mean kappa=1.373, c=0.440
+Loaded 26 matched pairs from data/armc_pairs.txt
+
+--- TEST OF PREDICTION 1 (Rare journeys vs shallow loops) ---
+Top 1% excursion share wins (low-kappa > high-kappa): 7/26 (p = 0.9953)
+Median duration ratio < 2.0: 19/26
+Mean top1_share diff: -0.0547 (median: -0.0878)
+Median duration ratios: mean=1.33, median=1.00, min=0.50, max=3.00
+
+--- TEST OF PREDICTION 2 (Edge dwell invariance) ---
+Mean edge dwell: 2.538 +/- 0.302 (min=2.040, max=2.996)
+
+--- CORRELATIONS WITH KAPPA ACROSS 44 RULES ---
+Spearman rho(D_med/R, kappa): -0.877 (p = 6.01e-15)
+Spearman rho(top1_share, kappa): 0.280 (p = 6.60e-02)
+Spearman rho(L_med, kappa): -0.357 (p = 1.72e-02)
+Spearman rho(dwell, kappa): 0.271 (p = 7.50e-02)
+
+--- TEST OF PREDICTION 4 (Held-out forecasting) ---
+Held-out R^2 of k=22 excursion features predicting k=25 kappa: -0.047
+RMSE baseline: 37.622, RMSE model: 37.620
+
+--- REPLICATION ON BLANK-BOARD COHORT ---
+Blank-board top1_share wins (low-kappa > high-kappa): 6/26
+
+Saved detailed results to data/t1_excursions.json
