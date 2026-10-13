@@ -1,0 +1,54 @@
+
+RRRRRLLLLLL: base near_home 0.4737; determinism check vs stored coarse.csv: identical; patches 1610, swaps 500
+  Spearman(loss, rare_lost) patch: +0.538 (n=1610)
+  Spearman(loss, rare_lost) swap: +0.890 (n=500)
+  Spearman(loss, rare_lost) all: +0.669 (n=2110)
+  Spearman(loss, rare_gained) patch: +0.538 (n=1610)
+  Spearman(loss, rare_gained) swap: +0.890 (n=500)
+  Spearman(loss, rare_gained) all: +0.669 (n=2110)
+  Spearman(loss, changed) patch: +0.231 (n=1610)
+  Spearman(loss, changed) swap: +0.213 (n=500)
+  Spearman(loss, changed) all: +0.263 (n=2110)
+  stratum | patch n, mean loss +- SE | swap n, mean loss +- SE | diff / SE
+  0    |  626, +0.0013 +- 0.0001 |   14, +0.0010 +- 0.0007 | +0.4
+  1    |   58, +0.0024 +- 0.0006 |   34, +0.0068 +- 0.0013 | -3.0
+  2    |  168, +0.0079 +- 0.0008 |   42, +0.0094 +- 0.0016 | -0.9
+  3-4  |  253, +0.0122 +- 0.0014 |   77, +0.0137 +- 0.0017 | -0.7
+  5-8  |  295, +0.0219 +- 0.0021 |   97, +0.0258 +- 0.0015 | -1.5
+  9+   |  210, +0.0268 +- 0.0031 |  236, +0.0825 +- 0.0030 | -13.0
+  strata compared 6, with |z| >= 2: 2  -> contiguity matters / mixed
+
+RLLLLRRRRLR: base near_home 0.4938; determinism check vs stored coarse.csv: identical; patches 2394, swaps 500
+  Spearman(loss, rare_lost) patch: +0.505 (n=2394)
+  Spearman(loss, rare_lost) swap: +0.817 (n=500)
+  Spearman(loss, rare_lost) all: +0.600 (n=2894)
+  Spearman(loss, rare_gained) patch: +0.505 (n=2394)
+  Spearman(loss, rare_gained) swap: +0.817 (n=500)
+  Spearman(loss, rare_gained) all: +0.600 (n=2894)
+  Spearman(loss, changed) patch: +0.417 (n=2394)
+  Spearman(loss, changed) swap: +0.134 (n=500)
+  Spearman(loss, changed) all: +0.382 (n=2894)
+  stratum | patch n, mean loss +- SE | swap n, mean loss +- SE | diff / SE
+  0    | 1396, +0.0027 +- 0.0001 |   28, +0.0034 +- 0.0004 | -1.7
+  1    |   46, +0.0058 +- 0.0015 |   62, +0.0065 +- 0.0008 | -0.5
+  2    |  193, +0.0152 +- 0.0015 |   55, +0.0121 +- 0.0015 | +1.4
+  3-4  |  322, +0.0124 +- 0.0011 |   88, +0.0161 +- 0.0012 | -2.2
+  5-8  |  262, +0.0206 +- 0.0020 |   99, +0.0250 +- 0.0014 | -1.8
+  9+   |  175, +0.0278 +- 0.0033 |  168, +0.0538 +- 0.0019 | -6.8
+  strata compared 6, with |z| >= 2: 2  -> contiguity matters / mixed
+
+== finer strata of rare_lost above 8 (post hoc)
+RRRRRLLLLLL
+  rare_lost 9-12: patch n=116 +0.0273; swap n=52 +0.0379; z -2.1
+  rare_lost 13-20: patch n=75 +0.0270; swap n=75 +0.0598; z -5.7
+  rare_lost 21-40: patch n=19 +0.0230; swap n=107 +0.1183; z -10.8
+  rare_lost 41-1000: patch n=0, swap n=2 (too few)
+  patch: OLS slope of loss on rare_lost (rare_lost <= 20): 0.00216 per rare cell (n=1591)
+  swap: OLS slope of loss on rare_lost (rare_lost <= 20): 0.00344 per rare cell (n=391)
+RLLLLRRRRLR
+  rare_lost 9-12: patch n=105 +0.0258; swap n=52 +0.0378; z -2.5
+  rare_lost 13-20: patch n=66 +0.0323; swap n=73 +0.0544; z -3.5
+  rare_lost 21-40: patch n=4, swap n=43 (too few)
+  rare_lost 41-1000: patch n=0, swap n=0 (too few)
+  patch: OLS slope of loss on rare_lost (rare_lost <= 20): 0.00215 per rare cell (n=2390)
+  swap: OLS slope of loss on rare_lost (rare_lost <= 20): 0.00305 per rare cell (n=457)

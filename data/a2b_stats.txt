@@ -1,0 +1,14 @@
+Reading inline script metadata from `data/a2b_stats.py`
+mean local beta(k) over seeds (n): 
+  k=24: all 0.5233 +- 0.0143 (n=14); seeds 11-16 only 0.5084 +- 0.0234
+  k=26: all 0.5267 +- 0.0101 (n=14); seeds 11-16 only 0.5335 +- 0.0145
+  k=28: all 0.5206 +- 0.0078 (n=14); seeds 11-16 only 0.5208 +- 0.0144
+  k=30: all 0.5137 +- 0.0068 (n=14); seeds 11-16 only 0.5131 +- 0.0097
+  k=32: all 0.5100 +- 0.0043 (n=14); seeds 11-16 only 0.5144 +- 0.0064
+  k=34: all 0.5080 +- 0.0030 (n=14); seeds 11-16 only 0.5130 +- 0.0029
+  k=36: all 0.5014 +- 0.0034 (n=6); seeds 11-16 only 0.5014 +- 0.0034
+beta(36), seeds 11-16: 0.5014 +- 0.0034 (seed sd 0.0084)
+decision: <= 0.506 favours 1/2; >= 0.511 favours a plateau above 1/2; between inconclusive -> favours 1/2
+  fit on k=26..34 (all seeds), x=0.33: beta_inf = 0.5047; its prediction for k=36: 0.5070
+  fit on k=26..34 (all seeds), x=0.50: beta_inf = 0.5081; its prediction for k=36: 0.5087
+  fit on k=26..34 (all seeds), x=1.00: beta_inf = 0.5114; its prediction for k=36: 0.5114

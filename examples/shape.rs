@@ -148,8 +148,13 @@ fn main() {
         .map(|r| {
             if let Some(seed) = r.strip_prefix("rotor:") {
                 run(Rotor { seed: seed.parse().unwrap() }, r, size, max_log2)
-            } else if let Some((rule, seed)) = r.split_once('@') {
-                run(PatchedAnt::new(&rule.parse::<Rule>().unwrap(), seed.parse().unwrap(), 2), r, size, max_log2)
+            } else if r.contains('@') {
+                // RULE@SEED or RULE@SEED@RADIUS (A3 control: radius >= size/2 gives a full random-colour background)
+                let mut it = r.split('@');
+                let rule = it.next().unwrap();
+                let seed = it.next().unwrap();
+                let radius: i64 = it.next().map_or(2, |v| v.parse().unwrap());
+                run(PatchedAnt::new(&rule.parse::<Rule>().unwrap(), seed.parse().unwrap(), radius), r, size, max_log2)
             } else {
                 run(AntWalker::new(&r.parse::<Rule>().unwrap()), r, size, max_log2)
             }

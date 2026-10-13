@@ -154,3 +154,6 @@ Frontier item 12 found no detectable formation event, and the map shows the home
 4. **A1, A3:** the two best chances at a mechanism with numbers behind it.
 5. **A5, A6, A7:** the strange findings; cheap and well-posed.
 6. **E1-E3:** the knockout note's own follow-ups. E1 and E2 are cheap reruns of existing code (`examples/knock.rs`); E3 needs a new route definition.
+
+---
+Outcomes (appended 2026-10-13; the predictions above are unchanged): see `notes/frontier-2026-10-13-results.md` for the status of every item, the protocols written before each run, the commands and data files.

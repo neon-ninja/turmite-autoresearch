@@ -1,0 +1,67 @@
+Reading inline script metadata from `data/b1_stats.py`
+runs present: 28  escaped: ['RLRLLL', 'RRRLR']  max k per run (min over runs): 33
+
+== B1: area exponent. rule | a(26) a(30) a(34) | a_inf (fit SE) over k=26..34 [x=1/3] | w_inf
+rotor:1        | 0.710 0.673 0.668 | 0.655 (0.004) | 0.322
+rotor:2        | 0.671 0.677 0.673 | 0.675 (0.002) | 0.321
+rotor:3        | 0.681 0.671 0.673 | 0.671 (0.007) | 0.333
+rotor:4        | 0.677 0.675 0.672 | 0.671 (0.002) | 0.317
+rotor:5        | 0.690 0.678 0.667 | 0.666 (0.002) | 0.324
+rotor:6        | 0.684 0.675 0.668 | 0.667 (0.002) | 0.317
+rotor:7        | 0.686 0.669 0.670 | 0.663 (0.007) | 0.326
+rotor:8        | 0.670 0.678 0.670 | 0.672 (0.007) | 0.323
+RLLLRLLRRLR    | 0.670 0.677 0.666 | 0.673 (0.006) | 0.329
+RLLRLLRLRRRL   | 0.696 0.686 0.678 | 0.675 (0.004) | 0.308
+RLR            | 0.704 0.697 0.688 | 0.691 (0.008) | 0.357
+RLRLLRRLL      | 0.683 0.664 0.676 | 0.668 (0.007) | 0.330
+RLRLRRRLLR     | 0.670 0.661 0.674 | 0.667 (0.006) | 0.320
+RLRLRRRRLR     | 0.690 0.673 0.666 | 0.664 (0.004) | 0.317
+RLL            | 0.657 0.699 0.663 | 0.684 (0.014) | 0.329
+RRRLR no k=34
+RLRLLL no k=34
+RLRLRRL        | 0.716 0.673 0.674 | 0.658 (0.006) | 0.291
+RRRLRLLL       | 0.684 0.687 0.666 | 0.674 (0.009) | 0.325
+RRLLLLLLR      | 0.655 0.896 0.501 | 0.644 (0.140) | 0.323
+RLRLLRRLRL     | 0.686 0.670 0.674 | 0.663 (0.009) | 0.341
+RRRLRLRRRRL    | 0.672 0.662 0.672 | 0.670 (0.010) | 0.322
+RLLLRRLRRRLR   | 0.682 0.680 0.671 | 0.666 (0.006) | 0.326
+RLRR           | 0.661 0.670 0.669 | 0.672 (0.010) | 0.319
+RLRLRRRLR      | 0.670 0.668 0.679 | 0.674 (0.004) | 0.348
+RLRLLRRLRRRR   | 0.644 0.657 0.673 | 0.672 (0.006) | 0.330
+RLLRRLLRLLLL   | 0.657 0.714 0.641 | 0.649 (0.037) | 0.325
+RLLLRLRLLRLR   | 0.684 0.689 0.784 | 0.759 (0.028) | 0.367
+
+rotor calibration: a_inf mean 0.6676 sd 0.0063 (n=8), true 2/3 -> estimator bias +0.0009; raw a(34) mean 0.6702; width a_inf mean 0.3231
+ants with |a_inf - 2/3| < 0.005: raw 7 of 18; after subtracting the rotor estimator bias: 8 of 18  (decision rule: >= 15 of 20)
+between-rule sd of a_inf (ants) 0.0240; median a(34) 0.6724
+ants whose a(k) approaches 2/3 monotonically (steps toward 2/3 within 0.005) over k=26..34: 2 of 18
+
+== A2: edge exponent beta. beta(k) local slopes, mean over 8 rotor seeds: {18: 0.5603, 20: 0.5381, 22: 0.5631, 24: 0.5344, 26: 0.5216, 28: 0.5205, 30: 0.5141, 32: 0.5066, 34: 0.5043}
+  rotor (8 seeds): beta_inf (x=0.33 fixed, k=24..34): mean 0.5037, between-run sd 0.0148, n=8
+  rotor (8 seeds): beta_inf (x=0.50 fixed, k=24..34): mean 0.5077, between-run sd 0.0122, n=8
+  rotor (8 seeds): free-x best x = 1.50, beta_inf there = 0.5126 (rss 2.48e-02)
+  rotor pooled-mean series fit beta_inf (x=1/3, 1/2): [0.5037, 0.5077]
+  ants beta_inf (x=1/3) per rule [last-5 local slopes 26..34]:
+    RLLLRLLRRLR    beta(26..34) = [np.float64(0.528), np.float64(0.512), np.float64(0.513), np.float64(0.525), np.float64(0.52)]  beta_inf(x=1/3) = 0.517
+    RLLRLLRLRRRL   beta(26..34) = [np.float64(0.567), np.float64(0.529), np.float64(0.508), np.float64(0.534), np.float64(0.516)]  beta_inf(x=1/3) = 0.522
+    RLR            beta(26..34) = [np.float64(0.568), np.float64(0.542), np.float64(0.523), np.float64(0.548), np.float64(0.548)]  beta_inf(x=1/3) = 0.536
+    RLRLLRRLL      beta(26..34) = [np.float64(0.555), np.float64(0.52), np.float64(0.483), np.float64(0.496), np.float64(0.526)]  beta_inf(x=1/3) = 0.508
+    RLRLRRRLLR     beta(26..34) = [np.float64(0.528), np.float64(0.507), np.float64(0.51), np.float64(0.506), np.float64(0.522)]  beta_inf(x=1/3) = 0.508
+    RLRLRRRRLR     beta(26..34) = [np.float64(0.533), np.float64(0.525), np.float64(0.52), np.float64(0.523), np.float64(0.523)]  beta_inf(x=1/3) = 0.525
+    RLL            beta(26..34) = [np.float64(0.506), np.float64(0.503), np.float64(0.526), np.float64(0.503), np.float64(0.498)]  beta_inf(x=1/3) = 0.494
+    RLRLRRL        beta(26..34) = [np.float64(0.533), np.float64(0.567), np.float64(0.511), np.float64(0.49), np.float64(0.509)]  beta_inf(x=1/3) = 0.511
+    RRRLRLLL       beta(26..34) = [np.float64(0.524), np.float64(0.504), np.float64(0.502), np.float64(0.501), np.float64(0.525)]  beta_inf(x=1/3) = 0.496
+    RRLLLLLLR      beta(26..34) = [np.float64(0.494), np.float64(0.492), np.float64(0.506), np.float64(0.509), np.float64(0.514)]  beta_inf(x=1/3) = 0.510
+    RLRLLRRLRL     beta(26..34) = [np.float64(0.501), np.float64(0.488), np.float64(0.525), np.float64(0.521), np.float64(0.504)]  beta_inf(x=1/3) = 0.501
+    RRRLRLRRRRL    beta(26..34) = [np.float64(0.553), np.float64(0.558), np.float64(0.519), np.float64(0.505), np.float64(0.495)]  beta_inf(x=1/3) = 0.520
+    RLLLRRLRRRLR   beta(26..34) = [np.float64(0.51), np.float64(0.505), np.float64(0.498), np.float64(0.501), np.float64(0.498)]  beta_inf(x=1/3) = 0.499
+    RLRR           beta(26..34) = [np.float64(0.501), np.float64(0.513), np.float64(0.513), np.float64(0.532), np.float64(0.51)]  beta_inf(x=1/3) = 0.511
+    RLRLRRRLR      beta(26..34) = [np.float64(0.501), np.float64(0.513), np.float64(0.515), np.float64(0.505), np.float64(0.519)]  beta_inf(x=1/3) = 0.504
+    RLRLLRRLRRRR   beta(26..34) = [np.float64(0.528), np.float64(0.509), np.float64(0.522), np.float64(0.514), np.float64(0.501)]  beta_inf(x=1/3) = 0.504
+    RLLRRLLRLLLL   beta(26..34) = [np.float64(0.512), np.float64(0.502), np.float64(0.492), np.float64(0.502), np.float64(0.506)]  beta_inf(x=1/3) = 0.502
+    RLLLRLRLLRLR   beta(26..34) = [np.float64(0.512), np.float64(0.489), np.float64(0.494), np.float64(0.494), np.float64(0.494)]  beta_inf(x=1/3) = 0.489
+
+rotor itself: 5 of 8 seeds satisfy |a_inf - 2/3| < 0.005 (the B1 criterion needs 15/20 = 75%)
+ants with fit SE < 0.02: 15 of 18; of those, within 2 rotor-sd (0.0126) of the rotor mean 0.6676: 13; outside: [('RLL', 0.684), ('RLR', 0.691)]
+ants with fit SE >= 0.02 (a(k) too erratic to fit): [('RLLLRLRLLRLR', 0.759, 0.028), ('RLLRRLLRLLLL', 0.649, 0.037), ('RRLLLLLLR', 0.644, 0.14)]
+ants beta_inf (x=1/3): mean 0.5087, median 0.5078, range 0.489-0.536; rotor seed sd of beta_inf 0.0148

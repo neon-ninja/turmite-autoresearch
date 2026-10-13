@@ -1,0 +1,4 @@
+Reading inline script metadata from `data/c3c_stats.py`
+rules analysed 36 (escaped before 2^31: 4); pairs 107; boundary cells at k=29..31: median of per-rule min 5741
+max/min < 1.05: observed 0.551, sampling floor 0.721 (observed/floor 0.76); < 1.10: observed 0.757, floor 0.936; median ratio observed 1.041, floor 1.035
+rule: constant to 5%% if observed/floor >= 0.9; real drift if < 0.7 -> inconclusive

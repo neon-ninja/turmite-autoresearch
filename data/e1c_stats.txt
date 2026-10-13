@@ -1,0 +1,11 @@
+Reading inline script metadata from `data/e1c_stats.py`
+k24: intact near_home 0.474, hot tiles 11, bearing 345 deg, R 0.49, USED
+k20: intact near_home 0.370, hot tiles 4, bearing 94 deg, R 0.78, excluded (untethered or < 5 hot tiles)
+k21: intact near_home 0.485, hot tiles 8, bearing 126 deg, R 0.59, USED
+k22: intact near_home 0.428, hot tiles 9, bearing 222 deg, R 0.47, USED
+k23: intact near_home 0.523, hot tiles 15, bearing 75 deg, R 0.24, USED
+k25: intact near_home 0.061, hot tiles 13, bearing 123 deg, R 0.82, excluded (untethered or < 5 hot tiles)
+k26: intact near_home 0.357, hot tiles 9, bearing 254 deg, R 0.45, USED
+k27: intact near_home 0.166, hot tiles 22, bearing 153 deg, R 0.53, excluded (untethered or < 5 hot tiles)
+
+Rayleigh test on 5 ages: mean resultant length 0.08, Z = 0.03, p = 0.971; verdict: no concentration (field-tied)

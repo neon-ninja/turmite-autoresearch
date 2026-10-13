@@ -34,9 +34,15 @@ struct Out {
     ok: bool,
 }
 
-fn run(colour: &mut [u8], rule: &Rule, steps: u64, mut counts: Option<(&mut Vec<u32>, &mut Vec<u32>)>) -> Out {
+fn run(colour: &mut [u8], rule: &Rule, steps: u64, mut counts: Option<(&mut Vec<u32>, &mut Vec<u32>, &mut Vec<u32>)>) -> Out {
+    // E3 (2026-10-13): excursion buffer for the homeward-leg counts (ret.u32)
+    let mut exc: Vec<(usize, i64)> = vec![];
     let n = rule.len() as u8;
-    let (mut x, mut y, mut h) = (C, C, 0u8);
+    // E2 (2026-10-13): radius of the near_home measure; the default 10 reproduces the original runs exactly.
+    let near_r: i64 = std::env::var("NEAR_R").ok().map_or(10, |v| v.parse().unwrap());
+    // E1: START_H (0 = north, 1 = east, ...) lets a rotated field be run with the correspondingly rotated start heading; default 0.
+    let h0: u8 = std::env::var("START_H").ok().map_or(0, |v| v.parse().unwrap());
+    let (mut x, mut y, mut h) = (C, C, h0);
     let block = (steps / 64).max(1);
     let (mut sx, mut sy, mut sr2) = (0f64, 0f64, 0f64);
     let (mut nh, mut np) = (0u64, 0u64);
@@ -58,14 +64,22 @@ fn run(colour: &mut [u8], rule: &Rule, steps: u64, mut counts: Option<(&mut Vec<
         sx += rx as f64;
         sy += ry as f64;
         sr2 += r2 as f64;
-        nh += (r2 <= 100) as u64;
+        nh += (r2 <= near_r * near_r) as u64;
         np += ((rx as f64 - prev.0).powi(2) + (ry as f64 - prev.1).powi(2) <= 100.0) as u64;
-        if let Some((occ, route)) = counts.as_mut() {
+        if let Some((occ, route, ret)) = counts.as_mut() {
             if t > steps / 2 {
                 let j = (y as usize) * S + x as usize;
                 occ[j] += 1;
                 if r2 > 100 {
                     route[j] += 1;
+                    exc.push((j, r2));
+                } else if !exc.is_empty() {
+                    // back inside r <= 10: the steps after the farthest point of this excursion are its homeward leg
+                    let m = (0..exc.len()).max_by_key(|&i| (exc[i].1, std::cmp::Reverse(i))).unwrap();
+                    for &(jj, _) in &exc[m..] {
+                        ret[jj] += 1;
+                    }
+                    exc.clear();
                 }
             }
         }
@@ -116,9 +130,10 @@ fn main() {
             let mut colour = load(&raw);
             let mut occ = vec![0u32; S * S];
             let mut route = vec![0u32; S * S];
-            let o = run(&mut colour, &rule, steps, Some((&mut occ, &mut route)));
+            let mut ret = vec![0u32; S * S];
+            let o = run(&mut colour, &rule, steps, Some((&mut occ, &mut route, &mut ret)));
             let dir = std::path::Path::new(&a[5]);
-            for (name, v) in [("occ.u32", &occ), ("route.u32", &route)] {
+            for (name, v) in [("occ.u32", &occ), ("route.u32", &route), ("ret.u32", &ret)] {
                 let bytes: Vec<u8> = v.iter().flat_map(|c| c.to_le_bytes()).collect();
                 std::fs::File::create(dir.join(name)).unwrap().write_all(&bytes).unwrap();
             }
@@ -136,11 +151,66 @@ fn main() {
                 .collect();
             let visited: Vec<usize> = (0..S * S).filter(|&i| raw[i] != 255).collect();
             let base = load(&raw);
+            let rare: Vec<u8> = std::env::var("RARE").ok().map_or(vec![], |v| v.split(',').map(|c| c.parse().unwrap()).collect());
+            let have_rare = std::env::var("RARE").is_ok();
+            // A6 mechanism (2026-10-13): kind "strat" corrupts w*h cells drawn from pool[class=x][occupancy quartile=y], where class 1 = base colour in RARE,
+            // and occupancy comes from the intact run's occ.u32 (env STRAT_OCC); "corrupt" = a uniformly random different colour.
+            let mut pools: Vec<Vec<Vec<usize>>> = vec![vec![vec![]; 4]; 2];
+            // E3b: kind "strat2": excursion cells (route > 0) split by homeward share ret/route (class 1: >= 0.6, 0: <= 0.4) and route-count quartile.
+            let mut pools2: Vec<Vec<Vec<usize>>> = vec![vec![vec![]; 4]; 2];
+            if let (Ok(pr), Ok(pt)) = (std::env::var("STRAT_ROUTE"), std::env::var("STRAT_RET")) {
+                let rd = |p: &str| -> Vec<u32> { std::fs::read(p).unwrap().chunks_exact(4).map(|b| u32::from_le_bytes([b[0], b[1], b[2], b[3]])).collect() };
+                let (route, ret) = (rd(&pr), rd(&pt));
+                let mut vals: Vec<u32> = visited.iter().map(|&i| route[i]).filter(|&v| v > 0).collect();
+                vals.sort();
+                let q = [vals[vals.len() / 4], vals[vals.len() / 2], vals[3 * vals.len() / 4]];
+                let mut bins: Vec<Vec<(f64, usize)>> = vec![vec![]; 4];
+                for &i in &visited {
+                    if route[i] == 0 {
+                        continue;
+                    }
+                    bins[q.iter().filter(|&&t| route[i] > t).count()].push((ret[i] as f64 / route[i] as f64, i));
+                }
+                // within each route quartile, split at the median homeward share (class 1 = upper half)
+                for (b, v) in bins.iter_mut().enumerate() {
+                    v.sort_by(|a, c| a.0.partial_cmp(&c.0).unwrap().then(a.1.cmp(&c.1)));
+                    let h = v.len() / 2;
+                    for (k, &(_, i)) in v.iter().enumerate() {
+                        pools2[(k >= h) as usize][b].push(i);
+                    }
+                }
+                eprintln!("strat2 quartile thresholds {:?}; pool sizes {:?}", q, pools2.iter().map(|c| c.iter().map(|b| b.len()).collect::<Vec<_>>()).collect::<Vec<_>>());
+            }
+            if let Ok(p) = std::env::var("STRAT_OCC") {
+                let raw_occ = std::fs::read(&p).unwrap();
+                let occ: Vec<u32> = raw_occ.chunks_exact(4).map(|b| u32::from_le_bytes([b[0], b[1], b[2], b[3]])).collect();
+                let mut vals: Vec<u32> = visited.iter().map(|&i| occ[i]).filter(|&v| v > 0).collect();
+                vals.sort();
+                let q = [vals[vals.len() / 4], vals[vals.len() / 2], vals[3 * vals.len() / 4]];
+                for &i in &visited {
+                    if occ[i] == 0 {
+                        continue;
+                    }
+                    let bin = q.iter().filter(|&&t| occ[i] > t).count();
+                    let class = rare.contains(&base[i]) as usize;
+                    pools[class][bin].push(i);
+                }
+                eprintln!("strat quartile thresholds {:?}; pool sizes {:?}", q, pools.iter().map(|c| c.iter().map(|b| b.len()).collect::<Vec<_>>()).collect::<Vec<_>>());
+            }
             let rows: Vec<String> = jobs
                 .par_iter()
                 .map(|(kind, x, y, w, h, seed)| {
                     let mut st = seed.wrapping_mul(0x2545F4914F6CDD1D) ^ ((*x as u64) << 20) ^ ((*y as u64) << 40) ^ 0xABCDEF;
-                    let idx: Vec<usize> = if kind == "patch" {
+                    let idx: Vec<usize> = if kind == "strat" || kind == "strat2" {
+                        let cnt = (*w * *h) as usize;
+                        let mut pool = if kind == "strat" { pools[*x as usize][*y as usize].clone() } else { pools2[*x as usize][*y as usize].clone() };
+                        for k in 0..cnt {
+                            let j = k + (splitmix(&mut st) % (pool.len() - k) as u64) as usize;
+                            pool.swap(k, j);
+                        }
+                        pool.truncate(cnt);
+                        pool
+                    } else if kind == "patch" {
                         let mut v = vec![];
                         for yy in *y..*y + *h {
                             for xx in *x..*x + *w {
@@ -163,15 +233,30 @@ fn main() {
                     };
                     let mut colour = base.clone();
                     let mut vals: Vec<u8> = idx.iter().map(|&i| colour[i]).collect();
-                    shuffle(&mut vals, &mut st);
+                    if kind == "strat" || kind == "strat2" {
+                        let nn = rule.len() as u64;
+                        for v in vals.iter_mut() {
+                            *v = ((*v as u64 + 1 + splitmix(&mut st) % (nn - 1)) % nn) as u8;
+                        }
+                    } else {
+                        shuffle(&mut vals, &mut st);
+                    }
                     let mut changed = 0usize;
+                    // E4 (2026-10-13): with RARE=c1,c2,.. also count cells that held a rare colour and
+                    // were changed (lost) and cells that received a rare colour from elsewhere (gained).
+                    let (mut lost, mut gained) = (0usize, 0usize);
                     for (k, &i) in idx.iter().enumerate() {
                         changed += (colour[i] != vals[k]) as usize;
+                        if colour[i] != vals[k] {
+                            lost += rare.contains(&colour[i]) as usize;
+                            gained += rare.contains(&vals[k]) as usize;
+                        }
                         colour[i] = vals[k];
                     }
                     let o = run(&mut colour, &rule, steps, None);
+                    let extra = if have_rare { format!(",{lost},{gained}") } else { String::new() };
                     format!(
-                        "{kind},{x},{y},{w},{h},{seed},{},{:.4},{:.4},{:.4},{:.3},{:.2},{:.2},{}",
+                        "{kind},{x},{y},{w},{h},{seed},{},{:.4},{:.4},{:.4},{:.3},{:.2},{:.2},{}{extra}",
                         idx.len(),
                         changed as f64 / idx.len().max(1) as f64,
                         o.near_home,
@@ -184,7 +269,7 @@ fn main() {
                 })
                 .collect();
             let mut f = std::fs::File::create(&a[6]).unwrap();
-            writeln!(f, "kind,x,y,w,h,seed,nvis,changed,{hdr},ok").unwrap();
+            writeln!(f, "kind,x,y,w,h,seed,nvis,changed,{hdr},ok{}", if have_rare { ",rare_lost,rare_gained" } else { "" }).unwrap();
             for r in rows {
                 writeln!(f, "{r}").unwrap();
             }

@@ -1,0 +1,23 @@
+Reading inline script metadata from `data/e3b_stats.py`
+
+RRRRRLLLLLL: base near_home 0.4737; runs 480
+outward  q0: +0.0023+-0.0003 (n=60)  q1: +0.0035+-0.0004 (n=60)  q2: +0.0092+-0.0005 (n=60)  q3: +0.0580+-0.0037 (n=60)
+homeward q0: +0.0020+-0.0003 (n=60)  q1: +0.0038+-0.0004 (n=60)  q2: +0.0098+-0.0005 (n=60)  q3: +0.0621+-0.0029 (n=60)
+  outward: q3 - q0 = +0.0557 (+15.2 SE) -> more visited hurts more
+  homeward: q3 - q0 = +0.0601 (+20.4 SE) -> more visited hurts more
+  q0: homeward - outward = -0.0003 (-0.6 SE)
+  q1: homeward - outward = +0.0003 (+0.6 SE)
+  q2: homeward - outward = +0.0007 (+1.0 SE)
+  q3: homeward - outward = +0.0042 (+0.9 SE)
+  quartiles with |homeward - outward| > 2 SE: 0 of 4 -> leg direction matters at equal occupancy: False
+
+RLLLLRRRRLR: base near_home 0.4938; runs 480
+outward  q0: +0.0037+-0.0003 (n=60)  q1: +0.0042+-0.0003 (n=60)  q2: +0.0073+-0.0003 (n=60)  q3: +0.0482+-0.0028 (n=60)
+homeward q0: +0.0034+-0.0003 (n=60)  q1: +0.0042+-0.0003 (n=60)  q2: +0.0069+-0.0003 (n=60)  q3: +0.0489+-0.0024 (n=60)
+  outward: q3 - q0 = +0.0444 (+15.9 SE) -> more visited hurts more
+  homeward: q3 - q0 = +0.0455 (+18.5 SE) -> more visited hurts more
+  q0: homeward - outward = -0.0003 (-0.7 SE)
+  q1: homeward - outward = +0.0001 (+0.2 SE)
+  q2: homeward - outward = -0.0004 (-1.0 SE)
+  q3: homeward - outward = +0.0008 (+0.2 SE)
+  quartiles with |homeward - outward| > 2 SE: 0 of 4 -> leg direction matters at equal occupancy: False

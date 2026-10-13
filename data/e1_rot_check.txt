@@ -1,0 +1,15 @@
+Reading inline script metadata from `data/e1_rot_check.py`
+tile (x,y): original mean loss vs rotated-field mean loss (3 fresh permutations each)
+  ( -5,-15): +0.0913 vs +0.0835
+  (  5,-15): +0.1063 vs +0.0915
+  (-10,-10): +0.0859 vs +0.0829
+  ( 10,-15): +0.0715 vs +0.0807
+  (-10,-15): +0.0914 vs +0.0745
+  (  5,-20): +0.0591 vs +0.0570
+  (  0,-10): +0.1002 vs +0.0700
+  (-15,  0): +0.0531 vs +0.0582
+  (  0,-25): +0.0400 vs +0.0509
+  (-10,-20): +0.0342 vs +0.0152
+  (-10,  0): +0.0346 vs +0.0316
+mean over the 11 tiles: original 0.0698, rotated 0.0633; Spearman across tiles 0.85
+swap null 95th percentile: original 0.0346, rotated 0.0319

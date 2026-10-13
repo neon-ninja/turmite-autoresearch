@@ -1,0 +1,11 @@
+Reading inline script metadata from `data/d2c_stats.py`
+/home/tim/.cache/uv/archive-v0/WOpBSnZYVepGTAe7EKkyZ/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/tim/.cache/uv/archive-v0/WOpBSnZYVepGTAe7EKkyZ/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+specs 18; left the 1024^3 box before 2^32: 0; usable (k=30..34 complete): 18
+volume exponent k=30..34: median 0.769, IQR 0.764-0.773, range 0.756-0.778
+extent exponent k=30..34: median 0.237, IQR 0.234-0.246, range 0.227-0.264
+volume exponent k=26..30: median nan over 0 rules
+volume exponent k=28..32: median 0.771 over 18 rules
+fraction with volume exponent > 0.775: 0.16666666666666666 ; extent outside [0.225,0.26]: 0.05555555555555555

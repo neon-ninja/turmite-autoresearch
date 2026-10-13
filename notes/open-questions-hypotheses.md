@@ -55,3 +55,17 @@ Predictions:
 - Q5. Is RRLLLLLLR (CV of A/t^(2/3) rising with t, alpha_w 0.38 +- 0.07) truly non-self-averaging, and with how many 'phases'?
 - Q6. Why does the ant's visit density equal the rotor's cone 3 t/A (1 - r/R_eq) to a few per cent? A derivation would also fix the 2/3 exponent.
 - Q7. Why is the ants' boundary width exponent (0.25-0.27 at 2^28) above the rotor's (0.13-0.16 under the same estimator)?
+
+## Added 2026-10-13 (later) from `notes/frontier-2026-10-13-results.md`
+
+Answered or sharpened there: Q3 (no single rule feature labels the home types: A5), Q4 (rare colours are rare in 99.8% of tethered rules and 5% of blob rules, but the self-healing explanation is reversed: the most-visited cells hurt most: A6), Q5 (RRLLLLLLR: CV rises through 2^29, unimodal; rising CV occurs in ~5% of random rules, mostly RLLL-prefixed: A7), Q6 (cone follows from uniform occupancy + the exponent, and correctly fails on a random background: A3), Q7 (ants 0.24 vs rotor 0.13 still falling, ants trend inconclusive: A4).
+New, unexplained:
+- Q8. RLRLLL (an item-4 "core" rule) leaves a 32768 board at ~1.3e10 steps with no highway: an ~1e4-cell thin structure along the edge (bounding box 3,377 at 1e10, 18,175 at 1.3e10). What is it, and are the other "escaped without highway" cases (4.6% of the 10^10 survivors, 1.2% in (1e10, 1e11]) the same thing?
+- Q9. The tether of RRRRRLLLLLL is intermittent in age: a fresh ant started from the 2^25 field at home heading north is not tethered (near_home 0.061) while 2^22, 2^24, 2^26 are (0.43, 0.47, 0.36). What state does the original ant carry that the field plus "home, north" does not?
+- Q10. In the rotor with north-biased arrows (C2b/C2c) the territory width at 2^28 grows +25% at bias 0.15 and 2.6x at 0.25, while kappa and c change by < 10% and the width exponent not at all. Which factor of the identity dA/dt = c kappa P/A carries the amplitude, and why does the area exponent rise (0.715 to 0.787) while the width exponent does not (elongation untested)?
+- Q11. Why is the area-exponent ICC across rules (0.34) so much larger than the width-exponent ICC (0.12) (B2)? Rule identity matters for area but little for width.
+- Q12. The 3D ants' extent exponent is 0.234 and volume exponent 0.771 at 2^28-2^32, so volume/extent^3 is still rising as ~t^0.07: what is the 3D limit shape (D2)?
+- Q13. Why does the corruption of the most-visited cells hurt most, with rare colours doubling the damage at equal visit quartile (A6)? How much of "visit rate" is just distance from home?
+- Q14. Does contiguity reduce the damage per critical cell (patch ~0.65x the loss per rare cell of a swap, E4), or is that a location effect?
+- Q15. The census "builders" (304) are mostly non-highway frame builders with steps per bounding-box cell ~2-6; are they one class, and does it match the sqrt(t) turmite cluster (D1)?
+- Q16. The late-highway onset rate fell from 4.7% to 1.25% per decade at 1e10-1e11 (B5): is the set of late highways finite, and what is the distribution of onset times within a prefix family?

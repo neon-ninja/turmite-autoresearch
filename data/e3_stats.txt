@@ -1,0 +1,7 @@
+Reading inline script metadata from `data/e3_stats.py`
+RRRRRLLLLLL: 310 tiles; share of excursion steps that are on homeward legs: 0.52
+  Spearman(ret, occ) = 0.88; Spearman(ret, route) = 1.00; Spearman(loss, ret) = 0.305
+  partial Spearman(loss, ret | log1p occ, dist, dose) = 0.124  95% CI [-0.031, 0.267]  (route, for comparison: 0.127)
+RLLLLRRRRLR: 477 tiles; share of excursion steps that are on homeward legs: 0.52
+  Spearman(ret, occ) = 0.91; Spearman(ret, route) = 1.00; Spearman(loss, ret) = 0.440
+  partial Spearman(loss, ret | log1p occ, dist, dose) = 0.029  95% CI [-0.106, 0.188]  (route, for comparison: 0.027)

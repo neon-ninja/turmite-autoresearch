@@ -1,0 +1,5 @@
+bias 0.00: runs 12, escaped 0, last completed octave k: median 28 (min 28, max 28); width exponent (k>=10, over existing windows) median 0.324, area exponent 0.714; median final width 1879
+bias 0.25: runs 12, escaped 12, last completed octave k: median 27 (min 26, max 27); width exponent (k>=10, over existing windows) median 0.355, area exponent 0.803; median final width 3856
+bias 0.50: runs 12, escaped 12, last completed octave k: median 13 (min 13, max 13); width exponent (k>=10, over existing windows) median 0.996, area exponent 0.992; median final width 2394
+bias 0.75: runs 12, escaped 12, last completed octave k: median 12 (min 12, max 12); width exponent (k>=10, over existing windows) median 0.992, area exponent 0.998; median final width 2716
+bias 0.90: runs 12, escaped 12, last completed octave k: median 12 (min 12, max 12); width exponent (k>=10, over existing windows) median 0.996, area exponent 0.999; median final width 3545

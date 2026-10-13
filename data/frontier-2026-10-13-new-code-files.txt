@@ -1,0 +1,6 @@
+examples/escape_trace.rs
+src/bin/colourstats.rs
+src/colours.rs
+tests/biased_rotor.rs
+tests/colours.rs
+tests/sparse_bg.rs

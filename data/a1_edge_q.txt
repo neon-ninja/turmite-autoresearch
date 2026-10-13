@@ -1,0 +1,6 @@
+Reading inline script metadata from `data/a1_edge_q.py`
+40 rules
+Spearman(kappa, q_edge) = -0.27   Spearman(c, q_edge) = -0.84
+Spearman(kappa, q) = -0.15   Spearman(c, q) = -0.53
+Spearman(kappa, tv_edge) = -0.16   Spearman(c, tv_edge) = +0.57
+leave-one-out R^2 of kappa ~ q_edge + tv_edge: -0.053  (kappa sd 0.35, median 0.93)

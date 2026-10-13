@@ -1,0 +1,18 @@
+Reading inline script metadata from `data/b5_stats.py`
+chunks complete: 20 of 20; rules: 240; still unresolved at 1e11: 234; new highways: 3; escaped the 32768 board without a recognised highway: 3
+flat rate (4.7% of survivors per decade) expects 11.3; falling rate (1%) expects 2.4
+observed 3: P(X <= obs | flat) = 0.004; P(X >= obs | falling) = 0.430; P(X >= obs | flat) = 0.999
+rate per decade among survivors: 1.2% (+- 0.7% Poisson); the 10^10 decade had 38/807 = 4.7% (previous decades 11-26 per decade out of ~850)
+
+new highways (rule, onset, period, drift):
+  RRRRLRRRR      onset 1.073e+10  period 40  dx,dy 0,4  n=9
+  RRLRLRLLR      onset 3.229e+10  period 260  dx,dy 2,2  n=9
+  RRRLRLLLLL     onset 4.593e+10  period 416  dx,dy 2,-2  n=10
+
+escaped without highway: [('RLLLLRRL', 12601085717), ('RLLLLRLRRL', 39619909558), ('RLLLRLRLLL', 28427043780)]
+escaped-without-highway rate 1.2% of this sample over (1e10, 1e11] (the 10^10 run had 4.6% over (1e9, 1e10])
+
+prefix test on 41 highway onsets (38 from the 10^10 run + new): median |delta log10 onset| for pairs sharing the first L letters vs pairs that do not
+  L=4: sharing pairs 186, median 0.0259; non-sharing pairs 634, median 0.2652; ratio 0.098
+  L=6: sharing pairs 76, median 0.0001; non-sharing pairs 744, median 0.2652; ratio 0.000
+  L=8: sharing pairs 11, median 0.0000; non-sharing pairs 809, median 0.2490; ratio 0.000

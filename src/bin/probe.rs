@@ -8,7 +8,7 @@ use rayon::prelude::*;
 use std::io::Write;
 use turmite::Rule;
 use turmite::probe::{probe, probe_walker};
-use turmite::walkers::{PatchedAnt, RandomWalk, Rotor};
+use turmite::walkers::{BiasedRotor, PatchedAnt, RandomWalk, Rotor, SparseBgAnt};
 
 fn main() {
     let a: Vec<String> = std::env::args().collect();
@@ -22,6 +22,14 @@ fn main() {
         .map(|r| {
             let res = if let Some(seed) = r.strip_prefix("rotor:") {
                 probe_walker(Rotor { seed: seed.parse().unwrap() }, size, 8, max_log2)
+            } else if let Some(spec) = r.strip_prefix("sbg:") {
+                // sbg:RULE:SEED:DENSITY (B2b: ant on a sparse random background)
+                let p: Vec<&str> = spec.split(':').collect();
+                probe_walker(SparseBgAnt::new(&p[0].parse::<Rule>().unwrap(), p[1].parse().unwrap(), p[2].parse().unwrap()), size, 8, max_log2)
+            } else if let Some(spec) = r.strip_prefix("brotor:") {
+                // brotor:SEED:BIAS (C2: rotor with arrows biased towards north)
+                let (seed, bias) = spec.split_once(':').unwrap();
+                probe_walker(BiasedRotor::new(seed.parse().unwrap(), bias.parse().unwrap()), size, 8, max_log2)
             } else if let Some(seed) = r.strip_prefix("rw:") {
                 probe_walker(RandomWalk { state: seed.parse().unwrap() }, size, 8, max_log2)
             } else if let Some((rule, seed)) = r.split_once('@') {

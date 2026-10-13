@@ -1,0 +1,19 @@
+Reading inline script metadata from `data/d1_tables.py`
+sqrt set 1406, chaotic set 2290, other blob (0.505-0.55 or >=0.85): 238
+feature | frac in sqrt set | frac in chaotic set | odds ratio | AUC (positive = sqrt)
+state1_unreachable         | 0.364 | 0.000 | 572706936.37 | 0.682
+turn[0,1]=N                | 0.583 | 0.337 |     2.74 | 0.623
+writes_constant            | 0.215 | 0.021 |    12.78 | 0.597
+any_unchanged_write        | 0.990 | 0.831 |    20.28 | 0.580
+writes_always_flip         | 0.010 | 0.169 |     0.05 | 0.420
+turn[0,0]=N                | 0.100 | 0.224 |     0.38 | 0.438
+state_never_changes        | 0.091 | 0.000 | 100156495.61 | 0.546
+turn[0,1]=L                | 0.164 | 0.255 |     0.57 | 0.455
+turn[0,1]=R                | 0.164 | 0.255 |     0.57 | 0.455
+turn[1,1]=N                | 0.435 | 0.347 |     1.45 | 0.544
+turn[1,0]=N                | 0.144 | 0.217 |     0.60 | 0.463
+turn[0,0]=L                | 0.363 | 0.289 |     1.40 | 0.537
+turn[0,0]=R                | 0.363 | 0.289 |     1.40 | 0.537
+turn[0,1]=U                | 0.089 | 0.153 |     0.54 | 0.468
+best single-feature AUC (max of AUC, 1-AUC): 0.682
+unchanged-write feature: [np.float64(0.99), np.float64(0.831), np.float64(20.283), np.float64(0.58)]

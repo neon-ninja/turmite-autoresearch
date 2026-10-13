@@ -1,0 +1,11 @@
+Reading inline script metadata from `data/a7c_stats.py`
+usable seeds: 62 of 64
+k=26: n=62 CV=0.335 +- 0.043 mean x=2.647 median x=2.343
+k=27: n=62 CV=0.423 +- 0.060 mean x=2.895 median x=2.486
+k=28: n=62 CV=0.479 +- 0.075 mean x=3.042 median x=2.563
+k=29: n=62 CV=0.407 +- 0.041 mean x=3.022 median x=2.432
+k=30: n=62 CV=0.364 +- 0.031 mean x=2.988 median x=2.579
+k=31: n=62 CV=0.374 +- 0.037 mean x=2.999 median x=2.548
+k=32: n=62 CV=1.353 +- 0.552 mean x=3.659 median x=2.893
+CV(32)-CV(30) = +0.989 (+1.8 SE); max CV at k<=31: 0.479 (k=28); CV(32)-max = +0.874; Spearman(CV,k) over k>=28: 0.10
+verdict: undecided

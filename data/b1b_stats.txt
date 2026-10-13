@@ -1,0 +1,19 @@
+Reading inline script metadata from `data/b1b_stats.py`
+rule | a_inf per seed | mean | sd | match (|mean - 0.6676| < 0.0145)
+RLL            [0.659, 0.687, 0.667] mean 0.6709 sd 0.0148 MATCH
+RLLLRLLRRLR    [0.668, 0.676, 0.686] mean 0.6765 sd 0.0088 MATCH
+RLLLRRLRRRLR   [0.662, 0.633, 0.667] mean 0.6537 sd 0.0183 MATCH
+RLLRLLRLRRRL   [0.681, 0.672, 0.672] mean 0.6751 sd 0.0052 MATCH
+RLR            [0.669, 0.66, 0.698] mean 0.6759 sd 0.0197 MATCH
+RLRLLRRLL      [0.671, 0.671, 0.668] mean 0.6697 sd 0.0019 MATCH
+RLRLLRRLRL     [0.665, 0.676, 0.663] mean 0.6681 sd 0.0070 MATCH
+RLRLLRRLRRRR   [0.659, 0.666, 0.677] mean 0.6673 sd 0.0092 MATCH
+RLRLRRL        [0.674, 0.677, 0.668] mean 0.6729 sd 0.0047 MATCH
+RLRLRRRLLR     [0.665, 0.655, 0.653] mean 0.6577 sd 0.0062 MATCH
+RLRLRRRLR      [0.669, 0.669, 0.674] mean 0.6708 sd 0.0032 MATCH
+RLRLRRRRLR     [0.689, 0.667, 0.676] mean 0.6773 sd 0.0113 MATCH
+RLRR           fewer than 2 runs reached 2^34 (2 escaped)
+RRRLRLLL       [0.664, 0.666, 0.66] mean 0.6633 sd 0.0034 MATCH
+RRRLRLRRRRL    [0.668, 0.684, 0.666] mean 0.6726 sd 0.0096 MATCH
+
+rules matching the rotor: 14 of 14 evaluable (prediction >= 12 of 15; RLL and RLR expected not to match)

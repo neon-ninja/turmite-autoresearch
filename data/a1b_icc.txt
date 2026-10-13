@@ -1,0 +1,9 @@
+Reading inline script metadata from `data/a1b_icc.py`
+data/b2_probe.csv        all runs                       kappa     : rules 99, sd within 58.336, true sd between 31.234, ICC 0.223
+data/b2_probe.csv        all runs                       log kappa : rules 99, sd within 0.553, true sd between 0.569, ICC 0.515
+data/b2_probe.csv        core band 0.25<alpha_w<0.42    kappa     : rules 99, sd within 0.373, true sd between 0.438, ICC 0.579
+data/b2_probe.csv        core band 0.25<alpha_w<0.42    log kappa : rules 99, sd within 0.305, true sd between 0.394, ICC 0.625
+data/item21_probe.csv    all runs                       kappa     : rules 98, sd within 123.316, true sd between 90.325, ICC 0.349
+data/item21_probe.csv    all runs                       log kappa : rules 98, sd within 1.045, true sd between 2.447, ICC 0.846
+data/item21_probe.csv    core band 0.25<alpha_w<0.42    kappa     : rules 58, sd within 1.584, true sd between 1.567, ICC 0.495
+data/item21_probe.csv    core band 0.25<alpha_w<0.42    log kappa : rules 58, sd within 0.530, true sd between 0.692, ICC 0.630

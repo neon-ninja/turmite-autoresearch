@@ -1,0 +1,7 @@
+Reading inline script metadata from `data/d2_stats.py`
+specs 24; left the 768^3 box before 2^32: 6; usable (k=28..32 complete): 18
+volume exponent k=28..32: median 0.771, IQR 0.768-0.778, range 0.756-0.802
+extent exponent k=28..32: median 0.234, IQR 0.223-0.238, range 0.201-0.254
+volume exponent k=24..28: median 0.788 over 18 rules
+volume exponent k=26..30: median 0.778 over 18 rules
+fraction with volume exponent > 0.78: 0.2222222222222222 ; extent outside [0.23,0.27]: 0.3333333333333333

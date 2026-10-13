@@ -1,0 +1,20 @@
+cluster n spread  best_feature value F1_full F1_heldout
+ 0   9   1.24  nR_nL_nruns    (10, 2, 3)                   0.89 1.00 (train-chosen: nR_nL_nruns=(10, 2, 3))
+ 2  11   1.33  canon          LLLLLLLLLRR                  1.00 1.00 (train-chosen: canon=LLLLLLLLLRR)
+ 3   6   1.38  canon          LLLLLLLLRR                   0.75 0.00 (train-chosen: runs_multiset=(2, 8))
+ 5   9   1.52  canon          LLLLLLLRR                    1.00 1.00 (train-chosen: canon=LLLLLLLRR)
+ 8   7   1.92  n              7                            1.00 1.00 (train-chosen: n=7)
+ 9  43   2.32  canon          LLLLLLLLLRLR                 0.44 0.31 (train-chosen: canon=LLLLLLLRRLRR)
+10  22   2.41  canon          LLLLLLRRLLRR                 0.71 0.71 (train-chosen: canon=LLLLLLRRLLRR)
+11  53   2.66  n_nR           (11, 7)                      0.47 0.47 (train-chosen: n_nR=(11, 7))
+12  23   3.21  n_nruns        (10, 5)                      0.59 0.59 (train-chosen: canon=LLLLLRRLRR)
+13   5   3.36  runs_multiset  (1, 3, 6)                    0.57 0.00 (train-chosen: runs_multiset=(1, 3, 6))
+14  15   3.59  canon          LLLLLLRRRR                   0.64 0.62 (train-chosen: canon=LLLLLLRRRR)
+15  33   4.23  n              9                            0.88 0.89 (train-chosen: n=9)
+16 165   6.99  n              12                           0.77 0.74 (train-chosen: n=12)
+17   5   7.68  runs_multiset  (1, 2, 3, 3, 3)              0.29 0.00 (train-chosen: runs_multiset=(1, 1, 3, 3, 4))
+19 114  14.53  n              11                           0.73 0.71 (train-chosen: n=11)
+23  10  18.05  nR_nL_nruns    (6, 5, 6)                    0.31 0.25 (train-chosen: runs_multiset=(1, 2, 2, 2, 2, 2))
+
+clusters with >=5 rules: 16; separable in-sample (F1>=0.8): 5; separable held-out: 5
+symmetry classes (rotation/reversal/complement): 47; with >1 cluster: 21

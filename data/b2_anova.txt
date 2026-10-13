@@ -1,0 +1,47 @@
+{
+ "runs": 1185,
+ "kept": 1164,
+ "rules": 99,
+ "alpha_w": {
+  "sd_within": 0.0181,
+  "sd_of_rule_means": 0.0085,
+  "sd_between_true": 0.0067,
+  "icc": 0.12,
+  "F": 2.53,
+  "p": 6.05455562253003e-13,
+  "grand_mean": 0.3342,
+  "rule_means_range": [
+   0.2949,
+   0.3681
+  ]
+ },
+ "alpha_rg": {
+  "sd_within": 0.0136,
+  "sd_of_rule_means": 0.0082,
+  "sd_between_true": 0.0072,
+  "icc": 0.218,
+  "F": 4.38,
+  "p": 3.132798737166705e-34,
+  "grand_mean": 0.3371,
+  "rule_means_range": [
+   0.2966,
+   0.3733
+  ]
+ },
+ "a": {
+  "sd_within": 0.0244,
+  "sd_of_rule_means": 0.0188,
+  "sd_between_true": 0.0174,
+  "icc": 0.337,
+  "F": 7.86,
+  "p": 5.688204247893793e-74,
+  "grand_mean": 0.6804,
+  "rule_means_range": [
+   0.5928,
+   0.7449
+  ]
+ },
+ "plain_vs_patched_corr_rg": 0.45,
+ "plain_vs_patched_corr_w": 0.39
+}
+unfiltered alpha_w: 99 rules, 1185 runs, sd_within 0.0416, sd_between_true 0.0243, ICC 0.255

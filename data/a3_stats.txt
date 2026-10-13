@@ -1,0 +1,15 @@
+Reading inline script metadata from `data/a3_stats.py`
+runs with a profile: 12 of 12 specs; first line of a prof row has 20 values
+RLR@1@100000           a=0.851  centre(shell 0)=0.57  rms formula 1.64  rms cone 1.14  predicted centre 4.59
+RLR@2@100000           a=0.985  centre(shell 0)=0.00  rms formula 2.60  rms cone 1.71  predicted centre 6.35
+RLR@3@100000           a=0.956  centre(shell 0)=0.62  rms formula 2.16  rms cone 1.35  predicted centre 5.92
+RLL@1@100000           a=0.904  centre(shell 0)=1.07  rms formula 1.79  rms cone 1.15  predicted centre 5.23
+RLL@2@100000           a=0.930  centre(shell 0)=0.04  rms formula 2.27  rms cone 1.54  predicted centre 5.57
+RLL@3@100000           a=0.942  centre(shell 0)=0.48  rms formula 2.27  rms cone 1.54  predicted centre 5.73
+RLRLRRRLLR@1@100000    a=0.885  centre(shell 0)=0.25  rms formula 1.97  rms cone 1.36  predicted centre 4.99
+RLRLRRRLLR@2@100000    a=0.915  centre(shell 0)=0.01  rms formula 2.27  rms cone 1.60  predicted centre 5.37
+RLRLRRRLLR@3@100000    a=0.935  centre(shell 0)=0.13  rms formula 2.32  rms cone 1.59  predicted centre 5.64
+RRRLR@1@100000         a=0.992  centre(shell 0)=0.89  rms formula 2.20  rms cone 1.28  predicted centre 6.44
+RRRLR@2@100000         a=1.021  centre(shell 0)=0.02  rms formula 2.70  rms cone 1.66  predicted centre 6.89
+RRRLR@3@100000         a=0.840  centre(shell 0)=0.40  rms formula 1.77  rms cone 1.32  predicted centre 4.47
+formula beats the cone in 0 of 12 runs (prediction: >= 75% and a central value > 6)

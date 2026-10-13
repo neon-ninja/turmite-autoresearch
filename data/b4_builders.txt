@@ -1,0 +1,34 @@
+Reading inline script metadata from `data/b4_builders.py`
+builders: 304
+with a recognised highway period in sweep_v2: 5 ; confirmed (second check) among them: 0
+builders with NO recognised highway: 299
+shape: (2, 2)
+┌─────────┬─────┐
+│ stop    ┆ len │
+│ ---     ┆ --- │
+│ str     ┆ u32 │
+╞═════════╪═════╡
+│ escaped ┆ 2   │
+│ budget  ┆ 297 │
+└─────────┴─────┘
+  of these, with a tail_period (periodic tail without translation): 11
+  not full (left the growth grid before 2^27) vs full but spc < 20: 10 289
+  rule length distribution of these: [(5, 1), (6, 1), (7, 3), (8, 9), (9, 18), (10, 41), (11, 72), (12, 154)]
+shape: (12, 6)
+┌──────────────┬─────────┬───────────┬──────────┬───────┬────────┐
+│ rule         ┆ stop    ┆ steps     ┆ spc      ┆ width ┆ height │
+│ ---          ┆ ---     ┆ ---       ┆ ---      ┆ ---   ┆ ---    │
+│ str          ┆ str     ┆ i64       ┆ f64      ┆ i64   ┆ i64    │
+╞══════════════╪═════════╪═══════════╪══════════╪═══════╪════════╡
+│ RRLRLRRRRLRL ┆ escaped ┆ 45054320  ┆ 2.618133 ┆ 4110  ┆ 4187   │
+│ RRLLLRLLLRR  ┆ escaped ┆ 79188738  ┆ 4.654039 ┆ 4057  ┆ 4194   │
+│ RRLRR        ┆ budget  ┆ 100000000 ┆ 5.991141 ┆ 4086  ┆ 4085   │
+│ RLRRRL       ┆ budget  ┆ 100000000 ┆ 3.995204 ┆ 5003  ┆ 5003   │
+│ RLRRRLL      ┆ budget  ┆ 100000000 ┆ 3.996003 ┆ 5003  ┆ 5002   │
+│ …            ┆ …       ┆ …         ┆ …        ┆ …     ┆ …      │
+│ RLRRRLLL     ┆ budget  ┆ 100000000 ┆ 3.995204 ┆ 5002  ┆ 5004   │
+│ RLRRRRLL     ┆ budget  ┆ 100000000 ┆ 3.995204 ┆ 5002  ┆ 5004   │
+│ RLLLLRRL     ┆ budget  ┆ 100000000 ┆ 3.961086 ┆ 5025  ┆ 5024   │
+│ RLLLRRRL     ┆ budget  ┆ 100000000 ┆ 2.011686 ┆ 7048  ┆ 7053   │
+│ RLRRRRRL     ┆ budget  ┆ 100000000 ┆ 4.019269 ┆ 4988  ┆ 4988   │
+└──────────────┴─────────┴───────────┴──────────┴───────┴────────┘

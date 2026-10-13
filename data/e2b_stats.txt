@@ -1,0 +1,17 @@
+Reading inline script metadata from `data/e2b_stats.py`
+
+RRRRRLLLLLL
+  R= 4: base 0.091; all-tile radius 12.4 +- 1.1; hot-tile radius 10.2 (10 tiles)
+  R= 6: base 0.217; all-tile radius 12.4 +- 1.1; hot-tile radius 10.2 (10 tiles)
+  R=10: base 0.474; all-tile radius 13.5 +- 1.0; hot-tile radius 11.4 (11 tiles)
+  R=15: base 0.694; all-tile radius 15.2 +- 1.0; hot-tile radius 13.0 (13 tiles)
+  R=22: base 0.863; all-tile radius 17.7 +- 1.0; hot-tile radius 15.8 (15 tiles)
+  ratio r(22)/r(4) = 1.44 +- 0.15 (R ratio 5.5): excursion scale
+
+RLLLLRRRRLR
+  R= 4: base 0.108; all-tile radius 11.3 +- 1.0; hot-tile radius 8.2 (9 tiles)
+  R= 6: base 0.247; all-tile radius 11.3 +- 1.1; hot-tile radius 8.9 (11 tiles)
+  R=10: base 0.494; all-tile radius 13.0 +- 1.0; hot-tile radius 10.9 (15 tiles)
+  R=15: base 0.705; all-tile radius 15.5 +- 1.1; hot-tile radius 13.3 (19 tiles)
+  R=22: base 0.869; all-tile radius 19.6 +- 1.2; hot-tile radius 16.1 (14 tiles)
+  ratio r(22)/r(4) = 1.73 +- 0.18 (R ratio 5.5): inconclusive

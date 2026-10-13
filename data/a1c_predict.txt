@@ -1,0 +1,6 @@
+Reading inline script metadata from `data/a1c_predict.py`
+rules with >= 6 core-band runs: 192; sd of rule-mean log kappa 0.503
+ridge lam=1: letter-by-position LOO R^2 -0.061; 2-/3-letter substring counts -0.004
+ridge lam=10: letter-by-position LOO R^2 -0.046; 2-/3-letter substring counts -0.002
+ridge lam=30: letter-by-position LOO R^2 -0.036; 2-/3-letter substring counts +0.001
+prefix-5 neighbour mean LOO R^2 +0.039

@@ -133,3 +133,69 @@ impl Walker for PatchedAnt {
         self.ant.step(cell, heading);
     }
 }
+
+/// Rotor walker whose initial arrows are biased towards north (C2 of the 2026-10-13 frontier):
+/// with probability `bias` (a fraction of 2^32, so the run is exactly reproducible) the arrow is north,
+/// otherwise uniform. `bias = 0` is not bit-identical to `Rotor` (different hash stream), only equal in law.
+pub struct BiasedRotor {
+    pub seed: u64,
+    pub bias_q32: u64,
+}
+
+impl BiasedRotor {
+    pub fn new(seed: u64, bias: f64) -> BiasedRotor {
+        BiasedRotor { seed, bias_q32: (bias * 4294967296.0) as u64 }
+    }
+}
+
+/// The initial arrow of `BiasedRotor` at (x, y); shared with the brute-force test.
+pub fn biased_arrow(seed: u64, bias_q32: u64, x: i64, y: i64) -> u8 {
+    let key = ((x as i32 as u32 as u64) << 32) | (y as i32 as u32 as u64);
+    let h = mix64(mix64(seed ^ 0x3C6E_F372_FE94_F82B) ^ key);
+    if (h >> 32) < bias_q32 { 0 } else { (h & 3) as u8 }
+}
+
+impl Walker for BiasedRotor {
+    const RANDOM_INIT: bool = true;
+    fn initial_cell(&self, x: i64, y: i64) -> u8 {
+        biased_arrow(self.seed, self.bias_q32, x, y)
+    }
+    #[inline(always)]
+    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
+        *cell = (*cell + 1) & 3;
+        *heading = *cell;
+    }
+}
+
+/// Generalised ant on a sparse random background (B2b of the 2026-10-13 frontier): each cell independently starts in a uniformly random
+/// non-zero colour with probability `density` (a fraction of 2^32, so runs are exactly reproducible), otherwise blank.
+pub struct SparseBgAnt {
+    pub ant: AntWalker,
+    pub n: u8,
+    pub seed: u64,
+    pub density_q32: u64,
+}
+
+impl SparseBgAnt {
+    pub fn new(rule: &Rule, seed: u64, density: f64) -> SparseBgAnt {
+        SparseBgAnt { ant: AntWalker::new(rule), n: rule.len() as u8, seed, density_q32: (density * 4294967296.0) as u64 }
+    }
+}
+
+/// Initial colour of `SparseBgAnt` at (x, y); shared with the brute-force test.
+pub fn sparse_bg_colour(seed: u64, density_q32: u64, n: u8, x: i64, y: i64) -> u8 {
+    let key = ((x as i32 as u32 as u64) << 32) | (y as i32 as u32 as u64);
+    let h = mix64(mix64(seed ^ 0x7F4A_7C15_9E37_79B9) ^ key);
+    if (h >> 32) < density_q32 { 1 + ((h & 0xFFFF_FFFF) % (n as u64 - 1)) as u8 } else { 0 }
+}
+
+impl Walker for SparseBgAnt {
+    const RANDOM_INIT: bool = true;
+    fn initial_cell(&self, x: i64, y: i64) -> u8 {
+        sparse_bg_colour(self.seed, self.density_q32, self.n, x, y)
+    }
+    #[inline(always)]
+    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
+        self.ant.step(cell, heading);
+    }
+}

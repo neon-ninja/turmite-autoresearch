@@ -1,0 +1,4 @@
+kappa: n_train 1311, n_test 1311; held-out R^2 of the letter model = 0.003; sd of y 1.258
+c: n_train 1311, n_test 1311; held-out R^2 of the letter model = 0.782; sd of y 0.122
+g_k: n_train 1311, n_test 1311; held-out R^2 of the letter model = 0.002; sd of y 0.081
+Spearman(kappa, q) = 0.077 ; kappa median 0.905 iqr [0.73, 1.089]

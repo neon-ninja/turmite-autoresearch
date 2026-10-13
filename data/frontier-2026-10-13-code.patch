@@ -1,0 +1,363 @@
+1b9c225974c806fac8ec90946677c50e588f3ab7
+# git diff against the commit above (tracked files); new source files are listed in data/frontier-2026-10-13-new-code-files.txt
+diff --git a/.gitignore b/.gitignore
+index 0594446..7f684d9 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -6,3 +6,8 @@
+ __pycache__/
+ /web/dist
+ /dumps_f
++/dumps_e1
++/dumps_e5
++/dumps_e6
++/knock_e1
++/knock_e5
+diff --git a/examples/knock.rs b/examples/knock.rs
+index 11ec220..7c8c658 100644
+--- a/examples/knock.rs
++++ b/examples/knock.rs
+@@ -34,9 +34,15 @@ struct Out {
+     ok: bool,
+ }
+ 
+-fn run(colour: &mut [u8], rule: &Rule, steps: u64, mut counts: Option<(&mut Vec<u32>, &mut Vec<u32>)>) -> Out {
++fn run(colour: &mut [u8], rule: &Rule, steps: u64, mut counts: Option<(&mut Vec<u32>, &mut Vec<u32>, &mut Vec<u32>)>) -> Out {
++    // E3 (2026-10-13): excursion buffer for the homeward-leg counts (ret.u32)
++    let mut exc: Vec<(usize, i64)> = vec![];
+     let n = rule.len() as u8;
+-    let (mut x, mut y, mut h) = (C, C, 0u8);
++    // E2 (2026-10-13): radius of the near_home measure; the default 10 reproduces the original runs exactly.
++    let near_r: i64 = std::env::var("NEAR_R").ok().map_or(10, |v| v.parse().unwrap());
++    // E1: START_H (0 = north, 1 = east, ...) lets a rotated field be run with the correspondingly rotated start heading; default 0.
++    let h0: u8 = std::env::var("START_H").ok().map_or(0, |v| v.parse().unwrap());
++    let (mut x, mut y, mut h) = (C, C, h0);
+     let block = (steps / 64).max(1);
+     let (mut sx, mut sy, mut sr2) = (0f64, 0f64, 0f64);
+     let (mut nh, mut np) = (0u64, 0u64);
+@@ -58,14 +64,22 @@ fn run(colour: &mut [u8], rule: &Rule, steps: u64, mut counts: Option<(&mut Vec<
+         sx += rx as f64;
+         sy += ry as f64;
+         sr2 += r2 as f64;
+-        nh += (r2 <= 100) as u64;
++        nh += (r2 <= near_r * near_r) as u64;
+         np += ((rx as f64 - prev.0).powi(2) + (ry as f64 - prev.1).powi(2) <= 100.0) as u64;
+-        if let Some((occ, route)) = counts.as_mut() {
++        if let Some((occ, route, ret)) = counts.as_mut() {
+             if t > steps / 2 {
+                 let j = (y as usize) * S + x as usize;
+                 occ[j] += 1;
+                 if r2 > 100 {
+                     route[j] += 1;
++                    exc.push((j, r2));
++                } else if !exc.is_empty() {
++                    // back inside r <= 10: the steps after the farthest point of this excursion are its homeward leg
++                    let m = (0..exc.len()).max_by_key(|&i| (exc[i].1, std::cmp::Reverse(i))).unwrap();
++                    for &(jj, _) in &exc[m..] {
++                        ret[jj] += 1;
++                    }
++                    exc.clear();
+                 }
+             }
+         }
+@@ -116,9 +130,10 @@ fn main() {
+             let mut colour = load(&raw);
+             let mut occ = vec![0u32; S * S];
+             let mut route = vec![0u32; S * S];
+-            let o = run(&mut colour, &rule, steps, Some((&mut occ, &mut route)));
++            let mut ret = vec![0u32; S * S];
++            let o = run(&mut colour, &rule, steps, Some((&mut occ, &mut route, &mut ret)));
+             let dir = std::path::Path::new(&a[5]);
+-            for (name, v) in [("occ.u32", &occ), ("route.u32", &route)] {
++            for (name, v) in [("occ.u32", &occ), ("route.u32", &route), ("ret.u32", &ret)] {
+                 let bytes: Vec<u8> = v.iter().flat_map(|c| c.to_le_bytes()).collect();
+                 std::fs::File::create(dir.join(name)).unwrap().write_all(&bytes).unwrap();
+             }
+@@ -136,11 +151,66 @@ fn main() {
+                 .collect();
+             let visited: Vec<usize> = (0..S * S).filter(|&i| raw[i] != 255).collect();
+             let base = load(&raw);
++            let rare: Vec<u8> = std::env::var("RARE").ok().map_or(vec![], |v| v.split(',').map(|c| c.parse().unwrap()).collect());
++            let have_rare = std::env::var("RARE").is_ok();
++            // A6 mechanism (2026-10-13): kind "strat" corrupts w*h cells drawn from pool[class=x][occupancy quartile=y], where class 1 = base colour in RARE,
++            // and occupancy comes from the intact run's occ.u32 (env STRAT_OCC); "corrupt" = a uniformly random different colour.
++            let mut pools: Vec<Vec<Vec<usize>>> = vec![vec![vec![]; 4]; 2];
++            // E3b: kind "strat2": excursion cells (route > 0) split by homeward share ret/route (class 1: >= 0.6, 0: <= 0.4) and route-count quartile.
++            let mut pools2: Vec<Vec<Vec<usize>>> = vec![vec![vec![]; 4]; 2];
++            if let (Ok(pr), Ok(pt)) = (std::env::var("STRAT_ROUTE"), std::env::var("STRAT_RET")) {
++                let rd = |p: &str| -> Vec<u32> { std::fs::read(p).unwrap().chunks_exact(4).map(|b| u32::from_le_bytes([b[0], b[1], b[2], b[3]])).collect() };
++                let (route, ret) = (rd(&pr), rd(&pt));
++                let mut vals: Vec<u32> = visited.iter().map(|&i| route[i]).filter(|&v| v > 0).collect();
++                vals.sort();
++                let q = [vals[vals.len() / 4], vals[vals.len() / 2], vals[3 * vals.len() / 4]];
++                let mut bins: Vec<Vec<(f64, usize)>> = vec![vec![]; 4];
++                for &i in &visited {
++                    if route[i] == 0 {
++                        continue;
++                    }
++                    bins[q.iter().filter(|&&t| route[i] > t).count()].push((ret[i] as f64 / route[i] as f64, i));
++                }
++                // within each route quartile, split at the median homeward share (class 1 = upper half)
++                for (b, v) in bins.iter_mut().enumerate() {
++                    v.sort_by(|a, c| a.0.partial_cmp(&c.0).unwrap().then(a.1.cmp(&c.1)));
++                    let h = v.len() / 2;
++                    for (k, &(_, i)) in v.iter().enumerate() {
++                        pools2[(k >= h) as usize][b].push(i);
++                    }
++                }
++                eprintln!("strat2 quartile thresholds {:?}; pool sizes {:?}", q, pools2.iter().map(|c| c.iter().map(|b| b.len()).collect::<Vec<_>>()).collect::<Vec<_>>());
++            }
++            if let Ok(p) = std::env::var("STRAT_OCC") {
++                let raw_occ = std::fs::read(&p).unwrap();
++                let occ: Vec<u32> = raw_occ.chunks_exact(4).map(|b| u32::from_le_bytes([b[0], b[1], b[2], b[3]])).collect();
++                let mut vals: Vec<u32> = visited.iter().map(|&i| occ[i]).filter(|&v| v > 0).collect();
++                vals.sort();
++                let q = [vals[vals.len() / 4], vals[vals.len() / 2], vals[3 * vals.len() / 4]];
++                for &i in &visited {
++                    if occ[i] == 0 {
++                        continue;
++                    }
++                    let bin = q.iter().filter(|&&t| occ[i] > t).count();
++                    let class = rare.contains(&base[i]) as usize;
++                    pools[class][bin].push(i);
++                }
++                eprintln!("strat quartile thresholds {:?}; pool sizes {:?}", q, pools.iter().map(|c| c.iter().map(|b| b.len()).collect::<Vec<_>>()).collect::<Vec<_>>());
++            }
+             let rows: Vec<String> = jobs
+                 .par_iter()
+                 .map(|(kind, x, y, w, h, seed)| {
+                     let mut st = seed.wrapping_mul(0x2545F4914F6CDD1D) ^ ((*x as u64) << 20) ^ ((*y as u64) << 40) ^ 0xABCDEF;
+-                    let idx: Vec<usize> = if kind == "patch" {
++                    let idx: Vec<usize> = if kind == "strat" || kind == "strat2" {
++                        let cnt = (*w * *h) as usize;
++                        let mut pool = if kind == "strat" { pools[*x as usize][*y as usize].clone() } else { pools2[*x as usize][*y as usize].clone() };
++                        for k in 0..cnt {
++                            let j = k + (splitmix(&mut st) % (pool.len() - k) as u64) as usize;
++                            pool.swap(k, j);
++                        }
++                        pool.truncate(cnt);
++                        pool
++                    } else if kind == "patch" {
+                         let mut v = vec![];
+                         for yy in *y..*y + *h {
+                             for xx in *x..*x + *w {
+@@ -163,15 +233,30 @@ fn main() {
+                     };
+                     let mut colour = base.clone();
+                     let mut vals: Vec<u8> = idx.iter().map(|&i| colour[i]).collect();
+-                    shuffle(&mut vals, &mut st);
++                    if kind == "strat" || kind == "strat2" {
++                        let nn = rule.len() as u64;
++                        for v in vals.iter_mut() {
++                            *v = ((*v as u64 + 1 + splitmix(&mut st) % (nn - 1)) % nn) as u8;
++                        }
++                    } else {
++                        shuffle(&mut vals, &mut st);
++                    }
+                     let mut changed = 0usize;
++                    // E4 (2026-10-13): with RARE=c1,c2,.. also count cells that held a rare colour and
++                    // were changed (lost) and cells that received a rare colour from elsewhere (gained).
++                    let (mut lost, mut gained) = (0usize, 0usize);
+                     for (k, &i) in idx.iter().enumerate() {
+                         changed += (colour[i] != vals[k]) as usize;
++                        if colour[i] != vals[k] {
++                            lost += rare.contains(&colour[i]) as usize;
++                            gained += rare.contains(&vals[k]) as usize;
++                        }
+                         colour[i] = vals[k];
+                     }
+                     let o = run(&mut colour, &rule, steps, None);
++                    let extra = if have_rare { format!(",{lost},{gained}") } else { String::new() };
+                     format!(
+-                        "{kind},{x},{y},{w},{h},{seed},{},{:.4},{:.4},{:.4},{:.3},{:.2},{:.2},{}",
++                        "{kind},{x},{y},{w},{h},{seed},{},{:.4},{:.4},{:.4},{:.3},{:.2},{:.2},{}{extra}",
+                         idx.len(),
+                         changed as f64 / idx.len().max(1) as f64,
+                         o.near_home,
+@@ -184,7 +269,7 @@ fn main() {
+                 })
+                 .collect();
+             let mut f = std::fs::File::create(&a[6]).unwrap();
+-            writeln!(f, "kind,x,y,w,h,seed,nvis,changed,{hdr},ok").unwrap();
++            writeln!(f, "kind,x,y,w,h,seed,nvis,changed,{hdr},ok{}", if have_rare { ",rare_lost,rare_gained" } else { "" }).unwrap();
+             for r in rows {
+                 writeln!(f, "{r}").unwrap();
+             }
+diff --git a/examples/shape.rs b/examples/shape.rs
+index 5d70b52..ee19f92 100644
+--- a/examples/shape.rs
++++ b/examples/shape.rs
+@@ -148,8 +148,13 @@ fn main() {
+         .map(|r| {
+             if let Some(seed) = r.strip_prefix("rotor:") {
+                 run(Rotor { seed: seed.parse().unwrap() }, r, size, max_log2)
+-            } else if let Some((rule, seed)) = r.split_once('@') {
+-                run(PatchedAnt::new(&rule.parse::<Rule>().unwrap(), seed.parse().unwrap(), 2), r, size, max_log2)
++            } else if r.contains('@') {
++                // RULE@SEED or RULE@SEED@RADIUS (A3 control: radius >= size/2 gives a full random-colour background)
++                let mut it = r.split('@');
++                let rule = it.next().unwrap();
++                let seed = it.next().unwrap();
++                let radius: i64 = it.next().map_or(2, |v| v.parse().unwrap());
++                run(PatchedAnt::new(&rule.parse::<Rule>().unwrap(), seed.parse().unwrap(), radius), r, size, max_log2)
+             } else {
+                 run(AntWalker::new(&r.parse::<Rule>().unwrap()), r, size, max_log2)
+             }
+diff --git a/notes/open-questions-hypotheses.md b/notes/open-questions-hypotheses.md
+index ec7c3c8..3d51961 100644
+--- a/notes/open-questions-hypotheses.md
++++ b/notes/open-questions-hypotheses.md
+@@ -55,3 +55,17 @@ Predictions:
+ - Q5. Is RRLLLLLLR (CV of A/t^(2/3) rising with t, alpha_w 0.38 +- 0.07) truly non-self-averaging, and with how many 'phases'?
+ - Q6. Why does the ant's visit density equal the rotor's cone 3 t/A (1 - r/R_eq) to a few per cent? A derivation would also fix the 2/3 exponent.
+ - Q7. Why is the ants' boundary width exponent (0.25-0.27 at 2^28) above the rotor's (0.13-0.16 under the same estimator)?
++
++## Added 2026-10-13 (later) from `notes/frontier-2026-10-13-results.md`
++
++Answered or sharpened there: Q3 (no single rule feature labels the home types: A5), Q4 (rare colours are rare in 99.8% of tethered rules and 5% of blob rules, but the self-healing explanation is reversed: the most-visited cells hurt most: A6), Q5 (RRLLLLLLR: CV rises through 2^29, unimodal; rising CV occurs in ~5% of random rules, mostly RLLL-prefixed: A7), Q6 (cone follows from uniform occupancy + the exponent, and correctly fails on a random background: A3), Q7 (ants 0.24 vs rotor 0.13 still falling, ants trend inconclusive: A4).
++New, unexplained:
++- Q8. RLRLLL (an item-4 "core" rule) leaves a 32768 board at ~1.3e10 steps with no highway: an ~1e4-cell thin structure along the edge (bounding box 3,377 at 1e10, 18,175 at 1.3e10). What is it, and are the other "escaped without highway" cases (4.6% of the 10^10 survivors, 1.2% in (1e10, 1e11]) the same thing?
++- Q9. The tether of RRRRRLLLLLL is intermittent in age: a fresh ant started from the 2^25 field at home heading north is not tethered (near_home 0.061) while 2^22, 2^24, 2^26 are (0.43, 0.47, 0.36). What state does the original ant carry that the field plus "home, north" does not?
++- Q10. In the rotor with north-biased arrows (C2b/C2c) the territory width at 2^28 grows +25% at bias 0.15 and 2.6x at 0.25, while kappa and c change by < 10% and the width exponent not at all. Which factor of the identity dA/dt = c kappa P/A carries the amplitude, and why does the area exponent rise (0.715 to 0.787) while the width exponent does not (elongation untested)?
++- Q11. Why is the area-exponent ICC across rules (0.34) so much larger than the width-exponent ICC (0.12) (B2)? Rule identity matters for area but little for width.
++- Q12. The 3D ants' extent exponent is 0.234 and volume exponent 0.771 at 2^28-2^32, so volume/extent^3 is still rising as ~t^0.07: what is the 3D limit shape (D2)?
++- Q13. Why does the corruption of the most-visited cells hurt most, with rare colours doubling the damage at equal visit quartile (A6)? How much of "visit rate" is just distance from home?
++- Q14. Does contiguity reduce the damage per critical cell (patch ~0.65x the loss per rare cell of a swap, E4), or is that a location effect?
++- Q15. The census "builders" (304) are mostly non-highway frame builders with steps per bounding-box cell ~2-6; are they one class, and does it match the sqrt(t) turmite cluster (D1)?
++- Q16. The late-highway onset rate fell from 4.7% to 1.25% per decade at 1e10-1e11 (B5): is the set of late highways finite, and what is the distribution of onset times within a prefix family?
+diff --git a/notes/research-frontier-2026-10-13.md b/notes/research-frontier-2026-10-13.md
+index 744da0d..5991417 100644
+--- a/notes/research-frontier-2026-10-13.md
++++ b/notes/research-frontier-2026-10-13.md
+@@ -154,3 +154,6 @@ Frontier item 12 found no detectable formation event, and the map shows the home
+ 4. **A1, A3:** the two best chances at a mechanism with numbers behind it.
+ 5. **A5, A6, A7:** the strange findings; cheap and well-posed.
+ 6. **E1-E3:** the knockout note's own follow-ups. E1 and E2 are cheap reruns of existing code (`examples/knock.rs`); E3 needs a new route definition.
++
++---
++Outcomes (appended 2026-10-13; the predictions above are unchanged): see `notes/frontier-2026-10-13-results.md` for the status of every item, the protocols written before each run, the commands and data files.
+diff --git a/notes/summary-2026-10-13.md b/notes/summary-2026-10-13.md
+index 9aa067a..114657c 100644
+--- a/notes/summary-2026-10-13.md
++++ b/notes/summary-2026-10-13.md
+@@ -77,3 +77,6 @@ These are the log-growing rules that stay near home.
+ - 153 rules weren't fitted, and the fastest growers are probably under-represented.
+ - Highway classification is finite-time.
+ - The paper's data-availability, AI-disclosure and funding sections are still placeholders.
++
++---
++Correction pointer (appended 2026-10-13, nothing above edited): `notes/frontier-2026-10-13-results.md` (section "B4 follow-up") shows that the 304 census "builders" are mostly non-highway frame builders (5 of 304 have a recognised highway; the 576 highways were removed before the census), and that the 153 unfitted rules were stalled/tethered rules, none of which left the board. The late-highway rate per decade fell from 4.7% (1e9-1e10) to 1.25% (1e10-1e11) in a 240-rule sample (B5), and the 2^34 runs and other follow-ups are in that note.
+diff --git a/src/bin/probe.rs b/src/bin/probe.rs
+index 4599c3d..0a13311 100644
+--- a/src/bin/probe.rs
++++ b/src/bin/probe.rs
+@@ -8,7 +8,7 @@ use rayon::prelude::*;
+ use std::io::Write;
+ use turmite::Rule;
+ use turmite::probe::{probe, probe_walker};
+-use turmite::walkers::{PatchedAnt, RandomWalk, Rotor};
++use turmite::walkers::{BiasedRotor, PatchedAnt, RandomWalk, Rotor, SparseBgAnt};
+ 
+ fn main() {
+     let a: Vec<String> = std::env::args().collect();
+@@ -22,6 +22,14 @@ fn main() {
+         .map(|r| {
+             let res = if let Some(seed) = r.strip_prefix("rotor:") {
+                 probe_walker(Rotor { seed: seed.parse().unwrap() }, size, 8, max_log2)
++            } else if let Some(spec) = r.strip_prefix("sbg:") {
++                // sbg:RULE:SEED:DENSITY (B2b: ant on a sparse random background)
++                let p: Vec<&str> = spec.split(':').collect();
++                probe_walker(SparseBgAnt::new(&p[0].parse::<Rule>().unwrap(), p[1].parse().unwrap(), p[2].parse().unwrap()), size, 8, max_log2)
++            } else if let Some(spec) = r.strip_prefix("brotor:") {
++                // brotor:SEED:BIAS (C2: rotor with arrows biased towards north)
++                let (seed, bias) = spec.split_once(':').unwrap();
++                probe_walker(BiasedRotor::new(seed.parse().unwrap(), bias.parse().unwrap()), size, 8, max_log2)
+             } else if let Some(seed) = r.strip_prefix("rw:") {
+                 probe_walker(RandomWalk { state: seed.parse().unwrap() }, size, 8, max_log2)
+             } else if let Some((rule, seed)) = r.split_once('@') {
+diff --git a/src/lib.rs b/src/lib.rs
+index 203391f..52e801b 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -8,6 +8,7 @@
+ //! Two implementations live here: [`reference`] favours obviousness and is the
+ //! oracle; [`fast`] is what the sweep uses and is tested against the oracle.
+ 
++pub mod colours;
+ pub mod detect;
+ pub mod ext;
+ pub mod fast;
+diff --git a/src/walkers.rs b/src/walkers.rs
+index 2e983f9..36b618f 100644
+--- a/src/walkers.rs
++++ b/src/walkers.rs
+@@ -133,3 +133,69 @@ impl Walker for PatchedAnt {
+         self.ant.step(cell, heading);
+     }
+ }
++
++/// Rotor walker whose initial arrows are biased towards north (C2 of the 2026-10-13 frontier):
++/// with probability `bias` (a fraction of 2^32, so the run is exactly reproducible) the arrow is north,
++/// otherwise uniform. `bias = 0` is not bit-identical to `Rotor` (different hash stream), only equal in law.
++pub struct BiasedRotor {
++    pub seed: u64,
++    pub bias_q32: u64,
++}
++
++impl BiasedRotor {
++    pub fn new(seed: u64, bias: f64) -> BiasedRotor {
++        BiasedRotor { seed, bias_q32: (bias * 4294967296.0) as u64 }
++    }
++}
++
++/// The initial arrow of `BiasedRotor` at (x, y); shared with the brute-force test.
++pub fn biased_arrow(seed: u64, bias_q32: u64, x: i64, y: i64) -> u8 {
++    let key = ((x as i32 as u32 as u64) << 32) | (y as i32 as u32 as u64);
++    let h = mix64(mix64(seed ^ 0x3C6E_F372_FE94_F82B) ^ key);
++    if (h >> 32) < bias_q32 { 0 } else { (h & 3) as u8 }
++}
++
++impl Walker for BiasedRotor {
++    const RANDOM_INIT: bool = true;
++    fn initial_cell(&self, x: i64, y: i64) -> u8 {
++        biased_arrow(self.seed, self.bias_q32, x, y)
++    }
++    #[inline(always)]
++    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
++        *cell = (*cell + 1) & 3;
++        *heading = *cell;
++    }
++}
++
++/// Generalised ant on a sparse random background (B2b of the 2026-10-13 frontier): each cell independently starts in a uniformly random
++/// non-zero colour with probability `density` (a fraction of 2^32, so runs are exactly reproducible), otherwise blank.
++pub struct SparseBgAnt {
++    pub ant: AntWalker,
++    pub n: u8,
++    pub seed: u64,
++    pub density_q32: u64,
++}
++
++impl SparseBgAnt {
++    pub fn new(rule: &Rule, seed: u64, density: f64) -> SparseBgAnt {
++        SparseBgAnt { ant: AntWalker::new(rule), n: rule.len() as u8, seed, density_q32: (density * 4294967296.0) as u64 }
++    }
++}
++
++/// Initial colour of `SparseBgAnt` at (x, y); shared with the brute-force test.
++pub fn sparse_bg_colour(seed: u64, density_q32: u64, n: u8, x: i64, y: i64) -> u8 {
++    let key = ((x as i32 as u32 as u64) << 32) | (y as i32 as u32 as u64);
++    let h = mix64(mix64(seed ^ 0x7F4A_7C15_9E37_79B9) ^ key);
++    if (h >> 32) < density_q32 { 1 + ((h & 0xFFFF_FFFF) % (n as u64 - 1)) as u8 } else { 0 }
++}
++
++impl Walker for SparseBgAnt {
++    const RANDOM_INIT: bool = true;
++    fn initial_cell(&self, x: i64, y: i64) -> u8 {
++        sparse_bg_colour(self.seed, self.density_q32, self.n, x, y)
++    }
++    #[inline(always)]
++    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
++        self.ant.step(cell, heading);
++    }
++}

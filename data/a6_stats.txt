@@ -1,0 +1,23 @@
+Reading inline script metadata from `data/a6_stats.py`
+
+RRRRRLLLLLL: base near_home 0.4737; runs 480
+other    q0: +0.0019+-0.0003 (n=60)  q1: +0.0036+-0.0003 (n=60)  q2: +0.0099+-0.0005 (n=60)  q3: +0.0561+-0.0028 (n=60)
+rare     q0: +0.0039+-0.0003 (n=60)  q1: +0.0075+-0.0003 (n=60)  q2: +0.0262+-0.0006 (n=60)  q3: +0.1089+-0.0037 (n=60)
+  other: q3 - q0 = +0.0542 (+19.1 SE) -> REVERSED (more visited hurts more)
+  rare: q3 - q0 = +0.1049 (+28.6 SE) -> REVERSED (more visited hurts more)
+  q0: rare - other = +0.0020 (+4.7 SE)
+  q1: rare - other = +0.0040 (+9.1 SE)
+  q2: rare - other = +0.0164 (+21.1 SE)
+  q3: rare - other = +0.0527 (+11.4 SE)
+  quartiles with |rare - other| > 2 SE: 4 of 4 -> colour matters beyond visit rate: True
+
+RLLLLRRRRLR: base near_home 0.4938; runs 480
+other    q0: +0.0032+-0.0002 (n=60)  q1: +0.0044+-0.0003 (n=60)  q2: +0.0073+-0.0004 (n=60)  q3: +0.0490+-0.0030 (n=60)
+rare     q0: +0.0048+-0.0003 (n=60)  q1: +0.0056+-0.0003 (n=60)  q2: +0.0123+-0.0004 (n=60)  q3: +0.1054+-0.0033 (n=60)
+  other: q3 - q0 = +0.0458 (+15.1 SE) -> REVERSED (more visited hurts more)
+  rare: q3 - q0 = +0.1006 (+30.1 SE) -> REVERSED (more visited hurts more)
+  q0: rare - other = +0.0016 (+4.4 SE)
+  q1: rare - other = +0.0012 (+2.8 SE)
+  q2: rare - other = +0.0049 (+9.4 SE)
+  q3: rare - other = +0.0563 (+12.5 SE)
+  quartiles with |rare - other| > 2 SE: 4 of 4 -> colour matters beyond visit rate: True

@@ -1,0 +1,6 @@
+Reading inline script metadata from `data/c2b_escape.py`
+bias 0.00: runs 8, escaped 0, last completed octave k: median 28 (min 28, max 28); width exponent (k>=10, over existing windows) median 0.326, area exponent 0.715; median final width 1886
+bias 0.02: runs 8, escaped 0, last completed octave k: median 28 (min 28, max 28); width exponent (k>=10, over existing windows) median 0.327, area exponent 0.714; median final width 1868
+bias 0.05: runs 8, escaped 0, last completed octave k: median 28 (min 28, max 28); width exponent (k>=10, over existing windows) median 0.322, area exponent 0.717; median final width 1906
+bias 0.10: runs 8, escaped 0, last completed octave k: median 28 (min 28, max 28); width exponent (k>=10, over existing windows) median 0.328, area exponent 0.723; median final width 2052
+bias 0.15: runs 8, escaped 0, last completed octave k: median 28 (min 28, max 28); width exponent (k>=10, over existing windows) median 0.330, area exponent 0.732; median final width 2366

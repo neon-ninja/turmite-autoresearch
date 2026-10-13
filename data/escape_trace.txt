@@ -1,0 +1,28 @@
+== RRRLR
+left the board at step 8820184162
+3999985 steps recorded; bounding box before the recorded stretch: x -2113..1968 y -1656..2127 (relative to start)
+first recorded position (175, 776), last (-16021, 16382), net displacement (-16196, 15606)
+no exact period <= 999996 over the first half of the recorded stretch
+  t_rel 0: (175, 776)
+  t_rel 499998: (-242, 1695)
+  t_rel 999996: (-673, 996)
+  t_rel 1499994: (-1068, 1393)
+  t_rel 1999992: (-3971, 4330)
+  t_rel 2499990: (-6982, 7341)
+  t_rel 2999988: (-9997, 10356)
+  t_rel 3499986: (-13008, 13367)
+  t_rel 3999984: (-16021, 16382)
+== RLRLLL
+left the board at step 12974495927
+3999849 steps recorded; bounding box before the recorded stretch: x -16284..1790 y -5867..4002 (relative to start)
+first recorded position (-16283, -423), last (-16383, -5895), net displacement (-100, -5472)
+no exact period <= 999962 over the first half of the recorded stretch
+  t_rel 0: (-16283, -423)
+  t_rel 499981: (-16294, 2019)
+  t_rel 999962: (-16304, 2008)
+  t_rel 1499943: (-16323, -5132)
+  t_rel 1999924: (-16333, -2829)
+  t_rel 2499905: (-16346, -547)
+  t_rel 2999886: (-16358, 1696)
+  t_rel 3499867: (-16369, 3884)
+  t_rel 3999848: (-16383, -5895)
