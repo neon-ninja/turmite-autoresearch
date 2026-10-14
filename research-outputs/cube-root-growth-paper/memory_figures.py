@@ -43,7 +43,7 @@ for ax, (spec, title) in zip(axes.flat, names.items()):
     ax.set_xlabel("x (cells)", fontsize=6)
     ax.set_ylabel("y (cells)", fontsize=6)
 fig.colorbar(dots, ax=axes.ravel().tolist(), shrink=.55, label="Position samples per site (log scale)")
-style.save(fig, "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/fig/memory_paths.pdf")
+style.save(fig, "research-outputs/cube-root-growth-paper/fig/memory_paths.pdf")
 
 plt.close(fig)
 
@@ -89,11 +89,11 @@ axes[1].set_title("Boundary occupancy")
 handles, labels = axes[0].get_legend_handles_labels()
 fig.legend(handles, labels, loc="lower center", ncol=4, fontsize=6)
 fig.tight_layout(rect=(0, .17, 1, 1))
-style.save(fig, "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/fig/memory_growth.pdf")
+style.save(fig, "research-outputs/cube-root-growth-paper/fig/memory_growth.pdf")
 
 plt.close(fig)
-inputs = ["dumps/memory_paths.csv", "data/memory_walkers_pilot/combined.csv", "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/memory_figures.py", "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/style.py", "examples/memory_paths.rs"]
-Path("research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/fig/memory_recipe.json").write_text(json.dumps({"command": "uv run research-outputs/cube-root-growth-paper/memory_figures.py",
+inputs = ["dumps/memory_paths.csv", "data/memory_walkers_pilot/combined.csv", "research-outputs/cube-root-growth-paper/memory_figures.py", "research-outputs/cube-root-growth-paper/style.py", "examples/memory_paths.rs"]
+Path("research-outputs/cube-root-growth-paper/fig/memory_recipe.json").write_text(json.dumps({"command": "uv run research-outputs/cube-root-growth-paper/memory_figures.py",
     "path_command": "cargo run --release --example memory_paths -- 301 16 > dumps/memory_paths.csv",
     "path_seed": 301, "path_steps": 65536,
     "sha256": {p: hashlib.sha256(Path(p).read_bytes()).hexdigest() for p in inputs}}, indent=2) + "\n")

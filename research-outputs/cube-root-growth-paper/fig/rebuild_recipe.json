@@ -1,6 +1,6 @@
 {
-  "command": "uv run paper/rebuild_figures.py",
-  "git_commit": "dd0e2342d62b847bc1f1e926865aeec6ff7f8159",
+  "command": "uv run research-outputs/cube-root-growth-paper/rebuild_figures.py",
+  "git_commit": "1b204a1d355749d4edf7281f26f30430a653b476",
   "working_tree": "Source hashes identify uncommitted edits.",
   "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
   "snapshot_directory": "/home/tim/gal",
@@ -21,15 +21,15 @@
     "dumps/memory_paths.csv": "321fdd085ee9891f40a48a66188e8700384c1e8b7f2698fc1796548463e88b57",
     "data/memory_walkers_pilot/combined.csv": "10d3461cac0edf15bb6050aadec54634f004ccd170e2820db3dc0f18281ea299",
     "data/analyse_probe.py": "799f5e73f5cbf1c4e4b664454f625d7b0cb32685e1130213757926e3448ec2db",
-    "paper/style.py": "8bb340838c3cdcf4faf7a71be27cd840d217e5fac77a28bfdda2ca4f27123a3d",
-    "paper/main.typ": "f947e2d88fc2fa9325af1f44334ab950d137fa2acee3d368f41b6c1d703423eb",
-    "paper/numbers.json": "507eeded9de0321421fd44b305bf40463cf1b5e7279a1e16415150df02664a82",
-    "paper/refs.bib": "70b68353c21410052e4c45964c2f4b9a3bf0415b4387ae9642deb037de8183d9",
+    "research-outputs/cube-root-growth-paper/style.py": "8bb340838c3cdcf4faf7a71be27cd840d217e5fac77a28bfdda2ca4f27123a3d",
+    "research-outputs/cube-root-growth-paper/main.typ": "8c5936383ed2737cc26744a8da66c084f9215de06c54261b131242cd5d75d7e4",
+    "research-outputs/cube-root-growth-paper/numbers.json": "507eeded9de0321421fd44b305bf40463cf1b5e7279a1e16415150df02664a82",
+    "research-outputs/cube-root-growth-paper/refs.bib": "70b68353c21410052e4c45964c2f4b9a3bf0415b4387ae9642deb037de8183d9",
     "data/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
-    "paper/figures.py": "765606673281a04837a3bd67e579f0666ef3d09e1f6324fee752e9694ee04144",
-    "paper/gallery.py": "bd01bf5202c396f4022496cc49cda6c640df9fff1fa494cf564fda0c0524318c",
-    "paper/textbook_figs.py": "d96afb973c389d73344410543cd09e838c936cb088bbf92de352266ca6e3f2d4",
-    "paper/memory_figures.py": "8db10e6bef03935109ccdad45f8022190f32045f73a8fc9c637c6dd3f40b2e8b",
+    "research-outputs/cube-root-growth-paper/figures.py": "39ad3e05c30987445806a62355e182e2bc2a7158db45163ae39391f323ca9ba1",
+    "research-outputs/cube-root-growth-paper/gallery.py": "3d9ffa89383940db9d5b076fca70555aff1d2985c664ec451c1da4c682fe524b",
+    "research-outputs/cube-root-growth-paper/textbook_figs.py": "637a25b4e83d1584bd565fc576e59fd4d0736a89faec4e656105240f59b475d1",
+    "research-outputs/cube-root-growth-paper/memory_figures.py": "f7c8753bc25eb2a1135ee018e645ae8916145587307ec53030d4648ddc47a78c",
     "/home/tim/gal/RL.bin": "8ab47971fe89fe780a147403ca48ba5870bd7e7a8802594e20b25dfc6323e724",
     "/home/tim/gal/RLL.bin": "f605a9e7d2c084f131d4b434e9a8b9df4ee6ca6ea4639b9d7da8a51610ea558a",
     "/home/tim/gal/RLR.bin": "9ad1d88b9a46e4378e2dd3b910fcec5e50e1d26329d7f876dc02a117a2b86a33",
@@ -58,7 +58,6 @@
     "rotor.pdf": "62d300b8ab3f7492da535cc6cb5feca84b20fe5f1ac330323cbbbfb57fb5e0ab",
     "timelapse.pdf": "c725d75bfbdaebfeb16eabf8571b42c310ef76c7744f0cfb336d0b325f6252e7",
     "timeline.pdf": "7bdc8003f0b81a70de18e2b8b8d5bda0b9b76023aa5dd9c8ca4f7da400a1c4cd",
-    "main.pdf": "ba9edb42723ae89a80517a92a545977fc829b4439f8c90d3509da02471c40d00"
-  },
-  "final_layout_command": "typst compile --root . paper/main.typ paper/main.pdf"
+    "main.pdf": "e6745e78fffd6dd5b92bcfa957773a07a96dddaa8f1227592b055a6e31514247"
+  }
 }

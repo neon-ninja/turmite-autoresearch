@@ -1,13 +1,13 @@
 {
-  "command": "uv run paper/memory_figures.py",
+  "command": "uv run research-outputs/cube-root-growth-paper/memory_figures.py",
   "path_command": "cargo run --release --example memory_paths -- 301 16 > dumps/memory_paths.csv",
   "path_seed": 301,
   "path_steps": 65536,
   "sha256": {
     "dumps/memory_paths.csv": "321fdd085ee9891f40a48a66188e8700384c1e8b7f2698fc1796548463e88b57",
     "data/memory_walkers_pilot/combined.csv": "10d3461cac0edf15bb6050aadec54634f004ccd170e2820db3dc0f18281ea299",
-    "paper/memory_figures.py": "8db10e6bef03935109ccdad45f8022190f32045f73a8fc9c637c6dd3f40b2e8b",
-    "paper/style.py": "8bb340838c3cdcf4faf7a71be27cd840d217e5fac77a28bfdda2ca4f27123a3d",
+    "research-outputs/cube-root-growth-paper/memory_figures.py": "f7c8753bc25eb2a1135ee018e645ae8916145587307ec53030d4648ddc47a78c",
+    "research-outputs/cube-root-growth-paper/style.py": "8bb340838c3cdcf4faf7a71be27cd840d217e5fac77a28bfdda2ca4f27123a3d",
     "examples/memory_paths.rs": "a617eabb8c307201beb3c738605b30d25b95083e495efd4c8524a458cbc8ddd7"
   }
 }

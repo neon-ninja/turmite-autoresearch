@@ -1,10 +1,10 @@
-uv run paper/figures.py
+uv run research-outputs/cube-root-growth-paper/figures.py
 figures ok
-uv run paper/gallery.py
+uv run research-outputs/cube-root-growth-paper/gallery.py
 ok
-uv run paper/textbook_figs.py
+uv run research-outputs/cube-root-growth-paper/textbook_figs.py
 edge: A, P = 3658 268
 census 'other': 0  n=2 rules: 1
 ok
-uv run paper/memory_figures.py
-typst compile --root . paper/main.typ paper/main.pdf
+uv run research-outputs/cube-root-growth-paper/memory_figures.py
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf

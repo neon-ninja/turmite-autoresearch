@@ -18,7 +18,7 @@ INPUTS = [
     "data/c_model.csv", "data/probe_all.csv", "data/calib_rw.csv",
     "data/sweep_v2.csv", "data/census.csv", "dumps/memory_paths.csv",
     "data/memory_walkers_pilot/combined.csv", "data/analyse_probe.py",
-    "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/style.py", "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/main.typ", "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/numbers.json", "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/refs.bib",
+    "research-outputs/cube-root-growth-paper/style.py", "research-outputs/cube-root-growth-paper/main.typ", "research-outputs/cube-root-growth-paper/numbers.json", "research-outputs/cube-root-growth-paper/refs.bib",
     "data/transport_forecast.json",
 ] + [f"research-outputs/cube-root-growth-paper/{name}" for name in SCRIPTS]
 
@@ -52,12 +52,12 @@ def main():
             log.flush()
             subprocess.run([sys.executable, f"research-outputs/cube-root-growth-paper/{script}"], check=True,
                            stdout=log, stderr=subprocess.STDOUT)
-        command = ["typst", "compile", "--root", ".", "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/main.typ", "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/main.pdf"]
+        command = ["typst", "compile", "--root", ".", "research-outputs/cube-root-growth-paper/main.typ", "research-outputs/cube-root-growth-paper/main.pdf"]
         log.write(" ".join(command) + "\n")
         log.flush()
         subprocess.run(command, check=True, stdout=log, stderr=subprocess.STDOUT)
     recipe["outputs_sha256"] = {p.name: digest(p) for p in sorted(OUT.glob("*.pdf"))}
-    recipe["outputs_sha256"]["main.pdf"] = digest(ROOT / "research-outputs/cube-root-growth-research-outputs/cube-root-growth-paper/main.pdf")
+    recipe["outputs_sha256"]["main.pdf"] = digest(ROOT / "research-outputs/cube-root-growth-paper/main.pdf")
     (OUT / "rebuild_recipe.json").write_text(json.dumps(recipe, indent=2) + "\n")
 
 
