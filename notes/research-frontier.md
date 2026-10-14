@@ -87,7 +87,7 @@ the ants (calibration only covers the rotor).
 ## C. Census, classification and unresolved rules
 
 17. **The 854 unresolved rules of length <= 10.** [open, M-L] See
-    `data/unresolved_le10.txt` (includes RLL, RLR, RLLL, RRLL, RLLR). Push each
+    `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt` (includes RLL, RLR, RLLL, RRLL, RLLR). Push each
     to 1e10+ steps with the fast ant; classify into: highway (late), chaotic,
     slow-growth, bounded. Any rule still unresolved at 1e11 deserves a
     hand-study. Record the largest known highway-onset time and its
@@ -177,7 +177,7 @@ the ants (calibration only covers the rotor).
 
 Every item except 9 (knockout map, other agent) has been investigated; see `notes/frontier-status.md` (one line each) and
 `notes/frontier-results.md` (hypotheses with timestamps, methods, results, corrections). Items 10 and 17 are partly
-dependent on other work (10 on the knockout agent's `refine*` files; 17 on a long background run: `data/run_1e10.sh`).
+dependent on other work (10 on the knockout agent's `refine*` files; 17 on a long background run: `experiments/2026-10-13-h1-lacunarity-decomposition/scripts/run_1e10.sh`).
 Two corrections to this list: item 28's rotor exponent t^(1/(d+1)) is only a lower bound for d >= 3 (the 3D random rotor walk
 is transient in our simulation), and item 23's 'rule identity' check found that repeats u^k are identical to u.
 

@@ -2,9 +2,9 @@
 
 Run 2026-10-11. Hypotheses written beforehand: pattern-fields-hypotheses.md.
 Code: src/synth.rs (annealer, property-tested against a full recount, two
-mutations caught), examples/synth.rs, data/patterns.py (driver),
-data/patterns_analyse.py (independent numpy checks and summary),
-data/patterns_chart.py. Data: data/patterns_final.csv (315 fields),
+mutations caught), examples/synth.rs, experiments/2026-10-13-patterns-fields/scripts/patterns.py (driver),
+experiments/2026-10-13-patterns-fields/scripts/patterns_analyse.py (independent numpy checks and summary),
+experiments/2026-10-13-patterns-fields/scripts/patterns_chart.py. Data: experiments/2026-10-13-patterns-fields/results/patterns_final.csv (315 fields),
 patterns_anneal.csv, patterns_summary.json, patterns_cross_resid.json.
 Chart: notes/pattern-fields.png.
 

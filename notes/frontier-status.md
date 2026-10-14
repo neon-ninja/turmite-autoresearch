@@ -1,10 +1,10 @@
 # Frontier status: items in research-frontier.md
 
-Started 2026-10-12. Goal: every item investigated, except item 9 (knockout map; another agent owns it and `knock/`,
-`data/knockout*.py`, `examples/knock.rs`, `notes/knockout-map-hypotheses.md`; I only read their output files).
+Started 2026-10-12. Goal: every item investigated, except item 9 (knockout map; another agent owns it and `experiments/2026-10-12-knockout-maps/knock/`,
+`experiments/2026-10-12-knockout-maps/scripts/knockout*.py`, `examples/knock.rs`, `notes/knockout-map-hypotheses.md`; I only read their output files).
 All results, hypotheses (timestamped before runs), commands and corrections: `notes/frontier-results.md` (append-only log).
 Environment: WSL, `CARGO_TARGET_DIR=~/turmite-target-frontier`, 2-3 rayon threads; uncommitted tree on HEAD bbaa8c8.
-`bash data/regen_frontier_stats.sh` regenerates every analysis text output from the raw data (checked: two runs give identical bytes).
+`bash experiments/2026-10-13-census-sweeps/scripts/regen_frontier_stats.sh` regenerates every analysis text output from the raw data (checked: two runs give identical bytes).
 Bar for "investigated": timestamped hypothesis with predictions; experiment (pilot allowed for L items, limits stated); result including nulls; command.
 
 | # | Item | Status | Verdict (one line) |

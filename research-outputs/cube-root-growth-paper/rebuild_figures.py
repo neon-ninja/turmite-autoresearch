@@ -14,12 +14,12 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "research-outputs/cube-root-growth-paper/fig"
 SCRIPTS = ["figures.py", "gallery.py", "textbook_figs.py", "memory_figures.py"]
 INPUTS = [
-    "data/probe_summary.csv", "data/calib_rotor.csv", "data/cube_stats.json",
-    "data/c_model.csv", "data/probe_all.csv", "data/calib_rw.csv",
-    "data/sweep_v2.csv", "data/census.csv", "dumps/memory_paths.csv",
-    "data/memory_walkers_pilot/combined.csv", "data/analyse_probe.py",
+    "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv", "experiments/2026-10-13-calib-instrument-calibration/results/calib_rotor.csv", "experiments/2026-10-13-probe-growth-census/results/cube_stats.json",
+    "experiments/2026-10-13-probe-growth-census/results/c_model.csv", "experiments/2026-10-13-probe-growth-census/results/probe_all.csv", "experiments/2026-10-13-calib-instrument-calibration/results/calib_rw.csv",
+    "experiments/2026-10-13-census-sweeps/results/sweep_v2.csv", "experiments/2026-10-13-census-sweeps/results/census.csv", "experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv",
+    "experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/combined.csv", "experiments/_lib/analyse_probe.py",
     "research-outputs/cube-root-growth-paper/style.py", "research-outputs/cube-root-growth-paper/main.typ", "research-outputs/cube-root-growth-paper/numbers.json", "research-outputs/cube-root-growth-paper/refs.bib",
-    "data/transport_forecast.json",
+    "experiments/2026-10-13-transport-forecast/results/transport_forecast.json",
 ] + [f"research-outputs/cube-root-growth-paper/{name}" for name in SCRIPTS]
 
 

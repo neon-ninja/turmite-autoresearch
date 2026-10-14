@@ -19,7 +19,7 @@ reference rotor on (seed, N, R^2, S) for three seeds and three N: identical.
 
 Negative control: simple random walk (`RandomWalk`).
 
-## Part A: the ant pipeline applied to the rotor (data/calib_partA.json)
+## Part A: the ant pipeline applied to the rotor (experiments/2026-10-13-calib-instrument-calibration/results/calib_partA.json)
 
 64 rotor seeds, 2^27 steps, fitted over the same window as the ants (windows
 ending 2^20..2^26). Random walk: 16 seeds, 2^24 steps, a 7-octave window.
@@ -35,7 +35,7 @@ ending 2^20..2^26). Random walk: 16 seeds, 2^24 steps, a 7-octave window.
   exponent 0.50 with sd 0.09. Clearly distinguished.
 - c is not diagnostic on its own: the random walk gives 0.44.
 
-## Part B: reproducing Kapri & Dhar (data/calib_partB.json, calib_contour.json)
+## Part B: reproducing Kapri & Dhar (experiments/2026-10-13-calib-instrument-calibration/results/calib_partB.json, calib_contour.json)
 
 1000 seeds to 1e7 steps; 60000 seeds to 1e6 steps for the contour.
 
@@ -48,7 +48,7 @@ ending 2^20..2^26). Random walk: 16 seeds, 2^24 steps, a 7-octave window.
   variation 8.9% -> 1.8%, consistent with a deterministic limit.
 - Contour radius at 1e6: see calib_contour.json and the page.
 
-## Part C: within-rule noise for ants (data/calib_patched.json)
+## Part C: within-rule noise for ants (experiments/2026-10-13-calib-instrument-calibration/results/calib_patched.json)
 
 40 chaotic rules x 12 random 5x5 starting patches, 2^27 steps.
 

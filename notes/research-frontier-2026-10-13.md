@@ -119,7 +119,7 @@ Two hard rules (RRRRRLLLLLL, RLLLLRRRRLR), one territory each at age 2^24, shuff
 ### E1. Why is RRRRRLLLLLL's hot region one-sided?
 Its 11 hot tiles all lie north of the tether centre (octant counts 0,0,0,2,2,2,4,1), while RLLLLRRRRLR's 17 form a rough disc.
 - **Hypothesis:** the lobe is set by where this particular field built up, not by a fixed direction in the rule's geometry.
-- **Test:** repeat the map on the 2^26 grids in `dumps_f/` and on other ages (2^22, 2^25).
+- **Test:** repeat the map on the 2^26 grids in `experiments/2026-10-13-tether-rules/dumps_f/` and on other ages (2^22, 2^25).
 - **Prediction:** if the lobe is tied to the field, it moves or grows with age and keeps its offset from the tether centre. If it is tied to the rule's geometry, it keeps a fixed compass direction. Also rotate the field by 90 degrees and rerun: a rule-fixed lobe should not rotate with it.
 
 ### E2. Is the sensitive disc set by the tether radius or the excursion scale?

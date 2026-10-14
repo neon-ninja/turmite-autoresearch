@@ -74,11 +74,12 @@ def rewrite_text(text, path):
 TARGETS = []
 for pat in ["data/*.py", "data/*.sh", "occ/*.py", "snaps/*.py", "examples/*.rs", "src/*.rs", "src/bin/*.rs", "tests/*.rs",
             "web/*.py", "web/*.js", "web/*.html", "notes/*.md", "AGENTS.md", "research-outputs/*/*.py", "research-outputs/*/*.typ",
-            "research-outputs/*/*.md", "experiments/20*/README.md", "experiments/20*/scripts/*", "experiments/*.md", "calib/**/*.sh", "calib/*.sh", "calib/*.py"]:
+            "research-outputs/*/*.md", "experiments/20*/README.md", "experiments/20*/scripts/*", "experiments/_lib/*.py", "experiments/*.md", "calib/**/*.sh", "calib/*.sh", "calib/*.py"]:
     TARGETS += glob.glob(str(R / pat), recursive=True)
 changed = 0
 for t in sorted(set(TARGETS)):
     p = Path(t); rel = p.relative_to(R).as_posix()
+    if not p.is_file(): continue
     try: s = p.read_text(encoding="utf-8")
     except UnicodeDecodeError: continue
     new = rewrite_text(s, rel)
