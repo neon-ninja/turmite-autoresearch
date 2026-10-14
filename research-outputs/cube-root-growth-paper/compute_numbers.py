@@ -1,6 +1,6 @@
 """Every number quoted in main.typ, computed from data/* (none typed by hand).
 
-Run from the repo root:  uv run paper/compute_numbers.py   ->  paper/numbers.json
+Run from the repo root:  uv run research-outputs/cube-root-growth-paper/compute_numbers.py   ->  research-outputs/cube-root-growth-paper/numbers.json
 Bootstrap resampling uses a fixed seed (20261012).
 """
 import json
@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 import polars as pl
 
-R = Path(__file__).resolve().parent.parent
+R = Path(__file__).resolve().parents[2]
 D = R / "data"
 
 # Fail loudly (before computing anything) if an input file named in this script is missing or empty.
@@ -122,8 +122,8 @@ def ck(path):
 N["rotor_ck"] = ck(D / "calib_rotor.csv")
 N["rw_ck"] = ck(D / "calib_rw.csv")
 
-(R / "paper" / "numbers.json").write_text(json.dumps(N, indent=1, default=float))
-print("wrote paper/numbers.json")
+(R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N, indent=1, default=float))
+print("wrote research-outputs/cube-root-growth-paper/numbers.json")
 
 # ---- additions after review ----
 def is_repeat(r):
@@ -131,7 +131,7 @@ def is_repeat(r):
     return any(n % d == 0 and r == r[:d] * (n // d) for d in range(1, n))
 
 
-N2 = json.loads((R / "paper" / "numbers.json").read_text())
+N2 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
 allb = summ.filter(pl.col("cls") == "blob")
 N2["with_bursty"] = {"blob_n": allb.height, "alpha_w": med_ci(allb["alpha_w"], 1000)}
 reps = set(r for r in census["rule"] if is_repeat(r))
@@ -149,18 +149,18 @@ N2["bias"] = {
     for k in truth
 }
 N2["mix_sample"] = {"listed": sum(1 for l in open(D / "mix_rules.txt") if l.strip())}
-(R / "paper" / "numbers.json").write_text(json.dumps(N2, indent=1, default=float))
+(R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N2, indent=1, default=float))
 print("added review fields")
 
 # bursty flag reconstruction: the flag separates cleanly on max_jump
-N3 = json.loads((R / "paper" / "numbers.json").read_text())
+N3 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
 bu = summ.filter(pl.col("bursty")); nb = summ.filter(~pl.col("bursty"))
 N3["bursty_rule"] = {"flagged_min_jump": float(bu["max_jump"].min()), "unflagged_max_jump": float(nb["max_jump"].max()),
                      "separates": bool(bu["max_jump"].min() > nb["max_jump"].max())}
-(R / "paper" / "numbers.json").write_text(json.dumps(N3, indent=1, default=float))
+(R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N3, indent=1, default=float))
 
 # random-sample mixing replication (notes/mixing-random-sample.md)
-N4 = json.loads((R / "paper" / "numbers.json").read_text())
+N4 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
 mr = pl.read_csv(D / "mixing_random.csv").with_columns(ratio=pl.col("msd_slope") / pl.col("pred_slope"))
 ur, nr = mr.filter(pl.col("colour_tv") < 0.05), mr.filter(pl.col("colour_tv") >= 0.05)
 N4["mixing_random"] = {
@@ -169,11 +169,11 @@ N4["mixing_random"] = {
     "non_ratio_med": float(nr["ratio"].median()),
     "uni_expo_med": float(ur["msd_expo"].median()),
 }
-(R / "paper" / "numbers.json").write_text(json.dumps(N4, indent=1, default=float))
+(R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N4, indent=1, default=float))
 
 # ---- long-run ensembles produced by other scripts (parsed from their outputs / CSVs) ----
 import re
-N5 = json.loads((R / "paper" / "numbers.json").read_text())
+N5 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
 
 
 def shape(path):
@@ -223,11 +223,11 @@ N5["item21"] = {"high_n": int(hi.group(1)), "high_regress": float(hi.group(2)), 
                "low_n": int(lo.group(1)), "low_regress": float(lo.group(2)), "low_persist": int(lo.group(3)),
                "spearman_census": float(re.search(r"Spearman\(census alpha, 12-seed mean\) over outliers: ([\d.]+)", t21).group(1)),
                "spearman_gk": float(re.search(r"Spearman\(g_k, 12-seed mean\) over outliers: ([\d.]+)", t21).group(1))}
-(R / "paper" / "numbers.json").write_text(json.dumps(N5, indent=1, default=float))
+(R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N5, indent=1, default=float))
 
 # --- 2026-10-13 PM follow-ups: H1 (filling fraction), H3 (c*kappa prefactor), G1 (RLRLLL switch). Parsed from the text outputs of
 # data/h1_lacunarity.py, data/h3_collapse.py, data/g1_stats.py (+ the examples/ribbon_trace.rs log); notes/research-frontier-2026-10-13-pm.md.
-N6 = json.loads((R / "paper" / "numbers.json").read_text())
+N6 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
 h1t = (D / "h1_lacunarity.txt").read_text().split("== core band")[1]  # core-band section, the same filter as b2_anova.py / h3_collapse.py
 h3t = (D / "h3_collapse.txt").read_text()
 icc = lambda txt, name: float(re.search(rf"(?:ICC )?\b{name}\s+rules \d+\s+sd_within [\d.]+\s+sd_between [\d.]+\s+ICC ([\d.]+)", txt).group(1))
@@ -254,4 +254,4 @@ N6["g1"] = {
     "steady_steps_per_new": float(re.search(r"steady phase: steps/new median ([\d.]+)", g1t).group(1)),
     "exit_step": int(re.search(r"left the board at step (\d+)", (D / "g1_ribbon.log").read_text()).group(1)),
 }
-(R / "paper" / "numbers.json").write_text(json.dumps(N6, indent=1, default=float))
+(R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N6, indent=1, default=float))

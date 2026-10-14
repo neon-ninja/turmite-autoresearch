@@ -25,7 +25,7 @@ LOG = "#1fa187"
 BUILDER = "#8c6d31"
 HIGHWAY = "#7a3b8f"
 EDGE = "#111111"
-GUIDE = dict(color="#777777", ls="--", lw=.8)
+GUIDE = dict(color="#96968e", ls=(0, (3, 3)), lw=.65)
 INK = "#222222"
 
 # Cell-state palette (index = colour). 0 is the visited-blank grey.
@@ -38,11 +38,65 @@ RULE_COLOUR = {"RLL": RULES[0], "RLR": RULES[1], "RRLL": RULES[2], "RRLRLRLLLLLL
 
 def apply():
     plt.rcParams.update({
+        "font.family": "DejaVu Sans", "mathtext.fontset": "dejavuserif",
+        "pdf.fonttype": 42, "ps.fonttype": 42,
         "font.size": 8, "axes.titlesize": 8, "axes.labelsize": 8, "legend.fontsize": 6.5, "legend.frameon": False,
         "xtick.labelsize": 7, "ytick.labelsize": 7, "axes.spines.top": False, "axes.spines.right": False,
-        "axes.edgecolor": INK, "axes.labelcolor": INK, "text.color": INK, "xtick.color": INK, "ytick.color": INK,
+        "axes.labelcolor": INK, "text.color": INK, "xtick.color": INK, "ytick.color": INK,
         "axes.prop_cycle": cycler(color=RULES), "lines.linewidth": 1.0, "figure.dpi": 150, "savefig.dpi": 300,
+        "axes.edgecolor": "#aaa9a2", "axes.linewidth": .45,
+        "axes.titlelocation": "left", "axes.titleweight": "normal",
+        "axes.labelpad": 5, "axes.grid": False,
+        "xtick.direction": "out", "ytick.direction": "out",
+        "xtick.major.size": 2.5, "ytick.major.size": 2.5,
+        "xtick.major.width": .45, "ytick.major.width": .45,
+        "xtick.minor.visible": False, "ytick.minor.visible": False,
+        "legend.labelcolor": "linecolor", "legend.handlelength": 1.3,
+        "legend.borderaxespad": .3, "savefig.facecolor": "white",
     })
+
+
+def end_labels(ax, lines, fontsize=6.5, gap=.075):
+    """Label actual endpoints; leaders preserve identity when labels must move.
+
+    Space labels in axes coordinates so log scales get the same treatment.
+    Call after setting limits and scales, before tight_layout.
+    """
+    ax.figure.canvas.draw()
+    items = []
+    for line in lines:
+        x, y = np.asarray(line.get_xdata()), np.asarray(line.get_ydata())
+        valid = np.isfinite(x) & np.isfinite(y)
+        if not valid.any():
+            continue
+        last = np.flatnonzero(valid)[-1]
+        endpoint = (x[last], y[last])
+        height = ax.transAxes.inverted().transform(ax.transData.transform(endpoint))[1]
+        items.append((height, line, endpoint))
+    items.sort(key=lambda item: item[0])
+    heights = []
+    for height, _, _ in items:
+        heights.append(max(.04, height, heights[-1] + gap if heights else .04))
+    if heights and heights[-1] > .96:
+        heights = [h - (heights[-1] - .96) for h in heights]
+    for height, (_, line, endpoint) in zip(heights, items):
+        ax.annotate(line.get_label(), xy=endpoint, xycoords="data",
+                    xytext=(1.03, height), textcoords="axes fraction",
+                    color=line.get_color(), fontsize=fontsize, va="center",
+                    annotation_clip=False,
+                    arrowprops=dict(arrowstyle="-", color=line.get_color(), lw=.4,
+                                    shrinkA=2, shrinkB=2))
+
+
+def save(fig, path):
+    """Keep vector output and a matching inspection image; omit volatile dates."""
+    from pathlib import Path
+    path = Path(path)
+    for ax in fig.axes:
+        ax.minorticks_off()
+    fig.savefig(path, bbox_inches="tight", pad_inches=.05,
+                metadata={"CreationDate": None, "ModDate": None})
+    fig.savefig(path.with_suffix(".png"), dpi=160, bbox_inches="tight", pad_inches=.05)
 
 
 def short(rule, keep=6):

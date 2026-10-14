@@ -1,38 +1,89 @@
-// Every number below comes from numbers.json (built by compute_numbers.py).
+// Census numbers come from numbers.json; forecasts load their reproducible analysis output.
 #let N = json("numbers.json")
+#let TF = json("../../data/transport_forecast.json").cohorts
 #let f(x, d: 3) = str(calc.round(x, digits: d))
 #let pct(x) = str(calc.round(100 * x, digits: 0)) + "%"
 #let iqr(v, d: 2) = "[" + f(v.at(0), d: d) + ", " + f(v.at(2), d: d) + "]"
 
 #set document(title: "Cube-root growth of most non-highway generalised Langton's ants of length up to 12")
-#set page(paper: "a4", margin: (x: 2.2cm, y: 2.2cm), numbering: "1")
-#set text(font: "New Computer Modern", size: 10.5pt)
-#set par(justify: true, leading: 0.62em)
+#let ink = rgb("#20201e")
+#let accent = ink
+#let muted = rgb("#696963")
+#let sans = "DejaVu Sans"
+#set page(
+  paper: "a4",
+  margin: (left: 24mm, right: 24mm, top: 23mm, bottom: 23mm),
+  header: context if counter(page).get().first() > 1 [
+    #set text(font: sans, size: 8pt, fill: muted)
+    #grid(columns: (1fr, auto), [GENERALISED LANGTON’S ANTS], [T. McNamara])
+  ],
+  footer: context [
+    #set text(font: sans, size: 8pt, fill: muted)
+    #align(right, counter(page).display("1"))
+  ],
+)
+#set text(font: "Libertinus Serif", size: 11pt, fill: ink)
+#set par(justify: true, leading: 0.65em, spacing: 0.8em)
 #set heading(numbering: "1.1")
-#show heading.where(level: 1): set block(above: 1.4em, below: 0.8em)
-#show figure.caption: set text(size: 9pt)
+#show heading.where(level: 1): it => block(above: 1.7em, below: 0.8em)[
+  #set text(font: "Libertinus Serif", size: 18pt, weight: "regular", fill: ink)
+  #it
+]
+#show heading.where(level: 2): it => block(above: 1.2em, below: 0.6em)[
+  #set text(font: "Libertinus Serif", size: 12pt, weight: "bold", fill: ink)
+  #it
+]
+#show heading.where(level: 3): set text(font: sans, size: 10.5pt, fill: accent)
+#set figure(gap: 0.75em)
+#show figure.caption: it => block[
+  #set text(font: sans, size: 8.8pt, fill: muted)
+  #set par(justify: false, leading: 0.6em)
+  #it
+]
+#set table(stroke: 0.4pt + rgb("#d4dfe3"), inset: 7pt)
+#show table: set text(font: sans, size: 9pt)
+#show raw: set text(font: "DejaVu Sans Mono", size: 0.85em)
 #set math.equation(numbering: "(1)")
 
-#align(center)[
+#block[
   #set par(justify: false)
-  #text(16pt, weight: "bold")[Cube-root growth of most non-highway generalised Langton's ants (length $<= 12$):\ a calibrated mean-field decomposition]
-  #v(0.6em)
-  Tim McNamara \
-  #text(9pt)[Accelerant Ltd, Wellington, New Zealand · tim\@accelerant.dev]
+  #text(font: sans, size: 8pt, fill: muted, tracking: 1.5pt)[DISCRETE DYNAMICS]
+  #v(23pt)
+  #text(font: "Libertinus Serif", size: 38pt, weight: "regular", fill: ink)[Cube-root growth\ of most non-highway\ generalised Langton’s ants]
+  #v(9pt)
+  #text(font: "Libertinus Serif", size: 14pt, style: "italic", fill: muted)[Rules of length $<= 12$: a calibrated mean-field decomposition]
+  #v(17pt)
+  #text(font: sans, size: 10pt, weight: "bold")[Tim McNamara]
+  #v(3pt)
+  #text(font: sans, size: 9pt, fill: muted)[Accelerant Ltd, Wellington, New Zealand · tim\@accelerant.dev]
+  #v(14pt)
+  #line(length: 24mm, stroke: 0.6pt + ink)
 ]
-
 #v(0.8em)
-#block(inset: (x: 1.2cm))[
+#block(inset: (top: 8pt, bottom: 8pt))[
   *Abstract.* A generalised Langton's ant follows a string over {L, R}: on a cell of colour $c$ it turns by `rule[c]`, advances the cell to colour $(c+1) mod n$, and steps forward. Most rules never build a highway; they grow an irregular, roughly round territory. Does it grow like the rotor walker, whose radius grows as $t^(1/3)$ @bourabee2026? For most of the #N.probe.analysed non-highway rules of length #N.census.n_min–#N.census.n_max that we simulated (to $2^27$ steps, six to $2^32$), yes: the bounding-box width grows as $t^alpha$ with median $alpha = #f(N.alpha_w_blob.at(0))$, good to about $plus.minus 0.01$ after calibrating the finite-window bias on the rotor, and the time-averaged visit density is the rotor's cone. Some rules do not follow it (#N.probe.log grow logarithmically, #N.probe.fast faster), and the edge does not match: the ants' surface width grows about twice as fast as the rotor's. Splitting the growth rate into an edge-occupation ratio $kappa$ and an edge-entry probability $c$ (an identity, so not independent evidence for the cube root), we find that deviating rules deviate through $kappa$, that $c$ is predictable from the rule's letters (held-out $R^2 = #f(N.followup.c_model.r2, d: 2)$) and $kappa$ is not. What sets $kappa$, and the ant's wider edge, is unexplained.
 
   #v(0.4em)
-  *Key results.*
+ ]
+#block(breakable: false, above: 8pt)[
+  #align(center, image("fig/hero.pdf", width: 80%, height: 40mm, fit: "contain"))
+  #align(center)[
+  #set text(font: sans, size: 8pt, fill: muted)
+  #set par(leading: 0.45em, spacing: 0pt)
+  Same bulk growth. Different measured edge growth.\
+  Occupation fields at $2^22$ steps; darkness shows visits per cell in units of $t/A$, on a shared scale from 0 to 4 (values above 4 clipped). Each territory is fitted to its panel.
+  ]
+]
+#pagebreak()
+#block[
+  #text(font: "Libertinus Serif", size: 18pt, weight: "regular", fill: ink)[Key results]
+  #v(0.5em)
   - *Growth.* Over the #N.probe.blob blob rules the median width exponent is #f(N.alpha_w_blob.at(0)), with no dependence on rule length, and the area grows as $t^(2/3)$ to within the same bias (@sec:census-results). The rule-bootstrap interval (#f(N.alpha_w_blob.at(1)) to #f(N.alpha_w_blob.at(2))) resamples rules only and ignores a larger finite-window bias; individual rules differ by up to 0.02 at $2^30$ steps.
   - *The bulk matches the rotor.* The time-averaged visit density is the cone $3(1 - r slash R)$ to within #pct(N.shape.max_rel_diff_ants_rotor_shells0_9) of the rotor's. The cone follows from uniform mixing plus $t^(2/3)$ growth, so this is a consistency check, not extra evidence (@sec:ens).
   - *The edge does not.* The ants' surface width grows with an exponent of about 0.22–0.25 against the rotor's 0.10–0.13 (local exponents at matched sizes $2^22$–$2^32$; a single fit from $2^18$ gives 0.26 against 0.16, and Kapri and Dhar report about 0.13). The gap does not close to $2^34$ steps (@sec:ens).
   - *Not every rule obeys.* #N.probe.log rules grow logarithmically, #N.probe.fast blob rules have $alpha > 0.37$, and #N.census.builders more were excluded as builders or slow space-fillers. Highway classification is by finite simulation.
   - *The decomposition.* Drift exponents below 0.05 hold for #f(100 * N.identity.frac_blob_gc_small, d: 1)% of rules for $c$ and #pct(N.identity.frac_blob_gk_small) for $kappa$, with an edge exponent of #f(N.mf_blob.beta.at(1), d: 2) in the census window. A drift of 0.05 shifts the area exponent by about 0.03, as much as the differences between rules (@sec:factors).
-  - *What is new.* Rules that violate the cube root do so through drift of $kappa$, not of $c$. A chirality model explains #pct(N.followup.c_model.r2) of the variance of $c$ on held-out rules; nothing we tried predicts $kappa$, which differs between rules moderately reproducibly (intraclass correlation 0.58) but is not carried by the letters, and a memoryless walker does not reproduce it, so it must come from the memory the ant writes into the board (@sec:factors).
+  - *What is new.* Rules that violate the cube root do so through drift of $kappa$, not of $c$. A chirality model explains #pct(N.followup.c_model.r2) of the variance of $c$ on held-out rules; nothing we tried predicts $kappa$, which differs between rules moderately reproducibly (intraclass correlation 0.58) but is not carried by the letters, and a memoryless walker does not reproduce it, which motivates board-memory comparisons without proving memory sufficient (@sec:factors).
   - *Unexplained.* The value of $kappa$ (which sets the prefactor), why it drifts in some rules, and the ant's wider edge. We say which parts are tautological, which are tested, and what remains open.
 ]
 
@@ -50,12 +101,13 @@ Langton's ant @langton1986 is a two-colour automaton whose behaviour is striking
   caption: [What the ants draw. Each colour is one of the $n$ states a cell can be in; blank is never visited. Top left: classic Langton's ant (`RL`) after 17 000 steps, a tangle followed by a straight "highway" that runs off forever. The other panels are rules that never build a highway, after $2^25$ (33 million) steps: most grow into a roughly round blob whose texture looks random up close (bottom right), but the shapes differ (notched, ragged, or, for `RLLR`, a square frame) and one (`RRLRLR`#sym.dots.h`LLL`) barely grows at all, staying near its starting point. Rule letters give the turn on each colour.],
 ) <fig:gallery>
 
-Here we make that measurement. The natural comparison is the rotor walker, in which every site holds an arrow that turns by 90° each visit and the walker follows it. For the rotor, radius $tilde t^(1/3)$ was conjectured by Priezzhev et al. @priezzhev1996, supported numerically by Kapri and Dhar @kapri2009, and proved by Bou-Rabee and Peres @bourabee2026, in an arXiv preprint that we understand has not yet been refereed, for uniformly random initial arrows (range of order $t^(2/3)$, convex limit shape). The ant is not an Eulerian walker, so nothing implies it should match. We find that in the bulk it does: the exponents and the whole time-averaged occupation profile agree. At the edge it does not: the ants' boundary is about twice as rough, and we cannot tell whether that is a different universality class or a slow transient. We also find that the quantity that sets the growth prefactor ($kappa$ below) is a moderately reproducible property of each rule that no feature of the rule string predicts. These are the open problems; the calibrated census and the decomposition of the growth rate below are the tools that make them well posed.
+Here we make that measurement. The natural comparison is the rotor walker, in which every site holds an arrow that turns by 90° each visit and the walker follows it. For the rotor, radius $tilde t^(1/3)$ was conjectured by Priezzhev et al. @priezzhev1996, supported numerically by Kapri and Dhar @kapri2009, and proved by Bou-Rabee and Peres @bourabee2026, in an arXiv preprint that we understand has not yet been refereed, for uniformly random initial arrows (range of order $t^(2/3)$, convex limit shape). The ant is not an Eulerian walker, so nothing implies it should match. We find that in the bulk it does: the exponents and the whole time-averaged occupation profile agree. At the edge it does not: the ants' surface width grows with roughly twice the temporal exponent, and we cannot tell whether that is a different universality class or a slow transient. We also find that the quantity that sets the growth prefactor ($kappa$ below) is a moderately reproducible property of each rule that no feature of the rule string predicts. These are the open problems; the calibrated census and the decomposition of the growth rate below are the tools that make them well posed.
 
 *Contributions.*
 + A census of #N.census.rules rules with growth exponents for #N.probe.analysed of them, reporting the whole distribution, its dependence on rule length, and the rules that fall outside it.
 + A calibration: the same pipeline applied to the rotor walker (known exponent) and a random walk (negative control), giving the estimator's bias and between-seed noise.
 + A three-factor decomposition of the area growth rate, with the factors measured per rule, and a classification of deviating rules by which factor drifts.
++ A future-window forecast from early transport measurements, tested across replicated starts and against rotor and random-walk controls.
 + A held-out predictive model for the edge-entry probability from the rule's letters, and a test of the "well-mixed" assumption behind the second factor.
 
 @sec:factors and @sec:tested separate what is an identity from what is a test, and list what we could not explain. A hypothesis about "homes" that tether some rules to their origin was investigated and is mentioned only in the limitations; we make no claim about it.
@@ -117,7 +169,7 @@ $ a = (1 + gamma_c + gamma_kappa) / (2 - beta), quad alpha approx a / 2. $ <eq:a
 
 == Reproducibility
 
-All simulation is deterministic and seeded (rules start from a blank board, so a rule has one trajectory; seeds enter only in the walkers and the patched-start control). The Rust fast ant used for sweeps is tested step for step against an oracle (`tests/ant.rs`, `tests/probe.rs`). Every number in this paper is computed by `paper/compute_numbers.py` from the files in `data/` and written to `paper/numbers.json`, which this document reads; figures are made by `paper/figures.py`. Bootstrap intervals use a fixed seed. Commands are in `paper/README.md`.
+All simulation is deterministic and seeded (rules start from a blank board, so a rule has one trajectory; seeds enter only in the walkers and the patched-start control). The Rust fast ant used for sweeps is tested step for step against an oracle (`tests/ant.rs`, `tests/probe.rs`). Every number in this paper is computed by `research-outputs/cube-root-growth-paper/compute_numbers.py` from the files in `data/` and written to `research-outputs/cube-root-growth-paper/numbers.json`, which this document reads; figures are made by `research-outputs/cube-root-growth-paper/figures.py`. Bootstrap intervals use a fixed seed. Commands are in `research-outputs/cube-root-growth-paper/README.md`.
 
 = Calibration against the rotor walker
 
@@ -175,7 +227,7 @@ Against the rotor in the same window the differences (ants minus rotor, medians 
 
 Subtracting the rotor's own bias from the ants' medians gives #f(N.bias.alpha_w.ant_corrected, d: 3) (width), #f(N.bias.alpha_rg.ant_corrected, d: 3) ($R_g$) and #f(N.bias.a.ant_corrected, d: 3) (area), against $1/3$, $1/3$ and $2/3$. The corrections point in different directions, so the data are consistent with $1/3$ at roughly the $plus.minus 0.01$ level, not "equal to $1/3$ to three digits"; the correction assumes the ants share the rotor's finite-window bias, which we cannot check.
 
-*Rule length.* The median is flat in $n$: Spearman $rho$ between $alpha$ and $n$ is #f(N.spearman_alpha_n) over blob rules, and per-length medians for $n = 7 ... 12$ lie within about 0.01 of one another (table in `paper/numbers.json`, `by_n`). The spread between rules does not shrink with $n$ in our sample, so we do not claim a rule-length trend or its absence at larger $n$.
+*Rule length.* The median is flat in $n$: Spearman $rho$ between $alpha$ and $n$ is #f(N.spearman_alpha_n) over blob rules, and per-length medians for $n = 7 ... 12$ lie within about 0.01 of one another (table in `research-outputs/cube-root-growth-paper/numbers.json`, `by_n`). The spread between rules does not shrink with $n$ in our sample, so we do not claim a rule-length trend or its absence at larger $n$.
 
 *Long runs.* Six typical rules were run to $2^32$ steps; their width exponents fitted from $2^17$ are between #f(N.cube.long_alpha.at(0)) and #f(N.cube.long_alpha.at(1)), and neither factor in the decomposition drifts (@fig:ck).
 
@@ -212,11 +264,52 @@ The cube root does not require the same $c$ and $kappa$ as the rotor; it require
 
 So $kappa$ behaves as an emergent property of each rule's dynamics.
 
+*Does early transport predict later growth?* A same-window identity cannot test persistence. We therefore specified a forecast on existing replicated runs before computing its errors (`notes/transport-forecast-2026-10-13.md`). Write $g=P/sqrt(A)$; formally @eq:rate gives $(d (A^(3/2)))/(d t)=(3/2)c kappa g$. For an octave ending at $t$, with duration $S=t/2$, the exact discrete budget is
+
+$ Q = (A^(3/2) - (A-Delta A)^(3/2)) / S. $ <eq:budget>
+
+The endpoint product $(3/2)c kappa g=(3/2)(Delta A/S)sqrt(A)$ is a right-end approximation, typically #f(TF.ants.rule_medians.endpoint_over_exact, d: 3) times the exact budget in this cohort. We forecast with @eq:budget. Each trajectory's mean budget over windows ending at $2^20$, $2^21$ and $2^22$ predicts its increments in $A^(3/2)$ over the next four octaves, ending at $2^23$–$2^26$, without updating from those outcomes. A competing model extrapolates a log–log drift fitted to the same three early budgets. The rule-independent baseline is the median early rule-mean budget after excluding the target rule and all its seeds.
+
+There are #TF.ants.runs complete trajectories across #TF.ants.rules rules, with approximately 12 patched starts per rule; #TF.ants.excluded.len() trajectories fail the completeness, nonescape or positive-growth criteria. We apply no outcome exponent filter. For each trajectory, error is the median absolute relative increment error over four forecast windows; the summary is the median of equal-weight rule means. Constant budgets give #f(100 * TF.ants.rule_medians.constant, d: 1)% error against #f(100 * TF.ants.rule_medians.baseline, d: 1)% for the baseline and #f(100 * TF.ants.rule_medians.drift, d: 1)% for the drift fit. The reduction is #f(100 * TF.ants.reduction, d: 1)% (rule-bootstrap 95% interval #f(100 * TF.ants.reduction_ci.at(0), d: 1)–#f(100 * TF.ants.reduction_ci.at(1), d: 1)%; 2000 resamples, seed 20261013), passing the stated 30% prediction. Integrating all four forecast increments from the observed area at $2^22$ gives final-area error #f(100 * TF.ants.rule_medians.constant_final, d: 1)% against #f(100 * TF.ants.rule_medians.baseline_final, d: 1)% for the baseline.
+
+Calibration separates persistence from a universal forecasting advantage. The same estimator on #TF.rotor.runs rotor seeds, with matched windows, gives #f(100 * TF.rotor.rule_medians.constant, d: 1)% error against #f(100 * TF.rotor.rule_medians.baseline, d: 1)% for the other-seed baseline. On #TF.random_walk.runs random-walk seeds (training $k=17$–$19$, forecast $k=20$–$23$), errors are #f(100 * TF.random_walk.rule_medians.constant, d: 1)% and #f(100 * TF.random_walk.rule_medians.baseline, d: 1)%; drift extrapolation still misses by #f(100 * TF.random_walk.rule_medians.drift, d: 1)%. Synthetic $A=C t^(2/3)$ and $A=C t$ recover their known constant and square-root budgets respectively.
+
+This typical accuracy hides severe failures. RMS within-rule seed sd of relative increment errors is #f(TF.ants.rms_seed_sd.constant, d: 2) for constant budgets, #f(TF.ants.rms_seed_sd.drift, d: 2) for drift and #f(TF.ants.rms_seed_sd.baseline, d: 2) for the baseline; these are ratios, not percentages. One retained trajectory (`RLLRRRLLRLRR@108`) has constant-budget error about 6506 times the observed increment. Near-stalls make relative errors enormous, so the robust improvement does not imply uniformly reliable predictions. Escaped or incomplete trajectories are excluded, and this test cannot forecast their breakouts. An exploratory check, specified after the primary result, uses the median early budget of the other seeds of the same rule and gives #f(100 * TF.ants.rule_medians.other_seeds, d: 1)% error, slightly better than each trajectory's own early budget. This supports persistent rule-level transport in the measured windows; it neither identifies the spatial-memory mechanism nor proves asymptotic scaling. Exact recipes, input hashes and all trajectory errors are in `data/transport_forecast.py` and `data/transport_forecast.json`.
+
 *A memoryless control.* We then tested the mechanistic candidate directly: a memoryless walker that turns right with probability $Q$ and left otherwise, independent of the board, driven through the same probe (`data/a1d_stats.txt`; $Q in {0.25, 0.4, 0.5, 0.6, 0.75}$, six seeds each, $2^26$ steps on a $32768^2$ board; predictions written beforehand in `notes/frontier-2026-10-13-results.md`, A1d). Its $kappa$ is roughly constant at 1.3 to 1.45 (within $plus.minus 5%$ across $Q$ from 0.25 to 0.6), but its area exponent is 0.94 to 0.96, not $2/3$.
 
-So independent persistent turns reproduce uniform occupancy but neither the cube root nor the ants' $kappa$ (about 0.9) nor the rotor's (about 2.0): both the value of $kappa$ and the $t^(1/3)$ growth must come from the memory the walker writes into the board, which fits the failure of every function of the letters.
+So independent persistent turns reproduce roughly uniform occupancy but neither the cube root nor the ants' $kappa$ (about 0.9) nor the rotor's (about 2.0). This rejects the independent-turn mechanism; it motivates testing board memory without establishing that memory alone is sufficient, or that every memoryless mechanism must fail.
 
 This rules out one explanation of $kappa$; it does not supply another.
+
+*What does stochastic board memory change?* @fig:memory-paths makes three comparisons concrete. A once-excited walk uses a directional cookie on its first departure from each site, then moves uniformly on revisits @benjamini2003. Randomly orienting those cookies removes the ensemble drift. A linearly edge-reinforced walk instead favours edges it has crossed: each undirected edge starts at weight 1 and gains $I$ on each crossing. Neighbour choices are proportional to those weights @merkl2006. These models separate one-use site memory from persistent edge memory; the random-arrow cookie is our specified variant of the directional model.
+
+#figure(
+  image("fig/memory_paths.pdf", width: 100%),
+  caption: [Nine walkers after the same 65,536 steps. Stochastic walkers use the preselected seed 301; the ant starts blank. Colour records position samples per site (including the origin); orange traces the final 1,024 steps and + marks the origin. Panels have equal x/y scaling except the directional-cookie panels, whose y-axis is expanded to show transverse motion. Spatial scales differ: read the cell coordinates. Directional cookies spread east, random cookies resemble the random walk, and strong reinforcement repeatedly uses a small territory. These single trajectories illustrate behaviour, not the ensemble exponents. $B$ is the first-departure probability of following the cookie instead of choosing a uniform neighbour; $I$ is the edge-weight increment.],
+) <fig:memory-paths>
+
+The registered pilot used eight seeds (301–308) per setting, up to $2^20$ steps on an $8192^2$ board. Table @tab:memory reports per-seed fits over $k=14$–$18$ and $kappa$ at $2^18$; uncertainties are between-seed sd. All 16 directional-cookie runs escaped before completing that window, so we report no fitted exponent for them. Random-arrow cookies stayed close to the random-walk control. Weak edge reinforcement had a mean area exponent near $2/3$, but its large scatter and falling $kappa$ do not establish the ant regime. Strong reinforcement greatly reduced exploration.
+
+#figure(
+  table(columns: (2.5fr, 1fr, 1fr), align: (left, center, center),
+    table.header([Walker], [Area slope $a$], [$kappa$ at $2^18$]),
+    [Random walk], [0.924 ± 0.043], [1.350 ± 0.082],
+    [Rotor], [0.740 ± 0.027], [1.845 ± 0.118],
+    [Random cookie, $B=0.25$], [0.942 ± 0.047], [1.327 ± 0.075],
+    [Random cookie, $B=0.75$], [0.920 ± 0.044], [1.293 ± 0.094],
+    [Edge reinforcement, $I=1$], [0.698 ± 0.303], [0.312 ± 0.132],
+    [Edge reinforcement, $I=4$], [0.187 ± 0.092], [0.328 ± 0.447],
+  ),
+  caption: [Stochastic memory pilot, eight complete seeds per row. The early rotor area slope overshoots $2/3$ by 0.074, so this window cannot identify an asymptotic exponent. In the later $k=16$–$20$ window, the rotor gives 0.715 ± 0.019, weak edge reinforcement 0.701 ± 0.277, and strong reinforcement 0.216 ± 0.096. Weak reinforcement's mean $kappa$ falls to 0.155 ± 0.084 at $2^20$.],
+) <tab:memory>
+
+#figure(
+  image("fig/memory_growth.pdf", width: 100%),
+  caption: [Growth and boundary occupancy across the same pilot. Thin lines are individual seeds; thick lines show the geometric mean area and arithmetic mean $kappa$. All solid curves have eight seeds. Dashed directional-cookie curves end when runs escape; terminal labels give the number still contributing, and later points describe survivors only. The grey guides show area proportional to $t^(2/3)$ and $kappa=1$. Persistent memory can suppress exploration without producing stable ant-like boundary occupancy.],
+) <fig:memory-growth>
+
+The prediction that random cookies at $B=0.75$ would give $a$ between 0.60 and 0.75 failed. Weak reinforcement passed that area band but failed the predicted $kappa$ band of 0.5–3. Thus none of these settings reproduced both features of the target regime. This is a finite-window negative result, not a general exclusion of stochastic memory. Definitions, predictions, recipes and all per-seed fits are in `notes/walker-comparisons-2026-10-13.md` and `data/memory_walkers_pilot/summary.json`.
 
 We also measured where the walker stands relative to the edge (`examples/layers.rs`; design and predictions in `notes/kappa-experiment-design.md`, written beforehand). Let layer $d$ be the Manhattan distance to the nearest never-visited cell minus one, so layer 0 is the edge, and let $rho(d)$ be the visit rate per cell at layer $d$ relative to the territory mean ($rho(0) = kappa$ by construction, which we checked: the layer-0 count equals the probe's perimeter in every row). For the rotor (12 seeds, $k = 22 ... 25$) $rho$ is 1.8 at layer 0, 1.1 at layer 1 and 0.9--1.0 deeper; for the memoryless walker it falls smoothly from 1.4 to 0.8 over four layers. For the ants it does not have a single shape. In 24 ant rules (12 chosen as the lowest and highest rule-mean $kappa$ and 12 closest to 0.9, blank board, `data/layers_stats.txt`, `data/layers_stats_typical.txt`, `data/layers_classes.txt`) we find two classes. In 15, a _crust_: layers 2 to 4 are almost never visited ($rho$ between 0.01 and 0.6), the walker concentrates in layers 0 and 1, and for 13 of them $c$ is 0.61--0.66 and the mean number of edge-phase visits per cell is 1.5 to 1.6 (the other two have $c$ 0.44 and 0.48), yet $kappa$ ranges from 0.13 to 18. In 9, the occupation is uniform to within 30% at layers 2 to 4, $c$ is 0.27--0.48, and $kappa$ lies between 0.82 and 0.96 (a range truncated by how those rules were chosen). A proxy for the crust class in the census, $c >= 0.6$, picks out 12% of blob rules (319 of 2622, including a spike of 263 with $c$ between 0.65 and 0.70) whose median $kappa$ (0.80) is ordinary. Two predictions made beforehand failed: that the $kappa$ difference between rules lives in the first two layers (it did not, for 15 of 24), and that $kappa$ follows the edge dwell time (Spearman $-0.26$ for the 12 extreme rules, $-0.59$ for the 12 typical, the wrong sign). The two-class split was found after looking and is exploratory. Its consequence is that $kappa$ is not fixed by the edge-entry statistics: within the crust class $c$ and the dwell are constant while $kappa$ spans more than an order of magnitude. This characterises the unexplained quantity; it does not explain it. A second intervention gave a result that we did not predict. A rotor whose arrow is replaced by a random one with probability $epsilon$ per visit (`data/armb_stats.txt`; $epsilon$ from 0 to 0.1, eight seeds each, 38 of 48 runs fitted, $k = 20 ... 26$) reproduces the rotor at $epsilon = 0$ (area exponent 0.69, $kappa = 2.0$), but already at $epsilon = 0.001$ the area exponent is 0.76 and by $epsilon = 0.03$ it is 0.94, earlier than we predicted. $kappa$ did not fall towards the memoryless value 1.4 as predicted; it rose to 3.6, 5.8 and 6.7 for $epsilon = 0.001, 0.003, 0.01$ and fell back at larger $epsilon$, with a positive drift in time, so these values are transient readings during the crossover. Meanwhile $c$ stayed at 0.498 throughout. Exact deterministic memory is therefore what holds $kappa$ at 2 in the rotor, and $kappa$ and $c$ vary independently, as in the ants' crust class. A third test used 26 pairs of rules with equal length, equal number of R and edge-entry probability within 0.02 but rule-mean $kappa$ differing by at least 0.5 (`data/armc_stats.txt`): the depth of the depleted crust does not separate them (the lower-$kappa$ member has the deeper crust in 13 of 26 pairs, against the 18 we required). The blank-board $kappa$ orders 25 of the 26 pairs as the patched-start rule means do, so the rule dependence is robust to the kind of run. Five candidate predictors and one intervention have now failed to account for it.
 
@@ -287,6 +380,8 @@ A longer follow-up (`data/a4c_stats.txt`; 36 ant runs and 14 rotor seeds to $2^3
   caption: [Left and middle: how often each cell was visited (log scale) in a single run of $2^22$ steps, for the rotor walker (one seed) and the ant `RLL`. Right: visits per cell, averaged in rings around the centre, against the cone $3(1 - r slash R)$. Both curves follow the cone; this figure is one run each and is an illustration, not the ensemble measurement quoted in the text.],
 ) <fig:rotor>
 
+*Width against radius.* Refitting the same A4/A4c trajectories directly against $R=sqrt(A slash pi)$ gives $W_("surf") prop R^zeta$ with rotor $zeta=0.401$ (14 seeds, sd 0.073; bootstrap mean interval 0.366–0.437) and ant $zeta=0.714$ (36 runs across six rules, RMS within-rule seed sd 0.134; rule-bootstrap interval 0.664–0.761), over $k=22$–$32$. The rotor prediction $zeta in [0.30,0.37]$ failed: this estimate is closer to $3/8$, implied by $W prop t^(1/8)$ and $R prop t^(1/3)$, than to $1/3$. Restricting to $k=26$–$32$ gives 0.389 and 0.685; the later A4c cohort alone over $k=26$–$34$ gives 0.395 and 0.637. The ant/rotor slope ratio therefore changes from 1.78 to 1.61. Replacing $R$ with $R_g$ or the mean outer radius changes these means by less than 0.005. This confirms a finite-window gap but does not support an exact factor-two law. These are growth-trajectory slopes, not spatial roughness exponents; height correlations and removal of global shape modes are needed to test a KPZ or other interface universality class (`data/width_radius_refit.json`).
+
 *Are the outliers noise?* We re-ran the #N.item21.high_n fastest and #N.item21.low_n slowest blob rules from 12 random patches each. If their exponents had been run-to-run noise they would regress to the middle. They mostly do not: only #pct(N.item21.high_regress) of the fast rules fall below 0.37 and #pct(N.item21.low_regress) of the slow rules rise above 0.30; the Spearman correlation between census and re-measured exponent is #f(N.item21.spearman_census, d: 2), and the re-measured exponent correlates with $gamma_kappa$ at #f(N.item21.spearman_gk, d: 2). So the outliers are real properties of the rules over $2^20$–$2^27$ steps, with edge occupation drifting; whether they are different asymptotes or very slow transients is untestable at this length (the previous paragraph shows even typical rules differ by about 0.02 at $2^30$).
 
 This revises our earlier statement that most between-rule scatter is noise: for typical rules it is (within-rule sd 0.016 against a between-rule sd of 0.004), but the tails are not.
@@ -312,10 +407,10 @@ This revises our earlier statement that most between-rule scatter is noise: for 
   [Outliers are noise], [Refuted for most: #pct(N.item21.high_regress) / #pct(N.item21.low_regress) regress], [@sec:ens],
   [Surface width matches the rotor], [Not supported: ants' exponent is about twice the rotor's (#f(N.shape.ants.dW, d: 2) against #f(N.shape.rotor.dW, d: 2) for a fit over $k >= 18$; 0.22–0.25 against 0.10–0.13 at matched $k$ = 22–32)], [@sec:ens],
   [$kappa$ is rule-specific but not predicted by the rule string], [Moderately reproducible (ICC 0.58); held-out $R^2$ 0.003 (letters) against 0.78 for $c$], [@sec:factors],
-  [Why $kappa$ takes its value, why it drifts in some rules], [*Unexplained*; a memoryless persistent walker (A1d) gives $kappa approx 1.4$ and area exponent 0.95, so board memory is required; edge-layer anatomy (A1-typical) separates a crust class from a uniform class but does not predict $kappa$ (predictions failed); $kappa$ is not shared between cyclic rotations of a rule (ICC 0.20, K1); a stochastic true self-avoiding walk gets $kappa$ up to 1.97 with area exponent 0.98 (E1), so $kappa approx 2$ is not specific to the rotor], [@sec:factors],
+  [Why $kappa$ takes its value, why it drifts in some rules], [*Unexplained*; a memoryless persistent walker (A1d) gives $kappa approx 1.4$ and area exponent 0.95, rejecting that memoryless control; edge-layer anatomy (A1-typical) separates a crust class from a uniform class but does not predict $kappa$ (predictions failed); $kappa$ is not shared between cyclic rotations of a rule (ICC 0.20, K1); a stochastic true self-avoiding walk gets $kappa$ up to 1.97 with area exponent 0.98 (E1), so $kappa approx 2$ is not specific to the rotor], [@sec:factors],
   [The prefactor of $A tilde t^(2/3)$ is set by $c kappa$], [Partly: dividing by $c kappa$ cuts the between-rule variance of $ln(A slash t^(2/3))$ at $2^26$ by #pct(N.h3.reduction) (pre-registered level 75%); a free fit gives power #f(N.h3.fit_power, d: 2), $R^2 = $ #f(N.h3.fit_r2, d: 2). $c$ and $kappa$ come from the same runs as $A$, so part of this is the identity of @eq:a], [`data/h3_collapse.txt`],
   [Rule-specific area exponent is filling-fraction drift], [Refuted: $gamma_eta$ explains $R^2 = $ #f(N.h1.r2_geta_vs_excess, d: 2) of $a - 2 alpha_w$ and has ICC #f(N.h1.icc_geta, d: 2) (predictions $>= 0.80$, $>= 0.35$); the two box sides co-vary instead], [`data/h1_lacunarity.txt`],
-  [Whether the edge exponent is 1/2 asymptotically], [*Unexplained*; the finite-window $beta$ is #f(N.mf_core.beta.at(1), d: 3) for ants and #f(N.calib_A.rotor.beta.median, d: 3) for the rotor], [],
+  [Whether the edge exponent is 1/2 asymptotically], [*Unexplained*; the finite-window $beta$ is #f(N.mf_core.beta.at(1), d: 3) for ants and #f(N.calib_A.rotor.beta.median, d: 3) for the rotor; to $2^36$ the ants (six rules, two starts each) read $0.509 plus.minus 0.003$ against the rotor's $0.501 plus.minus 0.003$, both close to 1/2, but the decision rules we set in advance are inconclusive (W4)], [],
 )
 ]
 
@@ -324,15 +419,9 @@ This revises our earlier statement that most between-rule scatter is noise: for 
 - *One trajectory per rule.* The ant is deterministic from a blank board; the only noise estimate is the patched-start control (#N.calib_C.rules rules, #N.calib_C.runs runs). Rules are not independent samples of anything; the bootstrap interval is a statement about this set of rules.
 - *Finite windows.* All exponents come from seven octaves; the rotor calibration quantifies but does not remove the bias, and the rotor's bias need not equal the ants'. Long runs to $2^32$ cover only six rules.
 - *Rule length $<= 12$.* Both the census and the $c$ model stop there. Rules with large $n$ are the majority of all rules; if the cube-root regime is a property of short rules, we cannot tell.
-- *Edge exponent at finite time.* A separate check on the six long runs (`data/edge_exponent.py`, output `data/edge_exponent.txt`) gives local boundary exponents of $P$ against $A$ (slope over five octaves from $k$; a different estimator from the census $beta$, hence 0.51–0.53 rather than #f(N.mf_core.beta.at(1), d: 3)), averaged over the six rules, of 0.53 at $k = 20$, 0.51 at $k = 26$ and 0.52 at $k = 28$, with single rules between 0.48 and 0.55 and no clear fall; the rotor's local slope is 0.52 at $k = 22$. A pure $A^(1/2)$ law fits worse than $P = c_1 sqrt(A) + c_0$ (rms log-residual 0.045--0.16 against 0.018--0.073 over the six rules), so the data are consistent with a square-root edge plus an offset shared by both walkers, but do not establish the asymptotic value.
+- *Edge exponent at finite time.* A separate check on the six long runs (`data/edge_exponent.py`, output `data/edge_exponent.txt`) gives local boundary exponents of $P$ against $A$ (slope over five octaves from $k$; a different estimator from the census $beta$, hence 0.51–0.53 rather than #f(N.mf_core.beta.at(1), d: 3)), averaged over the six rules, of 0.53 at $k = 20$, 0.51 at $k = 26$ and 0.52 at $k = 28$, with single rules between 0.48 and 0.55 and no clear fall; the rotor's local slope is 0.52 at $k = 22$. A pure $A^(1/2)$ law fits worse than $P = c_1 sqrt(A) + c_0$ (rms log-residual 0.045--0.16 against 0.018--0.073 over the six rules), so the data are consistent with a square-root edge plus an offset shared by both walkers, but do not establish the asymptotic value. Extending the six ant rules (blank and one patched start each) to $2^36$ gives a mean local slope of $0.509 plus.minus 0.003$ (twelve runs; the rotor at $2^36$: $0.501 plus.minus 0.003$), with a fall of $0.009 plus.minus 0.004$ over the last two octaves against the rotor's $0.012 plus.minus 0.004$; our pre-set rules for "consistent with 1/2" and "plateau above 1/2" both return inconclusive, and the fall again rests on the last octave.
 - *Exclusions.* #N.probe.unanalysed rules were not fitted and #N.probe.bursty flagged bursty; the builder and log classes use thresholds chosen by eye.
-// TODO(G1): two interpretations of the RLRLLL breakout are on record and must be resolved before this paragraph is final.
-// (a) notes/research-frontier-2026-10-13-pm.md, "G1 result" near the top: a macroscopic surface wave / directed limit cycle that
-//     erodes the perimeter ("mechanism confirmed"; quasi-period claimed from the 4-step efficiency, not tested).
-// (b) the same note, later "G1 result": an abrupt switch from the blob regime to a different 4.02-steps-per-cell builder; not a
-//     perimeter crawl (the ant starts ~400 cells outside the blob box); the period is untested and no mechanism is established.
-// The sentence below follows (b), the more conservative reading, and claims no mechanism.
-- *Highway builders.* Classification is by finite simulation. A rule counted as chaotic may build a highway after $2^27$ steps (Langton's ant itself takes about $10^4$). Several hundred rules of length $<= 10$ were left unresolved in an earlier highway census (`data/unresolved_le10.txt`). Of 807 such rules run to $10^10$ steps, 38 (4.7%) became highways in $(10^9, 10^10]$. In a 240-rule sample run to $10^11$ only 3 (1.25%) did in $(10^10, 10^11]$, so the tail is thinning, not flat, but one decade cannot show that the set of late highways is finite (`data/b5_stats.txt`; the other 492 survivors were not run in that sample). A rule that stays on the board is not necessarily in a stable regime either: `RLRLLL`, one of the long-run rules, ran as a blob until step $#f(N.g1.onset_t / 1e10, d: 4) times 10^10$ and then switched within a few $10^6$-step windows to a steady builder at #f(N.g1.steady_steps_per_new, d: 2) steps per newly visited cell (all #N.g1.steady_windows later windows), with no exact period up to $10^6$, and left a $32768^2$ board at $#f(N.g1.exit_step / 1e10, d: 4) times 10^10$ (`examples/ribbon_trace.rs`, `data/g1_stats.txt`; one blank-board trajectory, trigger unknown). Three further board escapes without a recognised highway in the $10^11$ sample may be of this kind but were not traced.
+- *Highway builders.* Classification is by finite simulation. A rule counted as chaotic may build a highway after $2^27$ steps (Langton's ant itself takes about $10^4$). Several hundred rules of length $<= 10$ were left unresolved in an earlier highway census (`data/unresolved_le10.txt`). Of 807 such rules run to $10^10$ steps, 38 (4.7%) became highways in $(10^9, 10^10]$. In a 240-rule sample run to $10^11$ only 3 (1.25%) did in $(10^10, 10^11]$, so the tail is thinning, not flat, but one decade cannot show that the set of late highways is finite (`data/b5_stats.txt`; the other 492 survivors were not run in that sample). A rule that stays on the board is not necessarily in a stable regime either: `RLRLLL`, one of the long-run rules, ran as a blob until step $#f(N.g1.onset_t / 1e10, d: 4) times 10^10$ and then switched within a few $10^6$-step windows to a steady builder at #f(N.g1.steady_steps_per_new, d: 2) steps per newly visited cell (all #N.g1.steady_windows later windows), and left a $32768^2$ board at $#f(N.g1.exit_step / 1e10, d: 4) times 10^10$ (`examples/ribbon_trace.rs`, `data/g1_stats.txt`; one blank-board trajectory, trigger unknown). Two $4 times 10^5$-step trajectory dumps at $1.28 times 10^10$ and $1.29 times 10^10$ (`examples/builder_dump.rs`, `data/g1_builder_*.py`; notes/g1-builder-structure-2026-10-14.md) show that this builder is a boustrophedon column sweeper rather than a perimeter crawl: it makes a slow traverse of the full height $L$ (6,400 rows at the first dump and 8,610 at the second) at about 10 steps per row, a fast return at about 2 steps per row, and adds three columns per round trip, and the wake is exactly periodic in $x$ with period 3 (column agreement 0.99, colours 3, 4, 5 only). Three columns of $L$ cells per $approx 12 L$ steps is 4 steps per new cell, and $d x slash d t = -1 slash (4 L)$ with the measured $L approx 0.67 |x| - 960$ predicts $d|x|^2 slash d t = 0.86$ and 0.84 at the two dumps against 0.86 and 0.83 measured, so $|x|$ grows as $t^(1 slash 2)$ in this phase. The two values of $L$ come from the same single trajectory, so this is a consistency check on the sweep picture, not a test of the $L tilde |x|$ law; why the pattern has period 3 and what triggers the switch are unexplained. Three further board escapes without a recognised highway in the $10^11$ sample may be of this kind but were not traced.
 - *Mechanism is a decomposition, not a derivation.* We do not derive the cube root from the rule; we show it follows from three measured quantities each of which is constant in time for most rules.
 - *Related but untested ideas.* Experiments in which the ant's territory was replaced by statistically matched fields (pair, $2 times 2$, $3 times 3$) suggest that the log-growing "tethered" rules depend on the exact configuration of the territory rather than on local statistics. That work was run on two rules at one age with one trajectory each, and a follow-up knockout map has not been run. We draw no conclusion from it in this paper.
 
@@ -340,12 +429,17 @@ This revises our earlier statement that most between-rule scatter is noise: for 
 
 Non-highway generalised Langton's ants of length 3–12 grow, to within the bias our calibration measures, as $t^(1/3)$ in linear size and $t^(2/3)$ in area. The growth rate splits into an edge-entry probability and an edge-occupation ratio that stay constant for the large majority of rules, together with an edge that scales close to $A^(1/2)$; rules that violate the cube root are those whose edge occupation drifts (correlation of $alpha$ with $gamma_kappa$ #f(N.identity.corr_alpha_gk, d: 2) over blob rules); this is bookkeeping through @eq:a, not a cause. The result is empirical and stops short of a proof, and the quantitative values of the constants are explained only for $c$ (by a rule-letter model) and not for $kappa$ or $beta$. We did measure the factors for the rotor with arrows initialised with a northward bias (`notes/frontier-2026-10-13-results.md`, C2b): $kappa$ rose from 2.01 to 2.20 at bias 0.15 while the width exponent stayed at 0.32–0.33, until the cube root broke between bias 0.25 and 0.30; randomising the arrow with probability $epsilon$ raised $kappa$ up to about 3-fold and destroyed the cube root (Arm B). Neither intervention explains the ants' rule-specific $kappa$. A natural next step is to extend the census beyond $n = 12$ with a stated-in-advance prediction, and to look for a rule-level quantity that, unlike the letters, the necklace and the edge-layer shape (all tested and failed), orders $kappa$.
 
+The future-window forecast adds evidence beyond the same-window identities: early transport budgets predict later increments substantially better than an other-rule baseline in the typical replicated run. Rare near-stalls defeat the forecast, and the physical origin of persistent rule-level transport remains open.
+
 = Availability and statements
 
-*Data and code availability.* [PLACEHOLDER: repository URL and archived DOI (e.g. Zenodo) to be added once the working tree is committed.] The Rust simulator, the Python analysis scripts, the generated data files, `paper/compute_numbers.py` (every number in this text) and `paper/figures.py` are in the repository; the exact commands are in `paper/README.md` and `notes/`. At the time of writing the tree is uncommitted, so no commit hash is quoted.
+*Data and code availability.* [PLACEHOLDER: repository URL and archived DOI (e.g. Zenodo) to be added once the working tree is committed.] The Rust simulator, the Python analysis scripts, the generated data files, `research-outputs/cube-root-growth-paper/compute_numbers.py` (every number in this text) and `research-outputs/cube-root-growth-paper/figures.py` are in the repository; the exact commands are in `research-outputs/cube-root-growth-paper/README.md` and `notes/`. At the time of writing the tree is uncommitted, so no commit hash is quoted.
 
-*Use of AI tools.* The code, analyses, and draft of this paper were produced with substantial assistance from Claude (Anthropic) via Claude Code and Google Gemini via Antigravity, under the author's direction. The author is responsible for the content and has reviewed the results. [Check wording against the target venue's policy.]
+*Use of AI tools.* The code, analyses, and draft of this paper were produced with substantial assistance from Claude (Anthropic) via Claude Code and Google Gemini via Antigravity, under the author's direction. Codex (OpenAI) also assisted with research planning, hypothesis development, and critical review of proposed experimental designs. The author is responsible for the content and has reviewed the results. [Check wording against the target venue's policy.]
 
 *Competing interests and funding.* [PLACEHOLDER]
 
+#pagebreak(weak: true)
 #bibliography("refs.bib", style: "ieee")
+
+

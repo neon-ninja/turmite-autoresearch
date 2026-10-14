@@ -1,11 +1,11 @@
 """Random-sample mixing test. Usage (repo root, WSL):
-  uv run paper/mixing_random.py   (needs a built release `dump` example; see notes/mixing-random-sample.md)
+  uv run research-outputs/cube-root-growth-paper/mixing_random.py   (needs a built release `dump` example; see notes/mixing-random-sample.md)
 """
 import subprocess, sys
 from pathlib import Path
 import numpy as np, polars as pl
 
-R = Path(__file__).resolve().parent.parent
+R = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(R / "data"))
 import mixing  # noqa: E402
 

@@ -6,13 +6,13 @@
 Input: data/item4_probe.csv (11 rules x 24 random 5x5 starting patches, 2^30 steps, produced by
 `probe 30 < data/item4_walkers.txt`). For every (rule, seed) the census fit is repeated on octave windows
 k = 20..26 (as data/analyse_probe.py): alpha_w (max side), alpha_rg (rg2/2), a (area), beta (perimeter vs area), c, kappa.
-Output: paper/seed_uncertainty.json  {rule: {stat: [mean, sd_between_seeds, n_seeds]}}, plus pooled medians.
-Run from the repo root: uv run paper/seed_uncertainty.py   (fails loudly if the input is missing)"""
+Output: research-outputs/cube-root-growth-paper/seed_uncertainty.json  {rule: {stat: [mean, sd_between_seeds, n_seeds]}}, plus pooled medians.
+Run from the repo root: uv run research-outputs/cube-root-growth-paper/seed_uncertainty.py   (fails loudly if the input is missing)"""
 import json, sys
 from pathlib import Path
 import numpy as np, polars as pl
 
-R = Path(__file__).resolve().parent.parent
+R = Path(__file__).resolve().parents[2]
 src = R / "data" / "item4_probe.csv"
 if not src.exists() or src.stat().st_size == 0:
     sys.exit(f"seed_uncertainty.py: missing or empty input {src}")
@@ -35,7 +35,7 @@ for (r,), g in d.group_by("rule_", maintain_order=True):
     out[r] = {k: [float(np.mean(v)), float(np.std(v, ddof=1)), len(v)] for k, v in rows.items() if len(v) > 2}
 pooled = {k: float(np.median([out[r][k][1] for r in out if k in out[r]])) for k in ["alpha_w", "alpha_rg", "a", "beta", "c", "kappa"]}
 res = {"per_rule": out, "median_between_seed_sd": pooled, "n_rules": len(out), "source": "data/item4_probe.csv, windows k=20..26"}
-(R / "paper" / "seed_uncertainty.json").write_text(json.dumps(res, indent=1))
+(R / "research-outputs" / "cube-root-growth-paper" / "seed_uncertainty.json").write_text(json.dumps(res, indent=1))
 print("median between-seed sd over", len(out), "rules:", {k: round(v, 4) for k, v in pooled.items()})
 for r in sorted(out, key=lambda x: (len(x), x)):
     print(f"{r:14s}", " ".join(f"{k}={out[r][k][0]:.3f}+-{out[r][k][1]:.3f}" for k in out[r]))
