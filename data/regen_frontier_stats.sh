@@ -29,7 +29,7 @@ run cube_fill data/cube_fill.py
 run shape_stats data/shape_stats.py data/shape_rotor.csv data/shape_ants.csv
 run c_letters data/c_letters.py
 run mixing_calib data/mixing_calib.py
-run seed_uncertainty paper/seed_uncertainty.py
+run seed_uncertainty research-outputs/cube-root-growth-paper/seed_uncertainty.py
 run ext_cube_long data/ext_long_stats.py cube
 run ext_tm_long data/ext_long_stats.py tm
 run h1e10_stats data/h1e10_stats.py
