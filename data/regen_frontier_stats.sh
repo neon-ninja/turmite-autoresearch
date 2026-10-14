@@ -33,4 +33,4 @@ run seed_uncertainty research-outputs/cube-root-growth-paper/seed_uncertainty.py
 run ext_cube_long data/ext_long_stats.py cube
 run ext_tm_long data/ext_long_stats.py tm
 run h1e10_stats data/h1e10_stats.py
-run cell1_stats data/cell1_stats.py
+uv run experiments/2026-10-13-cell1/scripts/cell1_stats.py 2>&1 | grep -v "Reading inline" > experiments/2026-10-13-cell1/results/cell1_stats.$ext

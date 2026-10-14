@@ -181,4 +181,4 @@ dependent on other work (10 on the knockout agent's `refine*` files; 17 on a lon
 Two corrections to this list: item 28's rotor exponent t^(1/(d+1)) is only a lower bound for d >= 3 (the 3D random rotor walk
 is transient in our simulation), and item 23's 'rule identity' check found that repeats u^k are identical to u.
 
-Update 2026-10-13 (later): items 10 and 17 are now done. 10: own single-cell scan (`examples/cell1.rs`, `data/cell1_stats.txt`); 17: all 807 rules to 1e10 (38 new highways).
+Update 2026-10-13 (later): items 10 and 17 are now done. 10: own single-cell scan (`examples/cell1.rs`, `experiments/2026-10-13-cell1/results/cell1_stats.txt`); 17: all 807 rules to 1e10 (38 new highways).

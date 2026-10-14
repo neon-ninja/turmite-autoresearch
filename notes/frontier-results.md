@@ -928,8 +928,8 @@ Hypotheses, written 2026-10-13 before any single-cell run (my tool: `examples/ce
 - H10c: the sensitive cells are not a closed cycle/object: the top cells are not connected in the ant's own trajectory loop (descriptive; I look at their colours and positions only).
 
 ### Item 10 result (2026-10-13)
-Command: `cell1 dumps/RULE.grid RULE 67108864 cell1/RULE <three 3x3 window corners>` (windows = the three lowest-near_home 3x3 windows in `knock/RULE/refine3.csv`:
-RRRRRLLLLLL -7,-10 -7,-11 -5,-15; RLLLLRRRRLR -1,7 1,6 -2,8), `examples/cell1.rs`; stats `uv run data/cell1_stats.py` -> `data/cell1_stats.txt`. Each run is a deterministic fresh ant, 2^26 steps.
+Command: `cell1 dumps/RULE.grid RULE 67108864 experiments/2026-10-13-cell1/results/RULE <three 3x3 window corners>` (windows = the three lowest-near_home 3x3 windows in `knock/RULE/refine3.csv`:
+RRRRRLLLLLL -7,-10 -7,-11 -5,-15; RLLLLRRRRLR -1,7 1,6 -2,8), `examples/cell1.rs`; stats `uv run experiments/2026-10-13-cell1/scripts/cell1_stats.py` -> `experiments/2026-10-13-cell1/results/cell1_stats.txt`. Each run is a deterministic fresh ant, 2^26 steps.
 Scan: every visited cell within 1 of those windows (52 / 47 cells) x every other colour (10 alternatives) = 520 / 470 single-cell recolourings; null = 200 random visited cells anywhere, random other colour.
 - **H10a supported.** Single-cell null: mean loss 0.002 / 0.004, p95 0.0065 / 0.0088, p99 0.011 / 0.016, max 0.025 / 0.036. In the scan the worst recolouring of a single cell loses
   0.039 / 0.046 (8-9% of the tether); all 52 / 46 of 47 cells exceed the null p95, 29 / 20 exceed the null max. A single cell can matter, but the typical recolouring costs only 0.01.
