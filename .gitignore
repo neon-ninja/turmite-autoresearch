@@ -11,3 +11,8 @@ __pycache__/
 /dumps_e6
 /knock_e1
 /knock_e5
+
+# per-experiment bulk output (see experiments/README.md)
+experiments/*/dumps*/
+experiments/*/knock*/
+experiments/*/scratch/

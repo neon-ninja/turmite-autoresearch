@@ -116,7 +116,9 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/bin/probe.rs` | Run the probe on a rule/seed |
 | `examples/*.rs` | One-off analyses (`edgestats`, `rotorstats`, `occupancy`, `longperiod`, ...); run with `cargo run --release --example NAME -- ARGS` |
 | `tests/` | Property tests (`proptest`) comparing fast vs reference |
-| `data/` | Generated results (csv/json/txt) plus the Python analysis scripts that make them (`census.py`, `calibrate.py`, `patterns*.py`, `mixing*.py`, ...) |
+| `experiments/YYYY-MM-slug/` | **New work goes here.** One folder per investigation: `README.md` (question, timestamped hypothesis, commands, results), `scripts/`, `results/` (small, committed), `dumps/` + `scratch/` (bulk, gitignored). See `experiments/README.md` |
+| `research-outputs/<name>/` | Publishable artefacts (currently `cube-root-growth-paper/`: Typst manuscript, figure/number scripts, `fig/`). Reads committed results, not `dumps/` (one known exception, see conventions) |
+| `data/` | **Legacy** flat results (csv/json/txt) plus the Python scripts that make them (`census.py`, `calibrate.py`, `patterns*.py`, `mixing*.py`, ...). Do not add new investigations here |
 | `calib/` | Calibration run outputs and checkpoints |
 | `notes/` | Hypotheses, results, open questions: the scientific record |
 | `occ/`, `snaps/` | Rendered occupancy pages and snapshots (`render.py`, `page_images.py`, `portrait.py`) |
@@ -143,9 +145,21 @@ real step counts.
 - Keep Rust deterministic and dependency-light (currently only `rayon`, plus
   `proptest` for dev). Justify new crates.
 - Match surrounding style; comments explain *why*, not what.
-- Don't commit large raw dumps: `/dumps`, `/synth`, `/knock`, `/target` are
-  gitignored for a reason. Summaries and the scripts that regenerate them are
-  what belong in git.
+- **Isolate working material.** Each investigation lives in its own
+  `experiments/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
+  results). Bulk output (dumps, knockout maps, scratch) goes in that folder's
+  `dumps*/`, `knock*/` or `scratch/`, never in the repo root, `data/` or
+  `research-outputs/`. Scripts write only inside their own folder and find the
+  repo root via `Path(__file__).resolve().parents[2]`. Rust one-offs stay in
+  `examples/` (Cargo only discovers them there), prefixed with the experiment
+  slug. Legacy root-level `dumps*`, `knock*`, `data/`, `calib/` are frozen: read
+  from them, don't add to them. Cross-cutting hypotheses and open questions stay
+  in `notes/`; paper numbers are computed from `experiments/*/results/` (or
+  legacy `data/`) by scripts in `research-outputs/`, which should not read `dumps/`
+  (known exception: `memory_figures.py` reads `dumps/memory_paths.csv`).
+- Don't commit large raw dumps: `dumps*/`, `knock*/` (at the root
+  and under `experiments/*/`), `experiments/*/scratch/`, `/synth` and `/target` are gitignored for a
+  reason. Summaries and the scripts that regenerate them are what belong in git.
 - Commit only when asked. Never rewrite or delete existing data/results
   without checking what's there and saying so.
 - Before declaring work done: tests pass in `--release`, regenerated outputs
