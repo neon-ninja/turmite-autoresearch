@@ -1,0 +1,55 @@
+{
+  "commit": "797704a2988ea8d958df39ac96e3ece27bec0980",
+  "analysis_seed": 20261014,
+  "command": "uv run experiments/2026-10-14-t1-excursion-tomography/scripts/t1b_cutoff.py",
+  "inputs": {
+    "experiments/2026-10-14-t1-excursion-tomography/results/t1b_windows.csv": "69bb67ba20e92379fa406a5f377ca9c3703e09e68c4b9aceedb1891b03db63d0",
+    "experiments/2026-10-14-t1-excursion-tomography/results/t1b_bins.csv": "ad0fcb4af9f6568572222b4d5457286a512f35e657a12dd4194fd354e6e430dd"
+  },
+  "script_sha256": "caba2e8797073d046ec545fb8191607dc81bb8acc9904f05c18beb01f2a5c878",
+  "conserved": true,
+  "excluded_escaped_windows": 10,
+  "controls": {
+    "rotor": {
+      "n": 4,
+      "kappa_mean": 1.97105,
+      "kappa_sd": 0.03997103117675775
+    },
+    "rw": {
+      "n": 0,
+      "kappa_mean": null,
+      "kappa_sd": null
+    }
+  },
+  "windows": {
+    "22": {
+      "n_rules": 44,
+      "min_seeds": 6,
+      "max_seeds": 8,
+      "rho": -0.8352360817477096,
+      "median_between_seed_sd": 0.12909215460929588,
+      "median_ratio": 156.05644966947418,
+      "median_open_share": 0.005149986758188527,
+      "sensitivity_n_rules": 44,
+      "sensitivity_n_seeds": 325,
+      "sensitivity_rho": -0.829598308668076
+    },
+    "25": {
+      "n_rules": 44,
+      "min_seeds": 7,
+      "max_seeds": 8,
+      "rho": -0.9182522903453135,
+      "median_between_seed_sd": 0.12764111392242697,
+      "median_ratio": 147.07835082763012,
+      "median_open_share": 0.0018755344292810425,
+      "sensitivity_n_rules": 44,
+      "sensitivity_n_seeds": 334,
+      "sensitivity_rho": -0.9207892882311486
+    }
+  },
+  "caveats": [
+    "Completed excursions only; open-time filtering cannot correct censoring.",
+    "Binned quantile has one-octave resolution; log interpolation is approximate.",
+    "Ratio still includes radius; this is not a size-controlled causal test."
+  ]
+}

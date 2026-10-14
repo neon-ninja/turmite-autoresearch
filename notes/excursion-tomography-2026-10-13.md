@@ -173,3 +173,17 @@ Commands: `cargo build --release --example sectors`; `./target/release/examples/
 
 ### Verdict on excursion tomography (T1 and T1b together)
 None of the registered mechanisms (shallow loops, rare-journey time share, return-sector transport) explains the rule dependence of kappa once territory size is controlled; every effect that looked strong (D/R, depth/R, return angle) was inverse territory size, which kappa itself sets at fixed t. The typical excursion is a 1-step return for every rule; the time budget sits in a tail with alpha ~0.5 whose extreme length scales with R. What remains is a weak, uncorrected hint that the extreme-excursion cutoff relative to R is the rule-specific quantity. Excursion statistics measured at a fixed step count cannot separate cause from the size confound; the route forward is intervention (T2/T3), or comparison at matched territory size, not more observation at matched t. Not done: matched-area comparison across pair members, per-rule L_99.9/R estimate, Sum(L·Δθ) tallies, seeds' between-run sd.
+
+### Cutoff/radius continuation (2026-10-14 NZDT)
+
+The per-rule cutoff/radius estimate and seed dispersion are now reported in
+[the experiment README](../experiments/2026-10-14-t1-excursion-tomography/README.md)
+with command `uv run experiments/2026-10-14-t1-excursion-tomography/scripts/t1b_cutoff.py`
+and hashed provenance in `results/t1b_cutoff.json`. Across 44 rules, the
+descriptive Spearman association is -0.835 at k=22 and -0.918 at k=25;
+median between-seed sample sd of ln ratio is 0.129 and 0.128. This does not
+resolve the size confound. Ten escaped windows were excluded. Rotor kappa
+misses its original final-window tolerance and random-walk final-window
+controls are unavailable. Exact quantiles, censoring correction, matched-area
+comparison and interventions remain outstanding; duration/radius is not
+spatial displacement.
