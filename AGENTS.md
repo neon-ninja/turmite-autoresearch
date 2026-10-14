@@ -18,7 +18,7 @@ Windows PATH. Run anything toolchain-related through WSL:
 
 ```bash
 wsl -e bash -lc "cd /mnt/f/Code/turmite && cargo test --release"
-wsl -e bash -lc "cd /mnt/f/Code/turmite && uv run data/census.py"
+wsl -e bash -lc "cd /mnt/f/Code/turmite && uv run experiments/2026-10-13-census-sweeps/scripts/census.py"
 ```
 
 - The repo is visible in WSL at `/mnt/f/Code/turmite`.
@@ -32,11 +32,11 @@ wsl -e bash -lc "cd /mnt/f/Code/turmite && uv run data/census.py"
   and mention them in the commit/notes that need them. The venv lives in the
   WSL home, not on `/mnt/f`; set this in every WSL invocation:
   `export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy`
-  (e.g. `wsl -e bash -lc "export UV_PROJECT_ENVIRONMENT=\$HOME/.venvs/turmite UV_LINK_MODE=copy && cd /mnt/f/Code/turmite && uv run data/census.py"`).
+  (e.g. `wsl -e bash -lc "export UV_PROJECT_ENVIRONMENT=\$HOME/.venvs/turmite UV_LINK_MODE=copy && cd /mnt/f/Code/turmite && uv run experiments/2026-10-13-census-sweeps/scripts/census.py"`).
   Scripts use polars, not pandas.
 - Use `-lc` (login shell) so `~/.cargo/bin` is on PATH.
 - Machine has 6 logical cores; sweeps use `rayon`. Long jobs: run in the
-  background and write to a log under `data/`, don't block on them.
+  background and write to a log under the experiment's `results/`, don't block on them.
 - Build artifacts go in `/target` (gitignored). Building from `/mnt/f` is
   slow-ish; if it matters, set `CARGO_TARGET_DIR=~/turmite-target`.
 - Git, file editing and Windows-side tools can be used natively from
@@ -45,7 +45,7 @@ wsl -e bash -lc "cd /mnt/f/Code/turmite && uv run data/census.py"
 ## Reproducibility is the first requirement
 
 A result that cannot be regenerated is not a result. Every number that lands
-in `notes/` or `data/` must be traceable to code, inputs and a seed.
+in `notes/` or `experiments/*/results/` must be traceable to code, inputs and a seed.
 
 1. **Determinism.** All randomness is seeded explicitly; no `thread_rng`, no
    time-based seeds, no hash-order dependence. Parallel code (`rayon`) must give
@@ -87,7 +87,7 @@ The aim is understanding, not a pile of plots. Be bold:
   predictions (an exponent, a ratio, a scaling collapse), then try hard to
   break it. Prefer a sharp wrong hypothesis to a vague correct one.
 - Chase the strange: rules that don't fit the census, outliers in the fits,
-  unresolved cases (`data/unresolved_le10.txt`), anything where the story in
+  unresolved cases (`experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`), anything where the story in
   `notes/open-questions-hypotheses.md` is thin. Connect to the literature
   (rotor walkers, internal DLA, Kapri & Dhar, Bou-Rabee & Peres) and try to
   sharpen it, up to a conjecture or proof sketch where one is within reach.
@@ -116,12 +116,11 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/bin/probe.rs` | Run the probe on a rule/seed |
 | `examples/*.rs` | One-off analyses (`edgestats`, `rotorstats`, `occupancy`, `longperiod`, ...); run with `cargo run --release --example NAME -- ARGS` |
 | `tests/` | Property tests (`proptest`) comparing fast vs reference |
-| `experiments/YYYY-MM-slug/` | **New work goes here.** One folder per investigation: `README.md` (question, timestamped hypothesis, commands, results), `scripts/`, `results/` (small, committed), `dumps/` + `scratch/` (bulk, gitignored). See `experiments/README.md` |
+| `experiments/YYYY-MM-slug/` | **New work goes here.** One folder per investigation: `README.md` (question, timestamped hypothesis, commands, results), `NOTEBOOK.md` (lab notebook), `notebook.ipynb` (shareable Jupyter write-up), `scripts/`, `results/` (small, committed), `experiments/2026-10-12-knockout-maps/dumps/` + `scratch/` (bulk, gitignored). Copy `experiments/_template/` to start. See `experiments/README.md` |
 | `research-outputs/<name>/` | Publishable artefacts (currently `cube-root-growth-paper/`: Typst manuscript, figure/number scripts, `fig/`). Reads committed results, not `dumps/` (one known exception, see conventions) |
-| `data/` | **Legacy** flat results (csv/json/txt) plus the Python scripts that make them (`census.py`, `calibrate.py`, `patterns*.py`, `mixing*.py`, ...). Do not add new investigations here |
-| `calib/` | Calibration run outputs and checkpoints |
+| `experiments/_lib/` | Shared Python helpers imported by several experiments (`analyse_probe.py`, `mixing.py`, `calib_kd.py`, `tether.py`); scripts add it with `sys.path.insert(0, "experiments/_lib")` |
+| `experiments/_migration/` | One-off tooling and `map.tsv` (old path -> new path) from the 2026-10-14 restructure of the flat `data/` layout |
 | `notes/` | Hypotheses, results, open questions: the scientific record |
-| `occ/`, `snaps/` | Rendered occupancy pages and snapshots (`render.py`, `page_images.py`, `portrait.py`) |
 | `web/` | In-browser simulator; `build.py` assembles it from `template.html` + `sim.js` + `page.js` |
 
 Typical commands (all via WSL, from `/mnt/f/Code/turmite`):
@@ -130,7 +129,7 @@ Typical commands (all via WSL, from `/mnt/f/Code/turmite`):
 cargo test --release                        # property tests vs oracle
 cargo run --release --bin sweep -- ...       # census sweep
 cargo run --release --example rotorstats -- ...
-uv run data/census.py                        # analysis over data/*.csv
+uv run experiments/2026-10-13-census-sweeps/scripts/census.py                        # analysis over the census CSVs
 uv run web/build.py                          # rebuild the web page
 node web/smoke.js                            # web smoke test (if node installed)
 ```
@@ -148,15 +147,29 @@ real step counts.
 - **Isolate working material.** Each investigation lives in its own
   `experiments/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
   results). Bulk output (dumps, knockout maps, scratch) goes in that folder's
-  `dumps*/`, `knock*/` or `scratch/`, never in the repo root, `data/` or
+  `dumps*/`, `knock*/` or `scratch/`, never in the repo root or
   `research-outputs/`. Scripts write only inside their own folder and find the
-  repo root via `Path(__file__).resolve().parents[2]`. Rust one-offs stay in
+  repo root via `Path(__file__).resolve().parents[3]` (script in `experiments/<slug>/scripts/`). Rust one-offs stay in
   `examples/` (Cargo only discovers them there), prefixed with the experiment
-  slug. Legacy root-level `dumps*`, `knock*`, `data/`, `calib/` are frozen: read
-  from them, don't add to them. Cross-cutting hypotheses and open questions stay
-  in `notes/`; paper numbers are computed from `experiments/*/results/` (or
-  legacy `data/`) by scripts in `research-outputs/`, which should not read `dumps/`
-  (known exception: `memory_figures.py` reads `dumps/memory_paths.csv`).
+  slug. The former flat `data/`, `calib/`, `occ/`, `snaps/`, `dumps*`, `knock*` no longer
+  exist: their contents were migrated into experiment folders (old path -> new path in
+  `experiments/_migration/map.tsv`; helpers in `experiments/_lib/`). Cross-cutting hypotheses and open questions stay
+  in `notes/`; paper numbers are computed from `experiments/*/results/` by scripts in
+  `research-outputs/`, which should not read `dumps/` (known exception: `memory_figures.py`
+  reads `experiments/2026-10-13-memory-walkers/dumps/memory_paths.csv`).
+- **Keep a lab notebook, and write a shareable notebook.** Every experiment has an
+  append-only `NOTEBOOK.md` (dated entries tagged `intent`, `assumption`,
+  `observation`, `interpretation`, `surprise`, `decision`, `dead-end`, `question`,
+  `deviation`; each with timestamp and git hash; corrections are new entries, never
+  edits) and a `notebook.ipynb` written for a colleague who hasn't seen the work
+  (question, assumptions, provenance cell with commit and input hashes, results with
+  what they do and do not show, caveats, next steps). Write entries as you go, not
+  afterwards: at least one when a session starts, after every run or analysis, on
+  every departure from the plan, and at the end. Notebooks read only committed
+  `results/`, run top to bottom from a clean kernel under `uv` with a fixed
+  seed, are committed with small outputs, and must agree with the README. Predictions
+  are still registered in the README before the measurement. Full rules and the
+  Jupyter setup (not yet in `pyproject.toml`): `experiments/README.md`.
 - Don't commit large raw dumps: `dumps*/`, `knock*/` (at the root
   and under `experiments/*/`), `experiments/*/scratch/`, `/synth` and `/target` are gitignored for a
   reason. Summaries and the scripts that regenerate them are what belong in git.

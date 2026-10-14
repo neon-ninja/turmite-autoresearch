@@ -16,3 +16,4 @@ __pycache__/
 experiments/*/dumps*/
 experiments/*/knock*/
 experiments/*/scratch/
+experiments/*/synth/
