@@ -1,0 +1,36 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/x2_prefix_heldout.py
+# git: 6ce3793 (working tree may be dirty)  seed: 20261014
+EXPLORATORY: prefix model held out on independent runs
+discovery rules 2434 (stationary 2036); confirmation pool rules 192 (stationary 169)
+
+[all rules] discovery n=2434, pool n=192; sd ln kappa discovery 0.570, pool 0.503
+  prefix<=2: held-out R^2 on pool patched means -0.013   corr -0.020
+  prefix<=3: held-out R^2 on pool patched means -0.005   corr +0.064
+  prefix<=4: held-out R^2 on pool patched means +0.054   corr +0.247
+  prefix<=5: held-out R^2 on pool patched means +0.131   corr +0.376
+  prefix<=6: held-out R^2 on pool patched means +0.161   corr +0.418
+  prefix<=7: held-out R^2 on pool patched means +0.240   corr +0.499
+  prefix<=8: held-out R^2 on pool patched means +0.275   corr +0.534
+  covariates ln A(22)    only: held-out R^2 +0.632
+  covariates c           only: held-out R^2 -0.009
+  covariates ln A(22)+c  only: held-out R^2 +0.781
+  prefix-6 mean + ln A(22)   : held-out R^2 +0.633
+  prefix-6 mean + c          : held-out R^2 +0.166
+  prefix-6 mean + ln A(22)+c : held-out R^2 +0.776
+  (prefix-6 groups in discovery: 44)
+
+[stationary only] discovery n=2036, pool n=169; sd ln kappa discovery 0.350, pool 0.326
+  prefix<=2: held-out R^2 on pool patched means -0.015   corr -0.004
+  prefix<=3: held-out R^2 on pool patched means -0.012   corr +0.062
+  prefix<=4: held-out R^2 on pool patched means +0.120   corr +0.367
+  prefix<=5: held-out R^2 on pool patched means +0.311   corr +0.574
+  prefix<=6: held-out R^2 on pool patched means +0.368   corr +0.625
+  prefix<=7: held-out R^2 on pool patched means +0.454   corr +0.698
+  prefix<=8: held-out R^2 on pool patched means +0.552   corr +0.763
+  covariates ln A(22)    only: held-out R^2 +0.595
+  covariates c           only: held-out R^2 -0.024
+  covariates ln A(22)+c  only: held-out R^2 +0.854
+  prefix-6 mean + ln A(22)   : held-out R^2 +0.674
+  prefix-6 mean + c          : held-out R^2 +0.372
+  prefix-6 mean + ln A(22)+c : held-out R^2 +0.854
+  (prefix-6 groups in discovery: 42)

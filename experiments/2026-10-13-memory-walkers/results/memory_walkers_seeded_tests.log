@@ -1,0 +1,19 @@
+warning: unused import: `self`
+ --> src/bin/sweep_lean.rs:9:21
+  |
+9 | use turmite::fast::{self, Config, Stop};
+  |                     ^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `turmite` (bin "sweep_lean") generated 1 warning (run `cargo fix --bin "sweep_lean" -p turmite` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 0.24s
+     Running tests/memory_walkers.rs (/home/tim/turmite-target-memory/release/deps/memory_walkers-315f55f9a40cc5f4)
+
+running 3 tests
+test zero_cookie_bias_is_identical_to_random_walk ... ok
+test cookies_match_reference ... ok
+test reinforced_edges_match_reference ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+

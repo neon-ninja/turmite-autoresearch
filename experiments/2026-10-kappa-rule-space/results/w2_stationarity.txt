@@ -1,0 +1,27 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/w2_stationarity.py
+# git: 6ce3793 (working tree may be dirty)  seed: 20261014
+pool-192 rules: 192; census non-bursty with kappa>0: 2622
+pool g_k (median over runs): quantiles 5/25/50/75/95 = -0.072 -0.010 -0.000 +0.008 +0.056
+
+sensitivity table (pool-192 rules, stationary = |median g_k| < thr):
+thr    n_stat  share  tail(k>3): n, nonstationary share | sd ln k all -> stat (ratio) | ICC stat (rules) / nonstat (rules) | letter LOO R^2 stat / nonstat
+0.03     159  0.83   n=  5, 1.00   | 0.504 -> 0.310 (0.61)   | 0.856 (159) / 0.634 (33)   | +0.119 / -0.747
+0.05     169  0.88   n=  5, 0.80   | 0.504 -> 0.327 (0.65)   | 0.851 (169) / 0.627 (23)   | +0.084 / +nan
+0.10     181  0.94   n=  5, 0.60   | 0.504 -> 0.367 (0.73)   | 0.558 (181) / 0.907 (11)   | +0.068 / +nan
+
+census (single runs, non-bursty, kappa>0; stationary |g_k|<0.05 share 0.833): kappa>3: n=44, non-stationary share 0.98; kappa<0.3: n=45, non-stationary share 0.82
+census sd ln kappa all 0.572 -> stationary 0.348 (ratio 0.61); quantiles of kappa among stationary 1/10/50/90/99: 0.36 0.59 0.90 1.28 1.91
+census kappa distribution all 1/10/50/90/99: 0.15 0.57 0.90 1.40 4.90
+
+pool rules with rule-mean kappa > 5: 3; list (rule, kappa, median g_k):
+  RLLLRRRLRLRR   kappa    10.98  g_k -0.103
+  RLLRRRLRRRRR   kappa     6.20  g_k +0.065
+  RLLRRLRRRRR    kappa     5.44  g_k +0.113
+  stationary (|g_k|<0.05) among them: 0/3
+armc rules in pool-192: 44/44; kappa>5: 3, of which |g_k|>=0.05: 3
+
+Pre-registered verdicts at |g_k|<0.05 (pool-192; README W2):
+P2.1 >=50% of rules with kappa>3 non-stationary: 0.80 (n=5) -> HELD
+P2.2 sd ratio stationary/all <= 0.7: 0.65 -> HELD
+P2.3 ICC(ln kappa) among stationary rules >= 0.45: 0.851 -> HELD
+P2.4 letter LOO R^2 on stationary <= 0.10: +0.084 -> HELD

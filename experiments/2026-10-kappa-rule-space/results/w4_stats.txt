@@ -1,0 +1,27 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/w4_stats.py
+# git: 6ce3793 (working tree may be dirty)  seed: 20261014
+specs with windows: 1194; specs that escaped the board (some windows missing): 9
+P4.2 identity kappa = sum_k m_k kappa_k within 1%: violations 0/10715 windows
+accounting identity V_j = V_(j-1) - dN_j (+ new cells for j=0), ants, consecutive windows: violations 0/104087 colour-window pairs (worst relative gap 0.00e+00)
+P4.1 delta=max_k|n m_k - 1| at k=24..26, ALL ant runs: share of run-windows below 0.03: 0.850 (3539 run-windows; includes highway builders and escapers)
+P4.1 same, BLOB runs only (area slope 0.55..0.85 over k=20..26, the registered 'blob-rule runs'): 0.875 (3393 run-windows, 1131 runs); worst delta 0.357
+   (the script first printed only the ALL-runs line; the blob-runs line was added after seeing that the large deltas are highway builders with dA/dt = 0.25 per step)
+   at k=26 by n, BLOB runs (median delta, max, share<0.03, runs): n=5: 0.007, 0.008, 1.00, 6; n=6: 0.009, 0.015, 1.00, 24; n=7: 0.012, 0.036, 0.94, 17; n=8: 0.011, 0.020, 1.00, 46; n=9: 0.012, 0.039, 0.95, 60; n=10: 0.013, 0.106, 0.96, 123; n=11: 0.016, 0.074, 0.92, 243; n=12: 0.015, 0.311, 0.93, 612
+   delta vs t log-log slope per run (k=20..26): median -0.326, IQR -0.343..-0.306; share within -0.33+-0.15: 0.96
+   delta / (n * dA/dt per step) at k=26: median 0.461 (1.0 would mean delta is just the new-cell rate)
+
+rule-level: 187 pool/census ant rules with >= 4 usable seeds; stationary (pool flag): 167; pool rules only: 187
+recorded earlier: stationary rules whose leading boundary colour has index <= 2: 1.000 (prediction >= 0.60; near-trivial, see README)
+P4.3 rules with kappa>3: 4; leading colour supplies >= 60% of boundary steps in 2 of them (prediction: >= 80% of them); leading colour index counts: {np.int64(0): np.int64(4)}
+P4.4 Spearman(ln khat, ln kappa): all +0.395; stationary +0.233 -> FAILED (all-rules reading)
+P4.5 lambda = kappa/khat: mean 0.973, CV 0.503 (prediction CV >= 0.3) -> HELD
+
+EXPLORATORY bookkeeping: ln kappa = ln(newcells/step) - ln c - ln(P/A) per rule (mean over seeds); share of var(ln kappa) carried by each term (cov(term, ln kappa)/var):
+  stationary: var(ln kappa) 0.1048; ln(newcells/step): +0.87; -ln c: +0.10; -ln(P/A): +0.04
+  all: var(ln kappa) 0.2349; ln(newcells/step): +0.73; -ln c: +0.03; -ln(P/A): +0.24
+EXPLORATORY boundary-step budget per new cell (mean over rules): stationary: e0 0.975, e1 0.778, e_rest 0.796, sum 2.549; all: e0 0.977, e1 0.758, e_rest 0.730, sum 2.466
+  stationary: corr(ln kappa, ln e1) +0.123; corr(ln kappa, ln(1+e_rest)) +0.115; corr(ln kappa, -ln c) +0.114
+  all: corr(ln kappa, ln e1) +0.063; corr(ln kappa, ln(1+e_rest)) +0.047; corr(ln kappa, -ln c) +0.051
+
+P4.6 controls at k=26: rotor kappa 1.978 +- 0.063 (n=6; prediction 2.00 +- 0.01); pw:0.5 kappa nan +- nan (n=0)
+   rotor colour-class closure khat = 1.000 (expected 1 against measured 2)

@@ -1,0 +1,13 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/x1_prefix_icc.py
+# git: 6ce3793 (working tree may be dirty)  seed: 20261014
+EXPLORATORY: prefix-sharing ICC of ln kappa (census, single run)
+all        prefix 2: groups(>=2)     2 rules  2622  ICC +0.001   null -0.000 +- 0.001
+all        prefix 3: groups(>=2)     4 rules  2622  ICC +0.005   null -0.000 +- 0.001
+all        prefix 4: groups(>=2)     8 rules  2620  ICC +0.058   null -0.000 +- 0.002
+all        prefix 5: groups(>=2)    16 rules  2616  ICC +0.123   null -0.000 +- 0.002
+all        prefix 6: groups(>=2)    31 rules  2608  ICC +0.168   null -0.000 +- 0.003
+stationary prefix 2: groups(>=2)     2 rules  2183  ICC +0.000   null -0.000 +- 0.001
+stationary prefix 3: groups(>=2)     4 rules  2183  ICC +0.008   null +0.000 +- 0.001
+stationary prefix 4: groups(>=2)     8 rules  2181  ICC +0.140   null -0.000 +- 0.002
+stationary prefix 5: groups(>=2)    16 rules  2179  ICC +0.322   null +0.000 +- 0.003
+stationary prefix 6: groups(>=2)    31 rules  2171  ICC +0.456   null -0.000 +- 0.004

@@ -1,0 +1,19 @@
+# cmd: uv run scripts/w6_analyse.py
+# git: 7eff085 (working tree may be dirty)  seed: 20261014
+
+runs in csv: 2430; runs that escaped: 232; fitted: 2102; core-band: 1792
+usable bases: 39 of 40 (rule needs >= 4 core-band runs); usable pairs: 277 of 398
+  early: usable mutants 72 of 115 (with usable base) = 0.626
+  late: usable mutants 205 of 272 (with usable base) = 0.754
+P6.6 usable share overall 0.716 (>= 0.70), early-late difference 0.128 (< 0.15): HELD
+P6.1 per-base median(early |d|)/median(late |d|): median ratio 2.211 (95% bootstrap CI over 36 bases 1.587..3.037); bar >= 1.3: HELD
+  pooled median |d|: early 0.298 (n=72), late 0.132 (n=205)
+P6.2 replicate-noise null (3-vs-3 halves of the same base, 34 BASES (not mutants) with 6 core-band runs; the first run of this script wrongly used all 280 rules): median |d| 0.036; scaled to 6-vs-6 pairs (x 1/sqrt2) 0.025
+  late median |d| / scaled null = 5.17 (bar >= 1.5): HELD; vs raw null 3.66; early / scaled null 11.72
+  median SE_diff: early 0.037, late 0.036
+P6.3 share with |d| > 3 SE_diff: early 0.750, late 0.522, difference +0.228 (bar >= +0.10): HELD
+P6.4 signed d (no bar): early/L->R: mean +0.109 (n=38); early/R->L: mean -0.032 (n=34); late/L->R: mean -0.004 (n=92); late/R->L: mean +0.048 (n=113)
+P6.5 median |d lnA(22)|: early 0.259, late 0.115; kappa contrast 2.27 vs area contrast 2.25 (ratio of contrasts 1.01; < 1 means area explains it). Spearman(|d ln kappa|, |d ln A|) = +0.690
+Exploratory, by position j (median |d|, n): j=1: 0.270 (n=25); j=2: 0.312 (n=27); j=3: 0.294 (n=20); j=4: 0.231 (n=25); j=5: 0.210 (n=29); j=6: 0.158 (n=30); j=7: 0.146 (n=31); j=8: 0.119 (n=28); j=9: 0.082 (n=28); j=10: 0.059 (n=23); j=11: 0.136 (n=11)
+  Spearman(position, median |d|) over j with >= 8 pairs: -0.918
+  Spearman(j/n, |d|) over all pairs: -0.355; Spearman(j, |d|): -0.368

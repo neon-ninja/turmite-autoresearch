@@ -1,0 +1,31 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/w3b_analyse.py
+# git: 6ce3793 (working tree may be dirty)  seed: 20261014
+runs in probe csv: 1200; runs that escaped the board: 229; runs fitted by per_rule: 931; core-band runs: 726
+fresh rules with >= 6 core-band runs: 89 (n=13: 46, n=14: 43); of 150 sampled
+stationary (|median g_k|<0.05) share of fresh core-band rules: 0.978 (87/89)
+
+[stationary] training census rules 2183, sd ln kappa 0.348; fresh rules 87, sd ln kappa 0.362, mean -0.226 vs training mean -0.134
+  prefix<=3: strict held-out R^2 +0.021; vs fresh mean -0.042; corr +0.158
+  prefix<=4: strict held-out R^2 +0.209; vs fresh mean +0.159; corr +0.448
+  prefix<=5: strict held-out R^2 +0.373; vs fresh mean +0.333; corr +0.593
+  prefix<=6: strict held-out R^2 +0.578; vs fresh mean +0.551; corr +0.748
+  prefix<=7: strict held-out R^2 +0.560; vs fresh mean +0.532; corr +0.745
+  prefix<=8: strict held-out R^2 +0.742; vs fresh mean +0.725; corr +0.859
+  P3b.6 Spearman(R^2, p) over p=4..8: +0.900
+  P3b.4 shuffled-label control, prefix-6 strict R^2 over 200 permutations: median -0.010, 95th pct +0.045
+  size control: ln A(22) alone strict R^2 +0.569; ln A(22)+prefix-6 mean +0.714; gain +0.145
+
+[all] training census rules 2622, sd ln kappa 0.571; fresh rules 89, sd ln kappa 0.382, mean -0.241 vs training mean -0.121
+  prefix<=3: strict held-out R^2 -0.025; vs fresh mean -0.126; corr -0.059
+  prefix<=4: strict held-out R^2 +0.153; vs fresh mean +0.070; corr +0.384
+  prefix<=5: strict held-out R^2 +0.312; vs fresh mean +0.245; corr +0.537
+  prefix<=6: strict held-out R^2 +0.461; vs fresh mean +0.408; corr +0.661
+  prefix<=7: strict held-out R^2 +0.414; vs fresh mean +0.356; corr +0.648
+  prefix<=8: strict held-out R^2 +0.544; vs fresh mean +0.499; corr +0.731
+
+Pre-registered verdicts (README 'W3b addendum'):
+P3b.1 stationary strict R^2 prefix-6 >= 0.20 and prefix-8 >= 0.25: +0.578, +0.742 -> HELD
+P3b.2 all-rules prefix-6 >= 0.08: +0.461 -> HELD
+P3b.3 size-controlled gain < 0.15 (bar NOT cleared): +0.145 -> HELD (bar not cleared)
+P3b.4 shuffle control median <= +0.02 and 95th pct <= +0.08: -0.010, +0.045 -> HELD
+P3b.5 stationary share >= 0.75: 0.978 -> HELD

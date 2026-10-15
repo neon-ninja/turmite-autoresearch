@@ -1,0 +1,3 @@
+   Compiling turmite v0.1.0 (/mnt/f/Code/turmite)
+    Finished `release` profile [optimized] target(s) in 2.67s
+     Running `/home/tim/turmite-target-memory/release/examples/memory_paths 301 16`

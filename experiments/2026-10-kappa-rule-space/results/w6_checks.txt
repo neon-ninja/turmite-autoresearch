@@ -1,0 +1,10 @@
+# cmd: uv run scripts/w6_checks.py
+# git: 7eff085 (working tree may be dirty)  seed: 20261014
+
+(a) mutants with usable base, by early/late: usable / >=4 escaped runs (of 6) / other (fewer than 4 core-band runs without mass escape)
+  early: n=115, usable 72, mutant escaped in >= 3 of 6 runs 19, other unusable 24  (note: escaped-in-3 is a proxy; per-run escapes counted from the csv)
+  late: n=272, usable 205, mutant escaped in >= 3 of 6 runs 22, other unusable 45  (note: escaped-in-3 is a proxy; per-run escapes counted from the csv)
+(b) mutants also stationary: 262 of 277 usable pairs (0.944 early, 0.946 late)
+  P6.1 restricted: median per-base ratio 2.10 (CI 1.68..3.24, 36 bases); pooled median |d| early 0.298, late 0.127
+  P6.3 restricted: share |d|>3SE early 0.779, late 0.521
+(c) consistency with census kappa (single long run, k-window of the census): 292 of 299 W6-usable rules are in the census blob list; Spearman +0.933, Pearson +0.925

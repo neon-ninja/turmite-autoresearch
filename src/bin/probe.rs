@@ -38,6 +38,12 @@ fn main() {
                 // pw:Q:SEED (A1d: memoryless walker turning right with probability Q)
                 let (q, seed) = spec.split_once(':').unwrap();
                 probe_walker(PersistentWalk::new(seed.parse().unwrap(), q.parse().unwrap()), size, 8, max_log2)
+            } else if let Some(spec) = r.strip_prefix("cookie:").or_else(|| r.strip_prefix("rcookie:")) {
+                let (bias, seed) = spec.split_once(':').unwrap();
+                probe_walker(turmite::walkers::CookieWalk::new(seed.parse().unwrap(), bias.parse().unwrap(), r.starts_with("rcookie:")), size, 8, max_log2)
+            } else if let Some(spec) = r.strip_prefix("errw:") {
+                let (increment, seed) = spec.split_once(':').unwrap();
+                probe_walker(turmite::walkers::EdgeReinforcedWalk::new(seed.parse().unwrap(), increment.parse().unwrap()), size, 8, max_log2)
             } else if let Some(seed) = r.strip_prefix("rw:") {
                 probe_walker(RandomWalk { state: seed.parse().unwrap() }, size, 8, max_log2)
             } else if let Some((rule, seed)) = r.split_once('@') {

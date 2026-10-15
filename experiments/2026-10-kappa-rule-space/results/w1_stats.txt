@@ -1,0 +1,33 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/w1_smooth.py
+# git: 6ce3793 (working tree may be dirty)  seed: 20261014
+census cohort used: 2622 non-bursty blob rules with kappa>0 and area; Hamming-1 pairs (mirror-canonicalised): 9910
+pairs per length n: 3:1, 4:4, 5:11, 6:33, 7:75, 8:180, 9:469, 10:1150, 11:2178, 12:5809
+pairs by flipped position j: 0:807, 1:865, 2:882, 3:847, 4:833, 5:882, 6:903, 7:912, 8:880, 9:850, 10:725, 11:524
+power gate: need >= 300 Hamming-1 pairs -> OK
+c        : pair Pearson r = +0.592  (Spearman +0.599); boot 95% CI [+0.560, +0.621]; perm null mean -0.002 sd 0.010, p(null >= r) = 0.0000
+lnk      : pair Pearson r = +0.075  (Spearman +0.271); boot 95% CI [+0.022, +0.131]; perm null mean +0.005 sd 0.012, p(null >= r) = 0.0000
+lnk_resA : pair Pearson r = +0.148  (Spearman +0.347); boot 95% CI [+0.087, +0.215]; perm null mean +0.006 sd 0.011, p(null >= r) = 0.0000
+lnA22    : pair Pearson r = +0.305  (Spearman +0.381); boot 95% CI [+0.245, +0.353]; perm null mean +0.003 sd 0.010, p(null >= r) = 0.0000
+alpha_w  : pair Pearson r = -0.002  (Spearman +0.003); boot 95% CI [-0.044, +0.041]; perm null mean +0.004 sd 0.011, p(null >= r) = 0.7059
+attenuation: ln kappa r_obs/0.6 = +0.125 (single-run reliability ~0.6, a1b_icc)
+stationary-only pairs (|g_k|<0.05 both): 7222; r(ln kappa) = +0.272; r(c) = +0.582
+EXPLORATORY stationary pairs: Spearman = +0.351; boot 95% CI (Pearson) [+0.200, +0.340]
+EXPLORATORY stationary position j<=1    : pairs  1260 r(ln kappa) = +0.093
+EXPLORATORY stationary position 2<=j<=3 : pairs  1240 r(ln kappa) = +0.003
+EXPLORATORY stationary position j>=4    : pairs  4722 r(ln kappa) = +0.382
+EXPLORATORY trimmed (|z|<3 both): pairs 9520, r(ln kappa) = +0.222; ln kappa sd 0.57, min -6.05, max 3.35; share non-stationary rules 0.167
+position j<=1    : pairs  1672  r(ln kappa) = +0.035  r(c) = -0.573
+position 2<=j<=3 : pairs  1729  r(ln kappa) = -0.049  r(c) = +0.523
+position j>=4    : pairs  6509  r(ln kappa) = +0.120  r(c) = +0.882
+P1.3 check: r(j>=4) - r(j<=1) = +0.085 (prediction: <= 0.10)
+append-one-letter pairs: 2029; r(ln kappa) = +0.369; r(c) = +0.977
+pairs with both members in pool-192: 48; r(pool ln kappa) = +0.161 (too few for conclusions if < 30)
+variogram (same-n pairs, canonical Hamming distance d; r is pairwise Pearson of ln kappa and of c; null = equal-n permutation mean +- sd over 200 perms):
+  d=1: pairs    9103  r(ln kappa) = +0.081  (null +0.004 +- 0.013)   r(c) = +0.703
+  d=2: pairs   41945  r(ln kappa) = +0.049  (null +0.003 +- 0.005)   r(c) = +0.503
+  d=3: pairs  110448  r(ln kappa) = +0.015  (null +0.001 +- 0.003)   r(c) = +0.336
+  d=4: pairs  212831  r(ln kappa) = +0.002  (null +0.001 +- 0.002)   r(c) = +0.187
+
+Pre-registered verdicts (see README section 5/W1):
+P1.1 r(c) >= 0.5: r = +0.592 -> HELD
+P1.2 r_obs(ln kappa) <= 0.15 and CI upper < 0.30: see numbers above (r = +0.075)

@@ -1,0 +1,11 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/x3_w3b_checks.py
+# git: 6ce3793 (working tree may be dirty)  seed: 20261014
+EXPLORATORY
+prefix-6 size-controlled gain (strict R^2 of ln A(22)+prefix minus ln A(22) alone) on 87 stationary fresh rules: +0.145, bootstrap 95% CI +0.069..+0.218
+   strict R^2: ln A(22) alone +0.569; with prefix-6 +0.714
+prefix-8 size-controlled gain (strict R^2 of ln A(22)+prefix minus ln A(22) alone) on 87 stationary fresh rules: +0.206, bootstrap 95% CI +0.111..+0.300
+   strict R^2: ln A(22) alone +0.569; with prefix-8 +0.775
+
+selection: sampled 150, included (>=6 core-band runs) 89; prefix-6 predicted ln kappa mean: included -0.208, excluded -0.118
+runs escaped per sampled rule: rules with 0 escapes 117, 1-4: 0, 5-8: 33
+Spearman(prefix-6 predicted ln kappa, escapes per rule) over sampled rules: +0.109

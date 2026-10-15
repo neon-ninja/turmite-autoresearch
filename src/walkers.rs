@@ -89,6 +89,81 @@ pub struct RandomWalk {
     pub state: u64,
 }
 
+/// One cookie per site: first departure follows its arrow with probability
+/// `bias`, otherwise uniform; later departures are uniform. Random arrows
+/// remove ensemble drift but do not make individual trajectories isotropic.
+pub struct CookieWalk {
+    pub seed: u64,
+    pub state: u64,
+    pub bias_q32: u64,
+    pub random_arrows: bool,
+}
+
+impl CookieWalk {
+    pub fn new(seed: u64, bias: f64, random_arrows: bool) -> Self {
+        assert!(bias.is_finite() && (0.0..=1.0).contains(&bias));
+        Self { seed, state: seed, bias_q32: (bias * 4294967296.0) as u64, random_arrows }
+    }
+}
+
+impl Walker for CookieWalk {
+    const RANDOM_INIT: bool = true;
+    fn initial_cell(&self, x: i64, y: i64) -> u8 {
+        if self.random_arrows { initial_arrow(self.seed, x, y) } else { 1 }
+    }
+    fn step(&mut self, cell: &mut u8, heading: &mut u8) {
+        let r = splitmix_next(&mut self.state);
+        *heading = if *cell < 4 && (r >> 32) < self.bias_q32 { *cell } else { (r & 3) as u8 };
+        *cell |= 4;
+    }
+}
+
+/// Linear reinforcement of undirected edge weights, initially one. Position
+/// is private walker state because the cell API cannot represent shared edges.
+pub struct EdgeReinforcedWalk {
+    state: u64,
+    increment: u64,
+    pos: (i64, i64),
+    weights: std::collections::HashMap<((i64, i64), (i64, i64)), u64>,
+}
+
+impl EdgeReinforcedWalk {
+    pub fn new(seed: u64, increment: u64) -> Self {
+        Self { state: seed, increment, pos: (0, 0), weights: std::collections::HashMap::new() }
+    }
+}
+
+impl Walker for EdgeReinforcedWalk {
+    const RANDOM_INIT: bool = false;
+    fn initial_cell(&self, _: i64, _: i64) -> u8 { 0 }
+    fn step(&mut self, _: &mut u8, heading: &mut u8) {
+        let edges = crate::DIRS.map(|(dx, dy)| {
+            let q = (self.pos.0 + dx as i64, self.pos.1 + dy as i64);
+            if self.pos < q { (self.pos, q) } else { (q, self.pos) }
+        });
+        let weights = edges.map(|e| *self.weights.get(&e).unwrap_or(&1));
+        let total: u64 = weights.iter().sum();
+        // Rejection avoids modulo bias, with a fixed N,E,S,W candidate order.
+        let threshold = total.wrapping_neg() % total;
+        let mut ticket = loop {
+            let r = splitmix_next(&mut self.state);
+            if r >= threshold { break r % total; }
+        };
+        for d in 0..4 {
+            if ticket < weights[d] {
+                *heading = d as u8;
+                let weight = self.weights.entry(edges[d]).or_insert(1);
+                *weight = weight.checked_add(self.increment).expect("edge weight overflow");
+                let (dx, dy) = crate::DIRS[d];
+                self.pos = (self.pos.0 + dx as i64, self.pos.1 + dy as i64);
+                return;
+            }
+            ticket -= weights[d];
+        }
+        unreachable!()
+    }
+}
+
 impl Walker for RandomWalk {
     const RANDOM_INIT: bool = false;
     fn initial_cell(&self, _: i64, _: i64) -> u8 {

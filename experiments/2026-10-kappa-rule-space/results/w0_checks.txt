@@ -1,0 +1,13 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/w0_build.py
+# git: 6ce3793 (working tree may be dirty)  seed: 20261014
+census blob rules fitted (probe_summary.csv): 2630; bursty: 8; non-bursty: 2622
+census.csv blob (before fit filter): 2637; in census.csv but not probe_summary blob: 7
+=> 2622 quoted in notes = 2630 fitted blob - 8 bursty. Census cohort used here: non-bursty (2622).
+pool-152 (b2+item21, >=6 core-band runs): 152; pool-192 (+patched.csv, a1c definition): 192; pool-152 subset of pool-192: True
+=> 152 = armc design pool (arm C script); 192 = a1c_predict pool (adds patched.csv). Primary pool here: pool-192.
+pool-192 rules also in census cohort: 188; not in it (bursty/unfitted/other class): 4
+CHECK1 ICC ln kappa b2 core band: 0.625 (sd within 0.305, between 0.394, rules 99); reference 0.625 -> PASS
+CHECK2 letter-by-position ridge LOO R^2 on ln kappa: lam=1: -0.061, lam=10: -0.046, lam=30: -0.036 (a1c reference -0.061, -0.046, -0.036) -> PASS
+        pool-192: N=192, sd rule-mean ln kappa 0.503 (a1c: 192, 0.503)
+CHECK3 planted R^2 0.30 recovered by letter ridge LOO (20 draws): mean +0.247, min +0.125 -> PASS
+CHECK4 letter ridge LOO R^2 on c (pool-192): +0.767 (need >= 0.5) -> PASS
