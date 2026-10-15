@@ -1,0 +1,22 @@
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+{
+  "analysis_repeated_identical": true,
+  "result_sha256": {
+    "comparison.json": "1a73b6782ebb8a78b72b8c74e39538fe8c45b22a0f9171984b9a57917388e5d4",
+    "groups.json": "80c14b433b0f4eba34b087cc4831d7a6a8c2458626c538e1c8d88366a62ec455",
+    "groups.csv": "ad52a0920af7f84cf7e986fb4327394cc580d87c663b7bb3bc5effb29f6f89be",
+    "held_out_predictions.csv": "1edf93da38169a4ad3fb12373b28272c43751150d2cd460490eacdd2660e271b"
+  },
+  "synthetic_controls": "3 passed",
+  "notebook_code_cells_executed": 3,
+  "cargo_release_tests": "passed; see release-tests.log",
+  "pdf_pages": 38,
+  "rendered_pages": [
+    1,
+    2,
+    20,
+    21
+  ],
+  "pdf_sha256": "c17d09963318e705fcec58d75269bd0711e98d8ab7c9a568e89109e9698c17b6",
+  "command": "uv run --with pymupdf experiments/2026-10-15-chirality-baselines/scripts/verify_artifacts.py"
+}

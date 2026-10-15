@@ -1,0 +1,17 @@
+{
+  "purpose": "Task-only PDF built from staged manuscript; unrelated working-tree changes excluded",
+  "pages": 25,
+  "rendered_pages": [
+    1,
+    2,
+    16,
+    17,
+    18,
+    20,
+    21
+  ],
+  "main_typ_sha256": "3a9f0b6507f4ea8eceed20b243f7a82a1a0d8ae710e7a80a1b159267334b15df",
+  "main_pdf_sha256": "f98e423de6d74e806d34712ed67d47183ebca0741f1384fa86ab1d40eb48586e",
+  "resources": "Staged source resource paths rooted to existing committed paper assets for isolated compilation",
+  "compile_command": "typst compile --root . experiments/2026-10-15-chirality-baselines/scratch/commit/render.typ experiments/2026-10-15-chirality-baselines/scratch/commit/main.pdf"
+}

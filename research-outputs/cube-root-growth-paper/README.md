@@ -1,5 +1,45 @@
 # Manuscript build
 
+## Chirality baseline comparison (2026-10-15)
+
+Added a training-only comparison on the original 300 calibration and 2,747
+held-out rules. Three-letter group means achieve R²=0.807648, compared with
+0.585589 for one letter and 0.660023 for chirality. Chirality reduces SSE
+by 17.96% against one-letter grouping but has 76.75% more SSE than the
+three-letter lookup. Within broad L/R groups its R² is 0.189960/0.163770;
+after centering within three-letter groups, pooled residual R² is about zero.
+Paired rule-bootstrap intervals condition on the fitted models and do not
+measure initial-seed or training uncertainty. The critique's quoted R²=0.88
+does not match the existing files (R²=0.660, correlation 0.869).
+
+The abstract, key results, comparison table, figure caption, evidence table
+and a provenance footnote now state this limitation. New paper numbers are extracted by
+`chirality_baseline_numbers.py` from
+`experiments/2026-10-15-chirality-baselines/results/`, without editing legacy
+results. Full registration, commands and caveats are in that experiment's
+README and `notes/chirality-baselines-2026-10-15.md`.
+
+Rebuild from WSL with the standard environment exports:
+
+```bash
+uv run experiments/2026-10-15-chirality-baselines/scripts/compare.py
+uv run research-outputs/cube-root-growth-paper/chirality_baseline_numbers.py
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+uv run --with pymupdf experiments/2026-10-15-chirality-baselines/scripts/verify_artifacts.py
+```
+
+Release tests and three synthetic statistical controls pass; the shareable
+notebook executed cleanly; analysis outputs reproduce byte-for-byte. The
+38-page PDF compiled without diagnostics and pages 1, 2, 20 and 21 were
+rendered and reviewed. Hashes are in the experiment's `results/verification.json`.
+No project dependencies changed and no commit was made. Existing working-tree
+changes were retained.
+
+Commit scope: only this comparison is staged from the shared manuscript.
+The committed source uses a local provenance footnote because the expanded
+audit appendix belongs to other uncommitted work. A matching PDF is compiled
+from the staged source; the shared working PDF and unrelated edits remain.
+
 From the repo root (WSL; see AGENTS.md for the env):
 
     export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy

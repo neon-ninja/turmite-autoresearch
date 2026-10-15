@@ -1,5 +1,6 @@
 // Census numbers come from numbers.json; forecasts load their reproducible analysis output.
 #let N = json("numbers.json")
+#let CB = json("chirality_baselines.json")
 #let TF = json("../../experiments/2026-10-13-transport-forecast/results/transport_forecast.json").cohorts
 #let f(x, d: 3) = str(calc.round(x, digits: d))
 #let pct(x) = str(calc.round(100 * x, digits: 0)) + "%"
@@ -61,7 +62,7 @@
 ]
 #v(0.8em)
 #block(inset: (top: 8pt, bottom: 8pt))[
-  *Abstract.* A generalised Langton's ant follows a string over {L, R}: on a cell of colour $c$ it turns by `rule[c]`, advances the cell to colour $(c+1) mod n$, and steps forward. Many rules form no detected highway within the simulated horizon and grow an irregular, roughly round territory. Does it grow like the rotor walker, whose range grows as $t^(2/3)$ for independent uniform initial arrows and clockwise exits @bourabee2026? For most of the #N.probe.analysed non-highway rules of length #N.census.n_min–#N.census.n_max that we simulated (to $2^27$ steps, six to $2^32$), yes: the bounding-box width grows as $t^alpha$ with median $alpha = #f(N.alpha_w_blob.at(0))$, good to about $plus.minus 0.01$ after calibrating the finite-window bias on the rotor, and the accumulated visit profile agrees with the rotor's cone, conditionally consistent with uniform instantaneous occupancy in a compact, approximately circular growing territory. Some rules do not follow it (#N.probe.log grow logarithmically, #N.probe.fast faster), and the examined ant cohorts have a larger finite-window surface-width exponent than the rotor controls. Splitting the growth rate into an edge-occupation ratio $kappa$ and an edge-entry probability $c$ (an identity, so not independent evidence for the cube root), we find that deviating rules deviate through $kappa$, that $c$ is predictable from the rule's letters (held-out $R^2 = #f(N.followup.c_model.r2, d: 2)$) and $kappa$ is not. What sets $kappa$, and the ant's wider edge, is unexplained.
+  *Abstract.* A generalised Langton's ant follows a string over {L, R}: on a cell of colour $c$ it turns by `rule[c]`, advances the cell to colour $(c+1) mod n$, and steps forward. Many rules form no detected highway within the simulated horizon and grow an irregular, roughly round territory. Does it grow like the rotor walker, whose range grows as $t^(2/3)$ for independent uniform initial arrows and clockwise exits @bourabee2026? For most of the #N.probe.analysed non-highway rules of length #N.census.n_min–#N.census.n_max that we simulated (to $2^27$ steps, six to $2^32$), yes: the bounding-box width grows as $t^alpha$ with median $alpha = #f(N.alpha_w_blob.at(0))$, good to about $plus.minus 0.01$ after calibrating the finite-window bias on the rotor, and the accumulated visit profile agrees with the rotor's cone, conditionally consistent with uniform instantaneous occupancy in a compact, approximately circular growing territory. Some rules do not follow it (#N.probe.log grow logarithmically, #N.probe.fast faster), and the examined ant cohorts have a larger finite-window surface-width exponent than the rotor controls. Splitting the growth rate into an edge-occupation ratio $kappa$ and an edge-entry probability $c$ (an identity, so not independent evidence for the cube root), we find that deviating rules deviate through $kappa$, that coarse letter groups predict $c$ (held-out $R^2 = #f(CB.overall.letters123.r2, d: 2)$ for three-letter group means, against #f(CB.overall.chirality.r2, d: 2) for chirality) and $kappa$ is not. What sets $kappa$, and the ant's wider edge, is unexplained.
 
   #v(0.4em)
  ]
@@ -83,7 +84,7 @@
   - *The edge does not.* The ants' surface width grows with an exponent of about 0.22–0.25 against the rotor's 0.10–0.13 (local exponents at matched step-count checkpoints $2^22$–$2^32$; a single fit from $2^18$ gives 0.26 against 0.16, and Kapri and Dhar report about 0.13). The gap does not close to $2^34$ steps (@sec:ens).
   - *Not every rule obeys.* #N.probe.log rules grow logarithmically, #N.probe.fast blob rules have $alpha > 0.37$, and #N.census.builders more were excluded as builders or slow space-fillers. Highway classification is by finite simulation.
   - *The decomposition.* Drift exponents below 0.05 hold for #f(100 * N.identity.frac_blob_gc_small, d: 1)% of rules for $c$ and #pct(N.identity.frac_blob_gk_small) for $kappa$, with an edge exponent of #f(N.mf_blob.beta.at(1), d: 2) in the census window. A drift of 0.05 shifts the area exponent by about 0.03, as much as the differences between rules (@sec:factors).
-  - *What is new.* Rules that violate the cube root do so through drift of $kappa$, not of $c$. A chirality model explains #pct(N.followup.c_model.r2) of the variance of $c$ on held-out rules; nothing we tried predicts $kappa$, which differs between rules moderately reproducibly (intraclass correlation 0.58) but is not carried by the letters, and a memoryless walker does not reproduce it, which motivates board-memory comparisons without proving memory sufficient (@sec:factors).
+  - *What is new.* Rules that violate the cube root do so through drift of $kappa$, not of $c$. Three-letter group means outperform chirality for $c$ on the same held-out rules ($R^2 = #f(CB.overall.letters123.r2, d: 2)$ against #f(CB.overall.chirality.r2, d: 2)); nothing we tried predicts $kappa$, which differs between rules moderately reproducibly (intraclass correlation 0.58) but is not carried by the letters, and a memoryless walker does not reproduce it, which motivates board-memory comparisons without proving memory sufficient (@sec:factors).
   - *Unexplained.* The value of $kappa$ (which sets the prefactor), why it drifts in some rules, and the ant's wider edge. We say which parts are tautological, which are tested, and what remains open.
 ]
 
@@ -336,9 +337,26 @@ On #N.followup.c_model.n held-out rules the model attains $R^2 = #f(N.followup.c
 
 The model was a post-hoc fit to these data, though evaluated on rules outside its calibration sample; we have not tested it on rules of length above 12.
 
+*Comparison with letter-group baselines.* A critique-driven reanalysis retains all #CB.n_test held-out rules and fits group means only on the same #CB.n_train calibration rules. The primary baseline groups by the letter after the leading R; the secondary baseline groups by the next three letters jointly, with a training-only fallback for absent groups. The groups and scoring procedure were fixed before this comparison, after the original scatter plot had been inspected.
+
+#figure(
+  table(
+    columns: (2fr, 1fr, 1fr),
+    table.header([Prediction], [Held-out $R^2$], [RMSE]),
+    [One-letter group mean], [#f(CB.overall.letter1.r2)], [#f(CB.overall.letter1.rmse)],
+    [Three-letter group mean], [#f(CB.overall.letters123.r2)], [#f(CB.overall.letters123.rmse)],
+    [Chirality model], [#f(CB.overall.chirality.r2)], [#f(CB.overall.chirality.rmse)],
+  ),
+  caption: [Predictions of $c$ on exactly the original held-out rules. Group means use calibration targets only. $R^2$ uses the held-out-mean denominator, matching the original model score; using the training-mean predictor as reference gives #f(CB.overall.letter1.strict_r2), #f(CB.overall.letters123.strict_r2) and #f(CB.overall.chirality.strict_r2), respectively.],
+) <tab:c-baselines>
+
+Chirality reduces squared error by #f(100 * CB.comparisons.letter1.sse_reduction, d: 1)% against the one-letter baseline (95% interval #f(100 * CB.comparisons.letter1.sse_reduction_ci.at(0), d: 1)--#f(100 * CB.comparisons.letter1.sse_reduction_ci.at(1), d: 1)%). It has #f(-100 * CB.comparisons.letters123.sse_reduction, d: 1)% _more_ squared error than the three-letter baseline (interval #f(-100 * CB.comparisons.letters123.sse_reduction_ci.at(1), d: 1)--#f(-100 * CB.comparisons.letters123.sse_reduction_ci.at(0), d: 1)%). These are paired rule-bootstrap intervals with #CB.bootstrap_resamples draws, seed #CB.seed, stratified by the primary groups and conditional on the fitted models; related rules and initial-seed variability limit their interpretation.
+
+Within the broad L and R groups, chirality still has $R^2 = #f(CB.primary_groups.L.r2)$ and #f(CB.primary_groups.R.r2), with #CB.primary_groups.L.n and #CB.primary_groups.R.n held-out rules. It therefore has some discrimination beyond one-letter grouping. After subtracting each three-letter group's held-out mean from both observations and predictions, however, its pooled within-group $R^2$ is approximately zero (#f(CB.grouping.letters123.centered_within_r2.chirality, d: 5)); the corresponding raw within-group score, which also penalises group-mean errors, is #f(CB.grouping.letters123.raw_within_r2.chirality). Thus the three-letter lookup is the stronger predictor, and the chirality model supplies essentially no additional residual discrimination within those groups. This observational comparison does not explain the growth exponent. The comparison is reproducible#footnote[Recipe, per-rule predictions and group scores: #raw("experiments/2026-10-15-chirality-baselines/README.md"). Producing command: #raw("uv run experiments/2026-10-15-chirality-baselines/scripts/compare.py").].
+
 #figure(
   image("fig/cmodel.pdf", width: 55%),
-  caption: [Held-out edge-entry probability: model against measurement. The model takes few distinct values; the $R^2$ is mostly between-cluster, and within the clusters near 0.33 and 0.53 it discriminates poorly (rules with predicted $c approx 0.53$ have measured $c$ from about 0.25 to 0.67).],
+  caption: [Held-out edge-entry probability: model against measurement. Predictions concentrate near 0.33 and 0.53 (rules with predicted $c approx 0.53$ have measured $c$ from about 0.25 to 0.67). The letter-group comparison in @tab:c-baselines quantifies the limitation: modest skill remains within one-letter groups, but essentially none after centering within three-letter groups.],
 ) <fig:cm>
 
 *Mixing.* The mean-field step assumes the ant is spread roughly evenly over its territory, behaving like a persistent random walk with turning probability $q = \#R slash n$. The sample is the #N.mix_sample.listed rules in `experiments/2026-10-13-mixing/results/mix_rules.txt`, of which #N.mixing.typ_n are blob rules with $0.30 < alpha < 0.37$; the procedure used to choose the list was not recorded, so it should be read as a convenience sample.
@@ -402,7 +420,7 @@ This revises our earlier statement that most between-rule scatter is noise: for 
   [$kappa$ constant for typical rules], [Tested, not refuted (drift below 0.05) for #pct(N.identity.frac_blob_gk_small) of blob rules; refuted for log and fast classes], [@fig:ck, @fig:dev],
   [$P tilde A^(1/2)$], [Not confirmed: measured $beta =#f(N.mf_core.beta.at(1), d: 3)$, equal to the rotor's under the same window], [@tab:calib],
   [@eq:a predicts $a$ for outliers], [Algebraic identity; not a test of mechanism], [@fig:dev (right)],
-  [Edge-entry probability $c$ from rule letters (chirality model)],[Held-out $R^2 = #f(N.followup.c_model.r2, d: 2)$; length $<= 12$ only], [@fig:cm],
+  [Edge-entry probability $c$ from rule letters],[Held-out $R^2 = #f(CB.overall.letters123.r2, d: 2)$ for three-letter groups, #f(CB.overall.chirality.r2, d: 2) for chirality; length $<= 12$ only], [@tab:c-baselines; @fig:cm],
   [Well-mixed ant], [True for #N.mixing.uni_n of #N.mixing.typ_n convenience-sampled rules and #N.mixing_random.uni_n of #N.mixing_random.n random core rules], [Mixing paragraph],
   [Occupation profile is the rotor's cone], [Measured; predicted to fail, did not (within #pct(N.shape.max_rel_diff_ants_rotor_shells0_9) of the rotor). Derived conditionally from uniform instantaneous occupancy, compact circular growth with coherent discovery radii and $A tilde t^(2/3)$, so not independent of the cube root. *Unexplained*: why the profile is the cone. The derivation from uniform occupancy plus the exponent fails for walkers with $a eq.not 2/3$ (noisy rotor, random-background ants), while two turmites with $a approx 0.74$ keep a cone-like centre], [@sec:ens],
   [One exponent for all rules], [Neither confirmed nor refuted: rules differ by up to 0.02 at $2^30$, as does the rotor from its proved value], [@sec:ens],

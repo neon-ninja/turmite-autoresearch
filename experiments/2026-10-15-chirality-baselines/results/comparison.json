@@ -1,0 +1,150 @@
+{
+  "seed": 20261046,
+  "bootstrap_resamples": 4000,
+  "uncertainty": "Paired rule bootstrap stratified by rule[1]; fitted models fixed; no seed/training uncertainty",
+  "n_calibration_edge": 300,
+  "n_train_targets": 300,
+  "n_test": 2747,
+  "excluded_calibration_rules": [],
+  "training_mean": 0.42717703299651705,
+  "training_group_means": {
+    "letter1": {
+      "L": 0.5076424395726088,
+      "R": 0.31756667600703764
+    },
+    "letters123": {
+      "LLL": 0.5842841776800036,
+      "LLR": 0.5127531236452355,
+      "LRL": 0.4752371251084253,
+      "LRR": 0.44084252340333824,
+      "RLL": 0.39234905112538354,
+      "RLR": 0.3771347969738489,
+      "RRL": 0.2983917157459515,
+      "RRR": 0.221503230921373
+    }
+  },
+  "secondary_fallback_test_rules": [
+    "RLL",
+    "RLR"
+  ],
+  "overall": {
+    "constant": {
+      "n": 2747,
+      "sse": 44.160921382567025,
+      "rmse": 0.12679138133271275,
+      "mae": 0.09967645342071628,
+      "median_ae": 0.07441297412572401,
+      "r2": -0.004051360291935202,
+      "strict_r2": 0.0,
+      "mean_error": 0.00805401070404567
+    },
+    "letter1": {
+      "n": 2747,
+      "sse": 18.226949388680232,
+      "rmse": 0.08145685985674402,
+      "mae": 0.06690727628792134,
+      "median_ae": 0.05590743178691171,
+      "r2": 0.5855885077864098,
+      "strict_r2": 0.587260663545043,
+      "mean_error": -0.0010867399158635434
+    },
+    "letters123": {
+      "n": 2747,
+      "sse": 8.460185098923281,
+      "rmse": 0.05549586215884941,
+      "mae": 0.03791503231009831,
+      "median_ae": 0.022339825178405492,
+      "r2": 0.807647574123108,
+      "strict_r2": 0.8084237186621965,
+      "mean_error": -0.0007524672911376665
+    },
+    "chirality": {
+      "n": 2747,
+      "sse": 14.953126040828275,
+      "rmse": 0.07377966301915191,
+      "mae": 0.05574010765471618,
+      "median_ae": 0.040123150299787635,
+      "r2": 0.6600227968106389,
+      "strict_r2": 0.6613946092453774,
+      "mean_error": 0.010905036816948578
+    }
+  },
+  "comparisons": {
+    "letter1": {
+      "sse_reduction": 0.17961444222175516,
+      "sse_reduction_ci": [
+        0.15916923770539063,
+        0.20078881594334483
+      ],
+      "delta_r2": 0.07443428902422923,
+      "delta_r2_ci": [
+        0.0647563625009031,
+        0.0849674095077579
+      ]
+    },
+    "letters123": {
+      "sse_reduction": -0.7674703172548021,
+      "sse_reduction_ci": [
+        -0.8893410252511816,
+        -0.6541756975241081
+      ],
+      "delta_r2": -0.1476247773124691,
+      "delta_r2_ci": [
+        -0.15786211447615256,
+        -0.13674597543355496
+      ]
+    }
+  },
+  "grouping": {
+    "letter1": {
+      "between_group_variance_fraction": 0.5859054548438272,
+      "centered_within_r2": {
+        "constant": -2.220446049250313e-16,
+        "letter1": -2.220446049250313e-16,
+        "letters123": 0.5367766803100051,
+        "chirality": 0.31388122138396224
+      },
+      "raw_within_r2": {
+        "constant": -1.4246911050549196,
+        "letter1": -0.0007653978086039626,
+        "letters123": 0.5354866947007293,
+        "chirality": 0.17898652091362133
+      }
+    },
+    "letters123": {
+      "between_group_variance_fraction": 0.8085207286689892,
+      "centered_within_r2": {
+        "constant": 0.0,
+        "letter1": 2.220446049250313e-16,
+        "letters123": 0.0,
+        "chirality": -6.244536208699358e-05
+      },
+      "raw_within_r2": {
+        "constant": -4.243655635999513,
+        "letter1": -1.1642629478007347,
+        "letters123": -0.004560047360800956,
+        "chirality": -0.7755300656102941
+      }
+    }
+  },
+  "provenance": {
+    "git_commit": "b3a0f762ac2230b5df92188206a4d3a1081897be",
+    "working_tree": "Uncommitted changes present; exact input/script hashes below",
+    "command": "uv run experiments/2026-10-15-chirality-baselines/scripts/compare.py",
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "numpy": "2.5.4",
+    "polars": "2.0.0",
+    "inputs_sha256": {
+      "experiments/2026-10-13-probe-growth-census/results/c_model.csv": "5378ca19616dd6e4c5f894403cd74afa72e7d3092d18d600031b58150779b42e",
+      "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv": "c76c7927185b1cee273433c340cfa393fb16696fbe4a6f155fc49c33ef32cb5d",
+      "experiments/2026-10-13-edge-statistics/results/edgestats_sample.csv": "976b1359224fdbf511ab1ac4d876854da0c9acf83e9eff5a39180e3845231464",
+      "experiments/2026-10-13-probe-growth-census/scripts/c_model.py": "c754e2d7854ff9be115e9c89c1e1fbc8203ff1b9c42b40ca82e5b2ba040393cf",
+      "uv.lock": "598ec0fc1978845ded5016368a2b1f2807de61437a97274fbd8c5a8cd746412b",
+      "experiments/2026-10-15-chirality-baselines/scripts/compare.py": "6757570c57e842f5387ec9bb2e0a1b1e6cb81790ea3f88a7f65716c3b98e9889"
+    }
+  },
+  "registered_predictions": {
+    "letter1_within_005_r2": false,
+    "chirality_sse_gain_vs_letters123_below_010": true
+  }
+}
