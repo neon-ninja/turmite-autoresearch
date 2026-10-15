@@ -1,0 +1,6 @@
+seeds=8  windows k=12..22
+area slope a = 0.677 (between-seed sd 0.005)
+perimeter exponent beta = 0.520 (sd 0.007)
+kappa_unif(a,beta) = 1.1071;  kappa_unif(2/3,1/2) = 1.1101
+probe kappa, mean over windows & seeds = 1.1183 (between-seed sd 0.0088)
+probe kappa by window (mean over seeds): 1.139 1.131 1.103 1.106 1.116 1.120 1.119 1.123 1.119 1.116 1.109
