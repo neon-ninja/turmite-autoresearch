@@ -41,7 +41,7 @@ def q(x):
 
 census = pl.read_csv(D / "experiments/2026-10-13-census-sweeps/results/census.csv")
 summ = pl.read_csv(D / "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv")
-steady = summ.filter(~pl.col("bursty"))
+steady = summ  # bursty rules are kept (flag retained as a column; see sensitivity in main.typ)
 blob = steady.filter(pl.col("cls") == "blob")
 logs = steady.filter(pl.col("cls") == "log")
 core = blob.filter(pl.col("alpha_w").is_between(0.30, 0.37))
@@ -255,3 +255,16 @@ N6["g1"] = {
     "exit_step": int(re.search(r"left the board at step (\d+)", (D / "experiments/2026-10-13-g1-ribbon-breakout/results/g1_ribbon.log").read_text()).group(1)),
 }
 (R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N6, indent=1, default=float))
+
+# log/blob cut robustness (experiments/2026-10-15-alpha-gap)
+N7 = json.loads((R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").read_text())
+_g = jl("experiments/2026-10-15-alpha-gap/results/gap_robustness.json")
+N7["alpha_gap"] = {
+    "dip": _g["dip_nonbuilder"]["dip"], "dip_n": _g["dip_nonbuilder"]["n"],
+    "gmm_means": _g["gmm2_nonbuilder"]["means"], "gmm_weights": _g["gmm2_nonbuilder"]["weights"],
+    "cuts": {str(r["cut"]): r["median_alpha_w"] for r in _g["cut_sensitivity"]},
+    "spread_0.15_0.25": max(r["median_alpha_w"] for r in _g["cut_sensitivity"] if r["cut"] >= 0.15) - min(r["median_alpha_w"] for r in _g["cut_sensitivity"] if r["cut"] >= 0.15),
+    "spread_0.10_0.25": _g["median_range_cuts_0.10_0.25"]["spread"],
+    "n_per_bin_015": _g["trough_in_0.05_0.30"]["count_at_0.145_0.155"],
+}
+(R / "research-outputs" / "cube-root-growth-paper" / "numbers.json").write_text(json.dumps(N7, indent=1, default=float))
