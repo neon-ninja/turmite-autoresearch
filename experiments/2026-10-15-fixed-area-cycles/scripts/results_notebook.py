@@ -48,7 +48,8 @@ ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents]
             if (p / 'Cargo.toml').exists() and (p / 'experiments').is_dir())
 EXP = ROOT / 'experiments/2026-10-15-fixed-area-cycles'
 names = ['analysis.json', 'rule_summary.csv', 'audit.json', 'determinism.json',
-         'cohort_rules.txt', 'controls_summary.csv', 'controls.txt', 'pilot_feasibility.txt']
+         'cohort_rules.txt', 'controls_summary.csv', 'controls.txt', 'pilot_feasibility.txt',
+         'association.png', 'association.json']
 print('git', subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip())
 print('UTC', datetime.datetime.now(datetime.timezone.utc).isoformat(), 'bootstrap seed', SEED)
 for name in names:
@@ -98,6 +99,11 @@ for run in ['prod16', 'prod8']:
           'P2 both bands:', analysis[run]['P2_overall_success'])
 """)
     cell("markdown", "The registered tests assess an association and incremental prediction in this cohort. Even a pass would not demonstrate causality; a failed reliability gate makes the predictions untestable at the achieved precision.")
+    cell("code", """
+from IPython.display import Image, display
+display(Image(filename=str(EXP / 'results/association.png')))
+""")
+    cell("markdown", "Each panel shows 44 rules twice, using disjoint seed rotations; the dots are not 88 independent rules. The plot shows the registered association and does not control field geometry or demonstrate tail causality.")
     primary = result["prod16"]
     cell("markdown", f"""
 The primary both-band verdict is P1 **{'PASS' if primary['P1_overall_success'] else 'FAIL'}**
@@ -109,6 +115,11 @@ bands. P2 held-out R2 gains are {primary['band0']['P2']['gain']:.3f} and
 be rescued by rounding or reporting only the sign of its confidence interval.
 The q999 predictor adds information in the registered model; it does not measure
 the amount of time carried by the tail or establish mediation.
+
+The 1/8-width sensitivity passes P1 at both areas (-0.417 and -0.815) and
+passes P2 again. It reuses the same seeds and does not rescue the primary P1
+failure. The smaller-area conclusion depends on band width; the wider band
+changes both event counts and the sampling ensemble.
 """)
     cell("markdown", "## Between-seed uncertainty\nPer-rule `lnk_time_sd` is the sample sd across 16 seeds. The following quantities compare variation across the four groups with variation across rule means.")
     cell("code", """

@@ -1,0 +1,9 @@
+{
+  "command": "uv run experiments/2026-10-15-fixed-area-cycles/scripts/figures.py",
+  "inputs": {
+    "rule_summary.csv": "c10ec29f914bae0f0d32c18c1ad3a871a8407494d032705931a1c84eaf1893c6",
+    "analysis.json": "626e340256f4dcd09b39d8e7de1c39199a80423205d73fa0e6ae04d7a81a9545"
+  },
+  "source_sha256": "eed1d50bba0380a2218275ba7077366874257a0e0172ec1123134d107570eed8",
+  "scope": "primary only; 44 rules x two rotations per panel, not 88 independent rules"
+}

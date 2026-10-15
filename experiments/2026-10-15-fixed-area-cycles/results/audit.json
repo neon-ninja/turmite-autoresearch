@@ -1,0 +1,32 @@
+{
+  "command": "uv run experiments/2026-10-15-fixed-area-cycles/scripts/audit.py",
+  "commit": "4529f868f6312f47e7a4da1a23a71046cf4910fb",
+  "config_sha256": "4bf1215ccd2275dc413e95c4434bf2b4d7de03ea784550d4b267fe4e4107fc1a",
+  "dirty_workspace": true,
+  "source_sha256": {
+    "src/fixed_area.rs": "56b1475d1780f95d97fb8a23c1d7acefb38640d66f0b43a73c4bb735b9ea3989",
+    "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76",
+    "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+    "src/lib.rs": "ed172ade105756f814a4c4a34c25ee2247b5d4b4aee44250e0fd41a4be61dcdd",
+    "examples/fixed_area_cycles_sampler.rs": "975ead7e164429b76122a7d108140abbec782c43cd5180e5333710fc0ceae445",
+    "Cargo.lock": "2cc30f118d8e87661e6f579d400cadab998f36da91ab3807d2645803b7ea7d0e",
+    "experiments/2026-10-15-fixed-area-cycles/scripts/audit.py": "73818710841d8bf17dd3f44e7e5127e6731562f00acc4807e99c34f0bdfdeb57"
+  },
+  "runs": {
+    "prod16": {
+      "specs": 2816,
+      "band_rows": 5632,
+      "not_complete": 0,
+      "max_censor_gate_ratio": 0.0,
+      "accounting_pass": true
+    },
+    "prod8": {
+      "specs": 2816,
+      "band_rows": 5632,
+      "not_complete": 0,
+      "max_censor_gate_ratio": 0.0,
+      "accounting_pass": true
+    }
+  },
+  "payload_manifest_sha256": "8db06ca76587db93ddf2fbd5c068d6c51a9423c46cd2033b3d68df570ad712e3"
+}

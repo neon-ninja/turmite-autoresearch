@@ -107,3 +107,25 @@ The cutoff carries incremental held-out predictive information under this select
 ### 2026-10-15 22:21 (+13:00) · da88e61 · observation
 Changed ingestion only: parse the thousands of tiny CSVs with stdlib csv, construct polars frames once. uv run experiments/2026-10-15-fixed-area-cycles/scripts/check_loader.py validates every primary summary field against the original-loader results/rule_summary.prod16.csv (agreement at 1e-12; results/loader_checks.log). Original primary outputs retained, not overwritten. All frozen transformations, statistics and gates unchanged. The earlier inline uv command failed to launch (-c without an interpreter); the successful check is the file-based command above.
 
+
+### 2026-10-15 22:22 (+13:00) · da88e61 · observation
+Production finished: prod16 2816 specs at 22:09:55; prod8 2816 specs at 22:21:24 (results/production.log, scripts/run_production.sh). The one-thread replay of all 44 rules at seed 1001 matches five-thread production at both widths: 88 specs, 440 files byte-identical (results/determinism.json; uv run experiments/2026-10-15-fixed-area-cycles/scripts/check_determinism.py). This checks a subset, not the full registered all-seed P3 determinism clause. scripts/finish.sh is now running the combined audit/analysis and notebook execution.
+
+
+### 2026-10-15 22:24 (+13:00) · da88e61 · observation
+Combined production payload audit passed for both batches: 5632 runs total, 11264 band rows; every target reached, accounting/histograms/duration checks passed, max censor gate ratio zero at both widths. Command: uv run experiments/2026-10-15-fixed-area-cycles/scripts/audit.py; results/audit.json and results/production.sha256 (manifest SHA256 8db06ca76587db93ddf2fbd5c068d6c51a9423c46cd2033b3d68df570ad712e3). Final frozen analysis is in progress; no sensitivity associations inspected yet.
+
+
+### 2026-10-15 22:24 (+13:00) · 275c2af · deviation
+Shared-workspace provenance correction: HEAD advanced elsewhere during this session, first to 4529f86 (literature review), then 275c2af (fixed-area experiment). This continuation issued no git commit command. Entries above retaining da88e61 identify the session's starting base; their actual write-time HEAD after the external commits may differ. The combined audit records observed HEAD 4529f86, while final analysis/notebook may record 275c2af. No sampler/core-source difference from current HEAD is present (git diff of src/fixed_area.rs, src/walkers.rs, src/rule.rs, example and Cargo.lock is empty). Post-run source and payload hashes remain the precise provenance. Do not reinterpret these commit changes as new simulations or rewritten predictions.
+
+
+### 2026-10-15 22:28 (+13:00) · 275c2af · observation
+Final pipeline completed: scripts/finish.sh ran combined audit, frozen analysis, figure and notebook. Sensitivity P1 -0.417 CI [-0.651,-0.132] / -0.815 [-0.905,-0.661], P2 gains +0.488 [0.219,0.767] / +0.530 [0.300,0.777]; all statistical/coverage gates pass. Maximum sensitivity final time 86613887; min pooled I counts 33089/131429. Results: analysis.json/.txt, rule_summary.csv, audit.json, production.sha256, run_status.csv, association.png/.json. The combined primary statistical object exactly equals the original primary analysis object. Figure visually inspected; final notebook regenerated and executed after adding sensitivity interpretation (results/notebook.log), no error outputs.
+
+### 2026-10-15 22:28 (+13:00) · 275c2af · interpretation
+P1 primary fails as registered; P2 secondary passes. Both width-sensitivity tests pass, demonstrating lower-area band-width dependence, not an independent rescue of P1. The higher-area association and the added predictive value persist. The changed width alters event counts and the first-area-hit ensemble simultaneously, so the reason for the smaller-area shift remains unresolved. No causal or direct tail-time-burden conclusion follows.
+
+### 2026-10-15 22:28 (+13:00) · 275c2af · decision
+Session complete for production, frozen analysis, reproducible summaries and shareable write-up. README, notebook and research-avenues note agree; tests and numerical checks passed. Explicit outstanding validation: P3 all-production thread determinism was not fully replayed (88/5632 production specs replayed, all match); no mid-run walker checkpoints or raw episode/cycle tables are claimed. Future mechanistic work needs a fresh registered intervention/time-burden design; do not tune this primary result post hoc. No commit command issued by this continuation; concurrent external commits are recorded above.
+

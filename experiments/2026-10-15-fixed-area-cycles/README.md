@@ -1,6 +1,6 @@
 # Fixed-area sampling with cycle accounting
 
-**Current status: primary analysis complete; width sensitivity in progress.**
+**Current status: production, registered analysis and executed notebook complete.**
 P1 fails the registered both-band criterion; secondary P2 passes at both bands.
 The original scaffold
 description below is historical; the dated pilot and frozen registration at the
@@ -132,6 +132,8 @@ Spearman 0.613/0.969, kappa C/D 0.964/0.954.
 | P2 held-out R2 gain | +0.336; [0.115,0.578] | +0.544; [0.316,0.822] | **PASS** (secondary) |
 
 These are rule-bootstrap percentile intervals (2000 draws, seed 20261016).
+For P2, the registered bootstrap resamples fixed held-out squared-error terms;
+it does not refit models and therefore conditions on the fitted training sets.
 Per-seed kappa sample sd and within-rule group dispersion are in
 `results/rule_summary.prod16.csv` and `results/analysis.prod16.json`.
 P2 baseline/full R2 by rotation are 0.197/0.514 and 0.130/0.486 (smaller area),
@@ -158,6 +160,8 @@ uv run experiments/2026-10-15-fixed-area-cycles/scripts/check_determinism.py
 uv run experiments/2026-10-15-fixed-area-cycles/scripts/audit.py
 uv run experiments/2026-10-15-fixed-area-cycles/scripts/analyse.py
 uv run experiments/2026-10-15-fixed-area-cycles/scripts/check_analysis.py
+uv run experiments/2026-10-15-fixed-area-cycles/scripts/check_loader.py
+uv run experiments/2026-10-15-fixed-area-cycles/scripts/figures.py
 uv run experiments/2026-10-15-fixed-area-cycles/scripts/results_notebook.py
 uv run --with nbconvert --with ipykernel --with nbformat jupyter nbconvert --to notebook --execute --inplace experiments/2026-10-15-fixed-area-cycles/notebook.ipynb
 cargo test --release
@@ -175,3 +179,40 @@ markers, not a source-hashed walker checkpoint. The continuation leaves sampler
 source unchanged; post-run hashes record checked payloads and current sources.
 The one-thread production replay covers one of 64 seeds per rule at both widths;
 it cannot establish P3's full all-production determinism clause.
+
+## Width sensitivity and final validation — 2026-10-15
+
+All 2816 sensitivity runs completed; max final time 86,613,887 < cap/4.
+All accounting/coverage gates pass, zero clipped I, minimum pooled I counts
+33,089/131,429. Reliability q A/B = 0.756/0.975, kappa C/D = 0.969/0.965.
+
+| 1/8-width sensitivity | Area 32768 band | Area 131072 band |
+|---|---|---|
+| P1 mean cross-seed Spearman | -0.417; 95% CI [-0.651,-0.132] | -0.815; [-0.905,-0.661] |
+| P2 held-out R2 gain | +0.488; [0.219,0.767] | +0.530; [0.300,0.777] |
+
+Both sensitivity predictions pass their numerical and statistical gates. These
+reuse the same rules/seeds and do not rescue the primary P1 failure. The weaker
+small-area association is sensitive to band width; these data alone do not
+separate greater event counts from the changed sampling ensemble. No post-hoc
+retuning was performed. The larger-area association and P2 prediction persist.
+
+Final outputs: [analysis](results/analysis.txt), [machine-readable analysis](results/analysis.json),
+[rule/group summaries](results/rule_summary.csv), [payload audit](results/audit.json),
+[thread replay](results/determinism.json), [figure](results/association.png),
+and [executed notebook](notebook.ipynb). The final primary statistical results
+exactly match the original-loader interim primary results. Figure visually
+checked; notebook executes without error outputs (results/notebook.log).
+
+All 5632 production runs / 11264 band rows pass accounting. The one-thread
+determinism sample passes for 88 specs / 440 files. **P3 is only partially
+validated:** full all-seed thread replay is not done. Release tests pass,
+including 13 fixed-area tests; synthetic numerical checks pass. The earlier
+noise-floor failure remains failed. No causal conclusion is warranted.
+
+Provenance: initial base da88e61; shared-workspace HEAD advanced externally to
+4529f86 during the combined audit and then 275c2af before final analysis/notebook.
+This continuation issued no commit command. Each output records its observed
+commit and hashes; sampler sources were unchanged during the continuation.
+See NOTEBOOK's provenance correction rather than treating these as distinct
+simulation batches. New report files remain for the user's next commit.

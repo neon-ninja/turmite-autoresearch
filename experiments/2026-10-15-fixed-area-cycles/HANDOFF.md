@@ -9,6 +9,12 @@ Scripts now include audit.py (all payloads and hashes), check_determinism.py
 (one production seed per rule at both widths), analyse.py (frozen tests, requires
 audit.json), and results_notebook.py (replaces the NOT RUN scaffold after analysis).
 The current user has authorized continuing this experiment, including simulations.
+Production and both analyses have now finished; README's final sections and
+results/analysis.json are authoritative. The executed notebook and association
+figure are ready. P1 primary fails, P2 secondary passes; both sensitivity tests
+pass. Do not relaunch for a different estimator without a fresh registration.
+Remaining validation limit: thread determinism was replayed for seed 1001 of
+each rule, not all 64 seeds. P3's full determinism clause is therefore incomplete.
 
 ## First 15 minutes
 
