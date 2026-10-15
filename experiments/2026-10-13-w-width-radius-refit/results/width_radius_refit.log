@@ -1,0 +1,30 @@
+primary k=22..32
+  rotor Req: {'runs': 14, 'clusters': 14, 'mean': 0.40103973084885325, 'pooled_run_sd': 0.07328520725613259, 'cluster_sd': 0.07328520725613259, 'rms_within_rule_sd': None, 'mean_ci95': [0.3656903298556697, 0.4373807131589449], 'mean_beta_t': 0.13587920948518756, 'mean_alpha_t': 0.33873554584693893}
+  rotor Rg: {'runs': 14, 'clusters': 14, 'mean': 0.40330747459109684, 'pooled_run_sd': 0.07322366349182605, 'cluster_sd': 0.07322366349182605, 'rms_within_rule_sd': None, 'mean_ci95': [0.36809738216001603, 0.43949270757373776], 'mean_beta_t': 0.13587920948518756, 'mean_alpha_t': 0.3368311713551143}
+  rotor rbar: {'runs': 14, 'clusters': 14, 'mean': 0.40345030306643553, 'pooled_run_sd': 0.07356927572899065, 'cluster_sd': 0.07356927572899065, 'rms_within_rule_sd': None, 'mean_ci95': [0.3680774145061025, 0.4398976667409914], 'mean_beta_t': 0.13587920948518756, 'mean_alpha_t': 0.3366859238973465}
+  excluded: []
+  ants Req: {'runs': 36, 'clusters': 6, 'mean': 0.7138258073577357, 'pooled_run_sd': 0.1381770670553991, 'cluster_sd': 0.0663434701005967, 'rms_within_rule_sd': 0.13369216934827882, 'mean_ci95': [0.66376166616579, 0.7609156412958848], 'mean_beta_t': 0.24325732605136452, 'mean_alpha_t': 0.34089025508487103}
+  ants Rg: {'runs': 36, 'clusters': 6, 'mean': 0.7186562171925429, 'pooled_run_sd': 0.13566005520398633, 'cluster_sd': 0.06524932440261136, 'rms_within_rule_sd': 0.13120004321369783, 'mean_ci95': [0.668919509975005, 0.7658993549587789], 'mean_beta_t': 0.24325732605136452, 'mean_alpha_t': 0.33861283687809784}
+  ants rbar: {'runs': 36, 'clusters': 6, 'mean': 0.7131079499988493, 'pooled_run_sd': 0.1385252509805585, 'cluster_sd': 0.0662377998434952, 'rms_within_rule_sd': 0.13416410308893204, 'mean_ci95': [0.6628496270264926, 0.7601186858696038], 'mean_beta_t': 0.24325732605136452, 'mean_alpha_t': 0.3412457885358598}
+  excluded: []
+  ratio 1.7799378775933987 bands {'rotor': False, 'ants': True, 'ratio': True}
+late k=26..32
+  rotor Req: {'runs': 14, 'clusters': 14, 'mean': 0.3892651696093711, 'pooled_run_sd': 0.0849288623289562, 'cluster_sd': 0.0849288623289562, 'rms_within_rule_sd': None, 'mean_ci95': [0.34499487903380777, 0.428373205233921], 'mean_beta_t': 0.13121464085467058, 'mean_alpha_t': 0.3368696860727896}
+  rotor Rg: {'runs': 14, 'clusters': 14, 'mean': 0.3903718272094904, 'pooled_run_sd': 0.08504463805964645, 'cluster_sd': 0.08504463805964645, 'rms_within_rule_sd': None, 'mean_ci95': [0.3460521924981345, 0.4294523045742301], 'mean_beta_t': 0.13121464085467058, 'mean_alpha_t': 0.3359178675566839}
+  rotor rbar: {'runs': 14, 'clusters': 14, 'mean': 0.39152012632066363, 'pooled_run_sd': 0.08532802007777317, 'cluster_sd': 0.08532802007777317, 'rms_within_rule_sd': None, 'mean_ci95': [0.34703923083915933, 0.4308154573763453], 'mean_beta_t': 0.13121464085467058, 'mean_alpha_t': 0.33493087010904043}
+  excluded: []
+  ants Req: {'runs': 36, 'clusters': 6, 'mean': 0.6850784997426466, 'pooled_run_sd': 0.20679144810725322, 'cluster_sd': 0.07531824469653169, 'rms_within_rule_sd': 0.21027834456859948, 'mean_ci95': [0.6315770093645462, 0.7391650763994096], 'mean_beta_t': 0.2324182900195782, 'mean_alpha_t': 0.3394660276656141}
+  ants Rg: {'runs': 36, 'clusters': 6, 'mean': 0.6890803896644208, 'pooled_run_sd': 0.20439403901012781, 'cluster_sd': 0.0733532681591269, 'rms_within_rule_sd': 0.20822834044319669, 'mean_ci95': [0.6370661320403068, 0.7423111383677349], 'mean_beta_t': 0.2324182900195782, 'mean_alpha_t': 0.33726452151941405}
+  ants rbar: {'runs': 36, 'clusters': 6, 'mean': 0.6851872738662572, 'pooled_run_sd': 0.20733750892136604, 'cluster_sd': 0.0753117524559942, 'rms_within_rule_sd': 0.21090706400848103, 'mean_ci95': [0.6320553428690707, 0.7392909972513714], 'mean_beta_t': 0.2324182900195782, 'mean_alpha_t': 0.3394325951510664}
+  excluded: []
+  ratio 1.7599275589699566 bands {'rotor': False, 'ants': True, 'ratio': True}
+a4c_late k=26..34
+  rotor Req: {'runs': 6, 'clusters': 6, 'mean': 0.39491859160531434, 'pooled_run_sd': 0.0684482270327468, 'cluster_sd': 0.0684482270327468, 'rms_within_rule_sd': None, 'mean_ci95': [0.33979645977640915, 0.4371304278651273], 'mean_beta_t': 0.13287805108321768, 'mean_alpha_t': 0.3364562696712236}
+  rotor Rg: {'runs': 6, 'clusters': 6, 'mean': 0.39571809188097357, 'pooled_run_sd': 0.06847309048564729, 'cluster_sd': 0.06847309048564729, 'rms_within_rule_sd': None, 'mean_ci95': [0.3406372348425295, 0.4379268043557387], 'mean_beta_t': 0.13287805108321768, 'mean_alpha_t': 0.33579241554973555}
+  rotor rbar: {'runs': 6, 'clusters': 6, 'mean': 0.39699040382231393, 'pooled_run_sd': 0.06868879198090497, 'cluster_sd': 0.06868879198090497, 'rms_within_rule_sd': None, 'mean_ci95': [0.3418042647737173, 0.439335636133341], 'mean_beta_t': 0.13287805108321768, 'mean_alpha_t': 0.33471825293132795}
+  excluded: []
+  ants Req: {'runs': 12, 'clusters': 6, 'mean': 0.6368829083104329, 'pooled_run_sd': 0.21052762823974522, 'cluster_sd': 0.16120650299371933, 'rms_within_rule_sd': 0.19479276967251455, 'mean_ci95': [0.5068723016712391, 0.7396437222483533], 'mean_beta_t': 0.21548944156968633, 'mean_alpha_t': 0.33862614719398104}
+  ants Rg: {'runs': 12, 'clusters': 6, 'mean': 0.6410390683591314, 'pooled_run_sd': 0.20871772970186026, 'cluster_sd': 0.1596452390097716, 'rms_within_rule_sd': 0.19335975719972343, 'mean_ci95': [0.5116706449590304, 0.7426562732259304], 'mean_beta_t': 0.21548944156968633, 'mean_alpha_t': 0.3361664916254339}
+  ants rbar: {'runs': 12, 'clusters': 6, 'mean': 0.637066567965578, 'pooled_run_sd': 0.21100637314146697, 'cluster_sd': 0.16135054205736996, 'rms_within_rule_sd': 0.19554224196125536, 'mean_ci95': [0.5070236671230194, 0.7397903671933217], 'mean_beta_t': 0.21548944156968633, 'mean_alpha_t': 0.33854251002172786}
+  excluded: []
+  ratio 1.6126941649456206 bands {'rotor': False, 'ants': True, 'ratio': False}
