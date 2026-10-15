@@ -1,0 +1,145 @@
+{
+ "command": "uv run experiments/2026-10-15-fixed-area-cycles/scripts/analyse.py --run prod16",
+ "commit": "da88e61b690507526ba4e2a2c017d9c7941beb91",
+ "dirty_workspace": true,
+ "config_sha256": "4bf1215ccd2275dc413e95c4434bf2b4d7de03ea784550d4b267fe4e4107fc1a",
+ "bootstrap": {
+  "seed": 20261016,
+  "draws": 2000,
+  "resample": "rules (with all their groups and both bands together)",
+  "interval": "percentile 95%"
+ },
+ "audit_sha256": "44c6cfca8b86deb977ca9efdb19cc56b129e327caf416f644e14bbf1aaff4ac8",
+ "source_sha256": "0f400ee2c6c6711aed38111a90821d42bec167400dcadb6f9b619ddb9caf6e85",
+ "payload_manifest_sha256": "1fa6d9338f5a9ddfe95fb2b5ba8341ce308be0156baa33dbc8d37a42c90c2617",
+ "prod16": {
+  "checks": {
+   "runs": 2816,
+   "not_complete": 0,
+   "max_t_final": 78900629,
+   "g_budget_ok": true,
+   "unreached": 0,
+   "fresh_from_interior": 0,
+   "bi_ne_steps": 0,
+   "b_partition_bad": 0,
+   "i_partition_bad": 0,
+   "max_i_clip_share": 0.0,
+   "i_clip_frags_total": 0
+  },
+  "g_quantile_min_pooled_n": {
+   "0": 16469,
+   "1": 65701
+  },
+  "g_quantile_ok": {
+   "0": true,
+   "1": true
+  },
+  "band0": {
+   "rel_lnq999_AB": 0.6132487667371388,
+   "rel_lnq999_CD": 0.8786469344608879,
+   "rel_lnk_CD": 0.964059196617336,
+   "g_reliab_ok": true,
+   "P1": {
+    "statistic": -0.2850599013389711,
+    "per_rotation": {
+     "A->C": -0.2837209302325581,
+     "B->D": -0.2863988724453841
+    },
+    "ci95": [
+     -0.5580743151930041,
+     -0.004579078035367537
+    ],
+    "success": false
+   },
+   "P1_kappa_end_sensitivity": {
+    "statistic": -0.28379140239605355,
+    "per_rotation": {
+     "A->C": -0.2816067653276956,
+     "B->D": -0.2859760394644115
+    },
+    "ci95": [
+     -0.5563210076917647,
+     -0.002947671415786567
+    ],
+    "success": false
+   },
+   "P2": {
+    "gain": 0.3363777011271608,
+    "r2_cv_baseline_full_per_rotation": [
+     [
+      0.19695775449239095,
+      0.5141782068381782
+     ],
+     [
+      0.1300927680721563,
+      0.4856277179806908
+     ]
+    ],
+    "ci95": [
+     0.11475547300502399,
+     0.5776163871633982
+    ],
+    "success": true
+   },
+   "ln_q999_sd_between_rules_of_means": 0.7641894927558179,
+   "ln_q999_mean_within_rule_group_sd": 0.41874502626506516,
+   "lnk_time_sd_between_rules_of_means": 0.7821085811791467,
+   "lnk_time_mean_within_rule_group_sd": 0.21759668900593318
+  },
+  "band1": {
+   "rel_lnq999_AB": 0.9691331923890062,
+   "rel_lnq999_CD": 0.9568710359408034,
+   "rel_lnk_CD": 0.9540521494009865,
+   "g_reliab_ok": true,
+   "P1": {
+    "statistic": -0.8143763213530655,
+    "per_rotation": {
+     "A->C": -0.858491895701198,
+     "B->D": -0.770260747004933
+    },
+    "ci95": [
+     -0.9080666397755567,
+     -0.6648269669253876
+    ],
+    "success": true
+   },
+   "P1_kappa_end_sensitivity": {
+    "statistic": -0.8150810429880198,
+    "per_rotation": {
+     "A->C": -0.8579281183932346,
+     "B->D": -0.7722339675828048
+    },
+    "ci95": [
+     -0.9080786648518402,
+     -0.6643296204892322
+    ],
+    "success": true
+   },
+   "P2": {
+    "gain": 0.5444267386912054,
+    "r2_cv_baseline_full_per_rotation": [
+     [
+      0.152416716023283,
+      0.6835803895439244
+     ],
+     [
+      0.16223665092531248,
+      0.7199264547870816
+     ]
+    ],
+    "ci95": [
+     0.3156555142643549,
+     0.8222697153849527
+    ],
+    "success": true
+   },
+   "ln_q999_sd_between_rules_of_means": 1.7948212916216748,
+   "ln_q999_mean_within_rule_group_sd": 0.34518263826742795,
+   "lnk_time_sd_between_rules_of_means": 0.9263405951894846,
+   "lnk_time_mean_within_rule_group_sd": 0.18628554812245166
+  },
+  "statistically_testable": true,
+  "P1_overall_success": false,
+  "P2_overall_success": true
+ }
+}

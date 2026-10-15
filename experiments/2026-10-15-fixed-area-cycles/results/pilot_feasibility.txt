@@ -1,0 +1,43 @@
+# pilot feasibility summary (no kappa/L999 association computed)
+# command: uv run experiments/2026-10-15-fixed-area-cycles/scripts/pilot_report.py   (inputs from scripts/run_pilot.sh) base commit da88e61 (dirty workspace)
+# wall/RSS: see README pilot table (measured by run_pilot.sh).
+
+===== pilot16 =====
+run status by kind: [('ant', 'complete', 176), ('rotor', 'complete', 4), ('rw', 'complete', 4)]
+max t_final / cap: 76374849 / 268435456  (G-budget needs <= cap/4 = 67108864: FAIL)
+unreached bands: 0 of 368
+conservation: fresh_from_interior sum = 0; B+I != steps rows = 0
+[ant band0 lo=32768] n_specs=176  t_end min/med/max=137062/2223466/9564850  band steps med=183099  complete-I n min/med/max=1014.0/1760/4719.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.974
+[ant band1 lo=131072] n_specs=176  t_end min/med/max=552424/16609344/76374849  band steps med=1384972  complete-I n min/med/max=4084.0/7016/18601.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.987
+[rotor band0 lo=32768] n_specs=4  t_end min/med/max=466953/508642/569580  band steps med=47954  complete-I n min/med/max=1006.0/1071/1129.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.916
+[rotor band1 lo=131072] n_specs=4  t_end min/med/max=3828349/3883474/4177420  band steps med=319952  complete-I n min/med/max=4328.0/4373/4380.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.949
+[rw band0 lo=32768] n_specs=4  t_end min/med/max=157053/167493/171724  band steps med=11970  complete-I n min/med/max=1177.0/1246/1505.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.603
+[rw band1 lo=131072] n_specs=4  t_end min/med/max=697396/710789/747146  band steps med=47647  complete-I n min/med/max=4019.0/5151/6089.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.588
+seeds/group for G-quantile, band0: binding rule RLLLRRRRRRRR median per-seed n=1022 -> need 10, power of two 16; rules with per-seed median n<1000: 0
+  five lowest per-rule medians: RLLLRRRRRRRR:1022, RLLRRRLRRRRR:1023, RLLLRRRLLRLL:1029, RLLLRRRLRLRR:1032, RLLLRRRRRRR:1040
+  max/min complete-I count across the 4 seeds: median 1.06, max 1.42
+seeds/group for G-quantile, band1: binding rule RLLLRRRRRRR median per-seed n=4085 -> need 3, power of two 4; rules with per-seed median n<1000: 0
+  five lowest per-rule medians: RLLLRRRRRRR:4085, RLLLRRRRRRRR:4090, RLLLRRRLLRLL:4113, RLLLRRRLRLRR:4148, RLLRRRLRRRRR:4154
+  max/min complete-I count across the 4 seeds: median 1.03, max 1.42
+slowest ant runs (t_final): RRRLLRLLLL@701:76374849, RRRLLRLLLL@703:73751396, RRRLLRLLLL@704:72951951, RRRLLRLLLL@702:72609601, RLLRRRRLLLLR@702:60616834
+
+===== pilot8 =====
+run status by kind: [('ant', 'complete', 176), ('rotor', 'complete', 4), ('rw', 'complete', 4)]
+max t_final / cap: 83305977 / 268435456  (G-budget needs <= cap/4 = 67108864: FAIL)
+unreached bands: 0 of 368
+conservation: fresh_from_interior sum = 0; B+I != steps rows = 0
+[ant band0 lo=32768] n_specs=176  t_end min/med/max=145178/2392157/10364359  band steps med=376472  complete-I n min/med/max=2030.0/3512/9296.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.976
+[ant band1 lo=131072] n_specs=176  t_end min/med/max=585050/18486481/83305977  band steps med=2959969  complete-I n min/med/max=8170.0/14078/37122.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.988
+[rotor band0 lo=32768] n_specs=4  t_end min/med/max=503809/557544/606535  band steps med=88133  complete-I n min/med/max=2109.0/2186/2317.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.906
+[rotor band1 lo=131072] n_specs=4  t_end min/med/max=4140131/4217327/4554363  band steps med=653805  complete-I n min/med/max=8740.0/8812/8834.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.950
+[rw band0 lo=32768] n_specs=4  t_end min/med/max=164816/174985/180043  band steps med=20286  complete-I n min/med/max=1931.0/2281/2377.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.542
+[rw band1 lo=131072] n_specs=4  t_end min/med/max=735242/747534/819691  band steps med=88193  complete-I n min/med/max=7617.0/9532/11914.0  I-censor share max=0.0000 (G-censor<=0.10: PASS)  clipped-I max frag max=0  complete-I share of band steps med=0.572
+seeds/group for G-quantile, band0: binding rule RLLRRRLRRRRR median per-seed n=2058 -> need 5, power of two 8; rules with per-seed median n<1000: 0
+  five lowest per-rule medians: RLLRRRLRRRRR:2058, RLLLRRRLLRLL:2060, RLLLRRRLRLRR:2064, RLLLRRRRRRR:2074, RLLLLRRLRRRR:2103
+  max/min complete-I count across the 4 seeds: median 1.04, max 1.42
+seeds/group for G-quantile, band1: binding rule RLLLRRRRRRRR median per-seed n=8176 -> need 2, power of two 2; rules with per-seed median n<1000: 0
+  five lowest per-rule medians: RLLLRRRRRRRR:8176, RLLLRRRRRRR:8188, RLLLRRRLLRLL:8231, RLLLRRRLRLRR:8272, RLLLLLLLLRR:8354
+  max/min complete-I count across the 4 seeds: median 1.02, max 1.26
+slowest ant runs (t_final): RRRLLRLLLL@701:83305977, RRRLLRLLLL@703:80843316, RLLRRRRLLLLR@702:80153818, RRRLLRLLLL@702:79360453, RRRLLRLLLL@704:78803680
+
+determinism (4-thread vs 1-thread payload CSVs): 368 files, identical = True

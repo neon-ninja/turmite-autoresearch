@@ -1,0 +1,11 @@
+Reading inline script metadata from `experiments/2026-10-15-fixed-area-cycles/scripts/analyse.py`
+== prod16: {'runs': 2816, 'not_complete': 0, 'max_t_final': 78900629, 'g_budget_ok': True, 'unreached': 0, 'fresh_from_interior': 0, 'bi_ne_steps': 0, 'b_partition_bad': 0, 'i_partition_bad': 0, 'max_i_clip_share': 0.0, 'i_clip_frags_total': 0}
+   G-quantile min pooled complete-I per rule x band x group: {0: 16469, 1: 65701}  ok={0: True, 1: True}
+   band0: reliab(ln q999 A~B)=0.613 (C~D 0.879), reliab(ln kappa C~D)=0.964 -> G-reliab OK
+   band0: P1 stat=-0.285 {'A->C': -0.2837209302325581, 'B->D': -0.2863988724453841} CI95=[-0.558, -0.005] success=False; kappa_end sens -0.284 CI=[-0.556, -0.003]
+   band0: P2 gain=+0.336 CI95=[0.115, 0.578] success=True (baseline/full R2cv per rotation: [[0.197, 0.514], [0.13, 0.486]])
+   band1: reliab(ln q999 A~B)=0.969 (C~D 0.957), reliab(ln kappa C~D)=0.954 -> G-reliab OK
+   band1: P1 stat=-0.814 {'A->C': -0.858491895701198, 'B->D': -0.770260747004933} CI95=[-0.908, -0.665] success=True; kappa_end sens -0.815 CI=[-0.908, -0.664]
+   band1: P2 gain=+0.544 CI95=[0.316, 0.822] success=True (baseline/full R2cv per rotation: [[0.152, 0.684], [0.162, 0.72]])
+   P1 both bands: False; P2 both bands: True; testable (G-reliab both bands): True
+

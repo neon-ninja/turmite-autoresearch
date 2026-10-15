@@ -13,6 +13,7 @@ pub mod colours;
 pub mod detect;
 pub mod ext;
 pub mod fast;
+pub mod fixed_area;
 pub mod lean;
 pub mod probe;
 pub mod reference;

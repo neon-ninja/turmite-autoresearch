@@ -1,0 +1,2 @@
+Reading inline script metadata from `experiments/2026-10-15-fixed-area-cycles/scripts/check_analysis.py`
+seed=20261016; exact linear residual, independent PRESS identity, training-mean denominator, nearest-rank and Spearman checks PASS

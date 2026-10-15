@@ -1,0 +1,2 @@
+Reading inline script metadata from `experiments/2026-10-15-fixed-area-cycles/scripts/check_loader.py`
+All primary summary rows agree with the original loader to 1e-12; {'runs': 2816, 'not_complete': 0, 'max_t_final': 78900629, 'g_budget_ok': True, 'unreached': 0, 'fresh_from_interior': 0, 'bi_ne_steps': 0, 'b_partition_bad': 0, 'i_partition_bad': 0, 'max_i_clip_share': 0.0, 'i_clip_frags_total': 0}

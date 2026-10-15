@@ -1,0 +1,21 @@
+{
+  "command": "uv run experiments/2026-10-15-fixed-area-cycles/scripts/check_determinism.py",
+  "seed": 1001,
+  "rules": 44,
+  "production_threads": 5,
+  "replay_threads": 1,
+  "scope": "all rules, one of 64 production seeds, both widths; full P3 determinism not established",
+  "binary_sha256": "78dc89cef1d2a283c763fe597756d4bbb05dee2fe6b912d888c1bd9444b77a77",
+  "runs": {
+    "prod16": {
+      "specs": 44,
+      "files_compared": 220,
+      "byte_identical": true
+    },
+    "prod8": {
+      "specs": 44,
+      "files_compared": 220,
+      "byte_identical": true
+    }
+  }
+}
