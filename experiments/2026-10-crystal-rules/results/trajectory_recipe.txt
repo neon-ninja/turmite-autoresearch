@@ -1,0 +1,24 @@
+Commands run through WSL from /mnt/f/Code/turmite:
+export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy CARGO_TARGET_DIR=$HOME/turmite-target
+cargo test --release --example crystal_rules_trace
+cargo build --release --example crystal_rules_trace
+for r in RLLLLRRL LRRRRRLLR RLLLLLLLRRLRR RLRRRL; do
+  $CARGO_TARGET_DIR/release/examples/crystal_rules_trace $r 33554432 8192 4096 > experiments/2026-10-crystal-rules/results/trace_${r}.csv
+done
+for r in RLLLLRRL LRRRRRLLR RLLLLLLLRRLRR; do
+  $CARGO_TARGET_DIR/release/examples/crystal_rules_trace intervene $r > experiments/2026-10-crystal-rules/results/local_patch_${r}.csv
+done
+uv run experiments/2026-10-crystal-rules/scripts/local_patch_summary.py
+cargo test --release > experiments/2026-10-crystal-rules/results/release_suite.log 2>&1
+No RNG in simulations. Property test uses proptest's generated cases; failure regressions are persisted by proptest.
+Source is uncommitted; source hashes below identify this exact version.
+
+Algorithm : SHA256
+Hash      : 29DB141DE1BC5FA7D7D19843B9CE01C7079B7032F44D4DEE1E74EBAAC723E343
+Path      : F:\Code\turmite\examples\crystal_rules_trace.rs
+
+Algorithm : SHA256
+Hash      : 52488DA43FA4212B0C4789EAD295EBC37DCA4D45CBA68EB5F32253459729CAE1
+Path      : F:\Code\turmite\experiments\2026-10-crystal-rules\scripts\local_patch_summary.py
+
+

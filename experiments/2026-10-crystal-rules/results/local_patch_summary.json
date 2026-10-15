@@ -1,0 +1,20 @@
+{
+  "RLLLLRRL": {
+    "pairs": 12,
+    "colour_2_wins": 12,
+    "prediction_passed": true,
+    "input_sha256": "3b0b3033c7b7e4af2ae0bf99d515ee108ee9dd7e4149819273ec5485e7413146"
+  },
+  "LRRRRRLLR": {
+    "pairs": 12,
+    "colour_2_wins": 12,
+    "prediction_passed": true,
+    "input_sha256": "01f04d2d94897aacffc72524f405c31bd17000c974b471cfe1ad52a1b36f8fc6"
+  },
+  "RLLLLLLLRRLRR": {
+    "pairs": 12,
+    "colour_2_wins": 12,
+    "prediction_passed": true,
+    "input_sha256": "d361c36d376871fde813a92506413e78cb62ab2c769a2cd0dec50964212aa1bb"
+  }
+}

@@ -1,0 +1,24 @@
+
+RLLLLRRL: crystal-proxy=True  steps/visited=4.65 ground_frac=0.783
+Hamming-1 (letter + class of the mutant; C crystal-proxy, F filled flat/other, H left board, . other): R. L. L. L. LF R. R. L.
+Hamming-2: 0/28 crystal-proxy
+
+RLLLLLRRL: crystal-proxy=True  steps/visited=3.88 ground_frac=0.805
+Hamming-1 (letter + class of the mutant; C crystal-proxy, F filled flat/other, H left board, . other): R. L. L. L. L. L. R. R. L.
+Hamming-2: 0/36 crystal-proxy
+
+RLLLLLLLRRLRR: crystal-proxy=True  steps/visited=5.11 ground_frac=0.834
+Hamming-1 (letter + class of the mutant; C crystal-proxy, F filled flat/other, H left board, . other): R. L. L. L. L. L. L. L. R. R. L. R. R.
+Hamming-2: 0/78 crystal-proxy
+
+RRRRRLLLLLL: crystal-proxy=False  steps/visited=898.33 ground_frac=0.053
+Hamming-1 (letter + class of the mutant; C crystal-proxy, F filled flat/other, H left board, . other): R. RF RH R. R. LH L. L. L. L. LH
+Hamming-2: 0/55 crystal-proxy
+
+RLLLLRRRRLR: crystal-proxy=False  steps/visited=577.89 ground_frac=0.030
+Hamming-1 (letter + class of the mutant; C crystal-proxy, F filled flat/other, H left board, . other): R. LH L. L. L. R. R. R. R. L. R.
+Hamming-2: 1/55 crystal-proxy
+
+RLRLLL: crystal-proxy=False  steps/visited=103.91 ground_frac=0.010
+Hamming-1 (letter + class of the mutant; C crystal-proxy, F filled flat/other, H left board, . other): R. LH R. L. LH L.
+Hamming-2: 0/15 crystal-proxy
