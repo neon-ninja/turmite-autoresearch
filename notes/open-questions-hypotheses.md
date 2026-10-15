@@ -71,3 +71,6 @@ New, unexplained:
 - Q16. The late-highway onset rate fell from 4.7% to 1.25% per decade at 1e10-1e11 (B5): is the set of late highways finite, and what is the distribution of onset times within a prefix family?
 
 See `notes/research-frontier-2026-10-13-pm.md` for the Phase 3 hypotheses, tests, and pre-registered predictions addressing Q8–Q16 and the open mechanisms of kappa.
+
+### Kappa prefix robustness follow-up (2026-10-15 22:40 +13:00)
+The [prefix audit](../experiments/2026-10-kappa-rule-space/README.md#prefix-audit-addendum) retains the W3c stationary lead: five-fold lookup encoding plus a five-knot nonlinear ln A(22) control gives +0.201 held-out R2 gain [0.103,0.311] on 162 rules, seed 20261015 and 2000 rule bootstraps. Removing five largest positive contributors leaves +0.150. All-rules gain +0.041 [-0.018,0.103] remains weak. This is an audit of inspected data, not fresh confirmation or a mechanism; one area snapshot may leave growth-history confounding. Reproduce with uv run experiments/2026-10-kappa-rule-space/scripts/prefix_audit.py; input/source hashes in results/prefix_audit.json. Next discrimination: matched-area mutation intervention with early-colour exposure measurements.
