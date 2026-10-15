@@ -1,0 +1,8 @@
+# matched pairs; commit 7eff085ce52610aa06d389f3b67e06dda05a51e7
+# input sha256[:16] e813c6f21f63421c
+## tolerance |d ln A| <= 0.05  (registered)
+k=22 rules=44 pairs=62: median|dlnk| matched 0.142 vs all 0.593 (ratio 0.24); frac higher-kappa has smaller cutoff 0.823 cluster-boot95 [0.644, 0.962]
+k=25 rules=44 pairs=67: median|dlnk| matched 0.127 vs all 0.658 (ratio 0.19); frac higher-kappa has smaller cutoff 0.761 cluster-boot95 [0.553, 0.936]
+## tolerance |d ln A| <= 0.1  (sensitivity)
+k=22 rules=44 pairs=129: median|dlnk| matched 0.147 vs all 0.593 (ratio 0.25); frac higher-kappa has smaller cutoff 0.760 cluster-boot95 [0.602, 0.898]
+k=25 rules=44 pairs=119: median|dlnk| matched 0.134 vs all 0.658 (ratio 0.20); frac higher-kappa has smaller cutoff 0.765 cluster-boot95 [0.614, 0.895]

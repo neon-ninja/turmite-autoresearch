@@ -1,0 +1,38 @@
+# hull-width stats; commit 797704a2988ea8d958df39ac96e3ece27bec0980
+
+== rotor (8 runs)
+e_Wall      median 0.130  sd 0.061  n=8  rule-boot95 [0.089, 0.202]
+e_Wout      median 0.135  sd 0.062  n=8  rule-boot95 [0.081, 0.206]
+beta_all    median 0.514  sd 0.016  n=8  rule-boot95 [0.501, 0.529]
+beta_out    median 0.513  sd 0.015  n=8  rule-boot95 [0.492, 0.523]
+holefrac28  median 0.252  sd 0.011  n=8  rule-boot95 [0.249, 0.264]
+holefrac30  median 0.256  sd 0.017  n=8  rule-boot95 [0.238, 0.261]
+zeta28      median 0.443  sd 0.077  n=8  rule-boot95 [0.380, 0.480]
+zeta30      median 0.403  sd 0.110  n=8  rule-boot95 [0.293, 0.473]
+Dh28        median 1.159  sd 0.007  n=8  rule-boot95 [1.152, 1.164]
+Dh30        median 1.165  sd 0.008  n=8  rule-boot95 [1.160, 1.170]
+
+== ants (24 runs)
+e_Wall      median 0.239  sd 0.049  n=24  rule-boot95 [0.214, 0.247]
+e_Wout      median 0.239  sd 0.049  n=24  rule-boot95 [0.220, 0.247]
+beta_all    median 0.525  sd 0.024  n=24  rule-boot95 [0.521, 0.533]
+beta_out    median 0.524  sd 0.022  n=24  rule-boot95 [0.519, 0.543]
+holefrac28  median 0.038  sd 0.027  n=24  rule-boot95 [0.015, 0.072]
+holefrac30  median 0.035  sd 0.027  n=24  rule-boot95 [0.017, 0.066]
+zeta28      median 0.626  sd 0.100  n=24  rule-boot95 [0.530, 0.663]
+zeta30      median 0.603  sd 0.071  n=24  rule-boot95 [0.575, 0.627]
+Dh28        median 1.071  sd 0.029  n=24  rule-boot95 [1.029, 1.098]
+Dh30        median 1.064  sd 0.029  n=24  rule-boot95 [1.034, 1.096]
+
+== registered checks
+1 calibration: rotor W_out exponent 0.135 in [0.08,0.14]: True
+2 hole share k=28: ants 0.038 rotor 0.252; ants>=0.10 and >=3x rotor: False
+3 ants W_out exponent 0.239 -> H-rough; ratio to rotor 1.77; W_all ants 0.239 rotor 0.130
+4 spectrum zeta k=28: ants-rotor +0.183 (H-rough if >= 0.10)
+5 hull D k=28: ants 1.071 rotor 1.159 diff -0.088 (>=0.05; both in [1.0,1.4])
+4 spectrum zeta k=30: ants-rotor +0.200 (H-rough if >= 0.10)
+5 hull D k=30: ants 1.064 rotor 1.165 diff -0.101 (>=0.05; both in [1.0,1.4])
+6 rotor: max |beta_out - beta_all| = 0.016 (<= 0.03: True)
+6 ants: max |beta_out - beta_all| = 0.017 (<= 0.03: True)
+
+rule-1 cross-check vs shape: 160 matched rows, max |Wall - Wsurf| = 0.0000
