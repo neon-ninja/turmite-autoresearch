@@ -1,0 +1,26 @@
+{
+  "review_date": "2026-10-15 NZDT",
+  "base_commit": "da88e61b690507526ba4e2a2c017d9c7941beb91",
+  "status": "uncommitted working-tree outputs, no commit authorized",
+  "pdf_pages": 27,
+  "rendered_pages": [
+    1,
+    2,
+    21,
+    25
+  ],
+  "files": {
+    "research-outputs/cube-root-growth-paper/main.typ": "7d1878af280c5060b5270a907c84d20654c7fe7ac383f2fd832285ddb6043d31",
+    "research-outputs/cube-root-growth-paper/refs.bib": "99c793cbab1099ad6271e1d63dd88d22d4b4cfedd072dc3fa69e861af9c86769",
+    "research-outputs/cube-root-growth-paper/main.pdf": "e25f9be7472a5067d264be44f443dc8de2b765fee1db10faeea174b31ed59589",
+    "experiments/2026-10-15-literature-review/reports/Cube root growth literature.md": "9b8977bec41392d44fc997a7bef3f5a468288f020ed121817a77c682941936f5",
+    "experiments/2026-10-15-literature-review/notebook.ipynb": "138f62d4e6f7067543829a05c2fd53ca20294f8ad5a5fea0917484b2d5e081fa",
+    "experiments/2026-10-15-literature-review/results/claim_audit.json": "08ef20f48b2f57a5fa6b5b29fedff88171b76fdb230cd5c8999506546eab5686"
+  },
+  "verification": {
+    "notebook": "nbconvert clean-kernel execution succeeded",
+    "typst": "compiled without diagnostics",
+    "simulations": "none",
+    "rust_release_tests": "not rerun for documentary/editorial change; no simulator or estimator modifications"
+  }
+}

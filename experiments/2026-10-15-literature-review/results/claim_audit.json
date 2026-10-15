@@ -1,0 +1,61 @@
+{
+  "source": "experiments/2026-10-15-literature-review/reports/Cube root growth literature.md",
+  "source_sha256": "9b8977bec41392d44fc997a7bef3f5a468288f020ed121817a77c682941936f5",
+  "kind": "documentary claim extraction, not measured data",
+  "claims": [
+    {
+      "claim": "No published measurement of non-highway territory growth",
+      "comparator": "Meng–Cohen; Mishra",
+      "distinction": "Uniform multicolour census, calibrated width/area distribution",
+      "action": "Remove broad absence assertion; cite verified older A~t^0.75 territory result and distinguish uniform multicolour scope"
+    },
+    {
+      "claim": "Most rules never make a highway",
+      "comparator": "Boon ordered highway; Mishra transient classification",
+      "distinction": "Finite-horizon detector cohort",
+      "action": "Replace never with no detected highway within horizon; conclusion says most measured blob rules"
+    },
+    {
+      "claim": "Rotor cube root",
+      "comparator": "Priezzhev heuristic; Bou-Rabee–Peres theorem",
+      "distinction": "Same estimator provides a calibrated known-exponent control",
+      "action": "State iid initialization and absolute clockwise exits; no ant theorem transfer; metadata does not prove refereeing state"
+    },
+    {
+      "claim": "Growth distribution, calibration and outliers",
+      "comparator": "Mishra displacement/area; rotor range theorem",
+      "distinction": "Systematic cyclic-LR coverage and known-estimator controls",
+      "action": "Retain empirical consistency and finite windows; no first-discovery priority claim"
+    },
+    {
+      "claim": "Three-factor rate decomposition",
+      "comparator": "Meng–Cohen boundary-return/pocket growth argument; rotor occupation",
+      "distinction": "Exact measured cκB/A factors, rule drift classification and predictive tests",
+      "action": "Credit earlier boundary-access scaling; retain exact-identity label and avoid independent mechanism claim"
+    },
+    {
+      "claim": "Future-window transport forecast",
+      "comparator": "No verified matched prior predictor in reviewed sources",
+      "distinction": "Held-out prediction beyond same-window identity",
+      "action": "Retain baseline/control limitations; no broad uniqueness claim"
+    },
+    {
+      "claim": "Letter model and prefix kappa predictor",
+      "comparator": "No verified matched comparator",
+      "distinction": "Restricted stationary longer-rule held-out transfer",
+      "action": "Retain filters and failed simpler feature models; no causal interpretation"
+    },
+    {
+      "claim": "Cone agreement",
+      "comparator": "Kapri–Dhar local-time cone",
+      "distinction": "Measured ant profile, conditional integral and failed controls",
+      "action": "Add instantaneous occupancy, coherent discovery and compact circular growth assumptions throughout"
+    },
+    {
+      "claim": "Wider boundary/universality question",
+      "comparator": "Kapri–Dhar planar width; Papoyan cylinder",
+      "distinction": "Selected ant cohort, outer/all-surface split, mixed wavelength follow-up",
+      "action": "Correct centring/aggregation and matched steps; narrow population; no spatial roughness exponent or universality assignment"
+    }
+  ]
+}
