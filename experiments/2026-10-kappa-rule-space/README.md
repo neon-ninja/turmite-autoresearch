@@ -1,6 +1,6 @@
 # What sets kappa? A rule-space and mechanism programme
 
-Status (updated 2026-10-15): Stage 1, W3b, W4, W5, the W6 pilot and W3c have been run (W3c: primary P3c.1 held on the stationary cohort; W5: P5.1 FAILED, best bulk observable adds +0.04 held-out R^2 over ln A(22) against a 0.15 bar, P5.3 failed for the primary I_turn; see the Log). OPEN, not run: W3 proper, the area-matched mutation test and the 200-base W6 (deferred by scope; the 200-base W6 needs a registered addendum and ~8 CPU-hours). Original header: plan written 2026-10-14 (~18:45 +13:00), git HEAD `99de7c1` with a dirty working
+Status (updated 2026-10-15): the W6 matched-area reanalysis of the pilot pairs has been run (M1 held, M2 failed: early letters change kappa at fixed area in both directions; see the Log, last entry). Stage 1, W3b, W4, W5, the W6 pilot and W3c have been run (W3c: primary P3c.1 held on the stationary cohort; W5: P5.1 FAILED, best bulk observable adds +0.04 held-out R^2 over ln A(22) against a 0.15 bar, P5.3 failed for the primary I_turn; see the Log). OPEN, not run: W3 proper, the area-matched mutation test and the 200-base W6 (deferred by scope; the 200-base W6 needs a registered addendum and ~8 CPU-hours). Original header: plan written 2026-10-14 (~18:45 +13:00), git HEAD `99de7c1` with a dirty working
 tree. **Stage 1 (W0, W1, W2, W7) has been run; see the Log at the end. Stage 2 (W3 proper) and
 Stage 3 had not at that time (W4, W5 and the W6 pilot have since; see the Log).** Every prediction in a "Pre-registered" block is fixed by the plan
 timestamp; do not edit them after data arrive. Append results, revisions and deviations
@@ -1109,3 +1109,51 @@ Interpretation: retain the stationary prefix lead. Cross-fitting and nonlinear a
 Shareable write-up: [notebooks/prefix-audit.ipynb](notebooks/prefix-audit.ipynb), generated with scripts/prefix_audit_notebook.py and executed with uv run --with nbconvert --with ipykernel --with nbformat jupyter nbconvert --to notebook --execute --inplace experiments/2026-10-kappa-rule-space/notebooks/prefix-audit.ipynb. New results await a user-requested commit.
 
 Verification: cargo test --release passed (results/prefix_audit_release.log). Two independent analysis processes produced identical JSON and prediction-CSV hashes after rounding summary floats to 12 decimal places (initial differences were at about 1e-16). The shareable notebook executed successfully from a clean kernel. No dependencies changed and no commit was made.
+
+## W6 matched-area reanalysis (2026-10-15 23:19 +13:00; git b3a0f76, dirty tree; registered BEFORE `w6m_analyse.py` exists or is run)
+
+Scope: **no new simulation.** Reanalysis of the 277 usable W6 pilot pairs (`results/w6_pairs_scored.csv`, raw `dumps/w6_probe.csv`, seeds 401..406). It asks whether the early/late contrast in |d ln kappa| survives when
+the mutant and base have matched area. What I have already seen: the pooled W6 contrast (ratio 2.21), the contrast in |d ln A(22)| (ratio of contrasts 1.01) and Spearman(|d ln kappa|, |dA|) = +0.69. I have **not** looked at d ln kappa within any
+|dA| stratum; I have only counted pairs per caliper (early/late: 19/88 at |dA|<0.10, 24/122 at 0.15, 33/146 at 0.25). The per-position exposure measurement and new mutant runs are another folder's job
+(`experiments/2026-10-15-kappa-prefix-exposure`, in progress by another session); this entry does not touch it. dA = mean_seeds ln A(22, mutant) - mean_seeds ln A(22, base); d = mean_seeds ln kappa difference (as in W6).
+
+**Tests.** Bases are the unit for every CI (bootstrap over bases, 2000 draws, `default_rng(20261014 + 31)`, rules sorted before resampling). Early = pos 1..3, late = pos >= 4 (W6 definition).
+- **M1 (caliper contrast).** Among pairs with |dA| < 0.15: pooled median |d| early / late >= 1.3 with bootstrap lower bound > 1. Prior ~35%: kappa and A are tied at fixed t, so most of the W6 contrast should be area, but W3c left a stationary-cohort prefix gain beyond ln A of about +0.24, which argues for a surviving residual.
+- **M2 (regression).** OLS d = beta * dA + gamma * early + eps on all usable pairs; **gamma != 0** (base-bootstrap 95% CI excludes 0) means position acts beyond area. Prior ~40%. Reported alongside: the same model with log(pos) in place of early (slope reported, no bar), and the residual contrast median|r| early / late.
+- **M3 (late letters at fixed area).** Median |d| of late pairs with |dA| < 0.15 is >= 1.5x the replicate-noise null of W6 P6.2 (0.036, raw 3-vs-3). Prior ~50%. False means late mutations move kappa only through area.
+- **Sensitivity (no bars):** calipers 0.10 and 0.25; M1 and M2 restricted to pairs with a stationary mutant; M2 with dA replaced by its estimate shrunk for seed noise (dA reliability from the between-seed sd of dA over 6 seeds, errors-in-variables attenuation of beta reported as a bound).
+
+**Interpretation rules, fixed now.**
+- M1 false and M2 gamma CI includes 0: the W6 position gradient is a **growth-prefactor (area) effect**; at matched area early letters do not matter more. The exposure instrument should then explain area change, not residual kappa, and this agrees with the W3c all-rules collapse.
+- M2 gamma != 0 (or M1 true): position matters beyond a one-snapshot area, which is the live version of the exposure story. Caveat that stays attached to any such result: one noisy ln A(22) snapshot cannot absorb the whole growth history (same caveat as the prefix audit), so this would be motivation for the matched-area mutants, not a mechanism.
+- Fewer than 20 early pairs in a caliper, or CI width of the ratio spanning 1.3 and 1: the result is **underpowered**, said as such, not read as a null.
+
+### 2026-10-15 (W6 matched-area): result (23:35 +13:00; git b3a0f76, dirty tree; registration above unchanged)
+
+Command: `uv run experiments/2026-10-kappa-rule-space/scripts/w6m_analyse.py` -> `results/w6m_stats.txt` (reads ignored `dumps/w6_probe.csv`; two runs byte-identical). Same 277 usable pairs, 39 bases (asserted equal to W6's scored table).
+
+| Registered | Outcome |
+|---|---|
+| **M1** caliper \|dA\|<0.15, pooled median \|d\| early/late >= 1.3, CI lower bound > 1 | **HELD**: early n=24 (22 bases), late n=122 (37 bases); medians 0.277 vs 0.065; ratio **4.26 [1.62, 5.40]** |
+| **M2** gamma != 0 in d = b0 + beta dA + gamma early | **FAILED**: beta = 0.985 [0.883, 1.111], gamma = +0.034 [-0.030, +0.094] |
+| **M3** late median \|d\| at caliper >= 1.5x raw null 0.036 | **HELD**: 0.065 = 1.81x |
+
+Sensitivity (no bars): ratio 4.84 [1.71, 6.47] at 0.10 (early n=19, **flagged underpowered by the < 20 rule**) and 3.32 [1.37, 4.78] at 0.25 (n=33); stationary mutants only 4.54 [1.79, 5.58] and gamma +0.043 [-0.023, +0.106];
+residual contrast median\|r\| early/late 2.71 [1.78, 4.46]; log(pos) slope -0.044 [-0.085, +0.002]; dA reliability 0.979, so errors-in-variables correction moves beta only to <= 1.006.
+
+**Reading, per the frozen rules.** M1 true, M2 false is not one of the two clean branches; the rules said M1 true -> position matters beyond area, and that is what holds, but in a specific form:
+- **Mean:** ln kappa moves one-for-one with ln A(22) (beta = 0.985, CI contains 1) and early letters add no systematic shift (gamma ~ 0).
+- **Spread:** at matched area, early mutants still move ln kappa by a median 0.28 (signs mixed: 14 up, 10 down), late ones by 0.065. So early letters change kappa *at fixed area*, in either direction; the position effect is in the variance of the area-residual, not its mean.
+  That is why a signed regression cannot see it and why a W3c-style linear prefix lookup (a mean-shift model) would capture only part of it.
+- It is **not** an artifact of noisier area for early pairs (median paired seed SE of dA 0.028 early vs 0.026 late; 0.028 vs 0.025 inside the caliper).
+- Late letters also move kappa at fixed area, 1.8x the replicate null (M3), but weakly.
+
+**Exploratory, looked at after the result (not registered):** inside the caliper, median \|d\| by position is 0.32 (pos 1, n=5), 0.31 (pos 2, n=13), 0.07 (pos 3, n=6), then 0.10, 0.12, 0.07, 0.08, 0.06, 0.05, 0.05, 0.14 (pos 4..11). Position 3 behaves like a late letter, so the "early" class is really positions 1-2
+(18 of the 24 pairs), and the W6 early = 1..3 definition dilutes it. Pilot-scale: positions 1 and 2 have 5 and 13 pairs.
+
+**Caveats that stay attached.** (1) Pilot: 24 early pairs from 22 bases, one window (k = 26), 6 seeds; the 0.15 caliper was fixed before looking but is arbitrary (0.10 is flagged underpowered, 0.25 agrees). (2) Matching on a single ln A(22) snapshot does not match the growth history (the prefix-audit caveat applies unchanged); the
+true test is the matched-area mutants with measured exposure in `experiments/2026-10-15-kappa-prefix-exposure`, not this. (3) These mutants are census rules and their kappa is already in the W3 data; nothing here is fresh rules. (4) The "variance not mean" reading is mine, from the sign split plus residual contrast; no variance test was registered.
+(5) w6m_peek.py in `scratch/` produced the exploratory numbers (seA split, per-position medians); it is not a committed result script.
+
+**What this changes.** The pilot's "early letters matter more" is *not* only a growth-prefactor effect: with area matched the contrast is larger (4.3x vs 2.2x), because mutations that change area also change kappa one-for-one and dilute it. Positions 1-2 are the leading candidates for the exposure instrument's early class.
+Next: the matched-area mutants with measured exposure belong to `2026-10-15-kappa-prefix-exposure` (it should treat the early class as positions 1-2, and expect sign-mixed effects, so its paired-direction P1 (>= 70% sign agreement) is the right test and a mean-shift model is the wrong one).

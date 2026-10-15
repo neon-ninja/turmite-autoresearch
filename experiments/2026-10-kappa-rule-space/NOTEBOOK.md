@@ -342,3 +342,24 @@ Two independent runs differed at approximately 1e-16 in summary JSON floats; pre
 
 ### 2026-10-15 22:41 +13:00 · 275c2af · decision
 Audit complete. Release suite passed (results/prefix_audit_release.log); known-response calibration passed; independent runs reproduce JSON and prediction CSV byte-for-byte; notebooks/prefix-audit.ipynb executed from a clean kernel using only results. README and open questions updated. No commit, dependency changes, or new sweep. Prefix mechanism and matched-area mutation intervention remain open. New results and notebook await requested commit, explicitly disclosed in the notebook.
+
+### 2026-10-15 23:19 +13:00 · b3a0f76 (dirty tree) · intent
+User asked to continue with the matched-area mutation test. Found that `experiments/2026-10-15-kappa-prefix-exposure` (another session, notebook last written 23:10) already owns the new-mutant/exposure instrument, so I did not duplicate it. Here: matched-area reanalysis of the existing W6 pilot pairs only. Registered M1-M3 in README ("W6 matched-area reanalysis") before writing code; only per-caliper pair counts were looked at (24 early / 122 late pairs at |dA| < 0.15).
+
+### 2026-10-15 23:19 +13:00 · b3a0f76 · deviation
+First `uv run` was started from a subdirectory and tried to rebuild `F:\Code\turmite\.venv` (Access denied; nothing changed). Use the WSL invocation from AGENTS.md from the repo root.
+
+### 2026-10-15 23:35 +13:00 · b3a0f76 · observation
+Matched-area reanalysis of W6 (no new runs; `w6m_analyse.py` -> `results/w6m_stats.txt`, byte-identical on rerun). M1 HELD (caliper |dA|<0.15: early n=24, median |d| 0.277 vs late 0.065, ratio 4.26 [1.62, 5.40]); M2 FAILED (gamma +0.034 [-0.030, +0.094], beta 0.985 [0.883, 1.111]); M3 HELD (late 1.81x the null). Caliper 0.10 flagged underpowered (19 early pairs); 0.25 and the stationary-only version agree.
+
+### 2026-10-15 23:35 +13:00 · b3a0f76 · surprise
+I expected the matched-area contrast to shrink toward 1 (my stated prior for M1 was ~35%). It grew (2.2x unmatched -> 4.3x matched). Mean shift is nil (gamma ~ 0) and beta ~ 1, so early letters change kappa at fixed area in both directions (14 up, 10 down), not in one. Exploratory: positions 1-2 carry it (median |d| 0.31-0.32), position 3 looks like a late letter (0.07).
+
+### 2026-10-15 23:35 +13:00 · b3a0f76 · interpretation
+Position matters beyond one area snapshot, as spread of the area-residual rather than a mean shift. Moderate-low confidence: 24 early pairs, 22 bases, one window; single-snapshot matching does not control growth history. Not a mechanism. The decisive test is matched-area mutants with exposure, owned by `2026-10-15-kappa-prefix-exposure`; I passed it the sign-mixed expectation and the positions 1-2 refinement.
+
+### 2026-10-15 23:35 +13:00 · b3a0f76 · deviation
+Removed a leftover unused line from `w6m_analyse.py` (a broken stationarity read) after its first run crashed, before any result was produced. `scratch/w6m_peek.py` (exploratory, uncommitted-by-convention) generated the position split; its numbers are in the README as exploratory.
+
+### 2026-10-15 23:38 +13:00 · b3a0f76 · deviation
+Correction to the 23:35 interpretation entry: I did not pass anything to `2026-10-15-kappa-prefix-exposure` (another session's folder, untouched). The sign-mixed expectation and the positions 1-2 refinement are recommendations written only in this README's matched-area result. `notebook.ipynb` gained the W6m cells (inserted before the closing summary cell, not executed here).

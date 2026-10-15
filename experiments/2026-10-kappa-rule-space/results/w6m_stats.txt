@@ -1,0 +1,18 @@
+# cmd: uv run scripts/w6m_analyse.py
+# git: b3a0f76 (working tree may be dirty)  seed: 20261014
+
+usable pairs 277 (early 72), bases 39
+PRIMARY M1: caliper |dA|<0.15: early n=24, late n=122; median |d| early 0.277 vs late 0.065; ratio 4.26 [1.62, 5.40] (2000 usable draws)  -> M1 HELD
+M3: late median |d| at caliper 0.065 = 1.81 x raw null 0.036 (bar 1.5) -> M3 HELD
+sensitivity: caliper |dA|<0.1: early n=19, late n=88; median |d| early 0.270 vs late 0.056; ratio 4.84 [1.71, 6.47] (2000 usable draws)
+   UNDERPOWERED flag: fewer than 20 early pairs (19)
+sensitivity: caliper |dA|<0.25: early n=33, late n=146; median |d| early 0.270 vs late 0.081; ratio 3.32 [1.37, 4.78] (2000 usable draws)
+M2: d = +0.022 + 0.985 dA + +0.034 early; gamma 95% CI [-0.030, +0.094] -> M2 FAILED (CI includes 0)
+   beta(dA) 0.985 [0.883, 1.111]
+   log(pos) variant: slope on ln pos -0.044 [-0.085, +0.002], beta(dA) 0.988
+   residual contrast median|r| early/late 2.71 [1.78, 4.46]
+sensitivity: reliability of dA (shared-seed paired SE) lam = 0.979; attenuation-corrected beta <= 1.006
+   gamma if beta were 1.006: +0.034 (mean residual early minus late, descriptive)
+stationary-mutant restriction (|median g_k|<0.05 in W6 runs): 262 pairs (early 68)
+   M1 ratio at 0.15: 4.54 [1.79, 5.58]
+   M2 gamma: +0.043 [-0.023, +0.106]
