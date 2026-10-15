@@ -1,0 +1,221 @@
+{
+  "seed": 20261015,
+  "git": "275c2afe3e03b9d08600447acf0840e5ca3d9543",
+  "command": "uv run experiments/2026-10-kappa-rule-space/scripts/prefix_audit.py",
+  "sha256": {
+    "experiments/2026-10-kappa-rule-space/dumps/w3c_probe.csv": "28ddbc4f61e98b50ddb0f79b161b92a41d7e8593cfcc31a8a474f0b25f22027a",
+    "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv": "c76c7927185b1cee273433c340cfa393fb16696fbe4a6f155fc49c33ef32cb5d",
+    "experiments/2026-10-13-probe-growth-census/results/probe_all.csv": "b1f1c4a2d87b82c1b5cddcb73d0100c8ea1233e55dcb2e83b54625348ab43d15",
+    "experiments/2026-10-kappa-rule-space/scripts/prefix_audit.py": "861297a24ed8b90dc8e60b9d575bdee7b518fb0f08137fab3dedc66450a88df0",
+    "experiments/2026-10-kappa-rule-space/scripts/kcommon.py": "fd21bb37cb23306dff0677b443f08ab22951f1e3e3babd046ff68513fd0737dd",
+    "experiments/_lib/analyse_probe.py": "799f5e73f5cbf1c4e4b664454f625d7b0cb32685e1130213757926e3448ec2db"
+  },
+  "calibration": "PASS: exact area-only spline and planted additional signal; LOO fallback excludes own label",
+  "rows": [
+    {
+      "cohort": "stationary",
+      "encoding": "loo",
+      "area": "linear",
+      "n_train": 2183,
+      "n_test": 162,
+      "baseline_r2": 0.496713093978,
+      "model_r2": 0.736526313968,
+      "gain": 0.239813219991,
+      "ci": [
+        0.153305235291,
+        0.343867598461
+      ],
+      "top5_share": 0.331632983286,
+      "without_top5": 0.196752627167,
+      "top5_rules": [
+        "RRRRLRRRRRRLR",
+        "RLLLLRRLLLRRL",
+        "RLRLLLLLRRLRRR",
+        "RRRRRRLRRLLRRL",
+        "RLLRRRRRRLRRL"
+      ],
+      "prefix8_share": 0.993827160494,
+      "area_outside_training": 0
+    },
+    {
+      "cohort": "stationary",
+      "encoding": "loo",
+      "area": "spline",
+      "n_train": 2183,
+      "n_test": 162,
+      "baseline_r2": 0.528390577402,
+      "model_r2": 0.726696416686,
+      "gain": 0.198305839284,
+      "ci": [
+        0.098514347893,
+        0.310846823288
+      ],
+      "top5_share": 0.409045225526,
+      "without_top5": 0.1367979833,
+      "top5_rules": [
+        "RLLLLRRLLLRRL",
+        "RRRRLRRRRRRLR",
+        "RRRRRRRLRRRLR",
+        "RLRLLLLRRRLRRR",
+        "RLLRRRRRRLRRL"
+      ],
+      "prefix8_share": 0.993827160494,
+      "area_outside_training": 0
+    },
+    {
+      "cohort": "stationary",
+      "encoding": "crossfit5",
+      "area": "linear",
+      "n_train": 2183,
+      "n_test": 162,
+      "baseline_r2": 0.496713093978,
+      "model_r2": 0.736283301994,
+      "gain": 0.239570208016,
+      "ci": [
+        0.155526279853,
+        0.342370929406
+      ],
+      "top5_share": 0.325321044276,
+      "without_top5": 0.198409464021,
+      "top5_rules": [
+        "RRRRLRRRRRRLR",
+        "RLLLLRRLLLRRL",
+        "RLRLLLLLRRLRRR",
+        "RRRRRRLRRLLRRL",
+        "RLLRRRRRRLRRL"
+      ],
+      "prefix8_share": 0.993827160494,
+      "area_outside_training": 0
+    },
+    {
+      "cohort": "stationary",
+      "encoding": "crossfit5",
+      "area": "spline",
+      "n_train": 2183,
+      "n_test": 162,
+      "baseline_r2": 0.528390577402,
+      "model_r2": 0.728961196151,
+      "gain": 0.200570618749,
+      "ci": [
+        0.102947200221,
+        0.310883515008
+      ],
+      "top5_share": 0.397829358925,
+      "without_top5": 0.150386161043,
+      "top5_rules": [
+        "RLLLLRRLLLRRL",
+        "RRRRLRRRRRRLR",
+        "RRRRRRRLRRRLR",
+        "RLRLLLLRRRLRRR",
+        "RLRLLLLLRRLRRR"
+      ],
+      "prefix8_share": 0.993827160494,
+      "area_outside_training": 0
+    },
+    {
+      "cohort": "all",
+      "encoding": "loo",
+      "area": "linear",
+      "n_train": 2622,
+      "n_test": 176,
+      "baseline_r2": 0.363050526207,
+      "model_r2": 0.393591509882,
+      "gain": 0.030540983675,
+      "ci": [
+        -2.0790017e-05,
+        0.062859916289
+      ],
+      "top5_share": 0.755221712504,
+      "without_top5": 0.008501505233,
+      "top5_rules": [
+        "RRLLRRLLRRLRRL",
+        "RRRRRRRLRRRLR",
+        "RRRRLRRRRRRLR",
+        "RRRRRLRRLRLRL",
+        "RRRRLRRRLRRRL"
+      ],
+      "prefix8_share": 1.0,
+      "area_outside_training": 0
+    },
+    {
+      "cohort": "all",
+      "encoding": "loo",
+      "area": "spline",
+      "n_train": 2622,
+      "n_test": 176,
+      "baseline_r2": 0.472276869452,
+      "model_r2": 0.512291731946,
+      "gain": 0.040014862494,
+      "ci": [
+        -0.030192823401,
+        0.112062107806
+      ],
+      "top5_share": 1.276976151626,
+      "without_top5": -0.013114395794,
+      "top5_rules": [
+        "RRLLRRLLRRLRRL",
+        "RRRRRRRLRRRLR",
+        "RRRRLRRRRRRLR",
+        "RLLLLRRLLLRRL",
+        "RRRRLRRRLRRRL"
+      ],
+      "prefix8_share": 1.0,
+      "area_outside_training": 0
+    },
+    {
+      "cohort": "all",
+      "encoding": "crossfit5",
+      "area": "linear",
+      "n_train": 2622,
+      "n_test": 176,
+      "baseline_r2": 0.363050526207,
+      "model_r2": 0.389051421444,
+      "gain": 0.026000895237,
+      "ci": [
+        0.001463970828,
+        0.052167075362
+      ],
+      "top5_share": 0.721063745454,
+      "without_top5": 0.00824770616,
+      "top5_rules": [
+        "RRLLRRLLRRLRRL",
+        "RRRRRRRLRRRLR",
+        "RRRRLRRRRRRLR",
+        "RRRRRLRRLRLRL",
+        "RRRRLRRRLRRRL"
+      ],
+      "prefix8_share": 1.0,
+      "area_outside_training": 0
+    },
+    {
+      "cohort": "all",
+      "encoding": "crossfit5",
+      "area": "spline",
+      "n_train": 2622,
+      "n_test": 176,
+      "baseline_r2": 0.472276869452,
+      "model_r2": 0.513770596991,
+      "gain": 0.041493727539,
+      "ci": [
+        -0.01835783774,
+        0.102764052296
+      ],
+      "top5_share": 1.071085643555,
+      "without_top5": -0.003490188887,
+      "top5_rules": [
+        "RRLLRRLLRRLRRL",
+        "RRRRRRRLRRRLR",
+        "RRRRLRRRRRRLR",
+        "RLLLLRRLLLRRL",
+        "RRRRLRRRLRRRL"
+      ],
+      "prefix8_share": 1.0,
+      "area_outside_training": 0
+    }
+  ],
+  "expectations": {
+    "A1": true,
+    "A2": true
+  },
+  "output_decimal_places": 12
+}

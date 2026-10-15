@@ -1,0 +1,36 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/w3c_analyse.py
+# git: da88e61 (working tree may be dirty)  seed: 20261014
+runs in probe csv: 2400; runs that escaped the board: 414; runs fitted by per_rule: 1930; core-band runs: 1470
+fresh rules with >= 6 core-band runs: 176 (n=13: 90, n=14: 86); of 300 sampled
+stationary share of fresh core-band rules: 0.920 (162/176)
+
+[stationary] training census rules 2183, sd ln kappa 0.348; fresh rules 162, sd ln kappa 0.313, mean -0.139 vs training mean -0.134
+  prefix<=3: strict held-out R^2 +0.007
+  prefix<=4: strict held-out R^2 +0.132
+  prefix<=5: strict held-out R^2 +0.297
+  prefix<=6: strict held-out R^2 +0.364
+  prefix<=7: strict held-out R^2 +0.553
+  prefix<=8: strict held-out R^2 +0.633
+  ln A(22) alone strict R^2 +0.497
+  prefix-6 size-controlled gain: +0.117, bootstrap 95% CI +0.049..+0.200 (B=2000, rule resample); with prefix +0.614 vs alone +0.497
+  prefix-8 size-controlled gain: +0.240, bootstrap 95% CI +0.148..+0.347 (B=2000, rule resample); with prefix +0.737 vs alone +0.497
+  shuffled-label control, prefix-6 strict R^2 over 200 permutations: median -0.013, 95th pct +0.048
+
+[all] training census rules 2622, sd ln kappa 0.571; fresh rules 176, sd ln kappa 0.366, mean -0.131 vs training mean -0.121
+  prefix<=3: strict held-out R^2 +0.008
+  prefix<=4: strict held-out R^2 +0.091
+  prefix<=5: strict held-out R^2 +0.217
+  prefix<=6: strict held-out R^2 +0.227
+  prefix<=7: strict held-out R^2 +0.306
+  prefix<=8: strict held-out R^2 +0.308
+  ln A(22) alone strict R^2 +0.363
+  prefix-6 size-controlled gain: +0.006, bootstrap 95% CI +0.001..+0.012 (B=2000, rule resample); with prefix +0.369 vs alone +0.363
+  prefix-8 size-controlled gain: +0.031, bootstrap 95% CI -0.002..+0.065 (B=2000, rule resample); with prefix +0.394 vs alone +0.363
+
+Pre-registered verdicts (README 'W3c'):
+P3c.1 p=8 gain >= 0.15 and CI lower > 0: +0.240 [+0.148, +0.347] -> HELD
+P3c.2 p=6 gain >= 0.15 and CI lower > 0: +0.117 [+0.049, +0.200] -> FAILED
+P3c.3 stationary strict R^2 p=8 >= 0.40 and p=6 >= 0.30: +0.633, +0.364 -> HELD
+P3c.4 ln A(22)-alone R^2 within 0.15 of 0.569: +0.497 -> HELD
+P3c.5 shuffle median <= +0.02 and 95th <= +0.08: -0.013, +0.048 -> HELD
+P3c.6 >= 120 of 300 rules kept (>= 6 core-band runs): 176 -> HELD

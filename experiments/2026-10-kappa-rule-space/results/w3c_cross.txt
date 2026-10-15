@@ -1,0 +1,9 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/w3c_cross.py
+# git: da88e61 (working tree may be dirty)  seed: 20261014
+EXPLORATORY (unregistered)
+fresh rules: all 176, stationary 162, non-stationary 14
+training census: all 2622 (sd 0.571), stationary 2183 (sd 0.348)
+train=stationary  test=stationary  n=162 ln A alone R2 +0.497 | p=6 gain +0.117 [+0.049, +0.200] | p=8 gain +0.240 [+0.148, +0.347]
+train=stationary  test=all         n=176 ln A alone R2 +0.462 | p=6 gain +0.063 [-0.024, +0.160] | p=8 gain +0.112 [-0.046, +0.250]
+train=all         test=stationary  n=162 ln A alone R2 +0.309 | p=6 gain +0.007 [+0.001, +0.013] | p=8 gain +0.042 [+0.009, +0.079]
+train=all         test=all         n=176 ln A alone R2 +0.363 | p=6 gain +0.006 [+0.001, +0.012] | p=8 gain +0.031 [-0.003, +0.062]

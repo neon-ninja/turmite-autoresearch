@@ -1,8 +1,8 @@
 # What sets kappa? A rule-space and mechanism programme
 
-Status: plan written 2026-10-14 (~18:45 +13:00), git HEAD `99de7c1` with a dirty working
-tree. **Stage 1 (W0, W1, W2, W7) has been run; see the Log at the end. Stage 2 (W3-W5) and
-Stage 3 have not.** Every prediction in a "Pre-registered" block is fixed by the plan
+Status (updated 2026-10-15): Stage 1, W3b, W4, W5, the W6 pilot and W3c have been run (W3c: primary P3c.1 held on the stationary cohort; W5: P5.1 FAILED, best bulk observable adds +0.04 held-out R^2 over ln A(22) against a 0.15 bar, P5.3 failed for the primary I_turn; see the Log). OPEN, not run: W3 proper, the area-matched mutation test and the 200-base W6 (deferred by scope; the 200-base W6 needs a registered addendum and ~8 CPU-hours). Original header: plan written 2026-10-14 (~18:45 +13:00), git HEAD `99de7c1` with a dirty working
+tree. **Stage 1 (W0, W1, W2, W7) has been run; see the Log at the end. Stage 2 (W3 proper) and
+Stage 3 had not at that time (W4, W5 and the W6 pilot have since; see the Log).** Every prediction in a "Pre-registered" block is fixed by the plan
 timestamp; do not edit them after data arrive. Append results, revisions and deviations
 under "Log" at the end, each with its own timestamp.
 
@@ -894,3 +894,218 @@ Exploratory: median \|d\| by position decays smoothly, 0.27-0.31 at j = 1..3, 0.
   unusable ones in both groups are not mass escapes.
 - Stationary restriction (the W2 rule): 262 of 277 usable pairs have a stationary mutant (0.944 early, 0.946 late). Restricted P6.1 median ratio 2.10 (CI 1.68..3.24, 36 bases); P6.3 early 0.779 vs late 0.521. The registered verdicts do not change, and drift does not explain the contrast.
 - Audit trail: the addendum and result entries carry nominal times; the actual runs were 22:09-22:22 +13:00 on 2026-10-14 (the notebook timestamps ~23:59 and ~00:30 were wrong; see the notebook correction). The runs used git 797704a; `w6_analyse.py` and `w6_checks.py` were run at HEAD `7eff085`, which is another experiment's commit (`2026-10-14-t1-excursion-tomography`) and did not touch this folder, which is still entirely untracked.
+
+### 2026-10-15 (W3c): confirmation of the prefix size-controlled gain, registered 2026-10-15 20:55 (+13:00), BEFORE any W3c rule is sampled or simulated
+
+Status when written: git HEAD `da88e61`, working tree dirty (unrelated experiments). No `w3c_*` file exists. Scope was set by the user on 2026-10-15
+("run the cheap open steps"); the 200-base W6 and the area-matched mutation test are explicitly *not* part of this.
+
+**Why.** W3b's registered P3b.3 (p = 6 gain < 0.15) held by 0.005 (gain +0.145, CI +0.069..+0.218). The p = 8 gain +0.206 (CI +0.111..+0.300) was found
+post hoc in `x3_w3b_checks.py` after picking among p = 3..8 on the same 87 rules, so it is a lead. W3c tests it on rules and runs not used in W3b.
+
+**Sample (frozen).** 300 rules, 150 each of length 13 and 14, from `numpy.default_rng(20261014 + 23)`, same generator as `w3b_sample.py` (uniform over
+strings starting with R, rejecting all-R, non-primitive, duplicates) and additionally rejecting every string in `results/w3b_rules.txt`. Probe seeds 501..508
+(not used by W3b 201..208, W4 301..306, W6 401..406), `probe 27 8192`, same as W3b: 2400 runs. Sizing: W3b kept 89 of 150 (59%) and its p = 8 CI was
+about 0.19 wide; 300 rules should keep about 170 and narrow the interval to roughly 0.13. Instrument check: `src/probe.rs`, `src/fast.rs`, `src/rule.rs` unchanged
+since W3b's commit `6ce3793`; `src/bin/probe.rs` gained only `cookie:`/`rcookie:`/`errw:` spec branches, which the `RULE@SEED` path does not touch.
+
+**Estimator (frozen = `x3_w3b_checks.py`, copied verbatim into `scripts/w3c_analyse.py`).** Stationary cohort only (|median g_k| < 0.05, >= 6 core-band runs with
+0.25 < alpha_w < 0.42 and kappa > 0). Training table = the census alone (stationary census rules, n <= 12); **W3b rules are not added**. Prefix-p lookup: mean ln kappa of
+training rules sharing the first p letters, falling back to the longest shorter prefix with >= 3 rules, else the training mean. Size-controlled model: OLS of ln kappa on
+ln A(22) plus the leave-one-out prefix-p mean (training side), fitted on the census, applied to fresh rules with the plain prefix-p lookup. Gain = strict held-out R^2
+(against the training mean) of that model minus that of ln A(22) alone. Bootstrap: resample fresh rules with replacement, B = 2000, `default_rng(20261014 + 31)`, percentile 95%.
+Also reported (no bar): all-rules cohort, p = 3..8 strict R^2, shuffled-label control (200 permutations, `rng(11)` as in W3b).
+
+**Pre-registered predictions.**
+- **P3c.1 (primary).** p = 8 size-controlled gain >= 0.15 **and** bootstrap lower bound > 0. Confidence about 45%: the W3b value was selected as the best of six p, so expect
+  shrinkage toward the p = 6 value (+0.145), partly offset by the narrower interval.
+- **P3c.2 (secondary).** Same bar at p = 6. Confidence about 35%: the W3b point estimate itself was below 0.15.
+- **P3c.3.** Stationary strict held-out R^2 >= 0.40 at p = 8 and >= 0.30 at p = 6 (W3b: 0.74, 0.58; shrunk for selection). About 80%.
+- **P3c.4.** ln A(22)-alone strict R^2 within +-0.15 of W3b's 0.569 (the sample is comparable). About 75%. If violated, report W3c as a different regime, not a replication.
+- **P3c.5.** Shuffled-label control: median <= +0.02, 95th percentile <= +0.08 (pipeline check). About 90%.
+- **P3c.6.** Stationary rules with >= 6 core-band runs: at least 120 of 300 (W3b kept 59%). About 85%. If fewer than 100 are kept, P3c.1/P3c.2 are reported but not judged.
+
+**Decision rules (fixed now).**
+- P3c.1 true: the prefix carries information about ln kappa beyond ln A(22) at p = 8 on lengths 13-14. Still not an explanation (a lookup table; extrapolation in length; stationary cohort
+  defined by an outcome-related quantity). Next: W5 (area-matched bulk fingerprint), not run here.
+- P3c.1 point estimate >= 0.15 but lower bound <= 0: inconclusive; no claim; the pooled W3b+W3c estimate may be reported as exploratory only.
+- P3c.1 point estimate < 0.15: the p = 8 lead is attributed to selection among p; the prefix effect beyond size is at most about 0.15 and remains entangled with size.
+- Holm: W3c is a single registered primary test (P3c.1); it is not added to the section-8 family. P3c.2-P3c.6 are secondary/checks and not corrected.
+- Observational; no causal claim. Pooled W3b+W3c is exploratory regardless.
+
+### 2026-10-15 (W3c): result (2026-10-15 21:19 +13:00, commit `da88e61`; registration above unchanged)
+
+Commands: `uv run scripts/w3c_sample.py` (300 rules, 2400 runs, none shared with W3b), `bash scripts/run_w3c.sh` (`probe 27 8192`, seeds 501..508, 20:57-21:19 +13:00; log `results/w3c_probe.log`,
+raw `dumps/w3c_probe.csv` gitignored; binary `target/release/probe` sha256 recorded in the log if the post-step ran), `uv run scripts/w3c_analyse.py` -> `results/w3c_stats.txt`.
+Sample: 414 of 2400 runs escaped the board; 176 of 300 rules kept (>= 6 core-band runs; 90 of length 13, 86 of length 14); 162 stationary (92%).
+Two restarts of the probe were needed before it ran (my first background launches were killed with the wrapper and one stale process wrote to a deleted file); the reported run is the last, clean one, and the CSV was produced by a single uninterrupted `probe` process.
+
+| Pre-registered | Outcome |
+|---|---|
+| **P3c.1** p = 8 gain >= 0.15 and CI lower > 0 | **HELD**: +0.240, bootstrap 95% CI [+0.148, +0.347] (162 stationary rules; ln A(22) alone 0.497 -> 0.737 with prefix-8) |
+| P3c.2 p = 6 same bar | **FAILED**: +0.117 [+0.049, +0.200] (point estimate below 0.15) |
+| P3c.3 strict R^2 p=8 >= 0.40, p=6 >= 0.30 | **HELD**: 0.633, 0.364 |
+| P3c.4 ln A(22)-alone R^2 within 0.15 of 0.569 | **HELD**: 0.497 |
+| P3c.5 shuffled-label control | **HELD**: median -0.013, 95th percentile +0.048 |
+| P3c.6 >= 120 of 300 rules kept | **HELD**: 176 |
+
+Strict R^2 by prefix length (stationary): p = 3..8 -> 0.007, 0.132, 0.297, 0.364, 0.553, 0.633 (W3b: 0.02, 0.21, 0.37, 0.58, 0.56, 0.74), i.e. the same monotone rise with a uniformly lower level.
+
+**Reading (registered decision rule: P3c.1 true).** The p = 8 prefix lookup carries information about ln kappa beyond ln A(22) on 162 further unseen stationary rules of length 13-14, and the W3b lead (+0.206) was not
+selection noise (W3c +0.240, intervals overlap). Registered caveats stand: it is a lookup table of 2^7 group means, not an explanation; length 13-14 is an extrapolation; the p = 6 version of the claim does not meet the bar in either W3b (+0.145) or W3c (+0.117).
+**Exploratory and weakening (not registered, same script, flagged as such):** in the **all-rules** cohort (176 rules, not restricted to stationary) the size-controlled gain is only +0.006 (p = 6) and +0.031 (p = 8, CI [-0.002, +0.065]),
+and the strict R^2 of the prefix alone is 0.31 at p = 8. So the "beyond size" signal lives in the stationary subset, which is defined by a quantity (|median g_k| < 0.05) related to the outcome; whether it is a property of
+stationary rules or a consequence of that definition is not separated here. The 14 non-stationary rules (8%) are few, so this is not a clean split either. Pooled W3b+W3c was not computed (registered as exploratory only).
+Next (all unstarted): W5 area-matched bulk fingerprint to ask whether the prefix acts through bulk dynamics; a W6 mutation scan matched on ln A (and the 200-base W6, which needs a registered addendum and compute approval).
+
+### 2026-10-15 (W3c): corrections after review (21:23 +13:00, commit `da88e61`)
+
+1. **Provenance.** The result entry above says the probe binary hash was recorded "if the post-step ran". It did not run on the clean launch. The hash (sha256 5fa7fe42...6eb5ad1 for `target/release/probe`; file mtime 2026-10-14 22:02, before the run, not rebuilt since) was appended to `results/w3c_probe.log` after the run.
+2. **The "tied to the stationarity filter" reading was wrong about where the filter acts.** The all-rules fresh cohort (176) contains the 162 stationary rules, so 14 extra test rules cannot explain a fall from +0.240 to +0.031. Exploratory cross check
+   (`scripts/w3c_cross.py` -> `results/w3c_cross.txt`, unregistered, same estimator): p = 8 gain: train stationary / test stationary +0.240 [+0.148, +0.347]; train stationary / test all 176 +0.112 [-0.046, +0.250]; **train all / test stationary +0.042 [+0.009, +0.079]**; train all / test all +0.031 [-0.003, +0.062].
+   So the loss comes from the **training side**: when the census table and the ln A(22) regression include the non-stationary census rules (sd of ln kappa 0.571 vs 0.348), the prefix adds almost nothing even on the stationary test rules. The registered primary (stationary training, stationary test) is unaffected.
+   Reading: the prefix lookup works when trained on stationary rules; the non-stationary census rules degrade the lookup table and the area fit. Whether the prefix effect is "about" stationarity or the non-stationary tail is simply a different regime is not decided; the 14 non-stationary test rules add noise (the interval for train-stationary / test-all includes 0).
+
+### 2026-10-15 (W5): implementation addendum, registered 2026-10-15 ~21:40 (+13:00), BEFORE any W5 code is run
+
+Status when written: git HEAD `da88e61`, dirty tree. No `bulk` code, `w5_*` file or W5 run exists. P5.1-P5.4 above are **unchanged**; this entry fixes the details the text left open
+and records the places where the registered text cannot be implemented as written. Scope set by the user: "work on W5"; nothing else (W6-200, mutation test) is started.
+
+**Deviations from the W5 text (all fixed now, before data).**
+1. **Seeds.** A blank-board ant is deterministic, so "4 seeds" would be copies. Pool rules run as `RULE@SEED` patched starts, seeds 601..606 (unused: W3b 201-208, W4 301-306, W6 401-406, W3c 501-508), 6 seeds so `icc_groups` (which drops groups < 6) works.
+   Discovery rules (census minus pool-192) run once on the blank board, which is how their census kappa was made. A blank-board run of every pool rule is added as a patched-vs-blank check.
+2. **Recording length.** Reaching A0 = 20 000 takes about 2^20 steps (A(2^22) is about e^10.7 = 44 000, A ~ t^(2/3)), so T = 2^22 would multiply the area by about 4. T is **2^18 for every rule** (uniform, not per rule),
+   giving a growth factor of about 1.1-1.3; the factor is reported per run and runs with factor > 1.5 are flagged and excluded from the primary analysis. A run that has not reached A0 by 2^26 steps, or touches the board edge, is dropped (status column).
+3. **Depth bound.** Distance to the territory bounding box is not conservative (indented edges, internal unvisited pockets). Instead, at the step A0 is first reached, a multi-source BFS gives each visited cell its 4-neighbour distance to the nearest
+   unvisited cell (depth 0 = a probe boundary cell). Unvisited cells only disappear, so this depth is a **lower bound for the whole recording**; no refresh is needed. A step is *bulk* if depth(start cell) >= D0 = 20.
+4. **Depth gate on lagged observables.** A lagged quantity at lag m uses the pair (j-m, j) only if **every** step j-m..j is bulk (running run length). The usable-pair count per observable is reported. If A0 = 20 000 (R about 80) leaves too few bulk
+   pairs at lag 2^12, that observable is reported as unusable rather than changed.
+5. **Size leak.** t* (steps to reach A0) is the growth prefactor in another form. It is recorded, never used as a fingerprint, and corr(observable, ln t*) is reported as a leak diagnostic in addition to the registered conditioning on ln A(22).
+6. **Target.** `rules_pool.csv: lnk` is the mean over core-band runs of the **k = 26** window kappa (the end of `per_rule`'s 20..26 fit), not k = 25 as in the W5 text. I follow the text: the target is recomputed at **k = 25** from the same b2 / item21 / patched runs and the same core-band filter, and the k = 26 mean is reported as a sensitivity row.
+
+**Definitions (frozen).** All lags are in absolute steps. Steps are indexed by the cell they start on; h = heading after the step; dh = (h_after - h_before) mod 4; turn sign s = +1 if dh = 1, -1 if dh = 3, 0 if dh in {0, 2} (straight or U-turn; rotor, pw, rw have those).
+1. `I_turn` = sum_{m=1..256} C(m), C(m) = (<s_j s_{j-m}> over valid pairs - mean^2) / var, mean and var over all bulk steps.
+2. `msd64`, `msd512`, `msd4096` = <|p_j - p_{j-L}|^2> / L over valid pairs, L = 2^6, 2^9, 2^12; `msd_exp` = log2(MSD(4096)/MSD(64))/6.
+3. `head64` = <e(h_j) . e(h_{j-64})> over valid pairs (cosine of the heading difference).
+4. `ret32` = P(first return to the **same cell** within 32 steps) = (# bulk steps i with i..i+32 all bulk whose next visit to that cell is at i+g, g <= 32) / (# bulk steps i with i..i+32 all bulk). **Deviation:** the W5 text said "return to the 3x3
+   neighbourhood", which every step satisfies trivially at lag 1; the same-cell version is the non-trivial one. `ret_tail` = slope of ln(count/bin width) against ln(gap) of the first-return-gap histogram over log2 bins 6..11 (exploratory shape of the tail; right-censoring by leaving the bulk biases it, so only its rule-to-rule variation is read).
+5. `reuse64` = fraction of bulk steps whose start cell was last visited (as a step start, any time since t = 0) within the previous 64 steps.
+6. `ent_pi` = entropy of the colour mix pi_k of cells in the bulk mask at the end of recording, divided by ln n; `mean_col` = mean colour under the walker over bulk steps, divided by n - 1. For `rotor` the colour is the arrow (n = 4); for `pw` / `rw` colour is constant, so these two are undefined there.
+7. Also recorded: bulk fraction of recorded steps, t*, area at A0 and at the end, bulk mask volume, dh histogram, U-turn fraction.
+Declared list for P5.1: `I_turn`, `msd64`, `msd512`, `msd4096`, `msd_exp`, `head64`, `ret32`, `ret_tail`, `reuse64`, `ent_pi`, `mean_col` (11); **primary three** (as registered): `I_turn`, `msd512`, `ret32`.
+
+**Estimator (frozen, W3c form).** Discovery = census (non-bursty, `rules_census.csv`) rules with `in_pool` False, blank-board fingerprint, target = their census ln kappa; confirmation = pool-192 rule means (6 patched seeds; fingerprints averaged over seeds, runs with growth factor
+> 1.5 or no A0 dropped; >= 4 usable seeds required), target = pool rule-mean ln kappa(k = 25). Model: OLS of the target on [1, ln A(22), z(obs)], z-scored with the training mean/sd after clipping at the training 1st/99th percentiles. Gain = strict held-out R^2 (against the training mean)
+of that model minus that of [1, ln A(22)] alone, both trained on the same discovery rules. **Primary cohort: stationary** (|g_k| < 0.05; discovery stationary rules train for stationary pool test, as in W3c); the all-rules cohort is reported beside it (W2 and W3c
+showed the two behave differently, so neither is dropped). Bootstrap over pool rules, B = 2000, `default_rng(20261014 + 41)`, percentile 95%. Within-pool secondary: 5-fold CV grouped by (n, 5-prefix) on the pool alone.
+
+**Multiplicity within P5.1.** Eleven declared observables could each pass, so "at least one reaches 0.15" has an inflated chance. P5.1 is judged as: **max gain over the 11 >= 0.15 AND permutation p <= 0.05** for that max, the null built by permuting
+the pool targets within n (10^4 permutations, `rng(43)`; the whole 11-observable max is recomputed per permutation, with the model refit on the fixed discovery set). The primary-three max is reported separately. P5.1 enters the section-8 family as before (Holm over the family is applied by the reader; this
+entry fixes that W5 contributes one p-value, the permutation p of the max).
+
+**Controls and checks.**
+- Planted signal (wording clarified at 21:50, still before any run): replace both the discovery and pool targets by y = ln A(22) coefficient part + s * (sqrt(0.3) z(obs) + sqrt(0.7) e), i.e. the target's residual after ln A(22) is a planted R^2 = 0.3 share of z(`I_turn`) plus noise e ~ N(0,1) (s = observed residual sd); the pipeline must recover a gain within 0.1 of 0.3 (a pipeline that cannot see a planted effect makes a null meaningless).
+- Negative control: shuffled labels (permutation null above). Positive control: the same pipeline on c (`c` letters give R^2 0.66-0.78; bulk observables should predict c at least as well if they carry rule dynamics).
+- Class and size: stationary vs all (above); corr(obs, ln t*) and corr(obs, ln A22) reported.
+- P5.3 (reproducibility): ICC across the 6 patched seeds of each observable on the pool (`icc_groups`), plus patched-vs-blank agreement (Spearman) on the pool.
+- P5.4: rotor `msd512`, `msd_exp` printed; no numerical bar. `rw:SEED` x 6 is the negative control (MSD/L about 1 per step, `msd_exp` about 1; ICC meaningless).
+- Code checks before any result is used: `tests/kappa_rs_bulk.rs` (fingerprint vs a HashMap brute oracle on random trajectories; `run_bulk` positions and colours vs `reference::Ant`; first-hit-A0 step vs `probe`'s windowed area), passing in `--release`.
+
+**Specs and runs.** `scripts/w5_specs.py` -> `results/w5_specs.txt`: pool-192 x seeds 601..606, pool-192 blank, census-minus-pool blank, rotor:1..6, pw:0.5:1..6, rw:1..6. Board 2048 (R about 100 fits; edge touch = dropped).
+Binary `examples/kappa_rs_bulk.rs` (thin wrapper) over `src/bulk.rs`; `scripts/run_w5.sh` writes `dumps/w5_bulk.csv` with a `.done` marker, git hash and binary sha256 in `results/w5_run.log`; `scripts/w5_analyse.py` -> `results/w5_stats.txt`, `results/w5_rules.csv`.
+
+**Predictions that stand (from the plan; not edited).** P5.1 about 25%, P5.2 about 90% (shortfall), P5.3 ICC >= 0.7, P5.4 control reading only. Additional, stated now: I expect `ret32`, `reuse64` and `msd_exp` to be the most reproducible across seeds and `ret_tail` the least;
+and I expect any gain, if present, to shrink in the all-rules cohort (W3c pattern). Decision rules: P5.1 true -> carry the observable into W10 and design a bulk-matched mutation test; P5.1 false with P5.3 true -> clean null for "bulk transport sets kappa"; P5.3 false -> fingerprints cannot explain a rule property, report as instrument failure.
+(The first write of this entry was cut off mid-sentence by the shell tool; the text from "Code checks" onward and the planted-signal wording were completed at 21:50, before any code existed.)
+(Timestamp correction, 2026-10-15 21:40 by the clock: the W5 addendum above is stamped "~21:40" and its completion note "21:50", which were guesses. File mtimes show it was complete at 21:35, before `src/bulk.rs` (21:37) or any run (started 21:38:15). The content is unchanged since then.)
+
+### 2026-10-15 (W5): result (21:48 +13:00, commit `da88e61`, dirty tree; addendum above unchanged)
+
+Commands: `uv run scripts/w5_specs.py` (3796 specs); `cargo test --release --test kappa_rs_bulk` (5 tests, and the full `cargo test --release` passes; two deliberate source mutations, `>=` to `>` in the depth threshold and `>` to `>=` in the valid-gap test, were each caught by a test);
+`bash scripts/run_w5.sh` (`kappa_rs_bulk 20000 262144 20 2048`, 21:38:15-21:40:40, one uninterrupted process; log `results/w5_run.log` with the binary sha256; raw `dumps/w5_bulk.csv` is gitignored, sha256 2af0d6c4d5616432...);
+`uv run scripts/w5_analyse.py` -> `results/w5_stats.txt`, `results/w5_obs.csv` (per-run derived observables), `results/w5_rules.csv` (pool rule table).
+Reproducibility checked: re-running the binary on a 300-spec subset with one thread gives byte-identical rows; two analysis runs give identical `w5_stats.txt`, `w5_obs.csv` and `w5_rules.csv`. (The first draft of the analysis was not deterministic: polars `group_by` order fed the seeded bootstrap. Rows are now sorted by rule before any seeded resampling. The numbers below are from the fixed script.)
+
+Sample: 3796 specs, 3772 ant runs usable (6 blank rules never reached A0 in 2^26 steps). Growth factor area_end/area0: median 1.15, 90th percentile 1.30, 2.2% above the 1.5 bar. t* median 2^20.1. Bulk steps are a median 51% of the recorded steps (10th percentile 37%).
+Pool: 187 of 192 rules have >= 4 usable patched seeds (168 stationary). Discovery: 2395 of 2434 census-minus-pool blank runs usable (2024 stationary).
+
+| Pre-registered | Outcome |
+|---|---|
+| **P5.1** a declared observable reaches held-out gain >= 0.15 over ln A(22) (stationary cohort; permutation p <= 0.05 for the max of 11) | **FAILED**. Best gain **+0.040** (`msd64`, 95% CI [-0.009, +0.085]); best of the primary three `ret32` +0.039 [-0.007, +0.089]; `I_turn` +0.001. R2 with ln A(22) alone 0.581, at best 0.62 with an observable added |
+| **P5.2** bulk observables do not reach the 0.3 explanation bar | **HELD**. Gain <= 0.04; exploratory joint model of 8 observables +0.028; any one observable alone has held-out R2 <= +0.03 on the stationary cohort |
+| **P5.3** ICC across seeds >= 0.7 | **FAILED for the primary set**: `I_turn` 0.56 (`msd512` 0.94, `ret32` 0.998). Also reproducible: `msd64` 0.98, `reuse64` 0.997. Not reproducible: `msd4096` 0.09, `head64` 0.11, `msd_exp` 0.29, `mean_col` 0.35, `ent_pi` 0.38, `ret_tail` 0.44 |
+| P5.4 (control reading only) | Rotor MSD/L = 0.59, 0.47, 0.21 at L = 64, 512, 4096, falling with L as subdiffusion should; rotor `msd_exp` 0.74; rotor bulk fraction 0.30; rotor growth factor 1.63 (above the bar; the rotor is not in the pool analysis) |
+
+Planted-signal check (I_turn, residual R2 0.30 planted): recovered gain +0.117, which is 0.234 of the unexplained variance (criterion: within 0.1 of 0.30) -> **PASS**, with attenuation to about 78% of the planted strength.
+
+Stated expectations that did not hold: I expected `msd_exp` to be among the most reproducible observables (ICC 0.29: no); `ret_tail` the least (0.44; `msd4096` 0.09 and `head64` 0.11 are lower); and any gain to shrink in the all-rules cohort (it does not: best +0.050, `msd64`; `msd_exp` +0.049).
+
+**What the numbers say.**
+- [RETRACTED in part, see 'Corrections after review' below: the gain is carried by five rules and its bootstrap CIs include 0.] The small gains are not noise. Under the registered null (pool targets permuted within n) the maximum over the 11 observables has p = 0.0005, and under a stricter exploratory null (observable permuted within n, size and target kept) p = 0.0006. They are small: R2 rises from 0.58 to about 0.62, i.e. the bulk observables account for roughly a tenth of what ln A(22) leaves unexplained.
+  The three observables that carry it (`msd64`, `ret32`, `reuse64`) are one signal [the 0.95-0.99 patched-vs-blank figure measures reproducibility, not redundancy; the pairwise correlations are in the corrections below], and they point the same way (less displacement over 64 steps, more same-cell return within 32 steps, more reuse of cells visited in the last 64 steps all go with higher kappa; coefficient on `ret32` +0.081 in ln kappa per sd). A lead about how locally the walker reuses the interior, not a mechanism.
+- Their raw correlation with ln kappa is large only in the all-rules pool (0.5 for `ret32`), and that is mostly the few non-stationary, high-kappa rules plus size; inside the stationary cohort it is 0.15 in the pool and 0.14 in the discovery set. Raw associations in the all-rules pool are a poor guide.
+- [SUPERSEDED, see corrections: P5.3 failed on the registered primary set, so the frozen branch is 'instrument failure'; the following is my post-hoc split.] Registered decision rule: "P5.1 false with P5.3 true -> clean null for 'bulk transport sets kappa'". P5.3 is true for the observables that carry the signal (ICC >= 0.94) and false for the primary `I_turn`. So the null applies to local-displacement and reuse measures at lags <= 512, and the turn-sign sum is not a usable fingerprint here.
+  **The lag-4096 observables are mostly unreproducible, not shown to be uninformative**: at A0 = 20 000 the bulk core is about 10 000 cells, lag-4096 pairs are confinement-limited (median 13 400 valid pairs; 4.4% of runs below 1000), and those are exactly the lags where subdiffusion would show.
+
+**Caveats that can change the reading.**
+1. *Selection.* The five pool rules without 4 usable seeds have mean ln kappa +0.86 against -0.10 for those kept: the fast-growing, high-kappa rules are the ones dropped. Removing the growth-factor exclusion changes the stationary-cohort gains by <= 0.001 (sensitivity table), so the exclusion is not what drives the null, but the extreme tail is under-represented in the test set.
+2. *Training and test targets differ.* Discovery targets are single blank-board census runs at k = 26; pool targets are 6-12-run means at k = 25 (recomputed; correlation with the k = 26 mean 0.96; best gain on the k = 26 target +0.041). Fingerprints agree between patched and blank runs for `ret32`, `reuse64`, `msd64` (Spearman 0.95-0.99), not for `msd4096`, `head64`, `msd_exp` (0.00-0.23).
+3. *The bulk -> c check failed (and the actual section-4.4 positive control, letters -> c, was run later and passes; see corrections).*  I wrote that bulk observables should predict c at least as well as kappa; they do not (best gain over ln A(22) on c is +0.024, `I_turn`, CI [+0.001, +0.044]). c is a boundary quantity, so this is not evidence that the pipeline works on bulk-driven targets. The only evidence that it can see a planted bulk effect is the planted-signal check (78% recovered).
+4. *The negative walkers have no bulk.* `pw:0.5` and `rw` territories at A0 = 20 000 are porous (internal unvisited pockets are depth-0 cells), so n_bulk = 0 and they say nothing about the fingerprints. Only the rotor is a usable control (one `rw` run also touched the board edge).
+5. *One A0 and one T.* The frozen depth >= 20 leaves a core of about half the territory. Rule length is not controlled beyond the pool/discovery split.
+
+**Exploratory, run after seeing the table (labelled in `w5_stats.txt`).** Observable alone, the joint model, within-pool grouped CV (stationary gain +0.03 for `msd64`/`reuse64`/`ret32`; all-rules +0.07 to +0.11), the growth-exclusion and k = 26 sensitivity tables, the c positive control. The within-pool all-rules CV gives +0.10 and +0.11 for `msd64` and `msd512`, larger than the discovery-to-pool numbers; with 64 prefix groups and non-stationary rules in the mix I do not read that as a different finding.
+
+**Next (all unstarted).** (1) The small `ret32`/`reuse64` association is a candidate for a W6-type intervention (mutants matched on that observable and on ln A); it needs its own registered addendum. (2) The null at the 0.15 bar redirects the programme to edge-side quantities (W4's ln(new cells per step) term, W8 strip geometry, W10 front matching). (3) A larger A0 (say 100 000 cells) would make the lag-4096 observables usable and is the one change that could overturn the "null for transport" reading; it costs about 5x the compute (still minutes) and needs a registered addendum.
+
+### 2026-10-15 (W5): corrections after review (22:00 +13:00, commit `da88e61`, code untracked)
+
+An advisor review of the result entry found four statements that the numbers do not support. Checks were run on the existing data (no new simulation); they are in `results/w5_stats.txt` under "added after review (exploratory)". The registered verdicts P5.1-P5.3 are unchanged.
+
+1. **Redundancy.** I called `msd64`, `ret32` and `reuse64` "one signal" and cited the patched-vs-blank Spearman (0.95-0.99). That statistic measures reproducibility across start conditions, not redundancy. The right numbers are pairwise Spearman correlations across rules:
+   pool stationary (168 rules) msd64-ret32 -0.92, msd64-reuse64 -0.96, ret32-reuse64 +0.98; discovery stationary (2024 rules) -0.90, -0.93, +0.99. So they are close to the same quantity (the claim stands, with these as the support).
+2. **"The small gains are not noise" is withdrawn.** All three bootstrap CIs in the primary cohort include 0, and the per-rule decomposition shows why the permutation p (0.0005) and the CIs disagree: **five pool rules supply 89% (`msd64`), 97% (`ret32`) and 96% (`reuse64`) of the held-out gain, and without them the gain is +0.005, +0.001, +0.002.**
+   The rules are near-all-R extremes of the observable (`RRRRRRLRRRRL`, `RRRRRRLRRRL`, `RRRRLRRRRRLL`, `RRRLR`, `RRLLLLLLLR`: `ret32` z of +1.9 to +3.0). The all-rules cohort looks the same: five rules (four low-kappa non-stationary ones with ln kappa -1.3 to -2.4, and `RRRRRRLRRRRL`) supply 84-90% of its +0.047..+0.050 gain, and without them it is +0.007..+0.012.
+   What is supported: P5.1 failed; the held-out association of any bulk observable with kappa beyond area is, apart from a handful of extreme rules, zero to within +-0.01 on this test set. The permutation test rejecting zero says the alignment of those few rules is unlikely by chance, not that there is a general effect.
+   (Also relevant: the registered target-permutation null has a positive median gain, +0.011 stationary and +0.014 all-rules, because it destroys the ln A-to-kappa relation and the added predictor can no longer be penalised the same way; so it is not zero-centred for "adds beyond ln A". The observable-permutation null, centred near +0.004, is the meaningful one. The two disagree in the all-rules cohort, p = 0.06 against 0.0001.)
+3. **The section-4.4 positive control.** The control that is required is the one in the W0 gate: letters predict c. It was not run in the first pass (what I ran, bulk observables -> c, is a different check, and it failed: best gain +0.024). It is now run through the same strict-R2, census-minus-pool -> pool code:
+   letters (one-hot of the first 12 positions, n, fraction R; ridge 10) give held-out R2 on **c = +0.768 (stationary) and +0.773 (all)**, against 0.767 from W0 CHECK4. **The pipeline control passes.** R2 of ln A(22) alone on ln kappa is 0.581 (stationary), in line with W3b 0.569 and W3c 0.497 from the same estimator family.
+   Side result, not investigated: the same letters model gives held-out R2 on ln kappa of +0.171 (stationary) and +0.075 (all) when trained on the census, against about 0 for the W0 LOO on the pool; the protocols differ (census-trained, strict R2 against the training mean), so I do not read it as a contradiction of W1/W3.
+4. **Decision-rule branch.** P5.3 was judged on the registered primary three and **failed** (`I_turn` ICC 0.56). The frozen decision rule maps "P5.3 false" to "fingerprints cannot explain a rule property, report as instrument failure", and that is the registered reading. The split I wrote (a null for the reproducible observables `msd64`, `msd512`, `ret32`, `reuse64`, an instrument failure only for `I_turn`) is my post-hoc interpretation, and I label it so.
+
+Smaller corrections.
+- The result entry said both source mutations were `>=` to `>`; the valid-gap mutation was `>` to `>=` (fixed above; the NOTEBOOK had it right).
+- The exploratory list was too long. **Registered in the addendum** (not exploratory): the grouped within-pool CV, the c control (as the pipeline check), the planted-signal check, patched-vs-blank agreement and the leak diagnostics. **Exploratory, added after seeing the table**: observable-alone R2, the 8-observable joint model, the growth-exclusion and k = 26 sensitivity rows, the bulk -> c check, and everything in this correction (redundancy, concentration, dropped-rule reasons, letters control).
+- Deviation from the addendum's wording: the permutation null draws a separate within-n permutation for each observable (seed varies with the observable), not one shared permutation per replicate, so the "max over 11" is the max of 11 independent nulls. That makes the max larger under the null, so it is conservative for P5.1 (which failed anyway).
+- Why the five pool rules were dropped (stationary? lnk25; seeds with growth > 1.5 / n_bulk < 1000): `RLLRRRLRRRRR` (no, +1.29; 4/1 of 6), `RLLLRRRLRLRR` (no, +1.88; 6/0), `RLLRRRLLLLLL` (no, +0.06; 3/0), `RLLLLRR` (no, +1.21; 4/0), `RLRRRLLLRLLL` (yes, -0.13; 3/3). Four of five are non-stationary and failed the growth bar, so the exclusion bites in the all-rules cohort and not in the stationary one (the stationary test set is 168 with or without the exclusion).
+  Without the growth exclusion the all-rules test set is 191 rules and the best gains are the same size (`msd_exp` +0.044, `reuse64` +0.038, `msd64` +0.040), so the exclusion is not what produces the all-rules numbers. My earlier sentence "the fast-growing high-kappa rules are the ones dropped" stands for the all-rules cohort only.
+- P5.2 is judged on the gain over ln A(22) and on the observable-alone held-out R2 (both well below 0.3). Read literally, R2(ln A + observable) = 0.62 exceeds 0.3, but 0.58 of it is ln A(22), which is the size confound the plan says not to count.
+- The depth comment in `src/bulk.rs` ("stored depth = 1 + distance") was wrong: the stored value is the distance (boundary cell 1); the behaviour matches the addendum and the test. Comment fixed after the run; no code change.
+- Provenance: the code (`src/bulk.rs`, `tests/kappa_rs_bulk.rs`, `examples/kappa_rs_bulk.rs`, the three scripts) is untracked at git `da88e61`. Its sha256 values are appended to `results/w5_run.log`. Nothing is committed.
+- Timestamps in NOTEBOOK.md: the entries stamped 21:38 and 21:48 were written at about 21:50 (the clock times of the run and of the first analysis are in the README entries). Corrections to the NOTEBOOK follow as new entries.
+
+## Prefix audit addendum (2026-10-15 22:36 +13:00; git 275c2af; before analysis)
+
+Continue the surviving W3c prefix-8 lead before another sweep. This is a new robustness analysis of already inspected data, not an independent confirmation. Freeze p=8, stationary census training and stationary W3c test; retain all-rules sensitivity. Compare the original leave-one-out lookup with deterministic five-fold cross-fitted lookup (seed 20261015), always fitting the final test lookup on all training rules. Folds split rules, not prefixes: the estimand is transfer to new suffixes of represented prefixes. Prefix groups with fewer than three training observations fall back to shorter prefixes.
+
+Test both linear ln A(22) control and a continuous piecewise-linear control with training-area knots at the 10,25,50,75,90 percentiles. Training range extrapolates linearly. This asks whether a prefix merely repairs a nonlinear area relation. Fit OLS on area basis and lookup, without tuning on W3c. Report strict held-out R2, paired gain CI (2000 rule bootstraps), and the share of gain from the five largest positive individual contributions; also remove those five as a labelled influence diagnostic, not a new confirmatory test. Report prefix support and test-area extrapolation. Repeat both cohorts. No alternative prefix lengths are searched.
+
+Expectations before this analysis: A1 cross-fitted stationary linear gain >=0.15 with lower CI >0; A2 flexible-area gain >= half the cross-fitted linear gain with lower CI >0. Failure of A2 weakens the beyond-size reading; failure of A1 weakens estimator robustness. Neither success supplies a mechanism. Historical W3c results stay unchanged. Save input and source hashes and exported per-rule predictions, and update the shareable notebook. Existing working-tree changes are preserved. No new sweep or commit.
+
+### Prefix audit result (2026-10-15 22:40 +13:00; 275c2af, dirty tree)
+
+Command: uv run experiments/2026-10-kappa-rule-space/scripts/prefix_audit.py (WSL, required UV environment). Sources and input SHA256s: results/prefix_audit.json; per-rule predictions: results/prefix_audit_predictions.csv. Seed 20261015; 2000 paired rule bootstraps. This audit uses existing W3c trajectories, not fresh confirmation.
+
+| Stationary cohort, 162 rules | Area-only R2 | With prefix R2 | Gain [95% CI] |
+|---|---:|---:|---:|
+| Historical LOO, linear area | 0.497 | 0.737 | +0.240 [0.153,0.344] |
+| Five-fold encoding, linear area | 0.497 | 0.736 | +0.240 [0.156,0.342] |
+| Five-fold encoding, flexible area | 0.528 | 0.729 | +0.201 [0.103,0.311] |
+
+A1 and A2 held. Flexible control retains about 84% of the linear gain. Five largest positive contributors supply 40% of flexible-control gain; removing them leaves +0.150 (test-selected influence diagnostic). All test rules have direct prefix-8 support and no test areas lie outside the training range. All-rules training/testing gives flexible-control crossfit gain +0.041 [-0.018,0.103], and -0.003 after removing its five largest contributors. The stationary training restriction remains essential; do not generalise the result to all rules.
+
+Interpretation: retain the stationary prefix lead. Cross-fitting and nonlinear area adjustment do not explain it away. This is not a mechanism: a noisy area snapshot cannot eliminate all growth-history confounding, test rules share prefixes, and test-only bootstrap omits training uncertainty. Existing W5 letters-to-c control passes; no permutation test or new noise-ceiling estimate is made in this audit. Calibration checks exact area-only and planted-signal recovery. The next causal experiment should compare mutations at matched area and measure early-colour exposure.
+
+Shareable write-up: [notebooks/prefix-audit.ipynb](notebooks/prefix-audit.ipynb), generated with scripts/prefix_audit_notebook.py and executed with uv run --with nbconvert --with ipykernel --with nbformat jupyter nbconvert --to notebook --execute --inplace experiments/2026-10-kappa-rule-space/notebooks/prefix-audit.ipynb. New results await a user-requested commit.
+
+Verification: cargo test --release passed (results/prefix_audit_release.log). Two independent analysis processes produced identical JSON and prediction-CSV hashes after rounding summary floats to 12 decimal places (initial differences were at about 1e-16). The shareable notebook executed successfully from a clean kernel. No dependencies changed and no commit was made.

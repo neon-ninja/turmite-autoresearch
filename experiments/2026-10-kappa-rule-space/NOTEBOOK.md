@@ -273,3 +273,72 @@ Correction: the README W6 Reading said the result holds "on rules unrelated to t
 
 ### 2026-10-14 ~22:30 (+13:00) · 7eff085 · decision
 Not starting the 200-base W6 (about 8 CPU-hours) without a registered addendum and the user's go-ahead. Outstanding: `notebook.ipynb` for this experiment does not exist yet; W3c not written; area-matched mutation test not designed.
+
+### 2026-10-15 21:15 (+13:00) · da88e61 · decision
+Wrote and executed notebook.ipynb (clean kernel, nbconvert under uv --with; reads only committed results/*.txt). It is a partial-programme status notebook: it states plainly that W3 proper, W3c, W5 and the 200-base W6 are not run and that size is not separated from the W6 result. Outstanding unchanged: W3c unwritten, area-matched mutation test undesigned, 200-base W6 needs a registered addendum and user go-ahead. No commits.
+
+### 2026-10-15 20:59 (+13:00) · da88e61 · deviation
+Timestamp correction: the entry headed "2026-10-15 21:15" above was written at about 20:45 by the wall clock (I guessed the time instead of reading it). The notebook.ipynb it describes was written then. Same applies to the "21:05" entry in 2026-10-crystal-rules/NOTEBOOK.md. Content unchanged.
+
+### 2026-10-15 21:19 (+13:00) · da88e61 · observation
+W3c (registered 20:55 before sampling): 300 fresh rules, seeds 501..508, 176 kept, 162 stationary. P3c.1 held (p=8 gain +0.240 [+0.148,+0.347]); P3c.2 failed (p=6 +0.117 [+0.049,+0.200]); P3c.3-P3c.6 held. All-rules cohort gain ~0 (+0.006, +0.031 [-0.002,+0.065]).
+
+### 2026-10-15 21:19 (+13:00) · da88e61 · deviation
+Probe launch took three attempts: the first two backgrounded runs were killed with their wrapper, and one stale probe process wrote to a CSV I had deleted. I killed it and reran from scratch; w3c_probe.csv comes from one uninterrupted process. Instrument unchanged vs W3b for RULE@SEED specs (src/bin/probe.rs diff only adds new walker specs).
+
+### 2026-10-15 21:19 (+13:00) · da88e61 · interpretation
+The p=8 lead replicates on stationary rules, so it was not selection among p. But it vanishes in the all-rules cohort, so the evidence for a prefix effect "beyond size" is tied to the stationarity filter. Confidence moderate for the stationary claim, low for any general claim.
+
+### 2026-10-15 21:19 (+13:00) · da88e61 · decision
+Not starting W5, the area-matched mutation test or the 200-base W6 (out of chosen scope / needs compute approval). Notebook.ipynb to be updated with W3c.
+
+### 2026-10-15 21:23 (+13:00) · da88e61 · deviation
+Advisor review caught that my W3c interpretation ("effect tied to the stationarity filter") misplaced the cause. w3c_cross.py (exploratory) shows the gain collapses with ALL-census training even on the 162 stationary test rules (+0.042) and survives stationary training (+0.240; +0.112 [-0.046,+0.250] on all 176). Corrected in README, notebook.ipynb and notes. Also: the probe-binary hash was appended to w3c_probe.log after the run (the script post-step did not execute). P3c.1 verdict unchanged.
+
+### 2026-10-15 21:40 (+13:00) · da88e61 · intent
+User asked to work on W5 (area-matched bulk fingerprint). Registered the implementation addendum in README (log: "W5: implementation addendum") before writing code: patched seeds 601..606 for pool, blank board for discovery, T = 2^18 not 2^22 (A0 = 20000 is reached about 2^20 steps, so 2^22 would grow the area 4x), BFS depth lower bound once at A0, run-length gate on lagged observables, k=25 target recomputed (pool `lnk` is the k=26 window), same-cell return instead of 3x3, permutation-max test for P5.1 across 11 observables.
+
+### 2026-10-15 21:50 (+13:00) · da88e61 · deviation
+The addendum text was truncated by the shell on first write and completed at 21:50, with the planted-signal bullet reworded; no code or data existed at either time.
+
+### 2026-10-15 21:40 (+13:00) · da88e61 · deviation
+Same timestamp error again: the W5 intent entry ("21:40") and its "21:50" correction were written about 21:35 (README/NOTEBOOK mtime 21:34:59-21:35:00); the clock read 21:40 only after the run had started (21:38:15). Order of events is unaffected: addendum 21:35, bulk.rs/tests 21:37, run start 21:38. Read `date -Iseconds` before stamping.
+
+### 2026-10-15 21:38 (+13:00) · da88e61 · observation
+W5 run (addendum registered 21:35, before code ran): `kappa_rs_bulk 20000 262144 20 2048` on 3796 specs, 2.4 minutes, 3772 ant runs usable. T = 2^18 gives growth factor median 1.15 (2.2% > 1.5). `src/bulk.rs` + `tests/kappa_rs_bulk.rs` passing before the run; two source mutations (depth threshold `>=`->`>`, valid-gap test `>`->`>=`) each caught by a test.
+
+### 2026-10-15 21:48 (+13:00) · da88e61 · observation
+P5.1 FAILED: best gain over ln A(22) is +0.040 (msd64, CI -0.009..+0.085), ret32 +0.039, I_turn +0.001; bar 0.15. P5.2 held (joint model +0.028). P5.3 failed for the primary I_turn (ICC 0.56) though msd512 0.94, ret32 0.998, msd64 0.98, reuse64 0.997 reproduce. Planted-signal check passed (23% of unexplained variance recovered vs 30% planted). Permutation p about 0.0005, so the +0.04 is not zero, only small.
+
+### 2026-10-15 21:48 (+13:00) · da88e61 · surprise
+Three of my stated expectations were wrong: msd_exp is not reproducible (ICC 0.29); ret_tail is not the least reproducible (msd4096 0.09 and head64 0.11 are lower); the gain does not shrink in the all-rules cohort. Also the positive control on c fails to show anything (bulk observables do not predict c beyond ln A), and pw/rw territories are porous so they have no bulk at all: only the rotor is a usable control.
+
+### 2026-10-15 21:48 (+13:00) · da88e61 · deviation
+The first analysis draft was not deterministic (polars group_by order fed the seeded bootstrap/permutations; md5 of w5_stats.txt changed between identical runs). Fixed by sorting by rule before seeded resampling and sorting the status dict; two runs now agree byte for byte. All numbers reported are from the fixed script. Exploratory extras (obs alone, joint model, grouped CV, sensitivity rows) were added after seeing the primary table and are labelled as such in w5_stats.txt.
+
+### 2026-10-15 21:48 (+13:00) · da88e61 · interpretation
+Clean null for "bulk transport at lags <= 512 sets kappa beyond area" (decision rule: P5.1 false, P5.3 true for the observables that carry the signal). ret32, reuse64 and msd64 are one signal (patched-vs-blank Spearman 0.95-0.99): more local reuse goes with higher kappa, about a tenth of the variance ln A leaves unexplained. Not a mechanism. Open caveat: lag-4096 observables are confinement-limited at A0 = 20000 and unreproducible, so subdiffusion-scale transport is untested rather than excluded.
+
+### 2026-10-15 21:48 (+13:00) · da88e61 · decision
+Not starting a larger-A0 repeat, the bulk-matched mutation test, or W8/W10; each needs its own registered addendum. Updating notebook.ipynb with W5.
+
+### 2026-10-15 22:02 (+13:00) · da88e61 · deviation
+Corrections to the W5 entries above (full text: README "W5: corrections after review"). (1) The "small real signal" reading is withdrawn: five pool rules supply 89-97% of the stationary-cohort gain (without them +0.001..+0.005), bootstrap CIs include 0. (2) "One signal" is now supported by pairwise Spearman (|0.90-0.99|), not by patched-vs-blank. (3) The section-4.4 positive control (letters -> c) was run and passes (+0.768). (4) P5.3 failed on the registered primary set, so the frozen branch is "instrument failure"; my null-for-reproducible-observables split is post hoc. The entries stamped 21:38 and 21:48 were written about 21:50. Code is untracked; hashes are in results/w5_run.log.
+
+### 2026-10-15 22:36 +13:00 · 275c2af · intent
+User asked to continue kappa rule space. Read the programme, W5 corrections, and relevant kappa note. Choosing a prefix-estimator and nonlinear-area audit of W3c; registration appended in README before code or analysis. W5 is not a general bulk mechanism result. WSL requires elevated sandbox execution (ordinary invocation returned E_ACCESSDENIED); elevated read-only environment check succeeded. Preserve all pre-existing dirty work.
+
+### 2026-10-15 22:38 +13:00 · 275c2af · observation
+Ran uv run experiments/2026-10-kappa-rule-space/scripts/prefix_audit.py. results/prefix_audit.json and prefix_audit_predictions.csv: stationary n=162, original LOO linear gain +0.240 reproduced; crossfit5 linear +0.240 [0.156,0.342], spline +0.201 [0.103,0.311]. Removing the five largest positive contributors leaves +0.150 for crossfit5 spline (influence diagnostic selected after scoring). All-rules crossfit5 spline +0.041 [-0.018,0.103]. Both frozen audit expectations held. Bootstrap conditions on the fitted training model and does not include training uncertainty. No new ant trajectories.
+
+### 2026-10-15 22:38 +13:00 · 275c2af · interpretation
+Moderate confidence that the stationary prefix association is robust to encoding and nonlinear area adjustment, not a five-rule anomaly like W5. It remains a lookup without a mechanism. Conditioning on one noisy area snapshot does not establish independence from the whole growth history. Next discriminating intervention: mutations measured at matched area, with residence/exposure of early colours recorded; do not infer a position-weighting law from this audit. All-rules weakness remains.
+
+### 2026-10-15 22:40 +13:00 · 275c2af · deviation
+A calibration assertion caught a bug in the new audit lookup: using prefix text alone as a key duplicated short rules across prefix lengths. Fixed by keying on (length, prefix), matching the historical estimator. Reran all rows; the reported stationary rounded values and verdicts are unchanged. Historical scripts and results were not edited. Exact synthetic spline/extra-signal recovery and LOO fallback assertions pass. Calibration did not change the fitted model or select features.
+
+### 2026-10-15 22:41 +13:00 · 275c2af · deviation
+Two independent runs differed at approximately 1e-16 in summary JSON floats; prediction CSV already matched. Set summary output to 12 decimal places, matching CSV. Reran twice: both SHA256 comparisons pass. No inference or rounded published number changed.
+
+### 2026-10-15 22:41 +13:00 · 275c2af · decision
+Audit complete. Release suite passed (results/prefix_audit_release.log); known-response calibration passed; independent runs reproduce JSON and prediction CSV byte-for-byte; notebooks/prefix-audit.ipynb executed from a clean kernel using only results. README and open questions updated. No commit, dependency changes, or new sweep. Prefix mechanism and matched-area mutation intervention remain open. New results and notebook await requested commit, explicitly disclosed in the notebook.

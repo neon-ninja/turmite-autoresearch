@@ -1,0 +1,15 @@
+git da88e61 start 2026-10-15T21:38:15+13:00
+binary sha256 bea94b1f31caf98e131492049845c9db4335bb0aafedd375b1ca696eadda93c8
+cmd: kappa_rs_bulk 20000 262144 20 2048 < results/w5_specs.txt > dumps/w5_bulk.csv
+3796 specs
+finished 2026-10-15T21:40:40+13:00
+provenance appended after the run (code is untracked at git da88e61; sha256 first 16 hex): 
+  5b7beeef26d14fea  src/bulk.rs
+  da0935844e29ae3b  tests/kappa_rs_bulk.rs
+  321e162c9306a0ce  examples/kappa_rs_bulk.rs
+  54e0663532b4d20f  experiments/2026-10-kappa-rule-space/scripts/w5_specs.py
+  addfb248b543e71d  experiments/2026-10-kappa-rule-space/scripts/w5_analyse.py
+  a51ae2cc62e69a08  experiments/2026-10-kappa-rule-space/scripts/run_w5.sh
+  5f0192ff8d33a20c  experiments/2026-10-kappa-rule-space/results/w5_specs.txt
+  note: src/bulk.rs got a comment-only edit after the run (depth comment); the compiled binary is the one hashed above
+  note: w5_analyse.py hash is of the final script (extended after review; first draft ran at 21:44-21:47)

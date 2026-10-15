@@ -8,6 +8,7 @@
 //! Two implementations live here: [`reference`] favours obviousness and is the
 //! oracle; [`fast`] is what the sweep uses and is tested against the oracle.
 
+pub mod bulk;
 pub mod colourflux;
 pub mod colours;
 pub mod detect;

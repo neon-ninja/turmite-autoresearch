@@ -1,0 +1,186 @@
+# cmd: uv run experiments/2026-10-kappa-rule-space/scripts/w5_analyse.py
+# git: da88e61 (working tree may be dirty)  seed: 20261014
+specs 3796; status counts by kind: {'blank': {'noa0': 6, 'ok': 2620}, 'pool_patched': {'ok': 1152}, 'pw': {'ok': 6}, 'rotor': {'ok': 6}, 'rw': {'escaped': 1, 'ok': 5}}
+ant runs ok: 3772; growth factor area_end/area0: median 1.148, 90th pct 1.297, share > 1.5: 0.022; t*: median 2^20.11; bulk fraction of recorded steps: median 0.506, 10th pct 0.373
+usable pair counts at lag 4096 (msd_n4096): median 13400, share of runs with < 1000: 0.044 (msd4096 / msd_exp are NaN there)
+
+pool-192 rules: 192; with >= 6 runs having a k=25 window: 192; stationary 169; corr(lnk25, lnk26-mean) 0.963; sd lnk25 0.483
+
+discovery rules with usable blank run: 2395 of 2434 (stationary 2024); pool rules with >= 4 usable patched seeds: 187 of 192 (stationary 168)
+growth-factor exclusion (> 1.5) removed 0.031 of otherwise-usable pool runs; mean ln kappa of pool rules kept vs dropped by the 4-seed rule: -0.102 vs +0.863
+  usable fraction I_turn    pool-runs 1.000  blank-runs 1.000
+  usable fraction msd64     pool-runs 1.000  blank-runs 1.000
+  usable fraction msd512    pool-runs 0.999  blank-runs 1.000
+  usable fraction msd4096   pool-runs 0.953  blank-runs 0.965
+  usable fraction msd_exp   pool-runs 0.953  blank-runs 0.965
+  usable fraction head64    pool-runs 1.000  blank-runs 1.000
+  usable fraction ret32     pool-runs 1.000  blank-runs 1.000
+  usable fraction ret_tail  pool-runs 0.987  blank-runs 0.996
+  usable fraction reuse64   pool-runs 1.000  blank-runs 1.000
+  usable fraction ent_pi    pool-runs 1.000  blank-runs 1.000
+  usable fraction mean_col  pool-runs 1.000  blank-runs 1.000
+
+=== P5.3: ICC across patched seeds on the pool (groups with >= 4 usable seeds; unbalanced one-way ICC) ===
+  I_turn    ICC 0.564  (groups 187, mean seeds 5.88)
+  msd64     ICC 0.979  (groups 187, mean seeds 5.88)
+  msd512    ICC 0.938  (groups 187, mean seeds 5.87)
+  msd4096   ICC 0.090  (groups 182, mean seeds 5.69)
+  msd_exp   ICC 0.287  (groups 182, mean seeds 5.69)
+  head64    ICC 0.112  (groups 187, mean seeds 5.88)
+  ret32     ICC 0.998  (groups 187, mean seeds 5.88)
+  ret_tail  ICC 0.438  (groups 186, mean seeds 5.82)
+  reuse64   ICC 0.997  (groups 187, mean seeds 5.88)
+  ent_pi    ICC 0.384  (groups 187, mean seeds 5.88)
+  mean_col  ICC 0.352  (groups 187, mean seeds 5.88)
+P5.3 (ICC >= 0.7): primary three ['I_turn:0.56', 'msd512:0.94', 'ret32:1.00'] -> FAILED for at least one; observables >= 0.7: ['msd64', 'msd512', 'ret32', 'reuse64']
+
+patched-vs-blank agreement on pool rules (181 rules; Spearman of 6-seed patched mean vs the blank-board run):
+  I_turn +0.83; msd64 +0.95; msd512 +0.72; msd4096 +0.09; msd_exp +0.23; head64 +0.00; ret32 +0.99; ret_tail +0.26; reuse64 +0.98; ent_pi +0.73; mean_col +0.16
+
+=== P5.1 (frozen estimator) ===
+
+--- PRIMARY stationary cohort: test = pool rule means (ln kappa k=25), train = census-minus-pool blank-board single runs ---
+  I_turn    gain +0.001 [-0.012, +0.015]  R2(A) 0.581 -> R2(A+obs) 0.582  coef -0.022  train 2024, test 168
+  msd64     gain +0.040 [-0.009, +0.085]  R2(A) 0.581 -> R2(A+obs) 0.621  coef -0.074  train 2024, test 168
+  msd512    gain +0.030 [-0.008, +0.069]  R2(A) 0.579 -> R2(A+obs) 0.609  coef -0.066  train 2024, test 167
+  msd4096   gain +0.004 [-0.003, +0.011]  R2(A) 0.511 -> R2(A+obs) 0.515  coef -0.022  train 1946, test 138
+  msd_exp   gain +0.006 [-0.000, +0.012]  R2(A) 0.511 -> R2(A+obs) 0.517  coef +0.018  train 1946, test 138
+  head64    gain -0.001 [-0.005, +0.003]  R2(A) 0.581 -> R2(A+obs) 0.580  coef -0.015  train 2024, test 168
+  ret32     gain +0.039 [-0.007, +0.089]  R2(A) 0.581 -> R2(A+obs) 0.620  coef +0.081  train 2024, test 168
+  ret_tail  gain -0.003 [-0.015, +0.006]  R2(A) 0.531 -> R2(A+obs) 0.528  coef +0.020  train 2015, test 156
+  reuse64   gain +0.039 [-0.011, +0.090]  R2(A) 0.581 -> R2(A+obs) 0.620  coef +0.080  train 2024, test 168
+  ent_pi    gain -0.005 [-0.014, +0.004]  R2(A) 0.581 -> R2(A+obs) 0.576  coef +0.008  train 2024, test 168
+  mean_col  gain +0.002 [-0.005, +0.008]  R2(A) 0.581 -> R2(A+obs) 0.582  coef +0.014  train 2024, test 168
+  best declared observable: msd64 gain +0.040; best primary: ret32
+  permutation null of max gain over declared observables (registered: pool targets permuted within n; 10^4): obs max +0.040, null median +0.011, 95th pct +0.022, p = 0.0005
+  permutation null of max gain over declared observables (stricter, exploratory: observable permuted within n; 10^4): obs max +0.040, null median +0.004, 95th pct +0.014, p = 0.0006
+  primary-three only, registered null: obs max +0.039, p = 0.0004
+
+--- all-rules cohort: test = pool rule means (ln kappa k=25), train = census-minus-pool blank-board single runs ---
+  I_turn    gain +0.003 [-0.002, +0.006]  R2(A) 0.616 -> R2(A+obs) 0.618  coef +0.009  train 2395, test 187
+  msd64     gain +0.050 [+0.009, +0.081]  R2(A) 0.616 -> R2(A+obs) 0.665  coef -0.076  train 2395, test 187
+  msd512    gain +0.037 [+0.008, +0.060]  R2(A) 0.615 -> R2(A+obs) 0.653  coef -0.053  train 2395, test 186
+  msd4096   gain +0.000 [-0.000, +0.001]  R2(A) 0.596 -> R2(A+obs) 0.596  coef +0.002  train 2311, test 156
+  msd_exp   gain +0.049 [+0.016, +0.074]  R2(A) 0.596 -> R2(A+obs) 0.645  coef +0.056  train 2311, test 156
+  head64    gain +0.006 [-0.000, +0.011]  R2(A) 0.616 -> R2(A+obs) 0.622  coef -0.014  train 2395, test 187
+  ret32     gain +0.047 [+0.005, +0.081]  R2(A) 0.616 -> R2(A+obs) 0.662  coef +0.081  train 2395, test 187
+  ret_tail  gain -0.002 [-0.003, -0.000]  R2(A) 0.601 -> R2(A+obs) 0.599  coef +0.003  train 2386, test 175
+  reuse64   gain +0.049 [+0.007, +0.083]  R2(A) 0.616 -> R2(A+obs) 0.665  coef +0.080  train 2395, test 187
+  ent_pi    gain -0.006 [-0.062, +0.035]  R2(A) 0.616 -> R2(A+obs) 0.609  coef +0.058  train 2395, test 187
+  mean_col  gain -0.002 [-0.009, +0.005]  R2(A) 0.616 -> R2(A+obs) 0.614  coef +0.023  train 2395, test 187
+  best declared observable: msd64 gain +0.050; best primary: ret32
+  permutation null of max gain over declared observables (registered: pool targets permuted within n; 10^4): obs max +0.050, null median +0.014, 95th pct +0.052, p = 0.0597
+  permutation null of max gain over declared observables (stricter, exploratory: observable permuted within n; 10^4): obs max +0.050, null median +0.003, 95th pct +0.015, p = 0.0001
+  primary-three only, registered null: obs max +0.047, p = 0.0001
+
+P5.1 verdict rule (frozen): max declared gain >= 0.15 AND registered-permutation p <= 0.05 on the stationary cohort -> max +0.040
+
+=== added after review (exploratory): redundancy, concentration of the gain, section-4.4 positive control, dropped rules ===
+pairwise Spearman among msd64, ret32, reuse64 (pool stationary rule means, n=168): msd64-ret32 -0.92; msd64-reuse64 -0.96; ret32-reuse64 +0.98
+pairwise Spearman among msd64, ret32, reuse64 (discovery stationary blank runs, n=2024): msd64-ret32 -0.90; msd64-reuse64 -0.93; ret32-reuse64 +0.99
+  ... and with the other observables (pool stationary rule means), |Spearman| with ret32: I_turn -0.31; msd64 -0.92; msd512 -0.78; msd4096 -0.32; msd_exp +0.45; head64 -0.03; ret_tail +0.18; reuse64 +0.98; ent_pi +0.15; mean_col -0.04
+concentration of the held-out gain over pool rules (stationary cohort; per-rule SSE reduction (y-pA)^2 - (y-pAO)^2, gain = sum / SS_total):
+  [stationary cohort]
+  msd64    gain +0.040; top 5 rules supply 0.89 of it; gain without them +0.005; share of rules with positive reduction 0.59; top-5 rules (lnk25, z): RRRRLRRRRRLL (+0.40, -2.4), RRRRRRLRRRRL (+0.06, -2.8), RRRRRRLRRRL (+0.04, -2.5), RRRLR (+0.44, -2.0), RLLRLLRLLLLR (+1.29, -0.2)
+  ret32    gain +0.039; top 5 rules supply 0.97 of it; gain without them +0.001; share of rules with positive reduction 0.59; top-5 rules (lnk25, z): RRRRRRLRRRRL (+0.06, +3.0), RRRRRRLRRRL (+0.04, +2.8), RRRRLRRRRRLL (+0.40, +1.9), RRRLR (+0.44, +2.2), RRLLLLLLLR (+0.37, +2.2)
+  reuse64  gain +0.039; top 5 rules supply 0.96 of it; gain without them +0.002; share of rules with positive reduction 0.60; top-5 rules (lnk25, z): RRRRRRLRRRRL (+0.06, +3.0), RRRRRRLRRRL (+0.04, +2.7), RRRRLRRRRRLL (+0.40, +2.0), RRRLR (+0.44, +2.1), RRLLLLLLLR (+0.37, +2.3)
+  msd_exp  gain +0.006; top 5 rules supply 0.89 of it; gain without them +0.001; share of rules with positive reduction 0.54; top-5 rules (lnk25, z): RRRRLRRRRRLL (+0.40, +1.1), RLLRLLRLLLLR (+1.29, +0.1), RRRRRRLRRRL (+0.04, +1.0), RLLRLRRRRRR (+0.57, +1.0), RRRLRRLRLRR (+0.13, +1.2)
+  [all-rules cohort]
+  msd64    gain +0.050; top 5 rules supply 0.84 of it; gain without them +0.012; share of rules with positive reduction 0.58; top-5 rules (lnk25, z): RLLLLLLRRRRR (-2.44, +2.0), RLLLLRRLLRRR (-2.08, +2.0), RLLRRRRLLLLR (-1.49, +2.0), RLLRRLLLLRRR (-1.33, +2.0), RRRRRRLRRRRL (+0.06, -2.6)
+  ret32    gain +0.047; top 5 rules supply 0.90 of it; gain without them +0.007; share of rules with positive reduction 0.57; top-5 rules (lnk25, z): RLLLLLLRRRRR (-2.44, -1.9), RLLLLRRLLRRR (-2.08, -1.9), RLLRRRRLLLLR (-1.49, -1.9), RLLRRLLLLRRR (-1.33, -1.9), RRRRRRLRRRRL (+0.06, +2.9)
+  reuse64  gain +0.049; top 5 rules supply 0.89 of it; gain without them +0.008; share of rules with positive reduction 0.59; top-5 rules (lnk25, z): RLLLLLLRRRRR (-2.44, -2.0), RLLLLRRLLRRR (-2.08, -2.0), RLLRRRRLLLLR (-1.49, -2.0), RLLRRLLLLRRR (-1.33, -2.0), RRRRRRLRRRRL (+0.06, +2.9)
+  msd_exp  gain +0.049; top 5 rules supply 0.90 of it; gain without them +0.008; share of rules with positive reduction 0.56; top-5 rules (lnk25, z): RLLLLLLRRRRR (-2.44, -3.6), RLLLLRRLLRRR (-2.08, -3.4), RLLRRRRLLLLR (-1.49, -2.7), RLLRRLLLLRRR (-1.33, -3.3), RRRRLRRRRRLL (+0.40, +1.0)
+letters (one-hot + n + nR, ridge 10) stationary, census-minus-pool -> pool, strict held-out R^2 on c: +0.768 (W0 pool LOO reference 0.767)
+letters (one-hot + n + nR, ridge 10) stationary, census-minus-pool -> pool, strict held-out R^2 on ln kappa: +0.171 (W0 letters on ln kappa: about 0)
+letters (one-hot + n + nR, ridge 10) all, census-minus-pool -> pool, strict held-out R^2 on c: +0.773 (W0 pool LOO reference 0.767)
+letters (one-hot + n + nR, ridge 10) all, census-minus-pool -> pool, strict held-out R^2 on ln kappa: +0.075 (W0 letters on ln kappa: about 0)
+ln A(22) alone, strict held-out R^2 on ln kappa, stationary: 0.581 (W3b 0.569, W3c 0.497 with the same estimator family)
+pool rules without >= 4 usable seeds (5): RLLLLRR (lnk25 +1.21, stationary False): growth>1.5 in 4/6, n_bulk<1000 in 0/6, escaped/noA0 in 0/6; RLLLRRRLRLRR (lnk25 +1.88, stationary False): growth>1.5 in 6/6, n_bulk<1000 in 0/6, escaped/noA0 in 0/6; RLLRRRLLLLLL (lnk25 +0.06, stationary False): growth>1.5 in 3/6, n_bulk<1000 in 0/6, escaped/noA0 in 0/6; RLLRRRLRRRRR (lnk25 +1.29, stationary False): growth>1.5 in 4/6, n_bulk<1000 in 1/6, escaped/noA0 in 0/6; RLRRRLLLRLLL (lnk25 -0.13, stationary True): growth>1.5 in 3/6, n_bulk<1000 in 3/6, escaped/noA0 in 0/6
+
+=== exploratory extras (NOT registered; added after the primary table was seen) ===
+observable ALONE (no ln A(22)), strict held-out R^2 on ln kappa, stationary: I_turn +0.032; msd64 +0.008; msd512 +0.010; msd4096 +0.016; msd_exp +0.001; head64 -0.002; ret32 +0.018; ret_tail +0.012; reuse64 +0.014; ent_pi -0.033; mean_col +0.021
+JOINT model of 8 always-defined observables (stationary, train 2024, test 167): R2(A) 0.579; R2(A + all obs) 0.607 (joint gain +0.028); R2(all obs, no A) 0.095
+observable ALONE (no ln A(22)), strict held-out R^2 on ln kappa, all: I_turn -0.013; msd64 +0.027; msd512 +0.010; msd4096 -0.000; msd_exp +0.050; head64 +0.007; ret32 +0.049; ret_tail +0.044; reuse64 +0.045; ent_pi -0.062; mean_col +0.044
+JOINT model of 8 always-defined observables (all, train 2395, test 186): R2(A) 0.615; R2(A + all obs) 0.670 (joint gain +0.054); R2(all obs, no A) 0.016
+
+=== sensitivity (unregistered, labelled as such) ===
+stationary cohort, growth-factor exclusion removed (the registered exclusion could select on kappa):
+  I_turn    gain +0.001 [-0.011, +0.013]  R2(A) 0.581 -> R2(A+obs) 0.582  coef -0.019  train 2035, test 168
+  msd64     gain +0.040 [-0.010, +0.085]  R2(A) 0.581 -> R2(A+obs) 0.621  coef -0.075  train 2035, test 168
+  msd512    gain +0.030 [-0.009, +0.070]  R2(A) 0.579 -> R2(A+obs) 0.609  coef -0.067  train 2035, test 167
+  msd4096   gain +0.004 [-0.003, +0.011]  R2(A) 0.500 -> R2(A+obs) 0.504  coef -0.023  train 1953, test 137
+  msd_exp   gain +0.006 [-0.001, +0.012]  R2(A) 0.500 -> R2(A+obs) 0.505  coef +0.018  train 1953, test 137
+  head64    gain -0.000 [-0.005, +0.003]  R2(A) 0.581 -> R2(A+obs) 0.580  coef -0.014  train 2035, test 168
+  ret32     gain +0.039 [-0.009, +0.087]  R2(A) 0.581 -> R2(A+obs) 0.620  coef +0.081  train 2035, test 168
+  ret_tail  gain -0.003 [-0.016, +0.007]  R2(A) 0.532 -> R2(A+obs) 0.529  coef +0.023  train 2023, test 156
+  reuse64   gain +0.039 [-0.011, +0.089]  R2(A) 0.581 -> R2(A+obs) 0.620  coef +0.080  train 2035, test 168
+  ent_pi    gain -0.001 [-0.004, +0.002]  R2(A) 0.581 -> R2(A+obs) 0.580  coef +0.003  train 2035, test 168
+  mean_col  gain +0.002 [-0.006, +0.009]  R2(A) 0.581 -> R2(A+obs) 0.583  coef +0.017  train 2035, test 168
+ALL-rules cohort, growth-factor exclusion removed (test set 191 rules instead of 187; the dropped fast-growing rules are mostly non-stationary):
+  I_turn    gain +0.003 [-0.004, +0.009]  R2(A) 0.676 -> R2(A+obs) 0.680  coef +0.016  train 2428, test 191
+  msd64     gain +0.040 [+0.003, +0.074]  R2(A) 0.663 -> R2(A+obs) 0.703  coef -0.080  train 2428, test 190
+  msd512    gain +0.034 [+0.006, +0.057]  R2(A) 0.663 -> R2(A+obs) 0.697  coef -0.055  train 2428, test 189
+  msd4096   gain +0.001 [-0.000, +0.001]  R2(A) 0.653 -> R2(A+obs) 0.654  coef +0.003  train 2338, test 158
+  msd_exp   gain +0.044 [+0.012, +0.072]  R2(A) 0.653 -> R2(A+obs) 0.698  coef +0.063  train 2338, test 158
+  head64    gain +0.004 [-0.000, +0.007]  R2(A) 0.663 -> R2(A+obs) 0.667  coef -0.010  train 2428, test 190
+  ret32     gain +0.036 [+0.002, +0.068]  R2(A) 0.676 -> R2(A+obs) 0.713  coef +0.084  train 2428, test 191
+  ret_tail  gain -0.004 [-0.008, -0.000]  R2(A) 0.656 -> R2(A+obs) 0.651  coef +0.009  train 2415, test 178
+  reuse64   gain +0.038 [+0.001, +0.071]  R2(A) 0.676 -> R2(A+obs) 0.715  coef +0.084  train 2428, test 191
+  ent_pi    gain -0.006 [-0.033, +0.018]  R2(A) 0.676 -> R2(A+obs) 0.670  coef +0.040  train 2428, test 191
+  mean_col  gain -0.003 [-0.010, +0.004]  R2(A) 0.676 -> R2(A+obs) 0.673  coef +0.028  train 2428, test 191
+stationary cohort, pool target = rules_pool lnk (k = 26 window) instead of the k = 25 recomputation:
+  I_turn    gain -0.003 [-0.016, +0.011]  R2(A) 0.598 -> R2(A+obs) 0.595  coef -0.022  train 2024, test 168
+  msd64     gain +0.041 [-0.002, +0.084]  R2(A) 0.598 -> R2(A+obs) 0.639  coef -0.074  train 2024, test 168
+  msd512    gain +0.034 [-0.001, +0.071]  R2(A) 0.597 -> R2(A+obs) 0.630  coef -0.066  train 2024, test 167
+  msd4096   gain +0.005 [-0.002, +0.012]  R2(A) 0.534 -> R2(A+obs) 0.539  coef -0.022  train 1946, test 138
+  msd_exp   gain +0.005 [-0.001, +0.011]  R2(A) 0.534 -> R2(A+obs) 0.539  coef +0.018  train 1946, test 138
+  head64    gain -0.002 [-0.006, +0.002]  R2(A) 0.598 -> R2(A+obs) 0.596  coef -0.015  train 2024, test 168
+  ret32     gain +0.041 [-0.003, +0.088]  R2(A) 0.598 -> R2(A+obs) 0.639  coef +0.081  train 2024, test 168
+  ret_tail  gain -0.002 [-0.012, +0.007]  R2(A) 0.550 -> R2(A+obs) 0.548  coef +0.020  train 2015, test 156
+  reuse64   gain +0.041 [-0.004, +0.088]  R2(A) 0.598 -> R2(A+obs) 0.639  coef +0.080  train 2024, test 168
+  ent_pi    gain -0.007 [-0.015, +0.002]  R2(A) 0.598 -> R2(A+obs) 0.591  coef +0.008  train 2024, test 168
+  mean_col  gain +0.003 [-0.003, +0.010]  R2(A) 0.598 -> R2(A+obs) 0.601  coef +0.014  train 2024, test 168
+
+size-leak diagnostic on pool rule means (Pearson with ln t*, ln A(22), ln kappa k=25 raw):
+  I_turn    r(ln t*) +0.00  r(lnA22) -0.00  r(ln kappa) +0.06  Spearman(ln kappa) -0.13
+  msd64     r(ln t*) +0.21  r(lnA22) -0.24  r(ln kappa) -0.54  Spearman(ln kappa) -0.10
+  msd512    r(ln t*) +0.26  r(lnA22) -0.29  r(ln kappa) -0.57  Spearman(ln kappa) -0.15
+  msd4096   r(ln t*) +0.11  r(lnA22) -0.13  r(ln kappa) -0.01  Spearman(ln kappa) -0.15
+  msd_exp   r(ln t*) -0.14  r(lnA22) +0.15  r(ln kappa) +0.44  Spearman(ln kappa) +0.06
+  head64    r(ln t*) +0.09  r(lnA22) -0.13  r(ln kappa) -0.28  Spearman(ln kappa) -0.00
+  ret32     r(ln t*) -0.21  r(lnA22) +0.23  r(ln kappa) +0.50  Spearman(ln kappa) +0.18
+  ret_tail  r(ln t*) +0.18  r(lnA22) -0.18  r(ln kappa) -0.35  Spearman(ln kappa) -0.10
+  reuse64   r(ln t*) -0.22  r(lnA22) +0.24  r(ln kappa) +0.52  Spearman(ln kappa) +0.15
+  ent_pi    r(ln t*) +0.13  r(lnA22) -0.11  r(ln kappa) -0.02  Spearman(ln kappa) -0.11
+  mean_col  r(ln t*) -0.32  r(lnA22) +0.33  r(ln kappa) +0.26  Spearman(ln kappa) +0.14
+
+=== positive control: the same pipeline on c (letters give R^2 0.66-0.78 on c) ===
+gain of each observable over ln A(22) for the stationary-cohort c target (pool c25 = mean new_cells/boundary_steps at the end of the 20..26 fit):
+  I_turn    gain +0.024 [+0.002, +0.044]  R2(A) 0.262 -> R2(A+obs) 0.285  coef +0.011  train 2024, test 168
+  msd64     gain +0.013 [-0.047, +0.069]  R2(A) 0.262 -> R2(A+obs) 0.274  coef +0.023  train 2024, test 168
+  msd512    gain +0.005 [-0.049, +0.057]  R2(A) 0.259 -> R2(A+obs) 0.264  coef +0.021  train 2024, test 167
+  msd4096   gain +0.004 [-0.005, +0.014]  R2(A) 0.284 -> R2(A+obs) 0.288  coef +0.009  train 1946, test 138
+  msd_exp   gain +0.000 [-0.001, +0.002]  R2(A) 0.284 -> R2(A+obs) 0.284  coef -0.001  train 1946, test 138
+  head64    gain -0.001 [-0.005, +0.004]  R2(A) 0.262 -> R2(A+obs) 0.261  coef +0.005  train 2024, test 168
+  ret32     gain +0.021 [-0.043, +0.081]  R2(A) 0.262 -> R2(A+obs) 0.283  coef -0.026  train 2024, test 168
+  ret_tail  gain +0.017 [+0.009, +0.025]  R2(A) 0.267 -> R2(A+obs) 0.284  coef +0.006  train 2015, test 156
+  reuse64   gain +0.017 [-0.047, +0.075]  R2(A) 0.262 -> R2(A+obs) 0.278  coef -0.025  train 2024, test 168
+  ent_pi    gain +0.018 [-0.034, +0.067]  R2(A) 0.262 -> R2(A+obs) 0.279  coef -0.014  train 2024, test 168
+  mean_col  gain -0.000 [-0.000, -0.000]  R2(A) 0.262 -> R2(A+obs) 0.261  coef -0.000  train 2024, test 168
+
+=== planted-signal check (I_turn) ===
+planted residual R^2 0.30 in both discovery and pool; recovered gain +0.117 (sd 0.023), R2(A) 0.497, gain as a share of the unexplained variance 0.234
+-> PASS (criterion: share within 0.1 of 0.30)
+
+=== secondary: within-pool 5-fold CV grouped by (n, 5-prefix), stationary and all (no discovery set) ===
+stationary (168 rules, 64 groups):
+  gain: I_turn -0.004; msd64 +0.033; msd512 +0.018; msd4096 -0.008; msd_exp +0.009; head64 -0.012; ret32 +0.028; ret_tail -0.005; reuse64 +0.029; ent_pi -0.003; mean_col -0.010
+all (187 rules, 64 groups):
+  gain: I_turn +0.005; msd64 +0.100; msd512 +0.109; msd4096 -0.003; msd_exp +0.077; head64 +0.008; ret32 +0.066; ret_tail +0.002; reuse64 +0.080; ent_pi -0.015; mean_col -0.004
+
+=== P5.4 / controls ===
+rotor: runs 6, ok 6; n_bulk median 79621.0, mask_cells median 8322.5
+pw: runs 6, ok 6; n_bulk median 0.0, mask_cells median 0.0
+rw: runs 6, ok 5; n_bulk median 0.0, mask_cells median 0.0
+rotor observables (mean over seeds, sd): I_turn -0.483 (0.560); msd64 +0.588 (0.020); msd512 +0.471 (0.039); msd4096 +0.212 (0.088); msd_exp +0.739 (0.092); head64 +0.001 (0.005); ret32 +0.577 (0.004); ret_tail -1.725 (0.064); reuse64 +0.621 (0.003); ent_pi +0.999 (0.000); mean_col +0.500 (0.001); bulk fraction 0.30; growth 1.63
+rotor msd(L)/L at L = 64, 512, 4096: 0.59, 0.47, 0.21 (a t^(1/3)-type subdiffusion would make MSD/L fall with L; no bar)

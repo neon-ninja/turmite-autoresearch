@@ -1,0 +1,16 @@
+git da88e61 2026-10-15T20:57:36+13:00
+2400 rules
+0
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+1800
+2000
+2200
+finished 2026-10-15T21:19:04+13:00
+# sha256 of target/release/probe, appended AFTER the clean run (binary mtime 2026-10-14 22:02, i.e. before the run; not rebuilt in between; the run script's own post-step did not execute): 5fa7fe42e86b02e98054fb2bcda7fe85bf1ace621a7e076e2b0f71f7e5eb6ad1
