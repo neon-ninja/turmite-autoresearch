@@ -1,0 +1,13 @@
+{
+ "analysed": 3055,
+ "columns": 60,
+ "git_head_at_build": "9dce376",
+ "in_census": 3512,
+ "phase_counts": {
+  "blob": 2637,
+  "builder": 304,
+  "highway": 571,
+  "log": 571
+ },
+ "rows": 4083
+}
