@@ -1,0 +1,35 @@
+EXPLORATORY prefix decode (see README); cmd: uv run experiments/2026-10-16-kappa-prefix-decode/scripts/decode.py
+git: 269288e (tree dirty) seed 20261016
+stationary census train n=2183, pool test n=162; baseline spline R2 on pool = 0.528
+LOOKUP prefix-8 (reference)        gain +0.201  CI [+0.103,+0.311] 
+E0 additive                        gain +0.301  CI [+0.212,+0.409] lambda=1  = 150% of lookup
+E1 +pairwise interactions          gain +0.365  CI [+0.273,+0.479] lambda=10  = 182% of lookup
+E2 summary (3 numbers)             gain +0.330  CI [+0.238,+0.443] lambda=1  = 164% of lookup
+E4a shuffled-labels E0             gain mean -0.007 sd 0.009 over 20 target shuffles
+E4b shuffled-labels E1             gain mean -0.009 sd 0.015 over 20 target shuffles
+E3 own-prefix p=4                  gain +0.045  CI [-0.001,+0.094] coverage tr/te 0.23/0.19; train corr(feature,resid)=+0.129  = 22% of lookup
+E3 own-prefix p=5                  gain +0.086  CI [+0.037,+0.133] coverage tr/te 0.58/0.54; train corr(feature,resid)=+0.348  = 43% of lookup
+E3 own-prefix p=6                  gain +0.121  CI [+0.057,+0.193] coverage tr/te 0.60/0.50; train corr(feature,resid)=+0.502  = 61% of lookup
+E3 own-prefix p=7                  gain +0.138  CI [+0.071,+0.229] coverage tr/te 0.43/0.43; train corr(feature,resid)=+0.459  = 69% of lookup
+A-series post hoc ablations (gain over spline; same train/test):
+A1 length only                     gain -0.013  CI [-0.036,+0.005] lambda=100  = -7% of lookup
+A2 R count in first 8              gain +0.107  CI [+0.038,+0.182] lambda=1  = 53% of lookup
+A3 R fraction of whole rule        gain +0.032  CI [-0.018,+0.087] lambda=1  = 16% of lookup
+A4 R count whole rule + length     gain +0.017  CI [-0.049,+0.081] lambda=1  = 8% of lookup
+A5 letter 2 only                   gain +0.227  CI [+0.159,+0.298] lambda=1  = 113% of lookup
+A6 letters 1-3 indicators          gain +0.269  CI [+0.185,+0.366] lambda=1  = 134% of lookup
+A7 letters 4-8 indicators          gain +0.065  CI [-0.005,+0.142] lambda=10  = 32% of lookup
+A8 leading run only                gain +0.330  CI [+0.242,+0.441] lambda=1  = 165% of lookup
+A9 switches in first 8 only        gain +0.040  CI [+0.004,+0.077] lambda=1  = 20% of lookup
+A10 R count first 8 + switches     gain +0.146  CI [+0.059,+0.234] lambda=1  = 73% of lookup
+A11 R count first 4                gain +0.249  CI [+0.164,+0.344] lambda=1  = 124% of lookup
+A12 R count letters 9+             gain +0.002  CI [-0.014,+0.017] lambda=1000  = 1% of lookup
+A13 full-rule indicators (12)      gain +0.308  CI [+0.217,+0.410] lambda=1  = 153% of lookup
+descriptive tree on stationary census residual (not a held-out claim):
+split pos 2: L n=1192 mean -0.11 | R n=991 mean +0.13  (SSE drop 31.6)
+  L> split pos 4: L n=593 mean -0.15 | R n=597 mean -0.07  (SSE drop 2.3)
+  L>   L> split pos 5: L n=297 mean -0.23 | R n=295 mean -0.07  (SSE drop 3.8)
+  L>   R> split pos 8: L n=283 mean -0.05 | R n=296 mean -0.08  (SSE drop 0.4)
+  R> split pos 4: L n=556 mean +0.04 | R n=435 mean +0.24  (SSE drop 9.6)
+  R>   L> split pos 3: L n=248 mean -0.07 | R n=308 mean +0.14  (SSE drop 5.7)
+  R>   R> split pos 3: L n=214 mean +0.17 | R n=221 mean +0.31  (SSE drop 2.2)
