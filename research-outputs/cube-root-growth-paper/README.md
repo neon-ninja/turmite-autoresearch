@@ -1,5 +1,42 @@
 # Manuscript build
 
+## Accounting-identity criticism (2026-10-16)
+
+Replaced the subtitle “a calibrated mean-field decomposition” with
+“calibrated growth and boundary transport”. The methods now distinguish exact
+window accounting, conditional power-law algebra and the missing dynamical
+closure. Same-run reconstruction and prefactor collapse are diagnostic only;
+the geometric amplitude also enters the prefactor. The forecast budget uses
+area endpoints alone and tests persistence, not independent predictive value
+of the separate factors. Interior colour/short-lag tests do not establish
+uniform spatial occupation or stationary boundary access. The restricted
+prefix score is predictive, not a causal share of variance.
+
+The conclusion retains the growth census, predictive results and negative
+controls while stating that the mechanism remains unresolved. Original
+predictions and numerical inputs were retained. An interpretation correction
+was appended to `notes/cube-root-hypothesis.md`; reviewer-response wording and
+requirements for a substantive mechanism test are in
+`notes/accounting-identity-response-2026-10-16.md`. This is an editorial audit
+of existing evidence, not a new experiment. Prior working changes were kept;
+no commit was made.
+
+Reproduce in WSL from the repository root with
+`export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy`:
+
+```bash
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+cargo test --release
+```
+
+Typst compiled without diagnostics. The 39-page PDF's title, accounting,
+prefix, forecast and limitations/conclusion pages (1, 8, 14, 15, 28) were
+rendered and visually checked. PDF SHA-256:
+`64920b08ca86eedb82537a48fd316146170874c27692b72517990e11b50f1dc4`.
+Build, rendered-page inspection and release-test logs are in
+`tmp/accounting-review/`. The full `cargo test --release` suite passed
+(exit 0; compiler warnings remain). `git diff --check` passes for this edit.
+
 ## Chirality baseline comparison (2026-10-15)
 
 Added a training-only comparison on the original 300 calibration and 2,747
@@ -13,7 +50,7 @@ measure initial-seed or training uncertainty. The critique's quoted R²=0.88
 does not match the existing files (R²=0.660, correlation 0.869).
 
 The abstract, key results, comparison table, figure caption, evidence table
-and a provenance footnote now state this limitation. New paper numbers are extracted by
+and Audit 42 now state this limitation. New paper numbers are extracted by
 `chirality_baseline_numbers.py` from
 `experiments/2026-10-15-chirality-baselines/results/`, without editing legacy
 results. Full registration, commands and caveats are in that experiment's
@@ -35,10 +72,132 @@ rendered and reviewed. Hashes are in the experiment's `results/verification.json
 No project dependencies changed and no commit was made. Existing working-tree
 changes were retained.
 
-Commit scope: only this comparison is staged from the shared manuscript.
-The committed source uses a local provenance footnote because the expanded
-audit appendix belongs to other uncommitted work. A matching PDF is compiled
-from the staged source; the shared working PDF and unrelated edits remain.
+## Finding-led prose pass (2026-10-15)
+
+Used the author-supplied podcast transcript as a guide to discoverability,
+checking its framing against the current manuscript rather than treating it as
+evidence. Rewrote the abstract and key results around concrete findings: the
+eightfold time cost of doubling width under cube-root scaling, the bulk/edge
+contrast with the rotor, drifting boundary occupation, the two transport
+predictors, future-window forecasts, the limits of the tested memory models,
+and the late column-sweeper transition. The introduction now states the question
+and result before discussing the literature. Prior-work distinctions remain.
+
+Added a plain-language explanation of edge entry versus edge occupation before
+the decomposition, and a physical lead for the chirality result. Split dense
+prefix, forecast, control, profile, surface-width and conclusion paragraphs at
+changes of question or evidential role. Promoted the existing `RLRLLL` case from
+the limitations bullet to its own results subsection; the limitations retain a
+cross-reference. Author statements stay together in the PDF.
+
+The body retains every pre-existing math span, numerical input reference and
+audit link (multiset comparison against the session's starting source in
+`tmp/prose-review/before.typ`). Measurements, numerical JSON inputs, figures,
+estimators, dependencies and registration records were not changed. The cone
+remains a conditional consistency check; temporal width slopes are not spatial
+roughness exponents; prefix prediction retains its stationary-cohort and
+within-family limits; a board escape is not a highway detection. The transcript's
+"twice as rough" and universal cone language were not adopted.
+
+Verification from the repository root in WSL:
+
+```bash
+export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+typst compile --root . --format png --ppi 55 research-outputs/cube-root-growth-paper/main.typ 'tmp/prose-review/page-{p}.png'
+cargo test --release > tmp/prose-review/release-tests.log 2>&1
+uv run tmp/prose-review/review.py > tmp/prose-review/editorial-check.log 2>&1
+```
+
+The last command is a local editorial comparison/contact-sheet helper, not an
+analysis producer. Typst compiled without diagnostics; all 38 rendered pages
+were reviewed in contact sheets, with individual checks of the findings page
+and moved case study. Release tests passed (exit 0; existing warnings remain).
+The manuscript passes `git diff --check`. PDF SHA-256:
+`413c0c272ef46c48b8ee151643f4a03aba1d917fb90b8b1d6cf5a445f0575f1a`.
+Existing working-tree edits were preserved. Base commit:
+`b3a0f762ac2230b5df92188206a4d3a1081897be`. No commit was made.
+
+## Heading and navigation pass (2026-10-15)
+
+Replaced generic section titles with descriptions of the question, measurement
+or evidential limit. Promoted the major paragraph topics to numbered subsections:
+calibration uncertainty, seed variability, occupation reproducibility, prefix
+prediction, future-window forecasts, growth outliers, mixing, visit profiles and
+surface-width comparisons. The mechanism tests now identify the tested
+explanations and their constraints; interior-return tests have their own
+subheading. Existing reference labels are preserved. No measurements, numerical
+inputs or scientific body claims were changed. Prior working-tree edits were
+retained; no commit was made.
+
+Verification (from the repository root in WSL with the environment exports below):
+
+```bash
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+typst compile --root . --format png --ppi 75 research-outputs/cube-root-growth-paper/main.typ 'tmp/heading-review/final-{p}.png'
+cargo test --release > tmp/heading-review/release-tests.log 2>&1
+```
+
+Typst compiled without diagnostics. The 36-page layout was reviewed in contact
+sheets, then the shortened main headings were checked individually in the final
+render. The release suite passed (exit 0); `git diff --check` passes for the edited
+manuscript files. PDF SHA-256:
+`f181c4dd2cd7bb27c10c6568cca4514baa0678a7e51e6d7ab6d212640e58eb18`.
+
+## Bounding the dynamics: editorial pass (2026-10-15)
+
+Reframed the working manuscript's negative tests as constraints on candidate
+mechanisms. Section 5.1 now leads with the limits of local summaries, tested
+stochastic memory and shallow trapping. The boundary-layer comparison emphasizes
+the coexistence of similar dwell times and widely different occupation; arrow
+randomisation separates occupation from edge-entry bias. Related framing in the
+key results, introduction, forecast discussion, profile/width comparisons,
+evidence table and conclusion is consistent with this approach.
+
+Registered bands, gate outcomes, exploratory labels, control limitations and
+audit links remain explicit. These are finite-window constraints on the tested
+models, not proof by exhaustion of all mechanisms. Interior returns remain a
+candidate explanation, not a causal conclusion established by the local tests.
+No numerical inputs, measurements, estimators, dependencies or registration
+records were changed. Prior working-tree edits were retained; base commit
+`b3a0f762ac2230b5df92188206a4d3a1081897be`. No commit was made.
+
+Verification from the repository root in WSL, with the environment exports below:
+
+```bash
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+typst compile --root . --format png --ppi 75 research-outputs/cube-root-growth-paper/main.typ 'tmp/bounding-review/page-{p}.png'
+cargo test --release > tmp/bounding-release-tests.log 2>&1
+```
+
+Typst compiled without diagnostics (`tmp/bounding-review/build.log`). All 36
+pages were rendered and reviewed in contact sheets, with individual checks of
+the mechanism matrix, boundary-layer discussion and evidence table. The release
+suite passed (exit 0), and the manuscript passes `git diff --check`.
+PDF SHA-256:
+`4cedf05bfab075d0b9fc5aeb918486be1a7112c6ca8f289ab4bb0e4707ac76f7`.
+
+## Reproducibility appendix editorial pass (2026-10-15)
+
+Local paths and note filenames have been moved from the reading text, captions
+and evidence table into `audit.typ`, included by `main.typ`. The dedicated
+“Reproducibility & Preregistration Audit Table” preserves 41 records with exact
+locations, analysis scripts, available seed declarations, hypothesis titles and
+Git timestamps. Main-text links identify the corresponding audit entries.
+The audit distinguishes author-recorded registration times, exploratory tests,
+earliest available path commits (often migration commits), uncommitted records
+and missing referenced files. It does not treat a Git timestamp as proof of
+preregistration. W3c sampling/patch seeds and Arm B seeds were checked directly
+against the sampler and saved specifications. No scientific measurements,
+generated numerical inputs or dependencies were changed by this pass.
+
+Rebuild with the existing Typst command below; the appendix is manuscript source,
+not generated measurement data. Verification: Typst compiled without diagnostics,
+all referenced audit IDs resolve, no inline repository paths remain in reading
+text, the 36-page PDF was rendered, and appendix layouts were visually checked.
+`cargo test --release` passed; the local verification log is
+`tmp/provenance-edit/release-tests.log`. Existing working-tree edits were retained;
+no commit was made.
 
 From the repo root (WSL; see AGENTS.md for the env):
 
@@ -114,3 +273,86 @@ with a shared greyscale from 0 to 4, clipping higher values. Each territory is
 fitted to its panel, so physical sizes should not be compared. This illustration
 introduces the bulk/edge comparison; the measured edge exponents remain in the
 body of the paper. It is not a new measurement or an estimator change.
+
+## Kappa prediction update (2026-10-15)
+
+The abstract, key results, introduction, factor discussion, evidence table,
+length limitation and conclusion now distinguish failed simple-feature models
+from W3c's prefix-8 lookup on fresh stationary rules of lengths 13–14.
+Prefix-only strict held-out R² is 0.633; adding prefix to early area raises
+R² from 0.497 to 0.737 (gain 0.240, rule-bootstrap interval 0.148–0.347).
+The six-letter gain fails its registered threshold. The exploratory crossed
+comparison is labelled as such: pooled training degrades the gain even on
+stationary test rules. This is within-prefix-family transfer under measured
+regime filters, not an unrestricted rule-string predictor or mechanism.
+The excursion discussion also records the independent-seed-role association
+without reversing the earlier failed noise-floor gate.
+
+New numbers are extracted, not hand-edited, from small existing results:
+
+```bash
+export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
+cd /mnt/f/Code/turmite
+uv run research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+```
+
+`kappa_prediction.json` includes the commit and SHA-256 of its producing script
+and W3c stats/cross-check inputs. No fits or simulations were rerun and no
+dependencies were changed. The PDF was rebuilt; the evidence table now uses
+bounded column proportions so long evidence paths do not squeeze the status
+column. Research proposals, separate from findings and preregistrations, are in
+`notes/paper-gaps-research-avenues-2026-10-15.md`.
+
+Verification: the κ extraction reran byte-identically (JSON SHA-256
+94fb4290e9945d90f5867a275311cc88d7c38ddee99623e2bd6bba33f5e280fa).
+Typst compiled without diagnostics (`kappa_build.log`); updated abstract,
+key results, prefix discussion, evidence table and conclusion pages were
+rendered and visually checked. Final PDF: 24 pages, SHA-256
+871ec5da0ff063837540e7679f01a05fa82b0437acb28e2c2a03da1b1d4a89b2.
+`rebuild_figures.py` now refreshes the extracted κ JSON before building and
+includes its producer/input files in the rebuild provenance. This editorial
+update introduces no simulator changes; the release suite passed during the
+preceding phase-reset work. No commit was made.
+
+## Typography and figure panels (2026-10-15)
+
+Presentation pass on the existing working manuscript (base commit
+`da88e61b690507526ba4e2a2c017d9c7941beb91`; prior manuscript edits preserved).
+Body text remains Libertinus Serif, now 11.25 pt with 0.68 em leading and
+1.3 em paragraph spacing, without first-line indents. Paragraph spacing exceeds
+leading deliberately so paragraph boundaries are visible. Lato replaces
+DejaVu Sans for headings, captions and page furniture; monospace is unchanged.
+Section headings are bold sans serif, with explicit spacing. The opening page
+has its own tighter title/abstract settings rather than inheriting body spacing.
+
+Figures and numbered tables sit in pale neutral panels with 11 pt inset,
+a 0.45 pt border and 3 pt corners. Captions are left aligned, 9 pt, dark ink.
+The title-page illustration uses the same panel treatment. Existing figure
+assets, scientific colour meanings, prose, inputs and numerical results are
+unchanged. Evidence-table rows stay together and its column headings repeat
+on continuation pages. The resulting manuscript is 25 pages (previously 24).
+
+Reproduce from the repository root in WSL:
+
+```bash
+export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+typst compile --root . --format png --ppi 75 research-outputs/cube-root-growth-paper/main.typ 'tmp/typography-review/page-{p}.png'
+cargo test --release > tmp/typography-release-tests.log 2>&1
+```
+
+Typst compiled without diagnostics. All pages were rendered and reviewed in
+contact sheets, with larger checks of the opening page, representative figure
+and equation pages, and the two-page evidence table. No figure regeneration,
+simulations, estimator changes or dependency changes were required.
+The full `cargo test --release` suite passed (exit 0; existing compiler
+warnings remain). Final PDF SHA-256:
+`4031968ec8618790236cf8f9d7830a9ebb6cd73f1c545f7b3ff0d9fb095f1c92`.
+No commit was made.
+
+## Literature positioning update (2026-10-15)
+
+The literature review in `experiments/2026-10-15-literature-review/` removes the broad absence-of-prior-growth claim. User-supplied Meng–Cohen1994 full text directly measures area and boundary growth in periodic binary media and supplies a boundary-access mechanism anticipating the scaling argument. The manuscript distinguishes uniform multicolour census coverage and separately measured c/kappa from this prior work. It also corrects cone assumptions, rotor theorem scope, finite-horizon highway language, boundary estimator conventions, matched-step wording and selected-cohort scope. Wavelength outcomes remain mixed and no interface class is assigned.
+
+Rebuild with the existing Typst command above; final compile had no diagnostics. The resulting27-page PDF and selected changed pages were rendered/checked; exact hashes are in `experiments/2026-10-15-literature-review/results/verification.json`. The review notebook executed cleanly. No figures or measurements were regenerated, no dependency declarations changed, no simulator/estimator change required Rust tests, and no commit was made. Coverage and source-ambiguity limitations are explicit in the report.
