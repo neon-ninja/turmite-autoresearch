@@ -1,0 +1,28 @@
+{
+ "gates": {
+  "0": {
+   "coverage": true,
+   "reliability": false,
+   "headroom": true
+  },
+  "1": {
+   "coverage": true,
+   "reliability": true,
+   "headroom": false
+  }
+ },
+ "g1_pass_both_bands": false,
+ "verdict": "UNINFORMATIVE: at least one gate failed (band 0: ['reliability'], band 1: ['headroom']); G1 criterion would have FAILED",
+ "provenance": {
+  "git_commit": "baac481911aa68db941e6b692be978dcfb5f08af",
+  "script_sha256": "36d52d1be785685486986855de4732f29ef7465d2335230268736c98becd82d5",
+  "lib_sha256": "0a22336b723db6c00a11035cc6c4eb0f9e81ff9c9d060f42364a846327d7daad",
+  "input_sha256": "5c64ced0ca0ff85c208e59d5b0da93b1dc922fe43d9af8dc4438a27fdf7d5beb",
+  "lam": 1.0,
+  "bootstrap": 2000,
+  "bootstrap_seed": 2026102099,
+  "permutations": 500
+ }
+}
+0 {'n_rules_evaluable': 22, 'r2_baseline': 0.8816622517055057, 'r2_with_gates': 0.8422080696699803, 'delta_r2': -0.03945418203552542, 'delta_ci95': [-0.11787286062736535, 0.005827797109443279], 'permutation_p': 0.846307385229541, 'band_pass': False, 'headroom_ok': True, 'reliability': {'g1': {'n_rules': 22, 'split_half_spearman': 0.917560700169396}, 'g2': {'n_rules': 24, 'split_half_spearman': 0.5643478260869564}}}
+1 {'n_rules_evaluable': 24, 'r2_baseline': 0.9457737868238684, 'r2_with_gates': 0.9453636949758503, 'delta_r2': -0.0004100918480181015, 'delta_ci95': [-0.03335328490477595, 0.030987130542352203], 'permutation_p': 0.059880239520958084, 'band_pass': False, 'headroom_ok': False, 'reliability': {'g1': {'n_rules': 24, 'split_half_spearman': 0.9286956521739129}, 'g2': {'n_rules': 24, 'split_half_spearman': 0.8156521739130433}}}

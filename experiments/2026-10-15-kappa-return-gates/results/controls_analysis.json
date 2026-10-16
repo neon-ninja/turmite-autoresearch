@@ -1,0 +1,54 @@
+[
+ {
+  "walker": "rotor",
+  "band": 0,
+  "n": 8,
+  "g1_mean": -0.04259194553337433,
+  "g1_sd_between_seeds": 0.004603396523771959,
+  "boundary_occupancy_mean": 0.0874538789793543,
+  "boundary_occupancy_sd": 0.010774459346845618,
+  "exit_rate": 0.010530048329480983,
+  "hole_boundary_fraction": 0.21967133384468335,
+  "median_events": 1001.5,
+  "median_t_final": 4012124.5
+ },
+ {
+  "walker": "rotor",
+  "band": 1,
+  "n": 8,
+  "g1_mean": -0.04372795543318879,
+  "g1_sd_between_seeds": 0.0018416762602069367,
+  "boundary_occupancy_mean": 0.04964280661018585,
+  "boundary_occupancy_sd": 0.00460447146832611,
+  "exit_rate": 0.0058342930563943,
+  "hole_boundary_fraction": 0.24020964580090476,
+  "median_events": 4008.0,
+  "median_t_final": 4012124.5
+ },
+ {
+  "walker": "rw",
+  "band": 0,
+  "n": 8,
+  "g1_mean": NaN,
+  "g1_sd_between_seeds": NaN,
+  "boundary_occupancy_mean": 0.5379483225093595,
+  "boundary_occupancy_sd": 0.0800531592071489,
+  "exit_rate": 0.008084394624097659,
+  "hole_boundary_fraction": 0.6596496868476692,
+  "median_events": 122.0,
+  "median_t_final": 685417.0
+ },
+ {
+  "walker": "rw",
+  "band": 1,
+  "n": 8,
+  "g1_mean": -0.011119028865691424,
+  "g1_sd_between_seeds": 0.011842027762456703,
+  "boundary_occupancy_mean": 0.43427623714565244,
+  "boundary_occupancy_sd": 0.09048848631925815,
+  "exit_rate": 0.01686601962499332,
+  "hole_boundary_fraction": 0.7489202148814039,
+  "median_events": 1460.0,
+  "median_t_final": 685417.0
+ }
+]

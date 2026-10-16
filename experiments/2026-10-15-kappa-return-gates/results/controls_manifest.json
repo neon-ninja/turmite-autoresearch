@@ -1,0 +1,40 @@
+{
+  "command": "uv run experiments/2026-10-15-kappa-return-gates/scripts/run_stage.py controls --threads 6",
+  "sampler_command": "/mnt/f/Code/turmite/target/release/examples/kappa_return_gates_sampler /mnt/f/Code/turmite/experiments/2026-10-15-kappa-return-gates/dumps/controls 536870912 4096 32768-34816,131072-139264 806edd7a67c4aaf8 6  (specs on stdin)",
+  "git_commit": "baac481911aa68db941e6b692be978dcfb5f08af",
+  "source_sha256": {
+    "src/return_gates.rs": "cb801b78048e8713b641310f6e09f650861de55a8048dcfe544c973cfd430e6a",
+    "src/field_age.rs": "0733c7128804fd60fcb09f9b8c0d34891aeb99332eec575bb96bb08c823f3f65",
+    "src/fixed_area.rs": "56b1475d1780f95d97fb8a23c1d7acefb38640d66f0b43a73c4bb735b9ea3989",
+    "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76",
+    "examples/kappa_return_gates_sampler.rs": "a6e05ed77a6c9af78c3981f475280760c5bdecfe23c75ac7230c50bc8300ffd4"
+  },
+  "config_hash": "806edd7a67c4aaf8",
+  "cap": 536870912,
+  "grid": 4096,
+  "bands": [
+    [
+      32768,
+      34816
+    ],
+    [
+      131072,
+      139264
+    ]
+  ],
+  "cohort_sha256": "21eb3858b2f75131ce0352f33c00dd0dd8779f73c561fe791c47b1e3843c1cd7",
+  "n_specs": 16,
+  "seeds": {
+    "control": [
+      2026102051,
+      2026102052,
+      2026102053,
+      2026102054,
+      2026102055,
+      2026102056,
+      2026102057,
+      2026102058
+    ]
+  },
+  "runs_csv_sha256": "7ddee98e31de1e7daa24fdcda9850afb486ecad8e4f39ff0c4d6b5feb80f7962"
+}

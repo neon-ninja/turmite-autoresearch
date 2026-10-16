@@ -1,0 +1,42 @@
+{
+  "command": "uv run experiments/2026-10-15-kappa-return-gates/scripts/select_cohort.py",
+  "git_commit": "baac481911aa68db941e6b692be978dcfb5f08af",
+  "input": "experiments/2026-10-kappa-rule-space/results/rules_pool.csv",
+  "input_sha256": "7e5b2d4513947a2a8bc28c227ba4268e6bf1e0d70cb01bc681fa8bc97d7d71fa",
+  "script_sha256": "4afc32f5c51a1814d46b66a9374d685b7dd350dfae5d74f0cfc28678132e7341",
+  "cohort_sha256": "21eb3858b2f75131ce0352f33c00dd0dd8779f73c561fe791c47b1e3843c1cd7",
+  "salt": "return-gates-cohort-v1|",
+  "per_cell": 6,
+  "pool_cell_sizes": {
+    "crust=True,stationary=True": 15,
+    "crust=True,stationary=False": 14,
+    "crust=False,stationary=True": 154,
+    "crust=False,stationary=False": 9
+  },
+  "rules": [
+    "RLLRRLLRL",
+    "RLLLLRLRRRLL",
+    "RLLLLLLRLLRL",
+    "RLLLRRRRRRR",
+    "RLLRRRLLLLLR",
+    "RLLLRRLRRR",
+    "RLLLLRR",
+    "RLLLLRLRRLL",
+    "RLLLRRRLRLRR",
+    "RLLRRRLRRRRR",
+    "RLLLRRRRRRRR",
+    "RLLRRLLLLRRR",
+    "RLRLLRRLLLRR",
+    "RLLRLLRRRLRL",
+    "RRRLLRLLLL",
+    "RRRRRLLRL",
+    "RRRLLRLRLR",
+    "RRRRLRRRRRLL",
+    "RLRLRLLLLLL",
+    "RRLRLLRRLLLL",
+    "RLLRRRLLRLRR",
+    "RLLLRLRRRR",
+    "RRLRLLLLLL",
+    "RRLRLLLRLRRR"
+  ]
+}

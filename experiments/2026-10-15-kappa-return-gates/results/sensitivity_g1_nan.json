@@ -1,0 +1,128 @@
+{
+ "0": {
+  "n_rules_total": 24,
+  "n_rules_evaluable": 24,
+  "excluded": [],
+  "predictor_seeds": 64,
+  "mean_target_seeds": 32.0,
+  "reliability": {
+   "g1": {
+    "n_rules": 24,
+    "split_half_spearman": 0.8973913043478261
+   },
+   "g2": {
+    "n_rules": 24,
+    "split_half_spearman": 0.5643478260869564
+   }
+  },
+  "r2_baseline": 0.870890137329034,
+  "r2_with_gates": 0.8418055458581123,
+  "delta_r2": -0.029084591470921684,
+  "delta_ci95": [
+   -0.10363518992479709,
+   0.0163727777180201
+  ],
+  "permutation_p": 0.7105788423153693,
+  "permutation_null_delta_r2": {
+   "mean": -0.022362847370335392,
+   "q95": 0.011130623175003821
+  },
+  "band_pass": false,
+  "headroom_ok": true,
+  "y_sd": 0.7796301799755209,
+  "rmse_baseline": 0.28616074317102214,
+  "rmse_with_gates": 0.31675681871670314,
+  "exploratory": {
+   "g1_only_delta_r2": -0.008239441361925226,
+   "g2_only_delta_r2": -0.028448482679267806,
+   "oracle_lnq_delta_r2": 0.0034017035321430855,
+   "rule_strata_in_evaluable": [
+    {
+     "crust": false,
+     "stationary": true,
+     "len": 6
+    },
+    {
+     "crust": true,
+     "stationary": true,
+     "len": 6
+    },
+    {
+     "crust": false,
+     "stationary": false,
+     "len": 6
+    },
+    {
+     "crust": true,
+     "stationary": false,
+     "len": 6
+    }
+   ],
+   "spearman_y_g1": -0.013043478260869565,
+   "spearman_y_g2": 0.37913043478260866
+  }
+ },
+ "1": {
+  "n_rules_total": 24,
+  "n_rules_evaluable": 24,
+  "excluded": [],
+  "predictor_seeds": 64,
+  "mean_target_seeds": 32.0,
+  "reliability": {
+   "g1": {
+    "n_rules": 24,
+    "split_half_spearman": 0.9286956521739129
+   },
+   "g2": {
+    "n_rules": 24,
+    "split_half_spearman": 0.8156521739130433
+   }
+  },
+  "r2_baseline": 0.9457737868238684,
+  "r2_with_gates": 0.9453636949758503,
+  "delta_r2": -0.0004100918480181015,
+  "delta_ci95": [
+   -0.03335328490477595,
+   0.030987130542352203
+  ],
+  "permutation_p": 0.059880239520958084,
+  "permutation_null_delta_r2": {
+   "mean": -0.027264613340876848,
+   "q95": 0.0004917354446250237
+  },
+  "band_pass": false,
+  "headroom_ok": false,
+  "y_sd": 0.8061811753910031,
+  "rmse_baseline": 0.1917692608769464,
+  "rmse_with_gates": 0.19249303337475987,
+  "exploratory": {
+   "g1_only_delta_r2": 0.012295980216782354,
+   "g2_only_delta_r2": -0.008131724255140527,
+   "oracle_lnq_delta_r2": 0.01754084595624461,
+   "rule_strata_in_evaluable": [
+    {
+     "crust": true,
+     "stationary": true,
+     "len": 6
+    },
+    {
+     "crust": false,
+     "stationary": true,
+     "len": 6
+    },
+    {
+     "crust": false,
+     "stationary": false,
+     "len": 6
+    },
+    {
+     "crust": true,
+     "stationary": false,
+     "len": 6
+    }
+   ],
+   "spearman_y_g1": 0.3608695652173913,
+   "spearman_y_g2": 0.3652173913043478
+  }
+ }
+}

@@ -1,0 +1,1 @@
+{"S_pred": 64, "rule": "smallest S in {8,16,32,64} with Spearman-Brown projection >=0.7 for g1 and g2 at both bands", "source": "results/pilot_analysis.json"}
