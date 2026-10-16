@@ -1,0 +1,74 @@
+# cmd: uv run experiments/2026-10-16-kappa-square-loop/scripts/analyse_loops.py  git: f26b6ef (working tree may be dirty)  seed 20261016  bootstraps 2000  window k=26
+IDENTITY vs parent dumps/probe.csv (probe-CSV k = log2(t_end) >= 21): rows parent 14509, sampler 14509, all of area/perimeter/new_cells/boundary_steps/escaped equal: True
+parent table reproduced: 183 kept rules, 176 stationary, ln kappa equal to fresh_rules.csv to float precision
+retention (of 50 sampled per lead): L1: kept 37, stationary 34; L2: kept 32, stationary 32; L3: kept 35, stationary 34; L4: kept 31, stationary 31; L5: kept 28, stationary 26; L6: kept 20, stationary 19
+stationary fresh rules n=176; per lead 1:34, 2:32, 3:34, 4:31, 5:26, 6:19
+
+=== P2: loop-step fraction (all loop steps / steps, k=26) by lead; retention beside it ===
+lead  n  kept/50 stat/50  frac_all   frac_lead_colour  M_int(interior rate)  lead_colour_share_of_loop_steps  mean_resid_lnk(vs spline-only fit)
+  1  34    37    34   0.15865   0.00001   0.15971   0.000   -0.209
+  2  32    32    32   0.18388   0.00024   0.18426   0.001   -0.031
+  3  34    35    34   0.16607   0.00099   0.16599   0.007   +0.008
+  4  31    31    31   0.17909   0.00393   0.17909   0.026   +0.033
+  5  26    28    26   0.20163   0.01041   0.20099   0.058   +0.157
+  6  19    20    19   0.25670   0.01633   0.25590   0.079   +0.144
+  lnA22 tertile 1: n=59, Spearman(frac_all, lead) = +0.503 CI [+0.250,+0.688]
+  lnA22 tertile 2: n=58, Spearman(frac_all, lead) = +0.399 CI [+0.137,+0.610]
+  lnA22 tertile 3: n=59, Spearman(frac_all, lead) = +0.166 CI [-0.107,+0.406]
+  pooled Spearman(frac_all, lead) = +0.279; strictly monotone mean over leads 1..6: False
+P2 FAILED (monotone: False; tertile Spearman > 0.5 in all: False)
+  secondary windows (frac_all by lead, mean over stationary rules):
+    k=22: 0.15750 0.18306 0.16639 0.17816 0.20223 0.25873   monotone False
+    k=24: 0.15824 0.18353 0.16622 0.17871 0.20185 0.25748   monotone False
+
+=== Reliability of the deciding mediator M_int (frozen rule: ICC(1) across core-band runs < 0.5 => P3/C1/C2 uninformative) ===
+  M_int: ICC(1) single run = 1.000 (between-rule sd 0.08012, within-rule (between-seed) sd 0.00020, 176 rules, mean runs/rule 7.91); reliability of the rule mean (Spearman-Brown) = 1.000
+  frac_all: ICC(1) = 1.000
+  M_int_lead: ICC(1) = 1.000
+  M_int_other: ICC(1) = 1.000
+  ent_int: ICC(1) = 1.000
+  reliability rule: ICC >= 0.5, mediation test is informative
+
+=== P3: ln kappa ~ spline(ln A22) + b*min(lead,6) [+ g*mediator]; census-quantile spline knots, OLS on the stationary fresh rules ===
+  retention (of 50 sampled per lead): L1: kept 37, stationary 34; L2: kept 32, stationary 32; L3: kept 35, stationary 34; L4: kept 31, stationary 31; L5: kept 28, stationary 26; L6: kept 20, stationary 19
+  Pass (frozen): b1/b0 <= 0.5 and ratio CI upper < 0.8 and g > 0 with CI excluding 0. DECIDING mediator = M_int (interior-only loop-step rate). Others are accounting/robustness.
+  M_int (DECIDING) | all leads       n=176 b0=+0.152 b1=+0.145 ratio b1/b0=+0.957 [+0.907,+0.997]  g(per SD)=+0.024 [+0.002,+0.044]
+  M_int (DECIDING) | leads 1-4       n=131 b0=+0.196 b1=+0.192 ratio b1/b0=+0.981 [+0.930,+1.033]  g(per SD)=+0.035 [+0.011,+0.054]
+  log M_int | all leads              n=176 b0=+0.152 b1=+0.145 ratio b1/b0=+0.957 [+0.910,+1.000]  g(per SD)=+0.022 [-0.000,+0.042]
+  log M_int | leads 1-4              n=131 b0=+0.196 b1=+0.191 ratio b1/b0=+0.976 [+0.926,+1.017]  g(per SD)=+0.031 [+0.007,+0.053]
+  rank M_int | all leads             n=176 b0=+0.152 b1=+0.146 ratio b1/b0=+0.966 [+0.920,+1.010]  g(per SD)=+0.017 [-0.005,+0.037]
+  rank M_int | leads 1-4             n=131 b0=+0.196 b1=+0.191 ratio b1/b0=+0.975 [+0.931,+1.005]  g(per SD)=+0.022 [-0.001,+0.045]
+  ent_int (interior entry rate) | all leads n=176 b0=+0.152 b1=+0.154 ratio b1/b0=+1.019 [+0.994,+1.064]  g(per SD)=+0.027 [+0.006,+0.048]
+  ent_int (interior entry rate) | leads 1-4 n=131 b0=+0.196 b1=+0.198 ratio b1/b0=+1.008 [+0.987,+1.043]  g(per SD)=+0.019 [-0.006,+0.047]
+  M_int, fresh-quantile knots | all leads n=176 b0=+0.152 b1=+0.145 ratio b1/b0=+0.956 [+0.905,+0.996]  g(per SD)=+0.025 [+0.003,+0.045]
+  M_int, fresh-quantile knots | leads 1-4 n=131 b0=+0.197 b1=+0.193 ratio b1/b0=+0.979 [+0.929,+1.028]  g(per SD)=+0.035 [+0.012,+0.054]
+  ACCOUNTING all-loop frac_all | all leads n=176 b0=+0.152 b1=+0.145 ratio b1/b0=+0.955 [+0.904,+0.997]  g(per SD)=+0.025 [+0.002,+0.045]
+  ACCOUNTING all-loop frac_all | leads 1-4 n=131 b0=+0.196 b1=+0.192 ratio b1/b0=+0.980 [+0.927,+1.031]  g(per SD)=+0.035 [+0.011,+0.054]
+  ACCOUNTING boundary loop rate M_bnd | all leads n=176 b0=+0.152 b1=+0.110 ratio b1/b0=+0.727 [+0.560,+0.913]  g(per SD)=+0.061 [+0.020,+0.095]
+  ACCOUNTING boundary loop rate M_bnd | leads 1-4 n=131 b0=+0.196 b1=+0.159 ratio b1/b0=+0.812 [+0.592,+1.003]  g(per SD)=+0.054 [-0.001,+0.109]
+  ACCOUNTING all-loop entry rate | all leads n=176 b0=+0.152 b1=+0.155 ratio b1/b0=+1.020 [+0.995,+1.066]  g(per SD)=+0.027 [+0.006,+0.048]
+  ACCOUNTING all-loop entry rate | leads 1-4 n=131 b0=+0.196 b1=+0.198 ratio b1/b0=+1.008 [+0.988,+1.045]  g(per SD)=+0.019 [-0.006,+0.047]
+  corr(M_int, B/S) across stationary rules = +0.244; corr(M_int, lead) = +0.281; corr(M_int, ln A22) = -0.116
+P3 verdict: not evaluated as support (P2 failed)  (main pass False; leads 1-4 point ratio +0.981)
+
+=== C1 (specificity): mediation fraction f = 1 - b1/b0 for interior lead-colour loops vs interior other loops ===
+  lead-colour interior rate | all    n=176 b0=+0.152 b1=+0.172 ratio b1/b0=+1.134 [+1.048,+1.244]  g(per SD)=-0.048 [-0.066,-0.024]
+  lead-colour interior rate | leads 1-4 n=131 b0=+0.196 b1=+0.204 ratio b1/b0=+1.039 [+0.995,+1.099]  g(per SD)=-0.069 [-0.144,+0.012]
+  other-loop interior rate | all     n=176 b0=+0.152 b1=+0.145 ratio b1/b0=+0.959 [+0.914,+0.995]  g(per SD)=+0.028 [+0.007,+0.047]
+  other-loop interior rate | leads 1-4 n=131 b0=+0.196 b1=+0.193 ratio b1/b0=+0.983 [+0.932,+1.036]  g(per SD)=+0.035 [+0.011,+0.053]
+  both jointly | all                 n=176 b0=+0.152 b1=+0.165 ratio b1/b0=+1.090 [+0.995,+1.210]  g(per SD)=-0.045 [-0.064,-0.022]
+  both jointly | leads 1-4           n=131 b0=+0.196 b1=+0.198 ratio b1/b0=+1.010 [+0.942,+1.092]  g(per SD)=-0.045 [-0.120,+0.039]
+  f_lead = -0.134, f_other = +0.041; C1 FAILED (needs f_lead > 0 and f_other < 0.5 f_lead; informative only if reliability ok: True)
+
+=== C2 (identity caveat) ===
+  C2 holds iff the interior-only M_int passes P3: False. Boundary-loop mediator (accounting) ratio = +0.727; all-loop accounting ratio = +0.955; interior entry-rate ratio = +1.019
+
+=== P4: P(loop | boundary step) / P(loop | interior step), k=26, per rule (pooled over its core runs), stationary rules ===
+  median ratio 0.776 CI [0.579,0.957]; quartiles [0.189, 1.306]; by lead median: 1:0.13, 2:0.72, 3:0.76, 4:0.74, 5:1.18, 6:1.27
+  P4 FAILED (median >= 2). Partly accounting by construction (the loop step is classed by its start cell).
+
+=== C3 (mutation link) ===
+  pairs (arms E+S, both kept): n=154 (E 81, S 73); Spearman(d M_int, d ln kappa) = +0.218 CI [+0.061,+0.364]; accounting Spearman(d frac_all, d) = +0.225
+    arm E: n=81, mean dM_int = +0.03019, mean d ln kappa = -0.062, Spearman = +0.186
+    arm S: n=73, mean dM_int = -0.01028, mean d ln kappa = -0.198, Spearman = +0.137
+  C3 FAILED (Spearman > 0.3; not powered)

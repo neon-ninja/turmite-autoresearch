@@ -1,0 +1,17 @@
+git ce87387 2026-10-16T21:51:33+13:00 cmd: kappa_square_loop_sampler 27 8192 20 < experiments/2026-10-16-kappa-leadrun-fresh/results/specs.txt
+2400 specs
+0
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+1800
+2000
+2200
+finished 2026-10-16T22:07:53+13:00
+797895b9ccf77984ddf1161cb5ca396842a1171b172ac70ddedd81f13db650f9  target/release/examples/kappa_square_loop_sampler
+cceddcd486199f2382ab161b514348ee3159ab30c97dc5b018c33ab86bc98ab6  experiments/2026-10-16-kappa-square-loop/dumps/loops_cohort.csv
