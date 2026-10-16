@@ -1,0 +1,422 @@
+{
+  "seed": 20261015,
+  "commit": "da88e61b690507526ba4e2a2c017d9c7941beb91",
+  "command": "uv run experiments/2026-10-15-independent-area/scripts/analyse.py",
+  "input": "experiments/2026-10-14-t1-excursion-tomography/results/t1b_cutoff_seeds.csv",
+  "input_sha256": "e813c6f21f63421cb28e16df440f8317c0b3b715fa7718b74337edd9249e2b87",
+  "script_sha256": "a633dcc0976dddbe62560d6a3513135bfa30ff768f51326907b8e698d9475f9a",
+  "controls": {
+    "null": 0.49667267998075154,
+    "negative": 0.9571113303072005
+  },
+  "windows": [
+    {
+      "k": 22,
+      "tolerance": 0.05,
+      "rules": [
+        "RLLLLLLLLRR",
+        "RLLLLRLLRLL",
+        "RLLLLRLRRRLL",
+        "RLLLLRRLRRRR",
+        "RLLLRLLLRLRR",
+        "RLLLRLLLRRRL",
+        "RLLLRLLRRLLR",
+        "RLLLRLRLLRRR",
+        "RLLLRRRLLRLL",
+        "RLLLRRRLRLRR",
+        "RLLLRRRRRRR",
+        "RLLLRRRRRRRR",
+        "RLLRLLRLLLLR",
+        "RLLRLLRRRRRL",
+        "RLLRLRLRRRRL",
+        "RLLRLRRLLRLL",
+        "RLLRLRRRLLLL",
+        "RLLRRLRRRRR",
+        "RLLRRRLLLLLL",
+        "RLLRRRLLRLRR",
+        "RLLRRRLRRRRR",
+        "RLLRRRRLLLLR",
+        "RLRLLLRRRRLR",
+        "RLRLLRLLLRLR",
+        "RLRLLRLRRLLL",
+        "RLRLLRRLLLLR",
+        "RLRLLRRLRLLR",
+        "RLRLRLLLRRLR",
+        "RLRLRLLRRLLR",
+        "RLRLRRLL",
+        "RLRLRRRRLLLL",
+        "RLRRLLRRRLLR",
+        "RLRRRLRLRRLR",
+        "RRLLRRRRLRRL",
+        "RRLRLLLLRLRL",
+        "RRLRLLLLRLRR",
+        "RRLRLLLR",
+        "RRLRLLLRLRRR",
+        "RRLRLRRRL",
+        "RRLRRRLRL",
+        "RRRLLRLLLL",
+        "RRRLRLLLLL",
+        "RRRRLRRRRRLL",
+        "RRRRRLRLRRRL"
+      ],
+      "n_rules": 44,
+      "roles": [
+        {
+          "area_group": 0,
+          "kappa_group": 1,
+          "cutoff_group": 2,
+          "pairs": 73,
+          "fraction": 0.6164383561643836
+        },
+        {
+          "area_group": 0,
+          "kappa_group": 2,
+          "cutoff_group": 1,
+          "pairs": 73,
+          "fraction": 0.684931506849315
+        },
+        {
+          "area_group": 1,
+          "kappa_group": 0,
+          "cutoff_group": 2,
+          "pairs": 62,
+          "fraction": 0.7419354838709677
+        },
+        {
+          "area_group": 1,
+          "kappa_group": 2,
+          "cutoff_group": 0,
+          "pairs": 62,
+          "fraction": 0.8064516129032258
+        },
+        {
+          "area_group": 2,
+          "kappa_group": 0,
+          "cutoff_group": 1,
+          "pairs": 68,
+          "fraction": 0.8088235294117647
+        },
+        {
+          "area_group": 2,
+          "kappa_group": 1,
+          "cutoff_group": 0,
+          "pairs": 68,
+          "fraction": 0.7205882352941176
+        }
+      ],
+      "concordance": 0.7298614540822957,
+      "bootstrap95": [
+        0.6045761194926055,
+        0.8421949322849618
+      ],
+      "valid_bootstraps": 2000,
+      "verdict": "held"
+    },
+    {
+      "k": 22,
+      "tolerance": 0.1,
+      "rules": [
+        "RLLLLLLLLRR",
+        "RLLLLRLLRLL",
+        "RLLLLRLRRRLL",
+        "RLLLLRRLRRRR",
+        "RLLLRLLLRLRR",
+        "RLLLRLLLRRRL",
+        "RLLLRLLRRLLR",
+        "RLLLRLRLLRRR",
+        "RLLLRRRLLRLL",
+        "RLLLRRRLRLRR",
+        "RLLLRRRRRRR",
+        "RLLLRRRRRRRR",
+        "RLLRLLRLLLLR",
+        "RLLRLLRRRRRL",
+        "RLLRLRLRRRRL",
+        "RLLRLRRLLRLL",
+        "RLLRLRRRLLLL",
+        "RLLRRLRRRRR",
+        "RLLRRRLLLLLL",
+        "RLLRRRLLRLRR",
+        "RLLRRRLRRRRR",
+        "RLLRRRRLLLLR",
+        "RLRLLLRRRRLR",
+        "RLRLLRLLLRLR",
+        "RLRLLRLRRLLL",
+        "RLRLLRRLLLLR",
+        "RLRLLRRLRLLR",
+        "RLRLRLLLRRLR",
+        "RLRLRLLRRLLR",
+        "RLRLRRLL",
+        "RLRLRRRRLLLL",
+        "RLRRLLRRRLLR",
+        "RLRRRLRLRRLR",
+        "RRLLRRRRLRRL",
+        "RRLRLLLLRLRL",
+        "RRLRLLLLRLRR",
+        "RRLRLLLR",
+        "RRLRLLLRLRRR",
+        "RRLRLRRRL",
+        "RRLRRRLRL",
+        "RRRLLRLLLL",
+        "RRRLRLLLLL",
+        "RRRRLRRRRRLL",
+        "RRRRRLRLRRRL"
+      ],
+      "n_rules": 44,
+      "roles": [
+        {
+          "area_group": 0,
+          "kappa_group": 1,
+          "cutoff_group": 2,
+          "pairs": 146,
+          "fraction": 0.5616438356164384
+        },
+        {
+          "area_group": 0,
+          "kappa_group": 2,
+          "cutoff_group": 1,
+          "pairs": 146,
+          "fraction": 0.7123287671232876
+        },
+        {
+          "area_group": 1,
+          "kappa_group": 0,
+          "cutoff_group": 2,
+          "pairs": 130,
+          "fraction": 0.7230769230769231
+        },
+        {
+          "area_group": 1,
+          "kappa_group": 2,
+          "cutoff_group": 0,
+          "pairs": 130,
+          "fraction": 0.7153846153846154
+        },
+        {
+          "area_group": 2,
+          "kappa_group": 0,
+          "cutoff_group": 1,
+          "pairs": 118,
+          "fraction": 0.7796610169491526
+        },
+        {
+          "area_group": 2,
+          "kappa_group": 1,
+          "cutoff_group": 0,
+          "pairs": 118,
+          "fraction": 0.6694915254237288
+        }
+      ],
+      "concordance": 0.6935977805956911,
+      "bootstrap95": [
+        0.5727587873904613,
+        0.798520339074188
+      ],
+      "valid_bootstraps": 2000,
+      "verdict": "held"
+    },
+    {
+      "k": 25,
+      "tolerance": 0.05,
+      "rules": [
+        "RLLLLLLLLRR",
+        "RLLLLRLLRLL",
+        "RLLLLRLRRRLL",
+        "RLLLLRRLRRRR",
+        "RLLLRLLLRLRR",
+        "RLLLRLLLRRRL",
+        "RLLLRLLRRLLR",
+        "RLLLRLRLLRRR",
+        "RLLLRRRLLRLL",
+        "RLLLRRRLRLRR",
+        "RLLLRRRRRRR",
+        "RLLLRRRRRRRR",
+        "RLLRLLRLLLLR",
+        "RLLRLLRRRRRL",
+        "RLLRLRLRRRRL",
+        "RLLRLRRLLRLL",
+        "RLLRLRRRLLLL",
+        "RLLRRLRRRRR",
+        "RLLRRRLLLLLL",
+        "RLLRRRLLRLRR",
+        "RLLRRRLRRRRR",
+        "RLLRRRRLLLLR",
+        "RLRLLLRRRRLR",
+        "RLRLLRLLLRLR",
+        "RLRLLRLRRLLL",
+        "RLRLLRRLLLLR",
+        "RLRLLRRLRLLR",
+        "RLRLRLLLRRLR",
+        "RLRLRLLRRLLR",
+        "RLRLRRLL",
+        "RLRLRRRRLLLL",
+        "RLRRLLRRRLLR",
+        "RLRRRLRLRRLR",
+        "RRLLRRRRLRRL",
+        "RRLRLLLLRLRL",
+        "RRLRLLLLRLRR",
+        "RRLRLLLR",
+        "RRLRLLLRLRRR",
+        "RRLRLRRRL",
+        "RRLRRRLRL",
+        "RRRLLRLLLL",
+        "RRRLRLLLLL",
+        "RRRRLRRRRRLL",
+        "RRRRRLRLRRRL"
+      ],
+      "n_rules": 44,
+      "roles": [
+        {
+          "area_group": 0,
+          "kappa_group": 1,
+          "cutoff_group": 2,
+          "pairs": 70,
+          "fraction": 0.7428571428571429
+        },
+        {
+          "area_group": 0,
+          "kappa_group": 2,
+          "cutoff_group": 1,
+          "pairs": 70,
+          "fraction": 0.7142857142857143
+        },
+        {
+          "area_group": 1,
+          "kappa_group": 0,
+          "cutoff_group": 2,
+          "pairs": 57,
+          "fraction": 0.7719298245614035
+        },
+        {
+          "area_group": 1,
+          "kappa_group": 2,
+          "cutoff_group": 0,
+          "pairs": 57,
+          "fraction": 0.6666666666666666
+        },
+        {
+          "area_group": 2,
+          "kappa_group": 0,
+          "cutoff_group": 1,
+          "pairs": 62,
+          "fraction": 0.8387096774193549
+        },
+        {
+          "area_group": 2,
+          "kappa_group": 1,
+          "cutoff_group": 0,
+          "pairs": 62,
+          "fraction": 0.8064516129032258
+        }
+      ],
+      "concordance": 0.7568167731155846,
+      "bootstrap95": [
+        0.6166157624010515,
+        0.8809459488767548
+      ],
+      "valid_bootstraps": 2000,
+      "verdict": "held"
+    },
+    {
+      "k": 25,
+      "tolerance": 0.1,
+      "rules": [
+        "RLLLLLLLLRR",
+        "RLLLLRLLRLL",
+        "RLLLLRLRRRLL",
+        "RLLLLRRLRRRR",
+        "RLLLRLLLRLRR",
+        "RLLLRLLLRRRL",
+        "RLLLRLLRRLLR",
+        "RLLLRLRLLRRR",
+        "RLLLRRRLLRLL",
+        "RLLLRRRLRLRR",
+        "RLLLRRRRRRR",
+        "RLLLRRRRRRRR",
+        "RLLRLLRLLLLR",
+        "RLLRLLRRRRRL",
+        "RLLRLRLRRRRL",
+        "RLLRLRRLLRLL",
+        "RLLRLRRRLLLL",
+        "RLLRRLRRRRR",
+        "RLLRRRLLLLLL",
+        "RLLRRRLLRLRR",
+        "RLLRRRLRRRRR",
+        "RLLRRRRLLLLR",
+        "RLRLLLRRRRLR",
+        "RLRLLRLLLRLR",
+        "RLRLLRLRRLLL",
+        "RLRLLRRLLLLR",
+        "RLRLLRRLRLLR",
+        "RLRLRLLLRRLR",
+        "RLRLRLLRRLLR",
+        "RLRLRRLL",
+        "RLRLRRRRLLLL",
+        "RLRRLLRRRLLR",
+        "RLRRRLRLRRLR",
+        "RRLLRRRRLRRL",
+        "RRLRLLLLRLRL",
+        "RRLRLLLLRLRR",
+        "RRLRLLLR",
+        "RRLRLLLRLRRR",
+        "RRLRLRRRL",
+        "RRLRRRLRL",
+        "RRRLLRLLLL",
+        "RRRLRLLLLL",
+        "RRRRLRRRRRLL",
+        "RRRRRLRLRRRL"
+      ],
+      "n_rules": 44,
+      "roles": [
+        {
+          "area_group": 0,
+          "kappa_group": 1,
+          "cutoff_group": 2,
+          "pairs": 121,
+          "fraction": 0.7107438016528925
+        },
+        {
+          "area_group": 0,
+          "kappa_group": 2,
+          "cutoff_group": 1,
+          "pairs": 121,
+          "fraction": 0.6859504132231405
+        },
+        {
+          "area_group": 1,
+          "kappa_group": 0,
+          "cutoff_group": 2,
+          "pairs": 115,
+          "fraction": 0.7217391304347827
+        },
+        {
+          "area_group": 1,
+          "kappa_group": 2,
+          "cutoff_group": 0,
+          "pairs": 115,
+          "fraction": 0.6956521739130435
+        },
+        {
+          "area_group": 2,
+          "kappa_group": 0,
+          "cutoff_group": 1,
+          "pairs": 114,
+          "fraction": 0.7719298245614035
+        },
+        {
+          "area_group": 2,
+          "kappa_group": 1,
+          "cutoff_group": 0,
+          "pairs": 114,
+          "fraction": 0.7807017543859649
+        }
+      ],
+      "concordance": 0.727786183028538,
+      "bootstrap95": [
+        0.6026326053647375,
+        0.845232323024173
+      ],
+      "valid_bootstraps": 2000,
+      "verdict": "held"
+    }
+  ]
+}

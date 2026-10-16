@@ -1,0 +1,178 @@
+{
+  "commands": {
+    "prepare": "uv run experiments/2026-10-15-kappa-field-age/scripts/prepare_pilot.py",
+    "run": "uv run experiments/2026-10-15-kappa-field-age/scripts/pilot.py --run --name pilot-v2"
+  },
+  "config": {
+    "bands": [
+      [
+        32768,
+        34816
+      ],
+      [
+        131072,
+        139264
+      ],
+      [
+        524288,
+        557056
+      ]
+    ],
+    "calibration_sha256": "fa83323dae78dcb5de6bb6e4c6b5c0b6343f23c2dcb1f43e039c5df9d304b6df",
+    "cap": 1073741824,
+    "checkpoint": "per completed trajectory only; mid-trajectory state checkpoints NOT implemented; confirmation blocked",
+    "control_bands": [
+      [
+        1024,
+        1088
+      ],
+      [
+        4096,
+        4352
+      ]
+    ],
+    "control_cap": 4194304,
+    "control_seeds": [
+      2026101541,
+      2026101542
+    ],
+    "decision": "Extend to third candidate band to measure attainment/censoring and cost; no ant association or model selection. Original field-age 48-rule support gate remains failed when applicable.",
+    "definition": "depth 0..4 to any visited boundary; departure visits; phase=(initial+visits)%n; cycles=visits//n",
+    "example": "kappa_field_age_sampler",
+    "gates": {
+      "accounting": "B+I=steps; fragments conserve labels; hazards sum=steps",
+      "budget": "max pilot t <= cap/4 required before confirmation at this cap",
+      "coverage": "all pilot specs reported; no exclusions",
+      "escape": 0,
+      "unresolved_fraction": 0.05
+    },
+    "grid": 4096,
+    "inputs": {
+      "experiments/2026-10-kappa-rule-space/results/rules_pool.csv": "7e5b2d4513947a2a8bc28c227ba4268e6bf1e0d70cb01bc681fa8bc97d7d71fa"
+    },
+    "original_48_rule_cohort_gate": "FAILED: only 22 exact matched pairs in existing pool",
+    "pilot_excluded_from_confirmation": true,
+    "profile_cost_seconds": 5.282494995000889,
+    "resource_budget": "4 workers, 4096 board; <=2 GiB aggregate expected; <=30 minutes per experiment, check logs and stop if exceeded",
+    "rules": [
+      "RLLLLLLLLRR",
+      "RLLLLLLRLLRL",
+      "RLLLLLLRRRRR",
+      "RLLLLLRLLRRL",
+      "RLLLLRLLRLL",
+      "RLLLLRLRRLL",
+      "RLLLLRLRRRLL",
+      "RLLLLRRLLL",
+      "RLLLLRRLLRRR",
+      "RLLLLRRLRRL",
+      "RLLLLRRLRRRR",
+      "RLLLLRRRLRR",
+      "RLLLRLLLRLR",
+      "RLLLRLLLRLRR",
+      "RLLLRLLLRRRL",
+      "RLLLRLLRLLLR",
+      "RLLLRLLRRLLR",
+      "RLLLRLRLLRRR",
+      "RLLLRLRLRLRR",
+      "RLLLRLRRLRR",
+      "RLLLRLRRRR",
+      "RLLLRLRRRRLR",
+      "RLLLRRRLLRLL",
+      "RLLLRRRLRLRR",
+      "RLLLRRRRLRLL",
+      "RLLLRRRRRRRR",
+      "RLLRLRLRL",
+      "RLLRLRRRR",
+      "RLLRRLLLLRRR",
+      "RLLRRLRRRRR",
+      "RLLRRRLLLLLL",
+      "RLLRRRLLRLRR",
+      "RLLRRRLRRRRR",
+      "RLLRRRRLLLLR",
+      "RLRLLLLRLLL",
+      "RLRLRLLLLLL",
+      "RRLLLLLLLR",
+      "RRLLLLLLLRRR",
+      "RRLLLLRRLLRL",
+      "RRLLLRLRLRLR",
+      "RRLRLLLLLL",
+      "RRLRLLLLRLRL",
+      "RRLRLLLRLRRR",
+      "RRLRLLRRLLLL"
+    ],
+    "scope": "feasibility only; no association, model selection or confirmatory verdict",
+    "seeds": [
+      2026101511,
+      2026101512,
+      2026101513,
+      2026101514
+    ],
+    "sources": {
+      "Cargo.lock": "2cc30f118d8e87661e6f579d400cadab998f36da91ab3807d2645803b7ea7d0e",
+      "examples/kappa_field_age_sampler.rs": "7196672e6568da9b9482f5f32338b3084b1ccff789ac6be5fdbb7a14d95d955c",
+      "examples/kappa_tail_budget_calibrate.rs": "b8688965a3c264344d559b3ebb874637db3c000ed2cb61599c5d2c701813eba4",
+      "examples/kappa_tail_budget_sampler.rs": "e3da0a2bef8648b50697fbff1d1e8dea44263f23c2612946aebe56fbda1b6f81",
+      "experiments/2026-10-15-kappa-field-age/scripts/pilot.py": "a5f9b1886e6d7c172746d8716d1b9b16d96c79c151a211bd13501818ba9f941e",
+      "experiments/2026-10-15-kappa-field-age/scripts/prepare_pilot.py": "ce13735200935f1ab87bf1dff2edba9beb6b5f8d54ce78eb64d265c87c95266f",
+      "src/field_age.rs": "0733c7128804fd60fcb09f9b8c0d34891aeb99332eec575bb96bb08c823f3f65",
+      "src/fixed_area.rs": "56b1475d1780f95d97fb8a23c1d7acefb38640d66f0b43a73c4bb735b9ea3989",
+      "src/lib.rs": "2b272145f80bd94628b4e4349ed8f0541132f656d9afd295dcc6a67124507a3e",
+      "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+      "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76"
+    },
+    "strata": {
+      "RLLLLLLLLRR": "drifting",
+      "RLLLLLLRLLRL": "stationary",
+      "RLLLLLLRRRRR": "drifting",
+      "RLLLLLRLLRRL": "drifting",
+      "RLLLLRLLRLL": "drifting",
+      "RLLLLRLRRLL": "drifting",
+      "RLLLLRLRRRLL": "stationary",
+      "RLLLLRRLLL": "stationary",
+      "RLLLLRRLLRRR": "drifting",
+      "RLLLLRRLRRL": "stationary",
+      "RLLLLRRLRRRR": "stationary",
+      "RLLLLRRRLRR": "stationary",
+      "RLLLRLLLRLR": "stationary",
+      "RLLLRLLLRLRR": "stationary",
+      "RLLLRLLLRRRL": "stationary",
+      "RLLLRLLRLLLR": "stationary",
+      "RLLLRLLRRLLR": "stationary",
+      "RLLLRLRLLRRR": "stationary",
+      "RLLLRLRLRLRR": "stationary",
+      "RLLLRLRRLRR": "stationary",
+      "RLLLRLRRRR": "drifting",
+      "RLLLRLRRRRLR": "stationary",
+      "RLLLRRRLLRLL": "drifting",
+      "RLLLRRRLRLRR": "drifting",
+      "RLLLRRRRLRLL": "stationary",
+      "RLLLRRRRRRRR": "drifting",
+      "RLLRLRLRL": "stationary",
+      "RLLRLRRRR": "drifting",
+      "RLLRRLLLLRRR": "drifting",
+      "RLLRRLRRRRR": "drifting",
+      "RLLRRRLLLLLL": "drifting",
+      "RLLRRRLLRLRR": "drifting",
+      "RLLRRRLRRRRR": "drifting",
+      "RLLRRRRLLLLR": "drifting",
+      "RLRLLLLRLLL": "stationary",
+      "RLRLRLLLLLL": "drifting",
+      "RRLLLLLLLR": "stationary",
+      "RRLLLLLLLRRR": "stationary",
+      "RRLLLLRRLLRL": "stationary",
+      "RRLLLRLRLRLR": "stationary",
+      "RRLRLLLLLL": "drifting",
+      "RRLRLLLLRLRL": "drifting",
+      "RRLRLLLRLRRR": "drifting",
+      "RRLRLLRRLLLL": "drifting"
+    },
+    "threads": 4
+  },
+  "config_hash": "4e591d55b497bc4ed11c235522e15ebe64f5c7ac3ebdb11707375bfa6e834b44",
+  "environment": {
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "uv": "uv 0.5.15"
+  },
+  "git_commit": "b3a0f762ac2230b5df92188206a4d3a1081897be",
+  "recorded_utc": "2026-10-15T10:12:25.860688+00:00"
+}

@@ -1,0 +1,6 @@
+# posthoc.py (exploratory); commit 269288eb62bf6b6ec125a3b420dd899057858be5
+# input sha256[:16] e813c6f21f63421c
+k=22 quiet: rules 27; A: br=-0.2073 Std=-0.428 boot Std95 [-0.673,-0.188]; s_u=0.329 s_e=0.103; dR2 +0.254 frac>0 0.996; perm p 0.0070; B: Std=-0.510
+k=22 rank: rules 44; A: br=-0.2252 Std=-0.265 boot Std95 [-0.433,-0.081]; s_u=0.484 s_e=0.602; dR2 +0.090 frac>0 0.883; perm p 0.0200; B: Std=-0.323
+k=25 quiet: rules 29; A: br=-0.3759 Std=-0.392 boot Std95 [-0.587,-0.221]; s_u=0.325 s_e=0.125; dR2 +0.173 frac>0 1.000; perm p 0.0010; B: Std=-0.420
+k=25 rank: rules 44; A: br=-0.1849 Std=-0.197 boot Std95 [-0.424,-0.075]; s_u=0.602 s_e=0.406; dR2 +0.053 frac>0 0.824; perm p 0.0539; B: Std=-0.247

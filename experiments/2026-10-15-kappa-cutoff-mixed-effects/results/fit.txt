@@ -1,0 +1,35 @@
+# fit.py; commit 997c9b2da6efa526fc6c5a57104d103e1345e916
+# input sha256[:16] e813c6f21f63421c | rows 1399
+rules 44; seeds per rule/k min 6 max 8
+parity split: X = even seeds, Y = odd seeds; direction A = covariates from X, ln_ratio from Y
+## k=22
+direction A (parity): br=-0.4152 (REML SE 0.1632) bA=-1.0116 b0=4.4023; ysd(rule means)=1.5108 -> Std=-0.275
+  s_u=0.9294 s_e=1.0576; s_u^2 zA-only 1.0131 -> with zr 0.8638 (share removed 0.147)
+  out-of-sample R2 (44 rule means, frozen transform): M0 0.564, M1 0.681, dR2 +0.118
+direction B (parity, sensitivity): br=-0.5455 (SE 0.1232) Std=-0.374; dR2 +0.055
+rule-cluster bootstrap B=1000, fresh split per replicate: br 95% [-0.6622, -0.1347]; Std 95% [-0.436, -0.091]; dR2 95% [-0.101, +0.155], frac dR2>0 0.875
+random balanced splits R=500 (44 rules fixed): br mean -0.4199 sd 0.0751 (between-split sd), frac<0 1.000; Std mean -0.279 sd 0.046; dR2 mean +0.051 sd 0.046
+permutation of zr across rules (1000): null br sd 0.1774; two-sided p = 0.0200
+## k=25
+direction A (parity): br=-0.5700 (REML SE 0.3249) bA=-1.9909 b0=3.5610; ysd(rule means)=2.9356 -> Std=-0.194
+  s_u=2.0136 s_e=1.3937; s_u^2 zA-only 4.2791 -> with zr 4.0547 (share removed 0.052)
+  out-of-sample R2 (44 rule means, frozen transform): M0 0.441, M1 0.514, dR2 +0.073
+direction B (parity, sensitivity): br=-0.9288 (SE 0.3160) Std=-0.313; dR2 +0.002
+rule-cluster bootstrap B=1000, fresh split per replicate: br 95% [-1.4471, -0.2003]; Std 95% [-0.482, -0.072]; dR2 95% [-0.085, +0.208], frac dR2>0 0.866
+random balanced splits R=500 (44 rules fixed): br mean -0.8510 sd 0.1605 (between-split sd), frac<0 1.000; Std mean -0.287 sd 0.052; dR2 mean +0.041 sd 0.069
+permutation of zr across rules (1000): null br sd 0.3334; two-sided p = 0.0959
+## pooled over k=22,25 (k indicator, one random intercept per rule)
+direction A: br=-0.0140 (REML SE 0.1683) Std=-0.006; s_u=1.5261 s_e=1.4620
+bootstrap B=1000: br 95% [-0.8897, 0.2869]; Std 95% [-0.417, 0.125]
+## negative control: whole-pipeline label shuffle (200 shuffles, bootstrap B=200 each; k=(22, 25))
+  groups of rules with identical seed lists (sizes): [1, 1, 42]
+  k=22: shuffled br mean -0.0050 sd 0.2396; CI excludes 0 in 0.075 of shuffles
+  k=25: shuffled br mean +0.4024 sd 0.3942; CI excludes 0 in 0.045 of shuffles
+## registered criteria
+  P1 sign/size/CI: FAILED
+  P2 out-of-sample: FAILED
+  P3 permutation: FAILED
+  P4 pooled: FAILED
+  P5 direction B sign: HELD
+  k=22: Std -0.275 (need <= -0.30); CI br excl 0: True; dR2 +0.118 (need >= +0.05), frac>0 0.875 (need >= 0.90); p_perm 0.0200 (need <= 0.01)
+  k=25: Std -0.194 (need <= -0.30); CI br excl 0: True; dR2 +0.073 (need >= +0.05), frac>0 0.866 (need >= 0.90); p_perm 0.0959 (need <= 0.01)

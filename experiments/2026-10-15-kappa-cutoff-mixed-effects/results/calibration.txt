@@ -1,0 +1,13 @@
+# calibrate.py; commit 997c9b2da6efa526fc6c5a57104d103e1345e916
+## noise-free covariates, br=-0.5: 300 datasets, bootstrap B=200
+  br estimate mean -0.489 (truth -0.5), sd 0.066; ratio est/truth 0.977
+  s_u mean 0.297 (truth 0.30), s_e mean 0.130 (truth 0.13)
+  bootstrap 95% CI covers the true br: 0.903;  CI excludes 0: 1.000
+## noise-free covariates, br=0 (null): 300 datasets, bootstrap B=200
+  br estimate mean 0.000 (truth 0.0), sd 0.049; ratio est/truth n/a
+  s_u mean 0.301 (truth 0.30), s_e mean 0.129 (truth 0.13)
+  bootstrap 95% CI covers the true br: 0.923;  CI excludes 0: 0.077
+## noisy covariates (seed sd lnk 0.089, lnA 0.10), br=-0.5: 300 datasets, bootstrap B=200
+  br estimate mean -0.447 (truth -0.5), sd 0.077; ratio est/truth 0.895
+  s_u mean 0.363 (truth 0.30), s_e mean 0.130 (truth 0.13)
+  bootstrap 95% CI covers the true br: 0.787;  CI excludes 0: 1.000

@@ -1,0 +1,880 @@
+{
+  "scope": "Feasibility and split-seed feature reliability only; NO scientific predictions evaluated",
+  "bands": [
+    {
+      "band": 0,
+      "lo": 32768,
+      "completed": 176,
+      "requested": 176,
+      "unresolved_overlap": 0,
+      "unresolved_I_fraction": 0.0,
+      "min_completed_entry_episodes": 1018,
+      "split_seed_reliability": {
+        "entry_mean": {
+          "spearman_two_seed_halves": 0.6155038759689923,
+          "rules": 44
+        },
+        "tail_probability_64": {
+          "spearman_two_seed_halves": 0.8514446793516561,
+          "rules": 44
+        },
+        "tail_mean_64": {
+          "spearman_two_seed_halves": 0.7812544045102183,
+          "rules": 44
+        },
+        "immature": {
+          "spearman_two_seed_halves": 0.9161381254404509,
+          "rules": 44
+        },
+        "median_log_age": {
+          "spearman_two_seed_halves": 0.413107822410148,
+          "rules": 44
+        },
+        "cycle_variance": {
+          "spearman_two_seed_halves": 0.9095137420718815,
+          "rules": 44
+        }
+      },
+      "between_seed_dispersion": {
+        "entry_mean": {
+          "median_between_seed_sd": 48.33332896726529
+        },
+        "tail_probability_64": {
+          "median_between_seed_sd": 0.004220670637078963
+        },
+        "tail_mean_64": {
+          "median_between_seed_sd": 5447.215341948282
+        },
+        "immature": {
+          "median_between_seed_sd": 0.010061885029062578
+        },
+        "median_log_age": {
+          "median_between_seed_sd": 0.7474377631469862
+        },
+        "cycle_variance": {
+          "median_between_seed_sd": 0.016953042042022144
+        }
+      },
+      "by_stratum": {
+        "drifting": {
+          "requested": 88,
+          "completed": 88
+        },
+        "stationary": {
+          "requested": 88,
+          "completed": 88
+        }
+      }
+    },
+    {
+      "band": 1,
+      "lo": 131072,
+      "completed": 176,
+      "requested": 176,
+      "unresolved_overlap": 0,
+      "unresolved_I_fraction": 0.0,
+      "min_completed_entry_episodes": 4085,
+      "split_seed_reliability": {
+        "entry_mean": {
+          "spearman_two_seed_halves": 0.7688513037350246,
+          "rules": 44
+        },
+        "tail_probability_64": {
+          "spearman_two_seed_halves": 0.8814658210007046,
+          "rules": 44
+        },
+        "tail_mean_64": {
+          "spearman_two_seed_halves": 0.8661028893587032,
+          "rules": 44
+        },
+        "immature": {
+          "spearman_two_seed_halves": 0.8466525722339676,
+          "rules": 44
+        },
+        "median_log_age": {
+          "spearman_two_seed_halves": 0.3210711768851303,
+          "rules": 44
+        },
+        "cycle_variance": {
+          "spearman_two_seed_halves": 0.8686398872445384,
+          "rules": 44
+        }
+      },
+      "between_seed_dispersion": {
+        "entry_mean": {
+          "median_between_seed_sd": 102.26819310021781
+        },
+        "tail_probability_64": {
+          "median_between_seed_sd": 0.002822039637285235
+        },
+        "tail_mean_64": {
+          "median_between_seed_sd": 19926.409448924143
+        },
+        "immature": {
+          "median_between_seed_sd": 0.005149874940842816
+        },
+        "median_log_age": {
+          "median_between_seed_sd": 1.0765608052222462
+        },
+        "cycle_variance": {
+          "median_between_seed_sd": 0.007752347797063366
+        }
+      },
+      "by_stratum": {
+        "drifting": {
+          "requested": 88,
+          "completed": 88
+        },
+        "stationary": {
+          "requested": 88,
+          "completed": 88
+        }
+      }
+    },
+    {
+      "band": 2,
+      "lo": 524288,
+      "completed": 168,
+      "requested": 176,
+      "unresolved_overlap": 0,
+      "unresolved_I_fraction": 0.0,
+      "min_completed_entry_episodes": 0,
+      "split_seed_reliability": {
+        "entry_mean": {
+          "spearman_two_seed_halves": 0.7069929503281744,
+          "rules": 42
+        },
+        "tail_probability_64": {
+          "spearman_two_seed_halves": 0.9087594198201119,
+          "rules": 42
+        },
+        "tail_mean_64": {
+          "spearman_two_seed_halves": 0.8215703751721903,
+          "rules": 42
+        },
+        "immature": {
+          "spearman_two_seed_halves": 0.8602568784663308,
+          "rules": 42
+        },
+        "median_log_age": {
+          "spearman_two_seed_halves": 0.717851065553845,
+          "rules": 42
+        },
+        "cycle_variance": {
+          "spearman_two_seed_halves": 0.8455897255836626,
+          "rules": 42
+        }
+      },
+      "between_seed_dispersion": {
+        "entry_mean": {
+          "median_between_seed_sd": 143.47354940329814
+        },
+        "tail_probability_64": {
+          "median_between_seed_sd": 0.001296815617562996
+        },
+        "tail_mean_64": {
+          "median_between_seed_sd": 70398.2720979799
+        },
+        "immature": {
+          "median_between_seed_sd": 0.00253671002211042
+        },
+        "median_log_age": {
+          "median_between_seed_sd": 1.3002165527357379
+        },
+        "cycle_variance": {
+          "median_between_seed_sd": 0.0033710023328644145
+        }
+      },
+      "by_stratum": {
+        "drifting": {
+          "requested": 88,
+          "completed": 80
+        },
+        "stationary": {
+          "requested": 88,
+          "completed": 88
+        }
+      }
+    }
+  ],
+  "analysis_source_sha256": "5048717527d59b4945fe39a33387cc3fe2d93ced3d2cb0c0dafd70c07dc8d624",
+  "audit_sha256": "30abda189650de1376e7b358380ffd5c28b14182aec1aed04f807230203daf0e",
+  "source_manifest_sha256": "2ce03575f8a71a6d4ef7eb58be48d16e0370ff1c28ecfa71855363190ede298b",
+  "input_sha256": "cd747c2931ed6416534ae8373c7dd936930d3bf42631c7f088d192812f6f9167",
+  "command": "uv run experiments/2026-10-15-kappa-field-age/scripts/summarize.py",
+  "checkpoint_ready": false,
+  "original_age_cohort_gate": "FAILED: only 22 exact matched pairs in existing pool",
+  "requested_rules": 44,
+  "seeds_per_rule": 4,
+  "bootstrap": "none: descriptive pilot, no confidence interval or inference",
+  "run_gates": {
+    "all_complete": false,
+    "no_escape": true,
+    "quarter_cap_reserve": false,
+    "max_t": 1073741824,
+    "elapsed_seconds": 757.8620079959983
+  },
+  "peak_process_rss_kib": [
+    326036,
+    526564
+  ],
+  "scientific_verdict": "NOT TESTED: no fitted/calibrated survival family, outcome seed roles, or frozen confirmatory regression; no causal conclusion",
+  "noncomplete_trajectories": [
+    {
+      "bands": [
+        {
+          "I": "9527",
+          "band": "0",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "12594",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "25463146",
+          "band": "1",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "25475546",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "0",
+          "band": "2",
+          "i_clip": "0",
+          "reached_hi": "0",
+          "reached_lo": "0",
+          "steps": "0",
+          "unresolved_overlap": "0"
+        }
+      ],
+      "spec": "RLLLLLLRRRRR@2026101511",
+      "status": {
+        "cells": "408316",
+        "history_bytes_per_cell": "32",
+        "n": "12",
+        "spec": "RLLLLLLRRRRR@2026101511",
+        "stop": "budget",
+        "t_final": "1073741824"
+      }
+    },
+    {
+      "bands": [
+        {
+          "I": "4109110",
+          "band": "0",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "4112321",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "27872262",
+          "band": "1",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "27885380",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "0",
+          "band": "2",
+          "i_clip": "0",
+          "reached_hi": "0",
+          "reached_lo": "0",
+          "steps": "0",
+          "unresolved_overlap": "0"
+        }
+      ],
+      "spec": "RLLLLLLRRRRR@2026101512",
+      "status": {
+        "cells": "397468",
+        "history_bytes_per_cell": "32",
+        "n": "12",
+        "spec": "RLLLLLLRRRRR@2026101512",
+        "stop": "budget",
+        "t_final": "1073741824"
+      }
+    },
+    {
+      "bands": [
+        {
+          "I": "922608",
+          "band": "0",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "925702",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "20676823",
+          "band": "1",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "20689491",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "0",
+          "band": "2",
+          "i_clip": "0",
+          "reached_hi": "0",
+          "reached_lo": "0",
+          "steps": "0",
+          "unresolved_overlap": "0"
+        }
+      ],
+      "spec": "RLLLLLLRRRRR@2026101513",
+      "status": {
+        "cells": "392092",
+        "history_bytes_per_cell": "32",
+        "n": "12",
+        "spec": "RLLLLLLRRRRR@2026101513",
+        "stop": "budget",
+        "t_final": "1073741824"
+      }
+    },
+    {
+      "bands": [
+        {
+          "I": "35527",
+          "band": "0",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "38593",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "21262499",
+          "band": "1",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "21274944",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "0",
+          "band": "2",
+          "i_clip": "0",
+          "reached_hi": "0",
+          "reached_lo": "0",
+          "steps": "0",
+          "unresolved_overlap": "0"
+        }
+      ],
+      "spec": "RLLLLLLRRRRR@2026101514",
+      "status": {
+        "cells": "403732",
+        "history_bytes_per_cell": "32",
+        "n": "12",
+        "spec": "RLLLLLLRRRRR@2026101514",
+        "stop": "budget",
+        "t_final": "1073741824"
+      }
+    },
+    {
+      "bands": [
+        {
+          "I": "45755",
+          "band": "0",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "48833",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "11909712",
+          "band": "1",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "11922149",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "0",
+          "band": "2",
+          "i_clip": "0",
+          "reached_hi": "0",
+          "reached_lo": "0",
+          "steps": "0",
+          "unresolved_overlap": "0"
+        }
+      ],
+      "spec": "RLLLLRRLLRRR@2026101511",
+      "status": {
+        "cells": "498388",
+        "history_bytes_per_cell": "32",
+        "n": "12",
+        "spec": "RLLLLRRLLRRR@2026101511",
+        "stop": "budget",
+        "t_final": "1073741824"
+      }
+    },
+    {
+      "bands": [
+        {
+          "I": "1532808",
+          "band": "0",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "1536029",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "11829427",
+          "band": "1",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "11841954",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "0",
+          "band": "2",
+          "i_clip": "0",
+          "reached_hi": "0",
+          "reached_lo": "0",
+          "steps": "0",
+          "unresolved_overlap": "0"
+        }
+      ],
+      "spec": "RLLLLRRLLRRR@2026101512",
+      "status": {
+        "cells": "503496",
+        "history_bytes_per_cell": "32",
+        "n": "12",
+        "spec": "RLLLLRRLLRRR@2026101512",
+        "stop": "budget",
+        "t_final": "1073741824"
+      }
+    },
+    {
+      "bands": [
+        {
+          "I": "1484924",
+          "band": "0",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "1488148",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "14167950",
+          "band": "1",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "14180361",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "0",
+          "band": "2",
+          "i_clip": "0",
+          "reached_hi": "0",
+          "reached_lo": "0",
+          "steps": "0",
+          "unresolved_overlap": "0"
+        }
+      ],
+      "spec": "RLLLLRRLLRRR@2026101513",
+      "status": {
+        "cells": "492960",
+        "history_bytes_per_cell": "32",
+        "n": "12",
+        "spec": "RLLLLRRLLRRR@2026101513",
+        "stop": "budget",
+        "t_final": "1073741824"
+      }
+    },
+    {
+      "bands": [
+        {
+          "I": "589403",
+          "band": "0",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "592563",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "14005727",
+          "band": "1",
+          "i_clip": "0",
+          "reached_hi": "1",
+          "reached_lo": "1",
+          "steps": "14018134",
+          "unresolved_overlap": "0"
+        },
+        {
+          "I": "0",
+          "band": "2",
+          "i_clip": "0",
+          "reached_hi": "0",
+          "reached_lo": "0",
+          "steps": "0",
+          "unresolved_overlap": "0"
+        }
+      ],
+      "spec": "RLLLLRRLLRRR@2026101514",
+      "status": {
+        "cells": "500324",
+        "history_bytes_per_cell": "32",
+        "n": "12",
+        "spec": "RLLLLRRLLRRR@2026101514",
+        "stop": "budget",
+        "t_final": "1073741824"
+      }
+    }
+  ],
+  "cohort_audit": {
+    "blocks": {
+      "10:RLL": {
+        "drifting": [
+          "RLLLRLRRRR"
+        ],
+        "stationary": [
+          "RLLLLRRLLL",
+          "RLLLRLLRRR",
+          "RLLLRLRRLL",
+          "RLLLRRLRRR",
+          "RLLRLRRRLL",
+          "RLLRRLLLLL"
+        ]
+      },
+      "10:RLR": {
+        "drifting": [],
+        "stationary": [
+          "RLRLRRRRLR",
+          "RLRLRRRRRL",
+          "RLRRLRLRRL"
+        ]
+      },
+      "10:RRL": {
+        "drifting": [
+          "RRLRLLLLLL"
+        ],
+        "stationary": [
+          "RRLLLLLLLR",
+          "RRLLLLRLLR",
+          "RRLLRLLLRL",
+          "RRLRLRLLRR",
+          "RRLRLRLRLR"
+        ]
+      },
+      "10:RRR": {
+        "drifting": [],
+        "stationary": [
+          "RRRLLLLLLL",
+          "RRRLLRLLLL",
+          "RRRLLRLRLR",
+          "RRRLRLLLLL",
+          "RRRLRRLRRL"
+        ]
+      },
+      "11:RLL": {
+        "drifting": [
+          "RLLLLLLLLRR",
+          "RLLLLRLLRLL",
+          "RLLLLRLRRLL",
+          "RLLRRLRRRRR"
+        ],
+        "stationary": [
+          "RLLLLRRLRRL",
+          "RLLLLRRRLRR",
+          "RLLLRLLLRLR",
+          "RLLLRLRRLRR",
+          "RLLLRRRRRRR",
+          "RLLRLLRLLLR",
+          "RLLRLRRLRRR",
+          "RLLRLRRRRRR",
+          "RLLRRLLLRLR",
+          "RLLRRLLRRRL",
+          "RLLRRLRLRLR",
+          "RLLRRLRRLRL",
+          "RLLRRRRLRRL"
+        ]
+      },
+      "11:RLR": {
+        "drifting": [
+          "RLRLRLLLLLL"
+        ],
+        "stationary": [
+          "RLRLLLLRLLL",
+          "RLRLLRLLLRR",
+          "RLRLLRLLRRL",
+          "RLRLRLRRLLL",
+          "RLRLRRLLLRR",
+          "RLRRLLLRLLL",
+          "RLRRLLRLLRR",
+          "RLRRLRLLLRR",
+          "RLRRLRLLRLR",
+          "RLRRLRLRLRL",
+          "RLRRLRRRRLL",
+          "RLRRLRRRRLR",
+          "RLRRRLRRRLL",
+          "RLRRRLRRRRL"
+        ]
+      },
+      "11:RRL": {
+        "drifting": [],
+        "stationary": [
+          "RRLLLLRLRRR",
+          "RRLLRLRRRRL",
+          "RRLRLLRRLRL",
+          "RRLRRRLRLLR"
+        ]
+      },
+      "11:RRR": {
+        "drifting": [],
+        "stationary": [
+          "RRRLLRLRRLL",
+          "RRRLRLLLLRL",
+          "RRRLRRLRLRR",
+          "RRRRLRRLRLL",
+          "RRRRRRLRRRL"
+        ]
+      },
+      "12:RLL": {
+        "drifting": [
+          "RLLLLLLRRRRR",
+          "RLLLLLRLLRRL",
+          "RLLLLRRLLRRR",
+          "RLLLRRRLLRLL",
+          "RLLLRRRLRLRR",
+          "RLLLRRRRRRRR",
+          "RLLRRLLLLRRR",
+          "RLLRRRLLLLLL",
+          "RLLRRRLLRLRR",
+          "RLLRRRLRRRRR",
+          "RLLRRRRLLLLR"
+        ],
+        "stationary": [
+          "RLLLLLLRLLRL",
+          "RLLLLRLRRRLL",
+          "RLLLLRRLRRRR",
+          "RLLLRLLLRLRR",
+          "RLLLRLLLRRRL",
+          "RLLLRLLRLLLR",
+          "RLLLRLLRRLLR",
+          "RLLLRLRLLRRR",
+          "RLLLRLRLRLRR",
+          "RLLLRLRRRRLR",
+          "RLLLRRRRLRLL",
+          "RLLRLLRLLLLR",
+          "RLLRLLRLRLRR",
+          "RLLRLLRRRLRL",
+          "RLLRLLRRRRRL",
+          "RLLRLRLRRRRL",
+          "RLLRLRRLLRLL",
+          "RLLRLRRRLLLL",
+          "RLLRRLRLRLRL",
+          "RLLRRRLLLLLR",
+          "RLLRRRRLRRLR",
+          "RLLRRRRRRLRR"
+        ]
+      },
+      "12:RLR": {
+        "drifting": [],
+        "stationary": [
+          "RLRLLLLRRLLR",
+          "RLRLLLRLLLLL",
+          "RLRLLLRLLLRL",
+          "RLRLLLRLRLLR",
+          "RLRLLLRRRRLR",
+          "RLRLLLRRRRRL",
+          "RLRLLRLLLRLR",
+          "RLRLLRLRRLLL",
+          "RLRLLRLRRRRL",
+          "RLRLLRRLLLLR",
+          "RLRLLRRLLLRR",
+          "RLRLLRRLRLLR",
+          "RLRLLRRRRLRR",
+          "RLRLRLLLRRLL",
+          "RLRLRLLLRRLR",
+          "RLRLRLLRRLLR",
+          "RLRLRLRLLLRL",
+          "RLRLRRRLRRRR",
+          "RLRLRRRRLLLL",
+          "RLRLRRRRLRRL",
+          "RLRRLLLLLRLL",
+          "RLRRLLRRRLLR",
+          "RLRRLRLRLLLL",
+          "RLRRRLLLRLLL",
+          "RLRRRLRLLRRR",
+          "RLRRRLRLRRLR"
+        ]
+      },
+      "12:RRL": {
+        "drifting": [
+          "RRLRLLLLRLRL",
+          "RRLRLLLRLRRR",
+          "RRLRLLRRLLLL"
+        ],
+        "stationary": [
+          "RRLLLLLLLRRR",
+          "RRLLLLRRLLRL",
+          "RRLLLRLRLRLR",
+          "RRLLLRLRRRRL",
+          "RRLLRLLLLLRL",
+          "RRLLRLLLLRLL",
+          "RRLLRLRRLRRL",
+          "RRLLRLRRLRRR",
+          "RRLLRRLRLRLR",
+          "RRLLRRLRLRRL",
+          "RRLLRRRLLLRR",
+          "RRLLRRRRLRRL",
+          "RRLRLLLLRLRR",
+          "RRLRLLLLRRLR",
+          "RRLRLRLLLRLL",
+          "RRLRLRLRRLLL",
+          "RRLRLRRLLRLR",
+          "RRLRLRRLLRRL",
+          "RRLRLRRRLRRL",
+          "RRLRRRLRLRLL",
+          "RRLRRRLRRLLR"
+        ]
+      },
+      "12:RRR": {
+        "drifting": [],
+        "stationary": [
+          "RRRLLLLLRRLL",
+          "RRRLLLLRLLLL",
+          "RRRLLRLLLLLL",
+          "RRRLLRLLLLLR",
+          "RRRLLRLRRRLL",
+          "RRRLLRRLLLRR",
+          "RRRLLRRRLRRL",
+          "RRRLRLLLLLRR",
+          "RRRLRLLLLRRL",
+          "RRRLRLLLRRLL",
+          "RRRLRLLRLLLL",
+          "RRRLRLRLLLRL",
+          "RRRLRLRLLLRR",
+          "RRRRLLLRRRLL",
+          "RRRRLRLRLLLR",
+          "RRRRLRRRLRRL",
+          "RRRRLRRRRRLL",
+          "RRRRRLRLLLRL",
+          "RRRRRLRLLRLR",
+          "RRRRRLRLRRRL",
+          "RRRRRRLRRRRL"
+        ]
+      },
+      "5:RRR": {
+        "drifting": [],
+        "stationary": [
+          "RRRLR"
+        ]
+      },
+      "6:RLR": {
+        "drifting": [],
+        "stationary": [
+          "RLRLLL",
+          "RLRRLL",
+          "RLRRLR"
+        ]
+      },
+      "6:RRL": {
+        "drifting": [],
+        "stationary": [
+          "RRLRLL"
+        ]
+      },
+      "7:RLL": {
+        "drifting": [
+          "RLLLLRR"
+        ],
+        "stationary": []
+      },
+      "7:RLR": {
+        "drifting": [],
+        "stationary": [
+          "RLRLRLL",
+          "RLRRLLL"
+        ]
+      },
+      "8:RLL": {
+        "drifting": [],
+        "stationary": [
+          "RLLLRLLR",
+          "RLLRLLRL"
+        ]
+      },
+      "8:RLR": {
+        "drifting": [],
+        "stationary": [
+          "RLRLRRLL",
+          "RLRRLLRR",
+          "RLRRLRRL"
+        ]
+      },
+      "8:RRL": {
+        "drifting": [],
+        "stationary": [
+          "RRLLRLRL",
+          "RRLRLLLR",
+          "RRLRLRLR"
+        ]
+      },
+      "9:RLL": {
+        "drifting": [
+          "RLLRLRRRR"
+        ],
+        "stationary": [
+          "RLLRLRLRL",
+          "RLLRRLLRL"
+        ]
+      },
+      "9:RLR": {
+        "drifting": [],
+        "stationary": [
+          "RLRRLLLLL"
+        ]
+      },
+      "9:RRL": {
+        "drifting": [],
+        "stationary": [
+          "RRLRLRRRL",
+          "RRLRRRLRL"
+        ]
+      },
+      "9:RRR": {
+        "drifting": [],
+        "stationary": [
+          "RRRLLLLRL",
+          "RRRLRLRLL",
+          "RRRRLRLLR",
+          "RRRRRLLRL"
+        ]
+      }
+    },
+    "command": "uv run experiments/2026-10-15-kappa-field-age/scripts/cohort_audit.py",
+    "counts": {
+      "drifting": 23,
+      "stationary": 169
+    },
+    "exact_length_prefix3_pairs": 22,
+    "git_commit": "3d001238c4ab8e91dbc19b01a8e21c795c737df8",
+    "input_path": "experiments/2026-10-kappa-rule-space/results/rules_pool.csv",
+    "input_sha256": "7e5b2d4513947a2a8bc28c227ba4268e6bf1e0d70cb01bc681fa8bc97d7d71fa",
+    "required_per_stratum": 24,
+    "source_sha256": "83c3b48eb99272d839eb2dcd42b026663dbf25e51a268bde2c528b5a2b42e523",
+    "threshold": "stationary iff abs(existing pool median g_k)<0.05; drifting otherwise",
+    "unmatched_support_gate": false
+  }
+}

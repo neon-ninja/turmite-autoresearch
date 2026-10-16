@@ -1,0 +1,136 @@
+{
+ "cmd": "uv run experiments/2026-10-15-kappa-prefix-exposure/scripts/select_cohort.py",
+ "dev_families": [
+  "RLLLL",
+  "RLLRR",
+  "RLRRL",
+  "RLRRR",
+  "RRLLL",
+  "RRLLR",
+  "RRRRL",
+  "RRRRR"
+ ],
+ "git_head": "997c9b2da6efa526fc6c5a57104d103e1345e916",
+ "inputs": {
+  "analyse_probe.py": "799f5e73f5cbf1c4e4b664454f625d7b0cb32685e1130213757926e3448ec2db",
+  "dumps/w3c_probe.csv (gitignored)": "28ddbc4f61e98b50ddb0f79b161b92a41d7e8593cfcc31a8a474f0b25f22027a",
+  "results/w3c_rules.txt": "88eed4f830e33cce02064bf77ba5299b0a0753f64c325f0c726852ae2cae6369"
+ },
+ "non_primitive_arm_rules": [
+  "RLLRLLLRLLRLLL",
+  "LLLRLLLLLLRLLL"
+ ],
+ "outputs": {
+  "arms.csv": "b3924e38e371cc5388535993089edbc39d7706108881f846fbba9cda0ec7c5c5",
+  "cohort.csv": "2ef3bf89aa6b42590be20f5a7a53d8c0089921bbc005c5442b590c56678c7e19",
+  "specs_confirm_dev.txt": "547e65328d400c0c27e6954cf394eda5e1d097e57caae7a5ee79ae37eb26141e",
+  "specs_confirm_val.txt": "833d3f151562d9f0f70e10702b4bf3e73bff3055b93a39993398bece29e5822c",
+  "specs_pilot_dev.txt": "dc9abda132aaa239757e4171c2495d447c2b71e836d99c3bb3ed186aa5a9ac0a"
+ },
+ "pilot_seeds": [
+  2026101570001,
+  2026101570002,
+  2026101570003,
+  2026101570004
+ ],
+ "pred_seeds": [
+  2026101571001,
+  2026101571002,
+  2026101571003,
+  2026101571004,
+  2026101571005,
+  2026101571006,
+  2026101571007,
+  2026101571008,
+  2026101571009,
+  2026101571010,
+  2026101571011,
+  2026101571012,
+  2026101571013,
+  2026101571014,
+  2026101571015,
+  2026101571016,
+  2026101571017,
+  2026101571018,
+  2026101571019,
+  2026101571020,
+  2026101571021,
+  2026101571022,
+  2026101571023,
+  2026101571024,
+  2026101571025,
+  2026101571026,
+  2026101571027,
+  2026101571028,
+  2026101571029,
+  2026101571030,
+  2026101571031,
+  2026101571032
+ ],
+ "salt": "kpe-2026-10-15",
+ "seed_audit_files_mentioning_namespace": [],
+ "shortfalls": {
+  "dev": {
+   "nonstationary": {},
+   "stationary": {}
+  },
+  "val": {
+   "nonstationary": {},
+   "stationary": {}
+  }
+ },
+ "spec_counts": {
+  "specs_confirm_dev.txt": 5376,
+  "specs_confirm_val.txt": 5376,
+  "specs_pilot_dev.txt": 336
+ },
+ "tgt_seeds": [
+  2026101571033,
+  2026101571034,
+  2026101571035,
+  2026101571036,
+  2026101571037,
+  2026101571038,
+  2026101571039,
+  2026101571040,
+  2026101571041,
+  2026101571042,
+  2026101571043,
+  2026101571044,
+  2026101571045,
+  2026101571046,
+  2026101571047,
+  2026101571048,
+  2026101571049,
+  2026101571050,
+  2026101571051,
+  2026101571052,
+  2026101571053,
+  2026101571054,
+  2026101571055,
+  2026101571056,
+  2026101571057,
+  2026101571058,
+  2026101571059,
+  2026101571060,
+  2026101571061,
+  2026101571062,
+  2026101571063,
+  2026101571064
+ ],
+ "usable_nonstationary": 14,
+ "usable_rules": 176,
+ "usable_stationary": 162,
+ "val_families": [
+  "RLLLR",
+  "RLLRL",
+  "RLRLL",
+  "RLRLR",
+  "RRLRL",
+  "RRLRR",
+  "RRRLL",
+  "RRRLR"
+ ],
+ "w3c_rules_sampled": 300,
+ "working_tree": "dirty (other experiments)"
+}

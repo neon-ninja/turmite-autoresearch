@@ -1,0 +1,774 @@
+{
+  "batches": {
+    "ants": {
+      "completed": 16,
+      "elapsed_seconds": 5.282494995000889,
+      "escaped": 0,
+      "max_t": 28165409,
+      "payload_sha256": {
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101511.age.csv": "02cc4f0054f59376c8cd0d15502684ea9e01807cd1666146e75126941cda1d42",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101511.bands.csv": "22ae5a3ae8ba801bf8184170eee48f7c75b99bb1c1d324dcb66e873f45d20eac",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101511.bins.csv": "07c9de23c6b1c063fc86de4d4e5a3e3836aaddfb49cf6a6c4608b52d8be12935",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101511.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101511.hazards.csv": "efadb8d1a5b0cb7a33ce2ed6ba094cb82925b1ff3140bd31ee20fa6afcec32c6",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101511.status.csv": "ccb23e31179f84a4817cc360dfd436b67cb5d2f45792e1c7364771357349dcb7",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101512.age.csv": "b517e7dd138f3dd573e7fc20c42a0c75ca39899705b180cae2536950b27619d2",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101512.bands.csv": "16998fbb16135f35fd318e0b7f5106eab8795898fa2053cb650a0dae593431ce",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101512.bins.csv": "d14d97cac0cfe0b7962b05f2b1b6d89c71b003be5b743974a3f51e0d4af9676c",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101512.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101512.hazards.csv": "b2bdb6d6f43f60075f3219addaa633d4a2590349ab6d04f8cc3cfce4829e78e5",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101512.status.csv": "945950a4721f9eb50b3e0149659663bd6957e1367ff7779d1af773a6ab6fb266",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101513.age.csv": "f76da19ddc7418ca461c4083ec0d6d0fe2c0a4f83d6576cdc4bf04d150ce001c",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101513.bands.csv": "29ef8986faaf551bc7fe662242b10c6eadd5232ee0e3475d9e391e25a2410e80",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101513.bins.csv": "f52157668b36b8fdfca5891ad4727bd74013fd4983c538de3af3a7f1672fb975",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101513.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101513.hazards.csv": "a8abaa2207c9a6807f6805fef2c015c8ddf96247e9e90cdc902fb2dd0c189039",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101513.status.csv": "64aa04dfd738048e95aef511412e1edfdbe778a00dbc12e36a5a05865290ca35",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101514.age.csv": "1bf38a5728d113546eadc269256b0404d872ee19ae8fb30e16335ed397a90486",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101514.bands.csv": "9c6644ea8ec242e5b015f4c0570b98e4f362a7db8ba4ffcb5041c19a565cd599",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101514.bins.csv": "39efb510d3921a3894fab3c67e91ad8340f296bce6d2c995884b175220e834a9",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101514.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101514.hazards.csv": "dfaf39c0f0220b8127aff7813d7c5df6532109e44aadf86d7011f1f743d44f74",
+        "dumps/profile-v1/ants/RLLLLLLLLRR_2026101514.status.csv": "5202fa737a2654f80598a768a8cd529adeeb28f4b10dab162ce447d3e72a1058",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101511.age.csv": "10a3723cc139975be442c5baeb0cb3a5a364467303f520d521ecf6845c511d82",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101511.bands.csv": "b72ffbd4c202b7c8f55aa4bf9e7d3cbc2e551179e4e8194face20280081fd478",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101511.bins.csv": "0f72230e6cef801bfdb8a3fa6e0812d9d41af236ff3a8d3deeddd45994150107",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101511.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101511.hazards.csv": "1f88e9c1ff1a56b9bd6928d120262d6421ff7ee23e551b7a1c62837d4ad8aa55",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101511.status.csv": "14da1d52e8b3bc838a24b072f51dd99d2ccc5d419b4860bbcaf6b54a08991c9b",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101512.age.csv": "6485ad1c3b8fa3cc62441da0d7b27cdeb65d716fbd0f27b07f87d011375cfccd",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101512.bands.csv": "d8f44d6e1363bdbeee0021efb4abaae978ad02140360ab22af3a970fee8c6324",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101512.bins.csv": "88290cf99083744c9ed50f5c7109763d0157f144c937cbfd8a8cadf4ead5f306",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101512.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101512.hazards.csv": "91591d0ee36d701f35adcd1e6e7dbbd241f822d7295936d0f86ff145523c51cf",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101512.status.csv": "68387278d308cd03d74d47277e3fe25646fee160a64d3cc1ebba9f615188a22e",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101513.age.csv": "393dd2a00c8d15e4bfee760efe150565ac912dadca7d0e9d72b9ddc042837957",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101513.bands.csv": "323510b6ab92eeaf3c1b04d74c6c7e035bd7eb09e2b19ba9e5c3da28e3c59d0f",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101513.bins.csv": "8b18aee6c85aa5c1a97e8e06b83654b968dd2556f5bf88e37874f97949823881",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101513.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101513.hazards.csv": "9841d588ab63df69593e5a3871b1358bde89a2227f576a1bfee00f15d04cab2a",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101513.status.csv": "e7f07e4ac77b14aff7e121defdf51d39439fa1df01df439812d578b134dab50c",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101514.age.csv": "d90a9f4d2bebe6e8b7cb013e0776c2cb081cd50c1543cae943549b14d983fbcc",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101514.bands.csv": "2432061331f90ff4369464ef0681e4143ad47930c1808edf11ad61c81dd780f1",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101514.bins.csv": "2a640c3a557c8b02c85afd8e628b5ee69e44ced097f5743c6ed04b177f1a1753",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101514.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101514.hazards.csv": "2808f7fb8800f3e1fecddf777ad1deafc864c8be9d1d608956b1977c284745a1",
+        "dumps/profile-v1/ants/RLLLLLLRLLRL_2026101514.status.csv": "e9824cf70dbee0e7500dc16b0623a3dda8a2cc2e54cca31a1cb545640e3b1a7d",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101511.age.csv": "446063190a44d29a92375726729e45f91f94ada3812458a6238e3d4d8785cae9",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101511.bands.csv": "040c271d6f0b2a19d06b2c67f1baa4d372c4cc3568b98722f0937174df2bd634",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101511.bins.csv": "8cd3febe9ab1ae5d6d799c5d5d0d12f3cf1ef13347f4d2150a8960593c1f88eb",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101511.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101511.hazards.csv": "6de222796ef0cce82b3380a543805101a80182b9f289c893163d45a1f60b3db3",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101511.status.csv": "956def7dfd9225db1bfe17cf52c6998b07127938e620424750c15842204d0166",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101512.age.csv": "b69833a7374b54f5fafa5744895a0992ec9ea1db06834cb9a7916ebde5403526",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101512.bands.csv": "e0cf050f8662b1424f6ad222b2a9af2b2d69441f41c2852c0f87cc864758ed55",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101512.bins.csv": "67a8e5e2c519c9f0baaf66b3ed68307ca53920e86504ba882e9f5967f6b86e3f",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101512.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101512.hazards.csv": "9a77d9c5184eda872faccf41feaa4a8bfec9aea1111925b546b9712c3959cfc6",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101512.status.csv": "8fc8a8b34dc0152a47926f2201081b8c7a6bbaabaed05710d00796f011c17fea",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101513.age.csv": "969fa5358e6d9d4733025a1e10b10dda2da8b2047228b368ea0912ddf38822e5",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101513.bands.csv": "4a53e6ae34a46effa37a84bc0782f957af7a30c1dcfd38acee52298b9f6bbad0",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101513.bins.csv": "b5ca44c923baa697cd81acca5169264604091d71d6b500847cab31560c8b9f00",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101513.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101513.hazards.csv": "20d6eb6a2fa8ea3ec3fc56166060dab344d393397690d197f3c149ad3cbf196f",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101513.status.csv": "025281e0f63219f93f225388d00ab756266dd67f334dd237b1c0fa5b678c7626",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101514.age.csv": "a2a8b65d6446f0647a7d02632592861df41035c0f257c0a122d8107bca7951d3",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101514.bands.csv": "9c628db55dd606aa41c121eb307210bdb913bb7ab64f29f5c31fe420edb2187b",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101514.bins.csv": "7416604a0b773ae4bf98bbccbf354e247548bf71cb7fa7a8935af93dc4df78f0",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101514.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101514.hazards.csv": "dd4f44bc3fa27acf9d29ca7da8289dccf9486e51e0ff8a73b51a7dc93322f203",
+        "dumps/profile-v1/ants/RLLLRLRLRLRR_2026101514.status.csv": "324dff253040b064067388cbda6f9e25d9a9caa09e9d25df48249fd8374166aa",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101511.age.csv": "18487a58e0cc52cd27e1120d6a2c9316442ab6dc12a5c7e14b57c6e94547c572",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101511.bands.csv": "5412cdc1b11c90f28fc317b6210f36b2735980fc08adf8110ca5932982d4586f",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101511.bins.csv": "78aa32abae53a9c7f282f25dca0054c950d316e3b5737e29fbd323154fd06c2d",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101511.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101511.hazards.csv": "072f620622da465247ca8c9c7d0cf152d40105c5c7a621f2355711c1f6b79323",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101511.status.csv": "25e3c433dfc4c499dbf199cf01f180e32ccc5d4baa5accc844702a4ade8bb2ca",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101512.age.csv": "b710d8b982bf156343508ae43a55fb14900d44df50bacd023f6c68f6b62a9ad0",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101512.bands.csv": "c85a02d3ab5891f5422d0e6d26ad055440a73267eb7ee81d32da6d48cd15e5b3",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101512.bins.csv": "f139395de88a63c0ebe471ae6b84eef63587a8266bcbae6fb7e9cbdb747893e2",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101512.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101512.hazards.csv": "478e65a0525ae6071d0510e77521a3790c0b43d11d301f8856abf6029ef2aa6d",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101512.status.csv": "e358299cdc440f1baf985c7ed316c513059c1b6d04e4ba9301c196d903d97bdb",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101513.age.csv": "e23428d5f04c2fd0908b539705bc478a33009d0f5b305221cd98f391c0f7344c",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101513.bands.csv": "450e1ad9d29ad589d47d07ae37b1ea53ac8bbe8a0ebbeabaf88aa7efda221d11",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101513.bins.csv": "5c8dbe27410e64e978b718a7f755a57459a57bc826a5c433ead71946cc1f50a9",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101513.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101513.hazards.csv": "dba58acb5f67636d4c824c75f7e9eef0e0bf7634df2dadca083d475aec016944",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101513.status.csv": "c9e2cffe27f8011f3bae6608339d21fc4eebcfc06b8e98bd07ce09bdeb77e23f",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101514.age.csv": "636c178dd08a1da106d5ffce9168a5bc20c495f487cf51c7e2700a9960f991c8",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101514.bands.csv": "32dad177d6cd94585a33f9b2deb1e2710be0ecfc129450f104b70fdaace2e531",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101514.bins.csv": "92e3b874187a487c8139880def55b6a1990531cd9e78705dfee18961ef03a5ee",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101514.done": "3c34cbb96f69127e637bacc3dd3b0420abf8deff66b33404086d79ef5746a3ad",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101514.hazards.csv": "41fb24184713b53aa7574bec6e3cfcad082dffb40c6c3d81f2f01eb4c0fae7f7",
+        "dumps/profile-v1/ants/RLLRRLRRRRR_2026101514.status.csv": "b794db78a521d361570668c2386e86eb4281d4b786949fc6d518997718dc8d06"
+      },
+      "requested": 16,
+      "runs": [
+        {
+          "bands": [
+            {
+              "I": "488353",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "491735",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "1931880",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "1944289",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLLLLRLLRL@2026101511",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "12",
+            "spec": "RLLLLLLRLLRL@2026101511",
+            "stop": "complete",
+            "t_final": "27818759"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "324774",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "328087",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "2043385",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "2055870",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLLLLRLLRL@2026101512",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "12",
+            "spec": "RLLLLLLRLLRL@2026101512",
+            "stop": "complete",
+            "t_final": "26396528"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "1026061",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "1029353",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "1026801",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "1039367",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLLLLRLLRL@2026101513",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "12",
+            "spec": "RLLLLLLRLLRL@2026101513",
+            "stop": "complete",
+            "t_final": "22564312"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "883183",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "886393",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "3725405",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "3738119",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLLLLRLLRL@2026101514",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "12",
+            "spec": "RLLLLLLRLLRL@2026101514",
+            "stop": "complete",
+            "t_final": "28165409"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "2764",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "5910",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "17621",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "30004",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLLLLLLRR@2026101511",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "11",
+            "spec": "RLLLLLLLLRR@2026101511",
+            "stop": "complete",
+            "t_final": "10417178"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "67281",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "70399",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "58356",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "70766",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLLLLLLRR@2026101512",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "11",
+            "spec": "RLLLLLLLLRR@2026101512",
+            "stop": "complete",
+            "t_final": "8624735"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "3562",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "6731",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "94921",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "107392",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLLLLLLRR@2026101513",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "11",
+            "spec": "RLLLLLLLLRR@2026101513",
+            "stop": "complete",
+            "t_final": "6099203"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "3592",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "6693",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "353245",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "365682",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLLLLLLRR@2026101514",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "11",
+            "spec": "RLLLLLLLLRR@2026101514",
+            "stop": "complete",
+            "t_final": "4723101"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "250060",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "254195",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "1342564",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "1358964",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLRLRLRLRR@2026101511",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "12",
+            "spec": "RLLLRLRLRLRR@2026101511",
+            "stop": "complete",
+            "t_final": "18274144"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "100072",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "104058",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "1781787",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "1797872",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLRLRLRLRR@2026101512",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "12",
+            "spec": "RLLLRLRLRLRR@2026101512",
+            "stop": "complete",
+            "t_final": "19164132"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "260339",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "264533",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "1348484",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "1363794",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLRLRLRLRR@2026101513",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "12",
+            "spec": "RLLLRLRLRLRR@2026101513",
+            "stop": "complete",
+            "t_final": "18150746"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "178358",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "182544",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "2047796",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "2064503",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLLRLRLRLRR@2026101514",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "12",
+            "spec": "RLLLRLRLRLRR@2026101514",
+            "stop": "complete",
+            "t_final": "19510849"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "8708",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "11797",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "553464",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "565826",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLRRLRRRRR@2026101511",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "11",
+            "spec": "RLLRRLRRRRR@2026101511",
+            "stop": "complete",
+            "t_final": "3903314"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "14853",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "17973",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "44061",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "56544",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLRRLRRRRR@2026101512",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "11",
+            "spec": "RLLRRLRRRRR@2026101512",
+            "stop": "complete",
+            "t_final": "2590727"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "10678",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "13837",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "90238",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "103132",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLRRLRRRRR@2026101513",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "11",
+            "spec": "RLLRRLRRRRR@2026101513",
+            "stop": "complete",
+            "t_final": "5785224"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "34568",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "37704",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "319759",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "332309",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "RLLRRLRRRRR@2026101514",
+          "status": {
+            "cells": "139264",
+            "history_bytes_per_cell": "32",
+            "n": "11",
+            "spec": "RLLRRLRRRRR@2026101514",
+            "stop": "complete",
+            "t_final": "8401504"
+          }
+        }
+      ]
+    },
+    "controls": {
+      "completed": 4,
+      "elapsed_seconds": 0.5285703410008864,
+      "escaped": 0,
+      "max_t": 43332,
+      "payload_sha256": {
+        "dumps/profile-v1/controls/rotor_2026101541.age.csv": "3638176b0e6c2fcf6e3fdc331d3dd55323705205f80ed7f94eecd2ec4821d69a",
+        "dumps/profile-v1/controls/rotor_2026101541.bands.csv": "ede17c325e9e4495d141c204eb443ac4531ce2793e61bb23d4fda330134a30b4",
+        "dumps/profile-v1/controls/rotor_2026101541.bins.csv": "cf9776996bb782e415428f337dc5ebf379f5813c9bb4a9ba2b11d70b3fdabd92",
+        "dumps/profile-v1/controls/rotor_2026101541.done": "bf2d3780558a41d72fc11bc6c70dedfd169e02cc94bfa95d5335d781008aaf0f",
+        "dumps/profile-v1/controls/rotor_2026101541.hazards.csv": "5b79f13e3cd957ed0730adae89d58b97bd8a15657af33ab639d2c586295140d4",
+        "dumps/profile-v1/controls/rotor_2026101541.status.csv": "4fc8d27e36b9c67ceb5d7a0f26f856a4ff862bbb125d763f0273e35a77af8a4e",
+        "dumps/profile-v1/controls/rotor_2026101542.age.csv": "b541e1495326ec4e0d094f68721a7c9f960ea9b349b24c6ccc489c60b99dbfab",
+        "dumps/profile-v1/controls/rotor_2026101542.bands.csv": "00130f157c023c15e6bd71f98c6e03042a7f71f446530cfc69d7577f73d9e0dc",
+        "dumps/profile-v1/controls/rotor_2026101542.bins.csv": "ceeee1179d9a1a13fb5b33d3d56bea7a095073ed59ee36e6f6d9546f0ec4073d",
+        "dumps/profile-v1/controls/rotor_2026101542.done": "bf2d3780558a41d72fc11bc6c70dedfd169e02cc94bfa95d5335d781008aaf0f",
+        "dumps/profile-v1/controls/rotor_2026101542.hazards.csv": "779f45d5248cd24531e2a1bad0ffbf4b564e959385919ac1bd24c50c4a74146b",
+        "dumps/profile-v1/controls/rotor_2026101542.status.csv": "e11f08add9e3cfb6cf452e1e7c92b172ba6cd39852aaf8d0dc259763dc7230f1",
+        "dumps/profile-v1/controls/rw_2026101541.age.csv": "3777da33bd7f551683011013879821375f03280f0bb4ebc739029de0a5eb858c",
+        "dumps/profile-v1/controls/rw_2026101541.bands.csv": "5e9c1da25e99ac6cdd1f68793eb172072c287563ca5012a807d5496589f411fd",
+        "dumps/profile-v1/controls/rw_2026101541.bins.csv": "e6c926fe1dfbb24a3f48a359c4cce11e1d576fc3dc1eee2fd008f7b4119f0baa",
+        "dumps/profile-v1/controls/rw_2026101541.done": "bf2d3780558a41d72fc11bc6c70dedfd169e02cc94bfa95d5335d781008aaf0f",
+        "dumps/profile-v1/controls/rw_2026101541.hazards.csv": "dfd8ba17b6ef17e30b6a96d8d10e23460c5f20872178c4c667bbf4764969859e",
+        "dumps/profile-v1/controls/rw_2026101541.status.csv": "ac87e58a153c0cece008134a13dbed9bfe61d38bfee7cb1f7c94e19cfb85da70",
+        "dumps/profile-v1/controls/rw_2026101542.age.csv": "3c205ae0d16a6e34580baf0ddbd8d34774010eb261a0fa500ab5c2adbbd50ed1",
+        "dumps/profile-v1/controls/rw_2026101542.bands.csv": "b1b23386b796228953dfe6649d95bde78ece654b7c8867b08a46e4143a13a2ef",
+        "dumps/profile-v1/controls/rw_2026101542.bins.csv": "5c56d5a70219f41d7b9807fa570e98fc3ed3b167df857a75a3fc72016d214241",
+        "dumps/profile-v1/controls/rw_2026101542.done": "bf2d3780558a41d72fc11bc6c70dedfd169e02cc94bfa95d5335d781008aaf0f",
+        "dumps/profile-v1/controls/rw_2026101542.hazards.csv": "500d68ad97d8e57266ed9dab09356e4d952a149239a13748aee102e095a64a18",
+        "dumps/profile-v1/controls/rw_2026101542.status.csv": "7576ff94d73505a5e0206e70cecc6a8207b31876a2f21724390c88d3b2654842"
+      },
+      "requested": 4,
+      "runs": [
+        {
+          "bands": [
+            {
+              "I": "85",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "239",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "2090",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "2601",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "rotor:2026101541",
+          "status": {
+            "cells": "4352",
+            "history_bytes_per_cell": "32",
+            "n": "4",
+            "spec": "rotor:2026101541",
+            "stop": "complete",
+            "t_final": "33880"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "131",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "262",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "4600",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "5125",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "rotor:2026101542",
+          "status": {
+            "cells": "4352",
+            "history_bytes_per_cell": "32",
+            "n": "4",
+            "spec": "rotor:2026101542",
+            "stop": "complete",
+            "t_final": "43332"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "76",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "202",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "261",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "777",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "rw:2026101541",
+          "status": {
+            "cells": "4352",
+            "history_bytes_per_cell": "32",
+            "n": "4",
+            "spec": "rw:2026101541",
+            "stop": "complete",
+            "t_final": "16562"
+          }
+        },
+        {
+          "bands": [
+            {
+              "I": "105",
+              "band": "0",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "283",
+              "unresolved_overlap": "0"
+            },
+            {
+              "I": "409",
+              "band": "1",
+              "i_clip": "0",
+              "reached_hi": "1",
+              "reached_lo": "1",
+              "steps": "1007",
+              "unresolved_overlap": "0"
+            }
+          ],
+          "spec": "rw:2026101542",
+          "status": {
+            "cells": "4352",
+            "history_bytes_per_cell": "32",
+            "n": "4",
+            "spec": "rw:2026101542",
+            "stop": "complete",
+            "t_final": "15091"
+          }
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Full cohort pilot only if requested manifest contains full cohort; profile subsets do not satisfy coverage gates.",
+    "No mid-run checkpoints; no estimator fitted or calibrated for ant inference; no confirmation launched.",
+    "Random-walk cycle count with n=4 is a bookkeeping control, not colour-cycle physics.",
+    "Tail entry/return frequencies condition on moving boundary and are not causal age effects."
+  ],
+  "manifest_sha256": "bafb788c0d54fd97e374356209c81c3b3ab03cb3da4804cce0775cafb1aafedb",
+  "scientific_tests": "NOT RUN: feasibility only"
+}

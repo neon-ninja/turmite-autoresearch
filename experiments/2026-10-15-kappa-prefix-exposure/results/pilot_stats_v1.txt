@@ -1,0 +1,49 @@
+# cmd: uv run experiments/2026-10-15-kappa-prefix-exposure/scripts/pilot_analyse.py
+# git: 3d001238c4ab8e91dbc19b01a8e21c795c737df8 (working tree dirty)  inputs: dumps/pilot (288 specs), results/arms.csv
+
+[cost] specs run: 288; wall seconds per spec: median 2.59, max 36.6, sum 1165 s (6 threads)
+[stop] budget=16, complete=252, escaped=20 of 288 runs
+[attainment by arm group and band]
+shape: (8, 5)
+┌───────┬─────────┬──────┬──────────┬──────────┐
+│ grp   ┆ band_id ┆ runs ┆ attained ┆ escaped  │
+│ ---   ┆ ---     ┆ ---  ┆ ---      ┆ ---      │
+│ str   ┆ i64     ┆ u32  ┆ f64      ┆ f64      │
+╞═══════╪═════════╪══════╪══════════╪══════════╡
+│ base  ┆ 0       ┆ 48   ┆ 1.0      ┆ 0.0      │
+│ base  ┆ 1       ┆ 48   ┆ 1.0      ┆ 0.0      │
+│ early ┆ 0       ┆ 96   ┆ 0.802083 ┆ 0.125    │
+│ early ┆ 1       ┆ 96   ┆ 0.75     ┆ 0.125    │
+│ late  ┆ 0       ┆ 96   ┆ 0.947917 ┆ 0.041667 │
+│ late  ┆ 1       ┆ 96   ┆ 0.916667 ┆ 0.041667 │
+│ p0    ┆ 0       ┆ 48   ┆ 0.958333 ┆ 0.083333 │
+│ p0    ┆ 1       ┆ 48   ┆ 0.916667 ┆ 0.083333 │
+└───────┴─────────┴──────┴──────────┴──────────┘
+[replicate noise] pooled within-rule between-seed sd of ln(B/S): band0 0.528, band1 0.649 (rules with >=3 attained seeds: 65, 63); of ln(lambda_long): band0 0.690, band1 0.913
+[replicate halves, seeds (1,2) vs (3,4)] band0: n=64 rules, sd of the half-difference 0.559 (expect pooled sd = 0.528 if noise is seed-iid), median |diff| 0.182
+[replicate halves, seeds (1,2) vs (3,4)] band1: n=62 rules, sd of the half-difference 0.551 (expect pooled sd = 0.649 if noise is seed-iid), median |diff| 0.129
+[resolution threshold, frozen from this pilot for 8 target seeds per arm] 3*s_pool*sqrt(2/8): band0 0.791, band1 0.973 (in ln B/S)
+
+[pilot pairs] 104 (base, mutant, band) rows with >=3 attained seeds on both sides; bands: [(0, 53), (1, 51)]
+
+-- band 0: early n=19, late n=23
+   early: median |d ln(B/S)| 0.542, share above threshold 0.16; ln(exposure share): min -2.64 med -2.60 max -2.44; boundary share of reads: min 0.000 med 0.006 max 0.218
+   late: median |d ln(B/S)| 0.256, share above threshold 0.09; ln(exposure share): min -2.74 med -2.65 max -2.58; boundary share of reads: min 0.000 med 0.000 max 0.002
+   overlap of early and late ln(exposure share): 0.53 of early values lie inside the late range [-2.74, -2.58]
+   Spearman(position, ln exposure share) = -0.66; R^2 of ln share on position (OLS) = 0.47
+   R^2 of boundary_share on position = 0.36
+   R^2 of near_share on position = 0.13
+   [exploratory, dev pilot only] Spearman(d ln lambda_long, d ln B/S) = -0.27 over 42 pairs; Spearman(position, |d ln B/S|) = -0.37
+
+-- band 1: early n=18, late n=22
+   early: median |d ln(B/S)| 0.406, share above threshold 0.22; ln(exposure share): min -2.64 med -2.61 max -2.51; boundary share of reads: min 0.000 med 0.003 max 0.099
+   late: median |d ln(B/S)| 0.289, share above threshold 0.00; ln(exposure share): min -2.69 med -2.62 max -2.57; boundary share of reads: min 0.000 med 0.000 max 0.001
+   overlap of early and late ln(exposure share): 0.61 of early values lie inside the late range [-2.69, -2.57]
+   Spearman(position, ln exposure share) = -0.47; R^2 of ln share on position (OLS) = 0.17
+   R^2 of boundary_share on position = 0.35
+   R^2 of near_share on position = 0.07
+   [exploratory, dev pilot only] Spearman(d ln lambda_long, d ln B/S) = -0.15 over 40 pairs; Spearman(position, |d ln B/S|) = -0.33
+
+[position-0 anchor, descriptive] n=22; median |d ln(B/S)| band0 0.401, band1 0.482
+[launch, base arms pooled] band0: windows 98304, lambda_long 0.3788, lambda_left 1.000, censored 0
+[launch, base arms pooled] band1: windows 393216, lambda_long 0.3704, lambda_left 1.000, censored 0

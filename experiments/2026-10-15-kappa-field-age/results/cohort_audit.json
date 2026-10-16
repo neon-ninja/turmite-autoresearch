@@ -1,0 +1,336 @@
+{
+  "blocks": {
+    "10:RLL": {
+      "drifting": [
+        "RLLLRLRRRR"
+      ],
+      "stationary": [
+        "RLLLLRRLLL",
+        "RLLLRLLRRR",
+        "RLLLRLRRLL",
+        "RLLLRRLRRR",
+        "RLLRLRRRLL",
+        "RLLRRLLLLL"
+      ]
+    },
+    "10:RLR": {
+      "drifting": [],
+      "stationary": [
+        "RLRLRRRRLR",
+        "RLRLRRRRRL",
+        "RLRRLRLRRL"
+      ]
+    },
+    "10:RRL": {
+      "drifting": [
+        "RRLRLLLLLL"
+      ],
+      "stationary": [
+        "RRLLLLLLLR",
+        "RRLLLLRLLR",
+        "RRLLRLLLRL",
+        "RRLRLRLLRR",
+        "RRLRLRLRLR"
+      ]
+    },
+    "10:RRR": {
+      "drifting": [],
+      "stationary": [
+        "RRRLLLLLLL",
+        "RRRLLRLLLL",
+        "RRRLLRLRLR",
+        "RRRLRLLLLL",
+        "RRRLRRLRRL"
+      ]
+    },
+    "11:RLL": {
+      "drifting": [
+        "RLLLLLLLLRR",
+        "RLLLLRLLRLL",
+        "RLLLLRLRRLL",
+        "RLLRRLRRRRR"
+      ],
+      "stationary": [
+        "RLLLLRRLRRL",
+        "RLLLLRRRLRR",
+        "RLLLRLLLRLR",
+        "RLLLRLRRLRR",
+        "RLLLRRRRRRR",
+        "RLLRLLRLLLR",
+        "RLLRLRRLRRR",
+        "RLLRLRRRRRR",
+        "RLLRRLLLRLR",
+        "RLLRRLLRRRL",
+        "RLLRRLRLRLR",
+        "RLLRRLRRLRL",
+        "RLLRRRRLRRL"
+      ]
+    },
+    "11:RLR": {
+      "drifting": [
+        "RLRLRLLLLLL"
+      ],
+      "stationary": [
+        "RLRLLLLRLLL",
+        "RLRLLRLLLRR",
+        "RLRLLRLLRRL",
+        "RLRLRLRRLLL",
+        "RLRLRRLLLRR",
+        "RLRRLLLRLLL",
+        "RLRRLLRLLRR",
+        "RLRRLRLLLRR",
+        "RLRRLRLLRLR",
+        "RLRRLRLRLRL",
+        "RLRRLRRRRLL",
+        "RLRRLRRRRLR",
+        "RLRRRLRRRLL",
+        "RLRRRLRRRRL"
+      ]
+    },
+    "11:RRL": {
+      "drifting": [],
+      "stationary": [
+        "RRLLLLRLRRR",
+        "RRLLRLRRRRL",
+        "RRLRLLRRLRL",
+        "RRLRRRLRLLR"
+      ]
+    },
+    "11:RRR": {
+      "drifting": [],
+      "stationary": [
+        "RRRLLRLRRLL",
+        "RRRLRLLLLRL",
+        "RRRLRRLRLRR",
+        "RRRRLRRLRLL",
+        "RRRRRRLRRRL"
+      ]
+    },
+    "12:RLL": {
+      "drifting": [
+        "RLLLLLLRRRRR",
+        "RLLLLLRLLRRL",
+        "RLLLLRRLLRRR",
+        "RLLLRRRLLRLL",
+        "RLLLRRRLRLRR",
+        "RLLLRRRRRRRR",
+        "RLLRRLLLLRRR",
+        "RLLRRRLLLLLL",
+        "RLLRRRLLRLRR",
+        "RLLRRRLRRRRR",
+        "RLLRRRRLLLLR"
+      ],
+      "stationary": [
+        "RLLLLLLRLLRL",
+        "RLLLLRLRRRLL",
+        "RLLLLRRLRRRR",
+        "RLLLRLLLRLRR",
+        "RLLLRLLLRRRL",
+        "RLLLRLLRLLLR",
+        "RLLLRLLRRLLR",
+        "RLLLRLRLLRRR",
+        "RLLLRLRLRLRR",
+        "RLLLRLRRRRLR",
+        "RLLLRRRRLRLL",
+        "RLLRLLRLLLLR",
+        "RLLRLLRLRLRR",
+        "RLLRLLRRRLRL",
+        "RLLRLLRRRRRL",
+        "RLLRLRLRRRRL",
+        "RLLRLRRLLRLL",
+        "RLLRLRRRLLLL",
+        "RLLRRLRLRLRL",
+        "RLLRRRLLLLLR",
+        "RLLRRRRLRRLR",
+        "RLLRRRRRRLRR"
+      ]
+    },
+    "12:RLR": {
+      "drifting": [],
+      "stationary": [
+        "RLRLLLLRRLLR",
+        "RLRLLLRLLLLL",
+        "RLRLLLRLLLRL",
+        "RLRLLLRLRLLR",
+        "RLRLLLRRRRLR",
+        "RLRLLLRRRRRL",
+        "RLRLLRLLLRLR",
+        "RLRLLRLRRLLL",
+        "RLRLLRLRRRRL",
+        "RLRLLRRLLLLR",
+        "RLRLLRRLLLRR",
+        "RLRLLRRLRLLR",
+        "RLRLLRRRRLRR",
+        "RLRLRLLLRRLL",
+        "RLRLRLLLRRLR",
+        "RLRLRLLRRLLR",
+        "RLRLRLRLLLRL",
+        "RLRLRRRLRRRR",
+        "RLRLRRRRLLLL",
+        "RLRLRRRRLRRL",
+        "RLRRLLLLLRLL",
+        "RLRRLLRRRLLR",
+        "RLRRLRLRLLLL",
+        "RLRRRLLLRLLL",
+        "RLRRRLRLLRRR",
+        "RLRRRLRLRRLR"
+      ]
+    },
+    "12:RRL": {
+      "drifting": [
+        "RRLRLLLLRLRL",
+        "RRLRLLLRLRRR",
+        "RRLRLLRRLLLL"
+      ],
+      "stationary": [
+        "RRLLLLLLLRRR",
+        "RRLLLLRRLLRL",
+        "RRLLLRLRLRLR",
+        "RRLLLRLRRRRL",
+        "RRLLRLLLLLRL",
+        "RRLLRLLLLRLL",
+        "RRLLRLRRLRRL",
+        "RRLLRLRRLRRR",
+        "RRLLRRLRLRLR",
+        "RRLLRRLRLRRL",
+        "RRLLRRRLLLRR",
+        "RRLLRRRRLRRL",
+        "RRLRLLLLRLRR",
+        "RRLRLLLLRRLR",
+        "RRLRLRLLLRLL",
+        "RRLRLRLRRLLL",
+        "RRLRLRRLLRLR",
+        "RRLRLRRLLRRL",
+        "RRLRLRRRLRRL",
+        "RRLRRRLRLRLL",
+        "RRLRRRLRRLLR"
+      ]
+    },
+    "12:RRR": {
+      "drifting": [],
+      "stationary": [
+        "RRRLLLLLRRLL",
+        "RRRLLLLRLLLL",
+        "RRRLLRLLLLLL",
+        "RRRLLRLLLLLR",
+        "RRRLLRLRRRLL",
+        "RRRLLRRLLLRR",
+        "RRRLLRRRLRRL",
+        "RRRLRLLLLLRR",
+        "RRRLRLLLLRRL",
+        "RRRLRLLLRRLL",
+        "RRRLRLLRLLLL",
+        "RRRLRLRLLLRL",
+        "RRRLRLRLLLRR",
+        "RRRRLLLRRRLL",
+        "RRRRLRLRLLLR",
+        "RRRRLRRRLRRL",
+        "RRRRLRRRRRLL",
+        "RRRRRLRLLLRL",
+        "RRRRRLRLLRLR",
+        "RRRRRLRLRRRL",
+        "RRRRRRLRRRRL"
+      ]
+    },
+    "5:RRR": {
+      "drifting": [],
+      "stationary": [
+        "RRRLR"
+      ]
+    },
+    "6:RLR": {
+      "drifting": [],
+      "stationary": [
+        "RLRLLL",
+        "RLRRLL",
+        "RLRRLR"
+      ]
+    },
+    "6:RRL": {
+      "drifting": [],
+      "stationary": [
+        "RRLRLL"
+      ]
+    },
+    "7:RLL": {
+      "drifting": [
+        "RLLLLRR"
+      ],
+      "stationary": []
+    },
+    "7:RLR": {
+      "drifting": [],
+      "stationary": [
+        "RLRLRLL",
+        "RLRRLLL"
+      ]
+    },
+    "8:RLL": {
+      "drifting": [],
+      "stationary": [
+        "RLLLRLLR",
+        "RLLRLLRL"
+      ]
+    },
+    "8:RLR": {
+      "drifting": [],
+      "stationary": [
+        "RLRLRRLL",
+        "RLRRLLRR",
+        "RLRRLRRL"
+      ]
+    },
+    "8:RRL": {
+      "drifting": [],
+      "stationary": [
+        "RRLLRLRL",
+        "RRLRLLLR",
+        "RRLRLRLR"
+      ]
+    },
+    "9:RLL": {
+      "drifting": [
+        "RLLRLRRRR"
+      ],
+      "stationary": [
+        "RLLRLRLRL",
+        "RLLRRLLRL"
+      ]
+    },
+    "9:RLR": {
+      "drifting": [],
+      "stationary": [
+        "RLRRLLLLL"
+      ]
+    },
+    "9:RRL": {
+      "drifting": [],
+      "stationary": [
+        "RRLRLRRRL",
+        "RRLRRRLRL"
+      ]
+    },
+    "9:RRR": {
+      "drifting": [],
+      "stationary": [
+        "RRRLLLLRL",
+        "RRRLRLRLL",
+        "RRRRLRLLR",
+        "RRRRRLLRL"
+      ]
+    }
+  },
+  "command": "uv run experiments/2026-10-15-kappa-field-age/scripts/cohort_audit.py",
+  "counts": {
+    "drifting": 23,
+    "stationary": 169
+  },
+  "exact_length_prefix3_pairs": 22,
+  "git_commit": "3d001238c4ab8e91dbc19b01a8e21c795c737df8",
+  "input_path": "experiments/2026-10-kappa-rule-space/results/rules_pool.csv",
+  "input_sha256": "7e5b2d4513947a2a8bc28c227ba4268e6bf1e0d70cb01bc681fa8bc97d7d71fa",
+  "required_per_stratum": 24,
+  "source_sha256": "83c3b48eb99272d839eb2dcd42b026663dbf25e51a268bde2c528b5a2b42e523",
+  "threshold": "stationary iff abs(existing pool median g_k)<0.05; drifting otherwise",
+  "unmatched_support_gate": false
+}

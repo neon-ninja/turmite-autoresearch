@@ -1,0 +1,9 @@
+{
+  "counts": {
+    "stationary": 169,
+    "drifting": 23
+  },
+  "required_per_stratum": 24,
+  "unmatched_support_gate": false,
+  "exact_length_prefix3_pairs": 22
+}

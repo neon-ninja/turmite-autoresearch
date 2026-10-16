@@ -1,0 +1,38 @@
+{
+  "seed": 2026101581,
+  "N": 400000,
+  "known_return_hazards": [
+    0.08,
+    0.32
+  ],
+  "known_contrast": 0.24,
+  "planted": {
+    "hazards": [
+      0.07957419688912788,
+      0.3195180770917208
+    ],
+    "counts": [
+      100422,
+      100348
+    ],
+    "contrast": 0.23994388020259294,
+    "contrast_se": 0.0017017832327506062
+  },
+  "permuted": {
+    "hazards": [
+      0.19826332875266375,
+      0.20074141985889105
+    ],
+    "counts": [
+      100422,
+      100348
+    ],
+    "contrast": 0.0024780911062272926,
+    "contrast_se": 0.0017837457845465542
+  },
+  "passed": true,
+  "command": "uv run experiments/2026-10-15-kappa-field-age/scripts/calibrate.py",
+  "git_commit": "b3a0f762ac2230b5df92188206a4d3a1081897be",
+  "source_sha256": "63f160f580f00d969cde2e643cdf06308e8cbcf5b957be276d5f4f935f795466",
+  "scope": "Frequency estimator calibration only. Rust reference tests independently validate discovery/visit/phase and rim census. Does not calibrate log-kappa prediction or causal age effects."
+}

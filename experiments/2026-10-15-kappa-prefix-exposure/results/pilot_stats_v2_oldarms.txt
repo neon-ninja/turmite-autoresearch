@@ -1,0 +1,65 @@
+# cmd: uv run experiments/2026-10-15-kappa-prefix-exposure/scripts/pilot_analyse.py
+# git: 07a0951e22aba7e4e0d2a2c99bf8382a54235da0 (working tree dirty)  inputs: dumps/pilot (288 specs), results/arms.csv
+
+[cost] specs run: 288; wall seconds per spec: median 2.09, mean 3.34, max 27.5, sum 962 s (6 threads)
+[stop] budget=16, complete=252, escaped=20 of 288 runs; attained band0 262, band1 252; valid band1 252
+[attainment by arm group and band]
+shape: (8, 6)
+┌───────┬─────────┬──────┬──────────┬──────────┬──────────┐
+│ grp   ┆ band_id ┆ runs ┆ valid    ┆ escaped  ┆ budget   │
+│ ---   ┆ ---     ┆ ---  ┆ ---      ┆ ---      ┆ ---      │
+│ str   ┆ i64     ┆ u32  ┆ f64      ┆ f64      ┆ f64      │
+╞═══════╪═════════╪══════╪══════════╪══════════╪══════════╡
+│ base  ┆ 0       ┆ 48   ┆ 1.0      ┆ 0.0      ┆ 0.0      │
+│ base  ┆ 1       ┆ 48   ┆ 1.0      ┆ 0.0      ┆ 0.0      │
+│ early ┆ 0       ┆ 96   ┆ 0.802083 ┆ 0.125    ┆ 0.125    │
+│ early ┆ 1       ┆ 96   ┆ 0.75     ┆ 0.125    ┆ 0.125    │
+│ late  ┆ 0       ┆ 96   ┆ 0.947917 ┆ 0.041667 ┆ 0.041667 │
+│ late  ┆ 1       ┆ 96   ┆ 0.916667 ┆ 0.041667 ┆ 0.041667 │
+│ p0    ┆ 0       ┆ 48   ┆ 0.958333 ┆ 0.083333 ┆ 0.0      │
+│ p0    ┆ 1       ┆ 48   ┆ 0.916667 ┆ 0.083333 ┆ 0.0      │
+└───────┴─────────┴──────┴──────────┴──────────┴──────────┘
+[replicate noise] pooled within-rule between-seed sd of ln(B/S): band0 0.528, band1 0.649 (rules with >=3 valid seeds: 65, 63)
+[replicate noise] pooled within-rule between-seed sd of ln Lam_64: band0 0.582, band1 0.724 (rules with >=3 valid seeds: 65, 63)
+[replicate noise] pooled within-rule between-seed sd of ln Lam_256: band0 0.523, band1 0.660 (rules with >=3 valid seeds: 65, 63)
+[replicate noise] pooled within-rule between-seed sd of ln tau_256: band0 0.844, band1 1.181 (rules with >=3 valid seeds: 65, 63)
+[replicate halves, seeds (1,2) vs (3,4)] band0: n=64 rules, sd of the half-difference 0.559 (= pooled sd 0.528 if seeds are iid), median |diff| 0.182
+[replicate halves, seeds (1,2) vs (3,4)] band1: n=62 rules, sd of the half-difference 0.551 (= pooled sd 0.649 if seeds are iid), median |diff| 0.129
+[resolution threshold, 3*s_pool*sqrt(2/m) on ln B/S] m=8 target seeds per arm: band0 0.791, band1 0.973; se of one paired effect 0.264 / 0.324
+[resolution threshold, 3*s_pool*sqrt(2/m) on ln B/S] m=32 target seeds per arm: band0 0.396, band1 0.487; se of one paired effect 0.132 / 0.162
+
+[pilot pairs] 104 (base, mutant, band) rows with >=3 valid seeds on both sides; per band: [(0, 53), (1, 51)]
+
+-- band 0: early n=19, late n=23
+   early: median |d ln(B/S)| 0.542, share above the m=8 threshold 0.16; ln(exposure share): min -2.64 med -2.60 max -2.44; boundary share of reads: min 0.000 med 0.006 max 0.218; mean depth class of reads: min 3.77 med 4.63 max 4.97
+   late: median |d ln(B/S)| 0.256, share above the m=8 threshold 0.09; ln(exposure share): min -2.74 med -2.65 max -2.58; boundary share of reads: min 0.000 med 0.000 max 0.002; mean depth class of reads: min 4.60 med 4.86 max 4.98
+   overlap of early and late mean read depth: 0.53 of early values lie inside the late range [4.60, 4.98]
+   ln_share: Spearman with position -0.66, R^2 of OLS on position 0.47 (n=42)
+   boundary_share: Spearman with position -0.92, R^2 of OLS on position 0.36 (n=42)
+   near_share: Spearman with position -0.40, R^2 of OLS on position 0.13 (n=42)
+   mean_depth: Spearman with position +0.62, R^2 of OLS on position 0.44 (n=42)
+   [exploratory, dev pilot only] Spearman(d_lnLam16, d ln B/S) = -0.13 over 42 pairs
+   [exploratory, dev pilot only] Spearman(d_lnLam64, d ln B/S) = -0.22 over 42 pairs
+   [exploratory, dev pilot only] Spearman(d_lnLam256, d ln B/S) = -0.37 over 42 pairs
+   [exploratory, dev pilot only] Spearman(d_lnLam1024, d ln B/S) = -0.52 over 42 pairs
+   [exploratory, dev pilot only] Spearman(d_lntau256, d ln B/S) = -0.91 over 42 pairs
+   [exploratory] Spearman(position, |d ln B/S|) = -0.37; Spearman(mean_depth, |d ln B/S|) = -0.30
+
+-- band 1: early n=18, late n=22
+   early: median |d ln(B/S)| 0.406, share above the m=8 threshold 0.22; ln(exposure share): min -2.64 med -2.61 max -2.51; boundary share of reads: min 0.000 med 0.003 max 0.099; mean depth class of reads: min 4.44 med 4.87 max 4.99
+   late: median |d ln(B/S)| 0.289, share above the m=8 threshold 0.00; ln(exposure share): min -2.69 med -2.62 max -2.57; boundary share of reads: min 0.000 med 0.000 max 0.001; mean depth class of reads: min 4.79 med 4.94 max 4.99
+   overlap of early and late mean read depth: 0.56 of early values lie inside the late range [4.79, 4.99]
+   ln_share: Spearman with position -0.47, R^2 of OLS on position 0.17 (n=40)
+   boundary_share: Spearman with position -0.93, R^2 of OLS on position 0.35 (n=40)
+   near_share: Spearman with position -0.29, R^2 of OLS on position 0.07 (n=40)
+   mean_depth: Spearman with position +0.47, R^2 of OLS on position 0.33 (n=40)
+   [exploratory, dev pilot only] Spearman(d_lnLam16, d ln B/S) = -0.05 over 40 pairs
+   [exploratory, dev pilot only] Spearman(d_lnLam64, d ln B/S) = -0.12 over 40 pairs
+   [exploratory, dev pilot only] Spearman(d_lnLam256, d ln B/S) = -0.17 over 40 pairs
+   [exploratory, dev pilot only] Spearman(d_lnLam1024, d ln B/S) = -0.27 over 40 pairs
+   [exploratory, dev pilot only] Spearman(d_lntau256, d ln B/S) = -0.81 over 40 pairs
+   [exploratory] Spearman(position, |d ln B/S|) = -0.33; Spearman(mean_depth, |d ln B/S|) = -0.10
+
+[position-0 anchor, descriptive] n=22; median |d ln(B/S)| band0 0.401, band1 0.482
+[base arms pooled] band0: B/S 0.0216, kappa_end 0.86, episodes per discovered cell 1.068; w=16: Lam 0.1371 tau 0.959; w=64: Lam 0.0683 tau 0.941; w=256: Lam 0.0331 tau 0.903; w=1024: Lam 0.0147 tau 0.823; fresh-window mean forward displacement 1.83 (windows 98304)
+[base arms pooled] band1: B/S 0.0077, kappa_end 0.59, episodes per discovered cell 1.060; w=16: Lam 0.1380 tau 0.985; w=64: Lam 0.0692 tau 0.979; w=256: Lam 0.0339 tau 0.965; w=1024: Lam 0.0157 tau 0.937; fresh-window mean forward displacement 2.19 (windows 393216)

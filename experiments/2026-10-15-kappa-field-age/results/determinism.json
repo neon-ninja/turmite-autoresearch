@@ -1,0 +1,33 @@
+{
+  "command": "uv run experiments/2026-10-15-kappa-field-age/scripts/verify.py",
+  "files_compared": 48,
+  "finished_trajectory_resume_byte_equal": true,
+  "mid_trajectory_checkpoint_tested": false,
+  "passed": true,
+  "scope": "8-spec sample, two profile bands; not all pilot seeds or third-band replay",
+  "sources": {
+    "Cargo.lock": "2cc30f118d8e87661e6f579d400cadab998f36da91ab3807d2645803b7ea7d0e",
+    "examples/kappa_field_age_sampler.rs": "7196672e6568da9b9482f5f32338b3084b1ccff789ac6be5fdbb7a14d95d955c",
+    "examples/kappa_tail_budget_sampler.rs": "e3da0a2bef8648b50697fbff1d1e8dea44263f23c2612946aebe56fbda1b6f81",
+    "experiments/2026-10-15-kappa-field-age/scripts/pilot.py": "a5f9b1886e6d7c172746d8716d1b9b16d96c79c151a211bd13501818ba9f941e",
+    "src/field_age.rs": "0733c7128804fd60fcb09f9b8c0d34891aeb99332eec575bb96bb08c823f3f65",
+    "src/fixed_area.rs": "56b1475d1780f95d97fb8a23c1d7acefb38640d66f0b43a73c4bb735b9ea3989",
+    "src/lib.rs": "2b272145f80bd94628b4e4349ed8f0541132f656d9afd295dcc6a67124507a3e",
+    "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+    "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76"
+  },
+  "specs": [
+    "RLLLLLLRLLRL@2026101511",
+    "RLLLLLLLLRR@2026101511",
+    "RLLLRLRLRLRR@2026101511",
+    "RLLRRLRRRRR@2026101511",
+    "rotor:2026101541",
+    "rotor:2026101542",
+    "rw:2026101541",
+    "rw:2026101542"
+  ],
+  "threads": [
+    1,
+    6
+  ]
+}
