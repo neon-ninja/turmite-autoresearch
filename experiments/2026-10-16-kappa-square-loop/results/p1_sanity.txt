@@ -1,0 +1,1 @@
+P1: 240 rules (k=1..6, both chiralities, random 8-letter tails, seed 20261016); laps == k in 240/240
