@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/mnt/f/Code/turmite/experiments/2026-10-15-kappa-tail-budget/scripts/pilot.py", line 145, in <module>
+    else:run(args.name)
+         ^^^^^^^^^^^^^^
+  File "/mnt/f/Code/turmite/experiments/2026-10-15-kappa-tail-budget/scripts/pilot.py", line 99, in run
+    for s,h in cfg["sources"].items(): assert digest(ROOT/s)==h, f"source changed: {s}"
+                                              ^^^^^^^^^^^^^^^^^
+AssertionError: source changed: src/lib.rs

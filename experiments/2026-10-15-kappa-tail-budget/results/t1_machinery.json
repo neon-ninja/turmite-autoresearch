@@ -1,0 +1,18 @@
+{
+  "G4_pass_empirical": true,
+  "G4_pass_family": true,
+  "boot": 2000,
+  "command": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/t1_machinery.py",
+  "input_sha256": "b4363b7185863ab922ffe69a59586c152eff5bd80bca1879f856c1396067de4b",
+  "null_false_positive_max_empirical": 0.0,
+  "null_false_positive_max_family": 0.0,
+  "power_lam1_min_empirical": 1.0,
+  "power_lam1_min_family": 1.0,
+  "runtime_seconds": 296.7740285396576,
+  "seed": 20261016,
+  "sims": 300,
+  "source_sha256": {
+    "t1_machinery": "7c06178d3fb276a2dc62f60048da5564ee036dbfb3ff7ebb9d244ec9298907cc",
+    "tailfit": "4700341bcb286f1f319973ecc054a4683384d86afa4000983fe659c9f39a36cf"
+  }
+}

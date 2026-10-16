@@ -1,0 +1,430 @@
+[1] cell 1/132 RLLLLLLLLRR b0 0s
+[1] cell 2/132 RLLLLLLLLRR b1 1s
+[1] cell 3/132 RLLLLLLLLRR b2 1s
+[1] cell 4/132 RLLLLRLLRLL b0 1s
+[1] cell 5/132 RLLLLRLLRLL b1 2s
+[1] cell 6/132 RLLLLRLLRLL b2 2s
+[1] cell 7/132 RLLLLRLRRRLL b0 2s
+[1] cell 8/132 RLLLLRLRRRLL b1 3s
+[1] cell 9/132 RLLLLRLRRRLL b2 3s
+[1] cell 10/132 RLLLLRRLRRRR b0 3s
+[1] cell 11/132 RLLLLRRLRRRR b1 4s
+[1] cell 12/132 RLLLLRRLRRRR b2 4s
+[1] cell 13/132 RLLLRLLLRLRR b0 5s
+[1] cell 14/132 RLLLRLLLRLRR b1 5s
+[1] cell 15/132 RLLLRLLLRLRR b2 5s
+[1] cell 16/132 RLLLRLLLRRRL b0 6s
+[1] cell 17/132 RLLLRLLLRRRL b1 6s
+[1] cell 18/132 RLLLRLLLRRRL b2 7s
+[1] cell 19/132 RLLLRLLRRLLR b0 7s
+[1] cell 20/132 RLLLRLLRRLLR b1 7s
+[1] cell 21/132 RLLLRLLRRLLR b2 8s
+[1] cell 22/132 RLLLRLRLLRRR b0 8s
+[1] cell 23/132 RLLLRLRLLRRR b1 9s
+[1] cell 24/132 RLLLRLRLLRRR b2 9s
+[1] cell 25/132 RLLLRRRLLRLL b0 9s
+[1] cell 26/132 RLLLRRRLLRLL b1 10s
+[1] cell 27/132 RLLLRRRLLRLL b2 10s
+[1] cell 28/132 RLLLRRRLRLRR b0 10s
+[1] cell 29/132 RLLLRRRLRLRR b1 11s
+[1] cell 30/132 RLLLRRRLRLRR b2 11s
+[1] cell 31/132 RLLLRRRRRRR b0 12s
+[1] cell 32/132 RLLLRRRRRRR b1 12s
+[1] cell 33/132 RLLLRRRRRRR b2 12s
+[1] cell 34/132 RLLLRRRRRRRR b0 13s
+[1] cell 35/132 RLLLRRRRRRRR b1 13s
+[1] cell 36/132 RLLLRRRRRRRR b2 13s
+[1] cell 37/132 RLLRLLRLLLLR b0 14s
+[1] cell 38/132 RLLRLLRLLLLR b1 14s
+[1] cell 39/132 RLLRLLRLLLLR b2 14s
+[1] cell 40/132 RLLRLLRRRRRL b0 15s
+[1] cell 41/132 RLLRLLRRRRRL b1 15s
+[1] cell 42/132 RLLRLLRRRRRL b2 15s
+[1] cell 43/132 RLLRLRLRRRRL b0 16s
+[1] cell 44/132 RLLRLRLRRRRL b1 16s
+[1] cell 45/132 RLLRLRLRRRRL b2 16s
+[1] cell 46/132 RLLRLRRLLRLL b0 17s
+[1] cell 47/132 RLLRLRRLLRLL b1 17s
+[1] cell 48/132 RLLRLRRLLRLL b2 17s
+[1] cell 49/132 RLLRLRRRLLLL b0 18s
+[1] cell 50/132 RLLRLRRRLLLL b1 18s
+[1] cell 51/132 RLLRLRRRLLLL b2 19s
+[1] cell 52/132 RLLRRLRRRRR b0 19s
+[1] cell 53/132 RLLRRLRRRRR b1 19s
+[1] cell 54/132 RLLRRLRRRRR b2 19s
+[1] cell 55/132 RLLRRRLLLLLL b0 20s
+[1] cell 56/132 RLLRRRLLLLLL b1 20s
+[1] cell 57/132 RLLRRRLLLLLL b2 21s
+[1] cell 58/132 RLLRRRLLRLRR b0 21s
+[1] cell 59/132 RLLRRRLLRLRR b1 21s
+[1] cell 60/132 RLLRRRLLRLRR b2 22s
+[1] cell 61/132 RLLRRRLRRRRR b0 22s
+[1] cell 62/132 RLLRRRLRRRRR b1 22s
+[1] cell 63/132 RLLRRRLRRRRR b2 23s
+[1] cell 64/132 RLLRRRRLLLLR b0 23s
+[1] cell 65/132 RLLRRRRLLLLR b1 23s
+[1] cell 66/132 RLLRRRRLLLLR b2 24s
+[1] cell 67/132 RLRLLLRRRRLR b0 24s
+[1] cell 68/132 RLRLLLRRRRLR b1 24s
+[1] cell 69/132 RLRLLLRRRRLR b2 25s
+[1] cell 70/132 RLRLLRLLLRLR b0 25s
+[1] cell 71/132 RLRLLRLLLRLR b1 26s
+[1] cell 72/132 RLRLLRLLLRLR b2 26s
+[1] cell 73/132 RLRLLRLRRLLL b0 27s
+[1] cell 74/132 RLRLLRLRRLLL b1 27s
+[1] cell 75/132 RLRLLRLRRLLL b2 28s
+[1] cell 76/132 RLRLLRRLLLLR b0 28s
+[1] cell 77/132 RLRLLRRLLLLR b1 28s
+[1] cell 78/132 RLRLLRRLLLLR b2 29s
+[1] cell 79/132 RLRLLRRLRLLR b0 30s
+[1] cell 80/132 RLRLLRRLRLLR b1 30s
+[1] cell 81/132 RLRLLRRLRLLR b2 30s
+[1] cell 82/132 RLRLRLLLRRLR b0 31s
+[1] cell 83/132 RLRLRLLLRRLR b1 31s
+[1] cell 84/132 RLRLRLLLRRLR b2 32s
+[1] cell 85/132 RLRLRLLRRLLR b0 32s
+[1] cell 86/132 RLRLRLLRRLLR b1 32s
+[1] cell 87/132 RLRLRLLRRLLR b2 33s
+[1] cell 88/132 RLRLRRLL b0 33s
+[1] cell 89/132 RLRLRRLL b1 34s
+[1] cell 90/132 RLRLRRLL b2 34s
+[1] cell 91/132 RLRLRRRRLLLL b0 34s
+[1] cell 92/132 RLRLRRRRLLLL b1 35s
+[1] cell 93/132 RLRLRRRRLLLL b2 35s
+[1] cell 94/132 RLRRLLRRRLLR b0 36s
+[1] cell 95/132 RLRRLLRRRLLR b1 36s
+[1] cell 96/132 RLRRLLRRRLLR b2 36s
+[1] cell 97/132 RLRRRLRLRRLR b0 37s
+[1] cell 98/132 RLRRRLRLRRLR b1 37s
+[1] cell 99/132 RLRRRLRLRRLR b2 38s
+[1] cell 100/132 RRLLRRRRLRRL b0 38s
+[1] cell 101/132 RRLLRRRRLRRL b1 39s
+[1] cell 102/132 RRLLRRRRLRRL b2 39s
+[1] cell 103/132 RRLRLLLLRLRL b0 40s
+[1] cell 104/132 RRLRLLLLRLRL b1 40s
+[1] cell 105/132 RRLRLLLLRLRL b2 40s
+[1] cell 106/132 RRLRLLLLRLRR b0 41s
+[1] cell 107/132 RRLRLLLLRLRR b1 41s
+[1] cell 108/132 RRLRLLLLRLRR b2 42s
+[1] cell 109/132 RRLRLLLR b0 42s
+[1] cell 110/132 RRLRLLLR b1 42s
+[1] cell 111/132 RRLRLLLR b2 43s
+[1] cell 112/132 RRLRLLLRLRRR b0 43s
+[1] cell 113/132 RRLRLLLRLRRR b1 43s
+[1] cell 114/132 RRLRLLLRLRRR b2 44s
+[1] cell 115/132 RRLRLRRRL b0 44s
+[1] cell 116/132 RRLRLRRRL b1 44s
+[1] cell 117/132 RRLRLRRRL b2 45s
+[1] cell 118/132 RRLRRRLRL b0 45s
+[1] cell 119/132 RRLRRRLRL b1 46s
+[1] cell 120/132 RRLRRRLRL b2 46s
+[1] cell 121/132 RRRLLRLLLL b0 47s
+[1] cell 122/132 RRRLLRLLLL b1 47s
+[1] cell 123/132 RRRLLRLLLL b2 48s
+[1] cell 124/132 RRRLRLLLLL b0 49s
+[1] cell 125/132 RRRLRLLLLL b1 49s
+[1] cell 126/132 RRRLRLLLLL b2 49s
+[1] cell 127/132 RRRRLRRRRRLL b0 50s
+[1] cell 128/132 RRRRLRRRRRLL b1 50s
+[1] cell 129/132 RRRRLRRRRRLL b2 51s
+[1] cell 130/132 RRRRRLRLRRRL b0 51s
+[1] cell 131/132 RRRRRLRLRRRL b1 51s
+[1] cell 132/132 RRRRRLRLRRRL b2 52s
+[2] cell 1/132 53s
+[2] cell 2/132 53s
+[2] cell 3/132 54s
+[2] cell 4/132 55s
+[2] cell 5/132 55s
+[2] cell 6/132 56s
+[2] cell 7/132 57s
+[2] cell 8/132 57s
+[2] cell 9/132 58s
+[2] cell 10/132 59s
+[2] cell 11/132 59s
+[2] cell 12/132 60s
+[2] cell 13/132 61s
+[2] cell 14/132 61s
+[2] cell 15/132 63s
+[2] cell 16/132 63s
+[2] cell 17/132 64s
+[2] cell 18/132 66s
+[2] cell 19/132 66s
+[2] cell 20/132 67s
+[2] cell 21/132 69s
+[2] cell 22/132 69s
+[2] cell 23/132 70s
+[2] cell 24/132 71s
+[2] cell 25/132 71s
+[2] cell 26/132 72s
+[2] cell 27/132 73s
+[2] cell 28/132 73s
+[2] cell 29/132 74s
+[2] cell 30/132 75s
+[2] cell 31/132 75s
+[2] cell 32/132 76s
+[2] cell 33/132 77s
+[2] cell 34/132 77s
+[2] cell 35/132 78s
+[2] cell 36/132 79s
+[2] cell 37/132 79s
+[2] cell 38/132 80s
+[2] cell 39/132 81s
+[2] cell 40/132 81s
+[2] cell 41/132 82s
+[2] cell 42/132 83s
+[2] cell 43/132 83s
+[2] cell 44/132 84s
+[2] cell 45/132 86s
+[2] cell 46/132 86s
+[2] cell 47/132 87s
+[2] cell 48/132 89s
+[2] cell 49/132 89s
+[2] cell 50/132 90s
+[2] cell 51/132 91s
+[2] cell 52/132 91s
+[2] cell 53/132 92s
+[2] cell 54/132 93s
+[2] cell 55/132 94s
+[2] cell 56/132 94s
+[2] cell 57/132 95s
+[2] cell 58/132 95s
+[2] cell 59/132 96s
+[2] cell 60/132 97s
+[2] cell 61/132 98s
+[2] cell 62/132 98s
+[2] cell 63/132 99s
+[2] cell 64/132 100s
+[2] cell 65/132 100s
+[2] cell 66/132 101s
+[2] cell 67/132 102s
+[2] cell 68/132 102s
+[2] cell 69/132 104s
+[2] cell 70/132 104s
+[2] cell 71/132 105s
+[2] cell 72/132 107s
+[2] cell 73/132 107s
+[2] cell 74/132 108s
+[2] cell 75/132 109s
+[2] cell 76/132 110s
+[2] cell 77/132 110s
+[2] cell 78/132 112s
+[2] cell 79/132 112s
+[2] cell 80/132 113s
+[2] cell 81/132 114s
+[2] cell 82/132 115s
+[2] cell 83/132 115s
+[2] cell 84/132 117s
+[2] cell 85/132 117s
+[2] cell 86/132 118s
+[2] cell 87/132 120s
+[2] cell 88/132 120s
+[2] cell 89/132 121s
+[2] cell 90/132 122s
+[2] cell 91/132 123s
+[2] cell 92/132 123s
+[2] cell 93/132 125s
+[2] cell 94/132 125s
+[2] cell 95/132 126s
+[2] cell 96/132 128s
+[2] cell 97/132 128s
+[2] cell 98/132 129s
+[2] cell 99/132 131s
+[2] cell 100/132 131s
+[2] cell 101/132 132s
+[2] cell 102/132 134s
+[2] cell 103/132 134s
+[2] cell 104/132 135s
+[2] cell 105/132 136s
+[2] cell 106/132 137s
+[2] cell 107/132 138s
+[2] cell 108/132 139s
+[2] cell 109/132 140s
+[2] cell 110/132 140s
+[2] cell 111/132 142s
+[2] cell 112/132 143s
+[2] cell 113/132 143s
+[2] cell 114/132 145s
+[2] cell 115/132 145s
+[2] cell 116/132 146s
+[2] cell 117/132 148s
+[2] cell 118/132 149s
+[2] cell 119/132 149s
+[2] cell 120/132 151s
+[2] cell 121/132 152s
+[2] cell 122/132 153s
+[2] cell 123/132 155s
+[2] cell 124/132 156s
+[2] cell 125/132 156s
+[2] cell 126/132 158s
+[2] cell 127/132 159s
+[2] cell 128/132 160s
+[2] cell 129/132 163s
+[2] cell 130/132 164s
+[2] cell 131/132 165s
+[2] cell 132/132 168s
+[3] geometric_mean20 169s
+[3] lognormal_tail 171s
+[3] geometric_mean4_notail 171s
+[4] cell 1/132 171s
+[4] cell 2/132 171s
+[4] cell 3/132 171s
+[4] cell 4/132 171s
+[4] cell 5/132 171s
+[4] cell 6/132 171s
+[4] cell 7/132 171s
+[4] cell 8/132 171s
+[4] cell 9/132 171s
+[4] cell 10/132 171s
+[4] cell 11/132 171s
+[4] cell 12/132 171s
+[4] cell 13/132 171s
+[4] cell 14/132 171s
+[4] cell 15/132 172s
+[4] cell 16/132 172s
+[4] cell 17/132 172s
+[4] cell 18/132 172s
+[4] cell 19/132 172s
+[4] cell 20/132 172s
+[4] cell 21/132 172s
+[4] cell 22/132 172s
+[4] cell 23/132 172s
+[4] cell 24/132 172s
+[4] cell 25/132 172s
+[4] cell 26/132 172s
+[4] cell 27/132 172s
+[4] cell 28/132 172s
+[4] cell 29/132 172s
+[4] cell 30/132 172s
+[4] cell 31/132 172s
+[4] cell 32/132 172s
+[4] cell 33/132 172s
+[4] cell 34/132 172s
+[4] cell 35/132 172s
+[4] cell 36/132 172s
+[4] cell 37/132 172s
+[4] cell 38/132 172s
+[4] cell 39/132 172s
+[4] cell 40/132 172s
+[4] cell 41/132 172s
+[4] cell 42/132 172s
+[4] cell 43/132 172s
+[4] cell 44/132 172s
+[4] cell 45/132 172s
+[4] cell 46/132 172s
+[4] cell 47/132 172s
+[4] cell 48/132 172s
+[4] cell 49/132 172s
+[4] cell 50/132 173s
+[4] cell 51/132 173s
+[4] cell 52/132 173s
+[4] cell 53/132 173s
+[4] cell 54/132 173s
+[4] cell 55/132 173s
+[4] cell 56/132 173s
+[4] cell 57/132 173s
+[4] cell 58/132 173s
+[4] cell 59/132 173s
+[4] cell 60/132 173s
+[4] cell 61/132 173s
+[4] cell 62/132 173s
+[4] cell 63/132 173s
+[4] cell 64/132 173s
+[4] cell 65/132 173s
+[4] cell 66/132 173s
+[4] cell 67/132 173s
+[4] cell 68/132 173s
+[4] cell 69/132 173s
+[4] cell 70/132 173s
+[4] cell 71/132 173s
+[4] cell 72/132 173s
+[4] cell 73/132 173s
+[4] cell 74/132 173s
+[4] cell 75/132 173s
+[4] cell 76/132 173s
+[4] cell 77/132 173s
+[4] cell 78/132 174s
+[4] cell 79/132 174s
+[4] cell 80/132 174s
+[4] cell 81/132 174s
+[4] cell 82/132 174s
+[4] cell 83/132 174s
+[4] cell 84/132 174s
+[4] cell 85/132 174s
+[4] cell 86/132 174s
+[4] cell 87/132 174s
+[4] cell 88/132 174s
+[4] cell 89/132 174s
+[4] cell 90/132 174s
+[4] cell 91/132 174s
+[4] cell 92/132 174s
+[4] cell 93/132 174s
+[4] cell 94/132 174s
+[4] cell 95/132 174s
+[4] cell 96/132 174s
+[4] cell 97/132 174s
+[4] cell 98/132 174s
+[4] cell 99/132 174s
+[4] cell 100/132 175s
+[4] cell 101/132 175s
+[4] cell 102/132 175s
+[4] cell 103/132 175s
+[4] cell 104/132 175s
+[4] cell 105/132 175s
+[4] cell 106/132 175s
+[4] cell 107/132 175s
+[4] cell 108/132 175s
+[4] cell 109/132 175s
+[4] cell 110/132 175s
+[4] cell 111/132 175s
+[4] cell 112/132 175s
+[4] cell 113/132 175s
+[4] cell 114/132 175s
+[4] cell 115/132 175s
+[4] cell 116/132 175s
+[4] cell 117/132 175s
+[4] cell 118/132 175s
+[4] cell 119/132 175s
+[4] cell 120/132 175s
+[4] cell 121/132 175s
+[4] cell 122/132 175s
+[4] cell 123/132 176s
+[4] cell 124/132 176s
+[4] cell 125/132 176s
+[4] cell 126/132 176s
+[4] cell 127/132 176s
+[4] cell 128/132 176s
+[4] cell 129/132 176s
+[4] cell 130/132 176s
+[4] cell 131/132 176s
+[4] cell 132/132 176s
+{
+ "C1_median_abs_relbias_e1": 0.03081281313971418,
+ "C1_frac_cells_abs_relbias_le_0.15": 0.9924242424242424,
+ "C1_median_alpha_bias": -0.0029870085258020956,
+ "C1_pass": true,
+ "C2_frac_cells_e1_beats_e0_rmse": 0.4393939393939394,
+ "C2_pass": false,
+ "C3_size_in_family_rej01": 0.1351010101010101,
+ "C3_size_in_family_rej05": 0.22058080808080807,
+ "C3_power_misspecified_real_shape_rej01_pooled": 0.9720899470899471,
+ "C3_cells_ge30_tail_events": 126,
+ "C3_pass": false,
+ "C3_misspecified_e1_vs_e0_rmse_win_frac": 0.12121212121212122,
+ "C3_misspecified_median_abs_relbias_e1": 0.14498968198736856,
+ "C3_misspecified_median_abs_relbias_e0": 0.0034893264456251905,
+ "C4_geometric20_gof_reject": 0.11666666666666667,
+ "C4_lognormal_gof_reject": 1.0,
+ "C4_pass": false,
+ "C5_min_coverage": 0.9,
+ "C5_frac_cells_cov_ge_0.99": 0.9318181818181818,
+ "C5_median_width_over_E": 2.9272278260372824,
+ "C5_median_naive_completed_only_relbias": -0.5381942015260696,
+ "C5_pass": false,
+ "pilot_split_check": {
+  "n": 263,
+  "median_abs_log_err_empirical": 0.21661782093283918,
+  "median_abs_log_err_family": 0.2788765867608665,
+  "family_better_frac": 0.3650190114068441
+ },
+ "ALL_PASS": false
+}

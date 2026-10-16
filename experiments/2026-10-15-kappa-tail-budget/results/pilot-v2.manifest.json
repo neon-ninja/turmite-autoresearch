@@ -1,0 +1,132 @@
+{
+  "commands": {
+    "prepare": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/prepare_pilot.py",
+    "run": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/pilot.py --run --name pilot-v2"
+  },
+  "config": {
+    "bands": [
+      [
+        32768,
+        34816
+      ],
+      [
+        131072,
+        139264
+      ],
+      [
+        524288,
+        557056
+      ]
+    ],
+    "calibration_sha256": "8091188d4885a7947d2dcc748e1c478ea695d833b0bd6168dc25f6b9a9cc2245",
+    "cap": 1073741824,
+    "checkpoint": "per completed trajectory only; mid-trajectory state checkpoints NOT implemented; confirmation blocked",
+    "control_bands": [
+      [
+        1024,
+        1088
+      ],
+      [
+        4096,
+        4352
+      ]
+    ],
+    "control_cap": 4194304,
+    "control_seeds": [
+      2026101541,
+      2026101542
+    ],
+    "decision": "Extend to third candidate band to measure attainment/censoring and cost; no ant association or model selection. Original field-age 48-rule support gate remains failed when applicable.",
+    "definition": "depth 0..4 to any visited boundary; departure visits; phase=(initial+visits)%n; cycles=visits//n",
+    "example": "kappa_tail_budget_sampler",
+    "gates": {
+      "accounting": "B+I=steps; fragments conserve labels; hazards sum=steps",
+      "budget": "max pilot t <= cap/4 required before confirmation at this cap",
+      "coverage": "all pilot specs reported; no exclusions",
+      "escape": 0,
+      "unresolved_fraction": 0.05
+    },
+    "grid": 4096,
+    "inputs": {
+      "experiments/2026-10-15-fixed-area-cycles/results/cohort_rules.txt": "91cde6e93f8a0ee13b0225b5be24c5d464696cf06b1ce3471da85f657ccfe080"
+    },
+    "pilot_excluded_from_confirmation": true,
+    "profile_cost_seconds": 10.899748944997555,
+    "resource_budget": "4 workers, 4096 board; <=2 GiB aggregate expected; <=30 minutes per experiment, check logs and stop if exceeded",
+    "rules": [
+      "RLLLLLLLLRR",
+      "RLLLLRLLRLL",
+      "RLLLLRLRRRLL",
+      "RLLLLRRLRRRR",
+      "RLLLRLLLRLRR",
+      "RLLLRLLLRRRL",
+      "RLLLRLLRRLLR",
+      "RLLLRLRLLRRR",
+      "RLLLRRRLLRLL",
+      "RLLLRRRLRLRR",
+      "RLLLRRRRRRR",
+      "RLLLRRRRRRRR",
+      "RLLRLLRLLLLR",
+      "RLLRLLRRRRRL",
+      "RLLRLRLRRRRL",
+      "RLLRLRRLLRLL",
+      "RLLRLRRRLLLL",
+      "RLLRRLRRRRR",
+      "RLLRRRLLLLLL",
+      "RLLRRRLLRLRR",
+      "RLLRRRLRRRRR",
+      "RLLRRRRLLLLR",
+      "RLRLLLRRRRLR",
+      "RLRLLRLLLRLR",
+      "RLRLLRLRRLLL",
+      "RLRLLRRLLLLR",
+      "RLRLLRRLRLLR",
+      "RLRLRLLLRRLR",
+      "RLRLRLLRRLLR",
+      "RLRLRRLL",
+      "RLRLRRRRLLLL",
+      "RLRRLLRRRLLR",
+      "RLRRRLRLRRLR",
+      "RRLLRRRRLRRL",
+      "RRLRLLLLRLRL",
+      "RRLRLLLLRLRR",
+      "RRLRLLLR",
+      "RRLRLLLRLRRR",
+      "RRLRLRRRL",
+      "RRLRRRLRL",
+      "RRRLLRLLLL",
+      "RRRLRLLLLL",
+      "RRRRLRRRRRLL",
+      "RRRRRLRLRRRL"
+    ],
+    "scope": "feasibility only; no association, model selection or confirmatory verdict",
+    "seeds": [
+      2026101501,
+      2026101502,
+      2026101503,
+      2026101504
+    ],
+    "sources": {
+      "Cargo.lock": "2cc30f118d8e87661e6f579d400cadab998f36da91ab3807d2645803b7ea7d0e",
+      "examples/kappa_field_age_sampler.rs": "7196672e6568da9b9482f5f32338b3084b1ccff789ac6be5fdbb7a14d95d955c",
+      "examples/kappa_tail_budget_calibrate.rs": "b8688965a3c264344d559b3ebb874637db3c000ed2cb61599c5d2c701813eba4",
+      "examples/kappa_tail_budget_sampler.rs": "e3da0a2bef8648b50697fbff1d1e8dea44263f23c2612946aebe56fbda1b6f81",
+      "experiments/2026-10-15-kappa-tail-budget/scripts/pilot.py": "124803318d47f5cdaa0656cfc833e83c9c589388ad7d2cf89c9bbd5000ff61d0",
+      "experiments/2026-10-15-kappa-tail-budget/scripts/prepare_pilot.py": "ce13735200935f1ab87bf1dff2edba9beb6b5f8d54ce78eb64d265c87c95266f",
+      "src/field_age.rs": "0733c7128804fd60fcb09f9b8c0d34891aeb99332eec575bb96bb08c823f3f65",
+      "src/fixed_area.rs": "56b1475d1780f95d97fb8a23c1d7acefb38640d66f0b43a73c4bb735b9ea3989",
+      "src/lib.rs": "2b272145f80bd94628b4e4349ed8f0541132f656d9afd295dcc6a67124507a3e",
+      "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+      "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76"
+    },
+    "strata": {},
+    "threads": 4
+  },
+  "config_hash": "eafb580ac14eec9bd394a41a5527691b8aaee2b60916d96243b771df62d5caaf",
+  "environment": {
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "uv": "uv 0.5.15"
+  },
+  "git_commit": "b3a0f762ac2230b5df92188206a4d3a1081897be",
+  "recorded_utc": "2026-10-15T10:12:25.578010+00:00"
+}

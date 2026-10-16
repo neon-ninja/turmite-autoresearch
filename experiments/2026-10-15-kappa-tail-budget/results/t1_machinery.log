@@ -1,0 +1,42 @@
+{'seed_noise_sd_logit': 0.1, 'lam': 0.0, 'baseline': 'linear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 0.0, 'median_gain_band0': -0.001984227395974236, 'median_gain_band1': -0.0021237240606121655} 18s
+{'seed_noise_sd_logit': 0.1, 'lam': 0.0, 'baseline': 'linear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 0.0, 'median_gain_band0': -0.0020568371449147843, 'median_gain_band1': -0.0021615408252288982} 26s
+{'seed_noise_sd_logit': 0.1, 'lam': 0.0, 'baseline': 'nonlinear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 0.0, 'median_gain_band0': -0.012336433918597327, 'median_gain_band1': -0.003753381232822043} 44s
+{'seed_noise_sd_logit': 0.1, 'lam': 0.0, 'baseline': 'nonlinear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 0.0, 'median_gain_band0': -0.012546029304017384, 'median_gain_band1': -0.00501952191807223} 53s
+{'seed_noise_sd_logit': 0.1, 'lam': 0.5, 'baseline': 'linear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.3507307697854134, 'median_gain_band1': 0.3246371986057963} 70s
+{'seed_noise_sd_logit': 0.1, 'lam': 0.5, 'baseline': 'linear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.3468148652947549, 'median_gain_band1': 0.315255000321515} 79s
+{'seed_noise_sd_logit': 0.1, 'lam': 0.5, 'baseline': 'nonlinear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 0.9966666666666667, 'median_gain_band0': 0.38536932799077017, 'median_gain_band1': 0.39113466390416357} 96s
+{'seed_noise_sd_logit': 0.1, 'lam': 0.5, 'baseline': 'nonlinear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 0.9966666666666667, 'median_gain_band0': 0.38261023932920624, 'median_gain_band1': 0.3844819590084002} 105s
+{'seed_noise_sd_logit': 0.1, 'lam': 1.0, 'baseline': 'linear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.928831419257129, 'median_gain_band1': 0.8991850889455526} 123s
+{'seed_noise_sd_logit': 0.1, 'lam': 1.0, 'baseline': 'linear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.927612057831135, 'median_gain_band1': 0.8916049692907694} 132s
+{'seed_noise_sd_logit': 0.1, 'lam': 1.0, 'baseline': 'nonlinear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.9318172970394076, 'median_gain_band1': 0.9076372059120509} 151s
+{'seed_noise_sd_logit': 0.1, 'lam': 1.0, 'baseline': 'nonlinear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.9323355198724761, 'median_gain_band1': 0.9041317191734297} 158s
+{'seed_noise_sd_logit': 0.3, 'lam': 0.0, 'baseline': 'linear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 0.0, 'median_gain_band0': -0.0021454522922115206, 'median_gain_band1': -0.0025112787316532302} 174s
+{'seed_noise_sd_logit': 0.3, 'lam': 0.0, 'baseline': 'linear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 0.0, 'median_gain_band0': -0.0020278724800065514, 'median_gain_band1': -0.0023654660262520657} 182s
+{'seed_noise_sd_logit': 0.3, 'lam': 0.0, 'baseline': 'nonlinear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 0.0, 'median_gain_band0': -0.013116984692423386, 'median_gain_band1': -0.006028602668466868} 198s
+{'seed_noise_sd_logit': 0.3, 'lam': 0.0, 'baseline': 'nonlinear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 0.0, 'median_gain_band0': -0.012582458337086358, 'median_gain_band1': -0.005034365435105031} 205s
+{'seed_noise_sd_logit': 0.3, 'lam': 0.5, 'baseline': 'linear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.34532643167140276, 'median_gain_band1': 0.31701447823077367} 221s
+{'seed_noise_sd_logit': 0.3, 'lam': 0.5, 'baseline': 'linear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.3361144485258275, 'median_gain_band1': 0.30764529057814727} 229s
+{'seed_noise_sd_logit': 0.3, 'lam': 0.5, 'baseline': 'nonlinear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 0.9966666666666667, 'median_gain_band0': 0.3774137852037195, 'median_gain_band1': 0.3911339899639832} 244s
+{'seed_noise_sd_logit': 0.3, 'lam': 0.5, 'baseline': 'nonlinear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 0.9966666666666667, 'median_gain_band0': 0.3812904764074526, 'median_gain_band1': 0.37841988202668975} 251s
+{'seed_noise_sd_logit': 0.3, 'lam': 1.0, 'baseline': 'linear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.931777292387763, 'median_gain_band1': 0.8988854310573099} 266s
+{'seed_noise_sd_logit': 0.3, 'lam': 1.0, 'baseline': 'linear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.9281494681639355, 'median_gain_band1': 0.8860945908149702} 274s
+{'seed_noise_sd_logit': 0.3, 'lam': 1.0, 'baseline': 'nonlinear', 'estimator': 'family F', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.9303495653297268, 'median_gain_band1': 0.9023916273976735} 289s
+{'seed_noise_sd_logit': 0.3, 'lam': 1.0, 'baseline': 'nonlinear', 'estimator': 'empirical binned', 'sims': 300, 't1_positive_rate': 1.0, 'median_gain_band0': 0.9187357604562334, 'median_gain_band1': 0.878108909718284} 297s
+{
+ "command": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/t1_machinery.py",
+ "seed": 20261016,
+ "sims": 300,
+ "boot": 2000,
+ "input_sha256": "b4363b7185863ab922ffe69a59586c152eff5bd80bca1879f856c1396067de4b",
+ "source_sha256": {
+  "t1_machinery": "7c06178d3fb276a2dc62f60048da5564ee036dbfb3ff7ebb9d244ec9298907cc",
+  "tailfit": "4700341bcb286f1f319973ecc054a4683384d86afa4000983fe659c9f39a36cf"
+ },
+ "null_false_positive_max_family": 0.0,
+ "null_false_positive_max_empirical": 0.0,
+ "power_lam1_min_family": 1.0,
+ "power_lam1_min_empirical": 1.0,
+ "G4_pass_family": true,
+ "runtime_seconds": 296.7740285396576,
+ "G4_pass_empirical": true
+}

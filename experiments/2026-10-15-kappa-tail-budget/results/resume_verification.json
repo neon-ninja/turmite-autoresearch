@@ -1,0 +1,13 @@
+{
+  "command": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/check_resume.py",
+  "compact_sha256": {
+    "pilot-v2.ants.census.csv": "ed1aacff2cb5f97b32f3916e87e245f30da3641e246e6394882a473e0b4e941d",
+    "pilot-v2.audit.json": "b00f1d7949e92eef6fbffb372985944355e859a4c7973f119d4e3ed5dee56742",
+    "pilot-v2.controls.census.csv": "5a84cbb521884c447b9afd225701e570d1c83132ae052af8a43c4b33b384d7f3",
+    "pilot-v2.manifest.json": "22f5fdd60d7d6baf4137f4a79ee821f2654b37d268e94afddf0f55310f53593d"
+  },
+  "passed": true,
+  "scope": "Completed full-pilot raw payloads verified by run.py; original compact audits and census bytes preserved. Not a mid-trajectory checkpoint test.",
+  "source_sha256": "5709e43fd37b9086ede7fea56429368af0db2ddb0125b2e2220b5c11f7278ce8",
+  "wrapper_sha256": "35f1d469cda10bec0e01fbd6ff52b9015b79bb95b8015b649b59903d52ff1dbe"
+}

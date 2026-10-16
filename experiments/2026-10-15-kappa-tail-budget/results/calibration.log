@@ -1,0 +1,44 @@
+{
+  "seed_range": [
+    2026101561,
+    2026101576
+  ],
+  "cycles_per_seed": 20000,
+  "families": {
+    "geometric": {
+      "mean": 4.011271875,
+      "known": 4.0,
+      "bias": 0.011271875000000264,
+      "between_seed_sd": 0.01826837858842427,
+      "mean_bias_within_4se": true,
+      "occupation_mean": 0.3327387928850905,
+      "known_occupation": 0.3333333333333333,
+      "occupation_between_seed_sd": 0.0015244213445808688
+    },
+    "mixture": {
+      "mean": 11.448353125,
+      "known": 11.5,
+      "bias": -0.051646874999999426,
+      "between_seed_sd": 0.28289170688253956,
+      "mean_bias_within_4se": true,
+      "occupation_mean": 0.14880616268770708,
+      "known_occupation": 0.14814814814814814,
+      "occupation_between_seed_sd": 0.0030891650436589797
+    },
+    "serial_mixture": {
+      "mean": 11.519499999999999,
+      "known": 11.5,
+      "bias": 0.019499999999998963,
+      "between_seed_sd": 0.4479705585564002,
+      "mean_bias_within_4se": true,
+      "occupation_mean": 0.14798803637655134,
+      "known_occupation": 0.14814814814814814,
+      "occupation_between_seed_sd": 0.004378111347356704
+    }
+  },
+  "input_sha256": "f2ba13fc52d37609aea73cd8b58a75c767b7da1608fce9c044f091f3cdefcf13",
+  "source_sha256": "b8688965a3c264344d559b3ebb874637db3c000ed2cb61599c5d2c701813eba4",
+  "git_commit": "b3a0f762ac2230b5df92188206a4d3a1081897be",
+  "command": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/calibrate.py",
+  "scope": "Calibration of actual instrument mean/time-mass accounting; NOT calibration of a fitted survival family"
+}

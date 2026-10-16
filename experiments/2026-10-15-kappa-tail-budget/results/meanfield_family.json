@@ -1,0 +1,66 @@
+{
+  "bands": {
+    "0": {
+      "ED": 1.0441272687619647,
+      "ET_empirical": 23.396612305231784,
+      "ET_family": 23.238943031538984,
+      "ET_geometric_truth": 23.48933987379911,
+      "a_hat": 3.55,
+      "g": 0.04257250333013562,
+      "gof_deviance": 0.003596848583374168,
+      "gof_flag_p01": false,
+      "gof_p": 0.21890547263681592,
+      "kappa_inst_empirical": 1.003482738859024,
+      "kappa_inst_family": 1.0099983232823495,
+      "kappa_inst_geometric_truth": 0.9996899396621971,
+      "log2H_hat": 7.5,
+      "pass_bias_le_0p05": true,
+      "single_seed_family_ET_relbias_median": -0.0050191449312754766,
+      "single_seed_family_ET_relbias_sd": 0.038728804228069236,
+      "tail_events": 2642
+    },
+    "1": {
+      "ED": 1.0226003285613705,
+      "ET_empirical": 45.695928185871864,
+      "ET_family": 46.20480106587835,
+      "ET_geometric_truth": 45.73819338522535,
+      "a_hat": 2.15,
+      "g": 0.021863565785766835,
+      "gof_deviance": 1936.8177700551148,
+      "gof_flag_p01": true,
+      "gof_p": 0.004975124378109453,
+      "kappa_inst_empirical": 1.0011422249543933,
+      "kappa_inst_family": 0.9903549677209554,
+      "kappa_inst_geometric_truth": 1.0002373327924279,
+      "log2H_hat": 9.25,
+      "pass_bias_le_0p05": true,
+      "single_seed_family_ET_relbias_median": -0.008381603977667462,
+      "single_seed_family_ET_relbias_sd": 0.02473344971370373,
+      "tail_events": 42045
+    },
+    "2": {
+      "ED": 1.011308709662463,
+      "ET_empirical": 91.37994946216617,
+      "ET_family": 99.54035752554394,
+      "ET_geometric_truth": 91.32197891846575,
+      "a_hat": 1.25,
+      "g": 0.010950266429211108,
+      "gof_deviance": 44828.73588058394,
+      "gof_flag_p01": true,
+      "gof_p": 0.004975124378109453,
+      "kappa_inst_empirical": 0.9996044484219013,
+      "kappa_inst_family": 0.918480181599615,
+      "kappa_inst_geometric_truth": 1.000232040212998,
+      "log2H_hat": 10.25,
+      "pass_bias_le_0p05": false,
+      "single_seed_family_ET_relbias_median": 0.08617150860867484,
+      "single_seed_family_ET_relbias_sd": 0.02909250929434273,
+      "tail_events": 345204
+    }
+  },
+  "git_commit": "269288eb62bf6b6ec125a3b420dd899057858be5",
+  "input_sha256": {
+    "bins": "0b5bc5abab74d9db3d212c0b7d312188295d88c26e8da3f9c3c27c4ce753e051",
+    "main": "4512448c9d1a99efe2cbc7c03bf7227030fb20f99c0c2e59e4121a0ccde5c4a2"
+  }
+}

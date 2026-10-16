@@ -1,0 +1,16 @@
+{
+  "after_damage_equals_resume_t2": true,
+  "command": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/check_halfwritten.py",
+  "damaged_stem": "RLLLLLLLLRR_2026101721",
+  "files_compared": 180,
+  "first_run_equals_resume_t2": true,
+  "intact_stem_with_stray_tmp": "RLLLLLLLLRR_2026101722",
+  "manifest_sha256": "3dd0200b29c501f7ade11c154caf64ed4d860f51f6893111abd1940f2c714dd7",
+  "source_sha256": "d9728a39b15a8acf258e69a9ea4c5befd90c5039b270c283320e6cd26054544e",
+  "stray_tmp_for_damaged_stem_remaining": false,
+  "stray_tmp_for_intact_stem_remaining": true,
+  "wall_seconds": {
+    "after_damage": 4.58112927899856,
+    "first_run": 34.524561467998865
+  }
+}

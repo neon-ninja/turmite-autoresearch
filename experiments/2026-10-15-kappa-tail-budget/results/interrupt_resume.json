@@ -1,0 +1,22 @@
+{
+  "command": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/check_interrupt.py",
+  "done_markers_at_kill": 8,
+  "files_compared": 182,
+  "first_difference": null,
+  "in_flight_stems_at_kill": [],
+  "manifests": {
+    "resume-k2": "4d83b464ce62894a4d4d47bda10f3ff58dd6c3baeb5d5e5a369b5883a95c35b5",
+    "resume-t1": "9615381bee106f30e835e218c6a3ef803c97832a0c6483f3b287ef7628b5047d",
+    "resume-t2": "3dd0200b29c501f7ade11c154caf64ed4d860f51f6893111abd1940f2c714dd7"
+  },
+  "one_vs_two_threads_identical": true,
+  "run_wrapper_sha256": "35f1d469cda10bec0e01fbd6ff52b9015b79bb95b8015b649b59903d52ff1dbe",
+  "scope": "8 rules x 4 seeds x 2 bands (+rotor/rw controls). 1 vs 2 threads here; 1 vs 6 threads from results/determinism.json (earlier session). Finished-trajectory resume only; no mid-trajectory state checkpoint exists.",
+  "source_sha256": "278aea210c8601f874312ad8b925d2f5422b5304cb95daffc3b951aee6788e05",
+  "uninterrupted_vs_resumed_identical": true,
+  "wall_seconds": {
+    "resume-k2-after-kill": 23.499954792998324,
+    "resume-t1": 59.80712332799885,
+    "resume-t2": 27.438565271000698
+  }
+}

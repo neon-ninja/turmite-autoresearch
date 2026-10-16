@@ -1,0 +1,82 @@
+{
+  "commands": {
+    "prepare": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/pilot.py --prepare --name profile-v1 --profile",
+    "run": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/pilot.py --run --name profile-v1"
+  },
+  "config": {
+    "bands": [
+      [
+        32768,
+        34816
+      ],
+      [
+        131072,
+        139264
+      ]
+    ],
+    "cap": 134217728,
+    "checkpoint": "per completed trajectory only; mid-trajectory state checkpoints NOT implemented; confirmation blocked",
+    "control_bands": [
+      [
+        1024,
+        1088
+      ],
+      [
+        4096,
+        4352
+      ]
+    ],
+    "control_cap": 4194304,
+    "control_seeds": [
+      2026101541,
+      2026101542
+    ],
+    "definition": "depth 0..4 to any visited boundary; departure visits; phase=(initial+visits)%n; cycles=visits//n",
+    "example": "kappa_tail_budget_sampler",
+    "gates": {
+      "accounting": "B+I=steps; fragments conserve labels; hazards sum=steps",
+      "budget": "max pilot t <= cap/4 required before confirmation at this cap",
+      "coverage": "all pilot specs reported; no exclusions",
+      "escape": 0,
+      "unresolved_fraction": 0.05
+    },
+    "grid": 4096,
+    "inputs": {
+      "experiments/2026-10-15-fixed-area-cycles/results/cohort_rules.txt": "91cde6e93f8a0ee13b0225b5be24c5d464696cf06b1ce3471da85f657ccfe080"
+    },
+    "pilot_excluded_from_confirmation": true,
+    "rules": [
+      "RLLLLLLLLRR",
+      "RLLLRRRRRRRR",
+      "RLRLLLRRRRLR",
+      "RRLLRRRRLRRL"
+    ],
+    "scope": "feasibility only; no association, model selection or confirmatory verdict",
+    "seeds": [
+      2026101501,
+      2026101502,
+      2026101503,
+      2026101504
+    ],
+    "sources": {
+      "Cargo.lock": "2cc30f118d8e87661e6f579d400cadab998f36da91ab3807d2645803b7ea7d0e",
+      "examples/kappa_field_age_sampler.rs": "7196672e6568da9b9482f5f32338b3084b1ccff789ac6be5fdbb7a14d95d955c",
+      "examples/kappa_tail_budget_sampler.rs": "e3da0a2bef8648b50697fbff1d1e8dea44263f23c2612946aebe56fbda1b6f81",
+      "experiments/2026-10-15-kappa-tail-budget/scripts/pilot.py": "124803318d47f5cdaa0656cfc833e83c9c589388ad7d2cf89c9bbd5000ff61d0",
+      "src/field_age.rs": "0733c7128804fd60fcb09f9b8c0d34891aeb99332eec575bb96bb08c823f3f65",
+      "src/fixed_area.rs": "56b1475d1780f95d97fb8a23c1d7acefb38640d66f0b43a73c4bb735b9ea3989",
+      "src/lib.rs": "2f1408000551606af441183550b16cc82dcf8ba791950c6ec70163f6b02d352c",
+      "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+      "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76"
+    },
+    "strata": {},
+    "threads": 4
+  },
+  "config_hash": "7a5ce5b9c58a5326a88fd5889d6755d672bf4130612b812252b155ad28f621cb",
+  "environment": {
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "uv": "uv 0.5.15"
+  },
+  "git_commit": "b3a0f762ac2230b5df92188206a4d3a1081897be",
+  "recorded_utc": "2026-10-15T10:07:44.749380+00:00"
+}

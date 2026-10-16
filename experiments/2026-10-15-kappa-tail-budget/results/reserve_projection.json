@@ -1,0 +1,101 @@
+{
+  "DISCARDED_parametric_projection_per_rule_model": {
+    "q50": 2829121489.5722556,
+    "q90": 316639977686.98834,
+    "q99": 5740588764588629.0,
+    "q99.9": 1.0707513106912606e+22
+  },
+  "DISCARDED_parametric_projection_pooled_model": {
+    "q50": 1971263557.9955308,
+    "q90": 2885279039.3553753,
+    "q99": 4125244806.8608756,
+    "q99.9": 28921132179.908527
+  },
+  "audit_sha256": "b00f1d7949e92eef6fbffb372985944355e859a4c7973f119d4e3ed5dee56742",
+  "candidates": {
+    "2^30": {
+      "cap": 1073741824,
+      "headroom_over_pilot_max": 0.32283071343087655,
+      "pilot_ok": false,
+      "reserve": 268435456.0
+    },
+    "2^32": {
+      "cap": 4294967296,
+      "headroom_over_pilot_max": 1.2913228537235062,
+      "pilot_ok": true,
+      "reserve": 1073741824.0
+    },
+    "2^33": {
+      "cap": 8589934592,
+      "headroom_over_pilot_max": 2.5826457074470124,
+      "pilot_ok": true,
+      "reserve": 2147483648.0
+    }
+  },
+  "command": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/reserve_gate.py",
+  "confirmation_cost_projection_hours_at_2_threads": 2.8108286419753084,
+  "draws": 2000,
+  "per_rule_sd_log_range": [
+    0.006059994995620354,
+    1.5987234799315617
+  ],
+  "pilot_max_final_step": 831505321,
+  "pilot_traj_seconds": {
+    "max": 108.251,
+    "median": 11.500499999999999,
+    "n": 180,
+    "total_cpu": 2587.24
+  },
+  "pooled_residual_sd_log": 0.3666109419930559,
+  "projection_discard_reason": "log-normal extrapolation is invalid: per-rule sd of log t_final spans 0.006-1.6 with a 29x range in one cheap rule; extreme-value quantiles are driven by the inverse-chi2 / pooled spread of cheap rules, not by physics. Gate 1(b) is replaced by a direct fresh validation batch (see NOTEBOOK).",
+  "rules": 44,
+  "seeds_per_rule_projected": 32,
+  "slowest_rules": [
+    "RLLRRRRLLLLR",
+    "RRRLLRLLLL",
+    "RRRRRLRLRRRL",
+    "RRLLRRRRLRRL"
+  ],
+  "source_sha256": "832b619f3f36d882b9c479061fb62314f413606d4afc045c1a8fffbfc08fe828",
+  "validation": {
+    "all_within_quarter_cap": {
+      "4294967296": true,
+      "8589934592": true
+    },
+    "completed": 96,
+    "escaped": 0,
+    "max_over_pilot_rule_max": {
+      "RLLLRRRLLRLL": 2.1437365097083476,
+      "RLLRRLRRRRR": 1.5274812483705333,
+      "RLLRRRLRRRRR": 0.9781131363679764,
+      "RLLRRRRLLLLR": 0.9578355374108304,
+      "RRLLRRRRLRRL": 1.0145261251474302,
+      "RRLRLLLR": 1.0176914886925053,
+      "RRRLLRLLLL": 0.9979925467498091,
+      "RRRRRLRLRRRL": 1.0161993633923034
+    },
+    "max_t": 796445346,
+    "name": "reserve-v1",
+    "per_rule_max": {
+      "RLLLRRRLLRLL": 73569174,
+      "RLLRRLRRRRR": 58125386,
+      "RLLRRRLRRRRR": 50288923,
+      "RLLRRRRLLLLR": 796445346,
+      "RRLLRRRRLRRL": 381760182,
+      "RRLRLLLR": 108799438,
+      "RRRLLRLLLL": 609808278,
+      "RRRRRLRLRRRL": 389517309
+    },
+    "per_rule_mean": {
+      "RLLLRRRLLRLL": 30326291.25,
+      "RLLRRLRRRRR": 31702629.833333332,
+      "RLLRRRLRRRRR": 29813711.25,
+      "RLLRRRRLLLLR": 702050648.0,
+      "RRLLRRRRLRRL": 370453126.5,
+      "RRLRLLLR": 76794134.25,
+      "RRRLLRLLLL": 600031368.3333334,
+      "RRRRRLRLRRRL": 376420062.3333333
+    },
+    "requested": 96
+  }
+}

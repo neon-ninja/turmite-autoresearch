@@ -1,0 +1,82 @@
+rw:2026101541 complete t=16562 cells=4352 seconds=0.140
+rotor:2026101541 complete t=33880 cells=4352 seconds=0.155
+rotor:2026101542 complete t=43332 cells=4352 seconds=0.162
+rw:2026101542 complete t=15091 cells=4352 seconds=0.165
+	Command being timed: "/mnt/f/Code/turmite/target/release/examples/kappa_tail_budget_sampler /mnt/f/Code/turmite/experiments/2026-10-15-kappa-tail-budget/dumps/profile-v1/controls 4194304 4096 1024-1088,4096-4352 7a5ce5b9c58a5326a88fd5889d6755d672bf4130612b812252b155ad28f621cb 4"
+	User time (seconds): 0.05
+	System time (seconds): 0.24
+	Percent of CPU this job got: 154%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.19
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 330668
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 18
+	Minor (reclaiming a frame) page faults: 82828
+	Voluntary context switches: 804
+	Involuntary context switches: 5
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+RLLLRRRRRRRR@2026101501 complete t=14483791 cells=139264 seconds=1.055
+RLLLLLLLLRR@2026101501 complete t=11343606 cells=139264 seconds=1.081
+RLLLLLLLLRR@2026101503 complete t=15565605 cells=139264 seconds=1.269
+RLLLLLLLLRR@2026101502 complete t=9925473 cells=139264 seconds=1.057
+RLLLRRRRRRRR@2026101502 complete t=18077465 cells=139264 seconds=1.521
+RLLLLLLLLRR@2026101504 complete t=14477199 cells=139264 seconds=1.365
+RLLLRRRRRRRR@2026101504 complete t=12579788 cells=139264 seconds=0.980
+RLRLLLRRRRLR@2026101501 complete t=44662878 cells=139264 seconds=4.308
+RLLLRRRRRRRR@2026101503 complete t=25014469 cells=139264 seconds=2.288
+RRLLRRRRLRRL@2026101501 complete t=45497004 cells=139264 seconds=3.830
+RRLLRRRRLRRL@2026101503 complete t=45122798 cells=139264 seconds=3.863
+RLRLLLRRRRLR@2026101502 complete t=44326992 cells=139264 seconds=3.686
+RLRLLLRRRRLR@2026101503 complete t=44014391 cells=139264 seconds=3.563
+RRLLRRRRLRRL@2026101502 complete t=46758873 cells=139264 seconds=2.909
+RRLLRRRRLRRL@2026101504 complete t=46224769 cells=139264 seconds=2.657
+RLRLLLRRRRLR@2026101504 complete t=45385488 cells=139264 seconds=2.551
+	Command being timed: "/mnt/f/Code/turmite/target/release/examples/kappa_tail_budget_sampler /mnt/f/Code/turmite/experiments/2026-10-15-kappa-tail-budget/dumps/profile-v1/ants 134217728 4096 32768-34816,131072-139264 7a5ce5b9c58a5326a88fd5889d6755d672bf4130612b812252b155ad28f621cb 4"
+	User time (seconds): 34.63
+	System time (seconds): 1.56
+	Percent of CPU this job got: 341%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:10.59
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 403224
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 18
+	Minor (reclaiming a frame) page faults: 364374
+	Voluntary context switches: 4105
+	Involuntary context switches: 5956
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+{
+  "controls": {
+    "completed": 4,
+    "requested": 4,
+    "max_t": 43332,
+    "escaped": 0,
+    "elapsed_seconds": 0.4931010239997704
+  },
+  "ants": {
+    "completed": 16,
+    "requested": 16,
+    "max_t": 46758873,
+    "escaped": 0,
+    "elapsed_seconds": 10.899748944997555
+  }
+}

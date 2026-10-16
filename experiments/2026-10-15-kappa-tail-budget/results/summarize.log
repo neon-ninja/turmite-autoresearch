@@ -1,0 +1,193 @@
+{
+  "scope": "Feasibility and split-seed feature reliability only; NO scientific predictions evaluated",
+  "bands": [
+    {
+      "band": 0,
+      "lo": 32768,
+      "completed": 176,
+      "requested": 176,
+      "unresolved_overlap": 0,
+      "unresolved_I_fraction": 0.0,
+      "min_completed_entry_episodes": 1018,
+      "split_seed_reliability": {
+        "entry_mean": {
+          "spearman_two_seed_halves": 0.655813953488372,
+          "rules": 44
+        },
+        "tail_probability_64": {
+          "spearman_two_seed_halves": 0.9567300916138125,
+          "rules": 44
+        },
+        "tail_mean_64": {
+          "spearman_two_seed_halves": 0.8628960375982498,
+          "rules": 42
+        },
+        "immature": {
+          "spearman_two_seed_halves": 0.9537702607470049,
+          "rules": 44
+        },
+        "median_log_age": {
+          "spearman_two_seed_halves": 0.6745595489781535,
+          "rules": 44
+        },
+        "cycle_variance": {
+          "spearman_two_seed_halves": 0.9572938689217758,
+          "rules": 44
+        }
+      },
+      "between_seed_dispersion": {
+        "entry_mean": {
+          "median_between_seed_sd": 25.551663919484426
+        },
+        "tail_probability_64": {
+          "median_between_seed_sd": 0.005615988808349792
+        },
+        "tail_mean_64": {
+          "median_between_seed_sd": 465.6995158710698
+        },
+        "immature": {
+          "median_between_seed_sd": 0.010959060559051976
+        },
+        "median_log_age": {
+          "median_between_seed_sd": 0.28280423014612416
+        },
+        "cycle_variance": {
+          "median_between_seed_sd": 0.01832993904885543
+        }
+      }
+    },
+    {
+      "band": 1,
+      "lo": 131072,
+      "completed": 176,
+      "requested": 176,
+      "unresolved_overlap": 0,
+      "unresolved_I_fraction": 0.0,
+      "min_completed_entry_episodes": 4085,
+      "split_seed_reliability": {
+        "entry_mean": {
+          "spearman_two_seed_halves": 0.6352360817477097,
+          "rules": 44
+        },
+        "tail_probability_64": {
+          "spearman_two_seed_halves": 0.9618040873854827,
+          "rules": 44
+        },
+        "tail_mean_64": {
+          "spearman_two_seed_halves": 0.8282996073693748,
+          "rules": 43
+        },
+        "immature": {
+          "spearman_two_seed_halves": 0.9663143058491894,
+          "rules": 44
+        },
+        "median_log_age": {
+          "spearman_two_seed_halves": 0.7386892177589851,
+          "rules": 44
+        },
+        "cycle_variance": {
+          "spearman_two_seed_halves": 0.9564482029598307,
+          "rules": 44
+        }
+      },
+      "between_seed_dispersion": {
+        "entry_mean": {
+          "median_between_seed_sd": 50.97999219148515
+        },
+        "tail_probability_64": {
+          "median_between_seed_sd": 0.002706527431192896
+        },
+        "tail_mean_64": {
+          "median_between_seed_sd": 659.7237943814257
+        },
+        "immature": {
+          "median_between_seed_sd": 0.006031158926821423
+        },
+        "median_log_age": {
+          "median_between_seed_sd": 0.2895523109713296
+        },
+        "cycle_variance": {
+          "median_between_seed_sd": 0.010301716188106207
+        }
+      }
+    },
+    {
+      "band": 2,
+      "lo": 524288,
+      "completed": 176,
+      "requested": 176,
+      "unresolved_overlap": 0,
+      "unresolved_I_fraction": 0.0,
+      "min_completed_entry_episodes": 16362,
+      "split_seed_reliability": {
+        "entry_mean": {
+          "spearman_two_seed_halves": 0.84707540521494,
+          "rules": 44
+        },
+        "tail_probability_64": {
+          "spearman_two_seed_halves": 0.9854827343199436,
+          "rules": 44
+        },
+        "tail_mean_64": {
+          "spearman_two_seed_halves": 0.9213228631833283,
+          "rules": 43
+        },
+        "immature": {
+          "spearman_two_seed_halves": 0.9587033121916841,
+          "rules": 44
+        },
+        "median_log_age": {
+          "spearman_two_seed_halves": 0.8661028893587032,
+          "rules": 44
+        },
+        "cycle_variance": {
+          "spearman_two_seed_halves": 0.9584214235377024,
+          "rules": 44
+        }
+      },
+      "between_seed_dispersion": {
+        "entry_mean": {
+          "median_between_seed_sd": 45.328050132815676
+        },
+        "tail_probability_64": {
+          "median_between_seed_sd": 0.0012223245632473705
+        },
+        "tail_mean_64": {
+          "median_between_seed_sd": 802.7226265548115
+        },
+        "immature": {
+          "median_between_seed_sd": 0.004630504287663275
+        },
+        "median_log_age": {
+          "median_between_seed_sd": 0.2696428072308671
+        },
+        "cycle_variance": {
+          "median_between_seed_sd": 0.006658658375208673
+        }
+      }
+    }
+  ],
+  "analysis_source_sha256": "5048717527d59b4945fe39a33387cc3fe2d93ced3d2cb0c0dafd70c07dc8d624",
+  "audit_sha256": "b00f1d7949e92eef6fbffb372985944355e859a4c7973f119d4e3ed5dee56742",
+  "source_manifest_sha256": "22f5fdd60d7d6baf4137f4a79ee821f2654b37d268e94afddf0f55310f53593d",
+  "input_sha256": "4ae5ccd0924f0be5112233d2b4521b4855fde40dfc3d6bd68e85d1d2ff0d102b",
+  "command": "uv run experiments/2026-10-15-kappa-tail-budget/scripts/summarize.py",
+  "checkpoint_ready": false,
+  "original_age_cohort_gate": "not applicable",
+  "requested_rules": 44,
+  "seeds_per_rule": 4,
+  "bootstrap": "none: descriptive pilot, no confidence interval or inference",
+  "run_gates": {
+    "all_complete": true,
+    "no_escape": true,
+    "quarter_cap_reserve": false,
+    "max_t": 831505321,
+    "elapsed_seconds": 655.442665442999
+  },
+  "peak_process_rss_kib": [
+    321440,
+    543160
+  ],
+  "scientific_verdict": "NOT TESTED: no fitted/calibrated survival family, outcome seed roles, or frozen confirmatory regression; no causal conclusion",
+  "noncomplete_trajectories": []
+}

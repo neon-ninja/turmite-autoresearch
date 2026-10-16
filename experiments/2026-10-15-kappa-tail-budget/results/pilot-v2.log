@@ -1,0 +1,242 @@
+rw:2026101542 complete t=15091 cells=4352 seconds=0.122
+rw:2026101541 complete t=16562 cells=4352 seconds=0.131
+rotor:2026101541 complete t=33880 cells=4352 seconds=0.141
+rotor:2026101542 complete t=43332 cells=4352 seconds=0.147
+	Command being timed: "/mnt/f/Code/turmite/target/release/examples/kappa_tail_budget_sampler /mnt/f/Code/turmite/experiments/2026-10-15-kappa-tail-budget/dumps/pilot-v2/controls 4194304 4096 1024-1088,4096-4352 eafb580ac14eec9bd394a41a5527691b8aaee2b60916d96243b771df62d5caaf 4"
+	User time (seconds): 0.07
+	System time (seconds): 0.23
+	Percent of CPU this job got: 186%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.16
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 321440
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 18
+	Minor (reclaiming a frame) page faults: 82823
+	Voluntary context switches: 791
+	Involuntary context switches: 3
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+RLLLRRRRRRRR@2026101501 complete t=61526004 cells=557056 seconds=3.437
+RLLLLLLLLRR@2026101501 complete t=92871618 cells=557056 seconds=5.202
+RLLLLLLLLRR@2026101502 complete t=52469454 cells=557056 seconds=2.593
+RLLRLRRRLLLL@2026101503 complete t=138860197 cells=557056 seconds=8.910
+RLLLLLLLLRR@2026101503 complete t=60639162 cells=557056 seconds=3.604
+RLLLRRRRRRRR@2026101502 complete t=158312346 cells=557056 seconds=10.520
+RLLLLLLLLRR@2026101504 complete t=110402072 cells=557056 seconds=7.075
+RLLRLRRRLLLL@2026101504 complete t=142866663 cells=557056 seconds=9.826
+RLLRRLRRRRR@2026101501 complete t=5869245 cells=557056 seconds=0.431
+RLLRRLRRRRR@2026101502 complete t=38053093 cells=557056 seconds=2.255
+RLLLLRLLRLL@2026101501 complete t=71183275 cells=557056 seconds=4.710
+RLRLLLRRRRLR@2026101501 complete t=346781080 cells=557056 seconds=23.263
+RLLRRLRRRRR@2026101503 complete t=33238873 cells=557056 seconds=2.388
+RLLRRLRRRRR@2026101504 complete t=12691831 cells=557056 seconds=0.950
+RLLLRRRRRRRR@2026101503 complete t=192688552 cells=557056 seconds=12.871
+RLLLLRLLRLL@2026101502 complete t=87886461 cells=557056 seconds=6.559
+RLLRRRLLLLLL@2026101501 complete t=109134720 cells=557056 seconds=7.345
+RLLLRRRRRRRR@2026101504 complete t=143860165 cells=557056 seconds=8.189
+RLLRLLRLLLLR@2026101501 complete t=28795876 cells=557056 seconds=1.837
+RLLLLRLLRLL@2026101503 complete t=122853358 cells=557056 seconds=7.817
+RLLRLLRLLLLR@2026101502 complete t=23056266 cells=557056 seconds=1.327
+RLLRLLRLLLLR@2026101503 complete t=15988486 cells=557056 seconds=0.986
+RLLRLLRLLLLR@2026101504 complete t=25249339 cells=557056 seconds=1.489
+RLLLLRLLRLL@2026101504 complete t=65511829 cells=557056 seconds=3.952
+RLLRRRLLLLLL@2026101502 complete t=167919768 cells=557056 seconds=10.070
+RLRLLLRRRRLR@2026101502 complete t=331155813 cells=557056 seconds=21.330
+RLLLLRLRRRLL@2026101501 complete t=64041013 cells=557056 seconds=4.730
+RLLRRRLLLLLL@2026101503 complete t=124933119 cells=557056 seconds=10.916
+RLLRLLRRRRRL@2026101501 complete t=186629024 cells=557056 seconds=14.765
+RLLLLRLRRRLL@2026101502 complete t=130162481 cells=557056 seconds=10.635
+RLLRRRLLLLLL@2026101504 complete t=63379773 cells=557056 seconds=4.678
+RLLRRRLLRLRR@2026101501 complete t=65902958 cells=557056 seconds=4.772
+RLLRRRLLRLRR@2026101502 complete t=47361552 cells=557056 seconds=3.013
+RLLLLRLRRRLL@2026101503 complete t=126271869 cells=557056 seconds=8.976
+RLLRLLRRRRRL@2026101502 complete t=176398043 cells=557056 seconds=11.693
+RLLRRRLLRLRR@2026101503 complete t=44776050 cells=557056 seconds=3.138
+RLRLLLRRRRLR@2026101503 complete t=348861821 cells=557056 seconds=26.511
+RLLRRRLLRLRR@2026101504 complete t=87652462 cells=557056 seconds=5.913
+RLLLLRLRRRLL@2026101504 complete t=119796722 cells=557056 seconds=8.978
+RLLRRRLRRRRR@2026101501 complete t=51414219 cells=557056 seconds=4.065
+RLLRRRLRRRRR@2026101502 complete t=5854895 cells=557056 seconds=0.482
+RLLRRRLRRRRR@2026101503 complete t=14823553 cells=557056 seconds=0.984
+RLLRLLRRRRRL@2026101503 complete t=189974210 cells=557056 seconds=13.495
+RLLRRRLRRRRR@2026101504 complete t=13378117 cells=557056 seconds=1.087
+RLLRLLRRRRRL@2026101504 complete t=171633962 cells=557056 seconds=13.177
+RLRLLLRRRRLR@2026101504 complete t=341211023 cells=557056 seconds=26.165
+RLLLLRRLRRRR@2026101501 complete t=305994742 cells=557056 seconds=23.118
+RLRLLRLLLRLR@2026101501 complete t=104586788 cells=557056 seconds=7.813
+RLLRLRLRRRRL@2026101501 complete t=150915851 cells=557056 seconds=12.065
+RLRLLRLLLRLR@2026101502 complete t=93026822 cells=557056 seconds=10.907
+RLLRLRLRRRRL@2026101502 complete t=147059927 cells=557056 seconds=14.895
+RLRLLRLLLRLR@2026101503 complete t=97042110 cells=557056 seconds=11.439
+RLLLLRRLRRRR@2026101502 complete t=297013405 cells=557056 seconds=30.049
+RLLRLRLRRRRL@2026101503 complete t=152714762 cells=557056 seconds=13.437
+RLRLLRLLLRLR@2026101504 complete t=95488975 cells=557056 seconds=6.968
+RLRLLRLRRLLL@2026101501 complete t=62319504 cells=557056 seconds=4.568
+RLRLLRLRRLLL@2026101502 complete t=73130673 cells=557056 seconds=6.509
+RLLRLRLRRRRL@2026101504 complete t=141426705 cells=557056 seconds=11.840
+RLRLLRLRRLLL@2026101503 complete t=71401540 cells=557056 seconds=7.645
+RLLLLRRLRRRR@2026101503 complete t=301089393 cells=557056 seconds=26.181
+RLRLLRLRRLLL@2026101504 complete t=73235009 cells=557056 seconds=6.333
+RLLRRRRLLLLR@2026101501 complete t=636404622 cells=557056 seconds=78.360
+RLLRLRRLLRLL@2026101501 complete t=138090542 cells=557056 seconds=15.572
+RLLRLRRLLRLL@2026101502 complete t=134962582 cells=557056 seconds=16.121
+RLLRLRRLLRLL@2026101503 complete t=136849275 cells=557056 seconds=19.551
+RLLLLRRLRRRR@2026101504 complete t=319417488 cells=557056 seconds=45.571
+RLRLLRRLLLLR@2026101501 complete t=356125775 cells=557056 seconds=47.450
+RLLRLRRLLRLL@2026101504 complete t=133054890 cells=557056 seconds=15.815
+RLLLRLLLRLRR@2026101501 complete t=157914922 cells=557056 seconds=22.204
+RLLRLRRRLLLL@2026101501 complete t=145629896 cells=557056 seconds=14.986
+RLLLRLLLRLRR@2026101502 complete t=157903359 cells=557056 seconds=12.385
+RLLRLRRRLLLL@2026101502 complete t=147065220 cells=557056 seconds=11.429
+RLRLLRRLLLLR@2026101502 complete t=365105091 cells=557056 seconds=35.601
+RLLLRLLLRLRR@2026101503 complete t=151647213 cells=557056 seconds=11.594
+RLLLRLLLRLRR@2026101504 complete t=164070968 cells=557056 seconds=12.355
+RLLRRRRLLLLR@2026101502 complete t=738659192 cells=557056 seconds=108.251
+RLRLLRRLLLLR@2026101503 complete t=356174125 cells=557056 seconds=26.068
+RLLLRLLLRRRL@2026101501 complete t=158186742 cells=557056 seconds=11.729
+RLLLRLLLRRRL@2026101502 complete t=156586586 cells=557056 seconds=10.616
+RLLLRLLLRRRL@2026101503 complete t=159774361 cells=557056 seconds=11.763
+RLRLLRRLLLLR@2026101504 complete t=358332378 cells=557056 seconds=25.524
+RLLLRLLLRRRL@2026101504 complete t=152235141 cells=557056 seconds=15.213
+RLRLLRRLRLLR@2026101501 complete t=162819552 cells=557056 seconds=15.671
+RLLRRRRLLLLR@2026101503 complete t=673194862 cells=557056 seconds=71.607
+RLLLRRRLLRLL@2026101502 complete t=28411031 cells=557056 seconds=2.361
+RLLLRRRLLRLL@2026101503 complete t=22921349 cells=557056 seconds=2.413
+RLLLRRRLLRLL@2026101504 complete t=34318198 cells=557056 seconds=3.207
+RLLLRRRLRLRR@2026101501 complete t=16156285 cells=557056 seconds=1.726
+RLLLRLLRRLLR@2026101501 complete t=149105202 cells=557056 seconds=13.539
+RLLLRRRLRLRR@2026101502 complete t=23682134 cells=557056 seconds=2.529
+RLRLLRRLRLLR@2026101502 complete t=167751629 cells=557056 seconds=15.427
+RLLLRRRLRLRR@2026101503 complete t=23646852 cells=557056 seconds=2.690
+RLLLRRRLRLRR@2026101504 complete t=8905123 cells=557056 seconds=1.184
+RLLLRLLRRLLR@2026101502 complete t=159889330 cells=557056 seconds=13.852
+RLLLRRRRRRR@2026101501 complete t=110220448 cells=557056 seconds=8.123
+RLLLRRRRRRR@2026101502 complete t=37141768 cells=557056 seconds=2.936
+RLRLLRRLRLLR@2026101503 complete t=166341834 cells=557056 seconds=14.309
+RLLLRRRRRRR@2026101503 complete t=81469417 cells=557056 seconds=6.447
+RLLLRLLRRLLR@2026101503 complete t=149994392 cells=557056 seconds=11.908
+RLLLRRRRRRR@2026101504 complete t=83844419 cells=557056 seconds=5.676
+RLRLLRRLRLLR@2026101504 complete t=174307204 cells=557056 seconds=12.821
+RLRLRLLLRRLR@2026101501 complete t=61284942 cells=557056 seconds=4.557
+RLLLRLLRRLLR@2026101504 complete t=150702191 cells=557056 seconds=11.562
+RLRLRLLLRRLR@2026101502 complete t=63377809 cells=557056 seconds=4.853
+RLLRRRRLLLLR@2026101504 complete t=831505321 cells=557056 seconds=96.756
+RLRLRLLLRRLR@2026101503 complete t=59481587 cells=557056 seconds=4.463
+RLLLRLRLLRRR@2026101501 complete t=146799406 cells=557056 seconds=12.314
+RLRLRLLLRRLR@2026101504 complete t=55930270 cells=557056 seconds=4.721
+RLRLRLLRRLLR@2026101501 complete t=47869842 cells=557056 seconds=4.427
+RLRLRRRRLLLL@2026101502 complete t=157390247 cells=557056 seconds=14.469
+RLRLRLLRRLLR@2026101502 complete t=50411246 cells=557056 seconds=4.116
+RRLLRRRRLRRL@2026101501 complete t=376294087 cells=557056 seconds=29.922
+RLLLRLRLLRRR@2026101502 complete t=133049289 cells=557056 seconds=12.524
+RLRLRLLRRLLR@2026101503 complete t=50039308 cells=557056 seconds=4.709
+RLRLRLLRRLLR@2026101504 complete t=45524244 cells=557056 seconds=5.078
+RLRLRRRRLLLL@2026101503 complete t=150040226 cells=557056 seconds=15.025
+RLLLRLRLLRRR@2026101503 complete t=142494004 cells=557056 seconds=13.817
+RLRLRRLL@2026101501 complete t=124415243 cells=557056 seconds=11.130
+RLRLRRRRLLLL@2026101504 complete t=160088781 cells=557056 seconds=14.575
+RLLLRLRLLRRR@2026101504 complete t=130234844 cells=557056 seconds=11.691
+RLLLRRRLLRLL@2026101501 complete t=1170906 cells=557056 seconds=0.303
+RLRLRRLL@2026101502 complete t=114588172 cells=557056 seconds=9.171
+RRLLRRRRLRRL@2026101502 complete t=372609419 cells=557056 seconds=32.808
+RLRLRRLL@2026101503 complete t=121736252 cells=557056 seconds=9.205
+RLRRLLRRRLLR@2026101501 complete t=165163571 cells=557056 seconds=14.267
+RRLRLRRRL@2026101503 complete t=162863547 cells=557056 seconds=13.696
+RLRLRRLL@2026101504 complete t=113675303 cells=557056 seconds=12.756
+RRLRLRRRL@2026101504 complete t=163897114 cells=557056 seconds=14.522
+RLRRLLRRRLLR@2026101502 complete t=166069896 cells=557056 seconds=15.760
+RRLRRRLRL@2026101501 complete t=78528063 cells=557056 seconds=6.737
+RRLLRRRRLRRL@2026101503 complete t=357130850 cells=557056 seconds=31.228
+RLRLRRRRLLLL@2026101501 complete t=155352047 cells=557056 seconds=13.703
+RRLRRRLRL@2026101502 complete t=77139967 cells=557056 seconds=6.113
+RLRRLLRRRLLR@2026101503 complete t=173545740 cells=557056 seconds=14.340
+RRLRRRLRL@2026101503 complete t=69748183 cells=557056 seconds=5.750
+RRRLRLLLLL@2026101502 complete t=193616294 cells=557056 seconds=15.691
+RRLRRRLRL@2026101504 complete t=72619573 cells=557056 seconds=6.026
+RLRRLLRRRLLR@2026101504 complete t=172435912 cells=557056 seconds=15.619
+RRLLRRRRLRRL@2026101504 complete t=357799377 cells=557056 seconds=31.015
+RRRLRLLLLL@2026101503 complete t=192700057 cells=557056 seconds=15.891
+RLRRRLRLRRLR@2026101501 complete t=116128248 cells=557056 seconds=9.767
+RRLRLLLLRLRL@2026101501 complete t=130040593 cells=557056 seconds=15.671
+RLRRRLRLRRLR@2026101502 complete t=115988939 cells=557056 seconds=13.426
+RRRLRLLLLL@2026101504 complete t=198331770 cells=557056 seconds=21.513
+RLRRRLRLRRLR@2026101503 complete t=116901737 cells=557056 seconds=10.499
+RRLRLLLLRLRL@2026101502 complete t=169162477 cells=557056 seconds=16.834
+RRRRLRRRRRLL@2026101501 complete t=168395581 cells=557056 seconds=16.083
+RLRRRLRLRRLR@2026101504 complete t=117504389 cells=557056 seconds=12.392
+RRLRLLLLRLRL@2026101503 complete t=79444866 cells=557056 seconds=10.667
+RRLRLLLLRLRR@2026101504 complete t=118270270 cells=557056 seconds=10.837
+RRRLLRLLLL@2026101501 complete t=599767300 cells=557056 seconds=64.732
+RRLRLLLR@2026101501 complete t=48680100 cells=557056 seconds=5.086
+RRLRLLLLRLRL@2026101504 complete t=122427683 cells=557056 seconds=12.042
+RRRRLRRRRRLL@2026101502 complete t=171290906 cells=557056 seconds=16.240
+RRLRLLLR@2026101502 complete t=31345701 cells=557056 seconds=2.858
+RRLRLLLR@2026101503 complete t=65509072 cells=557056 seconds=8.274
+RRLRLLLLRLRR@2026101501 complete t=149000257 cells=557056 seconds=14.782
+RRRRLRRRRRLL@2026101503 complete t=178924270 cells=557056 seconds=16.155
+RRLRLLLR@2026101504 complete t=106908075 cells=557056 seconds=10.941
+RRLRLLLLRLRR@2026101502 complete t=152633967 cells=557056 seconds=13.980
+RRLRLLLRLRRR@2026101501 complete t=91135100 cells=557056 seconds=8.437
+RRRRLRRRRRLL@2026101504 complete t=175696867 cells=557056 seconds=15.796
+RRLRLLLRLRRR@2026101502 complete t=103128563 cells=557056 seconds=8.836
+RRLRLLLLRLRR@2026101503 complete t=154436449 cells=557056 seconds=13.627
+RRLRLLLRLRRR@2026101504 complete t=83857997 cells=557056 seconds=6.297
+RRLRLLLRLRRR@2026101503 complete t=120950024 cells=557056 seconds=9.594
+RRRLLRLLLL@2026101502 complete t=598507507 cells=557056 seconds=56.542
+RRRRRLRLRRRL@2026101501 complete t=372033485 cells=557056 seconds=29.723
+RRLRLRRRL@2026101501 complete t=162624783 cells=557056 seconds=14.488
+RRLRLRRRL@2026101502 complete t=176643164 cells=557056 seconds=16.546
+RRRRRLRLRRRL@2026101502 complete t=382180159 cells=557056 seconds=33.607
+RRRRRLRLRRRL@2026101503 complete t=380751447 cells=557056 seconds=33.058
+RRRLLRLLLL@2026101503 complete t=611034902 cells=557056 seconds=57.385
+RRRLRLLLLL@2026101501 complete t=196826231 cells=557056 seconds=15.729
+RRRLLRLLLL@2026101504 complete t=600134731 cells=557056 seconds=53.923
+RRRRRLRLRRRL@2026101504 complete t=383307964 cells=557056 seconds=27.562
+	Command being timed: "/mnt/f/Code/turmite/target/release/examples/kappa_tail_budget_sampler /mnt/f/Code/turmite/experiments/2026-10-15-kappa-tail-budget/dumps/pilot-v2/ants 1073741824 4096 32768-34816,131072-139264,524288-557056 eafb580ac14eec9bd394a41a5527691b8aaee2b60916d96243b771df62d5caaf 4"
+	User time (seconds): 2382.64
+	System time (seconds): 39.45
+	Percent of CPU this job got: 369%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 10:55.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 543160
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 17
+	Minor (reclaiming a frame) page faults: 3864888
+	Voluntary context switches: 47142
+	Involuntary context switches: 965003
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+{
+  "controls": {
+    "completed": 4,
+    "requested": 4,
+    "max_t": 43332,
+    "escaped": 0,
+    "elapsed_seconds": 0.42932118300086586
+  },
+  "ants": {
+    "completed": 176,
+    "requested": 176,
+    "max_t": 831505321,
+    "escaped": 0,
+    "elapsed_seconds": 655.442665442999
+  }
+}
