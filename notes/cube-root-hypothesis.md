@@ -46,3 +46,18 @@ would be t^(1/4).
   near the edge, or deep inside).
 - c drifting with t while beta = 1/2 (a cube root by coincidence).
 - The formula in P5 failing to predict alpha for the outliers.
+
+## Interpretation correction — 2026-10-16 00:18 NZDT
+
+Base commit `997c9b2da6efa526fc6c5a57104d103e1345e916`, dirty workspace.
+The original predictions above are retained as registered. P5 is conditional
+scaling algebra applied to quantities sharing the same growth data. Agreement
+is a fit-consistency check, not independent validation of a mechanism; failure
+could reflect finite-window fits or failure of the assumed power laws. It
+should not have been offered as a stand-alone mechanism falsification test.
+P2–P4 describe the proposed stationary regime but do not explain why it occurs.
+Interior colour uniformity does not imply uniform spatial occupation or stable
+boundary access. The revised paper states that the physical closure remains
+missing; calibration concerns estimator bias. See the
+[response audit](accounting-identity-response-2026-10-16.md) for evidence limits
+and what independent prediction and intervention would need to establish.

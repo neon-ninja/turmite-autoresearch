@@ -17,3 +17,8 @@ experiments/*/dumps*/
 experiments/*/knock*/
 experiments/*/scratch/
 experiments/*/synth/
+
+# scratch
+/tmp/
+.claude/worktrees/
+.claude/scheduled_tasks.lock

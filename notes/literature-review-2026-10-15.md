@@ -11,3 +11,17 @@ Boundary corrections preserve the measured gap while narrowing its meaning. The 
 No reviewed source predicts rule-specific occupation kappa. Prioritize censor-complete boundary/interior time accounting at fixed area, with fresh seeds and frozen held-out duration bands; another maximum/quantile correlation repeats failed or confounded tests. A separate conditional candidate measures spatial old-site local-time balance on prespecified cycle clocks, motivated by exact rotor excursions, but must retain incomplete cycles and cannot explain kappa merely by passing. The rate decomposition is exact bookkeeping, not independent mechanism evidence. The registered hull-checks science run remains the next boundary priority; it must distinguish persistent shape from physical-distance local correlations before testing an interface class. Existing failed W5, excursion and memory-walker tests remain failed; no old prediction was rewritten.
 
 Manuscript abstract, introduction, occupation derivation, boundary discussion, limitations of transfer and conclusion have been corrected accordingly. The original [review plan](literature-review-plan-2026-10-15.md) is preserved; its completion status is appended after full-text access checks.
+
+## Editorial follow-up (2026-10-15 NZDT)
+
+An author-supplied podcast transcript motivated a finding-led prose pass on the
+working manuscript. The abstract, key results and introduction now foreground
+the growth law, bulk/edge contrast and transport predictions; the late
+`RLRLLL` transition has a results subsection. Dense discussions are split by
+observation, interpretation and limitation. This adds no scientific measurement
+or literature claim. The distinctions established above remain: cone agreement
+is conditional, temporal surface-width slopes do not measure an interface class,
+and the selected prefix cohort does not establish general prediction. Existing
+body math spans, numerical references and audit links were checked for retention.
+Build commands, editorial scope and verification are recorded in the
+[manuscript build notes](../research-outputs/cube-root-growth-paper/README.md).
