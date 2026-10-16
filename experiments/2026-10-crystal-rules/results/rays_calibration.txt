@@ -1,0 +1,14 @@
+# Ray-segmenter calibration (AGENTS.md rule 5), run before any crystal-rule ray data were inspected. git da88e61.
+# Instrument: examples/crystal_rules_rays.rs (L=128 window, >=16 cells/window i.e. <=8 steps/cell, ||dx|-|dy||<=2).
+# Commands (WSL, CARGO_TARGET_DIR=~/turmite-target): crystal_rules_rays {rw|rotor} SEED 4194304 8192 for SEED in 1 2 3; ant RLRRRL 4194304 8192; ant RL 131072 8192.
+# Rays are counted by length in cells; "false" rays are anything found in controls that have no diagonal ballistic structure.
+control             rays>=16cells  >=32  >=64  >=128  max_len_cells
+random walk x3          10549        0     0      0       29
+rotor x3                 2679        0     0      0       27
+RLRRRL (frame builder)   4031        0     0      0       21
+RL 2^17 steps               3        0     0      0       (all < 32 cells)
+# RL at 2^22 steps leaves the 8192 board (highway): the first attempt panicked "left the board"; rerun at 2^17. RL's highway moves ~52 steps/cell,
+# above the 8 steps/cell limit, so it is deliberately not a ray; the planted-path property test (recovers_planted) is the positive control.
+# Decision (recorded after seeing this table, before any crystal-rule ray CSV): analysis uses rays with length >= 64 cells (about 2x the longest
+# false ray, 29 cells, in 7 control runs of 2^22 steps). Other tests in the example: board loop == reference ant step for step (board_matches_oracle),
+# straight axial line is not a ray, motif period/rotation. All pass in --release.

@@ -1,0 +1,60 @@
+# s1 rays; commit da88e61b690507526ba4e2a2c017d9c7941beb91
+# rays with length >= 64 cells; 2^28 steps, board 16384, blank start
+
+## RLLLLRRL: rays >= 64 cells: 2960
+  total ray length 741103 cells; median 179, max 1487; steps/cell median 2.09 (range 1.99-8.03)
+  length log2-bins (count): 2^6:1099, 2^7:743, 2^8:787, 2^9:295, 2^10:36
+  aperiodic rays: 90 (0.010 of length)
+  motif p=  2 share 0.335 rays   945  04
+  motif p=  2 share 0.261 rays   783  15
+  motif p=  2 share 0.127 rays   366  26
+  motif p=  2 share 0.027 rays    90  07
+  motif p=  6 share 0.019 rays    45  166527
+  motif p=  2 share 0.014 rays    46  46
+  distinct motifs with >=1% of length: 8; dominant share 0.335, dominant p 2
+  length-weighted reverse-overlap 0.091, same-heading overlap 0.352
+  heading share of length: (+1,-1) 0.27, (-1,-1) 0.25, (-1,+1) 0.24, (+1,+1) 0.24
+  terminating colour counts: 0:827, 5:417, 4:370, 6:358, 1:335, 2:230, 7:212, 3:211
+
+## LRRRRRLLR: rays >= 64 cells: 254
+  total ray length 43460 cells; median 127, max 603; steps/cell median 2.20 (range 1.99-7.98)
+  length log2-bins (count): 2^6:128, 2^7:73, 2^8:46, 2^9:7
+  aperiodic rays: 3 (0.006 of length)
+  motif p=  2 share 0.157 rays    41  16
+  motif p=  2 share 0.146 rays    35  68
+  motif p=  2 share 0.138 rays    37  47
+  motif p=  6 share 0.094 rays    31  028513
+  motif p=  6 share 0.053 rays    14  478687
+  motif p=  2 share 0.043 rays    15  46
+  distinct motifs with >=1% of length: 20; dominant share 0.157, dominant p 2
+  length-weighted reverse-overlap 0.199, same-heading overlap 0.380
+  heading share of length: (-1,-1) 0.34, (+1,+1) 0.31, (-1,+1) 0.19, (+1,-1) 0.17
+  terminating colour counts: 7:51, 6:50, 0:49, 4:21, 5:20, 3:20, 1:20, 2:13, 8:10
+
+## RLLLLLLLRRLRR: rays >= 64 cells: 5991
+  total ray length 1383736 cells; median 157, max 1078; steps/cell median 2.32 (range 1.99-8.16)
+  length log2-bins (count): 2^6:2378, 2^7:1931, 2^8:1105, 2^9:493, 2^10:84
+  aperiodic rays: 117 (0.007 of length)
+  motif p=  4 share 0.126 rays   784  3978
+  motif p=  4 share 0.083 rays   477  4968
+  motif p=  4 share 0.058 rays   331  04<1
+  motif p=  6 share 0.049 rays   266  08<332
+  motif p=  4 share 0.041 rays   243  2<:;
+  motif p=  4 share 0.036 rays   207  04<:
+  distinct motifs with >=1% of length: 23; dominant share 0.126, dominant p 4
+  length-weighted reverse-overlap 0.375, same-heading overlap 0.450
+  heading share of length: (-1,-1) 0.30, (+1,+1) 0.29, (+1,-1) 0.20, (-1,+1) 0.20
+  terminating colour counts: 8:1021, 12:761, 11:586, 5:502, 3:447, 9:440, 10:420, 2:397, 0:386, 1:309, 7:290, 4:218, 6:214
+
+## RLRRRL: rays >= 64 cells: 0
+  no rays
+
+== EXPLORATORY: motifs after mapping colour -> turn letter (R/L); not a registered test ==
+RLLLLRRL: distinct turn-letter motifs 65; LR:0.808, LRLR:0.071, LLLRRR:0.021, LRLRLRLR:0.016, LLLRRLRR:0.015
+LRRRRRLLR: distinct turn-letter motifs 20; LR:0.553, LRLR:0.103, LRRRRR:0.103, LRLRLR:0.079, LRLRRRRR:0.033
+RLLLLLLLRRLRR: distinct turn-letter motifs 75; LRLR:0.670, LLLLLRLR:0.116, LLLRRLRR:0.101, LLLRRR:0.049, LR:0.012
+
+== registered verdicts (P2 H-ray, P4 H-reverse); control RLRRRL reported, not judged ==
+RLLLLRRL: P2 FALSIFIED (dominant share 0.335, p=2, motifs>=1% 8); P4 HELD (<=0.20) (rev 0.091)
+LRRRRRLLR: P2 FALSIFIED (dominant share 0.157, p=2, motifs>=1% 20); P4 HELD (<=0.20) (rev 0.199)
+RLLLLLLLRRLRR: P2 FALSIFIED (dominant share 0.126, p=4, motifs>=1% 23); P4 in between (rev 0.375)

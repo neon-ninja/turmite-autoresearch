@@ -1,0 +1,24 @@
+{
+  "commit": "da88e61b690507526ba4e2a2c017d9c7941beb91",
+  "sources": {
+    "examples/crystal_rules_phase.rs": "116105e8c2d31a0bbed325304d0446cf189c3e0cac5fc79b4319384ee845e22f",
+    "experiments/2026-10-crystal-rules/scripts/phase_reset.py": "71a4885cc5badb2d4d8010a42a89fdf97c21e3f6490c09e17bc9593a476acada",
+    "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+    "src/lib.rs": "80f5cf387669f0b032398920e40bad7adc3380694efae816bff6620e333699e6",
+    "Cargo.lock": "2cc30f118d8e87661e6f579d400cadab998f36da91ab3807d2645803b7ea7d0e"
+  },
+  "seed": null,
+  "scan_limit": 33554432,
+  "size": 8192,
+  "trials": 16,
+  "radius": 128,
+  "horizon": 2048,
+  "command": "uv run experiments/2026-10-crystal-rules/scripts/phase_reset.py",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "uv": "uv 0.5.15",
+  "binary_sha256": "073fb02931d888f1a93d41b2cd2893c79ded714abbd55891eeffe3b7cf66d68a",
+  "argv": [
+    "/mnt/f/Code/turmite/target/release/examples/crystal_rules_phase",
+    "RLLLLRRL"
+  ]
+}

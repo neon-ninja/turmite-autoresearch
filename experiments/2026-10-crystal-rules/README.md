@@ -1,6 +1,6 @@
 # crystal-rules: why do some rules draw diagonal "crystal" lattices?
 
-Written 2026-10-14 19:03 (+13:00), commit 6ce3793. **Status: designed, nothing run yet.**
+Written 2026-10-14 19:03 (+13:00), commit 6ce3793. **Status (corrected 2026-10-15): S0, S3, S4 done; S1 ray anatomy done 2026-10-15 (P2 falsified, P4 held for 2 of 3, see "S1 ray anatomy: results"); S2 partly done (local patch, ground highway); transplant, ray-end knockouts, spinner isolation and exact periodicity deferred by scope, not run. Originally: "designed, nothing run yet" (registration text below is unedited).**
 Every hypothesis and prediction below is registered before any measurement; append
 results under "Results", do not edit this section.
 
@@ -165,3 +165,97 @@ Select the first 12 nonoverlapping 4096-step windows within 2^25 with absolute d
 
 ### Local-patch outcome (2026-10-14 22:16 +1300)
 Prediction passed: 12/12 paired windows for each of the three rules travelled farther diagonally with colour-2 exterior than blank exterior. Inputs and SHA256: results/local_patch_summary.json; producer scripts/local_patch_summary.py under uv. The new trajectory loop passed its reference-oracle property test in release mode (results/trace_oracle_v2.log). This does not validate the old loops retroactively. Exact highway periods and boundary reflection remain unproven.
+
+### S1 ray anatomy: operationalisation of predictions 2 and 4 (registered 2026-10-15 21:02 +13:00, base `da88e61`, before any crystal-rule ray CSV was produced)
+
+Predictions 2-4 above stand unedited. The README did not fix what a "motif" or "re-traversed in reverse" means, so this fixes it now. Instrument: `examples/crystal_rules_rays.rs`
+(tests: `cargo test --release --example crystal_rules_rays`, planted-ray recovery, board loop == reference ant, axial line not a ray, motif rotation invariance); calibration in `results/rays_calibration.txt`
+(false rays in random walk / rotor / RLRRRL controls are at most 29 cells, so only rays with **length >= 64 cells** are analysed; this cutoff was chosen from the controls, before crystal-rule rays were seen).
+Run: `crystal_rules_rays ant RULE 268435456 16384` for RLLLLRRL, LRRRRRLLR, RLLLLLLLRRLRR, and the control RLRRRL (blank board, no seed); raw CSV in the gitignored `dumps/`.
+
+- Motif of a ray = least cyclic rotation of the smallest period p in 2..256 for which the colours read agree with themselves at lag p on >= 98% of the central half of the ray. A ray with no such p is "aperiodic".
+  "Up to 4 rotations" in prediction 2 is read as cyclic phase (rotating the heading does not change the colour sequence); it is not a spatial rotation.
+- **P2 (H-ray).** Over rays >= 64 cells, the single most common motif accounts for >= 80% of total ray length (cells) and its p is in [4, 40]; falsified if more than 5 distinct motifs each
+  carry >= 1% of ray length, or if that dominant p > 100. Per rule; also report the share of aperiodic ray length.
+- **P4 (H-reverse).** Length-weighted mean of rev_frac (share of a ray's cells already crossed by an earlier ray of the opposite heading) <= 0.20; > 0.50 supports H-reverse. Also reported: same-heading overlap, steps per cell, length distribution (log2 bins), terminating colour counts.
+- Ray endpoints are accurate to about L = 128 steps by construction; lengths below ~5 x 128 / (steps per cell) cells carry that fractional error.
+- Not done here: distance to the nearest earlier ray along the heading, ray-end knockouts (S2), exact periodicity proof.
+
+### S1 ray anatomy: results (2026-10-15 21:06 +13:00, commit `da88e61`; predictions and the operationalisation above unchanged)
+
+Commands: `cargo test --release --example crystal_rules_rays` (4 tests pass); calibration `results/rays_calibration.txt`; `crystal_rules_rays ant RULE 268435456 16384` (36-87 s per rule; raw CSV in gitignored `dumps/rays_*.csv`);
+`uv run experiments/2026-10-crystal-rules/scripts/s1_rays.py` -> `results/s1_rays.txt`. Rays >= 64 cells, blank board, 2^28 steps. The control RLRRRL produced 0 rays >= 64 cells.
+
+| | RLLLLRRL | LRRRRRLLR | RLLLLLLLRRLRR |
+|---|---|---|---|
+| rays >= 64 cells / total length (cells) | 2960 / 741103 | 254 / 43460 | 5991 / 1383736 |
+| median / max length | 179 / 1487 | 127 / 603 | 157 / 1078 |
+| steps per cell, median | 2.09 | 2.20 | 2.32 |
+| aperiodic share of length | 0.010 | 0.006 | 0.007 |
+| colour motifs with >= 1% of length / dominant share, p | 8 / 0.335, p=2 | 20 / 0.157, p=2 | 23 / 0.126, p=4 |
+| **P2 (H-ray)** | **FALSIFIED** (> 5 motifs, dominant share < 0.8) | **FALSIFIED** | **FALSIFIED** |
+| reverse overlap (length-weighted), **P4** | 0.091 **HELD** | 0.199 **HELD (barely, <= 0.20)** | 0.375 in between (not held, not H-reverse) |
+| same-heading overlap | 0.352 | 0.380 | 0.450 |
+
+Headings are balanced over the four diagonals (shares 0.17-0.34). Ray lengths span 2^6..2^10 cells with a thin upper tail (no ray above 1487 cells; the 1500-cell rays of the screenshots are the maximum, not typical).
+
+**What the registered test says.** P2 fails for all three rules as defined: the colours read along rays are not one motif. P4 holds for two rules and is inconclusive for RLLLLLLLRRLRR; no rule supports H-reverse (> 0.5).
+
+**Exploratory (post hoc, added after seeing the colour motifs; not a test).** Nearly all motifs have period 2-6 and 2 steps per cell, and their colours are shifted copies (e.g. RLLLLRRL: `04`, `15`, `26`, `07`), which suggests they are one
+dynamical object read at different background phases. Mapping each colour to its turn letter and re-canonicalising: the alternating-turn staircase `LR`/`LRLR` carries 0.81+0.07 (RLLLLRRL), 0.55+0.10 (LRRRRRLLR) and 0.67 (RLLLLLLLRRLRR, `LRLR`) of ray length;
+65, 20 and 75 distinct turn-letter motifs remain, so the long tail of other motifs is real but small. Reading: most of the "ray" length is the ant alternately turning left and right, which is a staircase and therefore diagonal for any
+rule, in a background (the colour-2 ground found in S2) that supplies the alternating colours. That fits H-ray with the ground as the medium and says the diagonal is cheap geometry rather than a deep motif; it does not by itself
+explain why ground 2 forms or when rays end. Caveats: 98% self-agreement at lag p is a loose periodicity test; ray endpoints are good only to about 128 steps; the 64-cell cutoff came from controls but the
+turn-letter collapse did not; one run per rule (deterministic, no seed); reverse overlap needs an earlier opposite ray, so it is low early in the run by construction; ground phase (colour shift) and colour-to-letter mapping are my reading, untested by intervention.
+Still not done (S2): transplant to a reset background, ray-end knockouts, spinner isolation; exact periodicity; distance to the nearest earlier ray.
+
+### S2 ground-phase reset registration — 2026-10-15 21:18 +13:00
+
+Base commit da88e61; working tree includes the uncommitted S1 instrument. No phase-reset measurements have run. Mechanism: colour-2 ground supplies alternating turns; changing its phase should disrupt staircase transit and end rays sooner.
+
+Design fixed before measurement: blank starts, three rules RLLLLRRL, LRRRRRLLR, RLLLLLLLRRLRR, no randomness (seed not applicable). Scan at most 2^25 steps on an 8192-square board. Starting after 2^18, select the first 16 online detections separated by at least 8192 steps: the previous 256 consecutive rolling 128-step windows must each have diagonal displacement abs(dx)>=16, abs(abs(dx)-abs(dy))<=2 and the same heading. Selection uses no future outcomes. Replay each selected state for 2048 steps in three arms: sham 2->2, reset 2->0, advance 2->3. Only cells exactly colour 2 in the inclusive radius-128 square centred on the ant are changed; ant position, heading and all other cells are preserved. Trials share a baseline trajectory and are not independent seeds.
+
+Metrics: alternating-turn fraction among the 2047 adjacent turn pairs; first post-intervention rolling-window heading failure at step >=128 (2048 if none, right censored); number of edited cells; exact trajectory prefix versus sham; count of future steps outside the reset square. Termination is loss of the S1 geometric criterion in the original heading, not proof of a permanent ray end. Full 2048-step alternating fraction is primary; also report first-128-step fraction to expose later recovery. Locality and detector latency may dilute effects.
+
+Registered predictions, per rule, paired against sham: (A) reset 2->0 lowers full-window alternating fraction by >=0.10 in at least 12/16 trials; (B) reset 2->0 produces strictly earlier geometric termination in at least 12/16; (C) advance 2->3 meets the same two thresholds, testing phase specificity beyond blanking. Fewer than 16 detections means that rule is not evaluable under these thresholds; report all detected trials, no replacement based on outcomes. Exact sham replay and zero-cell edits are controls. Report paired means and between-trial SD descriptively, censor counts and ties; no between-seed uncertainty is available.
+
+Calibration before interpreting ant measurements: synthetic perfect alternating staircase has fraction 1 and censored termination; an axial path has fraction 0 and failure at 128. Oracle test: dense loop with identical phase edit agrees step-for-step and cell-for-cell with reference::Ant. Existing S1 detector calibration remains relevant because its window criterion is unchanged. No fit or exponent estimator is introduced.
+
+### S2 phase-reset results — 2026-10-15 21:23 +13:00
+
+Completed all 16 selected states per rule (48 paired states, 144 replays); base da88e61 with uncommitted source hashes recorded in each `results/phase_RULE.json`. No random initialisation or seed. Small trial CSVs, hash-checked `.done` checkpoints and provenance are in `results/phase_*`; generated data were not hand-edited. Summary: [phase_summary.txt](results/phase_summary.txt). Colleague write-up, executed from a clean kernel: [02-phase-reset.ipynb](notebooks/02-phase-reset.ipynb).
+
+| Rule | 2->0 alternating drop >=0.10 | 2->0 earlier termination | Mean alternating delta (between-trial SD) | Mean termination delta, steps (SD) |
+|---|---:|---:|---:|---:|
+| RLLLLRRL | 0/16 | 3/16 | +0.050501 (0.059795) | -1.375 (4.603) |
+| LRRRRRLLR | 0/16 | 6/16 | +0.073156 (0.092682) | -137.813 (268.734) |
+| RLLLLLLLRRLRR | 2/16 | 8/16 | +0.041891 (0.112932) | -66.375 (111.481) |
+
+**A and B failed for every rule. C also failed:** 2->3 alternating drops occurred in 1/16, 0/16, 0/16, with earlier termination in 0/16 for all three. All arms terminated by the geometric criterion within 2048 (zero censored); sham edited zero cells and matched the original replay for all 2048 steps. First-128-step deltas, ties, outside-square counts and edit counts are in the summary and CSVs. SD describes selected states on one trajectory, not between-seed uncertainty. The full-window alternating fraction includes the post-ray motion and can increase even when the original ray ends earlier.
+
+**Interpretation:** the strong prediction that local ground erasure suppresses staircase motifs and usually ends rays sooner did not hold. Some resets advance termination, especially in the second/third rule, but the selected sample does not establish a general termination mechanism. Post hoc limitation: colours 2 and 3 give identical turns in all three rules; advance-to-3 tests revisit-sensitive phase effects, with no immediate turn change. The detector's 128-step latency, finite square and shared baseline also limit inference. An endpoint defect intervention and explicit counts of visits to edited cells remain open; neither was run here. Existing S2 transplant/spinner questions remain unresolved.
+
+Reproduce from WSL (or prefix with `wsl -e bash -lc` on Windows), repository `/mnt/f/Code/turmite`:
+
+```bash
+export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
+cd /mnt/f/Code/turmite
+cargo test --release --example crystal_rules_phase > experiments/2026-10-crystal-rules/results/phase_tests.log 2>&1
+cargo test --release > experiments/2026-10-crystal-rules/results/phase_release_suite.log 2>&1
+uv run experiments/2026-10-crystal-rules/scripts/phase_reset.py > experiments/2026-10-crystal-rules/results/phase_run.log 2>&1 &
+wait
+uv run --with nbconvert --with ipykernel --with nbformat jupyter nbconvert --to notebook --execute --inplace experiments/2026-10-crystal-rules/notebooks/02-phase-reset.ipynb
+```
+
+The driver builds release mode, writes each completed rule atomically and validates existing checkpoints before skipping. It refuses to replace existing data with a changed recipe; explicitly archive old outputs before changing the protocol. Resume verified via the same uv command redirected to `results/phase_resume.log`: source/recipe/data hashes match and the regenerated summary agrees. Calibration plus 32-case oracle property test passed (2 tests); full release suite passed. No dependencies changed, no commit made. The current trial outputs are reproducible uncommitted files intended for version control.
+
+### S1 ray anatomy: correction after review (21:24 +13:00, commit `da88e61`)
+
+My exploratory reading above ("staircase transit in the colour-2 ground ... fits H-ray with the ground as the medium") is **not supported by the numbers** and is withdrawn.
+- The S2 ground highway runs at 50 / 58 / 86 steps per diagonal cell; the segmenter accepts at most 8 steps per cell, so it cannot see that object. The rays found here run at about 2 steps per cell and are a different phenomenon.
+- The dominant colour pairs are not colour 2: RLLLLRRL `04`, `15`, `26`, `07`; LRRRRRLLR `16`, `68`, `47`. In each pair the rule turns the two colours in opposite directions (turn letters R/L), which is why they collapse to the alternating staircase LR / LRLR.
+- What the data actually show: a staircase moving over a background in which alternate cells carry opposite-turn colours. That two-sublattice background may itself be the "crystal", and the open question is **why such a background forms**, not why the colour-2 ground forms.
+  Untested: I did not print the colours around a long ray to confirm the sublattice picture.
+P2 (falsified) and P4 verdicts, and all numbers in the results table, are unchanged.
+**Reproduce note.** The "Reproduce (planned)" block above names `crystal_rays` and `ray_stats.py`, which do not exist. The actual commands are in `results/trajectory_recipe.txt` (trace) and, for rays: `cargo test --release --example crystal_rules_rays`;
+`crystal_rules_rays ant RULE 268435456 16384 > experiments/2026-10-crystal-rules/dumps/rays_RULE.csv`; `uv run experiments/2026-10-crystal-rules/scripts/s1_rays.py`.

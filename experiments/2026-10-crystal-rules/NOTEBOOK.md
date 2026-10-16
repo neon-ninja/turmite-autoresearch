@@ -116,3 +116,60 @@ The local environment causally affects continued diagonal travel in these sample
 
 ### 2026-10-14 22:17 (+1300) · 7eff085 · decision
 Release suite completed successfully (results/release_suite.log), and the example oracle tests passed separately. Recipes and source hashes are in results/trajectory_recipe.txt. Current S1/S2 advance: verified windowed trace loop and completed paired local-patch intervention. Remaining: actual ray segmentation and calibration, exact periodicity proof/check, ray-end knockouts and spinner isolation; earlier instrument loops remain unverified. No commit made. The paired intervention supports a medium effect, not the previous stronger reflection claim.
+
+### 2026-10-15 21:05 (+13:00) · da88e61 · deviation
+README line 3 still read "Status: designed, nothing run yet" although S0, S3, S4 are done and S1, S2 partly. Corrected the status line only; registered hypotheses and predictions and the Results section are untouched. Remaining work (ray segmentation/calibration, exact periodicity check, ray-end knockouts, spinner isolation) is not started.
+
+### 2026-10-15 20:59 (+13:00) · da88e61 · deviation
+Timestamp correction: the entry above headed "2026-10-15 21:05" was written at about 20:45 by the wall clock (I guessed the time). Content unchanged.
+
+### 2026-10-15 21:06 (+13:00) · da88e61 · intent
+Build and run the S1 ray segmenter as planned: examples/crystal_rules_rays.rs with tests, controls, then the three rules to 2^28. Operationalisation of P2/P4 registered in README before any crystal-rule ray CSV existed.
+
+### 2026-10-15 21:06 (+13:00) · da88e61 · observation
+Controls (rw x3, rotor x3, RLRRRL at 2^22): false rays <= 29 cells, none >= 32; RL's highway is not counted (52 steps/cell). Test mutation check: raising the displacement threshold makes recovers_planted fail, so the test can fail. Cutoff 64 cells chosen from this. Crystal rules: 2960 / 254 / 5991 rays >= 64 cells; RLRRRL 0.
+
+### 2026-10-15 21:06 (+13:00) · da88e61 · deviation
+RL at 2^22 steps panicked ("left the board", highway); reran at 2^17. A stray proptest-regressions file from my deliberate mutation was deleted (not a real failing case). "Up to 4 rotations" was read as cyclic phase, stated in the README beforehand.
+
+### 2026-10-15 21:06 (+13:00) · da88e61 · observation
+P2 falsified for all three rules (8/20/23 colour motifs >= 1% of length, dominant 0.34/0.16/0.13). P4: reverse overlap 0.091 / 0.199 / 0.375.
+
+### 2026-10-15 21:06 (+13:00) · da88e61 · surprise
+Colour motifs are mostly period-2 pairs that are colour-shifted copies of each other, at ~2 steps per cell. I had registered "one motif" expecting a rigid highway-like period; the structure is a staircase through a shifting ground, not a rigid motif.
+
+### 2026-10-15 21:06 (+13:00) · da88e61 · interpretation
+Exploratory turn-letter collapse: alternating LR/LRLR carry 0.55-0.88 of ray length. Reading: rays are staircase transit in the colour-2 ground, so P2's failure is about my motif definition (colour-level) as much as about H-ray. Confidence moderate-low; post hoc, no intervention. Does not resolve why the ground forms or what ends rays.
+
+### 2026-10-15 21:06 (+13:00) · da88e61 · decision
+Do not do S2 transplants/knockouts now (out of the chosen scope). notebook.ipynb for this experiment not updated with S1 rays yet.
+
+### 2026-10-15 21:07 (+13:00) · da88e61 · decision
+notebook.ipynb was an unfilled template (my earlier summary implied otherwise). Written and executed (clean kernel, 4 outputs, no errors) covering calibration, S1 rays and the earlier stages as reported in the README. README status line updated. Remaining S2 items are deferred by user scope, not done.
+
+### 2026-10-15 21:18 (+13:00) · da88e61 · intent
+User requests a ground-phase intervention around detected rays. Registered S2 ground-phase reset design and quantitative A/B/C predictions in README before measurements. Preserve existing uncommitted work; implement a separate example and resumable driver within this experiment. Online selection avoids selecting rays by their counterfactual future lifetime.
+
+### 2026-10-15 21:18 (+13:00) · da88e61 · assumption
+The radius-128 square contains enough of the medium to perturb transit. This is a local perturbation, not a reconstruction of the historical ground; only current colour-2 cells are targeted. Exit counts and first-128-step staircase fractions will expose dilution. One deterministic trajectory per rule cannot supply between-seed uncertainty.
+
+### 2026-10-15 21:21 (+13:00) · da88e61 · observation
+Instrument calibration and the 32-case edited-board property test passed: `cargo test --release --example crystal_rules_phase` -> results/phase_tests.log. Synthetic staircase: alternating fraction 1, censored at 2048; axial control: fraction 0, failure at 128. The reference test covers reset phases 0, 2, 3, heterogeneous media, edited cells and subsequent positions/headings/cell updates. No crystal intervention outcomes inspected before registration.
+
+### 2026-10-15 21:21 (+13:00) · da88e61 · deviation
+Initial WSL invocation was denied by the sandbox; an approved WSL invocation ran the tests. First detached launch returned a PID but no log appeared; relaunched with a retained shell waiting on the background child, logging to results/phase_run.log. No generated result was replaced. Full release suite also launched, logged separately.
+
+### 2026-10-15 21:23 (+13:00) · da88e61 · observation
+`uv run experiments/2026-10-crystal-rules/scripts/phase_reset.py` completed 16 trials per rule, three arms each; results/phase_run.log, phase_RULE.csv/json/done and phase_summary.txt. Reset to 0 alternating drops >=0.10: 0/16, 0/16, 2/16; earlier termination: 3/16, 6/16, 8/16. Advance to 3: earlier termination 0/16 for each rule. A/B/C fail for all rules. All arms uncensored; sham prefix 2048 throughout. Means and between-trial SD are in README and generated summary. Full release suite passed (results/phase_release_suite.log). Resume rerun validated checkpoint hashes and reproduced the summary (results/phase_resume.log).
+
+### 2026-10-15 21:23 (+13:00) · da88e61 · surprise
+The reset-to-0 mean full-window alternating fraction increased rather than decreased in every rule (+0.050501, +0.073156, +0.041891; command and output above). The original ray can terminate yet subsequent motion can be more alternating. Strong disruption predictions failed; do not recast this as confirmation.
+
+### 2026-10-15 21:23 (+13:00) · da88e61 · interpretation
+Colour 2 and colour 3 assign the same turn in these three rules; phase advance can change trajectories only on a later visit to an edited cell. This was noticed after measurement and limits prediction C, without changing its failed verdict. Early-window and outside-square statistics expose some dilution but do not identify first exposure. Detector latency and repeated states from one trajectory limit inference. The intervention perturbs current colour-2 cells, not the entire historical ground.
+
+### 2026-10-15 21:23 (+13:00) · da88e61 · decision
+Completed requested local phase intervention and registered tests. New shareable notebook notebooks/02-phase-reset.ipynb reads only small results and executed cleanly under uv (results/phase_notebook.log); existing S1 notebook retained. Commands/provenance/results recorded in README. No commit made or existing generated results replaced. Next: register a cell-exposure/endpoint-targeted test to distinguish entry effects from revisit effects; long-strip transplants, exact periodicity and spinner isolation are still open.
+
+### 2026-10-15 21:24 (+13:00) · da88e61 · deviation
+Retracting my exploratory interpretation that the rays are staircase transit "in the colour-2 ground". The ground highway is 50-86 steps/cell and invisible to a segmenter capped at 8 steps/cell; the dominant motif colours are opposite-turn pairs (04, 15, 26 / 16, 68, 47), not colour 2. The data show a staircase over a two-sublattice background of opposite-turn colours; why that background forms is the open question. Not verified by printing colours around a ray. Registered verdicts unchanged.
