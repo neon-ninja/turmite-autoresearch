@@ -1,0 +1,27 @@
+# cmd: uv run experiments/2026-10-16-kappa-leadrun-fresh/scripts/analyse.py  git: 58b4f38 (tree dirty)  seed 20261016
+runs 2400, escaped 365, fitted 2006, core 1488; rules with >=6 core runs 183/300; stationary 176
+L5 retention by lead stratum (of 50 sampled): lead, kept(>=6 core runs), stationary
+  1: 0.74 0.68  (n=50)
+  2: 0.64 0.64  (n=50)
+  3: 0.70 0.68  (n=50)
+  4: 0.62 0.62  (n=50)
+  5: 0.56 0.52  (n=50)
+  6: 0.40 0.38  (n=50)
+L5 |lead1-lead6| both < 0.20: FAILED
+census stationary train n=2183; fresh stationary test n=176; spline-only strict R2 on fresh = 0.124
+fresh stationary rules per lead: 1:34, 2:32, 3:34, 4:31, 5:26, 6:19
+corr(lead, ln A22) fresh -0.721; census -0.568
+L1 gain of lead term +0.651 CI [+0.498,+0.828]; census slope b = +0.195/step -> HELD
+L2 census slope +0.195 in [0.07,0.13]: False; fresh refit slope +0.152 CI [+0.129,+0.174] -> FAILED
+L3 tertile slopes [0.151, 0.155, 0.149]; pooled within-tertile +0.152 CI [+0.128,+0.177] -> HELD
+L4 shuffled-lead gain median -1.432, 95th -1.116 -> FAILED
+L6 R count first 8    gain +0.290 CI [+0.202,+0.394]
+L6 letter 2 is R      gain +0.319 CI [+0.246,+0.396]
+L6 lead (capped 6)    gain +0.651 CI [+0.498,+0.828]
+mean residual vs census spline-only prediction, fresh stationary, by lead (compare leadrun_table.txt: -0.11,+0.04,+0.14,+0.24,+0.34,+0.45):
+  lead 1: n=34 mean -0.148 sd 0.189
+  lead 2: n=32 mean +0.053 sd 0.151
+  lead 3: n=34 mean +0.127 sd 0.161
+  lead 4: n=31 mean +0.188 sd 0.134
+  lead 5: n=26 mean +0.377 sd 0.150
+  lead 6: n=19 mean +0.418 sd 0.157

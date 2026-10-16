@@ -12,3 +12,8 @@ Previous loop iteration left the tail-budget experiment finished and committed (
 
 ### 2026-10-16 20:10 (+13:00) · d4fd349 · observation
 Probe run finished 20:07 (exit 0, 2400 runs, results/probe.log; binary sha256 recorded there). A user "pause" request arrived after completion; nothing was running. `analyse.py` NOT yet run, so no outcome has been read. Work-in-progress commit requested by the user.
+
+### 2026-10-16 20:15 (+13:00) · 58b4f38 · observation (analyse.py, results/analysis.txt)
+L1 HELD (gain +0.651 [0.498, 0.828]); L3 HELD (tertile slopes 0.151/0.155/0.149); L2 FAILED (census slope 0.195 outside my 0.07-0.13; fresh refit 0.152 [0.129, 0.174]); L4 FAILED (shuffled median -1.43); L5 FAILED (stationary share 0.68 at lead 1 vs 0.38 at lead 6). Per-lead residual means -0.148..+0.418, monotone. Single run of the script, no variants.
+### 2026-10-16 20:16 (+13:00) · 58b4f38 · interpretation, surprise
+Leading run is real out of sample and at fixed area, not a ln A proxy. Surprise: L5, high-lead rules drop out of the stationary core band, which can bias the slope. L2 and L4 failures are my specification errors (L2 range taken from the unadjusted table; L4 shuffle without refitting the coefficient can never be near 0). Not repaired after seeing data. Next: mutation dose-response at fixed area (causal), and a refit-on-shuffle null; handle escapes by a larger board / longer-run censoring analysis.

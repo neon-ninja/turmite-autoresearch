@@ -54,4 +54,18 @@ uv run experiments/2026-10-16-kappa-leadrun-fresh/scripts/analyse.py     # resul
 
 ## Results
 
-(pending)
+Run 2026-10-16 ~20:15, commit 58b4f38 (dirty tree), seed 20261016, 2000 bootstraps; `results/analysis.txt`, `analysis.json`.
+2400 runs, 365 runs escaped the board, 183/300 rules kept (>= 6 core-band runs), 176 stationary (test set). Per lead: 34/32/34/31/26/19.
+
+| pred | outcome |
+|---|---|
+| L1 gain >= 0.15, CI > 0 | **HELD**: +0.651 [0.498, 0.828] (decode's post hoc +0.33 was not optimistic; here the spline-only baseline is weak, R^2 0.124, because stratifying on lead puts many large-lead rules in the test set; corr(lead, ln A22) = -0.72) |
+| L2 census slope in 0.07-0.13 and fresh refit CI covers it | **FAILED as registered**: census slope is +0.195/step (my range was wrong: it came from the unconditioned residual table, not the spline-adjusted regression); fresh refit +0.152 [0.129, 0.174], excludes 0.195, so the slope shrinks ~22% out of sample but is clearly > 0 |
+| L3 within-ln A tertile slopes > 0, pooled CI > 0 | **HELD**: tertile slopes 0.151 / 0.155 / 0.149, pooled +0.152 [0.128, 0.177] |
+| L4 shuffled lead gain median within +-0.02, p95 <= 0.05 | **FAILED as registered**: median -1.43. The criterion was mis-specified: shuffling lead keeps the large census coefficient and injects variance, so gain is very negative, not ~0. It shows the lead term carries the signal; it is not the "pipeline gives ~0" control I intended. A proper null would refit the coefficient on shuffled lead (not done). |
+| L5 retention differs < 0.20 (lead 1 vs 6) | **FAILED**: stationary share 0.68 (lead 1) falling monotonically to 0.38 (lead 6); kept share 0.74 -> 0.40. Selection depends on lead (mostly board escapes / too few core-band runs). L1-L3 hold on survivors only. |
+| L6 alternatives | lead +0.651 [0.50, 0.83] vs letter-2-is-R +0.319 [0.25, 0.40] vs R-count-first-8 +0.290 [0.20, 0.39]: lead is better than both, CIs separate from the R-count at the top end only mildly |
+
+Mean residual by lead (fresh, vs census spline-only): -0.148, +0.053, +0.127, +0.188, +0.377, +0.418 (census/pool table: -0.11 .. +0.45): same monotone shape.
+
+**Conclusion.** The leading-run effect replicates on fresh, lead-stratified rules, and it holds at fixed area (L3), so it is not simply the ln A(22) proxy. Not established: causation (no mutation test), and survivor bias (L5 failed: high-lead rules escape or drop out more, so the 0.15-0.20 slope is for rules that stay on the board; selection could inflate or deflate it). Two registered predictions (L2 range, L4 control) were badly specified by me and are reported as failed, not repaired.
