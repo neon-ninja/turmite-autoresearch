@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "seed": 20261015,
+  "tests": [
+    "mode separation",
+    "sinusoid structure function",
+    "Nyquist variance",
+    "Parseval",
+    "persistence"
+  ],
+  "command": "uv run experiments/2026-10-15-hull-checks/scripts/checks.py",
+  "commit": "da88e61b690507526ba4e2a2c017d9c7941beb91",
+  "source_sha256": "0d11abc91f5f5f3dbef2ae5d62a648fad047b92dec42c669ab98e9e1107df2d9"
+}

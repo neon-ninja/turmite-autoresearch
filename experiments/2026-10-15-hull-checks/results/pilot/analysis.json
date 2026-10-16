@@ -1,0 +1,447 @@
+{
+  "pilot": true,
+  "commit": "da88e61b690507526ba4e2a2c017d9c7941beb91",
+  "seed": 20261015,
+  "script_sha256": "1ae11dceaef7fc7f066ab553e0e568f0c4d47e959ee9ac953c1b3a9a8e9c902c",
+  "estimator_sha256": "0d11abc91f5f5f3dbef2ae5d62a648fad047b92dec42c669ab98e9e1107df2d9",
+  "manifest_sha256": "91512baa1ff6e9099bf8a221f79815ebb7e75a39b96b98443c274408e2933c0b",
+  "inputs": {
+    "RLRLRRRLLR_331.csv": "d97a3b79e97bec49c8674562c781be1b008c6ebce3adaf492a540f095c37514a",
+    "RLRLRRRLLR_332.csv": "4665a6c2214419d4ca798d2328a921fc7961f30f2b6b870f131e59fdb844e661",
+    "RLR_331.csv": "8322d06e995d378c8941a63b2725d5502e4c3a41d94c389dd50998359a405735",
+    "RLR_332.csv": "d6d4f7c2f6e19f945d5a79d93f46350645df2efee90322943827227582a018ff",
+    "rotor_331.csv": "e50dbe47655a44b2a5f1530a53bda45d0dab4a0d8c9563a82bf3000d6735cc2a",
+    "rotor_332.csv": "76668439a58b856e805f7cb5cf606df678a9a35459a6bd141ab0c4122c2ffbb1"
+  },
+  "missing_files": [],
+  "exclusions": [
+    "RLRLRRRLLR@331 k=16: 7 empty bins",
+    "RLRLRRRLLR@331 k=17: 7 empty bins",
+    "RLRLRRRLLR@331 k=18: 2 empty bins",
+    "RLRLRRRLLR@332 k=16: 14 empty bins",
+    "RLRLRRRLLR@332 k=17: 4 empty bins",
+    "RLRLRRRLLR@332 k=18: 6 empty bins",
+    "RLR@331 k=16: 10 empty bins",
+    "RLR@331 k=17: 5 empty bins",
+    "RLR@331 k=18: 4 empty bins",
+    "RLR@331 k=19: 2 empty bins",
+    "RLR@331 k=20: 1 empty bins",
+    "RLR@332 k=16: 19 empty bins",
+    "RLR@332 k=17: 6 empty bins",
+    "RLR@332 k=18: 2 empty bins",
+    "RLR@332 k=20: 1 empty bins",
+    "rotor:331 k=16: 7 empty bins",
+    "rotor:331 k=17: 1 empty bins",
+    "rotor:331 k=18: 1 empty bins",
+    "rotor:332 k=16: 3 empty bins",
+    "rotor:332 k=17: 2 empty bins"
+  ],
+  "profiles": [
+    {
+      "spec": "RLRLRRRLLR@331",
+      "k": 19,
+      "cohort": "legacy",
+      "wout": 4.0641,
+      "radius": 71.76040385208888,
+      "shape": 10.820704801984924,
+      "shape_normalised": 0.0021012890673330923,
+      "local": 4.667800811021857,
+      "local_normalised": 0.0009064473148634035,
+      "fine": 0.6719125514099797,
+      "fine_normalised": 0.00013047971683163213,
+      "structure": [
+        0.41858818876866866,
+        1.5833913454264372,
+        5.115439009112849,
+        10.393217084034127,
+        11.727784958806419,
+        10.180957476593248,
+        8.763547861177218,
+        11.240691759795833
+      ],
+      "length": 3.5225305868806114,
+      "coarse_local_ratio": 0.9438301048826316,
+      "shape_persistence": null,
+      "local_persistence": null
+    },
+    {
+      "spec": "RLRLRRRLLR@331",
+      "k": 20,
+      "cohort": "legacy",
+      "wout": 4.8671,
+      "radius": 87.35001921849187,
+      "shape": 16.623896873615692,
+      "shape_normalised": 0.002178747121458113,
+      "local": 6.644246648315153,
+      "local_normalised": 0.0008708026384746095,
+      "fine": 0.6156899798746255,
+      "fine_normalised": 8.069303975841392e-05,
+      "structure": [
+        0.5790767558763245,
+        2.1921925839443284,
+        7.113773462553108,
+        15.050558023353917,
+        20.401621158737875,
+        10.62510798325552,
+        14.4367484565952,
+        14.242742571881955
+      ],
+      "length": 4.287784041683458,
+      "coarse_local_ratio": 0.950581776064337,
+      "shape_persistence": 0.8404348151065009,
+      "local_persistence": 0.23888067703357846
+    },
+    {
+      "spec": "RLRLRRRLLR@332",
+      "k": 19,
+      "cohort": "legacy",
+      "wout": 8.8237,
+      "radius": 67.85045812330938,
+      "shape": 35.45574842850959,
+      "shape_normalised": 0.007701602300974436,
+      "local": 8.917532670486686,
+      "local_normalised": 0.001937042459349432,
+      "fine": 1.5266277647836417,
+      "fine_normalised": 0.00033160997657956896,
+      "structure": [
+        0.5226085812301084,
+        1.9948062775254667,
+        6.66978017065132,
+        15.000191581142808,
+        23.888530158751205,
+        20.571037880040034,
+        11.5058467617752,
+        15.08056798243663
+      ],
+      "length": 6.661203149465333,
+      "coarse_local_ratio": 0.9019481504980208,
+      "shape_persistence": null,
+      "local_persistence": null
+    },
+    {
+      "spec": "RLRLRRRLLR@332",
+      "k": 20,
+      "cohort": "legacy",
+      "wout": 7.1491,
+      "radius": 87.40074106184858,
+      "shape": 20.53520313175561,
+      "shape_normalised": 0.0026882445451228715,
+      "local": 9.111156962181074,
+      "local_normalised": 0.0011927331736721696,
+      "fine": 0.6244179967434496,
+      "fine_normalised": 8.174198535325724e-05,
+      "structure": [
+        0.5666129150510977,
+        2.1477631165772424,
+        7.002515314671928,
+        15.0821830186248,
+        25.179800885176842,
+        20.99233714089426,
+        20.261669662379656,
+        21.348631435759916
+      ],
+      "length": 8.580547688693978,
+      "coarse_local_ratio": 0.95213382384791,
+      "shape_persistence": 0.7955260192721015,
+      "local_persistence": -0.18893495783721823
+    },
+    {
+      "spec": "RLR@332",
+      "k": 19,
+      "cohort": "legacy",
+      "wout": 10.4021,
+      "radius": 73.70258987223266,
+      "shape": 54.033472368002464,
+      "shape_normalised": 0.009947120512438375,
+      "local": 15.355431725010515,
+      "local_normalised": 0.0028268094422828544,
+      "fine": 1.141795551959963,
+      "fine_normalised": 0.0002101952263693046,
+      "structure": [
+        1.1018560472551804,
+        4.182395988249423,
+        13.711116495775327,
+        29.79062598877492,
+        42.72257238191854,
+        32.22897385937141,
+        28.860725833975078,
+        31.55169681519713
+      ],
+      "length": 7.2357348404108635,
+      "coarse_local_ratio": 0.9739257380561278,
+      "shape_persistence": null,
+      "local_persistence": null
+    },
+    {
+      "spec": "rotor:331",
+      "k": 19,
+      "cohort": "rotor",
+      "wout": 11.2728,
+      "radius": 105.19438479592229,
+      "shape": 75.70958415888458,
+      "shape_normalised": 0.006841727058536987,
+      "local": 48.47970378633377,
+      "local_normalised": 0.0043810160215481024,
+      "fine": 3.6757904065868496,
+      "fine_normalised": 0.0003321739904617438,
+      "structure": [
+        2.8979533021115027,
+        10.97551210078995,
+        35.666378898619115,
+        76.31874115606266,
+        128.8843474663633,
+        123.21179368669763,
+        87.14981645068434,
+        93.98757253186668
+      ],
+      "length": 10.327434577305228,
+      "coarse_local_ratio": 0.9576465206053085,
+      "shape_persistence": null,
+      "local_persistence": null
+    },
+    {
+      "spec": "rotor:331",
+      "k": 20,
+      "cohort": "rotor",
+      "wout": 13.5786,
+      "radius": 135.29526387432287,
+      "shape": 142.1420100141981,
+      "shape_normalised": 0.007765282580390876,
+      "local": 57.44795700094664,
+      "local_normalised": 0.003138407988841129,
+      "fine": 4.37149076635048,
+      "fine_normalised": 0.00023881652647862658,
+      "structure": [
+        4.0369876975032,
+        15.19006006199348,
+        48.209897187293954,
+        98.42889295622408,
+        161.1303373880761,
+        134.9771315536628,
+        130.52829879572303,
+        138.67522147964095
+      ],
+      "length": 13.282581470408289,
+      "coarse_local_ratio": 0.9581225615009731,
+      "shape_persistence": 0.888436214584913,
+      "local_persistence": 0.19888163692844907
+    },
+    {
+      "spec": "rotor:332",
+      "k": 18,
+      "cohort": "rotor",
+      "wout": 13.8153,
+      "radius": 82.6212579275836,
+      "shape": 69.09236941207884,
+      "shape_normalised": 0.010121537314207443,
+      "local": 33.256858419350145,
+      "local_normalised": 0.004871891589607573,
+      "fine": 2.3996561988402454,
+      "fine_normalised": 0.00035153244800408646,
+      "structure": [
+        1.9559848371254298,
+        7.419269242066763,
+        24.26719652709616,
+        53.02950037920982,
+        90.04690072019072,
+        85.24972091322044,
+        59.583966797088976,
+        68.81563942602462
+      ],
+      "length": 8.111323029238878,
+      "coarse_local_ratio": 0.9904783913684925,
+      "shape_persistence": null,
+      "local_persistence": null
+    },
+    {
+      "spec": "rotor:332",
+      "k": 19,
+      "cohort": "rotor",
+      "wout": 13.1986,
+      "radius": 105.21733269775237,
+      "shape": 49.047426860270704,
+      "shape_normalised": 0.004430386878167658,
+      "local": 25.933875360330763,
+      "local_normalised": 0.002342571434456099,
+      "fine": 2.9523572619378853,
+      "fine_normalised": 0.0002666823870335939,
+      "structure": [
+        2.544122008088015,
+        9.617203495712364,
+        30.94903824017579,
+        60.923926689667,
+        67.1673398787751,
+        50.731541413631675,
+        61.030801804080504,
+        44.571376356492564
+      ],
+      "length": 5.1648437411495625,
+      "coarse_local_ratio": 0.9220480906670199,
+      "shape_persistence": 0.43400350120989506,
+      "local_persistence": 0.04723069105717699
+    },
+    {
+      "spec": "rotor:332",
+      "k": 20,
+      "cohort": "rotor",
+      "wout": 14.7109,
+      "radius": 134.42403797366015,
+      "shape": 59.43763638008119,
+      "shape_normalised": 0.0032893315954605094,
+      "local": 41.74351250579126,
+      "local_normalised": 0.002310123062646128,
+      "fine": 3.861335509630959,
+      "fine_normalised": 0.00021368973711005722,
+      "structure": [
+        3.4080455367304126,
+        12.84182669353143,
+        40.93774678548904,
+        82.4934774316997,
+        111.8182788163639,
+        78.69104694092513,
+        95.53695527532477,
+        84.92536807932385
+      ],
+      "length": 13.197049067622691,
+      "coarse_local_ratio": 0.9661518367474929,
+      "shape_persistence": 0.6455159935513775,
+      "local_persistence": 0.09654003685190468
+    }
+  ],
+  "matched": [
+    {
+      "spec": "RLRLRRRLLR@331",
+      "k": 19,
+      "cohort": "legacy",
+      "controls": 0,
+      "rotor_checkpoints": [],
+      "shape_ratio": null,
+      "local_ratio": null
+    },
+    {
+      "spec": "RLRLRRRLLR@331",
+      "k": 20,
+      "cohort": "legacy",
+      "controls": 1,
+      "rotor_checkpoints": [
+        [
+          "rotor:332",
+          18
+        ]
+      ],
+      "shape_ratio": null,
+      "local_ratio": null
+    },
+    {
+      "spec": "RLRLRRRLLR@332",
+      "k": 19,
+      "cohort": "legacy",
+      "controls": 0,
+      "rotor_checkpoints": [],
+      "shape_ratio": null,
+      "local_ratio": null
+    },
+    {
+      "spec": "RLRLRRRLLR@332",
+      "k": 20,
+      "cohort": "legacy",
+      "controls": 1,
+      "rotor_checkpoints": [
+        [
+          "rotor:332",
+          18
+        ]
+      ],
+      "shape_ratio": null,
+      "local_ratio": null
+    },
+    {
+      "spec": "RLR@332",
+      "k": 19,
+      "cohort": "legacy",
+      "controls": 0,
+      "rotor_checkpoints": [],
+      "shape_ratio": null,
+      "local_ratio": null
+    }
+  ],
+  "summaries": [
+    {
+      "cohort": "legacy",
+      "k": 19,
+      "rows": 4,
+      "valid_rows": 3,
+      "matched": 0,
+      "shape": {
+        "rules": 0,
+        "median": null,
+        "rule_sd": null,
+        "ci95": null,
+        "per_rule": {}
+      },
+      "local": {
+        "rules": 0,
+        "median": null,
+        "rule_sd": null,
+        "ci95": null,
+        "per_rule": {}
+      }
+    },
+    {
+      "cohort": "legacy",
+      "k": 20,
+      "rows": 4,
+      "valid_rows": 2,
+      "matched": 0,
+      "shape": {
+        "rules": 0,
+        "median": null,
+        "rule_sd": null,
+        "ci95": null,
+        "per_rule": {}
+      },
+      "local": {
+        "rules": 0,
+        "median": null,
+        "rule_sd": null,
+        "ci95": null,
+        "per_rule": {}
+      }
+    }
+  ],
+  "persistence": {
+    "legacy": {
+      "shape": null,
+      "local": null
+    },
+    "sampled": {
+      "shape": null,
+      "local": null
+    },
+    "rotor": {
+      "shape": null,
+      "local": null
+    }
+  },
+  "length_slopes": [],
+  "verdicts": {
+    "legacy": {
+      "matching_ok": false,
+      "sample_ok": true,
+      "resolution_fraction": null,
+      "shape_thresholds": false,
+      "persistence": false,
+      "local_thresholds": false,
+      "decision": "pilot only"
+    },
+    "sampled": {
+      "matching_ok": false,
+      "sample_ok": false,
+      "resolution_fraction": null,
+      "shape_thresholds": false,
+      "persistence": false,
+      "local_thresholds": false,
+      "decision": "pilot only"
+    }
+  }
+}

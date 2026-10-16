@@ -1,0 +1,24 @@
+# noise floor; commit da88e61b690507526ba4e2a2c017d9c7941beb91
+# input sha256[:16] e813c6f21f63421c
+## tolerance |d ln A| <= 0.05  (registered)
+k=22: rules=44 seeds/rule median 8 (min 6, max 8) pairs=62
+  N1 median seed sd ln kappa 0.089 (ln_ratio 0.129); median pair SE 0.043; median |dlnk| 0.142; frac z>2 0.387 (n=24), z>3 0.274
+  N2 P-b restricted to z>2: pairs=24 frac 0.917 boot95 [0.500, 1.000]
+     complement z<=2: pairs=38 frac 0.763
+  N3 split-seed (kappa even, ln_ratio odd; rules dropped 0): pairs=62 frac 0.790 boot95 [0.590, 0.949]
+k=25: rules=44 seeds/rule median 8 (min 7, max 8) pairs=67
+  N1 median seed sd ln kappa 0.089 (ln_ratio 0.128); median pair SE 0.037; median |dlnk| 0.127; frac z>2 0.582 (n=39), z>3 0.418
+  N2 P-b restricted to z>2: pairs=39 frac 0.949 boot95 [0.778, 1.000]
+     complement z<=2: pairs=28 frac 0.500
+  N3 split-seed (kappa even, ln_ratio odd; rules dropped 0): pairs=67 frac 0.806 boot95 [0.614, 0.953]
+## tolerance |d ln A| <= 0.1  (sensitivity)
+k=22: rules=44 seeds/rule median 8 (min 6, max 8) pairs=129
+  N1 median seed sd ln kappa 0.089 (ln_ratio 0.129); median pair SE 0.043; median |dlnk| 0.147; frac z>2 0.426 (n=55), z>3 0.318
+  N2 P-b restricted to z>2: pairs=55 frac 0.873 boot95 [0.611, 1.000]
+     complement z<=2: pairs=74 frac 0.676
+  N3 split-seed (kappa even, ln_ratio odd; rules dropped 0): pairs=129 frac 0.721 boot95 [0.551, 0.878]
+k=25: rules=44 seeds/rule median 8 (min 7, max 8) pairs=119
+  N1 median seed sd ln kappa 0.089 (ln_ratio 0.128); median pair SE 0.037; median |dlnk| 0.134; frac z>2 0.588 (n=70), z>3 0.445
+  N2 P-b restricted to z>2: pairs=70 frac 0.900 boot95 [0.745, 1.000]
+     complement z<=2: pairs=49 frac 0.571
+  N3 split-seed (kappa even, ln_ratio odd; rules dropped 0): pairs=119 frac 0.765 boot95 [0.593, 0.909]

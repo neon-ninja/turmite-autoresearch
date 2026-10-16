@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "compared_rows": 9,
+  "thread_counts": [
+    1,
+    6
+  ],
+  "specs": [
+    "RLR@331",
+    "RLRLRRRLLR@332",
+    "rotor:331"
+  ],
+  "command": "uv run experiments/2026-10-15-hull-checks/scripts/validate.py",
+  "commit": "da88e61b690507526ba4e2a2c017d9c7941beb91",
+  "source_sha256": "66b15179f42508c3f3c0191fe2f836fbaead80b45ed19f7102765f6c9561391e",
+  "binaries": {
+    "hull_checks": "87a59ce0bb9bf48952acbd4f47d1484c5b5f2558294a5a8b71766dd391dc6329",
+    "hull_width": "d9f9d5939f69eeb5b7573238ad0893cb62f849374da83bbaeb6b01fc566e0b11"
+  }
+}

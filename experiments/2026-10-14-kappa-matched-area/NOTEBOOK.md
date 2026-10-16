@@ -34,3 +34,18 @@ Area carries most of kappa's rule variation at fixed t; a small residual still o
 
 ### 2026-10-15 19:45 (+13:00) · 7eff085 · decision
 No intervention yet. Next: seed-noise floor and noise-restricted P-b.
+
+### 2026-10-15 20:10 (+13:00) · da88e61 · intent
+Compute the seed-noise floor and noise-restricted P-b per the third README registration (written before the run).
+
+### 2026-10-15 20:30 (+13:00) · da88e61 · observation
+noise_floor.py -> results/noise_floor.txt (rerun byte-identical). Seed sd ln kappa 0.089, pair SE 0.043/0.037. Frac z>2: 0.387 (k=22), 0.582 (k=25). P-b on z>2: 0.917 [0.50,1.00] (24 pairs), 0.949 [0.78,1.00] (39). Split-seed N3: 0.790 [0.59,0.95], 0.806 [0.61,0.95].
+
+### 2026-10-15 20:30 (+13:00) · da88e61 · interpretation
+Registered N1 (>=60% z>2) failed at both k and N2 failed at k=22 (interval contains 0.5); N3 held. Letter of the decision rule: no T2 on this matched set. N3 and the k=25 complement at 0.50 argue the residual is a real but small rule-level effect, only resolvable in about half the pairs. Confidence moderate-low; not a pass.
+
+### 2026-10-15 20:30 (+13:00) · da88e61 · decision
+Do not run T2 on these pairs. Next candidate (needs registering first): rule-level mixed-effects regression of ln_ratio on kappa residual given A using all 44 rules, split-seed. notebook.ipynb still lacks this section and the matched-pairs one.
+
+### 2026-10-15 20:45 (+13:00) · da88e61 · decision
+Close the experiment. notebook.ipynb written and executed (nbconvert under uv --with, jupyter not in pyproject.toml); covers all three analyses and matches the README. The rule-level mixed-effects regression stays an open, unregistered follow-up; not started. No commit made (not asked).

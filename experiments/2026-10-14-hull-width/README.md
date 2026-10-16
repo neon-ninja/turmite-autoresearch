@@ -77,8 +77,7 @@ uv run experiments/2026-10-14-hull-width/scripts/hull_stats.py
 
 ## Status
 
-Registered; run pending. Outputs go to `results/` (`hull_ants.csv`, `hull_rotor.csv`, `*.log`,
-`hull.done`, `hull_stats.txt`). Check agreement with `shape` before interpreting (decision rule 1).
+Run and analysed 2026-10-14; band-power follow-up (README, bottom) run and corrected 2026-10-15. OPEN, not run: real-space S(dtheta) and band power vs k (needs a rerun with r(theta) dumps), larger census-sampled rule set.
 
 ## Results (2026-10-14 22:55 NZDT; predictions above unchanged)
 
@@ -111,3 +110,55 @@ exterior is 4-connected (diagonal channels count as closed, unchecked per the no
 all exponents are finite-window (k >= 22); D_h over s = 2..32 is a short range.
 Next: equal-time height correlations/structure function of r(theta) at fixed k (registered first),
 and a larger rule sample from the census.
+
+## Band-power ratio: long-wavelength excess (registered 2026-10-15 20:56 +13:00, base commit `da88e61`, before `scripts/hull_bands.py` was written or any `spec_bands` value was inspected)
+
+**Scope note.** The registered "next step" above (equal-time height correlations) cannot be run on the stored data: `hull_width` saved only the band-summed
+spectrum `spec_bands` (7 dyadic bands of the m-bin Fourier power of r(theta), modes m <= 2 removed, in units of rbar^2), not r(theta) itself. The band power is the Fourier-space
+form of the structure function, so this is the same question asked of existing results; a real-space S(dtheta) would need a rerun with profile dumps and is **not** done here.
+No new simulation. Data: `results/hull_ants.csv`, `results/hull_rotor.csv` (24 ant runs = 6 rules x 4 seeds; 8 rotor runs), k = 28 and 30 (k >= 28 so the bands have values).
+The only thing I have seen of the spectrum is its fitted slope over bands 5-8..65-128 (ants steeper by +0.18 / +0.20); the per-band values have not been looked at.
+
+**Hypothesis (H-lobe, from the unregistered reading above).** The ants' extra width relative to the rotor sits at long wavelengths. Let R_b = (median over runs of band power b, ants) / (same, rotor)
+at a given k. Unit of inference for ants = rule (median over its 4 seeds first), rotor = its 8 runs.
+
+**Predictions.**
+1. R_b > 1 for the two lowest bands (3-4 and 5-8) at both k = 28 and 30, in at least 5 of the 6 rules individually (rule median vs rotor median).
+2. R_b < 1 for the 65-128 band at both k, in at least 5 of 6 rules. (A steeper ants' slope forces some crossing; this checks that it happens at high, not low, wavenumber.)
+3. log R_b decreases with band index: Spearman rho(band index, log R_b) <= -0.8 on the 7 bands at both k (NaN bands dropped; need >= 5).
+4. The crossover band b* (first band with R_b < 1) is the same, to within one band, at k = 28 and 30.
+5. Control: the rotor's own spectrum between k = 28 and 30 changes by a factor in [0.7, 1.4] per band (checks that comparing windows at k = 28/30 is stable, so a ratio of order 2 is not window noise). Rotor run-to-run sd of log band power is reported as the noise floor; any ratio claimed as "> 1" must exceed 2 sd of the log rotor median (bootstrap over its 8 runs, seed 20261014).
+
+**Decision.**
+- 1-3 all hold: the extra width is long-wavelength (lobes/notches); the follow-up is a profile-dump rerun to measure S(dtheta) and the lobe size in real space. Still observational.
+- 1 fails (R_b <= 1 in a low band): the ants' extra W is not carried by the lowest wavelengths; the H-lobe reading is dropped and the discrepancy goes into `notes/open-questions-hypotheses.md`.
+- 1 holds, 2 or 3 fails: report as mixed; no summary as either.
+- Confounds to state with the result: the profile is the outermost cell per bin (extremal, misses overhangs); 6 rules chosen earlier, not census-sampled; finite window; band power is normalised by rbar^2 so a bigger R_b means relatively rougher, not larger in cells.
+
+### Band-power ratio: result (2026-10-15 20:58 +13:00, commit `da88e61`; predictions above unchanged)
+
+`uv run experiments/2026-10-14-hull-width/scripts/hull_bands.py` -> `results/hull_bands.txt` (no simulation; 6 ant rules x 4 seeds, 8 rotor runs; bootstrap seed 20261014).
+
+| Prediction | Outcome |
+|---|---|
+| 1 low bands R_b > 1 at both k in >= 5/6 rules | **HELD**: R(3-4) = 4.09 / 5.99 and R(5-8) = 2.12 / 3.08 at k = 28 / 30; 5/6 and 6/6 rules; both bands exceed 2 sd of the rotor's bootstrap median |
+| 2 band 65-128 R_b < 1 at both k in >= 5/6 rules | **FAILED**: k=28 R = 0.72 (5/6 rules), k=30 R = 0.97 (3/6 rules) |
+| 3 Spearman(band, log R_b) <= -0.8 at both k | **HELD**: -1.00 and -0.96 |
+| 4 crossover band within one band across k | **HELD** (33-64 at k=28, 65-128 at k=30), but it moves to higher wavenumber with k |
+| 5 rotor band power k=30/k=28 within [0.7, 1.4] | **FAILED**: 0.63, 0.46, 0.65, 0.56, 0.59, 0.62, 0.62 |
+
+Decision rule: 1 and 3 hold, 2 fails -> **mixed, not summarised as H-lobe**. What the data do show: relative to the rotor the ants carry 2-6x the long-wavelength power (bands 3-4 to 17-32; exceeds the rotor noise floor
+by more than 2 sd of its log median), the excess decreases monotonically with wavenumber, and the high-wavenumber deficit seen at k = 28 is gone by k = 30 (R(129-256) is still 0.62 / 0.75).
+Prediction 5 failed, so the comparison is **not stable across windows**: the rotor's normalised band power drops by a factor of about 0.6 in every band from k = 28 to 30 while the ants' lowest band is nearly unchanged
+(1.34e-3 -> 1.23e-3; rotor 3.3e-4 -> 2.1e-4). That is an unregistered observation: it makes R_b at low wavenumber *grow* with k (4.1 -> 6.0), i.e. the ants' long-wavelength roughness does not
+decay as the rotor's does. It is consistent with the larger W exponent of the ants but is a post hoc reading from two checkpoints, so it is a lead, not a result.
+Caveats: single checkpoint pair; the rotor control noise at 3-4 is large (run sd of log 0.8-1.1); the profile is the outermost cell per bin; band power is in units of rbar^2 and rbar grows;
+6 rules not census-sampled; real-space S(dtheta) not computed (no profile dumps). Next (unregistered): rerun with profile dumps at k = 24..30 to get the band power as a function of k per walker
+and the lobe size in real space.
+
+### Band-power ratio: correction after review (21:24 +13:00, commit `da88e61`)
+
+`hull_width.rs` divides the profile spectrum by rbar^2 (line 166), so band power scales as (W/R)^2. The rotor's drop of about 0.6 per band between k = 28 and 30 (factor 4 in t) is then what the measured W exponents already imply:
+4^(2(0.135 - 1/3)) = 0.58 for the rotor, and 4^(2(0.239 - 1/3)) = 0.77 for the ants (observed ants' lowest-band ratio 0.92 and median about 0.75). So **prediction 5 was mis-specified** (a size-free band power is not stable across windows because W/R itself decays);
+it still failed as registered and the verdict is not changed. The "lead" above (ants' long-wavelength power not decaying as the rotor's does, R_b growing with k) only restates the W-exponent gap between the walkers that was measured earlier;
+it is not an independent finding. The independent content of the band analysis is the within-k shape: R_b decreasing monotonically with wavenumber at both k (predictions 1 and 3).
