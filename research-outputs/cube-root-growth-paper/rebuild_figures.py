@@ -12,7 +12,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "research-outputs/cube-root-growth-paper/fig"
-SCRIPTS = ["figures.py", "gallery.py", "textbook_figs.py", "memory_figures.py"]
+SCRIPTS = ["figures.py", "gallery.py", "textbook_figs.py", "memory_figures.py", "late_switch_figure.py"]
 INPUTS = [
     "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv", "experiments/2026-10-13-calib-instrument-calibration/results/calib_rotor.csv", "experiments/2026-10-13-probe-growth-census/results/cube_stats.json",
     "experiments/2026-10-13-probe-growth-census/results/c_model.csv", "experiments/2026-10-13-probe-growth-census/results/probe_all.csv", "experiments/2026-10-13-calib-instrument-calibration/results/calib_rw.csv",
@@ -28,6 +28,8 @@ INPUTS = [
     "experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.decomposition.json",
     "experiments/2026-10-kappa-rule-space/results/w3c_stats.txt",
     "experiments/2026-10-kappa-rule-space/results/w3c_cross.txt",
+] + [f"experiments/2026-10-13-g1-ribbon-breakout/results/{name}" for name in
+     ("g1_ribbon.csv", "g1_wake_extract.json", "g1_wake_crop_12800000000.csv", "g1_sweep_trace_12800000000.csv")
 ] + [f"research-outputs/cube-root-growth-paper/{name}" for name in SCRIPTS]
 
 

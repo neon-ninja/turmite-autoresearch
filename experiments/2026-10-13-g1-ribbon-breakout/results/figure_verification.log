@@ -1,0 +1,22 @@
+{
+  "raw_hashes_match": true,
+  "compact_extracts_repeat": true,
+  "figure_bytes_repeat": true,
+  "compact_sha256": {
+    "g1_wake_crop_12800000000.csv": "09d3c453fb822c238562f939b2cf526b9a50092f81f67335c197d3c32071ff20",
+    "g1_wake_crop_12900000000.csv": "c743681341a27a587e000f98f5490c2e10a19c5675611f2e257cf40aef96cbbe",
+    "g1_wake_shape_12800000000.csv": "7dda4287bc8cccf5bf4c89365b1a3c57169a637bc54f5da6076e00daff3cbe0f",
+    "g1_wake_shape_12900000000.csv": "a73dccd1ca036df39ba190dd0784425b9ec5e0ce3a905334be2db28192677a3c",
+    "g1_sweep_trace_12800000000.csv": "9d8b22b888856ea2130bcb7d53ce6fc39315dfe92ba2bfdd596c449f4507fde2",
+    "g1_sweep_trace_12900000000.csv": "4e042f809a7cda84cbad211b08428f1f78edfd116632fb576c4a83d9bf15ee1e"
+  },
+  "figure_sha256": {
+    "late_switch.pdf": "39dff47b1b434c9a47e56f393097402ed294c1381c8621c57354a0eb2a0b58ba",
+    "late_switch.png": "fa2105a3bc85bfff10bb523498126d0619508e977c0d539e88e6df5aceeb346f"
+  },
+  "manuscript_pages": 43,
+  "figure_caption_pages": [
+    28
+  ],
+  "rendering_library": "pypdfium2 5.14.0"
+}

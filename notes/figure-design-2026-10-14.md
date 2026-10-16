@@ -26,3 +26,17 @@ the git commit, seeds and output hashes, including uncommitted source changes.
 Validation: all figure scripts and the manuscript build completed successfully. Rendered figures and the title page were inspected; tight export bounds fixed the clipped rotor heading. The repository release tests passed (see research-outputs/cube-root-growth-paper/fig/release-tests.log).
 
 Caption spill fix: the title-page hero and caption now share an unbreakable block, with the image bounded to 40 mm high. Recompiled main.pdf and visually verified pages 1 and 2: the complete caption is on page 1 and page 2 begins with Key results. No figure data or measurement code changed.
+
+## 2026-10-16: RLRLLL late-switch figure
+
+Added `fig/late_switch.pdf` and its inspection PNG to the column-sweeper
+subsection. Script: `research-outputs/cube-root-growth-paper/late_switch_figure.py`;
+reproduce with `uv run` under the standard WSL environment. It reads committed
+G1 results only. Three labelled parts show efficiency against time, the actual
+period-3 wake with an adjacent back-and-forth trajectory, and sweep predictions
+against measured local rates. Original note/exporter and raw hashes recovered
+from the g1-builder-structure worktree; see the G1 README for exact provenance,
+extraction commands, tests and limitations. The draft and compact archive were
+in paper-figure-proposals, as the user pointed out. No new simulation or fit
+instrument: restored the original strict symmetric-window comparison. Figure
+caption explicitly distinguishes one-trajectory consistency from replication.
