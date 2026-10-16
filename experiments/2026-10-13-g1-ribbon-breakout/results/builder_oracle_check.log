@@ -1,0 +1,2 @@
+Checking Python oracle direction convention against src/lib.rs before running
+PASS: 28 rules, complete sampled trajectories and all exported wake bytes
