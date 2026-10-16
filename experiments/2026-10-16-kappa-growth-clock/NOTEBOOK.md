@@ -67,3 +67,12 @@ the entire 256-spec GPU CSV byte for byte (`results/cpu-replay-check.txt`).
 `uv run experiments/2026-10-16-kappa-growth-clock/scripts/check_replay.py` now
 preserves all seven published outputs byte for byte (`results/replay-check.txt`).
 Batch resume verifies its recipe and raw digest, then skips computation.
+
+### 2026-10-16 21:24 (+13:00) · 916d2f4 · decision
+
+Closed: registered support gate failed; P1/P2 remain untested. Notebook executed
+top to bottom against committed inputs using the README nbconvert command
+(`results/notebook-check.log`). Analysis replay still matches after commit.
+README, executed notebook and JSON agree. No Rust instrument or dependency was
+changed by this experiment. Retain fresh cohort for a prospectively registered
+censoring follow-up; no additional runs are launched in this session.
