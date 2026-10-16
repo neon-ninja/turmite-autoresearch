@@ -69,3 +69,37 @@ Run 2026-10-16 ~20:15, commit 58b4f38 (dirty tree), seed 20261016, 2000 bootstra
 Mean residual by lead (fresh, vs census spline-only): -0.148, +0.053, +0.127, +0.188, +0.377, +0.418 (census/pool table: -0.11 .. +0.45): same monotone shape.
 
 **Conclusion.** The leading-run effect replicates on fresh, lead-stratified rules, and it holds at fixed area (L3), so it is not simply the ln A(22) proxy. Not established: causation (no mutation test), and survivor bias (L5 failed: high-lead rules escape or drop out more, so the 0.15-0.20 slope is for rules that stay on the board; selection could inflate or deflate it). Two registered predictions (L2 range, L4 control) were badly specified by me and are reported as failed, not repaired.
+
+## Follow-up registered 2026-10-16 (+13:00), base commit 78bcafd, before running either part
+
+Part A is analysis-only on data already scored, so it is NOT a blind prediction: the design below is fixed before I read
+its output, but the probe data were seen. Part B needs new probe runs and is a genuine prediction.
+
+### Part A: nulls and selection bounds (`scripts/followup.py`, no new runs)
+- **A1 refit-on-shuffle null.** Permute `lead` among census training rules AND among fresh test rules, refit the
+  coefficient, score the gain (200 permutations). A second version permutes within quintiles of ln A(22) (pooled
+  census+fresh quantiles) so corr(lead, ln A) is preserved. Expect both medians near 0 (|median| <= 0.02), with the
+  observed +0.651 beyond the 99th percentile. Replaces the failed L4.
+- **A2 selection bounds.** Slope refit on the fresh stationary rules using (i) only leads 1-3 (retention highest),
+  (ii) each rule length separately, (iii) inverse-retention weights by lead. Prediction: slope stays > 0 with CI excluding 0
+  in all, and the leads 1-3 slope is within 0.05 of the all-lead slope (0.152). Also tabulate who drops out (escaped runs per lead and length).
+- Exports `results/fresh_rules.csv` (one row per sampled rule) so the notebook reads committed data only.
+
+### Part B: mutation dose-response (`scripts/mutants.py`, `run_mutants.sh`)
+For each fresh stationary rule with lead k = 1..5, single-letter mutants (same seeds 601..608, `probe 27 8192`, same pipeline):
+- arm **E** (extend lead): flip index k (L->R), so the lead grows by >= 1;
+- arm **S** (shorten lead): for k >= 2 flip index k-1 (R->L), lead becomes k-1;
+- arm **C** (control): flip a random L->R at index >= 8, lead unchanged (same composition change as E, no lead change).
+Paired difference d = ln kappa(mutant) - ln kappa(base) over pairs where both are kept and stationary (>= 6 core runs,
+|g_k| < 0.05); dA = ln A22 difference. Bootstrap over pairs (2000, seed 20261016).
+- **M1** arm E: mean d > 0 with 95% CI lower bound > 0, and the pooled paired regression d ~ b*dlead + c*dA has b > 0 with CI excluding 0 (~55%).
+- **M2** E - C difference in mean d has CI lower bound > 0, i.e. the effect is the lead and not the L->R composition change (~60%).
+- **M3** arm S: mean d < 0 with CI upper bound < 0 (~50%; W6 found early-letter effects at fixed area go both ways).
+- **M4** (descriptive) pair retention (mutant kept and stationary, given base was) by arm.
+Failure of M1 and M2 together would mean the lead association is not causal at the single-flip scale, i.e. a correlate of something else in the opening.
+
+### Part A results (run 2026-10-16, commit 78bcafd + dirty tree, `results/followup.txt`, `followup.json`, `fresh_rules.csv`)
+- **A1 HELD.** Refit-on-shuffle gain: unrestricted median -0.001 (p99 +0.038, max +0.049); within ln A quintile median +0.000 (p99 +0.051, max +0.058). Observed +0.651 is far outside both. The pipeline produces ~0 gain from a lead label with no information, including when the label keeps its correlation with area.
+- **A2 slope stays positive everywhere but the "within 0.05" part FAILED.** Fresh refit slope: all leads +0.152 [0.130, 0.174]; leads 1-3 +0.235 [0.196, 0.271] (differs from all-lead by 0.083 > 0.05); leads 1-4 +0.197; length 13 +0.144, length 14 +0.157; inverse-retention weights +0.144 [0.123, 0.167]. So the effect is not carried by one length and is robust to reweighting by lead retention, but the slope depends on the lead range: it is steeper at small leads (consistent with saturation/cap at 6; mean residual by lead rises -0.15 -> +0.42, concave after lead 5). The single "slope per step" is therefore a coarse summary.
+- **Dropouts.** Kept/stationary per 50 rules by lead 1..6: 37/34, 32/32, 35/34, 31/31, 28/26, 20/19. Rules with >= 1 escaped run: 3, 12, 7, 4, 9, 16. Escapes are not monotone in lead and explain only part of the drop for lead 1-5; most missing rules fail the >= 6 core-band runs condition (non-core alpha_w, e.g. highway/other-class runs), not stationarity (only 0-3 kept rules per stratum are non-stationary). Retention falls sharply only at lead 6 (0.40 kept). Lead >= 5 estimates carry the most selection risk; the lead 1-4 slope (+0.197) is the least selected.
+- Not done: a bound on what dropped rules would have had; IPW only reweights by lead, not by unobserved reasons for dropout.

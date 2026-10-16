@@ -1,0 +1,19 @@
+# cmd: uv run experiments/2026-10-16-kappa-leadrun-fresh/scripts/followup.py  git: 78bcafd (tree dirty)  seed 20261016
+fresh stationary n=176, census stationary n=2183; observed gain +0.651
+A1 unrestricted         gain median -0.001 p95 +0.025 p99 +0.038 max +0.049  (obs +0.651; |median|<=0.02: True)
+A1 within ln A quintile gain median +0.000 p95 +0.033 p99 +0.051 max +0.058  (obs +0.651; |median|<=0.02: True)
+A2 slope [all leads                       ] +0.152 CI [+0.130,+0.174] n=176
+A2 slope [leads 1-3                       ] +0.235 CI [+0.196,+0.271] n=100
+A2 slope [leads 1-4                       ] +0.197 CI [+0.168,+0.225] n=131
+A2 slope [length 13                       ] +0.144 CI [+0.110,+0.183] n=93
+A2 slope [length 14                       ] +0.157 CI [+0.132,+0.182] n=83
+A2 slope [all, inverse-retention weights  ] +0.144 CI [+0.123,+0.167] n=176
+A2 dropouts by lead (50 sampled each): rules with >=1 escaped run, mean escaped runs/rule, kept, stationary
+  lead 1: any_escape 3/50, mean 0.32, kept 37, stationary 34
+  lead 2: any_escape 12/50, mean 1.74, kept 32, stationary 32
+  lead 3: any_escape 7/50, mean 0.98, kept 35, stationary 34
+  lead 4: any_escape 4/50, mean 0.62, kept 31, stationary 31
+  lead 5: any_escape 9/50, mean 1.22, kept 28, stationary 26
+  lead 6: any_escape 16/50, mean 2.42, kept 20, stationary 19
+  length 13: kept 94/150, stationary 93/150, mean escaped runs 1.39
+  length 14: kept 89/150, stationary 83/150, mean escaped runs 1.05
