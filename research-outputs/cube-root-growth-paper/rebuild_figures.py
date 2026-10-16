@@ -20,6 +20,14 @@ INPUTS = [
     "experiments/2026-10-13-memory-walkers/results/memory_walkers_pilot/combined.csv", "experiments/_lib/analyse_probe.py",
     "research-outputs/cube-root-growth-paper/style.py", "research-outputs/cube-root-growth-paper/main.typ", "research-outputs/cube-root-growth-paper/numbers.json", "research-outputs/cube-root-growth-paper/refs.bib",
     "experiments/2026-10-13-transport-forecast/results/transport_forecast.json",
+    "research-outputs/cube-root-growth-paper/kappa_prediction.json",
+    "research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py",
+    "research-outputs/cube-root-growth-paper/tail_budget.json",
+    "research-outputs/cube-root-growth-paper/tail_budget_numbers.py",
+    "experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.analysis.json",
+    "experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.decomposition.json",
+    "experiments/2026-10-kappa-rule-space/results/w3c_stats.txt",
+    "experiments/2026-10-kappa-rule-space/results/w3c_cross.txt",
 ] + [f"research-outputs/cube-root-growth-paper/{name}" for name in SCRIPTS]
 
 
@@ -30,6 +38,8 @@ def digest(path):
 
 def main():
     os.chdir(ROOT)
+    subprocess.run([sys.executable, "research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py"], check=True)
+    subprocess.run([sys.executable, "research-outputs/cube-root-growth-paper/tail_budget_numbers.py"], check=True)
     gal = Path(os.environ.get("GAL", Path.home() / "gal")).resolve()
     snapshots = [gal / f"{r}.bin" for r in
                  ("RL", "RLL", "RLR", "RRLL", "RLLR", "RRLRLLRLRRLR", "RRLRLRLLLLLL")]
