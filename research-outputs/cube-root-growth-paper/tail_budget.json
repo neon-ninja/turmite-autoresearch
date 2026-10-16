@@ -1,0 +1,63 @@
+{
+  "n_rules": 44,
+  "t1_band0": {
+    "gain": 0.3523998723445718,
+    "lo95": -0.01846013844920264,
+    "hi95": 0.7765128953394033,
+    "r2_base": -0.08495028331668508
+  },
+  "t1_band1": {
+    "gain": 0.5106222474079932,
+    "lo95": 0.25338261817998137,
+    "hi95": 0.7598537609903108,
+    "r2_base": 0.051139650446782814
+  },
+  "t1_pass": false,
+  "t1_q999_band0": {
+    "gain": 0.18630555466244447,
+    "lo95": -0.34365432048275,
+    "hi95": 0.67175716426246,
+    "r2_base": -0.08495028331668508
+  },
+  "t1_q999_band1": {
+    "gain": 0.20767526911762668,
+    "lo95": -0.0309691586003088,
+    "hi95": 0.588476747585381,
+    "r2_base": 0.051139650446782814
+  },
+  "t2": {
+    "identity": {
+      "median_rel_err": 0.1227488831866258,
+      "iqr": [
+        0.05940615682301906,
+        0.2546588672156574
+      ]
+    },
+    "q999": {
+      "median_rel_err": 0.5038798278318594,
+      "iqr": [
+        0.08805073492238039,
+        0.5897206764984555
+      ]
+    },
+    "persistence": {
+      "median_rel_err": 0.07165469169892692,
+      "iqr": [
+        0.028481438549762934,
+        0.2235389762537421
+      ]
+    }
+  },
+  "t2_pass": true,
+  "decomp_tail_share": 0.9959880531567997,
+  "decomp_corr": 0.6630128493719528,
+  "provenance": {
+    "command": "uv run research-outputs/cube-root-growth-paper/tail_budget_numbers.py",
+    "commit": "baac481911aa68db941e6b692be978dcfb5f08af",
+    "input_sha256": {
+      "experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.analysis.json": "c33dc978e89c4495073646d6db43945e90576a6676bfbad64aaeb2a16c34fcdb",
+      "experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.decomposition.json": "d9b46b3b7bafcc6073a2709aa303783e8384d11a05c0fd6aa5be81d20ac78096",
+      "research-outputs/cube-root-growth-paper/tail_budget_numbers.py": "c14bf3c73c6b2a926d32f67be38e80eb969bf09d2e22c70a47e1d5f7363a9136"
+    }
+  }
+}
