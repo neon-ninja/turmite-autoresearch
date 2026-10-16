@@ -169,3 +169,17 @@ Registered and run (10752 specs, 24 bases x 7 arms x 64 seeds; 10 informative va
 
 ### Kappa return gates, Stage 1 — 2026-10-16 (`experiments/2026-10-15-kappa-return-gates`)
 Registered and run: incremental rim/interior depth instrument (oracle-tested), 24 rules x (64 predictor + 32 target) seeds, bands A = 32768 and 131072. Adding two gate features (crossing-location concentration g1, exit-heading return spread g2) to a 4-feature depth-profile baseline did NOT improve held-out-seed boundary occupation: DeltaR2 -0.039 [-0.118, +0.006] and -0.0004 [-0.033, +0.031] (criterion +0.10, plus bootstrap and permutation). Verdict UNINFORMATIVE, not a clean rejection: the baseline (which excludes boundary occupancy itself) already has held-out R2 0.88 / 0.95, so band 1 has no headroom, and g2 fails split-seed reliability at band 0 (0.56). Open: which independent, pre-window quantity can explain what the depth-profile ratios (essentially the time budget) reproduce? Gates are neither supported nor retired; G2 (matched gate/non-gate edits) is unrun and should not be launched on this evidence. Edge case reported: 3 predictor runs with 2-6 events gave a NaN null (sensitivity: same conclusion).
+
+### Growth-clock audit: fresh constant-composition families — 2026-10-16
+
+[Registration and results](../experiments/2026-10-16-kappa-growth-clock/README.md):
+64 fresh 14-letter rules, 16 suffix families x leads 1..4, four fresh patch seeds
+202610160701..202610160704, probe 24 4096. The early-versus-current-area test is
+**UNINFORMATIVE**: only 7/16 complete families at k=21,22,23 versus the registered
+12-family gate. There were 45/256 eventual board escapes; qualifying rules by
+lead were 16/9/15/13. P1/P2 were not fitted or scored. No mechanism verdict follows;
+the growth-history question remains open. A follow-up must diagnose censoring on
+this same cohort rather than replacing missing families. Release/GPU tests,
+four byte-identical CPU/GPU spot checks and synthetic regression calibration pass.
+Reproduce with the experiment's scripts/{sample.py,run.sh,analyse.py}; per-seed
+status and source/input hashes are published in its results/.

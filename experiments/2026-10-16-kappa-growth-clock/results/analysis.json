@@ -1,0 +1,138 @@
+{
+  "seed": 2026101608,
+  "bootstrap": 2000,
+  "git": "c9811f56911ff4e7fd8cfe5e76cd5d461968265b",
+  "provenance_note": "Simulation base commit; dirty source hashes freeze run; analysis SHA256 pins estimator.",
+  "command": "uv run experiments/2026-10-16-kappa-growth-clock/scripts/analyse.py",
+  "hashes": {
+    "experiments/2026-10-16-kappa-growth-clock/dumps/probe.csv": "007c3d8268cc2f86a7fce68bb99015aad7921c531acfc4082573e0fc0ea96273",
+    "experiments/2026-10-16-kappa-growth-clock/results/cohort.csv": "9bdf18c4493f1d549fd7d510b3572cdb7541273b863948c5df428b956fe7f848",
+    "experiments/2026-10-16-kappa-growth-clock/results/specs.txt": "8a24717ed4826ac34477a9ccee9ace0933969740af7be39c22831aa8a350390a",
+    "experiments/2026-10-16-kappa-growth-clock/scripts/analyse.py": "aaa4f38477fcfac1b00a44e3a3c98bbf6093a482e85384ea6721511357d48498",
+    "experiments/2026-10-16-kappa-growth-clock/results/registration.md": "8e926fab77367d0c9221df239a2bc9d9dcb560ffe36781d7cbd3f2ab7a72c557",
+    "pyproject.toml": "41228a725d9e00453de2359d9aa46d363f93021744cc5459473a49d7f74f041c",
+    "uv.lock": "0c5224faf89a22fdbb414d9bcd55cd50fc8017465200ece4719a4c6da3725d43",
+    "experiments/2026-10-16-kappa-growth-clock/results/run-sources.sha256": "4cdf1f0e36849914e3f4a6340433446f5dea4b54c21e6c79d0454b28641e809a"
+  },
+  "calibration": {
+    "null_slope": 1.6004895062095795e-16,
+    "planted_slope": 0.2000000000000002,
+    "accounting_error": 0.0,
+    "noisy_repetitions": 200,
+    "noisy_null_mean": 0.00021200019296161492,
+    "noisy_planted_mean": 0.1502120001929615,
+    "known_null_cv_gain": 2.307788105654426e-05,
+    "scope": "Exact spline coefficient and identity calibration; no exponent estimator used."
+  },
+  "runs": 256,
+  "escaped": 45,
+  "windows": [
+    {
+      "k": 21,
+      "qualifying_by_lead": {
+        "1": 16,
+        "2": 9,
+        "3": 15,
+        "4": 13
+      },
+      "complete_families": 7,
+      "valid_seed_counts": [
+        {
+          "lead": 1,
+          "n": 64
+        },
+        {
+          "lead": 2,
+          "n": 36
+        },
+        {
+          "lead": 3,
+          "n": 60
+        },
+        {
+          "lead": 4,
+          "n": 52
+        }
+      ],
+      "gate_passed": false,
+      "verdict": "UNINFORMATIVE: complete-family support gate failed"
+    },
+    {
+      "k": 22,
+      "qualifying_by_lead": {
+        "1": 16,
+        "2": 9,
+        "3": 15,
+        "4": 13
+      },
+      "complete_families": 7,
+      "valid_seed_counts": [
+        {
+          "lead": 1,
+          "n": 64
+        },
+        {
+          "lead": 2,
+          "n": 36
+        },
+        {
+          "lead": 3,
+          "n": 60
+        },
+        {
+          "lead": 4,
+          "n": 52
+        }
+      ],
+      "gate_passed": false,
+      "verdict": "UNINFORMATIVE: complete-family support gate failed"
+    },
+    {
+      "k": 23,
+      "qualifying_by_lead": {
+        "1": 16,
+        "2": 9,
+        "3": 15,
+        "4": 13
+      },
+      "complete_families": 7,
+      "valid_seed_counts": [
+        {
+          "lead": 1,
+          "n": 64
+        },
+        {
+          "lead": 2,
+          "n": 36
+        },
+        {
+          "lead": 3,
+          "n": 60
+        },
+        {
+          "lead": 4,
+          "n": 52
+        }
+      ],
+      "gate_passed": false,
+      "verdict": "UNINFORMATIVE: complete-family support gate failed"
+    }
+  ],
+  "status_counts": {
+    "k21": {
+      "missing_early_window": 40,
+      "missing_target_window": 4,
+      "valid": 212
+    },
+    "k22": {
+      "missing_early_window": 40,
+      "missing_target_window": 4,
+      "valid": 212
+    },
+    "k23": {
+      "missing_early_window": 40,
+      "missing_target_window": 4,
+      "valid": 212
+    }
+  }
+}

@@ -1,0 +1,5 @@
+4 jobs
+device NVIDIA RTX 4000 Ada Generation | 256 lanes | grid 4096 | pool 524288 tiles (4096 MiB) | slice 1048576
+setup 0.40s
+4
+4 jobs in 8.70s (16 launches, 0 pool requeues)

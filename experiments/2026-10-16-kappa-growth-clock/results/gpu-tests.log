@@ -1,0 +1,22 @@
+warning: unused import: `self`
+ --> src/bin/sweep_lean.rs:9:21
+  |
+9 | use turmite::fast::{self, Config, Stop};
+  |                     ^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `turmite` (bin "sweep_lean") generated 1 warning (run `cargo fix --bin "sweep_lean" -p turmite` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 0.10s
+     Running tests/gpu_probe.rs (/home/tim/turmite-target/release/deps/gpu_probe-c148c81533290b68)
+
+running 5 tests
+test solo_job_larger_than_pool_is_an_error ... ok
+test pool_pressure_requeues_and_stays_correct ... ok
+test real_grid_and_escapes ... ok
+test gpu_probe_equals_cpu ... ok
+test independent_of_scheduling has been running for over 60 seconds
+test independent_of_scheduling ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 64.22s
+

@@ -1,0 +1,10 @@
+{
+  "null_slope": 1.6004895062095795e-16,
+  "planted_slope": 0.2000000000000002,
+  "accounting_error": 0.0,
+  "noisy_repetitions": 200,
+  "noisy_null_mean": 0.00021200019296161492,
+  "noisy_planted_mean": 0.1502120001929615,
+  "known_null_cv_gain": 2.307788105654426e-05,
+  "scope": "Exact spline coefficient and identity calibration; no exponent estimator used."
+}

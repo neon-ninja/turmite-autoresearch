@@ -1,0 +1,6 @@
+Fresh growth-clock audit; seed 2026101608; 2000 family bootstraps
+Runs: 256; escaped: 45
+Calibration: {'null_slope': 1.6004895062095795e-16, 'planted_slope': 0.2000000000000002, 'accounting_error': 0.0, 'noisy_repetitions': 200, 'noisy_null_mean': 0.00021200019296161492, 'noisy_planted_mean': 0.1502120001929615, 'known_null_cv_gain': 2.307788105654426e-05, 'scope': 'Exact spline coefficient and identity calibration; no exponent estimator used.'}
+{"complete_families": 7, "gate_passed": false, "k": 21, "qualifying_by_lead": {"1": 16, "2": 9, "3": 15, "4": 13}, "valid_seed_counts": [{"lead": 1, "n": 64}, {"lead": 2, "n": 36}, {"lead": 3, "n": 60}, {"lead": 4, "n": 52}], "verdict": "UNINFORMATIVE: complete-family support gate failed"}
+{"complete_families": 7, "gate_passed": false, "k": 22, "qualifying_by_lead": {"1": 16, "2": 9, "3": 15, "4": 13}, "valid_seed_counts": [{"lead": 1, "n": 64}, {"lead": 2, "n": 36}, {"lead": 3, "n": 60}, {"lead": 4, "n": 52}], "verdict": "UNINFORMATIVE: complete-family support gate failed"}
+{"complete_families": 7, "gate_passed": false, "k": 23, "qualifying_by_lead": {"1": 16, "2": 9, "3": 15, "4": 13}, "valid_seed_counts": [{"lead": 1, "n": 64}, {"lead": 2, "n": 36}, {"lead": 3, "n": 60}, {"lead": 4, "n": 52}], "verdict": "UNINFORMATIVE: complete-family support gate failed"}

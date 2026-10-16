@@ -1,0 +1,11 @@
+{
+  "seed": 2026101607,
+  "patch_seeds": [
+    202610160701,
+    202610160704
+  ],
+  "excluded_inputs": {
+    "experiments/2026-10-16-kappa-leadrun-fresh/results/rules.txt": "01703ee3bda8033d2a5b37ec9706fc7fcc223ee6526a5ab9ec0a9f3b66ff3e07",
+    "experiments/2026-10-16-kappa-leadrun-fresh/results/mutant_specs.txt": "1bebfae1e2052352589f8a71da36e5e9f004b2fcd49fdb43fb50a745e805a6a2"
+  }
+}
