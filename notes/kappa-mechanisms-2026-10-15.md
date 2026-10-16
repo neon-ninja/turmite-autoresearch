@@ -214,3 +214,5 @@ depth-profile baseline (DeltaR2 <= 0 at both bands), but the baseline alone reac
 UNINFORMATIVE (headroom and reliability gates failed), not a rejection of gates as a mechanism. The intervention stage was
 not attempted. Lesson for the other plans: a baseline built from depth-profile ratios of the same trajectories is nearly an
 accounting identity with occupation; use baselines from quantities that precede the window.
+
+- Square-loop mechanism for the lead effect (H-loop) tested and rejected at this scale: see `open-questions-hypotheses.md` ("Kappa square-loop test", 2026-10-16) and `experiments/2026-10-16-kappa-square-loop/README.md`.

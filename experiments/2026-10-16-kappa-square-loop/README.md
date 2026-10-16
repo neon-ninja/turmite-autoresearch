@@ -1,7 +1,18 @@
 # kappa and the square-loop trap (H-loop)
 
-**Status: scaffold only (2026-10-16 ~20:55 +13:00). Only P1 has been run (a derivation check). The instrument,
-sampler and analysis (P2-P4) are NOT written. Nothing here is evidence for H-loop.**
+**Status (updated 2026-10-16 ~21:55 +13:00): instrument, tests and cohort run written/started; see Results at the bottom
+(filled after the single analysis run). The registered predictions below are unchanged.**
+
+**Cohort caveat (stated plainly).** The cohort here (the 300 fresh lead-stratified rules x seeds 601..608) is the *same* cohort in
+which the lead effect on ln kappa was found and measured (parent, `+0.152` per lead step on the 176 stationary rules). Mediation tests on it
+are legitimate (the question is "what carries the effect that exists in these data"), but they are NOT a replication of the lead effect and
+cannot be read as independent confirmation of H-loop; any mechanism fitted here is fitted on the data that produced the phenomenon.
+The only out-of-sample element is C3 (the parent's mutants, different rules), which is unpowered.
+
+**Frozen analysis choices** (NOTEBOOK entry 21:58, committed before any loop data): the deciding P3 mediator is the *interior-only* loop-step
+rate (loop steps on interior start cells / interior steps), not a boundary-based one (boundary-cell loop steps are boundary steps by
+construction, so that mediator is nearly an identity with B/S); the all-loop-steps fraction and boundary-based variants are accounting only.
+Pass rule, leads 1-4 check, and the ICC reliability rule are in that entry. Retention by lead is reported in every P2/P3 table.
 Parent: `../2026-10-16-kappa-leadrun-fresh/` (leading-run effect on ln kappa; read its README first).
 The hypothesis was first written in that folder's `NOTEBOOK.md`, entry "2026-10-16 20:45 ... question, intent",
 before any loop measurement. The statements below copy it. Do not reword predictions after seeing data; append instead.
@@ -75,14 +86,17 @@ Derivation check (P1): `scripts/p1_sanity.py`, result `results/p1_sanity.txt`.
 ## Files
 
 `PLAN.md` instrument and analysis spec. `SCHEMA.md` output columns. `HANDOFF.md` first steps. `NOTEBOOK.md` lab notebook.
-`notebook.ipynb` skeleton. `scripts/p1_sanity.py` (run). `scripts/analyse_loops.py` (stub that exits until data exist).
+`notebook.ipynb` executed write-up (built by `scripts/build_notebook.py`). `scripts/p1_sanity.py`, `scripts/run.sh`, `scripts/analyse_loops.py`. Sampler `examples/kappa_square_loop_sampler.rs`, tests `tests/kappa_square_loop.rs`.
 
 ## Commands (WSL, repo root)
 
 ```bash
 export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
 uv run experiments/2026-10-16-kappa-square-loop/scripts/p1_sanity.py   # done: results/p1_sanity.txt
-# NOT YET WRITTEN: examples/kappa_square_loop_sampler.rs, scripts/run.sh, scripts/analyse_loops.py (see PLAN.md)
+cargo test --release --test kappa_square_loop            # 7 tests: identity, calibration, 1-vs-6 threads
+bash experiments/2026-10-16-kappa-square-loop/scripts/run.sh cohort    # 16 min, dumps/loops_cohort.csv (bulk, gitignored)
+bash experiments/2026-10-16-kappa-square-loop/scripts/run.sh mutants   # 22 min, dumps/loops_mutants.csv (C3)
+uv run experiments/2026-10-16-kappa-square-loop/scripts/analyse_loops.py   # results/analysis.txt, .json, loops_per_rule.csv, c3_pairs.csv
 ```
 
 ## Results
@@ -90,3 +104,42 @@ uv run experiments/2026-10-16-kappa-square-loop/scripts/p1_sanity.py   # done: r
 P1 only: 240/240 rules (k = 1..6, both chiralities) repeat with exactly k laps (`results/p1_sanity.txt`, seed 20261016).
 This confirms the hand derivation for the blank-board opening. It says nothing about the 2^26-2^27 window, where the
 cells around the frontier are not blank and a pure lead-colour loop needs four cells all below the lead; how often that happens is what P2 measures.
+
+### Results (single analysis run 2026-10-16 ~22:31 +13:00, git f26b6ef; `results/analysis.txt`, `analysis.json`; full reasoning in NOTEBOOK 22:45-22:48)
+
+Cohort: 300 fresh rules x seeds 601..608, 2400 runs to 2^27 steps (board 8192), 176 stationary rules (the parent's analysis set). Sampler run
+`scripts/run.sh cohort` (16 min), mutants `scripts/run.sh mutants` (22 min). **Window = probe-CSV k = 26 (t_end = 2^26)**, the window that gives the parent's kappa
+(correcting the earlier text above which said "steps 2^26..2^27"; NOTEBOOK 22:36). Instrument checks before the run: 7 tests pass (identity to
+`probe_walker` and to a store-the-whole-path reference, 300 ant + 256 walker proptest cases, blank-board traps, PersistentWalk exact fractions
+q = 0.5/0.7/0.3 within 1.1 se, rotor exactly 0 loop steps (theorem), 1 vs 6 threads byte-identical); the sampler also reproduces the parent's probe rows
+(area, perimeter, new_cells, boundary_steps, escaped) on all 14509 rows with k >= 21.
+
+Retention by lead 1..6 (kept / stationary of 50 sampled): 37/34, 32/32, 35/34, 31/31, 28/26, 20/19.
+
+| lead | n stat | total loop-step fraction | lead-colour loop fraction | interior loop rate M_int | mean resid ln kappa |
+|---|---|---|---|---|---|
+| 1 | 34 | 0.1587 | 0.00001 | 0.1597 | -0.209 |
+| 2 | 32 | 0.1839 | 0.00024 | 0.1843 | -0.031 |
+| 3 | 34 | 0.1661 | 0.00099 | 0.1660 | +0.008 |
+| 4 | 31 | 0.1791 | 0.0039 | 0.1791 | +0.033 |
+| 5 | 26 | 0.2016 | 0.0104 | 0.2010 | +0.157 |
+| 6 | 19 | 0.2567 | 0.0163 | 0.2559 | +0.144 |
+
+| prediction | verdict | numbers |
+|---|---|---|
+| P1 | held (before) | 240/240 blank-board traps |
+| **P2** | **FAILED** | not monotone (lead 3 < lead 2); tertile Spearman +0.50 / +0.40 / +0.17 (need > 0.5 each) |
+| **P3** (deciding: interior-only loop rate M_int) | **FAILED** | b1/b0 = 0.957 [0.907, 0.997] (need <= 0.5); leads 1-4: 0.981 [0.930, 1.033]; g = +0.024/SD [0.002, 0.044]; log/rank variants 0.957/0.966 |
+| P3 accounting: all-loop fraction / boundary-loop rate | 0.955 / 0.727 [0.560, 0.913] | only the boundary-based variant removes anything (it is nearly B/S) |
+| **C1** | **FAILED** | lead-colour interior rate: b1/b0 = 1.134 (wrong sign, g = -0.048/SD); other loops 0.959 |
+| **C2** | **FAILED** | is P3 on the interior-only variant |
+| **P4** | **FAILED** | median P(loop\|boundary)/P(loop\|interior) = 0.776 [0.579, 0.957] (needed >= 2) |
+| **C3** | **FAILED** | 154 E+S pairs, Spearman(dM_int, d ln kappa) = +0.218 [0.061, 0.364] (needed > 0.3; unpowered) |
+| Reliability | ICC(1) = 1.000 | between-rule sd 0.080, between-seed sd 0.0002: informative, not a noise-limited null |
+
+**Reading (decision table row 1): H-loop is dead at this scale.** P2 failed, and every downstream test also failed. Loop steps are plentiful (16-26% of all steps at
+every lead) but almost all of them are "other" same-turn 4-loops that are present at lead 1 and are determined by the rule (ICC 1.0), not by the seed; the lead-colour
+laps that the mechanism is about rise monotonically with lead but are at most 1.6% of steps (8% of loop steps) even at lead 6, and their partial association with ln kappa at fixed area and lead is negative.
+Not shown: that loops of other shapes (period 6/8, mixed turns), or loops earlier in the run, play no role; and the lead effect itself is still unexplained. This is the cohort in which the lead effect
+was found: mediation here is legitimate but is not a replication of the effect, and the single out-of-sample element (C3, parent's mutants) is unpowered.
+`../2026-10-16-kappa-loop-surgery/` was not started (gate: P2 must hold).

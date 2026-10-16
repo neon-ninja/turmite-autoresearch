@@ -14,3 +14,5 @@
 7. At the end add a summary to `notes/open-questions-hypotheses.md` and link it from `notes/kappa-mechanisms-2026-10-15.md`.
 
 State: P1 run and passed. Everything else is unwritten. Do not cite this folder as evidence for H-loop.
+
+**Update 2026-10-16 ~22:55:** done. Instrument, tests, cohort + mutant runs and the single analysis exist; P2 FAILED, so H-loop is dead at this scale and `../2026-10-16-kappa-loop-surgery/` was not started. See README Results. Open: other loop shapes (period 6/8, mixed turns), what carries the lead effect.
