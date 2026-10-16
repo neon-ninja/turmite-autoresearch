@@ -1,0 +1,80 @@
+{
+ "64": {
+  "median_share": {
+   "p_tail": 0.0723484798875607,
+   "tail_mean": 0.9240085805469506,
+   "short_mean": 0.0003312678204515369,
+   "boundary_mean": 0.0030612430159066566
+  },
+  "median_tail_share_p_plus_tm": 0.9959880531567997,
+  "dominant_count": {
+   "p_tail": 0,
+   "tail_mean": 44,
+   "short_mean": 0,
+   "boundary_mean": 0
+  },
+  "sum_phi_over_sum_abs_delta": {
+   "p_tail": 1.0436625660642715,
+   "tail_mean": -2.05875797995998,
+   "short_mean": 0.007383326486025217,
+   "boundary_mean": 0.0077120874096830655
+  },
+  "median_model_delta_f": -0.017829380177880376,
+  "median_obs_delta_y": -0.015791977377761245,
+  "corr_model_obs_delta": 0.6630128493719528,
+  "tail_survives": true,
+  "only_boundary_transfers": false
+ },
+ "16": {
+  "median_share": {
+   "p_tail": 0.041970916789682435,
+   "tail_mean": 0.9536239220377447,
+   "short_mean": 0.00011282961746791638,
+   "boundary_mean": 0.0030506797189283497
+  },
+  "median_tail_share_p_plus_tm": 0.9962464053129427,
+  "dominant_count": {
+   "p_tail": 0,
+   "tail_mean": 44,
+   "short_mean": 0,
+   "boundary_mean": 0
+  },
+  "sum_phi_over_sum_abs_delta": {
+   "p_tail": 1.1073628759553944,
+   "tail_mean": -2.1185923829908577,
+   "short_mean": 0.0032987421779651005,
+   "boundary_mean": 0.007930764857498494
+  },
+  "median_model_delta_f": -0.01782938017788037,
+  "median_obs_delta_y": -0.015791977377761245,
+  "corr_model_obs_delta": 0.6630128493719532,
+  "tail_survives": true,
+  "only_boundary_transfers": false
+ },
+ "256": {
+  "median_share": {
+   "p_tail": 0.0837423807011683,
+   "tail_mean": 0.910961660800069,
+   "short_mean": 0.00140252969723298,
+   "boundary_mean": 0.0032549749235273135
+  },
+  "median_tail_share_p_plus_tm": 0.9953458086805945,
+  "dominant_count": {
+   "p_tail": 0,
+   "tail_mean": 44,
+   "short_mean": 0,
+   "boundary_mean": 0
+  },
+  "sum_phi_over_sum_abs_delta": {
+   "p_tail": 0.9305266156928617,
+   "tail_mean": -1.9559431873589974,
+   "short_mean": 0.018023591675393556,
+   "boundary_mean": 0.00739297999074247
+  },
+  "median_model_delta_f": -0.017829380177880376,
+  "median_obs_delta_y": -0.015791977377761245,
+  "corr_model_obs_delta": 0.6630128493719532,
+  "tail_survives": true,
+  "only_boundary_transfers": false
+ }
+}
