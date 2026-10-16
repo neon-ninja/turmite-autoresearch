@@ -1,0 +1,8 @@
+# bench L2-12-1e8: lengths 2..=12, max_steps 100000000, grid 8192, commit d4fd349 (+uncommitted gpu work), 2026-10-16T20:06:04+13:00
+# host: 6 logical cores; NVIDIA RTX 4000 Ada Generation
+sweep_lean wall_s=374.820208374 rules=4083
+gpu lanes=1024 wall_s=154.360334962 speedup_vs_lean=2.4282 csv=identical | 354217718012 steps in 143.64s on the device path = 2.466e9 steps/s (384 launches, 0 pool requeues)
+gpu lanes=2048 wall_s=86.154543987 speedup_vs_lean=4.3505 csv=identical | 354217718012 steps in 75.78s on the device path = 4.674e9 steps/s (192 launches, 0 pool requeues)
+gpu lanes=4096 wall_s=59.005841142 speedup_vs_lean=6.3522 csv=identical | 354217718012 steps in 48.51s on the device path = 7.302e9 steps/s (96 launches, 0 pool requeues)
+# clean re-run of sweep_lean alone on an idle machine (the first lean time above overlapped the kappa-leadrun probe for its first ~85 s) 
+sweep_lean_clean wall_s=287.277397329 csv_vs_gpu4096=identical

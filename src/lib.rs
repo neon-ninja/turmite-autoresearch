@@ -16,7 +16,10 @@ pub mod ext;
 pub mod fast;
 pub mod field_age;
 pub mod fixed_area;
+#[cfg(feature = "cuda")]
+pub mod gpu;
 pub mod lean;
+pub mod onset;
 pub mod prefix_exposure;
 pub mod probe;
 pub mod reference;

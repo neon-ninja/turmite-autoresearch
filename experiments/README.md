@@ -136,6 +136,67 @@ win and the others are corrected by a new entry.
   README and link it from `notes/` (cross-cutting hypotheses and the open
   questions list stay in `notes/`).
 
+## Using the GPU sweeper (`src/gpu/`, `gpu_sweep`)
+
+A CUDA batch runner for thousands of independent (rule, background-seed) ants. Built and validated in
+`2026-10-16-gpu-ant-sweep/` (its README has the design, benchmarks and limits). Use it when a
+question needs the **end state of many `fast::run`-style ants**; do not use it for the other things below.
+
+**When it pays**
+- A census-style sweep: many rules, one step budget, output = the `sweep`/`sweep_lean` CSV (steps, stop,
+  highway period/drift/onset, extent, tail period). Measured on lengths 2..=12 (4083 rules, grid 8192):
+  4.9x faster than `sweep_lean` on 6 cores at 1e8 steps, 11.8x at 1e6 (the 1e6 figure is mostly lean's
+  per-rule overhead). Fill the device: use at least ~4000 jobs per call and `--lanes 4096` or more; with fewer
+  jobs than lanes the extra lanes sit idle.
+- Seeded random backgrounds: `--bg-seeds 1..8` crosses every rule with background seeds 1..=8 (`ext::bg_colour`).
+
+**When it does not apply (yet)**
+- `probe`, `growth`, `edgestats` and other windowed statistics (visited set, perimeter, gyration, octave windows),
+  turn noise, several ants, turmites with states, and the lattices in `ext`: not ported. A `probe 27 8192` batch
+  still runs on the CPU. Porting the probe statistics is the listed next step in the GPU experiment's README.
+- Rules with more than 128 colours; single very long runs (an ant is a serial chain: more lanes do not make one run faster).
+
+**Setup (WSL, once)**: no sudo and no CUDA toolkit; NVRTC comes from a pip wheel and the driver is Windows'.
+```bash
+uv pip install --target ~/cuda-libs nvidia-cuda-nvrtc-cu12==12.9.86
+source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh     # LD_LIBRARY_PATH; CARGO_TARGET_DIR=~/turmite-target
+```
+`env.sh` must be sourced in every WSL invocation that builds or runs with `--features cuda`
+(e.g. `wsl -e bash -lc "cd /mnt/f/Code/turmite && source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh && cargo run --release --features cuda --bin gpu_sweep -- ..."`).
+Device 0 is the RTX 4000 Ada here (the P1000 is device 1; the name is printed on stderr).
+
+**From a script or shell** (same arguments and CSV as `sweep_lean`; identical bytes when no seeds are used):
+```bash
+cargo run --release --features cuda --bin gpu_sweep -- 2 12 100000000 8192 --lanes 4096 --stats results/gpu.json > results/census.csv
+printf 'RRLLLRLLLRRR\nRL 7\n' | gpu_sweep - - 1000000     # stdin: RULE or "RULE SEED" per line
+```
+`--stats FILE` writes a one-line JSON (jobs, steps, wall seconds, device, lanes, grid, slice) to cite in the
+experiment's README alongside the command and commit.
+
+**From Rust** (an `examples/<slug>_*.rs` or a new binary, built with `--features cuda`):
+```rust
+use turmite::gpu::{GpuConfig, GpuSweeper, Job};
+let mut sw = GpuSweeper::new(GpuConfig { lanes: 4096, grid: 8192, ..GpuConfig::default() })?;
+let results = sw.run(&jobs, |done| eprintln!("{done}"))?;   // results[i] belongs to jobs[i], a fast::RunResult
+```
+Results depend only on the job, never on lanes, slice length, scheduling or the other jobs in the batch.
+
+**Rules for experiments that use it**
+- Treat it as the `fast` implementation: any claim that rests on it names the commit, the exact command, `--lanes`
+  and grid, and states that output equals `sweep_lean`. For a new instrument, spot-check a slice against
+  `sweep_lean` (`cmp` the CSVs) before trusting the full run.
+- Sweeps are resumable at the batch level only: split a long census into chunks (one `*.done` marker per chunk
+  of a few thousand rules) and concatenate in a fixed order.
+- Do not run it (or a CPU benchmark) while another experiment's long job is using the machine: it takes all 6
+  cores for detection and onset replays and the whole GPU, and it will distort both runs' timings (this
+  happened once; see `2026-10-16-gpu-ant-sweep/NOTEBOOK.md`). Check `pgrep -af release/` first.
+- It grabs all free VRAM for its tile pool by default. A second process or a second `GpuSweeper` in one
+  process needs an explicit `--pool-gb` / `pool_tiles`.
+- Pool exhaustion requeues jobs automatically; a job that cannot fit alone returns an error naming the rule.
+  Never "fix" that by lowering the grid size: that changes escape/budget classification.
+- After changing `src/gpu/` run `cargo test --release --features cuda --test gpu --test onset` (it compares with
+  `fast::run` and a dense seeded-background reference). Plain `cargo test --release` does not exercise the GPU path.
+
 ## Migrated legacy material
 
 Work done before this layout used flat directories (`data/`, `calib/`, `occ/`,

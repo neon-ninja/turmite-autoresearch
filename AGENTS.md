@@ -111,6 +111,7 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/probe.rs` | Growth/shape probe: width, area, edge, gyration statistics |
 | `src/synth.rs` | Synthetic data generation for tests |
 | `src/bin/sweep.rs` | Census sweep over rules |
+| `src/gpu/`, `src/bin/gpu_sweep.rs` | CUDA batch runner for thousands of (rule, background-seed) ants; `--features cuda`; output must equal `fast::run`/`sweep_lean` (`tests/gpu.rs`). Setup and usage: `experiments/2026-10-16-gpu-ant-sweep/README.md` |
 | `src/bin/confirm.rs` | Re-verify claimed highways / classifications |
 | `src/bin/growth.rs` | Growth-exponent measurement |
 | `src/bin/probe.rs` | Run the probe on a rule/seed |
