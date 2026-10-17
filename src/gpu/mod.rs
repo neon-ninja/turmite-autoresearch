@@ -36,6 +36,9 @@ use std::collections::VecDeque;
 use std::fmt;
 use std::sync::Arc;
 
+mod probe;
+pub use probe::{GpuProber, PATCH_RADIUS, ProbeConfig, ProbeJob, ProbeStats};
+
 const KERNELS: &str = include_str!("ant.cu");
 const TILE_BYTES: usize = 4096;
 const TILE_DIM: usize = 64;

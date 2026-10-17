@@ -41,6 +41,7 @@ pub struct Window {
     pub height: u32,
 }
 
+#[derive(Clone, Debug)]
 pub struct ProbeResult {
     pub windows: Vec<Window>,
     /// The ant left the board before the last window finished.
@@ -118,15 +119,89 @@ impl Region {
         self.max = (self.max.0.max(x), self.max.1.max(y));
     }
 
-    fn centroid(&self) -> (f64, f64) {
-        let a = self.area as f64;
-        (self.sx as f64 / a, self.sy as f64 / a)
-    }
+}
 
-    fn rg2(&self) -> f64 {
-        let (mx, my) = self.centroid();
-        self.sxx as f64 / self.area as f64 - mx * mx - my * my
+/// Raw sums for one finished window. Both the CPU probe and the GPU probe fill this in and call
+/// `finish_window`, so the floating-point formulas (and operation order) exist exactly once.
+/// `ax`, `ay`, `axx` are integer-valued sums of the ant's x, y and x^2 + y^2 over the window's steps;
+/// they are exact in f64 while they stay below 2^53 (`window_sums_exact` checks the bound).
+pub struct WindowSums {
+    pub k: u32,
+    pub area: u64,
+    pub perimeter: u64,
+    pub new_cells: u64,
+    pub boundary_steps: u64,
+    pub fresh_nbrs: u64,
+    /// Sums over the visited set (coordinates relative to the start).
+    pub sx: i64,
+    pub sy: i64,
+    pub sxx: i64,
+    pub ax: f64,
+    pub ay: f64,
+    pub axx: f64,
+    pub min: (i64, i64),
+    pub max: (i64, i64),
+}
+
+pub fn finish_window(w: &WindowSums) -> Window {
+    let (t_start, t_end) = (1u64 << w.k, 1u64 << (w.k + 1));
+    let a = w.area as f64;
+    let (mx, my) = (w.sx as f64 / a, w.sy as f64 / a);
+    let m = (t_end - t_start) as f64;
+    let (ax, ay, axx) = (w.ax, w.ay, w.axx);
+    // <|p - m|^2> = <|p|^2> - 2 m.<p> + |m|^2
+    let ant_r2 = axx / m - 2.0 * (mx * ax + my * ay) / m + mx * mx + my * my;
+    let ant_var = axx / m - (ax / m).powi(2) - (ay / m).powi(2);
+    Window {
+        t_start,
+        t_end,
+        area: w.area,
+        perimeter: w.perimeter,
+        new_cells: w.new_cells,
+        boundary_steps: w.boundary_steps,
+        fresh_nbrs: w.fresh_nbrs,
+        rg2: w.sxx as f64 / a - mx * mx - my * my,
+        ant_r2,
+        ant_var,
+        width: (w.max.0 - w.min.0 + 1) as u32,
+        height: (w.max.1 - w.min.1 + 1) as u32,
     }
+}
+
+/// Whether a window of 2^max_log2 steps on a board of side `size` keeps `ax`, `ay`, `axx` below 2^53,
+/// where integer sums in f64 (CPU) and in i64 (GPU) agree exactly. The ant stays within |x|, |y| < size/2.
+pub fn window_sums_exact(size: usize, max_log2: u32) -> bool {
+    let r = (size / 2) as f64;
+    (max_log2 as f64).exp2() * 2.0 * r * r < 53f64.exp2()
+}
+
+/// The CSV header of `bin/probe` and `bin/gpu_probe`.
+pub const CSV_HEADER: &str =
+    "rule,k,t,area,perimeter,new_cells,boundary_steps,fresh_nbrs,escaped,rg2,ant_r2,ant_var,width,height";
+
+/// One CSV line (with trailing newline) per emitted window of a run, in the format of `bin/probe`.
+pub fn csv_rows(spec: &str, res: &ProbeResult) -> String {
+    res.windows
+        .iter()
+        .map(|w| {
+            format!(
+                "{spec},{},{},{},{},{},{},{},{},{:.3},{:.3},{:.3},{},{}\n",
+                w.t_end.trailing_zeros(),
+                w.t_end,
+                w.area,
+                w.perimeter,
+                w.new_cells,
+                w.boundary_steps,
+                w.fresh_nbrs,
+                res.escaped,
+                w.rg2,
+                w.ant_r2,
+                w.ant_var,
+                w.width,
+                w.height
+            )
+        })
+        .collect()
 }
 
 /// Run `rule` for 2^max_log2 steps on a size x size board, reporting windows
@@ -158,7 +233,7 @@ pub fn probe_walker<W: Walker>(mut walker: W, size: usize, min_log2: u32, max_lo
     let mut escaped = false;
     let mut t: u64 = 0;
     for k in 0..max_log2 {
-        let (t_start, t_end) = (1u64 << k, 1u64 << (k + 1));
+        let t_end = 1u64 << (k + 1);
         let (mut new_cells, mut boundary_steps, mut fresh_nbrs) = (0u64, 0u64, 0u64);
         let (mut ax, mut ay, mut axx) = (0f64, 0f64, 0f64);
         while t < t_end {
@@ -190,25 +265,22 @@ pub fn probe_walker<W: Walker>(mut walker: W, size: usize, min_log2: u32, max_lo
             break;
         }
         if k >= min_log2 {
-            let (mx, my) = region.centroid();
-            let m = (t_end - t_start) as f64;
-            // <|p - m|^2> = <|p|^2> - 2 m.<p> + |m|^2
-            let ant_r2 = axx / m - 2.0 * (mx * ax + my * ay) / m + mx * mx + my * my;
-            let ant_var = axx / m - (ax / m).powi(2) - (ay / m).powi(2);
-            windows.push(Window {
-                t_start,
-                t_end,
+            windows.push(finish_window(&WindowSums {
+                k,
                 area: region.area,
                 perimeter: region.perimeter,
                 new_cells,
                 boundary_steps,
                 fresh_nbrs,
-                rg2: region.rg2(),
-                ant_r2,
-                ant_var,
-                width: (region.max.0 - region.min.0 + 1) as u32,
-                height: (region.max.1 - region.min.1 + 1) as u32,
-            });
+                sx: region.sx,
+                sy: region.sy,
+                sxx: region.sxx,
+                ax,
+                ay,
+                axx,
+                min: region.min,
+                max: region.max,
+            }));
         }
     }
     ProbeResult { windows, escaped }

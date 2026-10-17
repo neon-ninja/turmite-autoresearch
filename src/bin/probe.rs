@@ -55,31 +55,11 @@ fn main() {
             if k % 200 == 0 {
                 eprintln!("{k}");
             }
-            res.windows
-                .iter()
-                .map(|w| {
-                    format!(
-                        "{r},{},{},{},{},{},{},{},{},{:.3},{:.3},{:.3},{},{}\n",
-                        w.t_end.trailing_zeros(),
-                        w.t_end,
-                        w.area,
-                        w.perimeter,
-                        w.new_cells,
-                        w.boundary_steps,
-                        w.fresh_nbrs,
-                        res.escaped,
-                        w.rg2,
-                        w.ant_r2,
-                        w.ant_var,
-                        w.width,
-                        w.height
-                    )
-                })
-                .collect()
+            turmite::probe::csv_rows(r, &res)
         })
         .collect();
     let mut out = std::io::stdout().lock();
-    writeln!(out, "rule,k,t,area,perimeter,new_cells,boundary_steps,fresh_nbrs,escaped,rg2,ant_r2,ant_var,width,height").unwrap();
+    writeln!(out, "{}", turmite::probe::CSV_HEADER).unwrap();
     for b in blocks {
         out.write_all(b.as_bytes()).unwrap();
     }

@@ -151,9 +151,9 @@ question needs the **end state of many `fast::run`-style ants**; do not use it f
 - Seeded random backgrounds: `--bg-seeds 1..8` crosses every rule with background seeds 1..=8 (`ext::bg_colour`).
 
 **When it does not apply (yet)**
-- `probe`, `growth`, `edgestats` and other windowed statistics (visited set, perimeter, gyration, octave windows),
-  turn noise, several ants, turmites with states, and the lattices in `ext`: not ported. A `probe 27 8192` batch
-  still runs on the CPU. Porting the probe statistics is the listed next step in the GPU experiment's README.
+- `growth`, `edgestats` and other windowed statistics, turn noise, several ants, turmites with states, and the
+  lattices in `ext`: not ported. `probe` is ported separately, see "`gpu_probe`" below; its other walkers
+  (`rotor:`, `rw:`, `sbg:`, `pw:`, `cookie:`, `errw:`, ...) are CPU-only.
 - Rules with more than 128 colours; single very long runs (an ant is a serial chain: more lanes do not make one run faster).
 
 **Setup (WSL, once)**: no sudo and no CUDA toolkit; NVRTC comes from a pip wheel and the driver is Windows'.
@@ -196,6 +196,25 @@ Results depend only on the job, never on lanes, slice length, scheduling or the 
   Never "fix" that by lowering the grid size: that changes escape/budget classification.
 - After changing `src/gpu/` run `cargo test --release --features cuda --test gpu --test onset` (it compares with
   `fast::run` and a dense seeded-background reference). Plain `cargo test --release` does not exercise the GPU path.
+
+### `gpu_probe`: the probe instrument on the GPU (`src/gpu/probe.*`, `2026-10-16-gpu-probe/`)
+
+Same stdin and CSV as `probe MAX_LOG2 [GRID]`, byte-identical (`tests/gpu_probe.rs`, plus a full-scale cmp recorded in
+`2026-10-16-gpu-probe/results/`), for lines `RULE` and `RULE@SEED` only; any other walker spec is rejected before
+anything runs. Use it instead of `probe` when a batch is hundreds or more ants at `probe 27 8192`-sized budgets; for a
+handful of runs the CPU `probe` is simpler and has no setup cost (~1-2 s NVRTC + pool allocation).
+```bash
+source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh
+cargo run --release --features cuda --bin gpu_probe -- 27 8192 --lanes 2400 --stats results/gpu.json < specs.txt > probe.csv
+```
+From Rust: `turmite::gpu::{GpuProber, ProbeConfig, ProbeJob}` (`ProbeJob { rule, patch_seed: Option<u64>, max_log2 }`;
+results are `probe::ProbeResult`, index-aligned with the jobs). Things to know:
+- Cells are 16-bit (8 KiB tiles), so the tile pool holds half as many cells as the sweeper's. For the 2400-run kappa
+  batch the bounding-box estimate is about 13 GB; check `oom_requeues` in `--stats` (a requeue restarts that ant from step 0).
+- Refuses jobs whose window sums could pass 2^53 (`probe::window_sums_exact`), where the CPU's f64 sums stop being exact.
+- Same etiquette as the sweeper: it takes all free VRAM by default (`--pool-gb`) and a whole GPU; do not time it
+  while another job runs (`pgrep -af release/`, `nvidia-smi`).
+- After changing `src/gpu/probe.*` or `src/probe.rs`: `cargo test --release --features cuda --test gpu_probe`.
 
 ## Migrated legacy material
 

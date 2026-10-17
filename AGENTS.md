@@ -112,6 +112,7 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/synth.rs` | Synthetic data generation for tests |
 | `src/bin/sweep.rs` | Census sweep over rules |
 | `src/gpu/`, `src/bin/gpu_sweep.rs` | CUDA batch runner for thousands of (rule, background-seed) ants; `--features cuda`; output must equal `fast::run`/`sweep_lean` (`tests/gpu.rs`). Setup and usage: `experiments/2026-10-16-gpu-ant-sweep/README.md` |
+| `src/gpu/probe.{rs,cu}`, `src/bin/gpu_probe.rs` | `probe` on the GPU for plain rules and `RULE@SEED` only (other walkers stay CPU); CSV byte-identical to `src/bin/probe.rs` (`tests/gpu_probe.rs`). Use for `probe 27 8192` batches of hundreds+ runs. `experiments/2026-10-16-gpu-probe/README.md` |
 | `src/bin/confirm.rs` | Re-verify claimed highways / classifications |
 | `src/bin/growth.rs` | Growth-exponent measurement |
 | `src/bin/probe.rs` | Run the probe on a rule/seed |
@@ -174,7 +175,10 @@ real step counts.
 - Don't commit large raw dumps: `dumps*/`, `knock*/` (at the root
   and under `experiments/*/`), `experiments/*/scratch/`, `/synth` and `/target` are gitignored for a
   reason. Summaries and the scripts that regenerate them are what belong in git.
-- Commit only when asked. Never rewrite or delete existing data/results
+- Commit frequently and freely, without waiting for explicit permission. Make
+  small, coherent commits at useful milestones with clear messages, and include
+  only changes relevant to the work at hand.
+- Never rewrite or delete existing data/results
   without checking what's there and saying so.
 - Before declaring work done: tests pass in `--release`, regenerated outputs
   match what the notes claim, and the notes say how to reproduce them.

@@ -1,0 +1,8 @@
+git 5b97961 2026-10-16T20:54:49+13:00
+specs: every 100th line of experiments/2026-10-16-kappa-leadrun-fresh/results/specs.txt (24 specs), command: probe 27 8192 / gpu_probe 27 8192 --lanes 32
+rows: 439
+cpu_sha256 84fa1fa89dcea477bf0d8efa2476c1c83f487366c3f616ad2d3d0faa45e27f83  (1 thread, 290.978308648 s)
+gpu_sha256 84fa1fa89dcea477bf0d8efa2476c1c83f487366c3f616ad2d3d0faa45e27f83  (54.211303793 s incl. setup)
+RESULT byte-identical
+escaped runs: 2 of 24
+gpu_stats {"jobs":24,"wall_secs":52.1030,"device":"NVIDIA RTX 4000 Ada Generation","lanes":32,"grid":8192,"slice":1048576,"max_log2":27,"pool_tiles":2429257,"launches":128,"oom_requeues":0}
