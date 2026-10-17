@@ -63,3 +63,16 @@ User said "pause" and then "prepare to wrap up for the day.. write a handover do
 wait helper. Wrote `HANDOVER.md`. State: code and correctness done (tests 5/5, 24-spec and 2400-spec byte-identity); timing (P2), the
 rest of the test suite after the `src/probe.rs` refactor, `notebook.ipynb` and the commit remain. The one 177 s GPU figure is contaminated
 (user's CPU batch live) and must not be cited as a benchmark. If the clean ratio lands near 7x, P2 (2-6x) is falsified on the fast side.
+
+### 2026-10-17 17:56 (+13) · 53ccccc · observation
+Clean benchmark (`scripts/bench.sh`, idle machine, phases sequential): gpu1 177.4 s, cpu 681.6 s, gpu2 176.9 s, all three CSVs byte-identical to the
+kappa-leadrun CPU dump. Speedup 3.84x. P2 (2x-6x, central 3.5x) HELD; P3 held (0 requeues); P1 held; P4 untested.
+
+### 2026-10-17 17:57 (+13) · 53ccccc · interpretation
+The handover's "about 7x, P2 falsified" was wrong: it divided by a CPU time (1231 s) contaminated by the GPU-sweep benchmarks. The clean CPU time is 681.6 s.
+The GPU figure was the same with and without the user's batch running (177 s both times), so the GPU path was never the contaminated side. Pool use (2.41e6 tiles)
+exceeded my 1.6e6 bounding-box estimate by about 50% without requeues. Single spec set, so 3.84x is a measurement for this workload, not a general speed claim.
+
+### 2026-10-17 17:58 (+13) · 53ccccc · observation
+`cargo test --release` (plain) and `--features cuda --test gpu --test onset` pass after the `src/probe.rs` refactor (plain log was tail-only).
+

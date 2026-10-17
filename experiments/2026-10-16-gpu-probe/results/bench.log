@@ -1,0 +1,27 @@
+git 53ccccc dirty=60 2026-10-17T17:38:27+13:00
+probe sha256 f1a309cfb06e3e9444c49c17453711c8b00a16a397fd29d4250e5bcba6370a32
+gpu_probe sha256 4d3e395d07dc6c90521ad0fb683baed1fdf4afac07562fac555a6668f103aa27
+specs: experiments/2026-10-16-kappa-leadrun-fresh/results/specs.txt (2400 lines, sha256 1e9198bf698f8cba140f32f6caf2db60a33028e228d6ec294d5f53b838c9adb0)
+-- before gpu1 2026-10-17T17:38:27+13:00 loadavg: 1.00 0.36 0.16
+   release/ procs: 
+   gpu: 162 MiB, 0 %;2723 MiB, 1 %;
+   gpu1 wall 177.355451168 s (whole process); cmp vs dump: identical
+-- after gpu1 2026-10-17T17:41:25+13:00 loadavg: 1.18 0.71 0.33
+   release/ procs: 
+   gpu: 162 MiB, 0 %;3129 MiB, 0 %;
+-- before cpu 2026-10-17T17:41:25+13:00 loadavg: 1.18 0.71 0.33
+   release/ procs: 
+   gpu: 162 MiB, 0 %;3129 MiB, 0 %;
+   cpu wall 681.648633111 s (whole process); cmp vs dump: identical
+-- after cpu 2026-10-17T17:52:47+13:00 loadavg: 5.94 5.55 3.35
+   release/ procs: 
+   gpu: 162 MiB, 0 %;3160 MiB, 0 %;
+-- before gpu2 2026-10-17T17:52:47+13:00 loadavg: 5.94 5.55 3.35
+   release/ procs: 
+   gpu: 162 MiB, 0 %;3160 MiB, 0 %;
+   gpu2 wall 176.949274154 s (whole process); cmp vs dump: identical
+-- after gpu2 2026-10-17T17:55:45+13:00 loadavg: 1.44 3.55 2.95
+   release/ procs: 
+   gpu: 162 MiB, 0 %;3160 MiB, 0 %;
+cmp cpu vs gpu1: identical
+done 2026-10-17T17:55:45+13:00

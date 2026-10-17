@@ -66,4 +66,22 @@ Library: `turmite::gpu::{GpuProber, ProbeConfig, ProbeJob}`; `GpuProber::run(&jo
 
 ## Results
 
-(filled in below as they arrive; see NOTEBOOK.md for the dated record)
+Recipe: `bash scripts/bench.sh` (commit 53ccccc, machine otherwise idle: no `release/` processes, loadavg 1.0 before gpu1;
+the cpu phase's loadavg of 5.9 is its own 6 threads). Log: `results/bench.log`, stats `results/bench_gpu{1,2}.json`.
+Inputs: kappa-leadrun-fresh `specs.txt`, 2400 lines, sha256 1e9198bf...; RTX 4000 Ada, `--lanes 2400`.
+
+| Phase | Whole-process wall | Output vs existing CPU dump |
+|---|---|---|
+| gpu1 | 177.4 s (device path 161.0 s) | byte-identical |
+| cpu (`probe 27 8192`, 6 threads) | 681.6 s | byte-identical |
+| gpu2 | 176.9 s | byte-identical |
+
+- **P1 held**: 24-spec spot check (`results/spotcheck.txt`) and all 2400 specs are byte-identical; 5/5 `gpu_probe` proptests pass.
+- **P2 held** (registered 2x-6x, falsified at >= 4.9x or < 2x): speedup 681.6/177.4 = **3.84x** (3.85x with gpu2), against a central estimate of 3.5x.
+  n = 1 CPU run and 2 GPU runs on one spec set, so no between-run spread beyond gpu1 vs gpu2 (0.4 s); not a sweep over specs or rules.
+  An earlier handover guess of ~7x came from a contaminated CPU time (1231 s) and is superseded.
+- **P3 held**: `oom_requeues` 0, pool 2,409,257 tiles. (The registered 1.6e6-tile bounding-box estimate was low by about 50%; the pool still sufficed.)
+- **P4 not run.**
+- Other tests after the `src/probe.rs` refactor: plain `cargo test --release` and `cargo test --release --features cuda --test gpu --test onset`
+  all pass (exit 0; the plain run was logged tail-only, 5 result lines, all ok).
+
