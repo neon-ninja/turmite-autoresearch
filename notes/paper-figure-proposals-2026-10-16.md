@@ -90,3 +90,7 @@ to `rebuild_figures.py`.
 
 Build 1-4 first (their absence most weakens the argument), then 5 and 7 (cheap if
 the CSV/JSON already exists in `experiments/*/results/` and `numbers.json`).
+
+---
+2026-10-17 status: item 4 (RLRLLL column sweeper) built as paper Figure 16 (esearch-outputs/cube-root-growth-paper/fig/late_switch.pdf, script late_switch_figure.py), inserted in main.typ and registered in rebuild_figures.py. Items 1-3 and 5-8 not started; see 
+otes/handover-paper-figures-2026-10-17.md.

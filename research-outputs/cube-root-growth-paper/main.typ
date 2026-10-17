@@ -590,7 +590,12 @@ The replication bounds the noise interpretation to typical rules, narrowing our 
 
 *The new regime sweeps columns back and forth.* Two $4 times 10^5$-step trajectory dumps at $1.28 times 10^10$ and $1.29 times 10^10$ (#link(<audit-40>)[Audit 40], #link(<audit-39>)[Audit 39]; #link(<audit-41>)[Audit 41]) show that this builder is a boustrophedon column sweeper rather than a perimeter crawl: it makes a slow traverse of the full height $L$ (6,400 rows at the first dump and 8,610 at the second) at about 10 steps per row, a fast return at about 2 steps per row, and adds three columns per round trip, and the wake is exactly periodic in $x$ with period 3 (column agreement 0.99, colours 3, 4, 5 only).
 
-Three columns of $L$ cells per $approx 12 L$ steps is 4 steps per new cell, and $d x slash d t = -1 slash (4 L)$ with the measured $L approx 0.67 |x| - 960$ predicts $d|x|^2 slash d t = 0.86$ and 0.84 at the two dumps against 0.86 and 0.83 measured, so $|x|$ grows as $t^(1 slash 2)$ in this phase.
+#figure(
+  image("fig/late_switch.pdf", width: 100%),
+  caption: [The `RLRLLL` switch in one blank-board trajectory (a single run, no replicates). (a) Steps per newly visited cell against $t$, in $10^8$-step (coarse) and $10^6$-step (fine) windows; black ticks mark fine windows with no new cell; the guide marks 4 steps per cell and the switch time. (b) The ant's row $y(t)$ over a $4 times 10^5$-step dump at $1.28 times 10^10$ steps: slow traverse, fast return. (c) A stretched $36 times 80$ crop of the period-3 wake from the same dump, with colours 3, 4, 5 drawn in the palette. (d) Predicted ($|x| slash 2L$) against measured $d|x|^2 slash d t$ at the two dumps; both $L$ come from the same trajectory, so this is a consistency check on the sweep picture, not a test of $L tilde |x|$.],
+) <fig:late-switch>
+
+Three columns of $L$ cells per $approx 12 L$ steps (@fig:late-switch) is 4 steps per new cell, and $d x slash d t = -1 slash (4 L)$ with the measured $L approx 0.67 |x| - 960$ predicts $d|x|^2 slash d t = 0.86$ and 0.84 at the two dumps against 0.86 and 0.83 measured, so $|x|$ grows as $t^(1 slash 2)$ in this phase.
 
 The two values of $L$ come from the same single trajectory, so this is a consistency check on the sweep picture, not a test of the $L tilde |x|$ law; why the pattern has period 3 and what triggers the switch are unexplained. Three further board escapes without a recognised highway in the $10^11$ sample may be of this kind but were not traced.
 

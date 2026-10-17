@@ -64,3 +64,8 @@ moving-frame recurrence tests, on larger boards, to distinguish parallel strokes
 from periodic translation. No new simulations or causal claims.
 Timestamp correction: registration's 21:22 was an estimated time; actual clock
 was 21:19 after the first analysis. Tool order establishes registration before run.
+
+## 2026-10-17 column-sweeper figure extract
+- scripts/g1_wake_extract.py <dumps dir>: reads the gitignored builder_dump outputs (g1_<T0>.traj.csv, g1_<T0>.wake.bin, T0 = 12800000000, 12900000000; produced by examples/builder_dump.rs, see 
+otes/g1-builder-structure-2026-10-14.md) and writes esults/g1_wake_extract.json (L, x, colour shares, lag agreement, dump sha256, crop coordinates) plus esults/g1_wake_{shape,crop}_<T0>.csv and esults/g1_sweep_trace_<T0>.csv.
+- Consumer: esearch-outputs/cube-root-growth-paper/late_switch_figure.py (paper Figure 16). Regeneration needs the dumps, which exist only in the g1-builder-structure worktree (commit 18b49fc); the committed extract is the durable record.

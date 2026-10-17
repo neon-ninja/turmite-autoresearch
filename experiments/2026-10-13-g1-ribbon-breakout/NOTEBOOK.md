@@ -65,3 +65,21 @@ experiments/2026-10-13-g1-ribbon-breakout/notebook.ipynb.
 cargo test --release passed; log results/comparison_tests.log. No dependencies
 changed. New results are pending commit because the user did not request one;
 notebook reads only results paths, which should be committed together.
+
+### 2026-10-17 17:37 (+13:00) · b7c55f9 · intent
+Build paper figure item 4 (notes/paper-figure-proposals-2026-10-16.md): RLRLLL column-sweeper figure (steps per new cell with the switch; period-3 wake crop; predicted vs measured d|x|^2/dt). No new simulation; reuse g1_ribbon.csv and the two existing builder_dump trajectories (1.28e10, 1.29e10).
+
+### 2026-10-17 17:37 (+13:00) · b7c55f9 · decision
+Dumps (38 MB each, gitignored, only in sibling worktree g1-builder-structure at 18b49fc) are not read by the figure. New scripts/g1_wake_extract.py is their only reader and writes a small committed extract (g1_wake_extract.json, g1_wake_{shape,crop}_<T0>.csv, g1_sweep_trace_<T0>.csv; ~250 KB) with dump sha256s, so the figure and notebook read results/ only.
+
+### 2026-10-17 17:37 (+13:00) · b7c55f9 · deviation
+The original data/g1_builder_*.py analysis scripts were never ported (flagged "absent from checkout" in the paper audit table); g1_wake_extract.py supersedes the parts used here. Also restored examples/builder_dump.rs and notes/g1-builder-structure-2026-10-14.md from commit 18b49fc; the example builds under cargo --release (checked, no API drift). cargo test --release not rerun: no Rust source changed.
+
+### 2026-10-17 17:37 (+13:00) · b7c55f9 · observation
+Reproduced from the extract: switch t = 1.2677e10 (g1_stats.py rule); L = 6,400 / 8,610; |x| = 11,070 / 14,386; predicted d|x|^2/dt = |x|/(2L) = 0.865 / 0.835; measured (polyfit of x^2 vs t over 40 fine 1e6-step windows within +-2e7 of each dump) 0.860 / 0.832, matching the paper's 0.86,0.84 vs 0.86,0.83. Wake colours 3,4,5 each ~0.33; lag-3 column agreement 0.994, lags 1,2,4,5 < 0.003. The earlier g1 note's 0.862/0.833 used a slightly different window; difference in the third decimal.
+
+### 2026-10-17 17:37 (+13:00) · b7c55f9 · interpretation
+Panel d is a consistency check, not a test of L ~ |x|: both L values come from one trajectory (n = 1 run, no replicates). The figure caption and main.typ say so. Trigger of the switch and the origin of period 3 remain unexplained.
+
+### 2026-10-17 17:37 (+13:00) · b7c55f9 · observation
+Figure inserted in main.typ (sec:late-switch, Figure 16) and registered in rebuild_figures.py (SCRIPTS and INPUTS). typst compile succeeds; figure checked at final width in the compiled PDF. The full rebuild_figures.py was not run (it regenerates every figure); only late_switch_figure.py was run.
