@@ -157,3 +157,40 @@ a lead effect from the area loss that comes with lengthening the lead. The +0.24
 So the evidence *suggests* a direct (area-conditional) effect, and the registered test should be replaced by one designed for it. This is not a result.
 Further caveat on M3: arm S has no composition control. C is a late L->R flip, while S is an early R->L flip, so S's -0.198 combines
 "one fewer R" with "early position", and no arm tests either factor alone. M3 alone therefore does not establish causality either.
+
+## Proposed next steps, written 2026-10-19 (PROPOSALS ONLY: not registered, nothing run)
+Both follow from the Part B addendum. Neither fixes a threshold, a sample or a prediction; each must be registered
+here (with predictions, analysis script and base commit) before any run. Choices marked **open** are undecided.
+
+### Proposal 1: lead-preserving early flips (position and composition controls)
+*Gap it addresses.* No arm flips an early letter without changing the lead (caveat 4), so M3's -0.198 mixes "one fewer
+R", "early position" and "shorter lead". C controls composition only at late positions. W6 found early-letter effects of both
+signs at fixed area, so an early-position effect could masquerade as a lead effect.
+*Design sketch.* Mutate the base's letter at index k+1 or k+2, where k is the base's lead run length, so the flip lies just past the
+run and the lead stays k. Flip both directions (L->R and R->L) so letter composition changes in both senses. Paired against the base,
+same seeds, same `probe 27 8192` settings and survivor filter as Parts A/B.
+*What it would discriminate.* If the lead is the active factor, lead-preserving early flips should shift ln kappa by about zero at
+fixed ln A, with no net sign. If early position or composition drives it, they should shift ln kappa by a size comparable to S
+(about 0.2 in magnitude), with sign depending on flip direction (W6 mixed signs).
+*Statistic.* Area-adjusted effect (regression of d ln kappa on dA), as in the Part B addendum, with bootstrap over bases (not pairs) to
+handle shared bases.
+*Open.* Which bases (all 157, or lead strata with room past the run); how many flips per base; index k+1 vs k+2 as separate arms;
+whether to add a composition-matched lead-extending control (the missing S counterpart); required effect size and the sample size
+that resolves it; whether "unchanged" needs an equivalence margin and what it is.
+
+### Proposal 2: bound the arm-E dropout bias
+*Gap it addresses.* Only 53% of extend-lead mutants pass the core-band and stationarity filter (S 65%, C 68%); if the dropped ones
+differ in kappa, E's mean d is biased in an unknown direction (caveat 3). L5 already showed lead-dependent attrition in Part A.
+*Design sketch (no new runs).* From the existing `mutants.csv` / `mutant_pairs.csv`, classify why each E mutant dropped (escape,
+alpha_w outside band, non-stationary, too few seeds), then report bounds on E's mean d instead of a point estimate: for example
+inverse-probability weighting by base lead and rule length, and worst-case (Manski-style) bounds from imputing the dropped E mutants
+at the observed extremes of the kept ones. Repeat for S and C so the comparison is like for like.
+*What it would discriminate.* Whether the failed M1/M2 conclusion (E not distinguishable from 0 or from C) is robust to attrition, or
+whether plausible dropout behaviour could flip it either way. A bound that includes both signs means M1/M2 are uninformative, not failed.
+*Open.* Which imputation range is defensible; whether dropped-for-escape mutants are censored (they never reach the measurement
+area) rather than missing; whether non-stationary mutants need a separate arm because the model for them differs. Any choice made
+after looking at the dropped rules' kappa must be labelled post hoc.
+
+### Ordering
+Proposal 2 costs no compute and could be registered and run first; its outcome tells us whether the E arm is worth repeating inside
+Proposal 1. Proposal 1 needs a new probe run (about 30 min at Part B's scale) and a registered sample size.
