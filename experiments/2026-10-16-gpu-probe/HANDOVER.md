@@ -1,47 +1,48 @@
-# Handover: GPU probe (written 2026-10-16 ~21:02 NZDT, work paused at the user's request)
+# Handover: GPU probe (rewritten 2026-10-19; replaces the 2026-10-16 handover)
 
 ## State in one paragraph
-`gpu_probe` works and is **byte-identical to the CPU `probe`** everywhere it was checked. The only unfinished
-parts are the **clean timing** (P2), the final README/notebook write-up, running the rest of the test suite
-after my `src/probe.rs` refactor, and committing. Nothing is committed. No job of mine is running.
+`gpu_probe` (GPU port of `probe` for plain rules and `RULE@SEED`) is implemented, committed and byte-identical to the CPU `probe` on every
+full-scale run so far. P1, P3 and P4 are measured and held. **P2's 3.84x speedup was measured on a stale binary** and must not be cited
+as a HEAD result; a clean paired re-measure is the main open item. Nothing of mine is running.
 
-## What exists (all uncommitted; stage explicit paths only, the tree has many unrelated changes)
-| Path | What |
-|---|---|
-| `src/gpu/probe.cu` | kernels: 16-bit cell (colour byte, `unv+1` byte), windows closed in-kernel, per-lane `PRec` records |
-| `src/gpu/probe.rs` | `GpuProber`, `ProbeJob { rule, patch_seed, max_log2 }`, `ProbeConfig`; scheduler copied from `GpuSweeper` |
-| `src/gpu/mod.rs` | +3 lines: `mod probe; pub use probe::{...}` (sweep code untouched) |
-| `src/bin/gpu_probe.rs`, `Cargo.toml` | CLI, same interface as `probe`; `[[bin]] gpu_probe`, `required-features = ["cuda"]` |
-| `src/probe.rs`, `src/bin/probe.rs` | refactor: `WindowSums`, `finish_window`, `window_sums_exact`, `CSV_HEADER`, `csv_rows` shared by CPU and GPU; `ProbeResult` now `Clone, Debug` |
-| `tests/gpu_probe.rs` | 5 tests (proptest vs CPU over 7 rigs, scheduling independence, starved pool, mid-window escape, error paths) |
-| `experiments/2026-10-16-gpu-probe/` | README (design + predictions P1-P4 registered 20:49 before timing), NOTEBOOK.md, `scripts/spotcheck.sh`, `scripts/bench.sh`, `results/spotcheck*.txt` |
-| `AGENTS.md`, `experiments/README.md` | tooling-table row and a `gpu_probe` section; the "probe not ported" line updated |
+## Commits (all on master)
+`53ccccc` code (WIP) · `8266186` first benchmark, notebook · `8b0f1a6` P4 (subagent) · `0c48a66` P4 dedupe, fresh-build proptests.
+Files: `src/gpu/probe.{rs,cu}`, `src/bin/gpu_probe.rs`, `tests/gpu_probe.rs`, refactor in `src/probe.rs`/`src/bin/probe.rs`,
+`experiments/2026-10-16-gpu-probe/` (README, NOTEBOOK, notebook.ipynb, scripts, results).
 
-## Verified so far
-- Old vs refactored CPU `probe` (saved binary `~/probe_old`): identical on 18 mixed specs of every walker kind, at `17 1024` and `15 8192`.
-- `cargo test --release --features cuda --test gpu_probe`: 5/5 pass (109 s).
-- Full scale: 24 specs (every 100th line of kappa-leadrun `specs.txt`) at `27 8192`: GPU == CPU byte for byte (`results/spotcheck.txt`).
-- All 2400 specs on GPU == the existing kappa-leadrun CPU dump (`cmp` identical), `oom_requeues` 0. That output is in `scratch/` only.
+## Results (details in README Results and NOTEBOOK)
+| Prediction | Status | Evidence |
+|---|---|---|
+| P1 correctness | held | 24-spec spot check; all 2400 specs identical to the kappa-leadrun CPU dump, including 6/6 runs of the fresh HEAD build (sha 91c072f7) |
+| P2 speed 2-6x | **measured on a stale binary** | 3.84x = CPU 681.6 s vs GPU 177 s, binary 4d3e395d built 2026-10-16 20:46, not 53ccccc |
+| P3 memory | held | 0 requeues, pool about 2.41e6 tiles (my 1.6e6 estimate was about 50% low) |
+| P4 lanes | held | device time 278.1 / 217.2 / 154.3 s at 1024 / 1536 / 2400 lanes, n = 2, spread <= 0.4 s. Mostly queueing; per-lane speed falls 23% |
 
-## NOT done
-1. **Clean timing.** The only GPU number so far (177 s wall, 161 s device path, 2400 lanes) is NOT a benchmark: the user's CPU batch was still
-   running. The old CPU wall time (1231 s) is also contaminated by the GPU-sweep benchmarks, so it is not a baseline either.
-   Run `bash experiments/2026-10-16-gpu-probe/scripts/bench.sh` (WSL, repo root; gpu1, cpu, gpu2 in sequence, about 25 min,
-   writes `results/bench.log`) only on an idle machine, in the background. Check first: `ps -eo pid,args | grep -E '/release/|cargo'` and `nvidia-smi`.
-   At about 20:58 a **different session** built this tree into `~/turmite-target-probeport` and ran `gpu_probe 27 8192 --lanes 2400`
-   (results in `results/full_L2400*` of its own cwd, if it kept them). Ask the user whether that was them before benchmarking, and see if it
-   holds numbers worth reusing. Everything it needs from me is in the tree as it stands.
-2. Prediction check, to write into the README Results and a closing NOTEBOOK entry. If the clean ratio is about 177 s vs a ~20 min CPU run (about 7x),
-   P2 (registered 2-6x, falsified at >= 4.9x) would be **falsified on the fast side**; say so plainly, do not edit the prediction. P3 held (no requeues).
-   P4 (lane scaling) was not tested.
-3. `cargo test --release` (plain) and `cargo test --release --features cuda --test gpu --test onset`: **not run since the `src/probe.rs` refactor**. Both are required before declaring done. They use all cores, so run them when no batch is live.
-4. `notebook.ipynb` (from `experiments/_template/`, reads only committed `results/`: `spotcheck.txt`, `bench.log`, `bench_gpu*.json`), then execute it per `experiments/README.md`.
-5. Commit (only if asked), explicit paths. `tests/*.proptest-regressions` if any appears (none so far).
-6. Optional, unmeasured: two byte planes vs the 16-bit cell; one-byte packing for n <= 32 (halves pool use). Only worth doing if VRAM binds (estimate for the 2400 batch is 13 GB of 20).
+Fresh build at 2400 lanes takes 156.4 s. Against 681.6 s that would be 4.4x, but the CPU `probe` binary (sha f1a309cf) came from the same
+possibly stale target dir, so no HEAD speedup is claimed.
+
+## The stale-build problem (root cause, so you do not repeat it)
+Source files on `/mnt/f` kept mtimes of 2026-10-16 20:41-20:43 although their content changed later; the binary in `~/turmite-target` is dated
+20:46, so cargo thought it was current and rebuilt nothing. `scripts/bench.sh` pipes its build through `| tail -1`, which hid this. Telltale: the
+stale `--stats` JSON has no `total_steps`. Anything built in `~/turmite-target` since 10-16 is suspect (earlier proptest passes, the post-refactor
+`cargo test` passes, the CPU `probe`). Verified fresh build: `CARGO_TARGET_DIR=~/turmite-target-p4` (gpu_probe 91c072f7, probe 7d341949, built 10-18).
+Source mtimes were not touched.
+
+## To do, in order (each needs an otherwise idle machine; check `ps -eo pid,args | grep -E '/release/|cargo'` and `nvidia-smi` first)
+1. **Paired P2 re-measure.** Build `probe` and `gpu_probe` at HEAD into a clean dir (or `touch` the sources; check exit status, log binary sha256).
+   Time `probe 27 8192` (about 11 min) and `gpu_probe 27 8192 --lanes 2400` on `2026-10-16-kappa-leadrun-fresh/results/specs.txt`, compare to the dump.
+   Record it as a new README/NOTEBOOK entry; do not edit the registered P2 text or the old result.
+2. **Fix `scripts/bench.sh`** (and check `spotcheck.sh`, other scripts that `| tail -1` a build): test the build exit status, log the binary sha256, abort if stale.
+   `scripts/bench_lanes.sh` already does this via `EXPECT_SHA`.
+3. **Rerun on a verified build:** `cargo test --release` and `cargo test --release --features cuda --test gpu --test onset`
+   (last run in the suspect dir). `--test gpu_probe` already passes 5/5 on the fresh build.
+4. Update README, NOTEBOOK (append-only), `notebook.ipynb` (execute per `experiments/README.md`), commit explicit paths only.
+5. Optional, unmeasured: 16-bit cell vs two byte planes; one-byte packing for n <= 32. Only if VRAM binds (about 13-19 GB of 20 used at 2400 lanes).
 
 ## Things to know
-- Reuse: `source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh` in every WSL build/run (sets `LD_LIBRARY_PATH`, `CARGO_TARGET_DIR=~/turmite-target`).
-- The patch is initialised at tile allocation (it straddles four tiles at 8192, where the start is a tile corner); do not "simplify" this to the first tile.
-- `gpu_probe` rejects non-ant specs up front; rotor/rw/sbg/pw/cookie/errw stay CPU-only (out of scope as asked).
-- `ProbeStats.total_steps` counts the budget for non-escaped runs only (escaped runs add 0), so steps/s in `--stats` is a slight underestimate.
-- Scratch files (`experiments/2026-10-16-gpu-probe/scratch/`, gitignored) hold the CPU/GPU CSVs; `~/quiet_649.sh` was my wait helper and can be deleted.
+- Env: `source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh` in every WSL build/run. Use `wsl -e bash -lc "..."`; detached `nohup ... &` inside a one-shot `wsl -e` gets killed, run long jobs via the Bash tool's background mode.
+- Another session's CPU batch (`run_mutants.sh`, worktree `.claude/worktrees/paper-figure-proposals`) was running during P4 prep; it was finished before the P4 phases. Timing is contaminated if anything else is live.
+- The patch is initialised at tile allocation (it straddles four tiles at 8192); do not "simplify" it to the first tile.
+- `gpu_probe` rejects non-ant specs; rotor/rw/sbg/pw/cookie/errw stay CPU-only. `total_steps` counts the budget for non-escaped runs only.
+- Untracked and not mine to commit: a stray `notebook.ipynb` at the repo root (unknown origin, probably another session), `numbers_check.py`, `run_check.sh`, `.claude/`, `.codex/`, `.githooks/`; plus modified paper/notes files from other work. Stage explicit paths only.
+- `scratch/` (gitignored) holds the benchmark CSVs, the stale P2 binary at `scratch/p2_binary/gpu_probe`, an aborted-run log, and my throwaway helper scripts. `~/quiet_649.sh` can be deleted.
