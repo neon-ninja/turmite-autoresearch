@@ -54,3 +54,6 @@ corrects: 2026-10-18 20:05 (builder location). The notebook builder moved from `
 
 ### 2026-10-19 (+13:00) · 95bd647 · decision
 Documented two follow-up proposals in README ("Proposed next steps"): P1 lead-preserving early flips at index k+1/k+2 in both directions; P2 attrition bounds for arm E from existing data. Both are unregistered: no thresholds, samples or predictions fixed, nothing run. Separately, corrected a date in notes/open-questions-hypotheses.md: the mutant rerun was 2026-10-18, not 2026-10-19 as that note first said (note not yet pushed anywhere).
+
+### 2026-10-19 (+13:00) · 0c3e4a7 · decision
+Closing the experiment. All registered parts (L1-L6, A1-A2, M1-M4) are run, analysed and reported in README, NOTEBOOK, notebook.ipynb and notes/open-questions-hypotheses.md. HANDOVER item (4) was stale (the note was already updated) and is corrected. Follow-up proposals P1/P2 stay unregistered and are not part of this experiment.
