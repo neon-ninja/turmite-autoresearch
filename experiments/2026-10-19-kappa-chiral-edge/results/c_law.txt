@@ -1,0 +1,17 @@
+census fit 1/c = 1.363 + 0.696 lead  (n=2185); fresh n=176
+C1 fresh R2(c) = 0.877, median |rel err| = 0.041
+C2 fresh refit 1/c = 1.335 + 0.683 lead, b CI [0.658, 0.707] (census b 0.696)
+C3 census b = 0.696: outside [0.85,1.15]: True
+   fresh lead 1: n=34 mean c 0.504 pred 0.486
+   fresh lead 2: n=32 mean c 0.371 pred 0.363
+   fresh lead 3: n=34 mean c 0.300 pred 0.290
+   fresh lead 4: n=31 mean c 0.247 pred 0.241
+   fresh lead 5: n=26 mean c 0.208 pred 0.206
+   fresh lead 6: n=19 mean c 0.186 pred 0.181
+C4 held-out R2 of ln c: lead-only 0.842
+   prefix-2 lookup: R2 0.570 (test prefixes seen in train: 1.00)
+   prefix-3 lookup: R2 0.768 (test prefixes seen in train: 1.00)
+   prefix-4 lookup: R2 0.845 (test prefixes seen in train: 1.00)
+   prefix-5 lookup: R2 0.887 (test prefixes seen in train: 1.00)
+   prefix-6 lookup: R2 0.924 (test prefixes seen in train: 0.99)
+   prefix-8 lookup: R2 0.950 (test prefixes seen in train: 0.98)

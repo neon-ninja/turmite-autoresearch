@@ -1,0 +1,21 @@
+== all blob, lead capped 6: 536 necklaces, 2358 rules
+  lnk~lead         beta=[-0.007] CI lo=[-0.037] hi=[0.017] R2=0.000
+  lnk~trail        beta=[0.013] CI lo=[-0.013] hi=[0.039] R2=0.001
+  lnk~lead+trail   beta=[-0.003, 0.012] CI lo=[-0.031, -0.014] hi=[0.022, 0.041] R2=0.001
+  lnc~lead         beta=[-0.243] CI lo=[-0.249] hi=[-0.237] R2=0.827
+  lnc~trail        beta=[0.048] CI lo=[0.032] hi=[0.064] R2=0.033
+  lnc~lead+trail   beta=[-0.247, -0.017] CI lo=[-0.252, -0.022] hi=[-0.242, -0.011] R2=0.831
+== stationary |g_k|<0.05, capped 6: 474 necklaces, 1891 rules
+  lnk~lead         beta=[0.044] CI lo=[0.027] hi=[0.06] R2=0.026
+  lnk~trail        beta=[0.022] CI lo=[0.003] hi=[0.042] R2=0.006
+  lnk~lead+trail   beta=[0.055, 0.04] CI lo=[0.038, 0.021] hi=[0.071, 0.059] R2=0.043
+  lnc~lead         beta=[-0.228] CI lo=[-0.233] hi=[-0.223] R2=0.860
+  lnc~trail        beta=[0.058] CI lo=[0.04] hi=[0.076] R2=0.047
+  lnc~lead+trail   beta=[-0.232, -0.016] CI lo=[-0.237, -0.022] hi=[-0.227, -0.01] R2=0.863
+== all blob, uncapped: 536 necklaces, 2358 rules
+  lnk~lead         beta=[-0.004] CI lo=[-0.031] hi=[0.021] R2=0.000
+  lnk~trail        beta=[0.007] CI lo=[-0.021] hi=[0.036] R2=0.000
+  lnk~lead+trail   beta=[-0.002, 0.006] CI lo=[-0.03, -0.023] hi=[0.025, 0.034] R2=0.000
+  lnc~lead         beta=[-0.235] CI lo=[-0.245] hi=[-0.226] R2=0.816
+  lnc~trail        beta=[0.047] CI lo=[0.032] hi=[0.063] R2=0.035
+  lnc~lead+trail   beta=[-0.242, -0.021] CI lo=[-0.249, -0.028] hi=[-0.235, -0.014] R2=0.822

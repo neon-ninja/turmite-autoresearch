@@ -1,0 +1,9 @@
+lnk: n=2185  lead b=+0.010 R2=0.001 | M b=-0.056 R2=0.033 | both lead=+0.042 M=-0.076 R2=0.050 | +len lead=+0.042 M=-0.071 len=-0.025 R2=0.058
+lnc: n=2185  lead b=-0.226 R2=0.836 | M b=-0.099 R2=0.148 | both lead=-0.229 M=+0.008 R2=0.837 | +len lead=-0.229 M=+0.007 len=+0.006 R2=0.838
+M2 ratio lead coef (both)/(lead only) = 4.28
+M3 necklace-level slope of mean ln kappa on M: -0.071 CI [-0.088, -0.053] over 625 necklaces
+  M=2: n=308 mean ln kappa +0.017  mean ln c -0.805
+  M=3: n=791 mean ln kappa -0.105  mean ln c -0.864
+  M=4: n=601 mean ln kappa -0.187  mean ln c -0.935
+  M=5: n=305 mean ln kappa -0.242  mean ln c -1.058
+  M=6: n=180 mean ln kappa -0.157  mean ln c -1.229
