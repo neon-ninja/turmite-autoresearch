@@ -1,0 +1,1 @@
+{"jobs":2400,"total_steps":273133076480,"wall_secs":278.1172,"steps_per_sec":9.8208e8,"device":"NVIDIA RTX 4000 Ada Generation","lanes":1024,"grid":8192,"slice":1048576,"max_log2":27,"pool_tiles":2420965,"launches":319,"oom_requeues":0}

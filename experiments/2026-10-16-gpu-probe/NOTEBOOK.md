@@ -76,3 +76,85 @@ exceeded my 1.6e6 bounding-box estimate by about 50% without requeues. Single sp
 ### 2026-10-17 17:58 (+13) · 53ccccc · observation
 `cargo test --release` (plain) and `--features cuda --test gpu --test onset` pass after the `src/probe.rs` refactor (plain log was tail-only).
 
+### 2026-10-18 19:37 (+13) · 14b9a24 · intent
+Run P4 as registered in the README ("Steps/s rises with lanes from 1024 to 2400 (every ant resident)"), text unchanged. Recipe:
+`scripts/bench_lanes.sh`, `gpu_probe 27 8192 --lanes L` on the same 2400 kappa-leadrun-fresh specs as P2, L in {1024, 1536, 2400}, two
+repeats each in interleaved order 2400,1024,1536,1536,1024,2400. Every CSV is cmp'd against the CPU dump. Operational criterion, fixed now:
+P4 holds if the mean whole-process wall time strictly decreases 1024 > 1536 > 2400 with each gap larger than the larger within-L repeat
+spread, and the same order holds for device-path time (`wall_secs` in `--stats`). Steps/s uses one numerator for all L (outputs are identical,
+so `total_steps`, the budget of non-escaped runs, is the same), so the ratio of steps/s is the inverse ratio of times. Caveat registered now:
+at L < 2400 ants queue and lanes are refilled between slices, so lower L also means more slices and more host turnarounds, and the 2400 case
+has an all-ants-resident tail with idle lanes that the queued cases partly avoid. The test therefore compares batch throughput, not per-lane
+throughput at fixed occupancy.
+
+### 2026-10-18 19:37 (+13) · 14b9a24 · deviation
+Machine not idle: another session's `run_mutants.sh` (worktree `.claude/worktrees/paper-figure-proposals`, CPU `probe 27 8192` on 3336
+mutant specs, 6 threads, started 19:34:34) is running. Not mine; not touched. `bench_lanes.sh` waits until no `release/` or cargo process
+has been seen for 3 minutes before its first phase. The gpu_probe binary is rebuilt from HEAD (writes `total_steps`, which the P2 build did
+not), so its sha256 differs from `bench.log`'s; same kernel source as 53ccccc (no src changes since).
+
+### 2026-10-18 19:45 (+13) · 14b9a24 · surprise
+The P2 benchmark (`results/bench.log`, header "git 53ccccc") did not run a binary built from 53ccccc. The binary at
+`~/turmite-target/release/gpu_probe` before this session's rebuild had sha256 4d3e395d... (the value in `bench.log`) and mtime
+2026-10-16 20:46:17, and its output format ("2400 jobs in 160.96s", `--stats` without `total_steps`/`steps_per_sec`) does not match
+53ccccc's `src/bin/gpu_probe.rs`, which prints and writes both. So `bench.sh`'s `cargo build ... | tail -1` either failed or did not
+rebuild, and the pipe hid it. Consequence for P2: the timed binary is the 2026-10-16 20:46 build, the one that produced the 24-spec and
+2400-spec identity checks that evening; its kernel and scheduler may differ from 53ccccc in ways I cannot reconstruct. The outputs were
+byte-identical to the CPU dump, so P1's conclusion stands for that binary; the 3.84x is a measurement of that binary, not provably of 53ccccc.
+Copy kept: `scratch/p2_binary/gpu_probe` (gitignored). `bench_lanes.sh` builds after the quiet wait, checks the build's exit status and logs mtime.
+
+### 2026-10-18 19:45 (+13) · 14b9a24 · correction
+In the 19:37 deviation entry, "same kernel source as 53ccccc (no src changes since)" is true of HEAD vs 53ccccc but says nothing about the
+P2 binary, which (previous entry) was not built from 53ccccc. P4 is therefore self-contained: its own 2400-lane phases are the baseline,
+and P4 numbers should not be divided into or by P2's.
+
+### 2026-10-18 19:40 (+13) · 14b9a24 · correction
+The two entries stamped "19:45" (surprise, correction) were written at about 19:38; I mis-stamped them. Content unchanged.
+`bench_lanes.sh` launched 19:38 (pid 165521), waiting for the other session's mutant batch (800/3336 at 19:39, expected done ~19:56).
+
+### 2026-10-18 20:00 (+13) · 14b9a24 · observation
+Cause of the stale P2 binary found. `src/bin/gpu_probe.rs`, `src/gpu/probe.rs`, `src/gpu/probe.cu` on `/mnt/f` carry mtimes 2026-10-16
+20:41-20:43, older than the binary (20:46), although their content changed later (current source prints "steps in" and "setup", the
+binary does not). Cargo's freshness check therefore kept the old binary: `bench_lanes.sh`'s build step "finished in 0.08s" and the first
+P4 phase started (19:55:19) with sha256 4d3e395d..., the P2 binary. I stopped that run (my own pid, killed after ~1 min), kept its log as
+`scratch/bench_lanes_aborted_stale.log`, deleted its partial CSV. Wider hazard: anything built in `~/turmite-target` since 10-16 may be
+stale the same way, including the README's "5/5 gpu_probe proptests" and post-refactor `cargo test` claims.
+
+### 2026-10-18 20:01 (+13) · 14b9a24 · decision
+Build into a fresh `CARGO_TARGET_DIR=~/turmite-target-p4` (did compile turmite, 8.5 s incremental of deps; sha256 91c072f7...; contains
+"steps in"). `bench_lanes.sh` now exports that dir and aborts unless the binary's sha equals `EXPECT_SHA`. The first phase's `cmp` against
+the CPU dump is the first full-scale identity check of the HEAD binary; if it differs, P4 timing is secondary and I stop. Source mtimes not
+touched. After the phases, if time allows, `cargo test --release --features cuda --test gpu_probe` in the fresh dir.
+
+### 2026-10-18 20:27 (+13) · 14b9a24 · observation
+`bench_lanes.sh` finished 20:25:24, all six phases clean (no foreign process before/after any phase; load ~1). Binary 91c072f7... (fresh
+build). Every CSV byte-identical to the CPU dump: first full-scale identity check of the HEAD binary, passed 6/6. Whole-process wall
+r1/r2: L=2400 156.64/156.24 s, L=1536 219.30/219.41 s, L=1024 280.34/280.25 s. Device path (`wall_secs`): 154.35/154.16, 217.16/217.26,
+278.14/278.12 s. `total_steps` 273133076480 in every run (as expected, outputs identical). Launches 128/256/319; 0 requeues; pool_tiles
+2409451/2416681/2420965 (2400/1536/1024).
+
+### 2026-10-18 20:28 (+13) · 14b9a24 · interpretation
+P4 HELD on the pre-fixed criterion: mean times strictly fall with L, gaps ~61-63 s vs repeat spread <= 0.40 s, same order on the device
+path. Device steps/s 0.982e9 / 1.257e9 / 1.771e9. This is mostly queueing: with refill, 2400 jobs at L=1024 is ~2.3 job-rounds, at 1536
+~1.6, at 2400 one. Per-lane steps/s falls with occupancy (9.59e5, 8.19e5, 7.38e5 per lane; -23% from 1024 to 2400), so the GPU is not
+idle-lane-bound at 1024 but loses per-lane speed as resident ants grow; cause untested (memory traffic is the guess). The test measures
+batch throughput on one spec set with n = 2 per L, not per-lane efficiency at fixed occupancy. HEAD at L=2400 (156 s) is faster than the
+stale P2 build (177 s); not compared further since the binaries differ and no new CPU baseline was taken.
+
+### 2026-10-18 20:35 (+13) · 14b9a24 · observation
+P4 finished (six phases, no foreign processes, all CSVs identical to the CPU dump). Device wall_secs 1024: 278.14/278.12, 1536: 217.16/217.26, 2400: 154.35/154.16;
+whole-process wall 280.3/219.4/156.4 s means. Registered criterion met (strictly decreasing, gaps >100x repeat spread, same order for device time). P4 HELD.
+`gpu_probe` proptests 5/5 pass on the fresh build (`~/turmite-target-p4`).
+
+### 2026-10-18 20:36 (+13) · 14b9a24 · interpretation
+Speedup 1024 -> 2400 lanes is 1.80x against 2.3x lanes: sub-linear, so P4 is a scheduling/throughput result, not evidence of lane-level efficiency. The earlier P2 3.84x
+is for the stale 10-16 20:46 binary; the fresh-binary ratio is 4.36x but its CPU baseline binary has unverified provenance, so I do not replace P2's number with it.
+Open: rebuild `probe` at HEAD, re-time CPU (about 11 min), and rerun P2 paired. Not done.
+
+### 2026-10-18 20:31 (+13) · 14b9a24 · observation
+`cargo test --release --features cuda --test gpu_probe` with `CARGO_TARGET_DIR=~/turmite-target-p4` (fresh HEAD build): 5/5 pass in 15.95 s
+(log `scratch/test_gpu_probe_p4.log`, gitignored). This restores the oracle check for the binary P4 timed. The 10-16 run took 109 s; I did not
+investigate the difference (could be test-config changes after the stale build, or the faster kernel). Plain `cargo test --release` was not
+rerun in the fresh dir. Notebook: P4 cell added (reads only committed `results/bench_lanes*`), executed top to bottom, prints "P4 held: True".
+Results and the P2 provenance caveat are in the README.
+

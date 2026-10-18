@@ -1,0 +1,54 @@
+git 14b9a24 dirty(src,tests,Cargo.toml; filemode ignored)=0 2026-10-18T20:00:28+13:00
+gpu_probe sha256 91c072f715cf5da6b5e2aaf380551d188d8c7d1058d60a2968cfb9c14b3653d3 mtime 2026-10-18 19:57:05.460035117 +1300
+build:     Finished `release` profile [optimized] target(s) in 0.08s
+specs: experiments/2026-10-16-kappa-leadrun-fresh/results/specs.txt (2400 lines, sha256 1e9198bf698f8cba140f32f6caf2db60a33028e228d6ec294d5f53b838c9adb0)
+dump: experiments/2026-10-16-kappa-leadrun-fresh/dumps/probe.csv (sha256 b0976e0d4ff4e426a0e573d5b588f8ee0dd3fd6408cdf558e25dd1026d2d8e5c)
+-- before lanes_2400_r1 2026-10-18T20:00:59+13:00 loadavg: 0.06 1.08 2.38
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3169 MiB, 6 %;
+   lanes_2400_r1 exit 0 wall 156.639789461 s (whole process); cmp vs dump: identical
+   lanes_2400_r1 stats: {"jobs":2400,"total_steps":273133076480,"wall_secs":154.3525,"steps_per_sec":1.7695e9,"device":"NVIDIA RTX 4000 Ada Generation","lanes":2400,"grid":8192,"slice":1048576,"max_log2":27,"pool_tiles":2409451,"launches":128,"oom_requeues":0}
+-- after lanes_2400_r1 2026-10-18T20:03:36+13:00 loadavg: 1.03 1.08 2.17
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3164 MiB, 4 %;
+-- before lanes_1024_r1 2026-10-18T20:04:06+13:00 loadavg: 0.62 0.98 2.10
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3164 MiB, 7 %;
+   lanes_1024_r1 exit 0 wall 280.344232510 s (whole process); cmp vs dump: identical
+   lanes_1024_r1 stats: {"jobs":2400,"total_steps":273133076480,"wall_secs":278.1387,"steps_per_sec":9.8200e8,"device":"NVIDIA RTX 4000 Ada Generation","lanes":1024,"grid":8192,"slice":1048576,"max_log2":27,"pool_tiles":2420965,"launches":319,"oom_requeues":0}
+-- after lanes_1024_r1 2026-10-18T20:08:47+13:00 loadavg: 1.11 1.07 1.84
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 4 %;
+-- before lanes_1536_r1 2026-10-18T20:09:17+13:00 loadavg: 0.75 0.98 1.79
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 2 %;
+   lanes_1536_r1 exit 0 wall 219.296379683 s (whole process); cmp vs dump: identical
+   lanes_1536_r1 stats: {"jobs":2400,"total_steps":273133076480,"wall_secs":217.1610,"steps_per_sec":1.2577e9,"device":"NVIDIA RTX 4000 Ada Generation","lanes":1536,"grid":8192,"slice":1048576,"max_log2":27,"pool_tiles":2416681,"launches":256,"oom_requeues":0}
+-- after lanes_1536_r1 2026-10-18T20:12:56+13:00 loadavg: 1.17 1.05 1.64
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 2 %;
+-- before lanes_1536_r2 2026-10-18T20:13:27+13:00 loadavg: 0.78 0.97 1.59
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 6 %;
+   lanes_1536_r2 exit 0 wall 219.412348272 s (whole process); cmp vs dump: identical
+   lanes_1536_r2 stats: {"jobs":2400,"total_steps":273133076480,"wall_secs":217.2642,"steps_per_sec":1.2571e9,"device":"NVIDIA RTX 4000 Ada Generation","lanes":1536,"grid":8192,"slice":1048576,"max_log2":27,"pool_tiles":2416681,"launches":256,"oom_requeues":0}
+-- after lanes_1536_r2 2026-10-18T20:17:06+13:00 loadavg: 1.15 1.06 1.49
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 3 %;
+-- before lanes_1024_r2 2026-10-18T20:17:37+13:00 loadavg: 0.85 0.99 1.45
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 2 %;
+   lanes_1024_r2 exit 0 wall 280.248964443 s (whole process); cmp vs dump: identical
+   lanes_1024_r2 stats: {"jobs":2400,"total_steps":273133076480,"wall_secs":278.1172,"steps_per_sec":9.8208e8,"device":"NVIDIA RTX 4000 Ada Generation","lanes":1024,"grid":8192,"slice":1048576,"max_log2":27,"pool_tiles":2420965,"launches":319,"oom_requeues":0}
+-- after lanes_1024_r2 2026-10-18T20:22:17+13:00 loadavg: 1.02 1.09 1.38
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 4 %;
+-- before lanes_2400_r2 2026-10-18T20:22:47+13:00 loadavg: 0.69 1.00 1.34
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 8 %;
+   lanes_2400_r2 exit 0 wall 156.236477628 s (whole process); cmp vs dump: identical
+   lanes_2400_r2 stats: {"jobs":2400,"total_steps":273133076480,"wall_secs":154.1647,"steps_per_sec":1.7717e9,"device":"NVIDIA RTX 4000 Ada Generation","lanes":2400,"grid":8192,"slice":1048576,"max_log2":27,"pool_tiles":2409451,"launches":128,"oom_requeues":0}
+-- after lanes_2400_r2 2026-10-18T20:25:24+13:00 loadavg: 1.13 1.06 1.30
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3156 MiB, 3 %;
+done 2026-10-18T20:25:24+13:00
