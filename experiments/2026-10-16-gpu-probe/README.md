@@ -113,34 +113,6 @@ rebuilt it and `bench.sh`'s `| tail -1` hid that. P2's 3.84x and its byte-identi
 on the same specs (156 s vs 177 s at 2400 lanes) and also byte-identical, but P2 was not rerun against a fresh CPU baseline, so no
 HEAD speedup is claimed. Other artefacts built in `~/turmite-target` since 10-16 may be stale the same way (see NOTEBOOK 2026-10-18).
 
-### P4 and a provenance correction (added 2026-10-18; the registered text above is unchanged)
-
-**Correction to P2/P3/tests.** `bench.sh` builds into `~/turmite-target`. The source files on `/mnt/f` carry mtimes of 2026-10-16 20:41-20:43,
-older than the binary built there at 20:46, so cargo never rebuilt after later content changes. The `gpu_probe` timed for P2 (sha256 4d3e395d...,
-logged in `results/bench.log` under "git 53ccccc") emits no `total_steps` in its stats JSON, so it is an older build than 53ccccc. P2's 3.84x and its
-byte-identity result are therefore a measurement of that 10-16 20:46 build, not provably of HEAD. The earlier "5/5 gpu_probe proptests" and post-refactor
-`cargo test` passes were also run in `~/turmite-target` and carry the same doubt. They are not retracted (the build was correct for what it contained) but are
-superseded below by runs on a verified fresh build. Fresh build: `CARGO_TARGET_DIR=~/turmite-target-p4`, `gpu_probe` sha256 91c072f7..., built 2026-10-18 19:57.
-
-**Re-checks on the fresh build:** `cargo test --release --features cuda --test gpu_probe` 5/5 pass (17 s). All six P4 runs (2400 specs, `probe 27 8192`) are
-byte-identical to the CPU dump, so P1 holds for the fresh build at full scale (6 of 6).
-
-**P4 (registered criterion, fixed before running, NOTEBOOK 2026-10-18): HELD.** Recipe: `scripts/bench_lanes.sh`, log `results/bench_lanes.log`,
-stats `results/bench_lanes_<L>_r<k>.json`; order 2400,1024,1536,1536,1024,2400, no foreign processes in any phase, n = 2 per L.
-
-| Lanes | Wall r1 / r2 (s) | Device `wall_secs` r1 / r2 | Steps/s (device, mean) | Launches |
-|---|---|---|---|---|
-| 1024 | 280.34 / 280.25 | 278.14 / 278.12 | 9.82e8 | 319 |
-| 1536 | 219.30 / 219.41 | 217.16 / 217.26 | 1.257e9 | 256 |
-| 2400 | 156.64 / 156.24 | 154.35 / 154.16 | 1.771e9 | 128 |
-
-Both orderings are strictly decreasing, gaps (61 s and 63 s wall) exceed the repeat spreads (<= 0.4 s) by over 100x. Steps/s uses the identical `total_steps`
-(2.731e11) for every L, so it is the inverse of device time: 1.28x from 1024 to 1536, 1.41x from 1536 to 2400, 1.80x overall.
-What it does not show: below 2400 lanes ants queue (about 3 and 2 rounds against 1), so a rise is expected from scheduling alone; the observed 1.8x is less
-than 2.3x (2400/1024), so per-lane throughput is lower with more lanes active or tails are hidden by refill. This is batch throughput, not lane efficiency.
-One spec set, one GPU, n = 2.
-
-**P2 on the fresh build (indicative only):** 156.4 s mean wall against the CPU 681.6 s gives 4.36x, inside the registered 2-6x and below the 4.9x
-falsification line. The CPU baseline was timed with a `probe` from `~/turmite-target` (sha256 f1a309cf...), whose provenance is subject to the same mtime doubt,
-so the ratio is not a clean paired measurement; a clean one needs `probe` rebuilt at HEAD and re-timed (about 11 min).
-
+**Tests on the fresh build (2026-10-18):** `cargo test --release --features cuda --test gpu_probe` with `CARGO_TARGET_DIR=~/turmite-target-p4`: 5/5 pass (17 s).
+The earlier proptest and post-refactor `cargo test` passes ran in `~/turmite-target` and carry the same stale-build doubt as P2; this run supersedes the `gpu_probe` one.
+Plain `cargo test --release` and the `gpu`/`onset` tests were not rerun on a verified build.

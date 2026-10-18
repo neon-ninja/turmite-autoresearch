@@ -141,20 +141,6 @@ idle-lane-bound at 1024 but loses per-lane speed as resident ants grow; cause un
 batch throughput on one spec set with n = 2 per L, not per-lane efficiency at fixed occupancy. HEAD at L=2400 (156 s) is faster than the
 stale P2 build (177 s); not compared further since the binaries differ and no new CPU baseline was taken.
 
-### 2026-10-18 20:35 (+13) · 14b9a24 · observation
-P4 finished (six phases, no foreign processes, all CSVs identical to the CPU dump). Device wall_secs 1024: 278.14/278.12, 1536: 217.16/217.26, 2400: 154.35/154.16;
-whole-process wall 280.3/219.4/156.4 s means. Registered criterion met (strictly decreasing, gaps >100x repeat spread, same order for device time). P4 HELD.
-`gpu_probe` proptests 5/5 pass on the fresh build (`~/turmite-target-p4`).
-
-### 2026-10-18 20:36 (+13) · 14b9a24 · interpretation
-Speedup 1024 -> 2400 lanes is 1.80x against 2.3x lanes: sub-linear, so P4 is a scheduling/throughput result, not evidence of lane-level efficiency. The earlier P2 3.84x
-is for the stale 10-16 20:46 binary; the fresh-binary ratio is 4.36x but its CPU baseline binary has unverified provenance, so I do not replace P2's number with it.
-Open: rebuild `probe` at HEAD, re-time CPU (about 11 min), and rerun P2 paired. Not done.
-
-### 2026-10-18 20:31 (+13) · 14b9a24 · observation
-`cargo test --release --features cuda --test gpu_probe` with `CARGO_TARGET_DIR=~/turmite-target-p4` (fresh HEAD build): 5/5 pass in 15.95 s
-(log `scratch/test_gpu_probe_p4.log`, gitignored). This restores the oracle check for the binary P4 timed. The 10-16 run took 109 s; I did not
-investigate the difference (could be test-config changes after the stale build, or the faster kernel). Plain `cargo test --release` was not
-rerun in the fresh dir. Notebook: P4 cell added (reads only committed `results/bench_lanes*`), executed top to bottom, prints "P4 held: True".
-Results and the P2 provenance caveat are in the README.
-
+### 2026-10-18 20:40 (+13) · 14b9a24 · observation
+`cargo test --release --features cuda --test gpu_probe` on the fresh build (`~/turmite-target-p4`): 5/5 pass. Plain `cargo test --release` and `--test gpu --test onset`
+were last run in the possibly stale `~/turmite-target` and are not yet rerun on a verified build. Open: paired P2 re-measure (rebuild `probe` at HEAD, re-time CPU, ~11 min).
