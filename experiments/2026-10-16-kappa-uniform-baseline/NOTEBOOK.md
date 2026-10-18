@@ -39,3 +39,9 @@ Added brute-force recount of area and boundary count (two ways) at the end of ev
 
 ### 2026-10-16 01:00 (+13) · 997c9b2 · deviation
 corrects: 2026-10-16 00:43 interpretation. The rotor (1.8x) and memoryless ratios used the 1.11 reference although those walkers have different a (memoryless a~0.95 gives ~1.16, so 1.3-1.45 is ~1.1-1.25x). Only the ant ratio (a~2/3) is justified; treat the rotor/memoryless ratios as unrecomputed. Also not done: notebook.ipynb, tail-budget estimator calibration on this walker, and any mechanism test. Goal (explain kappa level) is NOT met.
+
+### 2026-10-18 (+13) · 8266186 · observation
+Checked the spread of census kappa before treating "0.81x uniform" as a derivation target. `scripts/census_spread.py` -> `results/census_spread.txt` (probe_summary.csv, cls == blob, single run per rule). Stationary rules (|g_k|<0.05, n=2185): kappa q05/25/50/75/95 = 0.49/0.73/0.90/1.06/1.47, sd ln kappa 0.35 (0.59 over all 2630). kappa_unif(a,beta) is 1.105 with sd ln 0.004, so the reference is effectively one number. kappa/kappa_unif: median 0.814, geometric mean 0.792, q05..q95 = 0.44..1.33, and 20% of stationary rules are >= 1.
+
+### 2026-10-18 (+13) · 8266186 · decision
+The 0.81 is the median of a wide rule-dependent distribution, not a constant. The target is the distribution (location plus spread), not one number. A derivation of the median alone would not be falsifiable on its own: median and geometric mean differ (0.81 vs 0.79), and single-run noise inflates the observed spread. Does NOT show a universal constant is absent; it shows the data do not call for one.

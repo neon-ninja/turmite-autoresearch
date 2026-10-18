@@ -1,0 +1,5 @@
+kappa, all blob: n=2630 q05/25/50/75/95=[0.444, 0.731, 0.905, 1.09, 1.725] geomean=0.892 sd_ln=0.589
+kappa, stationary (|g_k|<0.05): n=2185 q05/25/50/75/95=[0.489, 0.733, 0.899, 1.055, 1.47] geomean=0.875 sd_ln=0.349
+kappa_unif(a,beta), stationary: n=2185 q05/25/50/75/95=[1.098, 1.103, 1.105, 1.108, 1.112] geomean=1.105 sd_ln=0.004
+kappa/kappa_unif, stationary: n=2185 q05/25/50/75/95=[0.443, 0.664, 0.814, 0.957, 1.332] geomean=0.792 sd_ln=0.349
+fraction stationary rules with kappa/kappa_unif >= 1: 0.200
