@@ -146,3 +146,14 @@ mediator, not a confounder, so b is a direct effect and E's mean d is the total 
 3. Selection: only 53% of E mutants survive the core-band and stationarity filter, against 65-68% for S and C. If the dropped E mutants differ in kappa, E's mean d is biased in an unknown direction.
 4. No arm isolates "early flip, lead unchanged". C flips late letters, so M2 controls composition, not position. W6 found early-letter effects of both signs at fixed area, so S could partly be an early-position effect rather than a lead effect.
 5. The area-adjusted E/S symmetry is post hoc.
+
+#### Addendum 2026-10-18 20:15 (+13:00): correction to the Reading above
+The registration says: *"Failure of M1 and M2 together would mean the lead association is not causal at the single-flip scale."*
+M1 and M2 both failed. **By the criterion fixed before the run, single-flip causality of the lead association is not established.**
+The Reading paragraph above ("causal at fixed area, in both directions") overrode that criterion post hoc and is withdrawn as a conclusion.
+Revision, labelled as such: the registered half of M1 (pooled area-adjusted b = +0.158 [+0.139, +0.179]) and M3 (S: -0.198 [-0.290, -0.110]
+at unchanged area) both point the same way as the cross-sectional effect. In hindsight, the total-effect criterion for E could not separate
+a lead effect from the area loss that comes with lengthening the lead. The +0.24 area-adjusted E residual is post hoc, and c ≈ 1 is partly definitional.
+So the evidence *suggests* a direct (area-conditional) effect, and the registered test should be replaced by one designed for it. This is not a result.
+Further caveat on M3: arm S has no composition control. C is a late L->R flip, while S is an early R->L flip, so S's -0.198 combines
+"one fewer R" with "early position", and no arm tests either factor alone. M3 alone therefore does not establish causality either.
