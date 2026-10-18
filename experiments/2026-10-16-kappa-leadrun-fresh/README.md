@@ -103,3 +103,46 @@ Failure of M1 and M2 together would mean the lead association is not causal at t
 - **A2 slope stays positive everywhere but the "within 0.05" part FAILED.** Fresh refit slope: all leads +0.152 [0.130, 0.174]; leads 1-3 +0.235 [0.196, 0.271] (differs from all-lead by 0.083 > 0.05); leads 1-4 +0.197; length 13 +0.144, length 14 +0.157; inverse-retention weights +0.144 [0.123, 0.167]. So the effect is not carried by one length and is robust to reweighting by lead retention, but the slope depends on the lead range: it is steeper at small leads (consistent with saturation/cap at 6; mean residual by lead rises -0.15 -> +0.42, concave after lead 5). The single "slope per step" is therefore a coarse summary.
 - **Dropouts.** Kept/stationary per 50 rules by lead 1..6: 37/34, 32/32, 35/34, 31/31, 28/26, 20/19. Rules with >= 1 escaped run: 3, 12, 7, 4, 9, 16. Escapes are not monotone in lead and explain only part of the drop for lead 1-5; most missing rules fail the >= 6 core-band runs condition (non-core alpha_w, e.g. highway/other-class runs), not stationarity (only 0-3 kept rules per stratum are non-stationary). Retention falls sharply only at lead 6 (0.40 kept). Lead >= 5 estimates carry the most selection risk; the lead 1-4 slope (+0.197) is the least selected.
 - Not done: a bound on what dropped rules would have had; IPW only reweights by lead, not by unobserved reasons for dropout.
+
+### Part B results (run 2026-10-18, commit fa73570, `results/mutants_analysis.txt`, `mutants_analysis.json`, `mutant_pairs.csv`)
+The first launch (2026-10-16) died at 600/3336 runs. It was rerun from scratch with the same command and specs (NOTEBOOK, 2026-10-18 deviation).
+The probe made 3336 runs and finished at 19:51 (`results/mutants_probe.log`). Its `git` field is empty because WSL git cannot resolve this
+worktree's gitdir; the actual commit is fa73570. Probe code is unchanged since the base run at d4fd349 (the only additions are `gpu/` and `onset.rs`).
+Instrument identity check (`scripts/check_overlap.py`, `results/overlap_check.txt`): the 30 mutants that are also base-sample rules
+reproduce `fresh_rules.csv` exactly. n_runs, ln kappa, ln A22 and g_k all differ by 0.0, and 18/30 are kept in both runs. `analyse_mutants.py` was run once, unmodified, with no crash.
+
+There are 417 mutants of 157 stationary fresh bases (lead 1-5): 269 kept, 257 kept and stationary pairs. CIs are from a bootstrap over pairs (2000 resamples, seed 20261016).
+
+| arm | pairs | mean d = dln kappa | 95% CI | mean dln A22 | mean dlead |
+|---|---|---|---|---|---|
+| E (extend lead) | 81 | -0.062 | [-0.152, +0.025] | -0.292 [-0.380, -0.205] | +1.64 |
+| S (shorten lead) | 73 | **-0.198** | [-0.290, -0.110] | +0.013 [-0.068, +0.089] | -1.00 |
+| C (late L->R) | 103 | -0.006 | [-0.049, +0.037] | -0.000 [-0.037, +0.036] | 0 |
+
+| pred | outcome |
+|---|---|
+| M1 E mean d > 0 (CI > 0) AND pooled b > 0 | **FAILED as registered.** The first part fails: E mean d is -0.062 [-0.152, +0.025]. The second part holds: pooled d ~ c0 + b dlead + c dA gives b = +0.158 [+0.139, +0.179], c = +1.037 [+0.957, +1.119], c0 = -0.023 |
+| M2 E - C mean d CI > 0 | **FAILED.** -0.056 [-0.159, +0.040] |
+| M3 S mean d < 0 (CI upper < 0) | **HELD.** -0.198 [-0.290, -0.110], with area unchanged (dA +0.013) |
+| M4 retention (kept+stationary / mutants) | E 81/152 (0.53), S 73/113 (0.65), C 103/152 (0.68). E loses the most, consistent with L5 (longer leads drop out) |
+
+Descriptive output (registered as such) for area-matched pairs with |dA| < 0.15: E n=26, mean d +0.193; S n=37, mean d -0.237.
+Post hoc (`scripts/describe_mutants.py`, `results/mutants_describe.txt`, written after seeing the above): the area-adjusted residual
+d - 1.037 dA averages +0.241 (E), -0.211 (S) and -0.005 (C). E's total effect falls as dlead grows: dlead 1 (n=41) gives +0.04 with dA -0.13;
+dlead 2 (n=31) gives -0.13 with dA -0.40; dlead 3-4 (n=9) have dA from -0.46 to -0.74.
+
+**Reading.** Shortening the lead by one letter lowers ln kappa by about 0.2 while area stays the same. This matches the
+cross-sectional slope (0.15-0.24 per step) and is the cleanest causal evidence here. Extending the lead has no net effect on ln kappa:
+the same flip also shrinks the pattern (dln A22 about -0.29), and ln kappa moves with ln A at slope about 1. Net of area, extension
+raises ln kappa by about +0.24 per mutant (+0.16 per lead step), symmetric with S. So the lead effect is causal at fixed area, in both directions.
+Its total effect is sign-mixed: on the extension side it is cancelled by an area loss that has no counterpart on the shortening side.
+The E/S asymmetry in dA is unexplained.
+
+**Caveats.**
+1. kappa = B·A/P at k=26 contains A, so the c ≈ 1 area slope is partly definitional, and dA shares run noise with d. "At fixed
+area" therefore means conditional on the measured ln A22, as in the registered census model, not a clean structural decomposition. dA is a
+mediator, not a confounder, so b is a direct effect and E's mean d is the total effect.
+2. The pooled-regression CI treats pairs as independent, but up to 3 pairs share a base (and its measurement error), so that CI is somewhat too narrow. The within-arm CIs have one pair per base.
+3. Selection: only 53% of E mutants survive the core-band and stationarity filter, against 65-68% for S and C. If the dropped E mutants differ in kappa, E's mean d is biased in an unknown direction.
+4. No arm isolates "early flip, lead unchanged". C flips late letters, so M2 controls composition, not position. W6 found early-letter effects of both signs at fixed area, so S could partly be an early-position effect rather than a lead effect.
+5. The area-adjusted E/S symmetry is post hoc.

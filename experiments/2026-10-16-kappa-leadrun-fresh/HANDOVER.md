@@ -1,5 +1,5 @@
-# Handover: kappa leading-run fresh test (2026-10-16)
-State: probe run + analyse.py done; README Results and NOTEBOOK updated. notebook.ipynb is STILL the unfilled template (todo, must run from committed results/).
-Result: lead-run effect replicates on 176 fresh stationary rules and at fixed ln A (L1, L3 held; slope 0.15/step). L2, L4 (my mis-specified criteria) and L5 (survivor selection: stationary share 0.68 -> 0.38 from lead 1 to 6) failed.
-Next: (1) mutation dose-response at matched area (causality; W6 earlier found early-letter effects at fixed area go both directions); (2) shuffled-lead null with refit coefficient; (3) check what the dropouts do (escapes: 365/2400 runs) and bound the selection bias; (4) fill notebook.ipynb; (5) add to notes/open-questions-hypotheses.md.
-Reproduce: sample.py -> run.sh (~22 min) -> analyse.py (see README Commands).
+# Handover: kappa leading-run fresh test (updated 2026-10-18)
+State: Part 1 (L1-L6), Part A (A1, A2) and Part B (M1-M4 mutants) are all run and analysed. README Results, NOTEBOOK and notebook.ipynb (executed) agree.
+Result: the lead effect replicates on fresh rules at fixed ln A (L1, L3). Single-flip mutants: shortening the lead lowers ln kappa by 0.20 [0.11, 0.29] with area unchanged (M3 held). Extending it has no net effect (M1, M2 failed) because it also shrinks A22 by about 0.29; net of area it is about +0.24 (post hoc). So the effect is causal at matched area, and its total effect is sign-mixed.
+Next: (1) a registered arm that flips an early letter with the lead unchanged (lead vs position); (2) a bound on E-arm dropouts (retention 0.53); (3) explain why extending the lead shrinks A22 but shortening it does not; (4) add to notes/open-questions-hypotheses.md (not done).
+Reproduce: sample.py -> run.sh -> analyse.py; followup.py; mutants.py -> run_mutants.sh (~17 min) -> check_overlap.py, analyse_mutants.py, describe_mutants.py (see README).

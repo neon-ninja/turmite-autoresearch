@@ -1,0 +1,4 @@
+# cmd: uv run experiments/2026-10-16-kappa-leadrun-fresh/scripts/check_overlap.py
+overlap rules 30; in fresh_rules.csv 30; kept in base 18; kept in rerun 18
+max |d n_runs| 0, max |d lnk| 0.0, max |d lnA22| 0.0, max |d g_k| 0.0
+IDENTICAL
