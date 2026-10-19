@@ -26,3 +26,11 @@ Notes:
 - Contributions are accepted under the license that matches the kind of content
   they add, as above. Unless you state otherwise, a contribution of code is
   dual-licensed MIT OR Apache-2.0, as in Apache-2.0 section 5.
+
+## Copyright and authorship
+
+Copyright in this repository is held by Accelerant Limited. Tim McNamara is the
+author and asserts the right to be identified as the author of the work
+(moral right of attribution). Reuse under the licenses above should credit
+Tim McNamara as author, alongside the copyright notice where a license requires
+one.
