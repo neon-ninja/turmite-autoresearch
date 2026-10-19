@@ -144,3 +144,23 @@ stale P2 build (177 s); not compared further since the binaries differ and no ne
 ### 2026-10-18 20:40 (+13) · 14b9a24 · observation
 `cargo test --release --features cuda --test gpu_probe` on the fresh build (`~/turmite-target-p4`): 5/5 pass. Plain `cargo test --release` and `--test gpu --test onset`
 were last run in the possibly stale `~/turmite-target` and are not yet rerun on a verified build. Open: paired P2 re-measure (rebuild `probe` at HEAD, re-time CPU, ~11 min).
+
+### 2026-10-19 08:25 (+13) · 6de71f2 · intent
+Finish HANDOVER items 1-4. Machine idle (no `release/` or cargo processes; GPU 0-20% from the other adapter). New `scripts/bench_p2.sh` builds `probe` and `gpu_probe` in a fresh
+`~/turmite-target-p2`, checks exit status and that binaries are newer than the sources, logs sha256, then times gpu1, cpu, gpu2. No tests while it runs.
+
+### 2026-10-19 08:53 (+13) · 6de71f2 · observation
+`bench_p2.sh` exit 0, no foreign process before/after any phase. Binaries: probe 7d341949..., gpu_probe 91c072f7.... Whole-process wall: gpu1 157.06 s, cpu 912.49 s, gpu2 156.94 s; device path
+154.79/154.72 s. All three CSVs cmp-identical to the kappa-leadrun dump; cpu vs gpu1 identical. Speedup 5.81x.
+
+### 2026-10-19 08:55 (+13) · 6de71f2 · interpretation
+By the criterion registered 2026-10-16 (falsified if >= 4.9x), P2 is **falsified** at HEAD, from above. The stale-build 3.84x ("held") is superseded. The GPU time barely moved (177 -> 157 s); the
+CPU baseline went 681.6 -> 912.5 s (+34%) and that drives the ratio. Why the CPU `probe` is slower is unexplained (old binary f1a309cf from the suspect dir; possible code change in the `src/probe.rs`
+refactor, or machine state). Not bisected. Prediction text not edited.
+
+### 2026-10-19 09:10 (+13) · 6de71f2 · observation
+Verified-build tests (`~/turmite-target-p2`): `cargo test --release` all ok; `--features cuda --test gpu --test onset --test gpu_probe`: 7/7, 1/1, 5/5. `bench.sh` and `spotcheck.sh` fixed (build exit status,
+stale-binary check). The earlier stale-dir test passes are superseded.
+
+### 2026-10-19 09:15 (+13) · 6de71f2 · question
+Open: why is the HEAD CPU `probe` 34% slower than the old one? A cheap check is to time `probe 27 8192` on a 100-spec subset with the old commit (before the `src/probe.rs` refactor) built in a fresh dir. Not done.

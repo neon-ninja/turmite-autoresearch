@@ -142,6 +142,16 @@ A CUDA batch runner for thousands of independent (rule, background-seed) ants. B
 `2026-10-16-gpu-ant-sweep/` (its README has the design, benchmarks and limits). Use it when a
 question needs the **end state of many `fast::run`-style ants**; do not use it for the other things below.
 
+**Which tool** (summary; the rule of thumb is also in `AGENTS.md` "GPU (CUDA) tools")
+- Many `fast::run` end states (census CSV) -> `gpu_sweep`. Many `probe` runs of `RULE`/`RULE@SEED` -> `gpu_probe`.
+  Anything else (rotor/rw/sbg/pw/cookie/errw walkers, noise, several ants, turmites, `growth`, `edgestats`), a handful of runs
+  or one long run -> CPU. A GPU batch pays when it is >= ~2000-4000 independent ants and stepping-bound (>= ~1e8 steps each).
+- Plan the batch as a spec file, run it chunked, `--stats FILE` into `results/`, `cmp` a slice against the CPU tool first.
+- Recipes to copy: `2026-10-16-gpu-probe/scripts/bench_p2.sh` (verified-build timing: fresh target dir, build exit status, sha256, stale-binary
+  check, foreign-process log, `cmp` against a dump), `bench_lanes.sh` (lane scaling), `spotcheck.sh` (slice vs CPU).
+- **Build hygiene for timed or cited runs:** use a fresh `CARGO_TARGET_DIR`, check the build's exit status, log the binary sha256,
+  never `cargo build | tail` (on `/mnt/f` stale mtimes made cargo skip a rebuild and a speedup was reported for the wrong binary).
+
 **When it pays**
 - A census-style sweep: many rules, one step budget, output = the `sweep`/`sweep_lean` CSV (steps, stop,
   highway period/drift/onset, extent, tail period). Measured on lengths 2..=12 (4083 rules, grid 8192):
@@ -203,6 +213,10 @@ Same stdin and CSV as `probe MAX_LOG2 [GRID]`, byte-identical (`tests/gpu_probe.
 `2026-10-16-gpu-probe/results/`), for lines `RULE` and `RULE@SEED` only; any other walker spec is rejected before
 anything runs. Use it instead of `probe` when a batch is hundreds or more ants at `probe 27 8192`-sized budgets; for a
 handful of runs the CPU `probe` is simpler and has no setup cost (~1-2 s NVRTC + pool allocation).
+Measured on the 2400-spec kappa batch (`2026-10-16-gpu-probe/README.md`, "P2 re-measure"): GPU 157 s vs CPU 6 threads 912 s
+(5.8x, above the registered 4.9x line, so the speed prediction was falsified from above); the CPU baseline moved from 681.6 s
+for reasons not yet found, so quote the speedup as roughly 4-6x, n = 1 CPU run. Use `--lanes` near the job count (2400 lanes
+beat 1536 and 1024 by 1.4x and 1.8x on device time, 20 GB card, about 13-19 GB used).
 ```bash
 source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh
 cargo run --release --features cuda --bin gpu_probe -- 27 8192 --lanes 2400 --stats results/gpu.json < specs.txt > probe.csv

@@ -1,0 +1,29 @@
+git 6de71f2 dirty(src,tests,Cargo.toml; filemode ignored)=0 2026-10-19T08:32:09+13:00
+build:     Finished `release` profile [optimized] target(s) in 9.32s
+probe sha256 7d341949a912bc14a7b1c83f72a4fab14d41e6868e3717b7a6bfc19ecb190a29 mtime 2026-10-19 08:31:55.946175713 +1300
+gpu_probe sha256 91c072f715cf5da6b5e2aaf380551d188d8c7d1058d60a2968cfb9c14b3653d3 mtime 2026-10-19 08:31:56.050175429 +1300
+specs: experiments/2026-10-16-kappa-leadrun-fresh/results/specs.txt (2400 lines, sha256 1e9198bf698f8cba140f32f6caf2db60a33028e228d6ec294d5f53b838c9adb0)
+dump: experiments/2026-10-16-kappa-leadrun-fresh/dumps/probe.csv (sha256 b0976e0d4ff4e426a0e573d5b588f8ee0dd3fd6408cdf558e25dd1026d2d8e5c)
+-- before gpu1 2026-10-19T08:32:09+13:00 loadavg: 0.61 0.19 0.07
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3131 MiB, 20 %;
+   gpu1 exit 0 wall 157.056047201 s (whole process); cmp vs dump: identical
+-- after gpu1 2026-10-19T08:34:47+13:00 loadavg: 1.15 0.58 0.24
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3127 MiB, 23 %;
+-- before cpu 2026-10-19T08:34:47+13:00 loadavg: 1.15 0.58 0.24
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3127 MiB, 25 %;
+   cpu exit 0 wall 912.485505840 s (whole process); cmp vs dump: identical
+-- after cpu 2026-10-19T08:50:00+13:00 loadavg: 4.81 6.15 4.35
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3081 MiB, 10 %;
+-- before gpu2 2026-10-19T08:50:00+13:00 loadavg: 4.81 6.15 4.35
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3081 MiB, 22 %;
+   gpu2 exit 0 wall 156.938488521 s (whole process); cmp vs dump: identical
+-- after gpu2 2026-10-19T08:52:37+13:00 loadavg: 1.34 4.05 3.83
+   foreign procs: 
+   gpu: 162 MiB, 0 %;3081 MiB, 4 %;
+cmp cpu vs gpu1: identical
+done 2026-10-19T08:52:38+13:00

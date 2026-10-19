@@ -139,6 +139,42 @@ node web/smoke.js                            # web smoke test (if node installed
 Always build and run sweeps with `--release`; debug builds are far too slow for
 real step counts.
 
+## GPU (CUDA) tools: when to reach for them
+
+Two batch runners exist, both byte-identical to their CPU counterparts and gated behind `--features cuda`
+(WSL only; `source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh` first). Full usage, flags, Rust API and
+etiquette: "Using the GPU sweeper" and "`gpu_probe`" in `experiments/README.md`.
+
+| You need | Use | Measured gain (RTX 4000 Ada vs 6 CPU threads) |
+|---|---|---|
+| End state of thousands of (rule, background-seed) ants: the `sweep_lean` CSV | `gpu_sweep` | 4.9x at 1e8 steps, 4083 rules (`2026-10-16-gpu-ant-sweep`) |
+| `probe MAX_LOG2 GRID` on hundreds+ of `RULE` / `RULE@SEED` lines | `gpu_probe` | 5.8x at `probe 27 8192`, 2400 runs, but the CPU baseline shifted 34% unexplained (681.6 -> 912.5 s), so quote it as roughly 4-6x (`2026-10-16-gpu-probe`) |
+
+Reach for the GPU when **all** of these hold: the work is many independent ants (>= ~2000-4000, enough to fill the lanes),
+stepping-bound (budget >= ~1e8 steps; at 1e6 the CPU cost is mostly per-rule overhead), the instrument is one of the two
+above, and the machine is otherwise idle. Stay on the CPU for a handful of runs (setup is ~1-2 s plus a VRAM pool), a single
+long run (an ant is a serial chain; more lanes do not speed it up), the walkers the GPU rejects (`rotor:`, `rw:`, `sbg:`,
+`pw:`, `cookie:`, `errw:`, ...), turn noise, several ants, turmites with states, other lattices, and statistics that are
+not ported. Porting a new instrument is justified only when a planned batch is stepping-bound at ~1e11+ total steps and the
+CPU run would take hours; it needs its own oracle test against the CPU code (rule 4) and a speed prediction registered
+before timing (rule 8), as both existing ports had.
+
+Using them for further research:
+- Design the batch as a spec file (`RULE` or `RULE@SEED` per line) and run it once with `--stats FILE`; cite the command,
+  commit, `--lanes`, grid and binary sha256 in the experiment README. Split long sweeps into chunks with `*.done` markers.
+- Spot-check a slice against the CPU tool (`cmp` the CSVs) before trusting a full run. After touching `src/gpu/` or
+  `src/probe.rs`, run `cargo test --release --features cuda --test gpu --test onset --test gpu_probe`; plain `cargo test --release`
+  does not exercise the GPU.
+- Results do not depend on lanes, slice or batch composition, so set `--lanes` to about the job count (all ants resident is
+  fastest) and check `oom_requeues == 0` in the stats JSON (a requeue restarts that ant).
+- Nothing else heavy may run during a GPU job or its timing (it takes all free VRAM and the cores for replay). Check
+  `ps -eo pid,args | grep -E '/release/|cargo'` and `nvidia-smi` first.
+- **Stale-build trap (it produced a wrong "P2 held" result):** on `/mnt/f` source mtimes can stay older than the binary
+  after edits, so cargo rebuilds nothing. For any timed or published run, build into a fresh `CARGO_TARGET_DIR`, check the
+  build's exit status (never pipe it through `tail`) and log the binary's sha256. `experiments/2026-10-16-gpu-probe/scripts/bench_p2.sh`
+  does this and is the template for timing scripts.
+- The benchmarks are n = 1-2 runs on one GPU; cite speedups with that caveat and with the CPU baseline's own provenance.
+
 ## Working conventions
 
 - Read the relevant note in `notes/` before starting an investigation, and

@@ -11,7 +11,14 @@ DUMP=experiments/2026-10-16-kappa-leadrun-fresh/dumps/probe.csv   # earlier CPU 
 T=$CARGO_TARGET_DIR/release
 S=$E/scratch; mkdir -p $S
 LOG=$E/results/bench.log
-cargo build --release --features cuda --bin probe --bin gpu_probe 2>&1 | tail -1
+# Never pipe the build through `tail`: it hid a stale binary (source mtimes on /mnt/f did not advance, so cargo rebuilt nothing).
+BUILD_OUT=$(mktemp)
+cargo build --release --features cuda --bin probe --bin gpu_probe > $BUILD_OUT 2>&1 || { cat $BUILD_OUT >&2; echo "build failed" >&2; exit 1; }
+tail -1 $BUILD_OUT
+# A binary older than the newest source file is stale: use a fresh CARGO_TARGET_DIR or touch the sources.
+for b in probe gpu_probe; do
+  [ -z "$(find src Cargo.toml -newer $CARGO_TARGET_DIR/release/$b -type f | head -1)" ] || { echo "$b older than sources: stale build" >&2; exit 1; }
+done
 echo "git $(git rev-parse --short HEAD) dirty=$(git status --porcelain src tests Cargo.toml | wc -l) $(date -Iseconds)" > $LOG
 echo "probe sha256 $(sha256sum $T/probe | cut -d' ' -f1)" >> $LOG
 echo "gpu_probe sha256 $(sha256sum $T/gpu_probe | cut -d' ' -f1)" >> $LOG

@@ -112,7 +112,10 @@ cores (lean read 179.4 s and 374.8 s). Those numbers are discarded; the table ab
 The probe's own output is unaffected (seed-determined), its wall time may be inflated.
 
 ## Open / next
-- Port the probe statistics (visited flag, area, perimeter, gyration moments, octave windows) to the kernel: that is
+- (Done 2026-10-16/19: the probe port exists as `gpu_probe`, see `../2026-10-16-gpu-probe/`; it was byte-identical to `probe` and ran
+  about 5.8x faster at `probe 27 8192`, with the caveat in its README.) When to choose which GPU tool and how to time them safely:
+  `../README.md` ("Using the GPU sweeper") and `AGENTS.md` ("GPU (CUDA) tools").
+- Original item, kept for the record: port the probe statistics (visited flag, area, perimeter, gyration moments, octave windows) to the kernel: that is
   what the `probe 27 8192` runs need (stepping-bound, ~3e11 steps per 2400 runs). Needs its own oracle test against `src/probe.rs`.
 - Onset replay is still CPU (9 s of 59 s at 1e8): could be a second GPU pass.
 - Overlap the onset replay with the sweep and stream CSV rows; stop paying NVRTC compile on each launch (cache the PTX).

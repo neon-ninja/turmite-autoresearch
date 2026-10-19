@@ -8,7 +8,14 @@ E=experiments/2026-10-16-gpu-probe
 SRC=experiments/2026-10-16-kappa-leadrun-fresh/results/specs.txt
 S=$E/scratch; mkdir -p $S
 awk 'NR % 100 == 1' $SRC > $E/results/spotcheck_specs.txt
-cargo build --release --features cuda --bin probe --bin gpu_probe 2>&1 | tail -1
+# Never pipe the build through `tail`: it hid a stale binary (source mtimes on /mnt/f did not advance, so cargo rebuilt nothing).
+BUILD_OUT=$(mktemp)
+cargo build --release --features cuda --bin probe --bin gpu_probe > $BUILD_OUT 2>&1 || { cat $BUILD_OUT >&2; echo "build failed" >&2; exit 1; }
+tail -1 $BUILD_OUT
+# A binary older than the newest source file is stale: use a fresh CARGO_TARGET_DIR or touch the sources.
+for b in probe gpu_probe; do
+  [ -z "$(find src Cargo.toml -newer $CARGO_TARGET_DIR/release/$b -type f | head -1)" ] || { echo "$b older than sources: stale build" >&2; exit 1; }
+done
 T=$CARGO_TARGET_DIR/release
 t0=$(date +%s.%N)
 RAYON_NUM_THREADS=${CPU_THREADS:-1} nice $T/probe 27 8192 < $E/results/spotcheck_specs.txt > $S/spot_cpu.csv 2> $S/spot_cpu.err

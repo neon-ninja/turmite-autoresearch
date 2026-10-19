@@ -64,6 +64,13 @@ Flags: `--lanes N` (default 4096), `--slice N`, `--pool-gb G`, `--device K`, `--
 Library: `turmite::gpu::{GpuProber, ProbeConfig, ProbeJob}`; `GpuProber::run(&jobs, progress)` returns
 `Vec<probe::ProbeResult>` index-aligned with the jobs.
 
+When to use it: hundreds or more `RULE`/`RULE@SEED` runs at `probe 27 8192`-sized budgets, on an otherwise idle machine, with `--lanes`
+about the job count (2400 lanes for the 2400-spec batch: all resident, 0 requeues, about 157 s vs about 912 s on 6 CPU threads; see
+"P2 re-measure"). For a handful of runs, other walkers, or anything timed on a binary you have not verified, use CPU `probe`.
+Before citing a timing: fresh `CARGO_TARGET_DIR`, build exit status checked, binary sha256 logged (`scripts/bench_p2.sh`).
+Workflow for a new batch: write the spec file, `cmp` a slice (`scripts/spotcheck.sh`) against `probe`, run the batch with `--stats`,
+and record command, commit and sha in the experiment's README. Guidance for all GPU tools: `experiments/README.md` and `AGENTS.md`.
+
 ## Results
 
 Recipe: `bash scripts/bench.sh` (commit 53ccccc, machine otherwise idle: no `release/` processes, loadavg 1.0 before gpu1;
@@ -116,3 +123,31 @@ HEAD speedup is claimed. Other artefacts built in `~/turmite-target` since 10-16
 **Tests on the fresh build (2026-10-18):** `cargo test --release --features cuda --test gpu_probe` with `CARGO_TARGET_DIR=~/turmite-target-p4`: 5/5 pass (17 s).
 The earlier proptest and post-refactor `cargo test` passes ran in `~/turmite-target` and carry the same stale-build doubt as P2; this run supersedes the `gpu_probe` one.
 Plain `cargo test --release` and the `gpu`/`onset` tests were not rerun on a verified build.
+
+### P2 re-measure on a verified HEAD build (2026-10-19)
+
+Recipe: `bash scripts/bench_p2.sh` (HEAD 6de71f2, clean tree for src/tests/Cargo.toml; fresh `CARGO_TARGET_DIR=~/turmite-target-p2`; build exit status
+checked, binaries verified newer than the sources). `probe` sha256 7d341949a912..., `gpu_probe` 91c072f715cf... (same as the P4 build). Same 2400 specs
+and dump as P2. Phases gpu1, cpu, gpu2 sequential; no foreign process before or after any phase (`results/bench_p2.log`, stats
+`results/bench_p2_gpu{1,2}.json`).
+
+| Phase | Whole-process wall | Output vs dump |
+|---|---|---|
+| gpu1 (`--lanes 2400`) | 157.06 s (device path 154.79 s) | byte-identical |
+| cpu (`probe 27 8192`, 6 threads) | 912.49 s | byte-identical |
+| gpu2 | 156.94 s (device path 154.72 s) | byte-identical |
+
+- **P2 is falsified at HEAD on its upper bound.** Speedup 912.49/157.06 = **5.81x** (5.81x with gpu2), at or above the registered 4.9x line (registered range
+  2x-6x, central 3.5x; "falsified if >= 4.9x"). The earlier "P2 held, 3.84x" was a stale-binary result (see the caveat above) and is superseded, not edited.
+  By the registered criterion the verdict is that the probe on the GPU is not costlier per step than the sweep kernel was; the lower-bound and in-range part of P2 held only for the stale build.
+- **The ratio moved mostly because of the CPU side.** GPU went 177 -> 157 s (HEAD faster than the stale build), but the CPU `probe` took 912 s now vs 681.6 s
+  then. The old CPU binary (sha f1a309cf) was from the suspect target dir, so it is unknown whether the old or the new `probe` differs in code (the `src/probe.rs`
+  refactor) or whether the machine state differs (this CPU run had loadavg ~6 throughout, as expected for 6 threads). Cause of the 34% CPU slowdown is **unexplained**; I did not
+  bisect it. Anything that depends on the CPU baseline (the speedup) inherits that uncertainty; the GPU time is stable across all four HEAD runs (154.2-154.8 s device path at 2400 lanes).
+- n = 1 CPU run, 2 GPU runs, one spec set, one GPU. No between-run CPU spread.
+
+**Tests on a verified build (2026-10-19)**, `CARGO_TARGET_DIR=~/turmite-target-p2`, HEAD 6de71f2: `cargo test --release` all test binaries ok (no failures);
+`cargo test --release --features cuda --test gpu --test onset --test gpu_probe`: gpu 7/7, gpu_probe 5/5, onset 1/1. This supersedes the earlier suspect-dir passes.
+
+**Script fixes (2026-10-19):** `scripts/bench.sh` and `scripts/spotcheck.sh` no longer pipe the build through `tail`; they abort on build failure and when a binary is older than
+the sources. `bench.sh` still defaults to `~/turmite-target`, so use `CARGO_TARGET_DIR=<fresh dir>` there. `bench.log`, `bench_gpu*.json` (the stale P2) are kept unchanged.
