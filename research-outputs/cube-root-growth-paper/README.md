@@ -1,5 +1,36 @@
 # Manuscript build
 
+## Keep the census dataset current
+
+`supplementary/rule-census/rule_census.csv` is the paper's per-rule supplementary
+dataset (all 4083 swept rules, 60 columns; data dictionary in its README). It is a
+join of committed result files, so it goes stale silently. Rebuild it and commit
+the result in the same change whenever you touch anything it reads:
+
+```bash
+uv run research-outputs/cube-root-growth-paper/supplementary/rule-census/build_rule_census.py
+```
+
+Rebuild when you: change the census classification, windows or fits
+(`census.py`, `analyse_probe.py`); rerun or extend a sweep, the 10^9 follow-up or
+highway confirmation; re-fit the `c` model; or change any census count quoted in
+`main.typ` / `numbers.json`. After rebuilding, check that `rule_census.build.json`
+still matches the paper (3512 census rules, 3055 analysed; blob median width
+exponent 0.3326) and that the diff is what you expected. If you add a per-rule
+quantity to the paper, add it as a column in the build script and the dictionary
+rather than leaving it only in a figure script. The CSV is regenerated, never
+hand-edited.
+
+Guards (all call the same script):
+- `build_rule_census.py --check` rebuilds in memory and exits 1 if the committed
+  CSV or summary JSON differ, or if the table disagrees with `numbers.json`
+  (census/builder/log/blob/analysed counts, blob median width exponent).
+- `rebuild_figures.py` regenerates the table first and aborts if it disagrees with
+  `numbers.json`; the table and builder are in its provenance hashes.
+- `.githooks/pre-commit` runs `--check` when a staged file is one of the table's
+  inputs. It is opt-in, once per clone: `git config core.hooksPath .githooks`
+  (bypass a WIP commit with `--no-verify`).
+
 ## Accounting-identity criticism (2026-10-16)
 
 Replaced the subtitle “a calibrated mean-field decomposition” with

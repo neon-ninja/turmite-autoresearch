@@ -13,6 +13,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "research-outputs/cube-root-growth-paper/fig"
 SCRIPTS = ["figures.py", "gallery.py", "textbook_figs.py", "memory_figures.py", "late_switch_figure.py"]
+CENSUS_TABLE = "research-outputs/cube-root-growth-paper/supplementary/rule-census/build_rule_census.py"
 INPUTS = [
     "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv", "experiments/2026-10-13-calib-instrument-calibration/results/calib_rotor.csv", "experiments/2026-10-13-probe-growth-census/results/cube_stats.json",
     "experiments/2026-10-13-probe-growth-census/results/c_model.csv", "experiments/2026-10-13-probe-growth-census/results/probe_all.csv", "experiments/2026-10-13-calib-instrument-calibration/results/calib_rw.csv",
@@ -28,6 +29,7 @@ INPUTS = [
     "experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.decomposition.json",
     "experiments/2026-10-kappa-rule-space/results/w3c_stats.txt",
     "experiments/2026-10-kappa-rule-space/results/w3c_cross.txt",
+    CENSUS_TABLE, CENSUS_TABLE.replace("build_rule_census.py", "rule_census.csv"),
 ] + [f"experiments/2026-10-13-g1-ribbon-breakout/results/{name}" for name in
      ("g1_ribbon.csv", "g1_wake_extract.json", "g1_wake_crop_12800000000.csv", "g1_sweep_trace_12800000000.csv")
 ] + [f"research-outputs/cube-root-growth-paper/{name}" for name in SCRIPTS]
@@ -42,6 +44,8 @@ def main():
     os.chdir(ROOT)
     subprocess.run([sys.executable, "research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py"], check=True)
     subprocess.run([sys.executable, "research-outputs/cube-root-growth-paper/tail_budget_numbers.py"], check=True)
+    # Regenerate the supplementary per-rule table; exits non-zero if it disagrees with numbers.json.
+    subprocess.run([sys.executable, CENSUS_TABLE], check=True)
     gal = Path(os.environ.get("GAL", Path.home() / "gal")).resolve()
     snapshots = [gal / f"{r}.bin" for r in
                  ("RL", "RLL", "RLR", "RRLL", "RLLR", "RRLRLLRLRRLR", "RRLRLRLLLLLL")]

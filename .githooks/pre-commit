@@ -1,0 +1,16 @@
+#!/bin/sh
+# Opt-in guard: fail the commit if the paper's per-rule census dataset is stale.
+# Enable once per clone:  git config core.hooksPath .githooks
+# Only runs when a staged file is one of the dataset's inputs (or the dataset itself).
+# Bypass for a genuine WIP commit: git commit --no-verify
+S=research-outputs/cube-root-growth-paper/supplementary/rule-census/build_rule_census.py
+D=research-outputs/cube-root-growth-paper/supplementary/rule-census/
+N=research-outputs/cube-root-growth-paper/numbers.json
+staged=$(git diff --cached --name-only)
+trigger=$( { uv run "$S" --list-inputs; echo "$N"; } | while read -r f; do
+    echo "$staged" | grep -qxF "$f" && echo "$f"; done)
+if [ -z "$trigger" ] && ! echo "$staged" | grep -q "^$D"; then exit 0; fi
+if ! uv run "$S" --check; then
+    echo "pre-commit: rule_census is out of date with the inputs staged in this commit." >&2
+    exit 1
+fi

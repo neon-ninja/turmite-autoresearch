@@ -1,7 +1,7 @@
 {
  "analysed": 3055,
+ "blob_median_probe_alpha_w": 0.332597,
  "columns": 60,
- "git_head_at_build": "9dce376",
  "in_census": 3512,
  "phase_counts": {
   "blob": 2637,

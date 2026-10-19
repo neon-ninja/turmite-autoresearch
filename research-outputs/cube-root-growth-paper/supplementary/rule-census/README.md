@@ -10,7 +10,9 @@ uv run research-outputs/cube-root-growth-paper/supplementary/rule-census/build_r
 ```
 
 (deterministic, no randomness, rows sorted by `(n, rule)`; `rule_census.build.json`
-records row counts and the git HEAD at build time). Every rule starts from a blank
+records the row counts and blob median exponent). `build_rule_census.py --check`
+fails if the committed files are stale or disagree with the paper's
+`numbers.json`; see the paper README ("Keep the census dataset current"). Every rule starts from a blank
 board, so a rule has exactly one trajectory and there are no seeds.
 
 Rule notation: character `c` of the string is the turn taken on colour `c`

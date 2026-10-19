@@ -9,9 +9,19 @@ Run from the repo root:
 
 Deterministic: pure joins of committed result files, no randomness; rows are
 sorted by (n, rule). Nothing here is re-measured; see README.md for provenance.
+
+Guards (exit 1 on failure):
+  --check        rebuild in memory and fail if the committed CSV / summary JSON
+                 differ (the dataset is stale, or was hand-edited)
+  --list-inputs  print the repo-relative files the table is built from (used by
+                 .githooks/pre-commit to decide when to run --check)
+Every build, with or without --check, also asserts that the table agrees with the
+census counts and blob median exponent in ../../numbers.json, so the paper and
+the dataset cannot drift apart silently.
 """
+import argparse
 import json
-import subprocess
+import sys
 from pathlib import Path
 
 import polars as pl
@@ -30,68 +40,138 @@ def root_of(s: str) -> str:
             return s[:p]
     return s
 
+INPUTS = [
+    *(f"experiments/2026-10-13-census-sweeps/results/{f}" for f in (
+        "sweep_v2.csv", "confirmed_v2.csv", "sweep_1B.csv", "sweep_1B_extra.csv",
+        "1B_highways.txt", "census.csv")),
+    *(f"experiments/2026-10-13-probe-growth-census/results/{f}" for f in (
+        "probe_summary.csv", "c_model.csv")),
+]
+CSV = OUT / "rule_census.csv"
+SUMMARY = OUT / "rule_census.build.json"
+NUMBERS = ROOT / "research-outputs/cube-root-growth-paper/numbers.json"
 
-sweep = pl.read_csv(CS / "sweep_v2.csv").with_columns(
-    steps_per_cell=pl.col("steps") / (pl.col("width") * pl.col("height")))
-sweep = sweep.rename({c: f"sweep_{c}" for c in sweep.columns
-                      if c not in ("rule", "n", "steps_per_cell")})
-sweep = sweep.rename({"steps_per_cell": "sweep_steps_per_cell"})
 
-conf = pl.read_csv(CS / "confirmed_v2.csv").drop("n")
-conf = conf.rename({c: f"conf_{c}" for c in conf.columns if c != "rule"})
+def build() -> tuple[pl.DataFrame, str, dict]:
+    """Return (table, csv text, summary). Pure function of the committed inputs."""
+    sweep = pl.read_csv(CS / "sweep_v2.csv").with_columns(
+        steps_per_cell=pl.col("steps") / (pl.col("width") * pl.col("height")))
+    sweep = sweep.rename({c: f"sweep_{c}" for c in sweep.columns
+                          if c not in ("rule", "n", "steps_per_cell")})
+    sweep = sweep.rename({"steps_per_cell": "sweep_steps_per_cell"})
 
-# 1e9-step re-run of the rules still unresolved at 1e8 (a subset of rules).
-b1 = pl.concat([pl.read_csv(CS / "sweep_1B.csv"),
-                pl.read_csv(CS / "sweep_1B_extra.csv")], how="diagonal_relaxed").drop("n").unique(maintain_order=True)
-assert b1["rule"].is_unique().all(), "1e9 files disagree on a rule"
-b1 = b1.rename({c: f"run1e9_{c}" for c in b1.columns if c != "rule"})
-b1_hw = set((CS / "1B_highways.txt").read_text().split())
+    conf = pl.read_csv(CS / "confirmed_v2.csv").drop("n")
+    conf = conf.rename({c: f"conf_{c}" for c in conf.columns if c != "rule"})
 
-cen = pl.read_csv(CS / "census.csv").drop("n", "spc")
-cen = cen.rename({"full": "reached_2e27", "alpha": "census_alpha_w",
-                  "per_doubling": "census_ext_per_doubling", "ext": "census_ext_2e27",
-                  "cls": "phase_census"})
+    # 1e9-step re-run of the rules still unresolved at 1e8 (a subset of rules).
+    b1 = pl.concat([pl.read_csv(CS / "sweep_1B.csv"),
+                    pl.read_csv(CS / "sweep_1B_extra.csv")], how="diagonal_relaxed").drop("n").unique(maintain_order=True)
+    assert b1["rule"].is_unique().all(), "1e9 files disagree on a rule"
+    b1 = b1.rename({c: f"run1e9_{c}" for c in b1.columns if c != "rule"})
+    b1_hw = set((CS / "1B_highways.txt").read_text().split())
 
-probe = pl.read_csv(PG / "probe_summary.csv").drop("n", "cls", "alpha")
-probe = probe.rename({"alpha_w": "probe_alpha_w", "alpha_rg": "probe_alpha_rg"})
-probe = probe.rename({c: f"probe_{c}" for c in probe.columns
-                      if c not in ("rule",) and not c.startswith("probe_")})
+    cen = pl.read_csv(CS / "census.csv").drop("n", "spc")
+    cen = cen.rename({"full": "reached_2e27", "alpha": "census_alpha_w",
+                      "per_doubling": "census_ext_per_doubling", "ext": "census_ext_2e27",
+                      "cls": "phase_census"})
 
-cmod = pl.read_csv(PG / "c_model.csv").drop("c")
-cmod = cmod.rename({"c_pred": "cmodel_c_pred", "held_out": "cmodel_held_out"})
+    probe = pl.read_csv(PG / "probe_summary.csv").drop("n", "cls", "alpha")
+    probe = probe.rename({"alpha_w": "probe_alpha_w", "alpha_rg": "probe_alpha_rg"})
+    probe = probe.rename({c: f"probe_{c}" for c in probe.columns
+                          if c not in ("rule",) and not c.startswith("probe_")})
 
-d = (sweep.join(conf, on="rule", how="left")
-     .join(b1, on="rule", how="left")
-     .join(cen, on="rule", how="left")
-     .join(probe, on="rule", how="left")
-     .join(cmod, on="rule", how="left"))
+    cmod = pl.read_csv(PG / "c_model.csv").drop("c")
+    cmod = cmod.rename({"c_pred": "cmodel_c_pred", "held_out": "cmodel_held_out"})
 
-d = d.with_columns(
-    in_census=pl.col("phase_census").is_not_null(),
-    phase=pl.coalesce("phase_census", pl.lit("highway")),
-    analysed=pl.col("probe_alpha_w").is_not_null(),
-    n_L=pl.col("rule").str.count_matches("L"),
-    n_R=pl.col("rule").str.count_matches("R"),
-    primitive_root=pl.col("rule").map_elements(root_of, return_dtype=pl.String),
-    highway_1e9=pl.col("rule").is_in(list(b1_hw)),
-).with_columns(
-    is_repeat=pl.col("primitive_root") != pl.col("rule"),
-    # the 7 census rules that escaped the 8192 grid late are kept in the census
-    census_late_escape=pl.col("in_census") & (pl.col("sweep_stop") == "escaped"),
-).drop("phase_census")
+    d = (sweep.join(conf, on="rule", how="left")
+         .join(b1, on="rule", how="left")
+         .join(cen, on="rule", how="left")
+         .join(probe, on="rule", how="left")
+         .join(cmod, on="rule", how="left"))
 
-front = ["rule", "n", "n_L", "n_R", "primitive_root", "is_repeat", "phase", "in_census",
-         "census_late_escape", "analysed"]
-d = d.select(front + [c for c in d.columns if c not in front]).sort("n", "rule")
-d.write_csv(OUT / "rule_census.csv", float_precision=10)
+    d = d.with_columns(
+        in_census=pl.col("phase_census").is_not_null(),
+        phase=pl.coalesce("phase_census", pl.lit("highway")),
+        analysed=pl.col("probe_alpha_w").is_not_null(),
+        n_L=pl.col("rule").str.count_matches("L"),
+        n_R=pl.col("rule").str.count_matches("R"),
+        primitive_root=pl.col("rule").map_elements(root_of, return_dtype=pl.String),
+        highway_1e9=pl.col("rule").is_in(list(b1_hw)),
+    ).with_columns(
+        is_repeat=pl.col("primitive_root") != pl.col("rule"),
+        # the 7 census rules that escaped the 8192 grid late are kept in the census
+        census_late_escape=pl.col("in_census") & (pl.col("sweep_stop") == "escaped"),
+    ).drop("phase_census")
 
-commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"],
-                        capture_output=True, text=True).stdout.strip()
-summary = {
-    "rows": d.height, "columns": d.width, "git_head_at_build": commit,
-    "phase_counts": {r["phase"]: r["len"] for r in d.group_by("phase").len().iter_rows(named=True)},
-    "in_census": int(d["in_census"].sum()), "analysed": int(d["analysed"].sum()),
-}
-(OUT / "rule_census.build.json").write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
-print(json.dumps(summary, indent=1, sort_keys=True))
-assert d["rule"].is_unique().all() and d.height == 4083
+    front = ["rule", "n", "n_L", "n_R", "primitive_root", "is_repeat", "phase", "in_census",
+             "census_late_escape", "analysed"]
+    d = d.select(front + [c for c in d.columns if c not in front]).sort("n", "rule")
+    assert d["rule"].is_unique().all() and d.height == 4083
+    text = d.write_csv(float_precision=10)
+    summary = {
+        "rows": d.height, "columns": d.width,
+        "phase_counts": {r["phase"]: r["len"] for r in d.group_by("phase").len().iter_rows(named=True)},
+        "in_census": int(d["in_census"].sum()), "analysed": int(d["analysed"].sum()),
+        "blob_median_probe_alpha_w": round(float(
+            d.filter(pl.col("phase") == "blob", pl.col("analysed"))["probe_alpha_w"].median()), 6),
+    }
+    return d, text, summary
+
+
+def paper_mismatches(summary: dict) -> list[str]:
+    """Compare against the numbers the manuscript prints (numbers.json)."""
+    if not NUMBERS.exists():
+        return [f"{NUMBERS.relative_to(ROOT)} missing; cannot cross-check the paper"]
+    n = json.loads(NUMBERS.read_text(encoding="utf-8"))
+    pc = summary["phase_counts"]
+    want = {
+        "census rules": (summary["in_census"], n["census"]["rules"]),
+        "builders": (pc["builder"], n["census"]["builders"]),
+        "log rules": (pc["log"], n["census"]["log"]),
+        "blob rules": (pc["blob"], n["census"]["blob"]),
+        "analysed rules": (summary["analysed"], n["probe"]["analysed"]),
+        "blob median alpha_w": (summary["blob_median_probe_alpha_w"], round(n["alpha_w_blob"][0], 6)),
+    }
+    return [f"{k}: dataset {a} != numbers.json {b}" for k, (a, b) in want.items() if a != b]
+def same_text(path: Path, text: str) -> bool:
+    # git on Windows may check files out with CRLF; the content is what matters
+    return path.exists() and path.read_text(encoding="utf-8").replace("\r\n", "\n") == text
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--check", action="store_true", help="fail if committed files are stale")
+    ap.add_argument("--list-inputs", action="store_true")
+    args = ap.parse_args()
+    me = Path(__file__).resolve().relative_to(ROOT).as_posix()
+    if args.list_inputs:
+        print("\n".join(INPUTS + [me]))
+        return 0
+
+    _, text, summary = build()
+    summary_text = json.dumps(summary, indent=1, sort_keys=True) + "\n"
+    problems = paper_mismatches(summary)
+    if args.check:
+        for path, new in ((CSV, text), (SUMMARY, summary_text)):
+            if not same_text(path, new):
+                problems.append(f"{path.relative_to(ROOT).as_posix()} is stale (differs from a fresh rebuild)")
+        if problems:
+            print("rule_census check FAILED:\n  " + "\n  ".join(problems), file=sys.stderr)
+            print(f"Fix: uv run {me}  and commit the regenerated files "
+                  "(or fix numbers.json / the inputs).", file=sys.stderr)
+            return 1
+        print("rule_census check ok:", json.dumps(summary, sort_keys=True))
+        return 0
+
+    if problems:
+        print("rule_census does NOT agree with the paper (nothing written):\n  "
+              + "\n  ".join(problems), file=sys.stderr)
+        return 1
+    CSV.write_text(text, encoding="utf-8", newline="\n")
+    SUMMARY.write_text(summary_text, encoding="utf-8", newline="\n")
+    print(summary_text, end="")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
