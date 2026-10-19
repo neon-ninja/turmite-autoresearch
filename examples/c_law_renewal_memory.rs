@@ -1,5 +1,5 @@
 //! Finite-colour-memory pilot, boundary-event clock (no learned transition table).
-//! band RULE INTERIOR_SEED full|uniform:R|zero:R RESET_SEED WARMUP READS MAX_LOG2
+//! band RULE INTERIOR_SEED full|uniform:R|zero:R|turn:R|next:R|word2:R RESET_SEED WARMUP READS MAX_LOG2
 //! control rotor|rw SEED WARMUP READS MAX_LOG2
 //! Deterministic JSON on stdout; no timings inside scientific output.
 use turmite::Rule;
@@ -22,18 +22,22 @@ fn run<W: Walker>(
     let mut phase_births = vec![0u64; n];
     let (mut resets, mut changes) = (0u64, 0u64);
     let mut reset_lag = [0u64; 4];
+    let (mut turn_changes, mut next_changes, mut ambiguous) = (0u64, 0u64, 0u64);
     let out = er::trace_clock(walker, None, lay, prefill, start, clock, prepare, |e| {
         phase_reads[e.state.colour as usize] += 1;
         phase_births[e.state.colour as usize] += u64::from(e.born);
         resets += u64::from(exposure.last_reset.get());
         reset_lag[e.state.lag as usize] += u64::from(exposure.last_reset.get());
         changes += u64::from(exposure.last_changed.get());
+        turn_changes += u64::from(exposure.last_turn_changed.get());
+        next_changes += u64::from(exposure.last_next_turn_changed.get());
+        ambiguous += u64::from(exposure.last_reset.get() && exposure.last_class_size.get() > 1);
     });
     assert_eq!(phase_reads.iter().sum::<u64>(), out.boundary_reads);
     assert_eq!(phase_births.iter().sum::<u64>(), out.births);
     assert_eq!(reset_lag[0], 0);
     println!(
-        "{{\"steps\":{},\"start_step\":{},\"window_steps\":{},\"window_complete\":{},\"boundary_reads\":{},\"births\":{},\"lag\":{:?},\"chains\":{:?},\"left_chain_censored\":{},\"right_chain_censored\":{},\"area_t0\":{},\"area\":{},\"perimeter\":{},\"escaped\":{},\"resets_total\":{},\"changed_total\":{},\"boundary_resets\":{},\"boundary_changes\":{},\"boundary_reset_lag\":{:?},\"phase_reads\":{:?},\"phase_births\":{:?}}}",
+        "{{\"steps\":{},\"start_step\":{},\"window_steps\":{},\"window_complete\":{},\"boundary_reads\":{},\"births\":{},\"lag\":{:?},\"chains\":{:?},\"left_chain_censored\":{},\"right_chain_censored\":{},\"area_t0\":{},\"area\":{},\"perimeter\":{},\"escaped\":{},\"resets_total\":{},\"changed_total\":{},\"boundary_resets\":{},\"boundary_changes\":{},\"boundary_reset_lag\":{:?},\"phase_reads\":{:?},\"phase_births\":{:?},\"boundary_turn_changes\":{},\"boundary_next_turn_changes\":{},\"boundary_ambiguous_resets\":{}}}",
         out.steps,
         out.start_step,
         out.window_steps,
@@ -54,7 +58,10 @@ fn run<W: Walker>(
         changes,
         reset_lag,
         phase_reads,
-        phase_births
+        phase_births,
+        turn_changes,
+        next_changes,
+        ambiguous
     );
 }
 
@@ -73,6 +80,9 @@ fn main() {
                     match kind {
                         "uniform" => Reset::Uniform,
                         "zero" => Reset::Zero,
+                        "turn" => Reset::Word(1),
+                        "next" => Reset::Next,
+                        "word2" => Reset::Word(2),
                         _ => panic!("unknown reset policy"),
                     },
                 )

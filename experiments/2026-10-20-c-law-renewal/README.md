@@ -616,3 +616,126 @@ the long-return budget while phase scrambling remains substantial, the lost
 information is a directional field rather than a distant full phase clock;
 otherwise future-turn timing matters. This requires its own oracle,
 registration and fresh tests; it is not yet implemented or measured.
+
+## Forgotten-phase information test — 2026-10-20 01:46:12 (+13:00)
+
+Registered before implementation or outcomes for these policies. The prior
+goal turn was progress: the exact return bound, calibrated finite-memory
+model and its registered failure narrowed the mechanism. Current worktree
+inspection confirms no own live job and no one-/two-turn policy yet.
+
+**H-bit:** the distant phase clock can be replaced by the old current-turn
+bit, provided the nearby clock remains exact. **H-next:** retaining the next
+turn as well is necessary to reproduce the local cost and return budget.
+These are candidate explanations of the previous uniform-forgetting failure,
+not claims supported by that failure alone.
+
+At a forgotten re-read, let the old phase in this model's own generated field
+be c. Policy `turn` samples uniformly from all j with rule[j]=rule[c]. Policy
+`word2` samples uniformly from j whose next two cyclic rule turns equal those
+at c. Both retain radius 4, the same first-read initialization, and one seeded
+SplitMix draw per forgotten re-read, even for a singleton equivalence class.
+They never inspect a reference ant's trajectory or phases. Outside the cache,
+the first policy requires only the old turn bit for previously read cells;
+the second requires its two-turn word. The implementation may retain a latent
+old phase for instrumentation, but its sampling law must be invariant under
+substitution by another phase with the same retained word. First-read phases
+are reproducible from the original background seed; they are not learned data.
+
+### Frozen recipe and checks
+
+Four original excluded base rules, both original interior/reset seeds; same
+2048+8192 boundary clock and 2^28 cap, geometry and start. No main outcomes.
+Arms: full, uniform r=4, turn r=4, word2 r=4 (32 runs). New driver must first
+reproduce every previously recorded field of all 16 full/uniform baseline
+summaries exactly. Reproduce all 16 boundary-clock rotor/rw control summaries
+too. Extra diagnostic fields are permitted; no change to old scalar values.
+Then and only then collect the 16 information-preserving outcomes.
+
+**I0 oracle gate:** extend the independent HashMap path oracle to word policies;
+check source phases, steps, resets and preserved words. Test alias invariance
+under substitution of evicted phases with the same retained word. A complete
+rule word with unique cyclic rotations must give the full ant's path even at
+radius 0, with zero actual phase changes. Word policies must never change the
+retained turns at a reset. Radius-4 direct resets still belong only to >16
+lags. Fresh build, source/binary hashes, deterministic per-case markers and
+no overlapping heavy jobs remain mandatory.
+
+Predictions for `turn` (primary H-bit) and `word2` (predeclared alternative):
+
+- **I1 whole-pilot efficiency:** >=6/8 eligible pairs, median |ln c ratio| <=.10
+  and maximum <=.25. Eligibility unchanged from the memory pilot: full reference
+  completes with >=500 births, treatment completes, neither escapes. A complete
+  zero-birth treatment is a failure, never an exclusion.
+- **I2 budget and sensitive-rule restoration:** median over eligible pairs of
+  largest absolute first/lag4/other-short/long reads-per-birth error <=.20;
+  additionally both seeds of RRRRLLRRLLLLRR must complete, have |ln c ratio|
+  <=.10 and maximum category error <=.20. Selecting this rule is informed by
+  the previous pilot, so this is an explanatory follow-up, not fresh validation.
+- **I3 effective perturbation:** actual phase changes on >=10% of measured
+  boundary reads in at least four eligible pairs, including both sensitive-rule
+  seeds. A numerical match without this exposure is UNINFORMATIVE for compressed
+  memory sufficiency. Report reset, phase-change, current-turn-change and
+  next-turn-change counts; current-turn changes must be zero for both policies,
+  next-turn changes zero for `word2`.
+
+H-bit gains pilot support only if I0 and all three criteria hold for `turn`.
+Turn failing but word2 holding supports a need for more than one turn of phase
+timing on this pilot. Both failing rejects these closures, not every compressed
+field representation. Both holding favours the smaller state but does not prove
+minimality. Exposure failure prevents a sufficiency claim; eligibility failure
+is UNINFORMATIVE, with every cap retained. No fits, CI or significance claim on
+four families. Publish all paired values and two-seed spreads. Any promising
+mechanism still requires fresh held-out rules, later-letter interventions and
+window stability before the c-law coefficients can be called explained.
+
+Parameters and thresholds are frozen in `information_design.json`. Worst-case
+bound 32*2^28 ant steps plus controls; do not extend the cap or choose another
+radius after seeing outcomes. Register any changed plan as a new stage.
+
+### Read-versus-write control — 2026-10-20 01:51:18 (+13:00), before outcomes
+
+Prospective amendment before this stage has run: add a `next` arm preserving
+only rule[(c+1) mod n]. That is the turn bit written by this read. The
+registered one-turn versus two-turn comparison otherwise cannot separate
+future timing from this immediate write instruction. The resulting 2x2
+comparison retains neither bit (uniform), only the read bit (turn), only the
+write bit (next), or both (word2), plus full as reference. No treatment outcome
+has been inspected. Total ant budget becomes 40*2^28 steps, 24 new treatment
+runs plus 16 full/uniform replays; controls unchanged.
+
+Score `next` using the same predeclared I1/I2/I3 criteria. It is an explanatory
+alternative, not an extra opportunity for a fresh-validation claim. If next
+and word2 succeed where turn fails, the write bit is the sharper candidate;
+if only word2 succeeds, the pair matters. If none succeeds, neither immediate
+bit nor pair closes this field memory. The same alias/path oracle must cover
+the new policy, and next-turn changes must be exactly zero in its resets.
+Meaningful scrambling, paired budgets and eventual fresh confirmation remain
+required. Preserve the initial two-policy proposal above as history.
+
+### Information pilot implementation and commands
+
+`Reset::Word(1)` retains the read bit; `Reset::Next` the written bit;
+`Reset::Word(2)` their pair. All conditional class lists are ordered by phase
+index and sampled with one seeded draw. Independent oracle lists are rebuilt
+from the rule on each reset. Diagnostic JSON adds current-/next-turn change
+counts and ambiguous-class exposure. Old scientific fields must replay exactly.
+Calibration uses no target-frequency lookup and consumes no main-cohort input.
+
+Commands (WSL repository root, usual UV exports):
+
+```bash
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_information.py --stage build
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_information.py --stage replay
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_information.py --stage pilot
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/analyse_information.py
+```
+
+Or queue the complete sequence with `scripts/launch_information.py` under
+`uv run --frozen`; logs, recipes, hashes and markers go in
+`results/information_v1/`. Runtime PID/exit files are ignored. Verify a live
+handle or terminal state before resuming; never infer termination from a log
+timeout. There are two independent case workers, no performance claim, no
+new dependencies. The implementation/analysis commit freezes all thresholds
+before this pilot. Any support is confined to these inspected pilot families
+until a genuinely fresh rule and window test succeeds.

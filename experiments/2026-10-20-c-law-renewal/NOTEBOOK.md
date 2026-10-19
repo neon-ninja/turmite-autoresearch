@@ -344,3 +344,52 @@ blog blog/scripts/experiments.py --baseurl /turmite-autoresearch
 assets/notebook. The sole unavailable reference is the existing `end` link
 in the kappa-rule-space README, not a renewal source. Generated publication
 files remain ignored. This is a local render, not an external deployment.
+
+### 2026-10-20 01:46:12 (+13:00) · 8520fa3 · intent
+
+Previous goal turn was progress: uniform-forgetting failure and its budget
+decomposition are committed. Authoritative files have no information-preserving
+policy yet, no own live job; process inspection found no heavy runner/cargo.
+Register the old-turn versus two-turn experiment before implementing. Preserve
+radius, clock, seeds and all original failures. The new policies act on their
+own generated field and must pass a sparse oracle, compressed-state alias
+invariance and exact replay of all full/uniform/control baseline summaries.
+
+### 2026-10-20 01:46:12 (+13:00) · 8520fa3 · assumption
+
+The missing long-return cost might be carried by the current directional bit,
+not the entire remote phase clock. Untested. Preserving a two-turn word is a
+predeclared alternative, not a knob to expand after failures. Retained-word
+classes must have meaningful actual phase scrambling for a match to inform
+this question. RRRRLLRRLLLLRR is a diagnostic case chosen from inspected pilot
+data, not an independent replication; fresh main outcomes remain unopened.
+
+### 2026-10-20 01:54:03 (+13:00) · 8520fa3 · deviation
+
+Before any new policy outcome, added a write-bit-only control to the two-policy
+proposal. Current turn versus two turns alone confounds future timing with
+the immediate bit written after the read. The factorial now preserves neither,
+read only, write only, or both, with the full ant as reference. Same thresholds,
+geometry, radius, seeds and clock; the added arm has a prospective README
+amendment. It is an explanatory alternative, not a fresh-validation claim.
+
+### 2026-10-20 01:54:03 (+13:00) · 8520fa3 · observation
+
+Implemented ordered equivalence classes and read/write diagnostics. Seven
+local-memory oracle/control tests pass, plus four renewal and five aggregate
+tracer tests, in release mode; driver builds. Alias tests deliberately vary
+the unretained turn information and still obtain identical futures. The full
+unique-word control gives exact AntWalker summary with zero phase changes.
+An initial missing `fn` in a test declaration was corrected before compilation;
+no path/oracle discrepancy was observed. Logs: `scratch/information-tests.log`
+and `scratch/information-build.log`. No scientific pilot outcomes yet.
+
+### 2026-10-20 01:54:03 (+13:00) · 8520fa3 · decision
+
+Freeze config, implementation and scoring. New fresh build re-runs oracles;
+all full/uniform and walker control summaries must exactly reproduce their
+earlier fields before any information-policy case. The source-word assertions
+and phase-change exposure gate prevent a trivial no-change match from being
+called support. Candidate support still requires cost AND budget restoration,
+both sensitive-rule seeds, and fresh confirmation later. Do not open main
+outcomes or increase word length after failures without another registration.

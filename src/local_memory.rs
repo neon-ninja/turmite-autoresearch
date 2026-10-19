@@ -11,6 +11,10 @@ use std::rc::Rc;
 pub enum Reset {
     Uniform,
     Zero,
+    /// Keep the next k cyclic turns of the old phase, starting with its current turn.
+    Word(usize),
+    /// Keep the turn that would be written after this read, but not necessarily its current turn.
+    Next,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -19,6 +23,9 @@ pub struct Exposure {
     pub changed: Rc<Cell<u64>>,
     pub last_reset: Rc<Cell<bool>>,
     pub last_changed: Rc<Cell<bool>>,
+    pub last_turn_changed: Rc<Cell<bool>>,
+    pub last_next_turn_changed: Rc<Cell<bool>>,
+    pub last_class_size: Rc<Cell<usize>>,
 }
 
 /// A ring cache for a square moving one lattice step at a time. The global
@@ -27,6 +34,8 @@ pub struct Exposure {
 pub struct LocalMemoryAnt {
     ant: AntWalker,
     n: u64,
+    rule: Rule,
+    classes: Vec<Vec<u8>>,
     radius: Option<usize>,
     side: usize,
     cache: Vec<Option<u8>>,
@@ -51,9 +60,34 @@ impl LocalMemoryAnt {
     ) -> Self {
         let side = radius.map_or(1, |r| 2 * r + 1);
         assert!(side < layout.w && side < layout.h);
+        let classes = if matches!(policy, Reset::Word(_) | Reset::Next) {
+            let (offset, k) = match policy {
+                Reset::Word(k) => (0, k),
+                Reset::Next => (1, 1),
+                _ => unreachable!(),
+            };
+            assert!(k >= 1 && k <= rule.len());
+            (0..rule.len())
+                .map(|old| {
+                    (0..rule.len())
+                        .filter(|&candidate| {
+                            (0..k).all(|j| {
+                                rule.0[(old + offset + j) % rule.len()]
+                                    == rule.0[(candidate + offset + j) % rule.len()]
+                            })
+                        })
+                        .map(|c| c as u8)
+                        .collect()
+                })
+                .collect()
+        } else {
+            Vec::new()
+        };
         Self {
             ant: AntWalker::new(rule),
             n: rule.len() as u64,
+            rule: rule.clone(),
+            classes,
             radius,
             side,
             cache: vec![None; side * side],
@@ -78,6 +112,9 @@ impl LocalMemoryAnt {
         self.prepared = true;
         self.exposure.last_reset.set(false);
         self.exposure.last_changed.set(false);
+        self.exposure.last_turn_changed.set(false);
+        self.exposure.last_next_turn_changed.set(false);
+        self.exposure.last_class_size.set(0);
         if self.radius.is_none() {
             return;
         }
@@ -89,12 +126,30 @@ impl LocalMemoryAnt {
         } else if self.read_once[global] {
             let old = *cell;
             *cell = match self.policy {
-                Reset::Uniform => (splitmix_next(&mut self.rng) % self.n) as u8,
-                Reset::Zero => 0,
+                Reset::Uniform => {
+                    self.exposure.last_class_size.set(self.n as usize);
+                    (splitmix_next(&mut self.rng) % self.n) as u8
+                }
+                Reset::Zero => {
+                    self.exposure.last_class_size.set(1);
+                    0
+                }
+                Reset::Word(_) | Reset::Next => {
+                    let candidates = &self.classes[old as usize];
+                    self.exposure.last_class_size.set(candidates.len());
+                    candidates[(splitmix_next(&mut self.rng) % candidates.len() as u64) as usize]
+                }
             };
             self.exposure.resets.set(self.exposure.resets.get() + 1);
             self.exposure.last_reset.set(true);
             self.exposure.last_changed.set(old != *cell);
+            self.exposure
+                .last_turn_changed
+                .set(self.rule.0[old as usize] != self.rule.0[*cell as usize]);
+            self.exposure.last_next_turn_changed.set(
+                self.rule.0[(old as usize + 1) % self.rule.len()]
+                    != self.rule.0[(*cell as usize + 1) % self.rule.len()],
+            );
             self.exposure
                 .changed
                 .set(self.exposure.changed.get() + u64::from(old != *cell));

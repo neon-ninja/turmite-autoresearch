@@ -5,3 +5,5 @@
 /results/pilot_support/session.exit
 /results/memory_v1/session.pid
 /results/memory_v1/session.exit
+/results/information_v1/session.pid
+/results/information_v1/session.exit

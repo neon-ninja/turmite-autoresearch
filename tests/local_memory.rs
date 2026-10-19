@@ -45,7 +45,33 @@ fn compare(rule: &Rule, radius: Option<usize>, seed: u64, policy: Reset, steps: 
                 c = match policy {
                     Reset::Uniform => (splitmix_next(&mut rng) % rule.len() as u64) as u8,
                     Reset::Zero => 0,
+                    Reset::Word(k) => {
+                        // Construct candidates from the rule afresh, independently of the
+                        // production walker's precomputed equivalence-class table.
+                        let choices: Vec<_> = (0..rule.len())
+                            .filter(|&j| {
+                                (0..k).all(|a| {
+                                    rule.0[(j + a) % rule.len()]
+                                        == rule.0[(old as usize + a) % rule.len()]
+                                })
+                            })
+                            .collect();
+                        choices[(splitmix_next(&mut rng) % choices.len() as u64) as usize] as u8
+                    }
+                    Reset::Next => {
+                        let choices: Vec<_> = (0..rule.len())
+                            .filter(|&j| {
+                                rule.0[(j + 1) % rule.len()]
+                                    == rule.0[(old as usize + 1) % rule.len()]
+                            })
+                            .collect();
+                        choices[(splitmix_next(&mut rng) % choices.len() as u64) as usize] as u8
+                    }
                 };
+                if let Reset::Word(k) = policy {
+                    assert!((0..k).all(|j| rule.0[(old as usize + j) % rule.len()]
+                        == rule.0[(c as usize + j) % rule.len()]));
+                }
                 resets += 1;
                 changed += u64::from(old != c);
             }
@@ -55,6 +81,15 @@ fn compare(rule: &Rule, radius: Option<usize>, seed: u64, policy: Reset, steps: 
         assert_eq!(dense[i], c, "pre-read phase differs at {x},{y}");
         assert_eq!(fast.exposure.resets.get(), resets);
         assert_eq!(fast.exposure.changed.get(), changed);
+        if let Reset::Word(k) = policy {
+            assert!(!fast.exposure.last_turn_changed.get());
+            if k >= 2 {
+                assert!(!fast.exposure.last_next_turn_changed.get());
+            }
+        }
+        if policy == Reset::Next {
+            assert!(!fast.exposure.last_next_turn_changed.get());
+        }
         if fast.exposure.last_reset.get() {
             let gap = step - last_read[&p];
             assert!(
@@ -99,6 +134,105 @@ fn turning_path_return_bound() {
     }
 }
 
+#[test]
+fn evicted_phase_aliases_with_same_word_have_identical_futures() {
+    let rule: Rule = "RRRRLLRRLLLLRR".parse().unwrap();
+    let lay = Layout {
+        w: 64,
+        h: 64,
+        wrap: true,
+    };
+    for (policy, offset, k) in [
+        (Reset::Word(1), 0usize, 1usize),
+        (Reset::Word(2), 0, 2),
+        (Reset::Next, 1, 1),
+    ] {
+        let (a, b) = (0..rule.len())
+            .flat_map(|a| (a + 1..rule.len()).map(move |b| (a, b)))
+            .find(|&(a, b)| {
+                (0..k).all(|j| {
+                    rule.0[(a + offset + j) % rule.len()] == rule.0[(b + offset + j) % rule.len()]
+                }) && if offset == 1 {
+                    rule.0[a] != rule.0[b]
+                } else {
+                    rule.0[(a + k) % rule.len()] != rule.0[(b + k) % rule.len()]
+                }
+            })
+            .unwrap();
+        let mut left = LocalMemoryAnt::new(&rule, lay, (32, 32), Some(0), 17, policy);
+        let mut right = LocalMemoryAnt::new(&rule, lay, (32, 32), Some(0), 17, policy);
+        let (mut lc, mut rc) = (vec![0u8; 4096], vec![0u8; 4096]);
+        let (mut lh, mut rh) = (0u8, 0u8);
+        for t in 0..260 {
+            assert_eq!((left.x, left.y, lh), (right.x, right.y, rh));
+            let i = left.y.rem_euclid(64) as usize * 64 + left.x.rem_euclid(64) as usize;
+            if t == 4 {
+                // Four initial blank reads trace a square. The source is a
+                // forgotten re-read. Its retained word, not latent phase, is
+                // now the only allowed distinguishing input to sampling.
+                assert_eq!((left.x, left.y), (32, 32));
+                lc[i] = a as u8;
+                rc[i] = b as u8;
+            }
+            left.prepare(&mut lc[i], lh);
+            right.prepare(&mut rc[i], rh);
+            assert_eq!(lc[i], rc[i]);
+            left.step(&mut lc[i], &mut lh);
+            right.step(&mut rc[i], &mut rh);
+        }
+    }
+}
+
+#[test]
+fn unique_complete_words_recover_full_ant_even_without_cache() {
+    for text in ["RL", "RRL", "RRLL", "RRRLRLL"] {
+        let rule: Rule = text.parse().unwrap();
+        for a in 0..rule.len() {
+            for b in a + 1..rule.len() {
+                assert!(
+                    (0..rule.len())
+                        .any(|j| rule.0[(a + j) % rule.len()] != rule.0[(b + j) % rule.len()])
+                );
+            }
+        }
+        let lay = Layout {
+            w: 64,
+            h: 64,
+            wrap: true,
+        };
+        let pre = |x, y| if (x, y) == (32, 32) { Some(0) } else { None };
+        let clock = Clock::Boundary {
+            warmup: 16,
+            reads: 256,
+            max_steps: 8192,
+        };
+        let w = LocalMemoryAnt::new(&rule, lay, (32, 32), Some(0), 123, Reset::Word(rule.len()));
+        let stats = w.exposure.clone();
+        let actual = er::trace_clock(
+            w,
+            Some(&rule),
+            lay,
+            &pre,
+            (32, 32, 0),
+            clock,
+            |w, c, h| w.prepare(c, h),
+            |_| {},
+        );
+        let expected = er::trace_clock(
+            AntWalker::new(&rule),
+            Some(&rule),
+            lay,
+            &pre,
+            (32, 32, 0),
+            clock,
+            |_, _, _| {},
+            |_| {},
+        );
+        assert_eq!(actual, expected);
+        assert_eq!(stats.changed.get(), 0);
+    }
+}
+
 proptest! {
     #![proptest_config(ProptestConfig::with_cases(48))]
     #[test]
@@ -106,6 +240,9 @@ proptest! {
         let rule = Rule::from_bits(bits,n);
         compare(&rule,Some(r),seed,if zero { Reset::Zero } else { Reset::Uniform },2048);
         compare(&rule,None,seed,Reset::Uniform,512);
+        compare(&rule,Some(r),seed,Reset::Word(1),2048);
+        compare(&rule,Some(r),seed,Reset::Word(2),2048);
+        compare(&rule,Some(r),seed,Reset::Next,2048);
     }
     #[test]
     fn full_mode_equals_ant(bits in 0u32..256, n in 2usize..=8, seed in 0u64..1000) {
