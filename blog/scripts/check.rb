@@ -7,7 +7,7 @@ root = Pathname.new(ARGV.fetch(0, "_site")).expand_path
 baseurl = ARGV.fetch(1, "").sub(%r{/$}, "")
 abort "Missing build: #{root}" unless root.directory?
 errors = []
-%w[index.html about/index.html feed.xml 404.html assets/style.css].each do |path|
+%w[index.html about/index.html experiments/index.html experiments/manifest.json feed.xml 404.html assets/style.css].each do |path|
   errors << "Missing #{path}" unless root.join(path).file?
 end
 %w[Gemfile Gemfile.lock README.md scripts templates _drafts].each do |path|

@@ -17,6 +17,7 @@
     <a class="brand" href="{{ '/' | relative_url }}" aria-label="Turmite home"><span class="mark" aria-hidden="true">↱</span> turmite<span class="brand-note"> / research log</span></a>
     <nav aria-label="Main navigation">
       <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Entries</a>
+      <a href="{{ '/experiments/' | relative_url }}"{% if page.url contains '/experiments/' %} aria-current="page"{% endif %}>Experiments</a>
       <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
       <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
       {% if site.repository_url != '' %}<a href="{{ site.repository_url | escape }}">Code ↗</a>{% endif %}

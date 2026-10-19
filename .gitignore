@@ -30,3 +30,5 @@ experiments/*/synth/
 /blog/.bundle/
 /blog/vendor/
 /blog/_deploy.yml
+/blog/experiments/
+/blog/_data/experiments.json

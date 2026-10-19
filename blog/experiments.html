@@ -1,0 +1,25 @@
+---
+layout: default
+title: Experiments
+permalink: /experiments/
+description: Experiment records and rendered research notebooks for the Turmite project.
+---
+<section class="experiment-intro">
+  <p class="eyebrow">The research record</p>
+  <h1>Follow the experiments.</h1>
+  <p class="dek">Questions, methods, and saved notebook outputs, alongside the working record that produced them.</p>
+  <label class="search-label" for="experiment-search">Find an experiment</label>
+  <input type="search" id="experiment-search" placeholder="Search titles, topics, or folder names…" aria-controls="experiment-list">
+  <p class="render-note" id="experiment-count" role="status">{{ site.data.experiments.size }} experiments</p>
+</section>
+<section id="experiment-list" aria-label="Experiments">
+  {% for experiment in site.data.experiments %}
+  <article class="experiment-card">
+    <p class="eyebrow">{{ experiment.slug | escape }}</p>
+    <h2><a href="{{ experiment.url | relative_url }}">{{ experiment.title | escape }}</a></h2>
+    <p>{{ experiment.description | escape }}</p>
+    <p class="tags">{% if experiment.notebooks.size > 0 %}{{ experiment.notebooks.size }} rendered {% if experiment.notebooks.size == 1 %}notebook{% else %}notebooks{% endif %}{% else %}Notebook not yet available{% endif %}</p>
+  </article>
+  {% endfor %}
+</section>
+<script src="{{ '/assets/experiments.js' | relative_url }}" defer></script>

@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<article class="experiment">
+  <header class="entry-header">
+    <a class="back-link" href="{{ '/experiments/' | relative_url }}">← All experiments</a>
+    <p class="eyebrow">Experiment / {{ page.slug | escape }}</p>
+    <h1>{{ page.title | escape }}</h1>
+    <p class="render-note">Published from the saved experiment record. Notebook outputs are rendered as committed.</p>
+    <nav class="experiment-nav" aria-label="Experiment sections">
+      <a href="#overview">Overview</a>
+      {% for notebook in page.notebooks %}<a href="#{{ notebook.anchor }}">{{ notebook.name | escape }}</a>{% endfor %}
+      {% if page.source_url != '' %}<a href="{{ page.source_url | escape }}">Source ↗</a>{% endif %}
+    </nav>
+    <p class="byline">Source revision <code>{{ page.source_commit | truncate: 12, '' }}</code> · <a href="{{ '/experiments/manifest.json' | relative_url }}">Input hashes</a></p>
+  </header>
+  {{ content }}
+</article>

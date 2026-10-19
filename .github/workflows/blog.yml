@@ -3,9 +3,9 @@ name: Research blog
 on:
   push:
     branches: [master, main]
-    paths: ['blog/**', '.github/workflows/blog.yml']
+    paths: ['blog/**', 'experiments/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   pull_request:
-    paths: ['blog/**', '.github/workflows/blog.yml']
+    paths: ['blog/**', 'experiments/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   workflow_dispatch:
 
 permissions:
@@ -23,6 +23,12 @@ jobs:
       pages: read
     steps:
       - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.5.15'
+          enable-cache: true
+      - name: Set up Python
+        run: uv python install 3.12
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
@@ -40,6 +46,13 @@ jobs:
           REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
         run: |
           ruby -rjson -e 'File.write("_deploy.yml", {"url" => ENV.fetch("SITE_ORIGIN"), "baseurl" => ENV.fetch("SITE_BASE_PATH"), "repository_url" => ENV.fetch("REPOSITORY_URL")}.to_json)'
+      - name: Render experiment records and saved notebooks
+        env:
+          SITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          uv run --frozen --only-group blog blog/scripts/test_experiments.py
+          uv run --frozen --only-group blog blog/scripts/experiments.py --baseurl "$SITE_BASE_PATH" --repository-url "$REPOSITORY_URL"
       - name: Build
         working-directory: blog
         env:

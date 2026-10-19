@@ -2,8 +2,8 @@
 
 A small Jekyll site for researcher-written Markdown entries. The blog is
 independent of the simulator in `web/` and does not publish the repository's
-notes, raw data, or scratch files automatically. Ruby dependencies are pinned
-in `Gemfile.lock`; Python and Rust dependencies are unchanged.
+notes, raw data, or scratch files automatically. Build dependencies are pinned
+in `Gemfile.lock` and `uv.lock`.
 
 ## Write an entry
 
@@ -50,15 +50,23 @@ Requires Ruby 3.3 and Bundler. Run in WSL from `/mnt/f/Code/turmite/blog`:
 export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
 export BUNDLE_PATH=$HOME/.local/share/turmite-blog-gems
 bundle install
+cd ..
+uv run --frozen --only-group blog blog/scripts/experiments.py
+cd blog
 bundle exec jekyll serve --host 0.0.0.0 --baseurl ''
 # Include work in progress only when previewing:
 bundle exec jekyll serve --host 0.0.0.0 --baseurl '' --drafts --future
 ```
 
-Open <http://localhost:4000>. No Node or Python build step is needed.
+Open <http://localhost:4000>. The Python preparation step publishes the
+experiment records; Jekyll builds the complete site. Re-run preparation after
+changing an experiment, then restart Jekyll or let its watcher rebuild.
 To build and check a project site locally:
 
 ```bash
+# From the repository root, using the WSL environment exports above:
+uv run --frozen --only-group blog blog/scripts/experiments.py --baseurl /turmite
+cd blog
 JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter --baseurl /turmite
 bundle exec ruby scripts/check.rb _site /turmite
 ```
@@ -86,10 +94,54 @@ gets the site's origin and base path from `actions/configure-pages`, so both
 are configured in Pages settings; add `blog/CNAME` if the domain setup requires
 it. Feed links and canonical URLs follow the Pages configuration.
 
-Only blog changes and workflow changes trigger automatic builds. This does
-not run simulations, publish all experiment files, or require a deployment
+Blog, experiment, Python dependency, and workflow changes trigger automatic
+builds. This does not run simulations, publish all experiment files, or require a deployment
 secret. The workflow needs Pages enabled and the normal `GITHUB_TOKEN`
 permissions for Pages deployment.
+
+## Experiment pages and notebook renders
+
+The preparation script discovers tracked `experiments/*/README.md` files,
+excluding internal `_` folders. Every experiment gets an entry in
+`/experiments/` and a page at `/experiments/<folder-name>/`. The searchable
+index remains usable without JavaScript; JavaScript adds filtering.
+
+Each page includes its README, every tracked `notebook.ipynb` at its root
+and every `.ipynb` in its `notebooks/` directory, plus an expandable
+`NOTEBOOK.md` lab log when present. Notebook narrative, code, saved figures,
+tables, text, and error outputs are rendered with nbconvert. Code inputs are
+collapsed individually; outputs stay visible. Original notebooks can be
+downloaded. Missing notebooks and notebooks without saved outputs are labelled.
+**No cells are executed**, and original scientific files are never rewritten.
+
+The `blog` dependency group in `pyproject.toml` and `uv.lock` pins nbconvert,
+nbformat, and Beautiful Soup independently of the analysis dependencies.
+Preparation writes only generated `blog/experiments/` and
+`blog/_data/experiments.json`, both ignored by Git. The generated directory
+has an ownership marker; the script refuses to replace an unmarked directory.
+CI regenerates these files before Jekyll runs. Run preparation before a local
+build too, with the **same baseurl** as Jekyll.
+
+Relative experiment and notebook links point to the corresponding site page.
+Other repository references point to GitHub at the source revision when
+`--repository-url https://github.com/OWNER/REPO` is provided (CI sets this).
+Without it, repository-only references retain their labels and show their
+source path on hover. Referenced, tracked images are copied; bulk dumps and
+untracked files are never copied. Unavailable legacy references are left as
+labelled text and listed in `/experiments/manifest.json`. This manifest also
+records the source revision and SHA-256 of every rendered input and copied
+asset. A render reflects the saved document; it does not verify its claims or
+refresh stale notebook results.
+
+Publishing checks (from the repository root under WSL):
+
+```bash
+uv run --frozen --only-group blog blog/scripts/test_experiments.py
+```
+
+The fixtures check repeatable output, preserved saved and error outputs,
+nested notebooks, source and image links, heading anchors, missing notebooks,
+exclusion of untracked/internal files, and protection of unmarked directories.
 
 References: [Jekyll authoring](https://jekyllrb.com/docs/posts/) and
 [GitHub's custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
