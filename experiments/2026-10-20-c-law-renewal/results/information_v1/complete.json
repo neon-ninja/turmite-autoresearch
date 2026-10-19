@@ -1,0 +1,8 @@
+{
+  "treatment_runs": 24,
+  "baseline_runs": 16,
+  "all_markers_validated": true,
+  "scope": "excluded pilot only",
+  "config_sha256": "dad69395d1a3b8d6dc27cd430ea37061a425911eba682e1985d77d5ba2e446ee",
+  "build_sha256": "1c61ed204e86063d5a37c1984496a0af6fe79b5ed427970291db1ea0b5f8a342"
+}

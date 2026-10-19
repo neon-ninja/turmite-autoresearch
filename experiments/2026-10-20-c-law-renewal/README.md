@@ -739,3 +739,44 @@ timeout. There are two independent case workers, no performance claim, no
 new dependencies. The implementation/analysis commit freezes all thresholds
 before this pilot. Any support is confined to these inspected pilot families
 until a genuinely fresh rule and window test succeeds.
+
+## Information-policy outcome — 2026-10-20 02:01:53 (+13:00)
+
+Registration and implementation `1002d9c14e55cfc8a6d5fb924cb7e529b8263985`.
+All 16 old full/uniform summaries and 16 walker controls replay exactly;
+alias/path/word oracles pass. All treatment windows complete (8/8 per arm).
+I1 and I3 hold in all three policies, but **I2 fails in all three**, so every
+candidate is rejected under the registered cost-and-physical-budget criterion.
+
+| Retained information | Median / maximum abs ln c error | Median max budget error | Sensitive max budget error | I1 / I2 / I3 |
+|---|---:|---:|---:|---|
+| Read bit | .041496 / .062709 | .231996 | 1.036914 | HELD / FAILED / HELD |
+| Written bit | .055218 / .246332 | .159919 | 1.580011 | HELD / FAILED / HELD |
+| Both bits | .004752 / .061969 | .137589 | .571254 | HELD / FAILED / HELD |
+
+Six eligible pairs in every policy have >=10% actual phase changes, including
+both RRRRLLRRLLLLRR seeds. Current/read preservation restores that rule's c
+to |ln ratio| <=.0421, but not its return budget; preserving both bits improves
+the budget without reaching .20. These results do not establish a sufficient
+compressed field, and the selected sensitive case is not fresh validation.
+Sources: `results/information_report.json`, `results/information_v1/`;
+commands and all seeds in the frozen config/recipe. Full release tests pass.
+
+### Boundary-clock diagnostic proposal
+
+Before adding memory, audit a possible confound in the physical-time budget.
+A visited cell's number of fresh neighbours only decreases. Therefore any
+cell read on the boundary was on the boundary at all its earlier reads:
+interior reads cannot advance its phase and later reappear as boundary reads.
+Its boundary phase clock is consequently indexed by boundary visits exactly.
+Interior excursions can change elapsed time between these visits without
+changing the number of boundary reads per birth. A physical-lag-bin mismatch
+is not by itself a proof of a different intrinsic boundary birth process.
+
+Keep every I2 failure above. The next diagnostic must compare boundary-event
+return lags AND the distribution/serial structure of boundary reads between
+births, not simply discard a failed budget test. Calibrate with synthetic
+clock stretching and known renewal sequences; replay old trajectories exactly.
+Freeze new thresholds before inspecting native-clock outputs. Any alternative
+mechanism still needs fresh main/window/mutation tests. No goal completion
+or retrospective pass is claimed by raising this instrument question.

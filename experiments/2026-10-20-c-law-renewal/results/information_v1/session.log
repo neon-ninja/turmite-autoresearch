@@ -1,0 +1,110 @@
+Information stage build
+Information policies freshly built and oracle-tested
+Information stage replay
+control-rotor-2026102051 complete True births 4132 changed 0 seconds 0.151
+control-rotor-2026102052 complete True births 4085 changed 0 seconds 0.157
+control-rotor-2026102053 complete True births 4108 changed 0 seconds 0.171
+control-rotor-2026102054 complete True births 4092 changed 0 seconds 0.186
+control-rotor-2026102055 complete True births 4117 changed 0 seconds 0.144
+control-rotor-2026102056 complete True births 4138 changed 0 seconds 0.152
+control-rotor-2026102057 complete True births 4069 changed 0 seconds 0.189
+control-rotor-2026102058 complete True births 4076 changed 0 seconds 0.194
+control-rw-2026102051 complete True births 3778 changed 0 seconds 0.116
+control-rw-2026102052 complete True births 3819 changed 0 seconds 0.127
+control-rw-2026102053 complete True births 3836 changed 0 seconds 0.111
+control-rw-2026102054 complete True births 3773 changed 0 seconds 0.123
+control-rw-2026102055 complete True births 3822 changed 0 seconds 0.117
+control-rw-2026102056 complete True births 3728 changed 0 seconds 0.105
+control-rw-2026102057 complete True births 3842 changed 0 seconds 0.101
+control-rw-2026102058 complete True births 3708 changed 0 seconds 0.096
+pilot-m1-00-2026102021-uniform-4 complete True births 3613 changed 2010 seconds 0.058
+pilot-m1-00-2026102021-full complete True births 3664 changed 0 seconds 0.394
+pilot-m1-00-2026102022-full complete True births 3791 changed 0 seconds 0.491
+pilot-m1-00-2026102022-uniform-4 complete True births 3668 changed 1888 seconds 0.652
+pilot-m2-00-2026102021-full complete True births 3287 changed 0 seconds 0.749
+pilot-m2-00-2026102021-uniform-4 complete True births 3254 changed 1863 seconds 0.652
+pilot-m2-00-2026102022-full complete True births 3241 changed 0 seconds 0.667
+pilot-m3-00-2026102021-full complete True births 2641 changed 0 seconds 0.162
+pilot-m3-00-2026102021-uniform-4 complete True births 2645 changed 0 seconds 0.33
+pilot-m2-00-2026102022-uniform-4 complete True births 3235 changed 1870 seconds 1.206
+pilot-m3-00-2026102022-full complete True births 2643 changed 0 seconds 0.073
+pilot-m3-00-2026102022-uniform-4 complete True births 2643 changed 0 seconds 0.05
+pilot-m4-00-2026102021-uniform-4 complete True births 2687 changed 1869 seconds 1.431
+pilot-m4-00-2026102021-full complete True births 2047 changed 0 seconds 2.842
+pilot-m4-00-2026102022-uniform-4 complete True births 2713 changed 2073 seconds 0.159
+pilot-m4-00-2026102022-full complete True births 2012 changed 0 seconds 3.212
+Information stage pilot
+pilot-m1-00-2026102021-turn-4 complete True births 3549 changed 1839 seconds 0.824
+pilot-m1-00-2026102021-word2-4 complete True births 3671 changed 2005 seconds 1.041
+pilot-m1-00-2026102022-turn-4 complete True births 3566 changed 1870 seconds 0.097
+pilot-m1-00-2026102021-next-4 complete True births 3368 changed 2005 seconds 2.998
+pilot-m1-00-2026102022-next-4 complete True births 3423 changed 1959 seconds 1.287
+pilot-m2-00-2026102021-turn-4 complete True births 3132 changed 1911 seconds 0.266
+pilot-m1-00-2026102022-word2-4 complete True births 3577 changed 1802 seconds 1.11
+pilot-m2-00-2026102021-word2-4 complete True births 3276 changed 1643 seconds 0.926
+pilot-m2-00-2026102022-turn-4 complete True births 3044 changed 1985 seconds 0.618
+pilot-m2-00-2026102021-next-4 complete True births 3202 changed 1940 seconds 2.678
+pilot-m2-00-2026102022-next-4 complete True births 3289 changed 2108 seconds 0.738
+pilot-m3-00-2026102021-turn-4 complete True births 2642 changed 0 seconds 0.045
+pilot-m3-00-2026102021-next-4 complete True births 2642 changed 0 seconds 0.045
+pilot-m3-00-2026102021-word2-4 complete True births 2642 changed 0 seconds 1.252
+pilot-m3-00-2026102022-turn-4 complete True births 2643 changed 0 seconds 0.036
+pilot-m3-00-2026102022-next-4 complete True births 2642 changed 0 seconds 0.039
+pilot-m3-00-2026102022-word2-4 complete True births 2645 changed 0 seconds 0.031
+pilot-m2-00-2026102022-word2-4 complete True births 3261 changed 1659 seconds 2.876
+pilot-m4-00-2026102021-next-4 complete True births 2497 changed 1672 seconds 1.67
+pilot-m4-00-2026102021-turn-4 complete True births 2135 changed 2309 seconds 3.016
+pilot-m4-00-2026102021-word2-4 complete True births 1924 changed 2747 seconds 2.033
+pilot-m4-00-2026102022-next-4 complete True births 2574 changed 1822 seconds 0.199
+pilot-m4-00-2026102022-turn-4 complete True births 2096 changed 2361 seconds 1.921
+pilot-m4-00-2026102022-word2-4 complete True births 1974 changed 2612 seconds 2.28
+{
+  "turn:4": {
+    "eligible_pairs": 8,
+    "median_abs_log_error": 0.041496427111369166,
+    "max_abs_log_error": 0.06270948415997094,
+    "cost_has_infinite_error": false,
+    "median_max_budget_error": 0.23199599678868682,
+    "sensitive_eligible_pairs": 2,
+    "sensitive_max_abs_log_error": 0.0420913400014354,
+    "sensitive_max_budget_error": 1.0369142481886442,
+    "exposed_pairs": 6,
+    "exposed_sensitive_pairs": 2,
+    "I1": "HELD",
+    "I2": "FAILED",
+    "I3": "HELD",
+    "candidate": "REJECTED_ON_PILOT"
+  },
+  "next:4": {
+    "eligible_pairs": 8,
+    "median_abs_log_error": 0.05521801526968151,
+    "max_abs_log_error": 0.2463318569364421,
+    "cost_has_infinite_error": false,
+    "median_max_budget_error": 0.15991916682154758,
+    "sensitive_eligible_pairs": 2,
+    "sensitive_max_abs_log_error": 0.2463318569364421,
+    "sensitive_max_budget_error": 1.5800113042343535,
+    "exposed_pairs": 6,
+    "exposed_sensitive_pairs": 2,
+    "I1": "HELD",
+    "I2": "FAILED",
+    "I3": "HELD",
+    "candidate": "REJECTED_ON_PILOT"
+  },
+  "word2:4": {
+    "eligible_pairs": 8,
+    "median_abs_log_error": 0.004752050669515511,
+    "max_abs_log_error": 0.061968954435637755,
+    "cost_has_infinite_error": false,
+    "median_max_budget_error": 0.13758889758668139,
+    "sensitive_eligible_pairs": 2,
+    "sensitive_max_abs_log_error": 0.061968954435637755,
+    "sensitive_max_budget_error": 0.5712538346415932,
+    "exposed_pairs": 6,
+    "exposed_sensitive_pairs": 2,
+    "I1": "HELD",
+    "I2": "FAILED",
+    "I3": "HELD",
+    "candidate": "REJECTED_ON_PILOT"
+  }
+}

@@ -393,3 +393,28 @@ and phase-change exposure gate prevent a trivial no-change match from being
 called support. Candidate support still requires cost AND budget restoration,
 both sensitive-rule seeds, and fresh confirmation later. Do not open main
 outcomes or increase word length after failures without another registration.
+
+### 2026-10-20 02:01:53 (+13:00) · 1002d9c · observation
+
+Worker 1717817 completed with exit 0. Fresh oracle build, all 16 full/uniform
+baseline and 16 rotor/rw control replays match old fields exactly. All 24 new
+treatment cases complete. I1/I3 hold for read-only, write-only and paired bits;
+I2 fails for all three. Sensitive-rule maximum budget errors are 1.036914,
+1.580011 and .571254, respectively (limit .20). Read-only restores that rule's
+c to |ln ratio| <=.0421; paired bits have overall median |ln c| .004752.
+Six genuinely phase-scrambled pairs per policy include both sensitive seeds.
+No candidate passes the registered closure test. Source:
+`results/information_report.json`, `results/information_v1/` and config.
+Full `cargo test --release` passes, log `scratch/information-full-release.log`.
+
+### 2026-10-20 02:01:53 (+13:00) · 1002d9c · question
+
+Physical lag includes the interior clock, whereas the goal's cost counts
+boundary reads. Exact monotonicity: a currently boundary cell cannot have had
+an earlier interior read, because fresh neighbours cannot reappear. Its colour
+clock is therefore a boundary-visit clock. Could physical-time bin shifts hide
+a correct native boundary birth process, or do inter-birth boundary waiting
+costs differ too? Do not withdraw I2 failures. Add a stronger, native-process
+audit (return lags plus complete waiting law and serial transitions), calibrated
+on time-stretched traces/known renewal sequences and frozen before new outputs.
+This tests a confound instead of automatically expanding the word length.
