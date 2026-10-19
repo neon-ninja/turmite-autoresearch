@@ -99,3 +99,5 @@ worktree; details, checks and reproduction commands are in
 `experiments/2026-10-13-g1-ribbon-breakout/README.md`. Other proposals remain open.
 
 Status 2026-10-17 (from the proposal branch, merged 2026-10-19): items 1-3 and 5 were not built there; see `notes/handover-paper-figures-2026-10-17.md`.
+
+Status 2026-10-20: item 5 built as `fig/prefix_lookup.pdf` (`prefix_figure.py`, reads `experiments/2026-10-kappa-rule-space/results/prefix_audit_predictions.csv`; LOO encoding, linear area; R^2 recomputed 0.497 -> 0.736 stationary, 0.363 -> 0.393 all-retained; numbers in `fig/prefix_numbers.json`), inserted at `fig:prefix` in `sec:prefix`, registered in `rebuild_figures.py` (full rebuild not run). Items 1-3 still open.
