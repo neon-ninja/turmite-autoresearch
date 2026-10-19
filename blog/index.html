@@ -30,12 +30,12 @@ title: Research log
       <a class="evidence-link" href="{{ site.repository_url }}/blob/a1ef79fa710f33b599302904c36b2b3d705a7419/notes/g1-builder-structure-2026-10-14.md">Analysis and provenance</a>
     </article>
     <article>
-      <p class="eyebrow">Crystal rules · A failed prediction</p>
-      <h3>The diagonal rays aren’t all the same</h3>
-      <p>Some ants draw lattices of diagonal rays. We expected one repeating colour motif to account for most of each rule’s rays. That prediction failed in all three rules tested: similar-looking lines carried a variety of colour sequences.</p>
-      <p class="homepage-note">The background matters, but resetting its colour did not reliably stop the rays either. The attractive explanation needs more work.</p>
-      <a class="text-link" href="{{ '/experiments/2026-10-crystal-rules/' | relative_url }}">Read the crystal experiments ↗</a>
-      <a class="evidence-link" href="{{ site.repository_url }}/blob/a1ef79fa710f33b599302904c36b2b3d705a7419/experiments/2026-10-crystal-rules/README.md">Tests and outcomes</a>
+      <p class="eyebrow">Opening turns · Edge entry</p>
+      <h3>A short run of turns predicts the cost of fresh ground</h3>
+      <p>The opening same-letter run predicts births per boundary step: 1/c ≈ 1.36 + 0.70m. It transfers to fresh stationary rules and survives changing the initial interior colours in flat-band tests.</p>
+      <p class="homepage-note">Broader validation misses its accuracy target. The apparent effect on occupation at fixed area can arise from conditioning on area; the constants remain unexplained.</p>
+      <a class="text-link" href="{{ '/experiments/2026-10-19-c-law-mechanism/' | relative_url }}">Read the mechanism tests ↗</a>
+      <a class="evidence-link" href="{{ site.repository_url }}/blob/0de4d38de7c468583bc8c8aba4dc6ed54edada10/experiments/2026-10-19-c-law-mechanism/README.md">Results, deviations and provenance</a>
     </article>
     <article>
       <p class="eyebrow">Tethered ants · Editing the field</p>
@@ -48,10 +48,10 @@ title: Research log
   </div>
 </section>
 <section class="investigations" aria-labelledby="investigations-heading">
-  <div class="section-heading"><h2 id="investigations-heading">What we’re working on</h2><span>19 October 2026</span></div>
+  <div class="section-heading"><h2 id="investigations-heading">What we’re working on</h2><span>20 October 2026</span></div>
   <p class="homepage-note">Questions guiding the work. The linked records distinguish completed tests from proposals.</p>
   <div class="investigation-list">
-    <article><h3>Where does the ant spend its time?</h3><p>Slow growth must come from how the ant divides its time between old ground and the edge. We’re testing explanations involving long interior excursions, ageing colour fields, and particular places that return the ant to the boundary. The observations so far have not established a mechanism.</p><a class="text-link" href="{{ '/experiments/2026-10-15-kappa-tail-budget/' | relative_url }}">Excursion budgets ↗</a> <a class="text-link" href="{{ '/experiments/2026-10-15-kappa-field-age/' | relative_url }}">Field age ↗</a></article>
+    <article><h3>Which opening-turn effects survive the controls?</h3><p>The opening run strongly predicts edge entry. Its apparent occupation effect at fixed area is reproduced without a direct effect, while a shortening mutation still changes occupation for reasons entangled with flip direction. We need direction-balanced tests and an explanation of the edge-entry law’s constants.</p><a class="text-link" href="{{ '/experiments/2026-10-19-c-law-mechanism/' | relative_url }}">Edge entry and the conditioning test ↗</a></article>
     <article><h3>What would a fair comparison with other walkers show?</h3><p>Each walker gets its own uniform-occupancy reference, accounting for territory growth and holes, before boundary use is compared. Observed so far: every walker we tried (memoryless, rotor, and a rotor with noise from none to full) uses its boundary more than that reference (ratio 1.26 to 2.6), while the typical ant uses it less (median 0.81, single runs). Two of our predictions about the noisy rotor failed, and why ants sit low is open.</p><a class="text-link" href="{{ '/experiments/2026-10-19-kappa-walker-reference/' | relative_url }}">Walker-specific references ↗</a> {% assign walker_post = site.posts | where: "title", "The ant below every walker" | first %}{% if walker_post %}<a class="text-link" href="{{ walker_post.url | relative_url }}">Explore noise and measurement windows ↗</a>{% endif %}</article>
     <article><h3>When does a long-lived pattern give way?</h3><p>The column sweeper is a warning about calling a rule chaotic after a long but finite run. We still need to understand its trigger, find out whether other late escapes share its mechanism, and explain what starts and stops the crystal rules’ diagonal rays.</p><a class="text-link" href="{{ '/experiments/2026-10-13-g1-ribbon-breakout/' | relative_url }}">Late escapes ↗</a> <a class="text-link" href="{{ '/experiments/2026-10-crystal-rules/' | relative_url }}">Crystal rays ↗</a></article>
   </div>
