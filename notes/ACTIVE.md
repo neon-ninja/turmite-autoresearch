@@ -36,10 +36,8 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   start; another session may have committed since; check `git status`).
 - **`experiments/2026-10-16-kappa-uniform-baseline/NOTEBOOK.md`**: uncommitted edit.
 - **Blog:** `blog/index.html` modified, `blog/_posts/2026-10-19-the-ant-below-every-walker.md` untracked.
-- **rulepat, worktree `.claude/worktrees/rule-pattern-experiment-aa95e3`**: 23 *staged, uncommitted* files for
-  `experiments/2026-10-14-rulepat/` (README, results, `examples/rulepat_dump.rs`, `examples/rulepat_scan.rs`). Exists only in
-  that worktree; commit it on its branch `claude/rule-pattern-experiment-aa95e3` before removing the worktree, then decide
-  whether to merge. `main` has no rulepat.
+- **rulepat, branch `claude/rule-pattern-experiment-aa95e3`**: committed 2026-10-20 as `275d52b` (23 files for
+  `experiments/2026-10-14-rulepat/`). Still to decide: merge into `main` (it has no rulepat) and then remove the worktree.
 
 ## Repository housekeeping
 
@@ -49,7 +47,9 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   build with `scripts/build_notebook.py`, execute with the command in `experiments/README.md`).
 - **Refresh `blog/index.html`** with the c-law / collider result (convention in `AGENTS.md`). The experiment pages were
   re-rendered 2026-10-20 (from a worktree under WSL set `GIT_DIR=/mnt/f/Code/turmite/.git/worktrees/<name>` and `GIT_WORK_TREE=$PWD`).
-- **Stale worktrees and branches** (nothing deleted yet):
+- **Stale worktrees and branches** (nothing deleted yet; on 2026-10-20 their uncommitted work was committed on their own
+  branches, `agent-a810708e829d8af34` as `4cb0261` and `g1-builder-structure` as `b985636`, leaving only two empty `g1_dump_*.log`
+  untracked; deletion still needs the user's go-ahead):
   - `.claude/worktrees/agent-a810708e829d8af34` and branch `backup/pre-census-split`: same commits; the unique `39df9f2` content is in
     `main`. Its uncommitted GPU probe port (`src/gpu/probe.rs`, `experiments/2026-10-16-gpu-probe-port/`) is an earlier attempt at what
     `main` has as `gpu_probe`; compare `experiments/2026-10-16-gpu-probe-port/results/` with `experiments/2026-10-16-gpu-probe/results/` before discarding.
