@@ -30,8 +30,10 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   (`experiments/2026-10-20-kappa-prefix-runs/`, H1-H3 FAILED, H4 held) found the lead alone has R^2 ~0 unconditionally and the signal
   accumulates over the first four runs (0.25, 0.34, 0.48 vs 0.62 for 8 letters). A registered per-position ablation
   (`experiments/2026-10-20-kappa-prefix-ablation/`, A3 FAILED) found the information is not front-loaded: loss from ablating
-  position 5 is 0.40, positions 2-7 each 0.2-0.4, position 8 0.07. Still open: additive vs interaction structure (an additive
-  letter-by-position model vs the 8-letter lookup) and what the unexplained third is (middle letters, interactions, dynamics).
+  position 5 is 0.40, positions 2-7 each 0.2-0.4, position 8 0.07. A registered additive comparison
+  (`experiments/2026-10-20-kappa-prefix-additive/`, B2 FAILED) found additive letter-by-position 0.11, plus pairwise 0.35, vs 0.62 for
+  the lookup: the signal needs higher-order interactions. Still open: interaction structure vs prefix-family memorisation (hold out
+  whole 6-letter prefix families) and what the unexplained third is (middle letters, dynamics).
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
