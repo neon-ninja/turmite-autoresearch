@@ -1,12 +1,15 @@
 # Active work and open items
 
-Living index, last updated 2026-10-19 (after merging `worktree-paper-figure-proposals`, `8f4b978`, and the lead-effect
+Living index, last updated 2026-10-20 (lattice c-law result added; earlier items as of 2026-10-19 after merging `worktree-paper-figure-proposals`, `8f4b978`, and the lead-effect
 reconciliation, `5d866ce`). One line per item: what is open, where it lives, what would close it. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
 ## Science: open questions
 
+- **Why does the c-law slope b fall with loop length?** Lattice experiment: b = 0.86 / 0.70 / 0.34 / 0.28 for loops 3 (hex R), 4 (square), 6 (triangular), 6
+  (hex r); hypotheses A, B, C all disproven. Needs a registered b(l) model, a letter-typed hex lead, and ideally a new loop length; also why the hex
+  intercept is ~2.5 vs 1.3. `experiments/2026-10-20-lattice-c-law/README.md` (Results), post hoc `results/explore.txt`.
 - **Origin of the c law constants a = 1.4, b = 0.68** (1/c = 1.36 + 0.70 lead). Candidate: loop-formation probability x 4 steps
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).

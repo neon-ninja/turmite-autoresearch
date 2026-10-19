@@ -219,3 +219,17 @@ The sections "kappa prefix decoded to a leading run", "Kappa leading-run effect"
 - **H-loop and loop-surgery:** both were designed to explain the fixed-area lead effect. The square-loop failure (P2) stands as measured; its premise is now itself in doubt, which strengthens the decision not to run surgery. A mediator test for a collider-induced association was never going to find a mechanism.
 - **Not established by the c-law work:** that lead has *no* direct effect (bound |b| below about 0.06 per step given ln c, one cohort, survivor selection, kappa measured at one window); the flip-direction dependence; the origin of a = 1.4 and b = 0.68.
 - **Before citing the lead effect anywhere (paper, blog, new experiments):** cite it as a *predictive* association conditional on area, not a causal or mechanistic one. The paper's prefix-lookup claim (main.typ, "conditional transport predictor") is worded as prediction and is not contradicted; any sentence that says lead *raises* kappa is not supported. Read `experiments/2026-10-19-c-law-mechanism/README.md` Stage 4 first.
+
+### Prospective local renewal scaffold — 2026-10-20
+
+[Local renewal experiment](../experiments/2026-10-20-c-law-renewal/README.md):
+selected follow-up for the unexplained c-law coefficients and letters 5–8.
+Proposes a local boundary-event reward model, challenged by composition- and
+lead-preserving swaps, held-out families, return-budget predictions and a
+history-augmented alternative. Design generation is available; ordered-event
+instrumentation and scientific analysis are not implemented. Calibration and
+an excluded pilot must precede a dated model freeze and main measurement.
+Draft predictions only; no new scientific evidence or claim about kappa.
+
+### Lattice c law: slope falls with loop length; the kappa deficit is not square-specific — 2026-10-20 (`experiments/2026-10-20-lattice-c-law`)
+Registered (README, before any lattice c): A b ~ loop length, B b lattice-independent, C b ~ 4/z, as vectors over (triangular, hex R-lead, hex r-lead). 960 ants (48 per lead 1..5 per stratum, primitive rules of length 10-14) and 120 controls, 2^27 steps, board 8192, generic octave probe `src/lattice_probe.rs` (oracle tests: square equals `probe.rs`, hex/triangular equal a HashMap version; mean-field gate G4 passes at 0.994/1.005/1.004). **A, B and C are all disproven as stated.** Registered fits: b = 0.696 square (census 0.70), **0.355 triangular** [0.340, 0.371], 0.876 hex R-lead [0.78, 0.98]; the hex r-lead OLS is wrecked by one rule with 1/c = 390 (the frozen decision rule returns "undecided"; L1, L2, K4 failed). Post hoc (unregistered), per-lead medians give hex r-lead b ~ 0.27, so b is 0.86, 0.70, 0.34, 0.28 for loop lengths 3 (hex R), 4 (square), 6 (triangular), 6 (hex r): it **falls** with loop length. Intercept 1.3 on square and triangular, ~2.4-2.8 on hex. Kappa: ant median kappa/kappa_unif is 0.77 square, 0.74 triangular, 0.86 hex (random walks 1.28-1.44), so the deficit is not a square-lattice artefact. K3 held (no lead slope of ln kappa beyond 0.08). Open: why b falls with loop length (the Little's-law derivation b = l_b / N_b leaves N_b's scaling free; the data say N_b grows faster than l_b), the hex letter-type effect, more loop lengths, whether the intercept tracks coordination. Reproduce: `experiments/2026-10-20-lattice-c-law/README.md`.
