@@ -1,0 +1,134 @@
+{
+  "library": {
+    "mechanics": {
+      "path": "research-outputs/cube-root-growth-paper/fig/mechanics.png",
+      "alt": "Successive grid diagrams showing an ant turning, changing the cell colour and stepping forward.",
+      "caption": "Read the rule one colour at a time: turn left or right, advance the cell’s colour, then move. These small deterministic examples explain the instructions behind every experiment.",
+      "recipe": "research-outputs/cube-root-growth-paper/textbook_figs.py"
+    },
+    "gallery": {
+      "path": "research-outputs/cube-root-growth-paper/fig/gallery.png",
+      "alt": "A gallery comparing the colour patterns and territory shapes produced by different ant rules.",
+      "caption": "A few instructions can produce very different worlds. This is a selected gallery, not a measure of how often each kind of behaviour occurs; rule labels identify the examples.",
+      "recipe": "research-outputs/cube-root-growth-paper/gallery.py"
+    },
+    "exponents": {
+      "path": "research-outputs/cube-root-growth-paper/fig/exponents.png",
+      "alt": "Distributions of fitted width and gyration-radius exponents for compact ant rules and rotor controls, with a one-third reference line.",
+      "caption": "The crowded peak near one third is the puzzle. Each histogram summarizes finite-window fits; the rotor control shows why a fitted peak is evidence to investigate, rather than a proof of an exact exponent. Census ants are single runs per rule, while rotor samples vary the initial arrows.",
+      "recipe": "research-outputs/cube-root-growth-paper/figures.py"
+    },
+    "edge": {
+      "path": "research-outputs/cube-root-growth-paper/fig/edge.png",
+      "alt": "An ant territory and an enlarged patch with visited boundary cells outlined in black.",
+      "caption": "The boundary is the set of visited cells next to unvisited ground, including hole rims. The zoom makes the measurement concrete: time spent on those cells and the chance of discovering a neighbour are different parts of growth.",
+      "recipe": "research-outputs/cube-root-growth-paper/textbook_figs.py"
+    },
+    "rotor": {
+      "path": "research-outputs/cube-root-growth-paper/fig/rotor.png",
+      "alt": "Visit-density maps for a rotor and ant RLL, followed by their radial profiles scaled by territory radius and visits per cell.",
+      "caption": "Both walkers revisit the older centre more heavily. The scaled radial profiles compare accumulated visits, not instantaneous occupation. A cone can follow from occupation and growth assumptions without explaining why that growth law holds.",
+      "recipe": "research-outputs/cube-root-growth-paper/textbook_figs.py"
+    },
+    "boundary-factors": {
+      "path": "research-outputs/cube-root-growth-paper/fig/ck_time.png",
+      "alt": "Fresh-ground entry probability c and normalized boundary occupation kappa against log2 time for six long ant trajectories.",
+      "caption": "Two ways to grow slowly: rarely reach the edge, or rarely discover fresh ground when there. The lines track those factors in six long trajectories. Their decomposition is a diagnostic; reconstructing the same run’s growth does not establish a mechanism.",
+      "recipe": "research-outputs/cube-root-growth-paper/figures.py"
+    },
+    "late-switch": {
+      "path": "research-outputs/cube-root-growth-paper/fig/late_switch.png",
+      "alt": "RLRLLL switches from expensive blob growth to column sweeping; the lower panels show a period-three wake, back-and-forth motion and two sweep predictions.",
+      "caption": "Read the upper panel as the cost of a new cell: after the late switch it drops sharply. Below, the colour wake and sawtooth motion reveal the column sweep. The two prediction checks describe this phase of one deterministic trajectory; they do not identify what triggers it.",
+      "recipe": "research-outputs/cube-root-growth-paper/late_switch_figure.py"
+    },
+    "memory-paths": {
+      "path": "research-outputs/cube-root-growth-paper/fig/memory_paths.png",
+      "alt": "Selected paths of walkers with different local memory rules.",
+      "caption": "Memory is not one mechanism. These selected trajectories show how changing the way a walker remembers visited ground changes its exploration. The accompanying growth measurements, rather than appearance alone, determine the comparison.",
+      "recipe": "research-outputs/cube-root-growth-paper/memory_figures.py"
+    },
+    "memory-growth": {
+      "path": "research-outputs/cube-root-growth-paper/fig/memory_growth.png",
+      "alt": "Growth comparisons among ants and several simpler walkers with local memory.",
+      "caption": "The toy walkers test whether a simpler form of local memory reproduces the observed growth. These finite runs compare particular implementations, not every possible self-interacting walk.",
+      "recipe": "research-outputs/cube-root-growth-paper/memory_figures.py"
+    },
+    "fixed-area": {
+      "path": "experiments/2026-10-15-fixed-area-cycles/results/association.png",
+      "alt": "Independent-seed excursion-tail cutoff versus boundary occupation at visited areas 32768 and 131072; the negative association is stronger at the larger area.",
+      "caption": "Each panel compares rules at a fixed visited area, with separate seeds for the long-excursion statistic and boundary occupation. Longer extreme excursions accompany lower boundary occupation more clearly in the larger territory. The primary small-area criterion fails; the selected 44-rule cohort does not establish causality. Seeds, bands and uncertainty are recorded in the experiment record.",
+      "recipe": "experiments/2026-10-15-fixed-area-cycles/README.md"
+    },
+    "alpha-gap": {
+      "path": "experiments/2026-10-15-alpha-gap/results/alpha_gap.png",
+      "alt": "The distribution of fitted growth exponents and checks of the cut between slow and compact growers.",
+      "caption": "The cut separates a slow-growth population from the compact-growth peak. Moving it changes the central estimate little, but not little enough to pass the strict registered tolerance. A statistical trough is not proof of a phase boundary.",
+      "recipe": "experiments/2026-10-15-alpha-gap/README.md"
+    },
+    "occupancy-home": {
+      "path": "experiments/2026-10-13-occupancy-pages/results/page_RRRRRLLLLLL.png",
+      "alt": "Saved multi-panel colour and occupancy analysis of tethered rule RRRRRLLLLLL.",
+      "caption": "The territory is larger than the neighbourhood where this ant spends most of its time. Compare the colour field with occupancy and the page’s motion diagnostics. This is a selected saved example; the individual panel labels give its measurement context.",
+      "recipe": "experiments/2026-10-13-occupancy-pages/README.md"
+    },
+    "occupancy-blob": {
+      "path": "experiments/2026-10-13-occupancy-pages/results/page_RLR.png",
+      "alt": "Saved multi-panel colour and occupancy analysis of compact-growing rule RLR.",
+      "caption": "A compact grower provides a comparison with the tethered example. The visit-density and motion panels ask how the walker uses its territory, which a colour snapshot alone cannot reveal. This is descriptive context, not an independent test of every linked experiment.",
+      "recipe": "experiments/2026-10-13-occupancy-pages/README.md"
+    },
+    "crystal": {
+      "path": "experiments/2026-10-crystal-rules/results/RLLLLRRL_visits.png",
+      "alt": "Visit-count image of rule RLLLLRRL showing long diagonal structures.",
+      "caption": "The long diagonal rays make the crystal question visible. This is the saved visit image of the deterministic blank-board rule RLLLLRRL; the ray tests in the record distinguish the visible structure from claims about how it sustains itself.",
+      "recipe": "experiments/2026-10-crystal-rules/README.md"
+    },
+    "snapshot": {
+      "path": "experiments/2026-10-13-snapshots/results/LLRR.png",
+      "alt": "Saved colour-field snapshot of the symmetric builder LLRR.",
+      "caption": "LLRR is a reminder that an ant need not build an irregular blob. This selected saved snapshot is visual context; use the generating record for its run parameters rather than inferring a growth exponent from the shape.",
+      "recipe": "experiments/2026-10-13-snapshots/README.md"
+    }
+  },
+  "experiments": {
+    "2026-10-12-knockout-maps": ["occupancy-home"],
+    "2026-10-13-a1-kappa": ["boundary-factors"],
+    "2026-10-13-a3-background-cone-control": ["rotor"],
+    "2026-10-13-a5-home-types": ["occupancy-home"],
+    "2026-10-13-a6-corruption-mechanism": ["occupancy-home"],
+    "2026-10-13-b1-exact-exponent": ["exponents", "late-switch"],
+    "2026-10-13-b2-between-rule-variance": ["exponents"],
+    "2026-10-13-calib-instrument-calibration": ["exponents", "rotor"],
+    "2026-10-13-census-sweeps": ["gallery", "mechanics"],
+    "2026-10-13-edge-statistics": ["edge", "boundary-factors"],
+    "2026-10-13-ext-other-lattices-turmites-noise": ["memory-growth"],
+    "2026-10-13-formage-age": ["occupancy-home"],
+    "2026-10-13-g1-ribbon-breakout": ["late-switch"],
+    "2026-10-13-hot-tiles": ["occupancy-home"],
+    "2026-10-13-item4-exponent-rotor-calibrated": ["exponents"],
+    "2026-10-13-log-growers": ["occupancy-home"],
+    "2026-10-13-memory-walkers": ["memory-paths", "memory-growth"],
+    "2026-10-13-mixing": ["occupancy-blob"],
+    "2026-10-13-occupancy-pages": ["occupancy-home", "occupancy-blob"],
+    "2026-10-13-patterns-fields": ["occupancy-home"],
+    "2026-10-13-probe-growth-census": ["exponents", "boundary-factors"],
+    "2026-10-13-shape-limit": ["rotor"],
+    "2026-10-13-snapshots": ["gallery", "snapshot"],
+    "2026-10-13-spread-home": ["occupancy-home"],
+    "2026-10-13-tether-rules": ["occupancy-home"],
+    "2026-10-13-w2": ["memory-paths"],
+    "2026-10-13-w3": ["rotor"],
+    "2026-10-14-hull-width": ["edge"],
+    "2026-10-15-alpha-gap": ["alpha-gap"],
+    "2026-10-15-fixed-area-cycles": ["fixed-area"],
+    "2026-10-15-independent-area": ["fixed-area"],
+    "2026-10-16-kappa-loop-surgery": ["edge"],
+    "2026-10-16-kappa-uniform-baseline": ["edge", "boundary-factors"],
+    "2026-10-19-c-law-mechanism": ["edge"],
+    "2026-10-19-kappa-chiral-edge": ["edge"],
+    "2026-10-19-kappa-walker-reference": ["rotor"],
+    "2026-10-crystal-rules": ["crystal"],
+    "2026-10-kappa-rule-space": ["boundary-factors"]
+  }
+}

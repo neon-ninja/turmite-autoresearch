@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import html
 import json
@@ -55,6 +56,24 @@ def build(baseurl: str, repository: str) -> None:
     exporter.exclude_anchor_links = True
     catalog = []
     manifest = {"commit": commit, "inputs": {}, "missing_links": []}
+    guide_path = BLOG / "experiment-guides.tsv"
+    guides = {}
+    if guide_path.is_file():
+        manifest["inputs"][guide_path.relative_to(ROOT).as_posix()] = digest(guide_path)
+        with guide_path.open(encoding="utf-8") as handle:
+            for row in csv.DictReader(handle, delimiter="\t"):
+                if row["slug"] in guides or not all(row.values()):
+                    raise ValueError(f"Duplicate or incomplete reader guide: {row['slug']}")
+                guides[row["slug"]] = row
+        if set(guides) != {p.name for p in experiments}:
+            raise ValueError("Reader guide coverage differs from tracked experiments: "
+                             + str(sorted(set(guides) ^ {p.name for p in experiments})))
+    figure_path = BLOG / "experiment-figures.json"
+    figures = json.loads(figure_path.read_text()) if figure_path.is_file() else {"library": {}, "experiments": {}}
+    if figure_path.is_file():
+        manifest["inputs"][figure_path.relative_to(ROOT).as_posix()] = digest(figure_path)
+        if set(figures["experiments"]) - {p.name for p in experiments}:
+            raise ValueError("Figure collection refers to an unknown experiment")
 
     def site_url(path: str) -> str:
         return baseurl + "/experiments/" + path
@@ -141,7 +160,48 @@ def build(baseurl: str, repository: str) -> None:
         overview = render_markdown(readme, experiment)
         excerpt = BeautifulSoup(overview, "html.parser").find("p")
         description = re.sub(r"\s+", " ", excerpt.get_text(" ", strip=True))[:250] if excerpt else "Experiment record."
-        sections = ['<section id="overview" class="prose experiment-overview">' + overview + "</section>"]
+        guide = guides.get(experiment.name)
+        sections = []
+        if guide:
+            title, description = guide["title"], guide["question"]
+            sections.append('<section class="prose reader-guide">'
+                            '<h2 id="reader-hypothesis">The idea under test</h2><p>' + html.escape(guide["hypothesis"]) + '</p>'
+                            '<h2 id="reader-findings">What we learned</h2><p>' + html.escape(guide["finding"]) + '</p>'
+                            '<h3>What this leaves open</h3><p>' + html.escape(guide["caveat"]) + '</p></section>')
+            evidence = ROOT / guide["evidence"]
+            if evidence not in tracked or not evidence.is_file():
+                raise ValueError(f"Reader guide evidence must be tracked: {evidence}")
+            manifest["inputs"][guide["evidence"]] = digest(evidence)
+            evidence_html = rewrite('<a href="' + html.escape(str(evidence), quote=True) + '">Read the evidence and reproduction recipe ↗</a>', readme, experiment)
+            sections.append('<p class="guide-evidence">' + evidence_html + '</p>')
+        else:
+            sections.append('<section class="prose reader-guide"><h2>About this record</h2>'
+                            '<p>This experiment has not yet received a reader introduction. The original record below '
+                            'contains its methods and any saved findings.</p></section>')
+        gallery = []
+        for figure_id in figures["experiments"].get(experiment.name, []):
+            figure = figures["library"][figure_id]
+            asset, recipe = ROOT / figure["path"], ROOT / figure["recipe"]
+            if asset not in tracked or recipe not in tracked or not asset.is_file() or not recipe.is_file():
+                raise ValueError(f"Figure and recipe must be tracked files: {figure}")
+            manifest["inputs"][figure["recipe"]] = digest(recipe)
+            fragment = ('<figure><a href="' + html.escape(str(asset), quote=True) + '">'
+                        '<img src="' + html.escape(str(asset), quote=True) + '" alt="' + html.escape(figure["alt"], quote=True)
+                        + '" loading="lazy"></a><figcaption>' + html.escape(figure["caption"])
+                        + ' <a href="' + html.escape(str(recipe), quote=True) + '">Figure source and recipe ↗</a></figcaption></figure>')
+            # Both the full-size link and inline image use the copied site asset.
+            rendered = rewrite(fragment, readme, experiment)
+            soup = BeautifulSoup(rendered, "html.parser")
+            soup.find("a")["href"] = soup.find("img")["src"]
+            gallery.append(str(soup))
+        if gallery:
+            sections.insert(0, '<section id="visual-evidence" class="experiment-figures" aria-label="Visual evidence">'
+                            '<h2>A closer look</h2>' + ''.join(gallery) + '</section>')
+        sections.append('<section id="research-record" class="research-record"><h2>Inside the experiment</h2>'
+                        '<p>Methods, registered predictions, exact commands and saved analysis. '
+                        'These are the working research documents; expand them for the detail behind the introduction.</p>'
+                        '<details class="record-details"><summary>Methods and original experiment record</summary>'
+                        '<div class="prose experiment-overview">' + overview + '</div></details>')
         notebook_info = []
         for path in notebooks:
             manifest["inputs"][path.relative_to(ROOT).as_posix()] = digest(path)
@@ -171,10 +231,10 @@ def build(baseurl: str, repository: str) -> None:
                 message = "No saved outputs. This render shows the saved narrative and code; cells have not been executed for publication."
             if errors:
                 message += f" {errors} saved error outputs are preserved below."
-            sections.append(f'<section id="{anchor}" class="notebook-section"><h2>{html.escape(name)}</h2>'
+            sections.append(f'<details id="{anchor}" class="notebook-section record-details"><summary>Analysis notebook: {html.escape(name)}</summary>'
                             f'<p class="render-note">{message} '
                             f'<a href="{site_url(download)}" download>Download notebook</a></p>'
-                            f'<div class="notebook-render">{rewrite(body, path, experiment)}</div></section>')
+                            f'<div class="notebook-render">{rewrite(body, path, experiment)}</div></details>')
             notebook_info.append({"name": name, "anchor": anchor, "outputs": outputs, "errors": errors})
         if not notebooks:
             sections.append('<section class="notebook-section"><h2>Notebook</h2><p class="render-note">'
@@ -183,7 +243,10 @@ def build(baseurl: str, repository: str) -> None:
         if log in tracked:
             sections.append('<details class="lab-log"><summary>Read the dated lab log</summary>'
                             '<div class="prose">' + render_markdown(log, experiment) + '</div></details>')
+        sections.append('</section>')
         metadata = {"layout": "experiment", "title": title, "description": description,
+                    "reader_guide": bool(guide), "has_figures": bool(gallery),
+                    "figure_preview": BeautifulSoup(gallery[0], "html.parser").find("img")["src"] if gallery else "",
                     "slug": experiment.name, "source_commit": commit, "notebooks": notebook_info,
                     "source_url": repo_url(readme) if repository else ""}
         destination = OUTPUT / experiment.name / "index.html"

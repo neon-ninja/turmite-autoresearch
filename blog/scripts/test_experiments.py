@@ -30,6 +30,16 @@ class PublishingTest(unittest.TestCase):
             (first / "script.py").write_text("print('source')\n")
             (first / "plot.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg"/>')
             (second / "README.md").write_text("# No notebook yet\n")
+            (blog / "experiment-guides.tsv").write_text(
+                "slug\ttitle\tquestion\thypothesis\tfinding\tcaveat\tevidence\n"
+                + f"{first.name}\tA readable title\tWhy explore?\tA testable idea\tThe test failed.\tFinite windows.\texperiments/{first.name}/README.md\n"
+                + f"{second.name}\tA planned test\tWhat might happen?\tAn unrun prediction\tNot run.\tNo evidence yet.\texperiments/{second.name}/README.md\n")
+            (blog / "experiment-figures.json").write_text(json.dumps({
+                "library": {"plot": {"path": f"experiments/{first.name}/plot.svg",
+                                     "recipe": f"experiments/{first.name}/script.py",
+                                     "alt": "Measured comparison", "caption": "A saved observation, not a mechanism."}},
+                "experiments": {first.name: ["plot"]},
+            }))
             (first / "NOTEBOOK.md").write_text("# Dated log\n\nObservation.\n")
             nested = first / "notebooks"
             nested.mkdir()
@@ -69,6 +79,14 @@ class PublishingTest(unittest.TestCase):
                 first_page = (blog / "experiments" / first.name / "index.html").read_text()
                 second_page = (blog / "experiments" / second.name / "index.html").read_text()
                 self.assertIn("SAVED_OUTPUT_42", first_page)
+                self.assertIn("A readable title", first_page)
+                self.assertIn('id="reader-hypothesis"', first_page)
+                self.assertIn("The test failed.", first_page)
+                self.assertIn("A saved observation, not a mechanism.", first_page)
+                self.assertLess(first_page.index("The test failed."), first_page.index('id="research-record"'))
+                self.assertIn('<details class="record-details">', first_page)
+                self.assertIn('<details id="notebook-notebooks-detail-ipynb"', first_page)
+                self.assertIn('href="/project/experiments/' + first.name + '/assets/', first_page)
                 self.assertIn('id="first-experiment"', first_page)
                 self.assertIn('href="#first-experiment"', first_page)
                 self.assertIn("saved traceback", first_page)
@@ -80,6 +98,11 @@ class PublishingTest(unittest.TestCase):
                 manifest = json.loads((blog / "experiments/manifest.json").read_text())
                 self.assertEqual(manifest["missing_links"][0]["target"], "gone.csv")
                 self.assertEqual(len(catalog[1]["notebooks"]), 1)
+                self.assertTrue(catalog[1]["reader_guide"])
+                self.assertTrue(catalog[1]["has_figures"])
+                self.assertIn("blog/experiment-guides.tsv", manifest["inputs"])
+                self.assertIn(f"experiments/{first.name}/script.py", manifest["inputs"])
+                self.assertIn(f"experiments/{first.name}/plot.svg", manifest["inputs"])
 
     def test_unmarked_directory_is_preserved(self):
         with tempfile.TemporaryDirectory() as scratch:

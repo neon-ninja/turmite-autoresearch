@@ -168,11 +168,32 @@ excluding internal `_` folders. Every experiment gets an entry in
 `/experiments/` and a page at `/experiments/<folder-name>/`. The searchable
 index remains usable without JavaScript; JavaScript adds filtering.
 
-Each page includes its README, every tracked `notebook.ipynb` at its root
+Each page opens with an editorial reader guide: an approachable title, the
+question, the idea under test, what was learned, and what remains open. These
+introductions live in `experiment-guides.tsv`, one row per tracked experiment.
+They summarize the cited evidence; they are **not new preregistrations**. Say
+explicitly when a folder is a descriptive archive, a pilot, or an unrun plan.
+The publisher checks complete guide coverage so a new experiment cannot silently
+fall back to an internal README as its introduction. Write plain sentences,
+define specialized terms, and check the latest results and corrections before
+updating a guide. The evidence column is a repository-relative tracked file.
+
+`experiment-figures.json` selects existing, tracked figures for the introductions
+and index thumbnails. Its library gives each image an alt description, a caption
+explaining what to look for and what it cannot show, and a tracked source/recipe.
+The experiment map selects library entries. Shared figures must be labelled as
+context or comparisons rather than implying they are new results of that page.
+Only selected images are copied; full-size versions are linked. This step does
+not regenerate plots or execute notebooks. Add new measured plots through the
+experiment's normal reproducible workflow, then select them here. Both editorial
+files and figure recipes join the publication manifest's input hashes.
+
+Below the introduction and figures, an expandable research record includes its README, every tracked `notebook.ipynb` at its root
 and every `.ipynb` in its `notebooks/` directory, plus an expandable
 `NOTEBOOK.md` lab log when present. Notebook narrative, code, saved figures,
 tables, text, and error outputs are rendered with nbconvert. Code inputs are
-collapsed individually; outputs stay visible. Original notebooks can be
+collapsed individually; outputs stay visible within the expanded notebook. Deep
+links open containing sections automatically. Original notebooks can be
 downloaded. Missing notebooks and notebooks without saved outputs are labelled.
 **No cells are executed**, and original scientific files are never rewritten.
 
@@ -199,11 +220,15 @@ Publishing checks (from the repository root under WSL):
 
 ```bash
 uv run --frozen --only-group blog blog/scripts/test_experiments.py
+node blog/scripts/test_experiment.js
 ```
 
 The fixtures check repeatable output, preserved saved and error outputs,
 nested notebooks, source and image links, heading anchors, missing notebooks,
-exclusion of untracked/internal files, and protection of unmarked directories.
+exclusion of untracked/internal files, reader-guide ordering, figure captions
+and hashes, and protection of unmarked directories. The JavaScript check uses
+the existing `web/` jsdom dependency to verify that deep links reveal collapsed
+records and notebook headings.
 
 References: [Jekyll authoring](https://jekyllrb.com/docs/posts/) and
 [GitHub's custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).

@@ -10,7 +10,7 @@ errors = []
 %w[index.html about/index.html experiments/index.html experiments/manifest.json feed.xml 404.html assets/style.css].each do |path|
   errors << "Missing #{path}" unless root.join(path).file?
 end
-%w[Gemfile Gemfile.lock README.md scripts templates _drafts].each do |path|
+%w[Gemfile Gemfile.lock README.md scripts templates _drafts experiment-guides.tsv experiment-figures.json].each do |path|
   errors << "Authoring file leaked: #{path}" if root.join(path).exist?
 end
 root.glob("**/*.html").sort.each do |file|

@@ -2,12 +2,20 @@
 layout: default
 title: Experiments
 permalink: /experiments/
-description: Experiment records and rendered research notebooks for the Turmite project.
+description: Readable introductions to the questions, ideas, findings and visual evidence behind our ant experiments.
 ---
 <section class="experiment-intro">
-  <p class="eyebrow">The research record</p>
+  <p class="eyebrow">Ways into the research</p>
   <h1>Follow the experiments.</h1>
-  <p class="dek">Questions, methods, and saved notebook outputs, alongside the working record that produced them.</p>
+  <p class="dek">What were we trying to understand? What did we expect? What happened? Start with the story and figures, then open the methods and notebooks when you want the detail.</p>
+  <aside class="reading-path" aria-label="Suggested first experiments">
+    <h2>Three places to begin</h2>
+    <ol>
+      <li><a href="{{ '/experiments/2026-10-13-probe-growth-census/' | relative_url }}">The growth puzzle</a> — why so many different rules cluster near cube-root growth.</li>
+      <li><a href="{{ '/experiments/2026-10-13-g1-ribbon-breakout/' | relative_url }}">The ant that changed its mind</a> — billions of steps of blob growth, then a column sweeper.</li>
+      <li><a href="{{ '/experiments/2026-10-crystal-rules/' | relative_url }}">The diagonal crystals</a> — beautiful rays, competing explanations, and tests still to do.</li>
+    </ol>
+  </aside>
   <label class="search-label" for="experiment-search">Find an experiment</label>
   <input type="search" id="experiment-search" placeholder="Search titles, topics, or folder names…" aria-controls="experiment-list">
   <p class="render-note" id="experiment-count" role="status">{{ site.data.experiments.size }} experiments</p>
@@ -15,10 +23,11 @@ description: Experiment records and rendered research notebooks for the Turmite 
 <section id="experiment-list" aria-label="Experiments">
   {% for experiment in site.data.experiments %}
   <article class="experiment-card">
-    <p class="eyebrow">{{ experiment.slug | escape }}</p>
+    {% if experiment.figure_preview != '' %}<a href="{{ experiment.url | relative_url }}" aria-label="View {{ experiment.title | escape }}"><img src="{{ experiment.figure_preview | escape }}" alt="" loading="lazy"></a>{% endif %}
     <h2><a href="{{ experiment.url | relative_url }}">{{ experiment.title | escape }}</a></h2>
     <p>{{ experiment.description | escape }}</p>
-    <p class="tags">{% if experiment.notebooks.size > 0 %}{{ experiment.notebooks.size }} rendered {% if experiment.notebooks.size == 1 %}notebook{% else %}notebooks{% endif %}{% else %}Notebook not yet available{% endif %}</p>
+    <p class="tags">{% if experiment.has_figures %}Figures · {% endif %}Reader guide · Methods{% if experiment.notebooks.size > 0 %} · Analysis notebook{% endif %}</p>
+    <span class="experiment-slug">{{ experiment.slug | escape }}</span>
   </article>
   {% endfor %}
 </section>

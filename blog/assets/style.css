@@ -144,4 +144,30 @@ input[type=search] { width: min(100%, 640px); margin-top: 10px; padding: 14px 16
 .notebook-code pre { margin-bottom: 0; }
 .lab-log { border-top: 1px solid var(--line); padding-top: 20px; margin-block: 35px; }
 .source-reference { color: var(--muted); text-decoration: underline dotted; cursor: help; }
+.reader-guide { max-width: 730px; margin-block: 35px; font-size: 19px; line-height: 1.75; }
+.reader-guide h2 { margin-top: 36px; }
+.reader-guide h3 { font-size: 22px; }
+.ant-primer { max-width: 730px; border-block: 1px solid var(--line); padding-block: 16px; margin-top: 24px; font-size: 16px; }
+.ant-primer summary, .record-details > summary { cursor: pointer; color: var(--accent); }
+.ant-primer summary { font: 13px/1.7 ui-monospace, monospace; }
+.guide-evidence { font-size: 14px; margin-bottom: 45px; }
+.experiment-figures { max-width: 960px; margin-block: 50px; }
+.experiment-figures > h2, .research-record > h2 { font-size: 32px; letter-spacing: -.025em; }
+.experiment-figures figure { background: var(--panel); border: 1px solid var(--line); padding: 20px; margin-block: 25px; }
+.experiment-figures img { display: block; margin-inline: auto; max-height: 760px; object-fit: contain; background: white; }
+.experiment-figures figcaption { max-width: 740px; margin: 18px auto 0; line-height: 1.7; }
+.experiment-figures figcaption a { display: block; margin-top: 8px; font-size: 12px; }
+.research-record { border-top: 1px solid var(--ink); margin-top: 50px; padding-top: 15px; }
+.research-record > p { max-width: 730px; color: var(--muted); font-size: 16px; }
+.record-details { padding-block: 20px; border-top: 1px solid var(--line); }
+.record-details > summary { font-size: 18px; overflow-wrap: anywhere; }
+.record-details[open] > summary { margin-bottom: 25px; }
+.experiment-provenance { border-top: 1px solid var(--line); max-width: 850px; margin-top: 40px; padding-top: 18px; font: 11px/1.8 ui-monospace, monospace; color: var(--muted); overflow-wrap: anywhere; }
+.experiment-card img { width: 190px; height: 125px; object-fit: contain; background: white; float: right; margin: 0 0 18px 30px; }
+.experiment-card::after { content: ''; display: block; clear: both; }
+.experiment-slug { display: block; font: 10px/1.7 ui-monospace, monospace; color: var(--muted); overflow-wrap: anywhere; }
+.reading-path { padding: 20px 24px; background: var(--panel); margin-block: 25px 40px; }
+.reading-path h2 { font-size: 25px; margin-top: 0; }
+.reading-path li { margin-block: 12px; max-width: 750px; }
+@media (max-width: 640px) { .reader-guide { font-size: 17px; } .experiment-figures figure { padding: 12px; } .experiment-card img { float: none; width: 100%; height: 180px; margin: 0 0 16px; } }
 @media (max-width: 640px) { nav { flex-wrap: wrap; } .experiment-card .eyebrow { overflow-wrap: anywhere; } .notebook-render pre { max-width: calc(100vw - 60px); } }

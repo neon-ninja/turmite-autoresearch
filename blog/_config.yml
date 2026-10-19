@@ -26,6 +26,8 @@ defaults:
       author: Turmite researchers
       status: Field note
 exclude:
+  - experiment-guides.tsv
+  - experiment-figures.json
   - README.md
   - Gemfile
   - Gemfile.lock

@@ -2,17 +2,30 @@
 layout: default
 ---
 <article class="experiment">
-  <header class="entry-header">
+  <header id="reader-overview" class="entry-header">
     <a class="back-link" href="{{ '/experiments/' | relative_url }}">← All experiments</a>
-    <p class="eyebrow">Experiment / {{ page.slug | escape }}</p>
+    <p class="eyebrow">Field notes / Experiment guide</p>
     <h1>{{ page.title | escape }}</h1>
-    <p class="render-note">Published from the saved experiment record. Notebook outputs are rendered as committed.</p>
+    <p class="dek">{{ page.description | escape }}</p>
     <nav class="experiment-nav" aria-label="Experiment sections">
-      <a href="#overview">Overview</a>
-      {% for notebook in page.notebooks %}<a href="#{{ notebook.anchor }}">{{ notebook.name | escape }}</a>{% endfor %}
-      {% if page.source_url != '' %}<a href="{{ page.source_url | escape }}">Source ↗</a>{% endif %}
+      <a href="#reader-overview">Question</a>
+      {% if page.has_figures %}<a href="#visual-evidence">Figures</a>{% endif %}
+      {% if page.reader_guide %}<a href="#reader-hypothesis">Hypothesis</a><a href="#reader-findings">Findings & limits</a>{% endif %}
+      <a href="#research-record">Methods & notebooks</a>
     </nav>
-    <p class="byline">Source revision <code>{{ page.source_commit | truncate: 12, '' }}</code> · <a href="{{ '/experiments/manifest.json' | relative_url }}">Input hashes</a></p>
   </header>
+  <details class="ant-primer prose">
+    <summary>New to these ants? Start here.</summary>
+    <p>An ant moves on a grid of coloured squares. Each colour tells it to turn left (L) or right (R). It advances that square to the next colour, then steps forward. A rule such as RLR is the list of turns, starting at colour zero. On a blank grid the same rule always makes the same trajectory.</p>
+    <p><strong>Territory</strong> means every cell visited so far. Its <strong>boundary</strong> consists of visited cells with an unvisited neighbour. A <strong>highway</strong> is a repeating pattern of motion that carries the ant away. A <strong>tether</strong> means repeated returns to a small home region.</p>
+    <p>Growing like the <strong>cube root of time</strong> means taking eight times as many steps to double a linear size. The <strong>rotor walker</strong> is a comparison model that follows and rotates arrows stored on cells. A <strong>seed</strong> makes a random starting pattern reproducible; the ant itself can still move deterministically.</p>
+    <p>We distinguish <strong>c</strong>, the chance of discovering a cell per boundary step, from <strong>kappa (κ)</strong>, time at the boundary normalized by perimeter divided by area. Explaining their values is harder than using them to account for growth.</p>
+  </details>
   {{ content }}
+  <footer class="experiment-provenance">
+    <p>{{ page.slug | escape }} · Source revision <code>{{ page.source_commit | truncate: 12, '' }}</code></p>
+    <p>{% if page.source_url != '' %}<a href="{{ page.source_url | escape }}">Original source ↗</a> · {% endif %}<a href="{{ '/experiments/manifest.json' | relative_url }}">Input hashes</a></p>
+    <p>Introductions summarize the evidence; the expandable record preserves the original predictions, methods and caveats. Figures and notebooks are published as saved. Publication runs no simulations or notebook cells.</p>
+  </footer>
 </article>
+<script src="{{ '/assets/experiment.js' | relative_url }}" defer></script>
