@@ -1,8 +1,13 @@
 # Can a local renewal model explain the cost of a new cell?
 
+**Current status (2026-10-20):** ordered-event recorder passes oracle tests;
+walker controls and narrow stationary-solver calibration pass. The excluded
+pilot failed its common-horizon gate. Main outcomes remain unopened; see
+the dated addenda below. No local closure or c-law coefficients are derived.
+
 Scaffold created 2026-10-20 (+13:00), base revision
 `adf66774570469da30b10ffc1ceab911670a9d09`.
-**Status: prospective design, not a frozen preregistration. No simulations or
+**Scaffold status at creation: prospective design, not a frozen preregistration. No simulations or
 scientific fits have been run for this experiment.** Preparing rules is design
 generation, not evidence. Freeze the instrument, model and pilot decisions in a
 dated addendum before any main-cohort measurement. Preserve this draft.
@@ -281,3 +286,51 @@ Run long stages in the background, logging under `results/pilot_v1/`.
 Every chunk has its exact argv, build/driver hashes, duration, complete
 summary and SHA-256 `.done` marker. This is an instrument/pilot stage and
 does not establish P1–P4.
+
+### Exact immediate reward; remaining modelling task
+
+The source state determines the immediate birth outcome exactly. In the
+canonical frame, let d=1 (right) when `next8 & 1` is set, otherwise d=3
+(left). Then `born = ((visited4 >> d) & 1) == 0`. Consequently a fitted
+birth-probability regressor is unnecessary for ant states. The independent
+path comparison also checks this identity for each emitted ant event.
+The reward-estimator calibration remains a solver control, not evidence
+for a learned ant birth mechanism.
+
+What needs explaining is the occupancy of these local states, including
+how loops and long returns generate their distribution. A cross-rule
+transition model must additionally enforce target-rule-compatible successor
+features; a pooled transition matrix can otherwise jump into an eight-turn
+word that the target rule cannot produce. This is an explicit main-model
+gate, not permission to estimate successor weights on the target trajectory.
+Neither the immediate predicate nor the accounting identity derives a or b.
+
+## Pilot outcome and diagnostic addendum — 2026-10-20 00:49 (+13:00)
+
+The original ladder terminated normally with **no usable common horizon**:
+0/4 complete families pass at any k=22..26. At k=26 only 2/24 runs pass;
+6 miss the >=5000 window-birth requirement and 22 miss the 10–80% consumed
+band requirement. The main cohort remains unrun. Source:
+`results/pilot_diagnostics.{json,csv}`, made by `scripts/pilot_diagnose.py`.
+G0 oracle checks and G2 walker controls pass; the synthetic stationary solver
+passes its narrow calibration, but the full ant estimator is not calibrated.
+This pilot failure gives no verdict on P1–P4 or local closure.
+
+Before collecting any state counts from this cohort, register a **diagnostic
+repeat only** of all 24 excluded pilot runs at k=26, same geometry, seeds and
+hashed binary. This changes neither geometry nor horizon and cannot rescue
+the failed gate. Budget <=24*2^26 extra steps; no other heavy jobs may run.
+Require summaries to match original runs exactly. Save state/transition
+counts under ignored `dumps/pilot_support/`, hashes and compact audits under
+`results/`; every chunk is validated before its `.done` marker.
+
+Prospective feasibility prediction: S1's full source-colour/eight-turn-word
+state will have >5% unseen read mass in at least 12/24 runs when trained on
+the other three pilot families. The same test on S0, S2 and C0/C1/C2/C4/C8
+coarsenings (word prefix lengths 0,1,2,4,8 plus patch, omitting source colour)
+is descriptive. No c model or target transition weights will be fitted.
+Passing support would only permit further model design; it would not repair
+the horizon failure, demonstrate transfer or establish a mechanism.
+
+Command, usual WSL UV exports: `uv run --frozen
+experiments/2026-10-20-c-law-renewal/scripts/support_probe.py`.

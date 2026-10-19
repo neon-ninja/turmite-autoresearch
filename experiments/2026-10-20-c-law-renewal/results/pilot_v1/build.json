@@ -1,0 +1,20 @@
+{
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_pilot.py --stage build",
+  "git_revision": "ef79072e9e5ffd706e6b4dd3d9816142984320b4",
+  "binary": "/home/tim/turmite-renewal-fq6jshff/release/examples/c_law_renewal_trace",
+  "binary_sha256": "970a4db90732d7acae2125f3e5869e9ef6ae2f751b28366ccde5d4689995e44d",
+  "sources_sha256": {
+    "src/edge_renewal.rs": "e1be6a1fec7ddd9657f6fa21aba0462f839394aef8d6ab7b3e285616fed4b340",
+    "src/edge_trace.rs": "b466b8397ec67667bcf1c18c2badb2b52e3a98918ec7ee4ff4dc79eae50b6f12",
+    "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76",
+    "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+    "src/lib.rs": "4e9e7ef528ed22edba4db21751daa8c8b40fae3d705f63d838a01351e32e575c",
+    "examples/c_law_renewal_trace.rs": "1fda56f57524924044757decd838d4a8a0587c693d0bc514495fb1addf616ea0",
+    "Cargo.toml": "6c79cef37d9d63b0b6c6beaa145c2a5151823424d346431f5e405adf786b689e",
+    "Cargo.lock": "10e4dd6eb9399e13617dadc91fe871cd730673109b6977c6f9659ea91b3fb6f1",
+    "experiments/2026-10-20-c-law-renewal/scripts/run_pilot.py": "b3d8e21fb835fd18031695245fec68919984da6d17338a0456e855b05c59c293"
+  },
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "build_exit_status": 0,
+  "fresh_target": "/home/tim/turmite-renewal-fq6jshff"
+}

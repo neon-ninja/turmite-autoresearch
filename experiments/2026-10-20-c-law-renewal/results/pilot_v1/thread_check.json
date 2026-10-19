@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "band",
+    "RRRLRLLRLRLLRL",
+    "2026102021",
+    "12",
+    "32",
+    "64",
+    "32",
+    "counts"
+  ],
+  "sha256_1_and_6": "8b0b6b27c133f955f14cf5f133054841073fd346110449ceb9c54b8bdbbc04c0",
+  "identical": true
+}

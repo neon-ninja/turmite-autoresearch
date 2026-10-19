@@ -1,0 +1,69 @@
+{
+  "recipe": {
+    "argv": [
+      "band",
+      "RRRRLLRRLLLRLR",
+      "2026102021",
+      "26",
+      "256",
+      "4096",
+      "2048",
+      "summary"
+    ],
+    "binary_sha256": "970a4db90732d7acae2125f3e5869e9ef6ae2f751b28366ccde5d4689995e44d",
+    "build_manifest_sha256": "8c5c166623d6133af555b0a7544ffa987e84a373e0020d6d74e6518c73937cd3",
+    "driver_sha256": "b3d8e21fb835fd18031695245fec68919984da6d17338a0456e855b05c59c293"
+  },
+  "summary": {
+    "steps": 67108864,
+    "boundary_reads": 6526,
+    "births": 1572,
+    "lag": [
+      1570,
+      425,
+      676,
+      3855
+    ],
+    "chains": [
+      0,
+      65,
+      653,
+      67,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "left_chain_censored": false,
+    "right_chain_censored": false,
+    "area_t0": 527934,
+    "area": 529506,
+    "perimeter": 517,
+    "escaped": false
+  },
+  "seconds": 3.3027527229860425
+}

@@ -1,0 +1,86 @@
+{
+  "status": "excluded_pilot_only",
+  "git_revision": "68dff6bb1a631610f9d644a21acd059f2460e027",
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/pilot_report.py",
+  "script_sha256": "8bc4b97d21bc8ef40ea27d17bd25bbda6edf0fc9d8a455e7c9e52afa43365e5a",
+  "controls": {
+    "rotor": {
+      "n": 8,
+      "c_by_seed": [
+        0.49849222410618244,
+        0.49706309693501627,
+        0.49766383547843607,
+        0.49775193501016773,
+        0.49716368400512906,
+        0.49716742433721206,
+        0.4973632922496152,
+        0.49736646267891077
+      ],
+      "mean": 0.4975039943500837,
+      "between_seed_sd": 0.00046687638082219373,
+      "escapes": 0,
+      "passed": true
+    },
+    "rw": {
+      "n": 8,
+      "c_by_seed": [
+        0.4473093973190726,
+        0.45719859956704173,
+        0.45140274776929296,
+        0.4374224666259327,
+        0.43785137563725723,
+        0.43729617709900775,
+        0.45504160708573105,
+        0.44929708270388985
+      ],
+      "mean": 0.44660243172590325,
+      "between_seed_sd": 0.008121941614407723,
+      "escapes": 0,
+      "passed": true
+    }
+  },
+  "thread_check": {
+    "argv": [
+      "band",
+      "RRRLRLLRLRLLRL",
+      "2026102021",
+      "12",
+      "32",
+      "64",
+      "32",
+      "counts"
+    ],
+    "sha256_1_and_6": "8b0b6b27c133f955f14cf5f133054841073fd346110449ceb9c54b8bdbbc04c0",
+    "identical": true
+  },
+  "horizon": {
+    "selected_log2": null,
+    "gate": "at least 3/4 complete pilot families, all arms/seeds 10-80% band consumed and >=5000 window births",
+    "status": "STOP_register_geometry_or_budget_revision",
+    "design_sha256": "bc37ff7e19aa4102dbbec69d17d39cb13986ea73f9225343263cad9eb1b946c8",
+    "build_sha256": "8c5c166623d6133af555b0a7544ffa987e84a373e0020d6d74e6518c73937cd3"
+  },
+  "state_support": {},
+  "inputs_sha256": {
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/build.json": "8c5c166623d6133af555b0a7544ffa987e84a373e0020d6d74e6518c73937cd3",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/horizon.json": "ceeb9b317d05a2dfdeb77577b8edacc06ae80f87bcf4b810eef7983a263dd969",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/thread_check.json": "469fe82c68ca07707fc4bba8c62bc1eddb377a6d6faad4a08b96150e57fe034c",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102051.json": "d74bac7554fca6c28517da606e2a255a5220cf74b7263c2904dcca7902c05da7",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102052.json": "174d07a5d5aff577da8057f29c98c01101cf35740ced8400db3237df30086ddc",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102053.json": "209f475dcfd737bb8ac9fde16acde7923d8ab7b38155678ef300a0ee3a0e185f",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102054.json": "81f24519b56e934b3e40008c24c84a41e32b4d66ae3b42ec1dd7d456a56047fb",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102055.json": "f7a7e1221bc448774a266f3252456956b8ab7a5481440eaddb380a1c2e204a87",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102056.json": "bae49ca4edb5caa54c6dd10ef23748b7a8701b4f5b1f63b0194e6d14905dfed8",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102057.json": "06a93fd6e729a9eb2bd37bce420649acfb3557343dab4ae9fba9b2f4997c1ecc",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102058.json": "707499761620369dc023b93c7126a93eb4eb79283e387aebffdf957663ec1dda",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102051.json": "79172959913faab0b76acabb27a033556229db308431f0563e083e35aacf1531",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102052.json": "efb02b533c3c671e1464f50e3f5c90f8129272344f9c5a6ab311de189ede1691",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102053.json": "320f72116f27c4d19d8940c8ba1eb35d0deca6f27b804e13252ba28aa20de9bd",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102054.json": "52eda653bf06ff911a2228fd8b581c3e45d68fe4afb807bf827ced0774de5b88",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102055.json": "c3fd98068b59c3c95507fb1928ab607f5fb350696c3e23ab228f8c1d1f85d067",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102056.json": "928da1f9e220ee4a2a6c1035060419b93fdb3e6f36a093345cdbb81fe8f4e0b7",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102057.json": "65de5e2eecc68b2f0b93cc3241c03d0640ecca59ea168179f7c061353be4dfc9",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102058.json": "3b63feba753da348d871dbcb3d25814c72ba72330bdd7825b3b511613bc7d7f1"
+  },
+  "scope": "instrument controls and feasibility only; no validation outcomes or mechanism verdict"
+}

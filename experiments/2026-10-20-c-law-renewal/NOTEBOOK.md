@@ -81,3 +81,50 @@ proportional to loop length. This does not invalidate testing square-lattice
 local closure, but rules out interpreting a loop-cost decomposition as a
 universal slope derivation without a separate model for how many cells share
 each loop. No new measurement made in this session yet.
+
+### 2026-10-20 00:52:43 (+13:00) · 02f5d13 · observation
+
+Implemented `src/edge_renewal.rs`, the single-run driver, sparse path oracle
+and aggregate-oracle comparisons. Initial test failed on the invalid "R"
+fixture (rules require >=2 colours); corrected to "RR", then all four test
+groups passed. The recorder also satisfies the exact immediate-birth
+predicate for every oracle-tested ant event. Entire `cargo test --release`
+passed with exit 0 after the pilot (log `scratch/full-release.log`). No GPU
+files or probe estimator changed; no CUDA tests required for this addition.
+
+### 2026-10-20 00:52:43 (+13:00) · 02f5d13 · observation
+
+Frozen calibration/pilot scripts ran via the detached
+`scripts/launch_pilot.py` -> `run_pilot_all.sh` job. PID 1642950 was observed
+live during the run; terminal `session.exit` is 0. An earlier shell launch
+never created a PID/log or live child, verified before the successful retry.
+Fresh-build recipe, binary/source hashes, per-run argv and resumable markers
+are under `results/pilot_v1/`; commands are in README.
+
+Synthetic stationary reward calibration: 16 seeds x 10^6 events, maximum
+absolute c error 0.0018502, signed bias +0.0002108, between-seed sd 0.0008653.
+Hidden history: pooled c 0.499742, conditional contrast 0.802996. This passes
+the solver/negative-control criteria; the ant backoff estimator is still
+unimplemented. `results/calibration.json` records all seeds and code hash.
+Rotor (8 seeds): c mean 0.497504, between-seed sd 0.000467; random walk (8):
+0.446602, sd 0.008122; no escapes. Count CSV identical at thread settings
+1 and 6. G2 passes. See `results/pilot_report.json`.
+
+### 2026-10-20 00:52:43 (+13:00) · 02f5d13 · surprise
+
+The original pilot horizon gate failed for every family at every k=22..26.
+At k=26 only 2/24 individual runs meet both requirements: 6 fail >=5000
+window births; 22 fail 10–80% band consumption. Boundary-time fractions
+range from 0.0000459 to 0.01148. No rules were screened or replaced.
+`scripts/pilot_diagnose.py` -> `results/pilot_diagnostics.{csv,json}`.
+The low event supply may come from geometry, starting-field trapping or
+genuine rule dynamics; these summaries do not distinguish the causes.
+
+### 2026-10-20 00:52:43 (+13:00) · 02f5d13 · decision
+
+Do not launch the main cohort or claim closure failed. A registered support
+diagnostic repeats only excluded pilots at the same k=26/binary, retaining
+the horizon failure. It will test whether the source-colour/eight-turn word
+isolates families before any model is fitted. A separate lattice sweep
+(observed live PID 1655913) currently occupies the machine; wait for it to
+finish before this diagnostic. Main prediction tests P1–P4 remain unrun.

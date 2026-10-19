@@ -38,3 +38,19 @@ completed preregistration or an observation. Ordered-event instrumentation,
 synthetic calibration and an excluded pilot come first. No new ant runs have
 been made here. The question is whether this simplification can survive a
 fair challenge, not whether another fitted line can look convincing.
+
+## A correction before fitting
+
+Writing the recorder makes a useful distinction unavoidable. Given the turn
+and which neighbours are fresh, the next birth is deterministic. There is
+no birth probability there to discover. The unknown is how the ant supplies
+those states: how often a short loop presents the same face again, how a
+later colour changes its route, and what returns from an excursion outside
+the local patch.
+
+That sharpens the danger of a convincing mean. A fitted transition matrix
+can produce the correct average while moving among states that a particular
+rule cannot actually reach. The model must respect the target rule's possible
+successors and predict their frequencies without borrowing them from the
+target run. The excluded pilot is a feasibility check for that ambition;
+it is not evidence that a local closure already works.

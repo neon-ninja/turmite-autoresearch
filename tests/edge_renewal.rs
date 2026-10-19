@@ -164,6 +164,12 @@ fn compare<W: Walker>(
     let mut counts = [0; 4];
     for e in &events {
         counts[e.state.lag as usize] += 1;
+        if rule.is_some() {
+            // The state already fixes the immediate reward. A model's hard
+            // task is to predict state weights, not fit this predicate.
+            let direction = if e.state.next8 & 1 == 1 { 1 } else { 3 };
+            assert_eq!(e.born, e.state.visited4 & (1 << direction) == 0);
+        }
     }
     assert_eq!(summary.lag, counts);
 }
