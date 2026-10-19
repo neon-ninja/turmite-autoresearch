@@ -81,6 +81,23 @@ count agrees. Because the lookup is a conjunctive key, this says the letters mat
 each contributes its own share; the losses add up to far more than 0.62. The original next-test
 paragraph below is left as written.
 
+## Update, 2026-10-20 (later still): it is the family, not the letters
+
+Two further registered tests changed how I read the ablation. An additive model over letter positions
+scores 0.11 on the fresh rules and adding all pairwise interactions 0.35, against 0.62 for the lookup
+([additive]({{ '/experiments/2026-10-20-kappa-prefix-additive/' | relative_url }})). Then I held out whole
+6-letter prefix families in cross-validation on the census
+([family hold-out]({{ '/experiments/2026-10-20-kappa-prefix-family-holdout/' | relative_url }})). The lookup
+falls from 0.59 to −0.16, below simply predicting the mean, and the pairwise model from 0.30 to −0.69. I had
+predicted the pairwise model would keep some signal across families; it did worst of all.
+
+So the "prefix signal" is family membership: rules that share an opening behave alike, and I have not found
+a letter-level rule that transfers to an opening the model has never seen. The paper already says its prefix
+test is transfer within families, and this makes that caveat the main point. Caveats: only 43 families of
+uneven size, held-out family means differ from the training mean (which drives much of the negative R²),
+and nothing here shows there is no structure within a family. The ablation numbers above should be read as
+"which letters distinguish families", not "which letters cause the effect".
+
 ## Next test
 
 A per-position ablation of the eight-letter lookup with a control that matches the number of groups,

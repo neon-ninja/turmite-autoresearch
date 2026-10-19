@@ -1,0 +1,9 @@
+# cmd: uv run experiments/2026-10-20-kappa-prefix-family-holdout/scripts/holdout.py  seed 20261020  folds 8  bootstraps 2000  (registered; README commit 1787ecc)
+census stationary rules 2185; 43 families (first 6 letters); pooled out-of-fold strict R^2 against the training-fold mean
+model  random CV R^2 [95% CI]        grouped (family-held-out) CV R^2 [95% CI]
+A      +0.109 [+0.069, +0.150]      -0.162 [-0.200, -0.128]
+A2     +0.300 [+0.239, +0.357]      -0.690 [-0.857, -0.524]
+P8     +0.591 [+0.468, +0.691]      -0.162 [-0.230, -0.107]
+D1 P8 random >= 0.45 and grouped < 0.30: HELD
+D2 A2 grouped within 0.10 of random: FAILED
+D3 A2 grouped > P8 grouped: FAILED

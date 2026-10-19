@@ -22,5 +22,26 @@ memorisation, only the lookup should work on seen families and it should collaps
 
 Failures are reported as failures; choices made after seeing results are labelled post hoc.
 
+## Results (`results/holdout.txt`; 2185 census rules, 43 families, 8-fold CV, pooled out-of-fold strict R^2)
+| model | random CV | family-held-out CV |
+|---|---|---|
+| A (additive) | +0.109 [+0.069, +0.150] | -0.162 [-0.200, -0.128] |
+| A2 (pairwise) | +0.300 [+0.239, +0.357] | -0.690 [-0.857, -0.524] |
+| P8 (lookup) | +0.591 [+0.468, +0.691] | -0.162 [-0.230, -0.107] |
+
+**D1 HELD, D2 FAILED, D3 FAILED.**
+
+**Reading.** When whole 6-letter prefix families are held out, every model does worse than predicting the training mean
+(negative R^2); the lookup falls from 0.59 to -0.16 and the pairwise model from 0.30 to -0.69. So none of these models learns a
+letter-level rule that transfers to unseen families: the predictive signal is **family membership** (rules sharing an opening
+behave alike), which is what the paper's own caveat says (transfer within prefix families to longer rules, not to unseen
+families). This is the answer to the sibling experiment's question: the lookup's advantage over additive and pairwise models is
+memorisation of family means, not a structure the other models missed.
+Caveats: only 43 families, with uneven sizes, and each held-out fold removes about five whole families, so this is a hard
+extrapolation in which the held-out families' mean ln kappa can differ from the training mean by more than any letter-level model
+can recover (the negative R^2 mostly reflects family-mean shifts; the test does not show that letter-level structure is absent
+within a family or at lengths not tested); the pairwise ridge is untuned and overfits families (-0.69). Not tested: a model with
+a family-level random effect, or held-out families at coarser or finer prefix lengths (4 or 8 letters).
+
 ## Reproduce
 `uv run experiments/2026-10-20-kappa-prefix-family-holdout/scripts/holdout.py` -> `results/holdout.txt`, `results/holdout.json`.

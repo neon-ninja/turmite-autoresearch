@@ -32,8 +32,11 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   (`experiments/2026-10-20-kappa-prefix-ablation/`, A3 FAILED) found the information is not front-loaded: loss from ablating
   position 5 is 0.40, positions 2-7 each 0.2-0.4, position 8 0.07. A registered additive comparison
   (`experiments/2026-10-20-kappa-prefix-additive/`, B2 FAILED) found additive letter-by-position 0.11, plus pairwise 0.35, vs 0.62 for
-  the lookup: the signal needs higher-order interactions. Still open: interaction structure vs prefix-family memorisation (hold out
-  whole 6-letter prefix families) and what the unexplained third is (middle letters, dynamics).
+  the lookup: the signal needs higher-order interactions. A registered family hold-out
+  (`experiments/2026-10-20-kappa-prefix-family-holdout/`, D2 and D3 FAILED) then found every model falls below the training mean on
+  held-out 6-letter prefix families (lookup 0.59 -> -0.16; pairwise 0.30 -> -0.69): the signal is family membership, not a
+  transferable letter-level rule. Still open: a family random effect plus within-family letter structure, other family
+  granularities (4, 8 letters), and what the unexplained third is (middle letters, dynamics).
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
@@ -53,8 +56,8 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Repository housekeeping
 
-- **Push `main`.** Local `main` is ahead of `origin/main` (merge `8f4b978`, reconciliation `5d866ce`, loop-surgery closure
-  `8b290d8`, and any later commits). Not pushed; needs the user's go-ahead.
+- **`main` pushed 2026-10-20** up to `7339dc9` (user: "push"). Later commits on `worktree-paper-figure-proposals` (family hold-out
+  and after) are not on `origin/main` until merged and pushed.
 - **Jupyter is not in `pyproject.toml`**: `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb` was re-executed 2026-10-20
   using `uv pip install ipykernel` into the WSL venv plus `ipykernel install --sys-prefix`; decide whether to `uv add` it.
   Its Proposal 2 bounds are not in the notebook (rebuild with `scripts/build_notebook.py` if wanted).
