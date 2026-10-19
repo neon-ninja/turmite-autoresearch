@@ -152,3 +152,30 @@ timeout: inspect that handle and terminal status first. The research goal is
 not achieved: no ant transition model, held-out prediction, or coefficient
 derivation exists yet. Sampling and physically compatible transitions remain
 the next scientific decisions after the excluded support audit.
+
+### 2026-10-20 00:59:52 (+13:00) · e7052b7 · observation
+
+Queued worker 1662130 waited for actual heavy jobs, then completed the
+registered support repeat with terminal status 0. All 24 counts-mode
+summaries exactly match the original k=26 summaries; deterministic reward
+and incoming/outgoing/censoring flow checks pass. `scripts/support_probe.py`
+produced `results/support_report.json`; bulk count tables and their hashes
+are under `dumps/pilot_support/` and `results/pilot_support/` respectively.
+
+Every S0/S1/S2 read is unseen under leave-one-pilot-family-out support:
+100% unseen mass in all 24 runs. The registered feasibility prediction held.
+Without source colour, eight turns + patch still has median 0.94443 unseen
+mass. Current turn + patch has median 0.02264, maximum 0.07459 (7/24 >5%).
+No c model, main outcomes or original P1–P4 test was fitted or scored.
+
+### 2026-10-20 00:59:52 (+13:00) · e7052b7 · interpretation
+
+The proposed rich lookup has no transfer support in this pilot. It preserves
+so much rule context that different families never share its observed states.
+This is a representation/feasibility failure, not evidence against all local
+mechanisms, and not a proof about the larger planned training cohort. Coarse
+states share support but omit the explicit future phase sequence. A candidate
+revision is compositional: apply the target rule's colour clock exactly and
+learn only unknown patch/return conditions. That proposal still requires a
+sampling revision, synthetic calibration and new frozen predictions before
+any main measurement. The original horizon failure stands.

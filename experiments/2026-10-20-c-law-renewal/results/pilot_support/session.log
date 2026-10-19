@@ -1,0 +1,71 @@
+Waiting on live heavy jobs: [(1655913, '/home/tim/turmite-target-lattice-moore-02f5d13/release/examples/lattice_c_law_run 12 27 8192'), (1661904, '/home/tim/turmite-target-lcc-34bb110/release/examples/lattice_c_law_colours 27 8192')]
+Waiting on live heavy jobs: [(1661904, '/home/tim/turmite-target-lcc-34bb110/release/examples/lattice_c_law_colours 27 8192')]
+Waiting on live heavy jobs: [(1661904, '/home/tim/turmite-target-lcc-34bb110/release/examples/lattice_c_law_colours 27 8192')]
+Waiting on live heavy jobs: [(1661904, '/home/tim/turmite-target-lcc-34bb110/release/examples/lattice_c_law_colours 27 8192')]
+No existing release/cargo processes; starting excluded support diagnostic.
+pilot-m1-00-base-2026102021-k26 distinct states 2824
+pilot-m1-00-base-2026102022-k26 distinct states 2123
+pilot-m1-00-early_swap-2026102021-k26 distinct states 1999
+pilot-m1-00-early_swap-2026102022-k26 distinct states 1134
+pilot-m1-00-late_swap-2026102021-k26 distinct states 2437
+pilot-m1-00-late_swap-2026102022-k26 distinct states 1862
+pilot-m2-00-base-2026102021-k26 distinct states 1396
+pilot-m2-00-base-2026102022-k26 distinct states 1809
+pilot-m2-00-early_swap-2026102021-k26 distinct states 239
+pilot-m2-00-early_swap-2026102022-k26 distinct states 288
+pilot-m2-00-late_swap-2026102021-k26 distinct states 1907
+pilot-m2-00-late_swap-2026102022-k26 distinct states 2273
+pilot-m3-00-base-2026102021-k26 distinct states 5376
+pilot-m3-00-base-2026102022-k26 distinct states 4191
+pilot-m3-00-early_swap-2026102021-k26 distinct states 5272
+pilot-m3-00-early_swap-2026102022-k26 distinct states 3717
+pilot-m3-00-late_swap-2026102021-k26 distinct states 5880
+pilot-m3-00-late_swap-2026102022-k26 distinct states 5973
+pilot-m4-00-base-2026102021-k26 distinct states 368
+pilot-m4-00-base-2026102022-k26 distinct states 609
+pilot-m4-00-early_swap-2026102021-k26 distinct states 1881
+pilot-m4-00-early_swap-2026102022-k26 distinct states 1549
+pilot-m4-00-late_swap-2026102021-k26 distinct states 990
+pilot-m4-00-late_swap-2026102022-k26 distinct states 1498
+{
+  "S0": {
+    "median_unseen_mass": 1.0,
+    "max_unseen_mass": 1.0,
+    "runs_over_5pct": 24
+  },
+  "S1": {
+    "median_unseen_mass": 1.0,
+    "max_unseen_mass": 1.0,
+    "runs_over_5pct": 24
+  },
+  "S2": {
+    "median_unseen_mass": 1.0,
+    "max_unseen_mass": 1.0,
+    "runs_over_5pct": 24
+  },
+  "C0": {
+    "median_unseen_mass": 0.008884325343085211,
+    "max_unseen_mass": 0.06893571487365215,
+    "runs_over_5pct": 4
+  },
+  "C1": {
+    "median_unseen_mass": 0.02264340955995678,
+    "max_unseen_mass": 0.07459419051687313,
+    "runs_over_5pct": 7
+  },
+  "C2": {
+    "median_unseen_mass": 0.042752241640382826,
+    "max_unseen_mass": 0.30088715180842485,
+    "runs_over_5pct": 12
+  },
+  "C4": {
+    "median_unseen_mass": 0.361318097157028,
+    "max_unseen_mass": 0.5462187480612941,
+    "runs_over_5pct": 24
+  },
+  "C8": {
+    "median_unseen_mass": 0.9444270080966247,
+    "max_unseen_mass": 1.0,
+    "runs_over_5pct": 24
+  }
+}

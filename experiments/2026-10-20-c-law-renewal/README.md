@@ -3,7 +3,8 @@
 **Current status (2026-10-20):** ordered-event recorder passes oracle tests;
 walker controls and narrow stationary-solver calibration pass. The excluded
 pilot failed its common-horizon gate. Main outcomes remain unopened; see
-the dated addenda below. No local closure or c-law coefficients are derived.
+the dated addenda below. The original rich states also have no cross-family
+support in the excluded pilot. No local closure or c-law coefficients are derived.
 
 Scaffold created 2026-10-20 (+13:00), base revision
 `adf66774570469da30b10ffc1ceab911670a9d09`.
@@ -341,3 +342,46 @@ records its live PID and waits on actual `/proc` release/cargo command lines;
 read `results/pilot_support/session.log` and local `.exit` status before
 attempting a restart. No scientific inference follows from waiting or from
 completion of a process alone; inspect its validated outputs.
+
+## Excluded state-support audit — 2026-10-20 00:59:52 (+13:00)
+
+Completed with exit status 0 after other observed heavy jobs finished. All
+24 counts-mode summaries match their original k=26 summaries exactly.
+State rewards obey the exact immediate-birth predicate; outgoing edge counts
+plus one terminal event equal state counts, and incoming counts leave exactly
+one window-entry event. These checks validate ordered summary serialization.
+
+`scripts/support_probe.py` -> `results/support_report.json`; all chunk recipes,
+hashes and `.done` markers in `results/pilot_support/`. Compressed bulk count
+tables stay in ignored `dumps/pilot_support/` and can be regenerated with the
+recorded binary/argv. The notebook reads only committed compact summaries.
+
+| Representation | Median unseen read mass | Maximum | Runs >5% |
+|---|---:|---:|---:|
+| S0: source colour + eight turns + neighbour mask | 1.000 | 1.000 | 24/24 |
+| S1: S0 + patch | 1.000 | 1.000 | 24/24 |
+| S2: S1 + history | 1.000 | 1.000 | 24/24 |
+| C0: patch alone | 0.00888 | 0.06894 | 4/24 |
+| C1: current turn + patch | 0.02264 | 0.07459 | 7/24 |
+| C2: two turns + patch | 0.04275 | 0.30089 | 12/24 |
+| C4: four turns + patch | 0.36132 | 0.54622 | 24/24 |
+| C8: eight turns + patch | 0.94443 | 1.00000 | 24/24 |
+
+Training support here is the union of all other three pilot families, all
+their arms and both seeds; an unseen state has zero examples, not merely
+few examples. S0/S1/S2 have **100%** unseen mass in every individual run.
+The prospective feasibility prediction held. This is not a main-cohort G3
+score: the planned training cohort is larger and no validation outcomes were
+opened. It shows the pilot cannot train/test a literal cross-family lookup
+over the proposed rich states. C8's loss of support without source colour
+also shows that the eight-turn word itself isolates contexts. Removing the
+word and colour improves support but does not validate a replacement model.
+
+**Decision:** do not fit the original rich-state lookup or interpret its
+unseen-state fallback as mechanistic success. Preserve the failed horizon
+gate and original predictions. A prospective replacement should apply the
+target rule's phase updates exactly and learn only missing neighbourhood or
+return information. A pool of observed successors must not silently change
+the target rule. This compositional closure is a proposal, not an implemented
+or registered main model. Its synthetic calibration, sampling revision,
+mechanism tests and held-out evaluation remain required. P1–P4 are untested.
