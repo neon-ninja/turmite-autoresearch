@@ -79,6 +79,20 @@ source and provenance links and defaults to `https://github.com/timClicks/turmit
 GitHub Actions supplies all three automatically, including the `/turmite-autoresearch`
 base path for this repository’s project site.
 
+## Homepage
+
+The homepage includes three live, deterministic blank-grid ant trails. They pause
+offscreen and in hidden tabs, start as still previews with reduced motion enabled,
+and stop at 100,000 steps. Play and Start over replay the same rules from blank
+grids. The RLRLLL preview does not reach its billion-step column-sweeper transition.
+Check dynamics against the sparse oracle and existing web simulator, plus the
+animation controls, with `node blog/scripts/test_ants.js` from the repository root
+(uses the pinned `web/` jsdom dependency; install with `npm ci --prefix web`).
+
+Maintain the results highlights and current investigations in `index.html` when
+the scientific record changes. Evidence links pin the revision containing the
+reported results; experiment-page links lead to the evolving record.
+
 ## GitHub Pages setup
 
 1. Push this repository to GitHub. In **Settings → Pages → Build and
