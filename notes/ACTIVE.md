@@ -24,8 +24,10 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **kappa/kappa_unif distribution, location (open):** why the median is 0.81 x kappa_unif (below every walker reference).
   `experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt`, `notes/open-questions-hypotheses.md`.
 - **kappa spread, remainder (open):** budgeted 2026-10-20 (post hoc, `experiments/2026-10-20-kappa-spread-budget/`): about 0.15 start
-  noise, 0.47-0.54 prefix-predictable, 0.31-0.38 rule-determined but unexplained. Next: a registered held-out comparison of
-  prefix, suffix and composition features to say what the unexplained third is.
+  noise, 0.47-0.54 prefix-predictable, 0.31-0.38 rule-determined but unexplained. A registered held-out comparison
+  (`experiments/2026-10-20-kappa-spread-features/`, F1-F4 held) found the predictable part is in the first 8 letters (R^2 0.62),
+  not the last 8 (-0.11) or composition (+0.08; adds +0.008 to the prefix). Still open: which prefix feature matters (lead length,
+  second run?) and what the unexplained third is (middle letters, interactions, dynamics).
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.

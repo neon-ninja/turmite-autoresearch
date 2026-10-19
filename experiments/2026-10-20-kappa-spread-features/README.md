@@ -27,5 +27,25 @@ summaries do as well (end of the string, letter composition)?
 
 Any of these failing is reported as failed. Choices made after seeing results will be labelled post hoc.
 
+## Results (`results/features.txt`; 2185 train rules, 162 test rules, 0 in both)
+| model | strict held-out R^2 | 95% CI |
+|---|---|---|
+| P8 (first 8 letters) | +0.624 | [+0.486, +0.732] |
+| S8 (last 8 letters) | -0.114 | [-0.298, +0.034] |
+| C (composition) | +0.079 | [-0.052, +0.190] |
+| P8 + C | +0.632 | [+0.499, +0.737] |
+
+P8 - S8 = +0.739 [+0.571, +0.919]; (P8 + C) - P8 = +0.008 [-0.025, +0.043].
+**F1-F4 all HELD.** Post hoc control (unregistered): leave-one-out inside the training set gives P8 +0.589 and S8 -0.065
+(training lengths 3-12, test 13-14), so the suffix failure is not only a length-alignment artefact of the transfer.
+
+**Reading.** The rule-determined, predictable part of ln kappa sits in the first eight letters. The last eight letters carry
+nothing measurable (even slightly negative), and simple composition (length, R count, run structure) adds nothing beyond the
+prefix. This is consistent with the lead-run / early-evolution picture, where the opening of the rule sets the regime, and is
+evidence against kappa being a bulk property of letter composition. It does not say which feature of the prefix matters (the
+prefix lookup is a family-membership predictor, see the paper's caveats), and prefix families overlap between train and test.
+It also does not explain the remaining unexplained third of the spread: the prefix, suffix and composition summaries tried here
+do not reach it. Not tested: middle letters, interactions beyond the group means, and any dynamical (non-string) predictor.
+
 ## Reproduce
 `uv run experiments/2026-10-20-kappa-spread-features/scripts/features.py` -> `results/features.txt`, `results/features.json`.
