@@ -12,6 +12,7 @@ pub mod bulk;
 pub mod colourflux;
 pub mod colours;
 pub mod detect;
+pub mod edge_renewal;
 pub mod edge_trace;
 pub mod ext;
 pub mod fast;

@@ -63,3 +63,21 @@ Scaffolding complete. Ordered-event instrument, estimator implementation,
 synthetic calibration, walker controls, pilot and main simulations remain
 unrun. The draft blog entry and open-question pointer label that status.
 No homepage result highlight is warranted by design preparation alone.
+
+### 2026-10-20 00:37 (+13:00) · a976af5 · intent
+
+The active goal now authorizes continuing beyond scaffolding: learn the local
+process governing reads per birth. Previous turn made progress by committing
+the reproducible scaffold. Authoritative inspection finds no ordered-event
+instrument or live run for this experiment. Implement a callback instrument
+and an independent sparse-path oracle first, retaining complete read-lag
+categories and both window-edge censoring flags. Do not open main-cohort
+outcomes before the pilot and model freeze.
+
+### 2026-10-20 00:37 (+13:00) · a976af5 · assumption
+
+New lattice results in `notes/open-questions-hypotheses.md` reject a slope
+proportional to loop length. This does not invalidate testing square-lattice
+local closure, but rules out interpreting a loop-cost decomposition as a
+universal slope derivation without a separate model for how many cells share
+each loop. No new measurement made in this session yet.

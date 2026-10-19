@@ -201,3 +201,83 @@ against committed design inputs; `cargo test --release` passed (existing
 warnings). These checks do not evaluate G0–G3 or P1–P4. No Rust instrumentation
 or scientific estimator was implemented. See `NOTEBOOK.md` for commands,
 the mount-mode correction and concurrent commit provenance.
+
+## Ordered-event instrument registration — 2026-10-20 00:40 (+13:00)
+
+Before new ant measurements: `src/edge_renewal.rs` implements source states
+exactly as the draft hierarchy, emitting every boundary read in `(T/2,T]`.
+Patch order is forward, forward-right, right, back-right, back, back-left,
+left, forward-left; each two-bit digit is fresh=0, visited with rule[0]'s
+turn=1, visited with the opposite turn=2. Four-neighbour bits are forward,
+right, back, left. Frame is incoming heading, reflected for L-first rules.
+`next8` bit j marks equality of rule[(colour+j) mod n] to rule[0]. The full
+state also contains the source colour, previous-read lag category and count
+of consecutive preceding births (capped at 4). Lag tracking starts at step 1,
+including the warmup, and tracks all reads. Window chains are clipped as
+in `edge_trace`, with left/right censoring flags kept separately.
+
+The callback is after the move but all state features are captured before
+the move. No target outcome or area is encoded. Consecutive emitted events
+are linked only within the measurement window; the last is right-censored,
+never linked back to the first. Counts output retains state reads/births and
+ordered transition counts plus event-gap category/duration sum. Events mode
+retains every emitted timestamp. Summary mode avoids count-map allocation.
+Tests compare against an independent sparse position oracle and the full
+unchanged aggregate tracer, including rotor and random walk.
+
+`examples/c_law_renewal_trace.rs` is a single-run driver. Interface:
+
+```text
+band RULE SEED LOG2 W H FRESH_ROWS [counts|events|summary]
+blank RULE|rotor:SEED|rw:SEED LOG2 SIZE [counts|events|summary]
+```
+
+CSV goes to stdout; a summary JSON goes to stderr. In summary mode the JSON
+also goes to stdout. Band initialization matches the parent's hash exactly:
+`mix64(mix64(seed) XOR ((x as u64)<<32 | y as u64)) mod rule_length`.
+This registration covers the instrument; main models remain unfrozen.
+
+### Calibration and excluded-pilot freeze — 2026-10-20 00:42:53 (+13:00)
+
+Frozen before running these scripts. `scripts/calibrate.py` tests the actual
+stationary solver on a two-state chain P=[[.9,.1],[.2,.8]], rewards (.1,.7),
+known c=.3, 10^6 events per seed 2026102031..46. G1's <=.01 absolute-error
+criterion applies. A periodic chain must converge under lazy iteration;
+a reducible chain is rejected pending an explicitly registered class rule.
+Negative control: a hidden alternating 256-event regime, birth probabilities
+.05/.95, seed 2026102047, 10^6 events. Its pooled c is near .5 even when
+P(next birth | birth) and P(next birth | no birth) differ by >.5. This exposes
+why a correct total cannot validate history-free closure. G1 calibration
+here covers the stationary/reward solver, **not yet the ant state/backoff
+model**, which still needs its own synthetic validation after selection.
+
+`scripts/run_pilot.py` builds in a fresh WSL-home target directory, records
+binary/source hashes, then runs sequential resumable controls and excluded
+pilot only. No heavy job or GPU timing may overlap measurement. Control
+seeds 2026102051..58: rotor blank 2^24, 4096 square; random walk blank 2^20,
+4096 square (the parent's non-escaping configurations). Mean c must meet G2;
+report between-seed sd and escapes, never silently exclude escaped runs.
+Small band count output must match byte-for-byte at thread settings 1 and 6.
+
+Pilot follows the original ladder 2^22..2^26 and exact family gate above.
+No automatic extension is allowed after failure. Counts at a selected horizon
+are recorded only for excluded pilot rules; bulk goes to ignored `dumps/`.
+Before main freeze, measure support of S0, S1 and S2 by leave-one-pilot-family
+out count summaries, comparing both exact features and rule-independent
+coarsenings. This is a feasibility diagnostic, not a validation score. If the
+8-turn word isolates rule families, reject this state design rather than
+passing a transition model off as a learned lookup of rule identity.
+
+Commands (WSL, usual UV exports; no main-run command exists):
+
+```bash
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/calibrate.py
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_pilot.py --stage build
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_pilot.py --stage controls
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_pilot.py --stage pilot
+```
+
+Run long stages in the background, logging under `results/pilot_v1/`.
+Every chunk has its exact argv, build/driver hashes, duration, complete
+summary and SHA-256 `.done` marker. This is an instrument/pilot stage and
+does not establish P1–P4.
