@@ -35,3 +35,31 @@ experiments/2026-10-20-c-law-renewal/scripts/prepare.py` and `--check` in WSL:
 validation; three rules each). These are design counts, not measurements.
 Provenance and exact source hashes are in `results/design/provenance.json`.
 WSL initially required sandbox escalation; the authorized retry succeeded.
+
+### 2026-10-20 00:36 (+13:00) · 3e7b307 · observation
+
+`cargo test --release` completed with exit status 0 in WSL (existing compiler
+warnings; no Rust changed by this scaffold). Local full log:
+`scratch/release-tests.log` (ignored). `prepare.py --check` verified the
+committed design. Executed `notebook.ipynb` top to bottom in a fresh kernel
+with the README's `uv run --frozen --with jupyter --with nbconvert --with
+ipykernel jupyter nbconvert ...` command; saved small design-audit outputs.
+The first notebook attempt rejected WSL mount-only executable-bit changes;
+the read-only content check now passes `git -c core.filemode=false diff`.
+Dependencies were not added to the project or lockfile.
+
+### 2026-10-20 00:36 (+13:00) · 3e7b307 · deviation
+
+Another active repository session committed the initially staged scaffold
+alongside its lattice results in 3e7b307 before this session's commit ran.
+Kept that existing commit intact. The scaffold's recorded base revision is
+still adf66774570469da30b10ffc1ceab911670a9d09; generated-input hashes are
+unchanged. Final notebook and verification entries get a separate scoped
+commit. No unrelated edits were reverted.
+
+### 2026-10-20 00:36 (+13:00) · 3e7b307 · decision
+
+Scaffolding complete. Ordered-event instrument, estimator implementation,
+synthetic calibration, walker controls, pilot and main simulations remain
+unrun. The draft blog entry and open-question pointer label that status.
+No homepage result highlight is warranted by design preparation alone.
