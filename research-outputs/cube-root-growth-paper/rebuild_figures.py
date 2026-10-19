@@ -12,7 +12,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "research-outputs/cube-root-growth-paper/fig"
-SCRIPTS = ["figures.py", "gallery.py", "textbook_figs.py", "memory_figures.py", "late_switch_figure.py", "prefix_figure.py"]
+SCRIPTS = ["figures.py", "gallery.py", "textbook_figs.py", "memory_figures.py", "late_switch_figure.py", "prefix_figure.py", "edge_gap_figure.py"]
 CENSUS_TABLE = "research-outputs/cube-root-growth-paper/supplementary/rule-census/build_rule_census.py"
 INPUTS = [
     "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv", "experiments/2026-10-13-calib-instrument-calibration/results/calib_rotor.csv", "experiments/2026-10-13-probe-growth-census/results/cube_stats.json",
@@ -30,6 +30,10 @@ INPUTS = [
     "experiments/2026-10-kappa-rule-space/results/w3c_stats.txt",
     "experiments/2026-10-kappa-rule-space/results/w3c_cross.txt",
     "experiments/2026-10-kappa-rule-space/results/prefix_audit_predictions.csv",
+    "experiments/2026-10-13-a4-boundary-width/results/a4_shape_ants.csv",
+    "experiments/2026-10-13-a4-boundary-width/results/a4_shape_rotor.csv",
+    "experiments/2026-10-13-a4-boundary-width/results/a4c_shape_ants.csv",
+    "experiments/2026-10-13-a4-boundary-width/results/a4c_shape_rotor.csv",
     CENSUS_TABLE, CENSUS_TABLE.replace("build_rule_census.py", "rule_census.csv"),
 ] + [f"experiments/2026-10-13-g1-ribbon-breakout/results/{name}" for name in
      ("g1_ribbon.csv", "g1_wake_extract.json", "g1_wake_crop_12800000000.csv", "g1_sweep_trace_12800000000.csv")

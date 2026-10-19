@@ -575,6 +575,11 @@ Refitting the same A4/A4c trajectories directly against $R=sqrt(A slash pi)$ giv
 
 Replacing $R$ with $R_g$ or the mean outer radius changes these means by less than 0.005. This confirms a finite-window gap but does not support an exact factor-two law.
 
+#figure(
+  image("fig/edge_gap.pdf", width: 100%),
+  caption: [Surface width of ants and the rotor walker out to $t = 2^34$ (pooled A4 and A4c runs: 36 ant runs across six rules, 14 rotor seeds; checkpoints at $t = 2^k$). (a) $W_("surf")$ against $t$; line is the mean of $ln W$ over runs, band the 16–84% range over runs. (b) Local exponent between $k$ and $k+2$, mean $plus.minus$ standard error over runs (dashed: the Kapri–Dhar value of about 0.13, see text). The ants' exponent stays near 0.20–0.27 while the rotor's falls towards 0.10–0.13; the mean widths cross near $t approx 2^26$, below which the rotor is wider, so the figure shows a difference of exponent over this window, not of prefactor. Ant runs mix six rules, so the band is between-run, not between-seed.],
+) <fig:edge-gap>
+
 The surface cells here, as in the edge $P$ of @eq:rate, are all visited cells with a never-visited 4-neighbour, so they include the rims of interior holes and detached unvisited pockets, not only the outer hull; $W_("surf")$ is the standard deviation of their radius about the centroid (the same surface-site criterion as Kapri and Dhar, but they use origin-centred radii and the square root of an ensemble mean of per-cluster variances; we summarize per-run fitted slopes). Their v2 body gives $0.136 plus.minus 0.02$, while Fig. 8 gives $plus.minus 0.002$; we therefore quote only about 0.13 @kapri2009.
 
 *Interior holes do not explain the gap.* A follow-up separates hole rims from the outer coastline (24 ant runs of the six rules above and 8 rotor seeds, to $2^30$; #link(<audit-35>)[Audit 35], predictions registered before the run). Porosity does not explain the gap: the local exponent over $k >= 22$ is 0.239 for the ants' outer-hull width and 0.239 for all surface cells, against 0.135 and 0.130 for the rotor, and hole rims are 4% of the ants' surface cells but 25% of the rotor's.

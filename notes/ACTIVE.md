@@ -26,7 +26,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
-- **Paper-figure proposals 1-3 not built** (5 built 2026-10-20 as `fig:prefix`; 4 earlier). `notes/paper-figure-proposals-2026-10-16.md`,
+- **Paper-figure proposals 1 and 3 not built** (2 and 5 built 2026-10-20 as `fig:edge-gap`, `fig:prefix`; 4 earlier). `notes/paper-figure-proposals-2026-10-16.md`,
   `notes/handover-paper-figures-2026-10-17.md`.
 
 ## Uncommitted work in progress (do not lose)
