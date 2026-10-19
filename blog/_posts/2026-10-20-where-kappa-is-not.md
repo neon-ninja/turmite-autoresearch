@@ -71,6 +71,16 @@ it comes from a different cohort and a different start condition than the census
 prefix signal is just ancestry, with training and test sharing families, so it would vanish on
 unseen families. I have not tested either, and both would shrink what I have said above.
 
+## Update, 2026-10-20 (later): the ablation
+
+The [per-position ablation]({{ '/experiments/2026-10-20-kappa-prefix-ablation/' | relative_url }}) was
+registered and run the same day. I predicted the information would be front-loaded, and that prediction
+failed: removing letter 5 costs the most held-out R² (0.40), letters 2 to 7 each cost 0.2 to 0.4, and
+only letter 8 is nearly free (0.07, interval includes 0). A permutation control that keeps the group
+count agrees. Because the lookup is a conjunctive key, this says the letters matter together, not that
+each contributes its own share; the losses add up to far more than 0.62. The original next-test
+paragraph below is left as written.
+
 ## Next test
 
 A per-position ablation of the eight-letter lookup with a control that matches the number of groups,
