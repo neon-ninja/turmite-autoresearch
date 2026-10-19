@@ -21,5 +21,27 @@ slope +0.15 to +0.24 per step, with a collider caveat). How much of the prefix s
 
 Failures are reported as failures. Anything chosen after seeing results is labelled post hoc.
 
+## Results (`results/runs.txt`; 2185 train, 162 test, 0 in both)
+| key | strict held-out R^2 | 95% CI | minus P8 |
+|---|---|---|---|
+| P8 (first 8 letters) | +0.624 | [+0.472, +0.732] | |
+| R1 (lead alone) | -0.004 | [-0.034, +0.013] | -0.628 |
+| R2 (first two runs) | +0.246 | [+0.120, +0.369] | -0.378 |
+| R3 (first three runs) | +0.337 | [+0.202, +0.482] | -0.288 |
+| R4 (first four runs) | +0.475 | [+0.286, +0.627] | -0.149 [-0.260, -0.047] |
+
+**H1 FAILED** (lead alone is at 0, not >= 0.15). **H2 FAILED** (0.25 < 0.40). **H3 FAILED** (R3 is 0.29 below P8). **H4 HELD**
+(no run key beats P8).
+
+**Reading.** The lead (initial R run) carries no *unconditional* information about ln kappa on these fresh rules; this is
+consistent with the 2026-10-19 reconciliation, which found the lead-kappa association appears at fixed area and is reproduced
+by conditioning on the area collider, not by a direct lead effect. The predictive information in the prefix accumulates over
+successive runs (0.25, 0.34, 0.48 for two to four runs, against 0.62 for eight letters); at least four runs (and still not all of
+the eight-letter prefix) are needed to recover most of it. So the prefix signal is a distributed property of the opening, not a
+single early run length. Not tested: which specific runs or letter patterns dominate (a per-position or interaction analysis),
+letters 9 onward (suffix and composition were tested in the sibling experiment and carry nothing), and whether the key
+structure in R4 vs P8 differs by more than information content (R4 keys are coarser or finer than 4-letter prefixes depending on run
+lengths, so the R vs P comparison is not matched on number of groups; no group-count control was run).
+
 ## Reproduce
 `uv run experiments/2026-10-20-kappa-prefix-runs/scripts/runs.py` -> `results/runs.txt`, `results/runs.json`.

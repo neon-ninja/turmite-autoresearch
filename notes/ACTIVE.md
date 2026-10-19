@@ -26,8 +26,10 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **kappa spread, remainder (open):** budgeted 2026-10-20 (post hoc, `experiments/2026-10-20-kappa-spread-budget/`): about 0.15 start
   noise, 0.47-0.54 prefix-predictable, 0.31-0.38 rule-determined but unexplained. A registered held-out comparison
   (`experiments/2026-10-20-kappa-spread-features/`, F1-F4 held) found the predictable part is in the first 8 letters (R^2 0.62),
-  not the last 8 (-0.11) or composition (+0.08; adds +0.008 to the prefix). Still open: which prefix feature matters (lead length,
-  second run?) and what the unexplained third is (middle letters, interactions, dynamics).
+  not the last 8 (-0.11) or composition (+0.08; adds +0.008 to the prefix). A second registered test
+  (`experiments/2026-10-20-kappa-prefix-runs/`, H1-H3 FAILED, H4 held) found the lead alone has R^2 ~0 unconditionally and the signal
+  accumulates over the first four runs (0.25, 0.34, 0.48 vs 0.62 for 8 letters). Still open: which letters at positions 5-8 matter
+  (per-position ablation with a group-count control) and what the unexplained third is (middle letters, interactions, dynamics).
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
