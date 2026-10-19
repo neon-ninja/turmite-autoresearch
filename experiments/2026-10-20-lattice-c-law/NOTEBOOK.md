@@ -49,3 +49,23 @@ All three registered hypotheses are disproven as stated (triangular alone exclud
 ### 2026-10-20 01:55 (+13:00) · adf6677 · decision
 Not extending the registered analysis (no outlier trimming added after the fact). Next experiment, if any, must register a b(l) prediction before
 using a new loop length or a letter-type-separated hex lead.
+
+### 2026-10-20 03:10 (+13:00) · 3117e1b · interpretation
+corrects: 01:45 observation and the README K4 sentence. K4 still failed as registered, but the explanation "I misremembered the square comparison" was
+wrong: the pooled ant median c reflects my uniform sampling of leads 1-5. Lead-1 medians of 1/c (explore.txt) give ant c = 0.48 square, 0.63 triangular
+(above rw 0.44, 0.46) and 0.38 hex r-lead, 0.28 hex R-lead (below rw 0.42).
+
+### 2026-10-20 03:10 (+13:00) · 3117e1b · observation
+The hex r-lead outlier is `rrrrrLrrrLrrLL` (lead 5): 1/c = 390, c = 0.0026 at k = 26, but perimeter = area at every window (perimeter exponent beta = 1.0:
+every visited cell has an unvisited neighbour, a lacy territory) while the area exponent (0.65) and width exponent (0.34) look blob-like, so the alpha_w proxy and
+|g_k| < 0.05 (g_k = 0.0 because P/A = 1) both let it through. The proxy therefore leaks on hex; a beta filter (e.g. beta < 0.8) would have excluded it. The next
+three largest 1/c on hex (12.9, 9.7, 8.8) have beta 0.59-0.62 and are genuine. `results/outlier.txt`, `scripts/outlier.py`. Not re-filtering the registered analysis.
+
+### 2026-10-20 03:10 (+13:00) · 3117e1b · observation
+Provenance: the 88 "dirty" files in `run.log` are stat/line-ending noise: `git diff --ignore-cr-at-eol --stat adf6677 -- src examples` reports 0 insertions and 0 deletions.
+The triangular stratum carries the refutation alone and none of the listed confounds can rescue A, B or C there: retention 0.75-0.98 (the highest of the three
+lattices), R^2 0.94, OLS slope 0.355 agrees with the per-lead-median slope 0.335.
+
+### 2026-10-20 03:25 (+13:00) · 3117e1b · observation
+Full `cargo test --release` (WSL, after adding `src/lattice_probe.rs`): every test binary reports ok, no failures. Registered result and post hoc reading are kept
+separate in README, notes and blog; the outlier was not trimmed from the registered fit.

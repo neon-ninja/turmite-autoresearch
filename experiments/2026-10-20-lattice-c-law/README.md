@@ -133,11 +133,19 @@ The intercept is 1.3 on square and triangular but ~2.4-2.8 on hex (hex r from th
 **Kappa.** Ratio kappa/kappa_unif(a, beta), own (a, beta) per run, last window k = 26, kept ants: square median 0.770 (IQR 0.62-0.90, census 0.81),
 triangular 0.744 (0.66-0.82), hex 0.860 (0.75-1.01). **K1 held on both new lattices** (medians < 1 and inside [0.65, 0.97]). Random walks (k = 16..22):
 1.33 (square), 1.44 (triangular), 1.28 (hex) (**K2 held**). **K3 held** (|slope of ln kappa on lead| 0.007, 0.079, 0.059, 0.075; the triangular one only just).
-**K4 FAILED**: random-walk c (0.44 / 0.46 / 0.42) is above the ant median c (0.29 / 0.41 / 0.27) on every lattice including the square, so my
-memory that square ants sit above the random walk was wrong; ant median c here pools leads 1-5. **L2 FAILED** (hex intercept 2.8).
+**K4 FAILED as registered**: random-walk c (0.44 / 0.46 / 0.42) is above the ant median c (0.29 / 0.41 / 0.27) on every lattice. The pooled median is a design
+artefact (leads 1-5 sampled uniformly, so it sits near lead 3). By lead-1 medians (`results/explore.txt`, 1/c = 2.09, 1.60, 2.63, 3.59) ant c is 0.48 (square) and
+0.63 (triangular), above the random walk, but 0.38 (hex r-lead) and 0.28 (hex R-lead), below it: whether ants out-enter fresh ground than a random walk depends on lead and
+lattice. (An earlier version of this paragraph blamed my memory of the square comparison; see the NOTEBOOK correction.) **L2 FAILED** (hex intercept 2.8).
 
 **Reading.** The kappa deficit (ants at 0.74-0.86 of uniform) is not a square-lattice artefact: it appears on all three lattices with a validated reference.
 The c law form (1/c linear in lead, R^2 0.94-0.95 on square and triangular, 0.69 on hex R-lead) survives, but its slope and intercept are **lattice-
 and loop-dependent**, falling with loop length rather than rising. The 2x2-loop picture of the square slope therefore carries no information
 about the number 0.70 by itself; whatever sets b depends on the loop it circulates. Not tested: why hex fits are worse (four-letter alphabet, letters after the lead are not
 separated into types), any mechanism for b(l), more loop lengths, mixed-letter leads.
+
+**Outlier and provenance notes.** The hex r-lead outlier is `ant:rrrrrLrrrLrrLL` (lead 5, 1/c = 390): its perimeter equals its area at every window (perimeter
+exponent 1.0, a lacy territory) while its area and width exponents look blob-like, so the `alpha_w` proxy and `|g_k| < 0.05` both let it through; the proxy leaks
+on hex (`results/outlier.txt`). The next largest hex 1/c (12.9, 9.7, 8.8) are genuine blobs with beta 0.59-0.62. `run.log` says "dirty: 88 files"; those are stat and line-ending
+noise (`git diff --ignore-cr-at-eol --stat adf6677 -- src examples`: 0 insertions, 0 deletions, appended to `run.log`). The refutation of A, B and C rests on the triangular stratum
+alone, where none of the listed confounds can rescue any of them: retention 0.75-0.98 (highest of the three lattices), R^2 0.94, and the OLS slope 0.355 matches the per-lead-median slope 0.335.
