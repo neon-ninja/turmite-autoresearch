@@ -20,8 +20,8 @@ experiments/*/synth/
 
 # scratch
 /tmp/
-.claude/worktrees/
-.claude/scheduled_tasks.lock
+.claude/*
+!.claude/agents/
 
 # Research blog (source is tracked; generated site and local gems are not)
 /blog/_site/
