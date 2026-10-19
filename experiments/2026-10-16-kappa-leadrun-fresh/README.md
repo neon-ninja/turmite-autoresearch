@@ -191,6 +191,12 @@ whether plausible dropout behaviour could flip it either way. A bound that inclu
 area) rather than missing; whether non-stationary mutants need a separate arm because the model for them differs. Any choice made
 after looking at the dropped rules' kappa must be labelled post hoc.
 
+*Outcome (2026-10-20, post hoc, unregistered; `scripts/dropout_bounds.py`, `results/dropout_bounds.txt`).* IPW by base lead x length
+changes nothing (E -0.058 [-0.149, +0.024], S -0.198, C -0.002). Worst-case bounds (dropped imputed at kept 5th/95th pct): E
+[-0.35, +0.19], S [-0.42, +0.02], C [-0.12, +0.08]. E's bound includes both signs, so M1/M2 are uninformative about E, not cleanly
+failed; S's negative sign holds unless the dropped S mutants averaged about +0.36. Dropout reasons were not separable without the
+gitignored dumps.
+
 ### Ordering
 Proposal 2 costs no compute and could be registered and run first; its outcome tells us whether the E arm is worth repeating inside
 Proposal 1. Proposal 1 needs a new probe run (about 30 min at Part B's scale) and a registered sample size.

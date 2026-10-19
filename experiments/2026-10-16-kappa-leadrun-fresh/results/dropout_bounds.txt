@@ -1,0 +1,11 @@
+# cmd: uv run experiments/2026-10-16-kappa-leadrun-fresh/scripts/dropout_bounds.py  seed 20261016  (post hoc, unregistered)
+mutants with fresh base 417; observed pairs 257
+arm E: n=152 kept=81 retention=0.53 naive mean d=-0.062 CI [-0.146,+0.017] | IPW(lead x len) -0.058 CI [-0.149,+0.024] (mutants in cells with 0 kept: 0)
+   Manski: dropped at kept 5th/95th pct (-0.67/+0.48): mean d in [-0.346, +0.193]; at kept min/max (-1.31/+0.88): [-0.646, +0.380]
+   break-even: dropped mutants would need mean d = +0.071 to bring the full-population mean to 0 (kept mean -0.062)
+arm S: n=113 kept=73 retention=0.65 naive mean d=-0.198 CI [-0.288,-0.110] | IPW(lead x len) -0.198 CI [-0.300,-0.104] (mutants in cells with 0 kept: 0)
+   Manski: dropped at kept 5th/95th pct (-0.83/+0.40): mean d in [-0.420, +0.015]; at kept min/max (-1.45/+0.91): [-0.642, +0.196]
+   break-even: dropped mutants would need mean d = +0.362 to bring the full-population mean to 0 (kept mean -0.198)
+arm C: n=152 kept=103 retention=0.68 naive mean d=-0.006 CI [-0.049,+0.037] | IPW(lead x len) -0.002 CI [-0.045,+0.038] (mutants in cells with 0 kept: 0)
+   Manski: dropped at kept 5th/95th pct (-0.37/+0.26): mean d in [-0.123, +0.079]; at kept min/max (-0.89/+0.83): [-0.289, +0.263]
+   break-even: dropped mutants would need mean d = +0.012 to bring the full-population mean to 0 (kept mean -0.006)

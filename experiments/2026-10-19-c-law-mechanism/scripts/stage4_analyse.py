@@ -161,6 +161,8 @@ if done.exists():
     res["4c"] = dict(n_mutants=pm.height, n_pairs=ok.height, retention=ok.height / pm.height, mean_d=md, ci=ci.tolist(), mean_dA=float(dA.mean()), beta=beta,
                      resid_mean=float(resid.mean()), resid_ci=ci_r.tolist(), g=g_, r2=float(r2), P1=p1, P2=p2, P3=p3, P4=p4)
 else:
-    say("4c: probe run not finished (dumps/p1_probe.done missing)")
+    # Writing outputs without the 4c section would silently clobber the committed full results.
+    sys.exit("4c: dumps/p1_probe.done missing (dumps are gitignored; run run_p1.sh first). "
+             "Refusing to overwrite results/stage4_analysis.{txt,json}.")
 (R / "stage4_analysis.json").write_text(json.dumps(res, indent=1, default=float))
 (R / "stage4_analysis.txt").write_text("\n".join(lines) + "\n")

@@ -244,7 +244,7 @@ Statistics: mean d with a **cluster bootstrap over bases** (a base contributes b
 - **P-5** retention (kept and stationary mutants / mutants) reported against Part B's 0.53-0.68; descriptive. Dropout is a limit on every claim here.
 Reading: P-1 holding says an early flip that leaves the lead alone does nothing, so M3 (S arm) is a lead effect (but still one-sided: E showed none); P-2 holding says M3 was an early-letter effect that any early flip produces and the lead has no special role.
 No causal claim beyond these two arms and these 157 bases; the intervention changes letters, not the "lead" in isolation, and I say so in the write-up either way.
-Commands: `uv run experiments/2026-10-19-c-law-mechanism/scripts/stage4_lists.py`, tracer on `s4_trace_rules.txt`, `bash experiments/2026-10-19-c-law-mechanism/scripts/run_p1.sh` (probe), `uv run experiments/2026-10-19-c-law-mechanism/scripts/stage4_analyse.py`.
+Commands: `uv run experiments/2026-10-19-c-law-mechanism/scripts/stage4_lists.py`, tracer on `s4_trace_rules.txt`, `bash experiments/2026-10-19-c-law-mechanism/scripts/run_p1.sh` (probe), `uv run experiments/2026-10-19-c-law-mechanism/scripts/stage4_analyse.py` (needs `dumps/p1_probe.done`; exits without writing if absent).
 
 ## Stage 4 results (run 2026-10-19; `results/stage4_analysis.{txt,json}`, `results/p1/`)
 | pred | outcome |

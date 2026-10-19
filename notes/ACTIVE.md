@@ -16,9 +16,6 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Does lead have any direct effect on kappa?** Current bound |b| < ~0.06 per step given ln c, one cohort, one window,
   survivor-selected. A tighter test needs a mediator-free kappa (late windows only) or a second cohort.
   `experiments/2026-10-19-c-law-mechanism/results/stage4_analysis.txt`, `notes/open-questions-hypotheses.md` (Reconciliation).
-- **Arm-E dropout bias (retention 0.53)** in the single-flip mutants: bound it from existing data, no new runs
-  (Proposal 2, unregistered). `experiments/2026-10-16-kappa-leadrun-fresh/README.md`, data
-  `experiments/2026-10-16-kappa-leadrun-fresh/results/mutant_pairs.csv`.
 - **Mixed-turn loops (period 6/8) and opening-transient loops** were not tested; the square-loop failure only covers same-turn
   2x2 loops. Also no CI on the "lead-colour laps are ~8% of loop steps" figure.
   `experiments/2026-10-16-kappa-square-loop/NOTEBOOK.md` (22:58 end-of-session entry), `experiments/2026-10-16-kappa-square-loop/README.md` (Results).
@@ -48,14 +45,10 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 - **Push `main`.** Local `main` is ahead of `origin/main` (merge `8f4b978`, reconciliation `5d866ce`, loop-surgery closure
   `8b290d8`, and any later commits). Not pushed; needs the user's go-ahead.
-- **Rebuild `research-outputs/cube-root-growth-paper/main.pdf`.** The merge kept `main`'s PDF; it was not recompiled
-  (`typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf`).
-  Check no sentence says lead *raises* kappa (see Reconciliation in `notes/open-questions-hypotheses.md`).
 - **Re-execute `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb`** (taken from the branch at merge, not re-run here;
   build with `scripts/build_notebook.py`, execute with the command in `experiments/README.md`).
-- **Re-render the blog experiment pages** (`uv run --frozen --only-group blog blog/scripts/experiments.py`); the generated
-  `blog/experiments/2026-10-16-kappa-loop-surgery/index.html` still says "DRAFT plan" although the experiment is closed.
-  Refresh `blog/index.html` with the c-law / collider result (convention in `AGENTS.md`).
+- **Refresh `blog/index.html`** with the c-law / collider result (convention in `AGENTS.md`). The experiment pages were
+  re-rendered 2026-10-20 (from a worktree under WSL set `GIT_DIR=/mnt/f/Code/turmite/.git/worktrees/<name>` and `GIT_WORK_TREE=$PWD`).
 - **Stale worktrees and branches** (nothing deleted yet):
   - `.claude/worktrees/agent-a810708e829d8af34` and branch `backup/pre-census-split`: same commits; the unique `39df9f2` content is in
     `main`. Its uncommitted GPU probe port (`src/gpu/probe.rs`, `experiments/2026-10-16-gpu-probe-port/`) is an earlier attempt at what
@@ -63,9 +56,6 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   - `.claude/worktrees/g1-builder-structure`: old `data/` layout; content appears superseded by `main`. Confirm the dropped
     `TODO(G1)` paper change is already in `research-outputs/cube-root-growth-paper/main.typ`, then remove.
   - `.claude/worktrees/paper-figure-proposals` (locked) is now merged; remove after confirming nothing else is unsaved there.
-- **c-law `stage4_analysis` needs its dumps.** `experiments/2026-10-19-c-law-mechanism/scripts/stage4_analyse.py` overwrites
-  `results/stage4_analysis.{txt,json}` without the 4c section when `dumps/p1_probe.done` is absent (it did when re-run at merge;
-  restored from git). Guard the script or note it in the README.
 
 ## Closed (for reference, do not reopen without new grounds)
 
