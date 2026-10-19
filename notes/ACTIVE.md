@@ -11,11 +11,9 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   (hex r); A, B, C all disproven. The falling pattern is post hoc on four strata, no mechanism; the Little's-law derivation b = l_b / N_b leaves N_b(l) free
   (the data say births per episode grow faster than boundary loop cells). Close with a registered b(l) model, tested on a new loop length.
   `experiments/2026-10-20-lattice-c-law/README.md` (Results), post hoc `results/explore.txt`.
-- **Why is the hex intercept ~2.4-2.8 when square and triangular are 1.3?** Not predicted by A, B or C; may track coordination (z = 6 vs 4, 3) but
-  square and triangular agree despite different z. Needs the intercept modelled alongside b. `experiments/2026-10-20-lattice-c-law/README.md` (Results).
-- **Do the hex letter types after the lead matter?** Hex has four letters (r, l, R, L) and the lead analysis does not separate them; the hex R-lead fit
-  is worse (R^2 0.69 vs 0.94-0.95) and the 60° stratum's fit was ruined by one lacy rule (`rrrrrLrrrLrrLL`, perimeter = area; the blob-class proxy leaks on hex).
-  Needs a letter-typed lead, a perimeter-exponent filter (beta < 0.8) registered up front, and a clean r-lead fit. `experiments/2026-10-20-lattice-c-law/results/outlier.txt`.
+- **Why is the hex lead fit so noisy, and what sets its intercept?** Follow-up A (2026-10-20, registered, `experiments/2026-10-20-lattice-c-law/README.md`) removed the lacy outlier (beta < 0.8) and
+  separated tail letter types: clean r-lead b = 0.262 [0.21, 0.31] (R^2 only 0.42), R-lead 0.876 (R^2 0.69), b_r/b_R = 0.30 [0.24, 0.37]; tail letter type adds ~nothing
+  (R-lead CV gain +0.014, r-lead none). Intercept stays 2.4-2.8. Unexplained scatter remains; candidate features untested: second run length, letters 6-8.
 - **Origin of the c law constants a = 1.4, b = 0.68** (1/c = 1.36 + 0.70 lead). Candidate: loop-formation probability x 4 steps
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).
@@ -67,9 +65,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Repository housekeeping
 
-- **Jupyter is not in `pyproject.toml`**: `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb` was re-executed 2026-10-20
-  using `uv pip install ipykernel` into the WSL venv plus `ipykernel install --sys-prefix`; decide whether to `uv add` it.
-  Its Proposal 2 bounds are not in the notebook (rebuild with `scripts/build_notebook.py` if wanted).
+- **Jupyter**: `ipykernel`, `nbformat`, `nbclient` added to `pyproject.toml`/`uv.lock` (`7df6d35`). The leadrun-fresh notebook's Proposal 2 bounds are not in it (rebuild with `scripts/build_notebook.py` if wanted).
 - **Refresh `blog/index.html`** with the c-law / collider result (convention in `AGENTS.md`). A null-result post
   (`blog/_posts/2026-10-20-where-kappa-is-not.md`, with reader guides for the three 2026-10-20 kappa experiments) was added 2026-10-20;
   the index itself was not touched. The experiment pages were
