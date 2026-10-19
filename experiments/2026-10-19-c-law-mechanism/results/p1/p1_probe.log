@@ -1,0 +1,15 @@
+probe 27 8192 < experiments/2026-10-19-c-law-mechanism/results/p1/p1_specs.txt  start 2026-10-19T19:04:38+13:00
+2192 rules
+0
+200
+400
+600
+800
+1000
+1200
+1400
+1600
+1800
+2000
+finished 2026-10-19T19:18:57+13:00
+978af58ff1e24e38080dda54d6f24c7fc9a86c55c3a56cba04aef3a59057c6c5  target/release/probe

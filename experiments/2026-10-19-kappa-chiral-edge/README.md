@@ -133,3 +133,7 @@ s_0 s_j of the first K letters is worse than the single lead (fresh R^2 0.81 vs 
 - Reinterpretation the data support: the opening run **sets the birth rate c almost deterministically** (1/c = 1.36 + 0.70 lead, out-of-sample R^2 0.88). Because dA/dt = c kappa P/A, a higher lead slows growth without, on average, changing kappa. The earlier "lead effect on kappa" is a conditional-on-ln A(22) effect (census-wide kappa vs lead R^2 = 0.001). Whether it is residual structure from conditioning on a variable that lead itself drives (here via c) or a genuine fixed-area effect is NOT decided; the M3 result of the leading-run experiment (shortening the lead lowers ln kappa at unchanged area) still stands.
 - Unexplained: why b ~ 0.70 and a ~ 1.36 (not 1 and 0), why c keeps gaining from letters 4-8, and the fact that kappa >~ 1 for lead >= 6 (small n: 22, 6, 4).
 - Not done: Stage 2 sparse-background dose-response (gated on N1, which failed). It would still be the cleanest way to ask whether c's lead dependence really is a fresh-ground effect: prediction would be b falling toward 0 as background density rises. Not registered.
+
+## Follow-up (added 2026-10-19, after the close of this experiment)
+The open items above (mechanism of a ~ 1.36 and b ~ 0.70, the unregistered sbg dose-response, and whether the kappa shift at fixed ln A22 is real) were taken up in
+`experiments/2026-10-19-c-law-mechanism` (own registrations, results and notebook). Nothing registered or reported here is changed by it.

@@ -32,3 +32,6 @@ Registered Stage 3: C1 held (fresh R^2 0.877, rel err 0.041), C2 held (b 0.683 [
 Stop here for the kappa claim; write up, update notes and commit. Reason: the pre-registered kappa mechanism is refuted and the replacement (lead -> c law) is a strong, validated empirical regularity, but its mechanism (a = 1.36, b = 0.70) is unexplained. Next experiment, unregistered: sbg density dose-response for the c law; and an exact edge-strip enumeration for b.
 ### 2026-10-19 09:41 (+13:00) · 3f23de3 · question
 Is b = 0.70 derivable from a flat-edge scattering calculation (young cells coloured 1..m, ant arrives with random heading)? Why does the fit give kappa >~ 1.25-1.5 at lead 7-8 (n = 6, 4)?
+
+### 2026-10-19 19:06 (+13:00) · b7b4758 · decision
+Follow-up opened in `experiments/2026-10-19-c-law-mechanism` (the open questions above: where 1.36 and 0.70 come from, the sbg dose-response, and whether the fixed-area kappa shift is real). Nothing in this experiment's results is revised by that work; its outcomes are recorded there and summarised in notes/open-questions-hypotheses.md. In one line: the fixed-area lead effect on kappa was reproduced by conditioning on ln A22 with no direct effect (collider), the sbg dose-response was run, and the flat-edge simulation reproduces the c law rule by rule.

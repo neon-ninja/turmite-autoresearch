@@ -1,0 +1,11 @@
+207 sample rules (stationary blob), lead capped at 6
+  first reads    per birth = 1.434 + 0.227 lead   (share of the lead slope: 0.32)
+  lag-4 returns  per birth = -0.202 + 0.394 lead   (share of the lead slope: 0.55)
+  other returns  per birth = 0.121 + 0.092 lead   (share of the lead slope: 0.13)
+  total = 1/c    per birth = 1.352 + 0.712 lead   (share of the lead slope: 1.00)
+  lead 1 (n=120): first 1.608  lag4 0.300  other 0.211  total 2.120
+  lead 2 (n=39): first 1.983  lag4 0.410  other 0.293  total 2.685
+  lead 3 (n=29): first 2.352  lag4 0.566  other 0.408  total 3.325
+  lead 4 (n=12): first 2.149  lag4 1.324  other 0.568  total 4.041
+  lead 5 (n=3): first 2.715  lag4 1.484  other 0.601  total 4.799
+  lead 6 (n=4): first 2.174  lag4 3.955  other 0.514  total 6.643

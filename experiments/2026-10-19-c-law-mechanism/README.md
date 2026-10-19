@@ -191,3 +191,72 @@ same torus, but the pre-visited interior colours are drawn differently (driver `
 - **A4** In every interior variant the fitted slope of 1/c on min(m,5) stays within [0.55, 0.85]. ~55%.
 If A1-A3 all hold, the interior's colours are irrelevant and c is a property of the rule on fresh ground. If one fails, the entry cell's (old cell's) colour distribution enters c, which would be the route by which letters beyond the lead matter.
 Kept rules: the same 60 (consumption in the window may differ with the interior; I report the consumption and births; a rule is dropped from a variant only if the band is >90% eaten or < 5000 births, as before).
+
+### Stage 3 deviation (added 19:00 (+13:00), after seeing kept/escape fractions only; no c(d) computed yet)
+At d >= 0.7 almost every run escapes the 4096 board in 2^24 steps (kept 0.00-0.08 at d = 0.7, 0.00-0.02 at d = 1.0; at d = 0.4 kept 0.40-0.75, lead 1 escaping 50%). The registered primary cohort (valid at every d) is empty and B1 is untestable as registered.
+Replacements, frozen before any c(d) is computed: primary cohort = rules valid at every d <= 0.2; secondary = d = 0.4 survivors (selection-biased, reported separately).
+**B1'** for d in {0.1, 0.2}: |b_obs(d) - b_mix(d)| <= 0.10, where b_mix is the slope of the mixture prediction on lead at that d. **B2'** b(d) non-increasing within +0.07 along d <= 0.2. **B3'** mixture R^2 >= 0.50 and median |rel err| <= 0.20 on cells d in {0.1, 0.2}.
+**B4'** intercept in [1.0, 2.0] for d <= 0.2 (and, secondary, at 0.4). **B5** reported at d = 1.0 (as registered) and at d = 0.4.
+
+## Stage 3 results (run 2026-10-19, commit b7b4758; `results/trace_sbg.jsonl`, `stage3_analysis.{txt,json}`)
+Primary cohort: 60 rules, valid at every d up to 0.2. 1/c = a + b lead (b CI over rules): d=0: 1.397 + 0.677 [0.646, 0.711]; 0.02: 1.439 + 0.646; 0.05: 1.489 + 0.605; 0.1: 1.537 + 0.549 [0.513, 0.583]; 0.2: 1.619 + 0.450 [0.412, 0.485].
+Secondary, d=0.4 survivors (46 rules): 1.331 + 0.689 at d=0 on the same rules; 1.729 + 0.287 [0.235, 0.341] at d=0.4. Mixture-predicted slopes (census rotations): 0.678, 0.665, 0.645, 0.613, 0.548.
+
+| pred | outcome |
+|---|---|
+| B1 b(1.0)/b(0) <= 0.25 | **NOT TESTABLE**: at d >= 0.7 the ant leaves the board in 88-100% of runs (kept 0-8%); no blob regime to measure c in |
+| B1' abs(b_obs - b_mix) <= 0.10 at d = 0.1, 0.2 | **HELD** (0.064, 0.098; the observed slope falls faster than the mixture, the second barely passes) |
+| B2' b(d) non-increasing within +0.07, d <= 0.2 | **HELD**: 0.677, 0.646, 0.605, 0.549, 0.450 |
+| B3' mixture R^2 >= 0.50 and median rel err <= 0.20 (d = 0.1, 0.2) | **HELD**: R^2 0.869, 0.067 (120 cells). Null "no density effect": 0.613, 0.102 |
+| B4' intercept in [1.0, 2.0] | **HELD**: 1.40-1.73 (rises, does not fall) |
+| B5 kept fraction lower for lead >= 4 by >= 0.10 | **FAILED** at d = 1.0 (0.00 vs 0.01) and at d = 0.4, where the sign is opposite (0.48 for lead <= 2 vs 0.68 for lead >= 4) |
+
+## Stage 4: reconcile with kappa (registered 2026-10-19 19:03 (+13:00), before any Stage 4 computation)
+
+Definitions. kappa = (boundary steps / steps) / (perimeter / area); growth identity dA/dt = c kappa P/A. So c (births per boundary step) and kappa (boundary occupancy) are different factors of the area growth rate, and
+ln A22 depends on both: if A ~ (c kappa t)^g (g about 0.68 from A^(2-beta) ~ c kappa t with beta ~ 0.52), then ln A22 is a **collider** of (ln c, ln kappa). Lead moves ln c strongly (slope about -0.24 per step) and, in the census, does not move ln kappa
+(marginal R^2 0.001). Conditioning on ln A22 then induces a positive lead effect on ln kappa of size about 0.24 g beta_(kappa|A) ~ 0.24 x 0.68 x 1.0 ~ +0.17 per step with no direct effect at all (observed +0.15). This is a
+hypothesis, not a result: it is what I am about to test. What I have seen: the leading-run README numbers (pooled b = +0.158, c-coefficient 1.037, arm means E -0.062, S -0.198, C -0.006 with dA -0.292, +0.013, 0.000) and the first-experiment summary; I have not
+computed anything below.
+
+### 4a: collider check on the 176 fresh rules (existing data, no runs)
+Data: `experiments/2026-10-16-kappa-leadrun-fresh/results/fresh_rules.csv` (kept and stationary, n = 176). Y = lnk, Z = ln c, W = lnA22, X = min(lead, 6). Fit W = alpha + g_c Z + g_k Y + e. Permutation null (2000 draws, seed 20261019):
+permute Y across rules, rebuild W* = alpha + g_c Z + g_k Y_perm + e (each rule keeps its residual), regress Y_perm on 1, X, W*. H0 built in: Y independent of X and Z; the only link of Y to the rest is through W.
+- **Q1** the observed coefficient on X in OLS Y ~ 1 + X + W lies inside the null's central 95% interval and |mean(null) - observed| <= 0.05. ~50%.
+- **Q2** the same for the coefficient on W: |mean(null) - observed| <= 0.25. ~50%.
+- **Q3** adding Z: OLS Y ~ 1 + X + W + Z gives a coefficient on X with |b| <= 0.07 or a bootstrap CI (2000, over rules) containing 0. ~60%.
+Q1 and Q3 both holding means the "lead raises kappa at fixed area" association is reproduced by conditioning on a collider with no direct effect; Q1 failing (null << observed) means a direct fixed-area effect is needed.
+
+### 4b: growth identity on the Part B mutant pairs (no new kappa runs)
+c for bases and Part B mutants is measured by the Stage 2 tracer on the blank board (2^24 steps, window = last octave; deterministic; rules in `results/lists/s4_trace_rules.txt`). With pairs from `experiments/2026-10-16-kappa-leadrun-fresh/results/mutant_pairs.csv`
+(kept and stationary, 257 pairs): d = d ln kappa, dA = d ln A22, dc = d ln c (tracer). Fit dA = g (dc + d) + noise through the origin on all pairs.
+- **Q4** g in [0.5, 0.9], and the arm means of g (dc + d) are within 0.08 of the observed mean dA for each of E, S, C. ~50%.
+This is an identity-level check that the E/S asymmetry in dA (unexplained in the leading-run write-up) comes from the c law: E lowers c by about 0.24 per added lead step while d is about 0, S raises c while d is negative.
+
+### 4c: lead-preserving early flips (the P1 proposal, now registered)
+Bases: the 157 stationary fresh rules with lead k in 1..5 (same as Part B). Mutants: flip the single letter at index k+1 (arm **P1**) and at index k+2 (arm **P2**), when that index < n - 1; the lead stays k. Dropped if not primitive or already seen.
+Run with the unchanged pipeline: `probe 27 8192` on `RULE@SEED`, seeds 601..608, core band alpha_w in [0.25, 0.42], kappa > 0, >= 6 core runs, stationary |g_k| < 0.05 (same as Part B); paired with the base's existing row. d = ln kappa(mutant) - ln kappa(base), dA, and tracer dc.
+Statistics: mean d with a **cluster bootstrap over bases** (a base contributes both its mutants; 2000, seed 20261019); area-adjusted residual r = d - beta_hat dA with beta_hat from the pooled regression d ~ 1 + dA.
+- **P-1 (lead is the active factor)** |mean d| <= 0.08 and its 95% CI inside [-0.15, 0.15]. ~40%.
+- **P-2 (early position/composition, not lead)** mean d <= -0.10 with the CI upper bound < -0.03 (the M3-like drop appears with the lead untouched). ~35%. (P-1 and P-2 are exclusive; ~25% is "neither".)
+- **P-3** area-adjusted mean residual within +/-0.08 of 0. ~45%.
+- **P-4** over P pairs, dA = g (dc + d) has g in [0.4, 1.0] and R^2 >= 0.5. ~50%.
+- **P-5** retention (kept and stationary mutants / mutants) reported against Part B's 0.53-0.68; descriptive. Dropout is a limit on every claim here.
+Reading: P-1 holding says an early flip that leaves the lead alone does nothing, so M3 (S arm) is a lead effect (but still one-sided: E showed none); P-2 holding says M3 was an early-letter effect that any early flip produces and the lead has no special role.
+No causal claim beyond these two arms and these 157 bases; the intervention changes letters, not the "lead" in isolation, and I say so in the write-up either way.
+Commands: `uv run experiments/2026-10-19-c-law-mechanism/scripts/stage4_lists.py`, tracer on `s4_trace_rules.txt`, `bash experiments/2026-10-19-c-law-mechanism/scripts/run_p1.sh` (probe), `uv run experiments/2026-10-19-c-law-mechanism/scripts/stage4_analyse.py`.
+
+## Stage 4 results (run 2026-10-19; `results/stage4_analysis.{txt,json}`, `results/p1/`)
+| pred | outcome |
+|---|---|
+| Q1 observed conditional lead coefficient inside the no-direct-effect null | **HELD**: observed +0.148, null mean +0.145 [+0.137, +0.153] (176 fresh rules) |
+| Q2 area coefficient within 0.25 | **HELD**: +1.073 vs null +1.035 |
+| Q3 adding ln c removes the lead coefficient | **HELD**: +0.014 [-0.045, +0.062]; growth fit ln A22 = 11.45 + 0.687 ln c + 0.807 ln kappa, residual sd 0.092 |
+| Q4 growth identity on Part B pairs | **HELD**: g = 0.805; arm dA observed/predicted E -0.292/-0.318, S +0.013/+0.050, C 0.000/-0.004 (257 pairs) |
+| P-1 abs(mean d) <= 0.08, CI in [-0.15, 0.15] | **HELD**: -0.007 [-0.078, +0.060] (177 pairs, cluster bootstrap over bases) |
+| P-2 mean d <= -0.10 | **FAILED** |
+| P-3 area-adjusted residual within 0.08 | **HELD**: +0.007 [-0.022, +0.034] |
+| P-4 dA = g(dc + d), g in [0.4, 1.0], R^2 >= 0.5 | **HELD** (after a NaN fix, see NOTEBOOK): g 0.809, R^2 0.875 |
+| P-5 retention | 0.65 (Part B: 0.53-0.68) |
+Post hoc, not registered: split by flip direction, L>R d +0.153 (n 98), R>L d -0.207 (n 79), sd of d 0.43; S and E arms are direction-confounded.
+Reading: the fixed-area "lead effect" on kappa is a conditioning artefact (4a) with no detectable direct effect (|b| below ~0.06 per step given ln c); lead-preserving early flips shift kappa by zero on average, but single flips move it by about 0.2 in a letter-direction-dependent way, which I cannot separate from lead in the S/E arms. No causal claim that lead sets kappa.

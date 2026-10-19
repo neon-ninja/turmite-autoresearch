@@ -1,0 +1,21 @@
+4a: n = 176 fresh rules (kept, stationary), lead capped 6
+  marginal slopes on lead: ln kappa -0.022, ln c -0.201, ln A22 -0.158
+  growth fit ln A22 = 11.45 + 0.687 ln c + 0.807 ln kappa, residual sd 0.092
+  observed Y ~ 1 + lead + lnA22: coef lead +0.148, lnA22 +1.073
+  null (Y independent of lead and c, linked only through lnA22): coef lead mean +0.145 [95% +0.137, +0.153], lnA22 mean +1.035 [+0.992, +1.087]
+  Q1 PASS (observed +0.148 inside null interval and within 0.05 of its mean); Q2 PASS (observed lnA22 coef +1.073 vs null +1.035)
+  Y ~ 1 + lead + lnA22 + ln c: coef lead +0.014 [bootstrap -0.045, +0.062], lnA22 +1.086, ln c -0.674 -> Q3 PASS
+tracer c available for 732 of 835 rules
+4b: 257 Part B pairs with tracer c; dA = g (dc + d): g = 0.805
+   arm E (n=81): mean dc -0.333, d -0.062, dA observed -0.292, predicted -0.318
+   arm S (n=73): mean dc +0.261, d -0.198, dA observed +0.013, predicted +0.050
+   arm C (n=103): mean dc +0.001, d -0.006, dA observed -0.000, predicted -0.004
+   Q4 (g in [0.5, 0.9] and every arm within 0.08): PASS
+4c: 274 P mutants; kept 185; kept and stationary pairs 177 (retention 0.65; P1 87/136, P2 90/138)
+  mean d = -0.007 [cluster 95% -0.078, +0.060], mean dA -0.012, sd d 0.432
+  P-1 PASS; P-2 FAIL; area-adjusted: beta +1.123, residual mean +0.007 [-0.022, +0.034] -> P-3 PASS
+   arm P1 (n=87): mean d +0.002, mean dA -0.006, mean dc(tracer) +nan
+   arm P2 (n=90): mean d -0.017, mean dA -0.018, mean dc(tracer) +0.002
+   flip L>R (n=98): mean d +0.153, mean dA +0.101
+   flip R>L (n=79): mean d -0.207, mean dA -0.153
+  P-4 dA = g (dc + d): g 0.809, R2 0.875 -> PASS
