@@ -54,8 +54,10 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   start; another session may have committed since; check `git status`).
 - **`experiments/2026-10-16-kappa-uniform-baseline/NOTEBOOK.md`**: uncommitted edit.
 - **Blog:** `blog/index.html` modified, `blog/_posts/2026-10-19-the-ant-below-every-walker.md` untracked.
-- **rulepat, branch `claude/rule-pattern-experiment-aa95e3`**: committed 2026-10-20 as `275d52b` (23 files for
-  `experiments/2026-10-14-rulepat/`). Still to decide: merge into `main` (it has no rulepat) and then remove the worktree.
+- **rulepat, branch `claude/rule-pattern-experiment-aa95e3`**: committed 2026-10-20 as `275d52b` and merged into local `main`
+  on 2026-10-20 at the user's request (reader guide added, covering only the early README steps). Still open: its gitignored
+  `dumps/` (192 MB) and `scratch/` (3 MB) exist only in the worktree, so archive them before removing it; its README
+  census steps (C1-C4) were not reviewed here.
 
 ## Repository housekeeping
 

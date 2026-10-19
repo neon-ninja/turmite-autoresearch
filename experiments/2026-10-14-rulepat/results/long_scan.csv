@@ -1,0 +1,2 @@
+rule,steps,escaped,area,width,height,area_q,mode_visits,plateau,plateau_colour,plateau2,mean_visits,max_visits,alt_frac,long_alt_runs
+RLLLLLLLRRLRR,1073741824,false,231770176,15224,15224,50552100,2,0.8631,2,0.8634,4.633,324,0.4695,20930
