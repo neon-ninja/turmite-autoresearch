@@ -1,0 +1,40 @@
+{
+  "sd_ln_kappa_census_stationary": 0.349,
+  "n_census": 2185,
+  "var_total": 0.12180099999999998,
+  "icc_pool_stationary": 0.851,
+  "sd_ln_kappa_pool_stationary": 0.327,
+  "noise_share": 0.14900000000000002,
+  "noise_sd": 0.12622369428914684,
+  "rule_mean_sd": 0.3016563922743889,
+  "budget": {
+    "pool patched means": {
+      "r2_prefix8": 0.552,
+      "explained_of_total": 0.469752,
+      "rule_unexplained_of_total": 0.381248,
+      "noise_of_total": 0.14900000000000002
+    },
+    "fresh rules, strict": {
+      "r2_prefix8": 0.633,
+      "explained_of_total": 0.538683,
+      "rule_unexplained_of_total": 0.31231699999999996,
+      "noise_of_total": 0.14900000000000002
+    }
+  },
+  "caveats": [
+    "Total spread from census single runs; noise share from pool-192 patched starts (a different cohort and start condition).",
+    "Prefix R^2 is against rule-level means (pool patched means, or strict fresh rules); scaled by the ICC to a share of single-run variance, which assumes the means are noise-free.",
+    "Fresh-rule R^2 is on 13-14 letter rules, pool R^2 on census-length rules; the two differ by 0.08.",
+    "No uncertainty is propagated; the shares are rough to about +-0.1.",
+    "This budgets the SPREAD only. Why the location is about 0.8 x kappa_unif (below every walker reference) is untouched."
+  ],
+  "provenance": {
+    "command": "uv run experiments/2026-10-20-kappa-spread-budget/scripts/spread_budget.py",
+    "input_sha256": {
+      "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt": "ad7a062d72dd9390f936e40aaefa53ff3d69e58c1acb79aa44c499082a7b6913",
+      "experiments/2026-10-kappa-rule-space/results/w2_stationarity.txt": "30b2c424766509719d01c77fdd9523f4c6ccbaeb2829548810b8adbcfd859b82",
+      "experiments/2026-10-kappa-rule-space/results/x2_prefix_heldout.txt": "13f993ec0598cf76a3092cf5ed9889105bbfa20ab1b37b05f3dfa68fbf026c0b",
+      "experiments/2026-10-kappa-rule-space/results/w3c_stats.txt": "c2dc0e8cf016a69a21331af391c8a312094d7d92bda7c5a62c13c6e08eaccf99"
+    }
+  }
+}

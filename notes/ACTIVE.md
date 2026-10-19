@@ -21,8 +21,11 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   `experiments/2026-10-16-kappa-square-loop/NOTEBOOK.md` (22:58 end-of-session entry), `experiments/2026-10-16-kappa-square-loop/README.md` (Results).
 - **Blob-regime boundary** of the c law between sparse-background density 0.2 and 0.7 (kept fraction 0-2% at density 1).
   `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3 results).
-- **kappa/kappa_unif distribution** (median 0.81, sd ln 0.35): location and spread are two separate questions.
+- **kappa/kappa_unif distribution, location (open):** why the median is 0.81 x kappa_unif (below every walker reference).
   `experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt`, `notes/open-questions-hypotheses.md`.
+- **kappa spread, remainder (open):** budgeted 2026-10-20 (post hoc, `experiments/2026-10-20-kappa-spread-budget/`): about 0.15 start
+  noise, 0.47-0.54 prefix-predictable, 0.31-0.38 rule-determined but unexplained. Next: a registered held-out comparison of
+  prefix, suffix and composition features to say what the unexplained third is.
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.

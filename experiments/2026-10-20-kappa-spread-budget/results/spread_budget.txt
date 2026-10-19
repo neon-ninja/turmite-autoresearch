@@ -1,0 +1,11 @@
+# cmd: uv run experiments/2026-10-20-kappa-spread-budget/scripts/spread_budget.py  (post hoc synthesis; no new runs)
+total sd ln kappa (census stationary, n=2185): 0.349  (variance 0.1218)
+start-to-start noise share 1-ICC = 0.149 (ICC 0.851, pool-192 stationary patched starts; sd ln kappa there 0.327) -> noise sd 0.126, rule-mean sd 0.302
+prefix-8 R^2 [pool patched means] +0.552: shares of single-run variance: prefix-predictable 0.47, rule-determined but not prefix-predictable 0.38, start noise 0.15
+prefix-8 R^2 [fresh rules, strict] +0.633: shares of single-run variance: prefix-predictable 0.54, rule-determined but not prefix-predictable 0.31, start noise 0.15
+caveats:
+  - Total spread from census single runs; noise share from pool-192 patched starts (a different cohort and start condition).
+  - Prefix R^2 is against rule-level means (pool patched means, or strict fresh rules); scaled by the ICC to a share of single-run variance, which assumes the means are noise-free.
+  - Fresh-rule R^2 is on 13-14 letter rules, pool R^2 on census-length rules; the two differ by 0.08.
+  - No uncertainty is propagated; the shares are rough to about +-0.1.
+  - This budgets the SPREAD only. Why the location is about 0.8 x kappa_unif (below every walker reference) is untouched.
