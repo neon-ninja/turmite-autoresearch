@@ -1,6 +1,6 @@
 # Loop surgery: does breaking 2x2 loops lower kappa? (causal test of H-loop)
 
-**Status: DRAFT plan (2026-10-16 ~21:00 +13:00). Not frozen, not implemented, no data. Thresholds are my design choices.**
+**Status: CLOSED without running (2026-10-19). Gate failed: the parent's P2 failed (H-loop dead at this scale). Nothing was implemented, frozen or measured. The text below is the original draft plan, kept unedited for the record; its S1-S4 were never registered and make no claim.**
 Depends on `../2026-10-16-kappa-square-loop/` (H-loop, operational definitions of "loop step", P1-P4 and the decision table). Do not run
 this before that folder's P2 holds; if P2 fails the hypothesis is dead and this folder should be marked closed without running.
 
