@@ -17,3 +17,15 @@ license:
   - MIT
   - Apache-2.0
 # Add when known: repository-code, url, version, date-released, and doi (Zenodo).
+# The manuscript in research-outputs/cube-root-growth-paper/ is the preferred citation. Update
+# type/status, and add doi, url and year/date-released, when it is posted or published.
+preferred-citation:
+  type: unpublished
+  title: "Cube-root growth of most non-highway generalised Langton's ants of length up to 12"
+  authors:
+    - family-names: McNamara
+      given-names: Tim
+      orcid: "https://orcid.org/0000-0002-2494-2700"
+      affiliation: "Accelerant Limited"
+  year: 2026
+  notes: "Draft manuscript; not yet posted or peer reviewed."
