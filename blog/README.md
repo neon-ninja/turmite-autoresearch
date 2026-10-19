@@ -1,4 +1,4 @@
-# Turmite research devlog
+# turmite-autoresearch blog
 
 A small Jekyll site for researcher-written Markdown entries. The blog is
 independent of the simulator in `web/` and does not publish the repository's
@@ -65,17 +65,19 @@ To build and check a project site locally:
 
 ```bash
 # From the repository root, using the WSL environment exports above:
-uv run --frozen --only-group blog blog/scripts/experiments.py --baseurl /turmite
+uv run --frozen --only-group blog blog/scripts/experiments.py --baseurl /turmite-autoresearch
 cd blog
-JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter --baseurl /turmite
-bundle exec ruby scripts/check.rb _site /turmite
+JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter --baseurl /turmite-autoresearch
+bundle exec ruby scripts/check.rb _site /turmite-autoresearch
 ```
 
 Output is in ignored `_site/`. The checker verifies required pages, local
 links and assets, project-site prefixes, and exclusion of authoring files.
 Canonical URLs and feed URLs use `url` and `baseurl`; for a production-like
 local build, set `url` in a separate config override. `repository_url` enables
-source and provenance links. GitHub Actions supplies all three automatically.
+source and provenance links and defaults to `https://github.com/timClicks/turmite-autoresearch`.
+GitHub Actions supplies all three automatically, including the `/turmite-autoresearch`
+base path for this repository’s project site.
 
 ## GitHub Pages setup
 

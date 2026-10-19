@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
   <header class="site-header shell">
-    <a class="brand" href="{{ '/' | relative_url }}" aria-label="Turmite home"><span class="mark" aria-hidden="true">↱</span> turmite<span class="brand-note"> / research log</span></a>
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title | escape }} home"><span class="mark" aria-hidden="true">↱</span> {{ site.title | escape }}</a>
     <nav aria-label="Main navigation">
       <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Entries</a>
       <a href="{{ '/experiments/' | relative_url }}"{% if page.url contains '/experiments/' %} aria-current="page"{% endif %}>Experiments</a>
@@ -25,8 +25,8 @@
   </header>
   <main id="content" class="shell">{{ content }}</main>
   <footer class="site-footer shell">
-    <span>Simple rules. Unfinished questions.</span>
-    <span>A working research notebook · <a href="{{ '/feed.xml' | relative_url }}">Follow the feed</a></span>
+    <span>{{ site.title | escape }} · Generalised Langton’s ants</span>
+    <span><a href="{{ '/experiments/' | relative_url }}">Browse the experiments</a> · <a href="{{ '/feed.xml' | relative_url }}">RSS</a></span>
   </footer>
 </body>
 </html>

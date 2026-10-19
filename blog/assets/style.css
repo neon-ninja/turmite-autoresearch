@@ -8,7 +8,6 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
 .site-header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 28px; border-bottom: 1px solid var(--line); }
 .brand, nav, .eyebrow, .section-heading, .entry-date, .tags, .byline, .site-footer, .back-link, .provenance, .post-nav, .text-link { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
 .brand { text-decoration: none; font-size: 19px; font-weight: 700; white-space: nowrap; }
-.brand-note { font-size: 12px; color: var(--muted); font-weight: normal; }
 .mark { display: inline-grid; place-items: center; background: var(--ink); color: var(--paper); width: 31px; height: 31px; margin-right: 8px; }
 nav { display: flex; gap: 24px; font-size: 12px; }
 nav a { text-decoration: none; }

@@ -1,9 +1,9 @@
-title: Turmite
-description: Field notes on generalised Langton's ants — experiments, mechanisms, and open questions.
+title: turmite-autoresearch
+description: "Why do Langton’s ants spend so long revisiting old ground? Conjectures, experiments, and awkward results from turmite-autoresearch."
 url: ""
 baseurl: ""
-# Filled automatically by GitHub Actions. Set this locally to enable source links.
-repository_url: ""
+# GitHub Actions overrides this with the repository being built.
+repository_url: "https://github.com/timClicks/turmite-autoresearch"
 lang: en-NZ
 timezone: Pacific/Auckland
 permalink: /:year/:month/:day/:title/
