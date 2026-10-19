@@ -1,10 +1,10 @@
 # Can a local renewal model explain the cost of a new cell?
 
-**Current status (2026-10-20):** ordered-event recorder passes oracle tests;
-walker controls and narrow stationary-solver calibration pass. The excluded
-pilot failed its common-horizon gate. Main outcomes remain unopened; see
-the dated addenda below. The original rich states also have no cross-family
-support in the excluded pilot. No local closure or c-law coefficients are derived.
+**Current status (2026-10-20):** calibrated recorder and boundary clock work.
+The rich lookup lacks transfer support. A finite colour-memory model also
+fails its registered cost/budget tests: preserving nearby short-loop phases
+while randomizing forgotten long-return phases is insufficient in this pilot.
+Main outcomes remain unopened; the c-law coefficients remain unexplained.
 
 Scaffold created 2026-10-20 (+13:00), base revision
 `adf66774570469da30b10ffc1ceab911670a9d09`.
@@ -550,3 +550,69 @@ test exit status are captured. Each case has a recipe-keyed `.done` marker;
 parallelism is across independent seeded cases (default 2 workers), with
 identical scientific JSON regardless of scheduling. Timing is printed only to
 the log; there is no speed claim. Old data are never overwritten.
+
+## Finite-memory outcome — 2026-10-20 01:34:30 (+13:00)
+
+Code/registration revision `c826721c2591201c45efeca9900abac5f8f4f841`.
+Fresh-build oracle tests and boundary-clock walker controls pass. Rotor c
+0.500748 (between-seed sd 0.003133, 8 seeds); rw 0.462433 (sd 0.006132, 8).
+Their differences from the earlier fixed-time means are +0.003244/+0.015830;
+this early boundary clock is not an unbiased substitute for a late-time
+walker comparison. Sources: `results/memory_v1/controls.json`, `build.json`.
+
+All 56 pilot cases are recorded with validated markers. Both primary uniform
+arms have 8/8 eligible pairs. **M1 and M2 fail for both radii as registered.**
+
+| Arm | Median absolute ln(c model/full) | Maximum | Median largest budget error | M1 / M2 |
+|---|---:|---:|---:|---|
+| Uniform r=4 | 0.012054 | 0.298926 | 0.248662 | FAILED / FAILED |
+| Uniform r=8 | 0.012623 | 0.276185 | 0.200881 | FAILED / FAILED |
+
+M2's r=8 miss is narrow (criterion <=0.20); do not round it into a pass.
+Six of eight zero-reset r=4 runs reach the 2^28-step cap without opening
+the measurement window. Only 2/8 policy comparisons are defined, so
+**M3 is UNINFORMATIVE**, not support for prior independence. Those two are
+the lead-3 rule, whose boundary reset exposure is zero at r>=4; matching that
+rule is a weak locality challenge. No capped run was replaced or assigned c=0.
+
+The lead-4 rule `RRRRLLRRLLLLRR` accounts for the large cost discrepancy:
+r=4 predicts c 31–35% higher than full, in both seeds (equivalently about
+24–26% fewer boundary reads per birth). r=8 remains 30–32% high. The other
+rules' closer totals do not establish the proposed closure.
+
+Exploratory decomposition (`scripts/diagnose_memory.py`, after the registered
+failures): for that lead-4 rule, r=4 reduces long-return reads per birth by
+1.63/1.59, increases lag-4 reads by 0.51/0.47, and changes total cost by
+-0.95/-1.05. For the lead-2 rule, increased lag-4 and decreased long-return
+costs nearly cancel: a good total c hides a wrong return budget. r>=4 resets
+only the long class directly, so these changed short-loop frequencies are
+indirect effects of the altered return history, not direct short-phase erasure.
+The full-ant boundary-clock versus old k=26 c audit has maximum absolute
+ln ratio 0.0406 across these eight seeds. That is a limited age check on this
+pilot, not a fresh confirmation of stationarity or a universal bias bound.
+
+![Finite-memory pilot cost and return-budget errors](results/memory_pilot.png)
+
+Points are eight paired runs from four rules, not eight independent rules;
+black bars are medians, no confidence interval is claimed. Figure recipe:
+`uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/plot_memory.py`
+(inspect the existing generated image before `--replace`). JSON inputs only;
+no fitted parameters. Numerical results: `results/memory_report.json`;
+signed budgets and clock audit: `results/memory_diagnostics.json`. The plot
+omits zero-policy arms because their clock completion is the separate M3 issue.
+
+**Decision:** stop this uniform-exterior finite-memory candidate as promised;
+do not extend the radius or open the main cohort to find a passing case.
+Local short-loop phase clocks alone, with uniform forgotten phases, do not
+predict the full read cost/budget. This does not rule out a better local
+closure or prove a universal need for a particular radius. No c-law
+coefficients or later-letter mechanism have been derived.
+
+Next candidate (proposal only): on a forgotten re-read, scramble the phase
+within its **old current-turn class**, rather than across all phases. This
+retains one exterior bit per cell while erasing the rest of its phase clock.
+Compare with retaining the next two turns. If one-bit preservation restores
+the long-return budget while phase scrambling remains substantial, the lost
+information is a directional field rather than a distant full phase clock;
+otherwise future-turn timing matters. This requires its own oracle,
+registration and fresh tests; it is not yet implemented or measured.

@@ -1,0 +1,54 @@
+{
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_memory.py --stage controls",
+  "build_sha256": "350b3a414fbd32773b534768f512a6abe2e7804b50b14e3dd18453adbc59da7e",
+  "controls": {
+    "rotor": {
+      "n": 8,
+      "c_by_seed": [
+        0.50439453125,
+        0.4986572265625,
+        0.50146484375,
+        0.49951171875,
+        0.5025634765625,
+        0.505126953125,
+        0.4967041015625,
+        0.49755859375
+      ],
+      "mean": 0.5007476806640625,
+      "between_seed_sd": 0.0031329445670095434,
+      "difference_from_parent_fixed_time_mean": 0.003243686313978811,
+      "passed": true
+    },
+    "rw": {
+      "n": 8,
+      "c_by_seed": [
+        0.461181640625,
+        0.4661865234375,
+        0.46826171875,
+        0.4605712890625,
+        0.466552734375,
+        0.455078125,
+        0.468994140625,
+        0.45263671875
+      ],
+      "mean": 0.462432861328125,
+      "between_seed_sd": 0.006131614311152842,
+      "difference_from_parent_fixed_time_mean": 0.01583042960222175,
+      "passed": true
+    }
+  },
+  "thread_identical": true,
+  "thread_check_argv": [
+    "band",
+    "RRRLRRRLLRRLRL",
+    "2026102021",
+    "uniform:4",
+    "2026102061",
+    "16",
+    "64",
+    "12"
+  ],
+  "thread_check_sha256": "ecd4f940facfc07c00c797a4f71a02fa7bb85f3400fe0bf08f95715ab6bffc71",
+  "passed": true,
+  "prior_controls_sha256": "60c51af722ba71a690fbe7290697f3fb72e9e6e2644fac48a6c45554e5ec3a4e"
+}

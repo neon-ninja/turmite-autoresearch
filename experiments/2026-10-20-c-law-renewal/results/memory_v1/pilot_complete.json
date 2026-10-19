@@ -1,0 +1,7 @@
+{
+  "runs": 56,
+  "config_sha256": "b270f7ef11897eb6b54bf4a781c4627c05082167b9ee28588afbef8333304666",
+  "build_sha256": "350b3a414fbd32773b534768f512a6abe2e7804b50b14e3dd18453adbc59da7e",
+  "scope": "excluded pilot only; no main outcomes",
+  "all_markers_validated": true
+}

@@ -257,3 +257,57 @@ and random-walk controls gate the pilot. Source hashes and deterministic
 per-case markers make the run resumable. Most recent process inspection
 showed no cargo/lattice/memory runner live, but the launcher rechecks actual
 heavy jobs before each stage. Do not claim locality from a low-exposure match.
+
+### 2026-10-20 01:37:33 (+13:00) · c826721 · observation
+
+Worker PID 1686706 ran build, controls, 56-case pilot and registered analysis;
+terminal `results/memory_v1/session.exit` is 0. Fresh binary SHA-256
+393aafa68177b7c51f94a967583290a742b7c6912da65e3ef9f15b4033eb29e7,
+full recipe/source hashes and logs in `results/memory_v1/build.json`.
+Boundary-clock controls, 8 seeds each: rotor c 0.500748, between-seed sd
+0.003133; rw 0.462433, sd 0.006132. Relative to the old fixed-time means,
+differences are +0.003244/+0.015830; record that window bias rather than
+treating the early clock as asymptotically calibrated. Source/clock oracles
+and the entire `cargo test --release` pass; full log
+`scratch/memory-full-release.log`. No new dependencies or GPU code changed.
+
+### 2026-10-20 01:37:33 (+13:00) · c826721 · surprise
+
+All 8 full references and uniform r=4/r=8 arms complete their windows.
+Registered M1 and M2 FAIL for both radii. Median absolute ln c ratio is small
+(0.012054/0.012623) but maxima 0.298926/0.276185 exceed 0.25. Median largest
+budget errors 0.248662/0.200881 exceed 0.20 (r=8 narrowly). Do not round the
+last value into a pass. Lead-4 RRRRLLRRLLLLRR has c 31–35% too high at r=4
+in both seeds, not an isolated noisy point. This corresponds to about
+24–26% fewer reads per birth, not a 35% increase in read cost.
+
+Six zero-reset arms cap at 2^28 steps before the measurement window opens;
+only the lead-3 rule supplies two defined comparisons. M3 is UNINFORMATIVE.
+That rule has zero boundary reset exposure at r>=4, so its close match is
+weak evidence. Every case, cap and paired comparison is retained in
+`results/memory_report.json` and per-case files/markers.
+
+### 2026-10-20 01:37:33 (+13:00) · c826721 · interpretation
+
+Post-failure exploratory `scripts/diagnose_memory.py` ->
+`results/memory_diagnostics.json`: r=4 on the lead-4 rule removes 1.63/1.59
+long-return reads per birth while adding 0.51/0.47 lag-4 reads; net cost falls
+0.95/1.05. Lead-2 short/long changes nearly cancel in the total. The exact
+radius bound ensures short source phases were not directly reset; the altered
+long-return history indirectly changes short-loop frequencies. This is the
+confound the registered budget challenge was intended to detect.
+Full-ant event-clock versus old k=26 maximum absolute ln c ratio is 0.0406
+on these same eight seeds, an exploratory age audit, not a universal bias bound.
+Neither a close total nor this audit establishes the local closure.
+
+### 2026-10-20 01:37:33 (+13:00) · c826721 · decision
+
+Stop the uniform-forgetting closure as registered. Do not enlarge the radius
+or open main outcomes. Next candidate: retain only the old turn bit at
+forgotten cells, sampling a phase within that turn class; compare preserving
+two future turns. This can distinguish a directional exterior field from
+the distant full phase clock. It is still a proposal requiring a new oracle,
+registration and held-out test; the mechanism and c-law constants remain open.
+Rendered `results/memory_pilot.png` from the report with `scripts/plot_memory.py`.
+Inspected the image, corrected only its generated y-axis bounds/label using
+`--replace`, then inspected again; numerical inputs were not changed.
