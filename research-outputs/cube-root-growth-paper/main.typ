@@ -20,7 +20,7 @@
   margin: (left: 24mm, right: 24mm, top: 23mm, bottom: 23mm),
   header: context if counter(page).get().first() > 1 [
     #set text(font: sans, size: 8pt, fill: muted)
-    #grid(columns: (1fr, auto), [GENERALISED LANGTON’S ANTS], [T. McNamara])
+    #grid(columns: (1fr, auto), [GENERALISED LANGTON’S ANTS], [Tim McNamara])
   ],
   footer: context [
     #set text(font: sans, size: 8pt, fill: muted)
