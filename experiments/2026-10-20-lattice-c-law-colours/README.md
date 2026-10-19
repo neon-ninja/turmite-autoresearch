@@ -69,4 +69,56 @@ uv run experiments/2026-10-20-lattice-c-law-colours/scripts/analyse.py
 
 ## Results
 
-(not yet run)
+Run 2026-10-20 (`scripts/run.sh`, 509 s wall on 6 threads, shared with another job; binary sha256 `24ea23a2...a8701` in `results/run.log`;
+`traces.jsonl` 1.8 MB), `uv run scripts/analyse.py` -> `results/analysis.{txt,json}`, post hoc `scripts/explore.py` -> `results/explore.txt`.
+`run.log` says "dirty: 0 files" but the one-line driver fix (see NOTEBOOK 01:20) was uncommitted at run time (the `git status` under the
+`GIT_DIR` workaround is unreliable); it is committed with these results.
+
+**Gate T2 passed**: 855 rules compared (105 escaped in the tracer or the parent), 0 mismatches in births, boundary steps, or per-colour sum.
+
+**Registered predictions**
+
+| | verdict | numbers |
+|---|---|---|
+| P1 Cb slope / b_med in [0.8, 1.2] | **FAILED** | 0.42 / 0.19 / 0.29 / 0.17 (square / tri / hex R / hex r) |
+| P2 R slope / ell in [0.5, 1.1] | **FAILED** | 0.08 / 0.07 / 0.20 / 0.10 |
+| P3 eps ratios >= 2.0 and >= 3.0 | formally met (7.2, 75) but **not interpretable** | see below |
+| P4 Theil-Sen b in parent CI | **HELD** | 0.691, 0.347, 0.850; hex r 0.306 in [0.15, 0.45] |
+| P5 hole births r/R >= 2 | **HELD** | 0.094 vs 0.0097 per birth (9.7x); hex r at lead 1: 0.155 |
+| P6 per-kill-letter hex R fits, weighted R^2 >= 0.80 | **FAILED** (0.781) | kill `l`: R^2 0.941 (b 0.88); kill `L` 0.717; kill `r` 0.696 (pooled 0.689) |
+
+**Why P3 is not evidence.** My circulation definition (runs of lag-`ell` returns of any cell, boundary or not) counts interior
+loops too. `C` (steps in such runs) is 30-120 per birth on the square lattice while `1/c` is 2-5, so `eps` (1-19 circulations per
+birth) and `R` are dominated by interior behaviour and say nothing about the boundary episodes in b = l_b / N_b. The boundary-only
+version, `Cb`, is what P1 tests, and it carries only 17-42% of the slope. The decomposition I intended (circulations per birth times
+boundary cells per circulation) is therefore **not measured**; P3 passing is an artefact of a bad estimator and I do not count it.
+The headline question is unanswered by the registered tests.
+
+**Post hoc (unregistered, `results/explore.txt`; all non-escaped rules, per-lead medians, no blob filter).** Boundary reads per birth by
+the colour the cell had when read (`1/c` is their sum). The lead slope lives in reads at the circulating colours 1..m-1 and is
+partly cancelled by falling reads at the killing colour and later:
+
+| stratum | circulating reads added per extra lead step | slope of circ | slope of kill | slope of later | total slope |
+|---|---|---|---|---|---|
+| hex R (loop 3) | 0.95 each (0.95, 0.96, 0.96, 0.94) | 0.95 | -0.02 | -0.07 | 0.88 |
+| square (4) | 0.85, 0.78, 0.79, 0.77 | 0.80 | -0.05 | -0.06 | 0.69 |
+| triangular (6) | 0.65, 0.50, 0.37, 0.35 | 0.46 | -0.08 | -0.02 | 0.36 |
+| hex r (6) | 0.69, 0.62, 0.53, 0.47 | 0.58 | -0.11 | -0.20 | 0.28 |
+
+Since a cell is read once per colour, "reads per birth at colour k" is the fraction of born cells that are still boundary cells at
+their k-th read. So the c law reads: that fraction is a plateau of about 0.95 (hex R), 0.8 (square), 0.4-0.65 (triangular),
+0.5-0.7 (hex r) across the lead colours, with a slow decay for the larger loops, and **b is that plateau minus the loss at the killing and
+later colours**. This restates the identity `1/c = E[N_b]` and is not a mechanism, but it says what must be explained: why a ring
+cell stays a boundary cell through the circulating reads with probability ~1 for loop 3 and ~0.5 for loop 6.
+Two further observations. (a) The ring-circulation picture does not carry the circulating reads off the square lattice: the share of
+circulating reads with lag exactly `ell` is 0.67-0.87 square but 0.05-0.44 triangular, 0.28-0.40 hex R, 0.06-0.24 hex r (rising with lead).
+(b) Hex r-lead rules fill holes: 15% of births at lead 1 land in a cell whose neighbours are all visited (the ring centre), falling to 6% at lead 5;
+hex R and square sit at 1-2%.
+
+**Reading.** Not explained. What this run adds: the slope is carried by circulating-colour reads at a plateau rate that falls as the
+loop lengthens; loop-return (lag-`ell`) circulation is the dominant carrier only on the square lattice, so the "2x2 loop" picture
+should not be transplanted to other lattices; hex r rules behave differently through hole filling; the kill letter's type matters on hex
+(`l`-killed R-lead rules are linear in lead with R^2 0.94 and the other two types are not). Next registered step, if pursued: a
+boundary-only episode segmentation (maximal runs of consecutive boundary reads of colours 1..m-1), and the plateau fraction itself
+as a function of ring geometry (outside neighbours per ring cell: square 2, triangular 1, hex R 4, hex r 3), which is a measurable
+prediction not yet made.

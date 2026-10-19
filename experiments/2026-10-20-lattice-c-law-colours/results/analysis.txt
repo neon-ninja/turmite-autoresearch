@@ -1,0 +1,79 @@
+# Lattice c law, colours and circulations: analysis (scripts/analyse.py)
+
+## T2 gate: births and boundary steps equal the parent's ants.csv window k=26; sum of per-colour edge steps equals boundary steps
+compared 855 rules, skipped 105 (escaped in tracer or parent); mismatches: 0  ->  PASS
+
+## Kept rules per stratum and lead
+square/R ell=4  n per lead 1..5: 31 18 29 27 28
+tri/R ell=6  n per lead 1..5: 36 47 47 47 46
+hex/R ell=3  n per lead 1..5: 33 28 37 42 34
+hex/r ell=6  n per lead 1..5: 38 41 47 47 47
+
+## Per-lead medians (kept rules) and slopes of the per-lead medians (primary) / Theil-Sen over rules (secondary)
+square/R   median inv_c by lead 1..5:   2.0872   2.6159   3.3611   4.1024   4.8168
+square/R   median Cb    by lead 1..5:   0.0180   0.3132   0.3719   1.1273   1.0799
+square/R   median C     by lead 1..5:  32.3149  29.5124  50.1489  70.2513 118.4584
+square/R   median eps   by lead 1..5:   6.3945   5.8075   9.6036  13.0104  18.4909
+square/R   median R     by lead 1..5:   5.0453   4.9160   5.1104   5.5932   5.8547
+square/R   median hole  by lead 1..5:   0.0221   0.0142   0.0146   0.0125   0.0095
+square/R   b_med=0.695  b_TheilSen=0.691  Cb slope=0.294  R slope=0.330  R slope/ell=0.082  eps(lead3)=9.6036
+tri/R      median inv_c by lead 1..5:   1.6036   1.9713   2.3810   2.6465   2.9424
+tri/R      median Cb    by lead 1..5:   0.0002   0.0041   0.0474   0.1232   0.2636
+tri/R      median C     by lead 1..5:   4.1487   4.0942  10.8118  13.1594  27.7494
+tri/R      median eps   by lead 1..5:   0.5983   0.5827   1.3306   1.6702   3.1321
+tri/R      median R     by lead 1..5:   7.1567   7.2385   7.6610   7.9806   8.4756
+tri/R      median hole  by lead 1..5:   0.0200   0.0330   0.0317   0.0257   0.0217
+tri/R      b_med=0.335  b_TheilSen=0.347  Cb slope=0.065  R slope=0.403  R slope/ell=0.067  eps(lead3)=1.3306
+hex/R      median inv_c by lead 1..5:   3.5906   4.2453   5.4144   6.0927   7.0395
+hex/R      median Cb    by lead 1..5:   0.0238   0.2071   0.3669   0.6105   1.0889
+hex/R      median C     by lead 1..5:   8.3120  20.3665  30.6114  71.7851 112.5616
+hex/R      median eps   by lead 1..5:   2.3706   5.4188   7.7971  15.2813  21.0388
+hex/R      median R     by lead 1..5:   3.5218   3.7009   3.9908   4.6655   5.4702
+hex/R      median hole  by lead 1..5:   0.0221   0.0128   0.0092   0.0066   0.0077
+hex/R      b_med=0.875  b_TheilSen=0.850  Cb slope=0.253  R slope=0.598  R slope/ell=0.199  eps(lead3)=7.7971
+hex/r      median inv_c by lead 1..5:   2.6288   2.7680   3.0407   3.3903   3.7169
+hex/r      median Cb    by lead 1..5:   0.0000   0.0034   0.0368   0.1289   0.1813
+hex/r      median C     by lead 1..5:   0.0077   0.2006   0.7549   2.2066   7.8166
+hex/r      median eps   by lead 1..5:   0.0012   0.0310   0.1034   0.2948   0.9960
+hex/r      median R     by lead 1..5:   6.6186   6.6885   6.9505   7.4778   8.4316
+hex/r      median hole  by lead 1..5:   0.1548   0.1238   0.0962   0.0748   0.0583
+hex/r      b_med=0.280  b_TheilSen=0.306  Cb slope=0.049  R slope=0.576  R slope/ell=0.096  eps(lead3)=0.1034
+
+## P1: Cb slope / b_med within [0.8, 1.2] in all four strata
+square/R   0.423
+tri/R      0.193
+hex/R      0.290
+hex/r      0.174
+P1 FAILED
+
+## P2: R slope / ell within [0.5, 1.1] in all four strata
+square/R   0.082
+tri/R      0.067
+hex/R      0.199
+hex/r      0.096
+P2 FAILED
+
+## P3: eps (circulations per birth, lead 3, stratum median): ratios
+eps: square 9.6036  tri 1.3306  hexR 7.7971  hexr 0.1034
+eps square / tri = 7.22 (need >= 2.0)   eps hexR / hexr = 75.43 (need >= 3.0)
+P3 SUPPORTED (eps carries the drop)
+
+## P4: Theil-Sen b vs the parent's OLS bootstrap CI
+square/R   TS b=0.691 parent CI [0.6659421682280734, 0.7243319328109562]: True
+tri/R      TS b=0.347 parent CI [0.3395331213356056, 0.371158047176526]: True
+hex/R      TS b=0.850 parent CI [0.782219844583042, 0.9826513178964396]: True
+hex/r      TS b=0.306 in [0.15,0.45]: True
+
+## P5: hole births per birth (median over kept rules; hex r-lead vs R-lead)
+hex r 0.09378  hex R 0.00969  ratio r/R = 9.68 (need >= 2.0)
+  square/R: median hole/birth 0.01246
+  tri/R: median hole/birth 0.02692
+  hex/R: median hole/birth 0.00969
+  hex/r: median hole/birth 0.09378
+
+## P6: hex R-lead split by killing letter, 1/c ~ a + b*lead per type
+pooled: n=174 a=2.798 b=0.876 R2=0.689
+  kill L: n=54 a=3.218 b=0.744 R2=0.717
+  kill l: n=56 a=2.237 b=0.882 R2=0.941
+  kill r: n=64 a=2.822 b=1.023 R2=0.696
+weighted mean R2 = 0.781 (need >= 0.80)  ->  P6 FAILED

@@ -29,7 +29,7 @@ fn main() {
                 "tri" => ("tri", Lattice::Tri),
                 o => panic!("bad lattice {o}"),
             };
-            (lat, name, r.trim().to_string())
+            (lat, name, r.trim().strip_prefix("ant:").unwrap_or(r.trim()).to_string())
         })
         .collect();
     let rows: Vec<String> = specs

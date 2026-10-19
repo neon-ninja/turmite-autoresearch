@@ -18,3 +18,29 @@ ant crosses its own ring or a second loop shares cells; it is checked only throu
 ### 2026-10-20 00:56 (+13:00) · 6049d6a · assumption
 Alternative I cannot exclude: the b(l) drop is survivor selection (the kept set differs by lattice; square lead 2 and hex R lead 2 lose >50%).
 The tracer is run on all 960 rules and quantities are reported for kept rules only, with retention printed; a check on all non-escaped rules is a planned robustness line.
+
+### 2026-10-20 01:20 (+13:00) · 34bb110 (+driver fix) · deviation
+First two launches failed: (1) git inside WSL cannot read the worktree's Windows gitdir (fixed with GIT_DIR/GIT_WORK_TREE as in
+`notes/ACTIVE.md`); (2) the driver did not strip the `ant:` prefix of the parent's spec lines, so every rule panicked on the letter `a`.
+Fixed in `examples/lattice_c_law_colours.rs` only (one line, spec parsing); `src/lattice_trace.rs` and the tests are unchanged since the
+registration commit. `run.log` will show the binary built from a dirty tree for that reason. No data had been produced by the failed runs.
+
+### 2026-10-20 01:12 (+13:00) · 34bb110 (+driver fix) · observation
+T2 passed (855 rules, 0 mismatches). P1 FAILED, P2 FAILED, P4 and P5 HELD, P6 FAILED (0.781 vs 0.80). Numbers in README Results; `results/analysis.txt`.
+
+### 2026-10-20 01:13 (+13:00) · 34bb110 (+driver fix) · surprise
+P3 passed formally (eps ratios 7.2 and 75) but I do not trust it: my run definition counts interior lag-ell loops, and C is 30-120 steps per birth while 1/c is 2-5.
+Interior behaviour swamps the boundary episodes. So the headline discriminator was badly designed, and passing it would have been a false positive.
+The boundary-only version (Cb) carries 17-42% of the slope. Recorded as a failed instrument design, not a result.
+
+### 2026-10-20 01:14 (+13:00) · 34bb110 (+driver fix) · observation
+Post hoc `explore.py`: slope lives in circulating-colour reads (0.95 per colour on hex R, 0.8 square, 0.65 to 0.35 triangular, 0.69 to 0.47 hex r), cancelled partly by
+the kill and later colours. Lag-ell share of circulating reads is low off the square lattice (0.05-0.44). Hex r lead-1 hole births 15%.
+
+### 2026-10-20 01:15 (+13:00) · 34bb110 (+driver fix) · interpretation
+Reads per birth at colour k = fraction of born cells still on the boundary at their k-th read, so the c law is a boundary-survival plateau rho(geometry), b = rho - losses.
+This restates 1/c = E[N_b]; it is not a mechanism. The ring-loop explanation looks wrong off the square lattice (lag share is a crude proxy; moderate confidence).
+Outside neighbours per ring cell (square 2, tri 1, hex R 4, hex r 3) do not order the plateaus monotonically (tri 0.5, square 0.8, hex r 0.6, hex R 0.95): a question, not a hypothesis.
+
+### 2026-10-20 01:16 (+13:00) · 34bb110 (+driver fix) · deviation
+run.log reports "dirty: 0 files" although the driver fix was uncommitted when the binary was built; the `git status` under the GIT_DIR workaround is unreliable. The fix is committed together with the results.
