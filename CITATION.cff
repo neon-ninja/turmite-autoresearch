@@ -16,7 +16,9 @@ authors:
 license:
   - MIT
   - Apache-2.0
-# Add when known: repository-code, url, version, date-released, and doi (Zenodo).
+repository-code: "https://github.com/timClicks/turmite-research"
+url: "https://github.com/timClicks/turmite-research"
+# Add when known: version, date-released, and doi (Zenodo).
 # The manuscript in research-outputs/cube-root-growth-paper/ is the preferred citation. Update
 # type/status, and add doi, url and year/date-released, when it is posted or published.
 preferred-citation:

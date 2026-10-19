@@ -3,6 +3,7 @@ name = "turmite"
 version = "0.1.0"
 edition = "2024"
 license = "MIT OR Apache-2.0"
+repository = "https://github.com/timClicks/turmite-research"
 
 [features]
 # GPU sweep (src/gpu, src/bin/gpu_sweep.rs). Needs no CUDA toolkit to build; at run time it needs
