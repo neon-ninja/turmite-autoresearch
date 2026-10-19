@@ -44,3 +44,12 @@ Ratio (k=12..22): EPS 0 1.69, 0.01 2.59, 0.02 2.41, 0.05 2.11, 0.1 1.84, 0.2 1.6
 
 ### 2026-10-19 (+13) · f414649 · interpretation
 No EPS gets below 1, so the ant deficit (median 0.81) is not reproduced by any rotor/noise mixture tested. Stopping rule from README item 5 applies. The low-EPS peak is a non-stationary transient; mechanism untested.
+
+### 2026-10-19 (+13) · 8b290d8 · observation
+Census window: `experiments/_lib/analyse_probe.py` takes kappa from the last window (k=26) and fits exponents over k=20..26. This experiment's window mean differs from the last window by ~0 (rotor), -0.01 to +0.08 (memoryless, last window k=22 not 26) and up to 1.5 (non-stationary noisy rotor, EPS 0.01: 4.15 vs 2.59). Memoryless comparison with the ants is not window-matched (a at k<=22).
+
+### 2026-10-19 (+13) · 8b290d8 · deviation
+Executing `notebook.ipynb` the first time gave an empty eps=1 row: the notebook selected `nrotor:1:` but the specs say `nrotor:1.0:`. Notebook bug only (`analyse_nrotor.py` groups by parsed float and was right). Fixed; reran from a clean kernel.
+
+### 2026-10-19 (+13) · 8b290d8 · decision
+Closing out per AGENTS.md: notebook.ipynb, notes pointer, baseline-experiment window-label note, homepage card, blog post. Steps 1, 3, 4 of the README plan not run (stopping rule: no EPS below 1).

@@ -45,3 +45,6 @@ Checked the spread of census kappa before treating "0.81x uniform" as a derivati
 
 ### 2026-10-18 (+13) · 8266186 · decision
 The 0.81 is the median of a wide rule-dependent distribution, not a constant. The target is the distribution (location plus spread), not one number. A derivation of the median alone would not be falsifiable on its own: median and geometric mean differ (0.81 vs 0.79), and single-run noise inflates the observed spread. Does NOT show a universal constant is absent; it shows the data do not call for one.
+
+### 2026-10-19 (+13) · 8b290d8 · observation
+Window labelling note from `2026-10-19-kappa-walker-reference` (no change to any number here). This experiment's own CSVs label windows by their start, so "k = 12..22" has window ends 2^13..2^23; the probe CSV's `t`/`k` columns label by window end (window (t/2, t]). Same estimator, one octave apart in label. Using `t` as the start for probe CSVs halves kappa (that experiment caught and fixed this). Also: the census kappa is the last window (k = 26) of `analyse_probe.py`, not a window mean.
