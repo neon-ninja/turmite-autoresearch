@@ -14,10 +14,11 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Origin of the c law constants a = 1.4, b = 0.68** (1/c = 1.36 + 0.70 lead). Candidate: loop-formation probability x 4 steps
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).
-- **Local renewal mechanism for c:** ordered-event recorder and controls pass; excluded pilot has no usable common horizon.
-  Full colour/eight-turn states have 100% unseen mass in every leave-one-pilot-family-out run (support audit `0fa4db2`).
-  Main cohort remains unrun. Next: revise sampling and construct a compositional model with exact target-rule phase updates,
-  rather than pooled rule-specific successors. `experiments/2026-10-20-c-law-renewal/README.md`.
+- **Local renewal mechanism for c:** rich lookup lacks pilot support (`0fa4db2`). Exact-rule finite colour-memory model then
+  fails M1/M2 at r=4 and r=8 (`a878d5e`): nearby phase clocks plus uniform forgotten phases miss the cost/budget. An exact
+  return bound ensures r=4 directly changes only >16-step phases. Long-budget loss can be hidden by more short loops.
+  Next: test preserving the old turn bit versus future-turn timing at forgotten cells; new oracle/registration still needed.
+  Main cohort remains unopened. `experiments/2026-10-20-c-law-renewal/README.md`.
 - **S-arm kappa drop (d = -0.198) is unexplained.** A total effect, not area-conditioned; confounded with flip direction
   (L>R +0.15, R>L -0.21, post hoc). Needs direction-balanced flips. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 4
   results), `experiments/2026-10-16-kappa-leadrun-fresh/README.md` (Part B addendum, Proposal 1).
@@ -55,7 +56,8 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Uncommitted work in progress (do not lose)
 
 - **c-law renewal work is active in its owning session:** instrument and oracle tests committed (`ccbd9cd`), release suite passes,
-  failed pilot and calibration committed (`e81f238`). Do not replace its pilot families or launch the unopened main cohort.
+  finite-memory model/clock (`c826721`) and failures (`a878d5e`) committed. All own jobs are terminal. Do not replace its pilot
+  families, relaunch completed pilots, or open main outcomes before the next mechanism is registered.
 - The n-rotor reference, uniform-baseline notebook edit and blog index/post listed here earlier are committed (`18b79d7`,
   `3117e1b`); `main` equals `origin/main` (`bf4ca54`) as of 2026-10-20 00:42.
 - **rulepat, branch `claude/rule-pattern-experiment-aa95e3`**: committed 2026-10-20 as `275d52b` and merged into local `main`

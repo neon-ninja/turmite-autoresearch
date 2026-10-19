@@ -311,3 +311,26 @@ registration and held-out test; the mechanism and c-law constants remain open.
 Rendered `results/memory_pilot.png` from the report with `scripts/plot_memory.py`.
 Inspected the image, corrected only its generated y-axis bounds/label using
 `--replace`, then inspected again; numerical inputs were not changed.
+
+### 2026-10-20 01:41:53 (+13:00) · a878d5e · observation
+
+Rebuilt the shareable notebook with `scripts/build_notebook.py` and executed
+it top to bottom in a clean kernel using the README nbconvert command. It
+reads committed JSON/image summaries only, recomputes the primary medians and
+maximum errors, and reproduces both registered failures and exploratory
+decomposition. Saved small outputs include the inspected figure. Publication
+tests (`uv run --frozen --only-group blog blog/scripts/test_experiments.py`)
+pass (2 tests). Updated the notes, active index, experiment guide and homepage;
+added a coherent blog entry at `_posts/2026-10-20-the-short-loops-kept-their-clocks.md`
+with pinned evidence. No own simulation or build job remains live.
+
+### 2026-10-20 01:41:53 (+13:00) · a878d5e · question
+
+What information must a forgotten cell keep? A prospective one-bit exterior
+model could preserve its old current turn and randomize the phase within that
+equivalence class; a two-turn version preserves some future timing. These
+are interventions on the model's own generated history, not reads from a
+target ant. A match requires substantial actual phase scrambling and correct
+return budgets, not just close c. No variant is implemented yet; register
+predictions and a new sparse oracle before running. Main outcomes and original
+P1–P4 remain unopened/untested. The full scientific goal is not achieved.
