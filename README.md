@@ -89,3 +89,9 @@ lab notebook, shareable notebook, scripts and small reproducible results.
 Record seeds and source revisions, quantify uncertainty between seeds, and
 keep large raw dumps in the experiment's ignored directories. See
 [`AGENTS.md`](AGENTS.md) for the full requirements.
+
+## License
+
+Code is MIT OR Apache-2.0, data (`experiments/*/results/` and Zenodo deposits)
+is CC0 1.0, and writing and figures are CC BY 4.0. See
+[`LICENSE.md`](LICENSE.md) for exactly what falls under which.
