@@ -440,6 +440,11 @@ Layer profiles bound explanations based on shallow trapping (#link(<audit-22>)[A
 
 The other nine have deeper occupation within 30% of uniform and $kappa=0.82$–$0.96$, a range narrowed by selection.
 
+#figure(
+  image("fig/layers.pdf", width: 60%),
+  caption: [Layer profiles $rho(d)$ for the 24 selected blank-board ant rules (15 with a crust, 9 without; thin lines), the rotor (mean of 12 seeds) and a persistent walk (mean of 5 runs), windows $k >= 22$, recomputed from the committed layer counts. Layer 0 is the edge, so $rho(0) = kappa$; the right-hand point pools all depths $>= 5$. Crust rules are depleted at depths 2–4 and span $kappa$ from about 0.1 to 15; the non-crust rules, the rotor and the persistent walk stay close to 1 beyond the edge layer. The crust label comes from the exploratory split described in the text.],
+) <fig:layers>
+
 The class split is exploratory. Depletion extends beyond layers 0–1, and dwell–occupation correlations are negative (Spearman $rho=-0.26$ in the extreme cohort, $-0.59$ in the typical cohort), constraining both the registered first-two-layer explanation and the proposed positive dwell association.
 
 The matched comparison further limits crust depth as an ordering variable (#link(<audit-25>)[Audit 25]): among 26 pairs matched on length, R count and edge-entry probability within 0.02, with rule-mean $kappa$ differing by at least 0.5, the lower-$kappa$ rule has the deeper crust in only 13 pairs, below the registered 18. Blank-board occupation preserves 25 of the 26 patched-start pair orderings. The reproducible occupation differences therefore require information beyond these local dwell and shallow-depletion summaries. Interior return dynamics are a candidate source of that information; the local tests alone do not establish their role.
