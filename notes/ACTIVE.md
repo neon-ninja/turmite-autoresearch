@@ -8,8 +8,14 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Science: open questions
 
 - **Why does the c-law slope b fall with loop length?** Lattice experiment: b = 0.86 / 0.70 / 0.34 / 0.28 for loops 3 (hex R), 4 (square), 6 (triangular), 6
-  (hex r); hypotheses A, B, C all disproven. Needs a registered b(l) model, a letter-typed hex lead, and ideally a new loop length; also why the hex
-  intercept is ~2.5 vs 1.3. `experiments/2026-10-20-lattice-c-law/README.md` (Results), post hoc `results/explore.txt`.
+  (hex r); A, B, C all disproven. The falling pattern is post hoc on four strata, no mechanism; the Little's-law derivation b = l_b / N_b leaves N_b(l) free
+  (the data say births per episode grow faster than boundary loop cells). Close with a registered b(l) model, tested on a new loop length.
+  `experiments/2026-10-20-lattice-c-law/README.md` (Results), post hoc `results/explore.txt`.
+- **Why is the hex intercept ~2.4-2.8 when square and triangular are 1.3?** Not predicted by A, B or C; may track coordination (z = 6 vs 4, 3) but
+  square and triangular agree despite different z. Needs the intercept modelled alongside b. `experiments/2026-10-20-lattice-c-law/README.md` (Results).
+- **Do the hex letter types after the lead matter?** Hex has four letters (r, l, R, L) and the lead analysis does not separate them; the hex R-lead fit
+  is worse (R^2 0.69 vs 0.94-0.95) and the 60° stratum's fit was ruined by one lacy rule (`rrrrrLrrrLrrLL`, perimeter = area; the blob-class proxy leaks on hex).
+  Needs a letter-typed lead, a perimeter-exponent filter (beta < 0.8) registered up front, and a clean r-lead fit. `experiments/2026-10-20-lattice-c-law/results/outlier.txt`.
 - **Origin of the c law constants a = 1.4, b = 0.68** (1/c = 1.36 + 0.70 lead). Candidate: loop-formation probability x 4 steps
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).
