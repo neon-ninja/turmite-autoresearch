@@ -1,0 +1,56 @@
+name: GPU oracle checks (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# This runner must be dedicated to trusted jobs; never trigger it from PRs.
+concurrency:
+  group: gpu-hardware
+  cancel-in-progress: false
+
+env:
+  RUSTUP_TOOLCHAIN: 1.98.1
+  PROPTEST_RNG_SEED: '20261019'
+
+jobs:
+  oracle:
+    if: github.ref_name == github.event.repository.default_branch
+    environment: gpu-ci
+    runs-on: [self-hosted, linux, x64, cuda]
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check hardware, build fresh and run CPU/GPU equality tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          export CARGO_TARGET_DIR
+          CARGO_TARGET_DIR=$(mktemp -d "$RUNNER_TEMP/gpu-target.XXXXXX")
+          source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh
+          mkdir -p "$RUNNER_TEMP/gpu-evidence"
+          exec > >(tee "$RUNNER_TEMP/gpu-evidence/check.log") 2>&1
+          git rev-parse HEAD
+          rustc --version
+          cargo --version
+          nvidia-smi
+          # Refuse to share the research GPU with an existing compute process.
+          test -z "$(nvidia-smi --query-compute-apps=pid --format=csv,noheader)"
+          processes=$(ps -eo pid,args)
+          if grep -E '[/]release/|[c]argo (run|test|build|bench)' <<< "$processes"; then
+            echo 'Another simulation/build is active; retry when idle.' >&2
+            exit 1
+          fi
+          cargo build --release --locked --features cuda --bins
+          sha256sum "$CARGO_TARGET_DIR/release/gpu_sweep" "$CARGO_TARGET_DIR/release/gpu_probe"
+          cargo test --release --locked --features cuda --test gpu --test onset --test gpu_probe
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gpu-evidence
+          path: ${{ runner.temp }}/gpu-evidence
+          retention-days: 14

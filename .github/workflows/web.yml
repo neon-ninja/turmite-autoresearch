@@ -1,0 +1,41 @@
+name: Simulator checks
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: web-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  UV_PYTHON: '3.12'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.5.15'
+          enable-cache: true
+      - run: uv python install 3.12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.13.0'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci --prefix web
+      - name: Build from committed research results
+        run: |
+          mkdir -p web/dist
+          uv run --frozen python web/build.py web/dist/explorer.html
+      - run: npm test --prefix web
+      - uses: actions/upload-artifact@v4
+        with:
+          name: explorer
+          path: web/dist/explorer.html
+          retention-days: 7

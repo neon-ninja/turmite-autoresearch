@@ -5,6 +5,7 @@
 .venv/
 __pycache__/
 /web/dist
+/web/node_modules/
 /dumps_f
 /dumps_e1
 /dumps_e5

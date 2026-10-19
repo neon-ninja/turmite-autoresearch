@@ -1,0 +1,10 @@
+{
+  "name": "turmite-web-checks",
+  "private": true,
+  "scripts": {
+    "test": "node smoke.js dist/explorer.html && node smoke2.js dist/explorer.html && node smoke_mech.js dist/explorer.html"
+  },
+  "devDependencies": {
+    "jsdom": "26.0.0"
+  }
+}

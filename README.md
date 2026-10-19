@@ -17,6 +17,10 @@ figure scripts in [`research-outputs/`](research-outputs/).
 
 ## Contributing with your agent
 
+Pull requests run the CPU oracle tests, simulator smoke checks, small
+reproducibility checks and CUDA compilation. Hardware GPU checks are manual.
+See [CI commands and GPU runner setup](.github/CI.md).
+
 You can help by directing your coding or research agent to work on this repo.
 Reproductions, careful criticism, negative results, bug fixes and clearer
 documentation are all useful contributions. You do not need a new growth

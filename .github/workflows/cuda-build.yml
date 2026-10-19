@@ -1,0 +1,27 @@
+name: CUDA compilation
+
+on: [push, pull_request, workflow_dispatch]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cuda-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  RUSTUP_TOOLCHAIN: 1.98.1
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup toolchain install "$RUSTUP_TOOLCHAIN" --profile minimal
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: cuda-check
+      # Dynamic loading permits Rust compilation without a CUDA driver/toolkit.
+      # NVRTC kernels are exercised only by the manual hardware workflow.
+      - run: cargo check --release --locked --features cuda --all-targets
