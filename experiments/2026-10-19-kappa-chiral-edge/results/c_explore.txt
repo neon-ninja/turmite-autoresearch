@@ -1,0 +1,5 @@
+K=3: census R2(1/c) 0.622; fresh R2(c) 0.742, median rel err 0.126; weights [2.69, 0.63, 0.33]
+K=4: census R2(1/c) 0.684; fresh R2(c) 0.801, median rel err 0.078; weights [2.7, 0.65, 0.35, 0.23]
+K=6: census R2(1/c) 0.695; fresh R2(c) 0.812, median rel err 0.092; weights [2.71, 0.64, 0.36, 0.24, 0.09, 0.02]
+K=8: census R2(1/c) 0.695; fresh R2(c) 0.811, median rel err 0.093; weights [2.72, 0.64, 0.36, 0.24, 0.09, 0.02, -0.0, -0.0]
+K=10: census R2(1/c) 0.695; fresh R2(c) 0.812, median rel err 0.091; weights [2.71, 0.64, 0.36, 0.24, 0.09, 0.02, -0.0, -0.0, 0.0, 0.01]

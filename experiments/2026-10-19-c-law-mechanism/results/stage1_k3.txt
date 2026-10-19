@@ -1,0 +1,4 @@
+split A/B = 1092/1093; lead-only held-out R2(ln c) 0.842
+K3 fit on A: psi 0.16, e 1.122, rho 0.693; held-out R2(ln c) on B 0.875
+K3 fit on full census: psi 0.16, e 1.121, rho 0.692; fresh (n=176) R2(c) 0.913, median rel err 0.031; lead law 0.877
+K3-1 (B R2>=0.90 and >= lead-only+0.04): FAIL; K3-2 (fresh R2>=0.90): PASS; K3-3 (psi<0.7, fit on A): PASS

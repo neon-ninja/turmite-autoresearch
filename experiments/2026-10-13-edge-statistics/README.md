@@ -11,3 +11,6 @@ Old labels / prefixes: edge, edgestats
 ## Results
 
 6 entries in `results/` (0 are `.log`/`.done` markers); csv/json/txt outputs, `*_stats.txt` hold the summaries quoted in the notes.
+
+## Addendum (2026-10-19)
+`results/edgestats_sample.csv` was produced by `examples/edgestats.rs` with K = 23 (window (2^22, 2^23], 4096 board), recovered by matching one rule's rows exactly; see `experiments/2026-10-19-c-law-mechanism/results/PROVENANCE.md`.

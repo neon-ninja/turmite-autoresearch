@@ -1,0 +1,23 @@
+commit  (+ uncommitted working tree), 2026-10-19T18:41:28+13:00
+./target/release/examples/c_law_mechanism_trace blank 24 4096 < experiments/2026-10-19-c-law-mechanism/results/lists/calib.txt
+./target/release/examples/c_law_mechanism_trace blank 24 4096 < experiments/2026-10-19-c-law-mechanism/results/lists/sample.txt
+./target/release/examples/c_law_mechanism_trace blank 24 4096 < experiments/2026-10-19-c-law-mechanism/results/lists/valid_candidates.txt
+./target/release/examples/c_law_mechanism_trace band 30 256 1024 512 20261019 < experiments/2026-10-19-c-law-mechanism/results/lists/band.txt
+     60 experiments/2026-10-19-c-law-mechanism/results/trace_band.jsonl
+     64 experiments/2026-10-19-c-law-mechanism/results/trace_calib.jsonl
+    207 experiments/2026-10-19-c-law-mechanism/results/trace_sample.jsonl
+    600 experiments/2026-10-19-c-law-mechanism/results/trace_valid_raw.jsonl
+    931 total
+./target/release/examples/c_law_mechanism_trace blank 20 4096 < experiments/2026-10-19-c-law-mechanism/results/lists/calib_rw.txt  (2026-10-19T18:46:02+13:00)
+./target/release/examples/c_law_mechanism_trace band 24 256 1024 512 20261019 < experiments/2026-10-19-c-law-mechanism/results/lists/band.txt  (2026-10-19T18:47:26+13:00)
+./target/release/examples/c_law_mechanism_trace band 25 256 1024 512 20261019 < experiments/2026-10-19-c-law-mechanism/results/lists/band.txt  (2026-10-19T18:47:29+13:00)
+./target/release/examples/c_law_mechanism_trace band 26 256 1024 512 20261019 < experiments/2026-10-19-c-law-mechanism/results/lists/band.txt  (2026-10-19T18:47:36+13:00)
+./target/release/examples/c_law_mechanism_trace band 27 256 1024 512 20261019 < experiments/2026-10-19-c-law-mechanism/results/lists/band.txt  (2026-10-19T18:47:47+13:00)
+./target/release/examples/c_law_mechanism_trace band 28 256 1024 512 20261019 < experiments/2026-10-19-c-law-mechanism/results/lists/band.txt  (2026-10-19T18:48:13+13:00)
+./target/release/examples/c_law_mechanism_trace band 29 256 1024 512 20261019 < experiments/2026-10-19-c-law-mechanism/results/lists/band.txt  (2026-10-19T18:48:59+13:00)
+./target/release/examples/c_law_mechanism_trace band 27 256 1024 512 20261019 Z < experiments/2026-10-19-c-law-mechanism/results/lists/band_chosen_L.txt  (2026-10-19T18:52:48+13:00)
+./target/release/examples/c_law_mechanism_trace band 27 256 1024 512 20261019 Y < experiments/2026-10-19-c-law-mechanism/results/lists/band_chosen_L.txt  (2026-10-19T18:53:12+13:00)
+./target/release/examples/c_law_mechanism_trace band 27 256 1024 512 20261019 H < experiments/2026-10-19-c-law-mechanism/results/lists/band_chosen_L.txt  (2026-10-19T18:53:37+13:00)
+./target/release/examples/c_law_mechanism_trace band 27 256 1024 512 20261019 U < experiments/2026-10-19-c-law-mechanism/results/lists/band_chosen_L.txt  (2026-10-19T18:54:03+13:00)
+./target/release/examples/c_law_mechanism_trace blank 24 4096 < experiments/2026-10-19-c-law-mechanism/results/lists/sbg_specs.txt (2026-10-19T18:56:12+13:00)
+./target/release/examples/c_law_mechanism_trace blank 24 4096 < experiments/2026-10-19-c-law-mechanism/results/lists/s4_trace_rules.txt  (2026-10-19T19:03:40+13:00)

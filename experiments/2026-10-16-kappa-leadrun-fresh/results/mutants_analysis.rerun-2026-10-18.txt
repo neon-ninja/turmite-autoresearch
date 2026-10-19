@@ -1,0 +1,14 @@
+# cmd: uv run experiments/2026-10-16-kappa-leadrun-fresh/scripts/analyse_mutants.py  git:  (tree dirty)  seed 20261016
+mutants 417, with base stationary-fresh row 417, mutant kept 269, kept+stationary pairs 257
+arm E: n=81 mean d=-0.062 CI [-0.152,+0.025]  mean dlnA22=-0.292 [-0.380,-0.205]  mean dlead=+1.64
+arm S: n=73 mean d=-0.198 CI [-0.290,-0.110]  mean dlnA22=+0.013 [-0.068,+0.089]  mean dlead=-1.00
+arm C: n=103 mean d=-0.006 CI [-0.049,+0.037]  mean dlnA22=-0.000 [-0.037,+0.036]  mean dlead=+0.00
+M1 arm E mean d -0.062 CI lower -0.152; pooled d ~ c0 + b*dlead + c*dA: b=+0.158 [+0.139,+0.179], c=+1.037 [+0.957,+1.119], c0=-0.023 -> FAILED
+M2 E - C mean d -0.056 CI [-0.159,+0.040] -> FAILED
+M3 arm S mean d -0.198 CI upper -0.110 -> HELD
+M4 retention of mutant given base stationary-fresh: arm, mutants, kept, kept+stationary
+  E: 152, 82, 81
+  S: 113, 82, 73
+  C: 152, 105, 103
+desc arm E: d/dlead mean -0.016; |dA|<0.15 pairs n=26, mean d +0.193
+desc arm S: d/dlead mean +0.198; |dA|<0.15 pairs n=37, mean d -0.237

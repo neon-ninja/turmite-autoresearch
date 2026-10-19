@@ -104,16 +104,93 @@ Failure of M1 and M2 together would mean the lead association is not causal at t
 - **Dropouts.** Kept/stationary per 50 rules by lead 1..6: 37/34, 32/32, 35/34, 31/31, 28/26, 20/19. Rules with >= 1 escaped run: 3, 12, 7, 4, 9, 16. Escapes are not monotone in lead and explain only part of the drop for lead 1-5; most missing rules fail the >= 6 core-band runs condition (non-core alpha_w, e.g. highway/other-class runs), not stationarity (only 0-3 kept rules per stratum are non-stationary). Retention falls sharply only at lead 6 (0.40 kept). Lead >= 5 estimates carry the most selection risk; the lead 1-4 slope (+0.197) is the least selected.
 - Not done: a bound on what dropped rules would have had; IPW only reweights by lead, not by unobserved reasons for dropout.
 
-### Part B results (run 2026-10-16 20:36-20:54, commit 78bcafd binary sha in `results/mutants_probe.log`; analysis `results/mutants_analysis.txt`, `mutant_pairs.csv`, seed 20261016, 2000 bootstraps)
-417 mutants x 8 seeds = 3336 runs. 257 pairs with both base and mutant kept+stationary (E 81, S 73, C 103).
+### Part B results (rerun 2026-10-18, commit fa73570; files `results/*.rerun-2026-10-18.*`. The original 2026-10-16 run, `results/mutants_probe.log`, `mutants_analysis.txt`, `mutant_pairs.csv`, gives the same numbers up to float ULPs; see NOTEBOOK 2026-10-19 merge entry)
+The first launch (2026-10-16) died at 600/3336 runs. It was rerun from scratch with the same command and specs (NOTEBOOK, 2026-10-18 deviation).
+The probe made 3336 runs and finished at 19:51 (`results/mutants_probe.log`). Its `git` field is empty because WSL git cannot resolve this
+worktree's gitdir; the actual commit is fa73570. Probe code is unchanged since the base run at d4fd349 (the only additions are `gpu/` and `onset.rs`).
+Instrument identity check (`scripts/check_overlap.py`, `results/overlap_check.txt`): the 30 mutants that are also base-sample rules
+reproduce `fresh_rules.csv` exactly. n_runs, ln kappa, ln A22 and g_k all differ by 0.0, and 18/30 are kept in both runs. `analyse_mutants.py` was run once, unmodified, with no crash.
+
+There are 417 mutants of 157 stationary fresh bases (lead 1-5): 269 kept, 257 kept and stationary pairs. CIs are from a bootstrap over pairs (2000 resamples, seed 20261016).
+
+| arm | pairs | mean d = dln kappa | 95% CI | mean dln A22 | mean dlead |
+|---|---|---|---|---|---|
+| E (extend lead) | 81 | -0.062 | [-0.152, +0.025] | -0.292 [-0.380, -0.205] | +1.64 |
+| S (shorten lead) | 73 | **-0.198** | [-0.290, -0.110] | +0.013 [-0.068, +0.089] | -1.00 |
+| C (late L->R) | 103 | -0.006 | [-0.049, +0.037] | -0.000 [-0.037, +0.036] | 0 |
 
 | pred | outcome |
 |---|---|
-| M1 arm E mean d > 0 (CI > 0) **and** pooled regression b > 0 | **FAILED as registered (conjunction)**: arm E mean d = -0.062 [-0.152, +0.025], because extending the lead also lowers ln A22 (mean dA = -0.292). The regression part held: d ~ c0 + b*dlead + c*dA gives b = +0.158 [0.139, 0.179], c = +1.037 [0.957, 1.119], c0 = -0.023 |
-| M2 E - C > 0 | **FAILED**: -0.056 [-0.159, +0.040]; control arm C mean d = -0.006 [-0.049, +0.037] with dA = 0 |
-| M3 arm S mean d < 0 (CI upper < 0) | **HELD**: -0.198 [-0.290, -0.110]; dA = +0.013, i.e. shortening the lead lowers ln kappa at unchanged area |
-| M4 retention (kept+stationary of arm) | E 81/152, S 73/113, C 103/152 (lost share: E 47%, S 35%, C 32%; descriptive only) |
+| M1 E mean d > 0 (CI > 0) AND pooled b > 0 | **FAILED as registered.** The first part fails: E mean d is -0.062 [-0.152, +0.025]. The second part holds: pooled d ~ c0 + b dlead + c dA gives b = +0.158 [+0.139, +0.179], c = +1.037 [+0.957, +1.119], c0 = -0.023 |
+| M2 E - C mean d CI > 0 | **FAILED.** -0.056 [-0.159, +0.040] |
+| M3 S mean d < 0 (CI upper < 0) | **HELD.** -0.198 [-0.290, -0.110], with area unchanged (dA +0.013) |
+| M4 retention (kept+stationary / mutants) | E 81/152 (0.53), S 73/113 (0.65), C 103/152 (0.68). E loses the most, consistent with L5 (longer leads drop out) |
 
-Descriptive: area-matched pairs (|dA| < 0.15): arm E n = 26, mean d = +0.193; arm S n = 37, mean d = -0.237. The regression slope on dlead (+0.158) equals the cross-sectional fresh slope (+0.152) to within noise.
+Descriptive output (registered as such) for area-matched pairs with |dA| < 0.15: E n=26, mean d +0.193; S n=37, mean d -0.237.
+Post hoc (`scripts/describe_mutants.py`, `results/mutants_describe.txt`, written after seeing the above): the area-adjusted residual
+d - 1.037 dA averages +0.241 (E), -0.211 (S) and -0.005 (C). E's total effect falls as dlead grows: dlead 1 (n=41) gives +0.04 with dA -0.13;
+dlead 2 (n=31) gives -0.13 with dA -0.40; dlead 3-4 (n=9) have dA from -0.46 to -0.74.
 
-**Reading.** Single flips that change the opening move ln kappa in the direction predicted by the lead slope when area is held fixed (S arm, area-matched E subset, regression b). But extending the lead also shrinks the early area, ln kappa follows ln A22 with coefficient ~1 across pairs, and the two cancel in arm E, so the registered raw-difference tests failed. This is consistent with "lead acts at fixed area, with a separate indirect route through area", but ln A22 is a post-treatment variable (it is measured after the flip changes the dynamics), so adjusting for it (the regression, the matched subset) is not an unbiased causal estimate; the matched subset is also selected on an outcome of the treatment. What is established: the association is not removed by within-rule pairing; control flips (arm C) do nothing; shortening the lead lowers kappa. Not established: that the lead run itself, rather than the specific letter at index k, is the cause (E flips a different index per base; S another), nor that ln kappa and ln A22 are separable quantities (c ~ 1 suggests they are nearly the same measurement over this range).
+**Reading.** Shortening the lead by one letter lowers ln kappa by about 0.2 while area stays the same. This matches the
+cross-sectional slope (0.15-0.24 per step) and is the cleanest causal evidence here. Extending the lead has no net effect on ln kappa:
+the same flip also shrinks the pattern (dln A22 about -0.29), and ln kappa moves with ln A at slope about 1. Net of area, extension
+raises ln kappa by about +0.24 per mutant (+0.16 per lead step), symmetric with S. So the lead effect is causal at fixed area, in both directions.
+Its total effect is sign-mixed: on the extension side it is cancelled by an area loss that has no counterpart on the shortening side.
+The E/S asymmetry in dA is unexplained.
+
+**Caveats.**
+1. kappa = B·A/P at k=26 contains A, so the c ≈ 1 area slope is partly definitional, and dA shares run noise with d. "At fixed
+area" therefore means conditional on the measured ln A22, as in the registered census model, not a clean structural decomposition. dA is a
+mediator, not a confounder, so b is a direct effect and E's mean d is the total effect.
+2. The pooled-regression CI treats pairs as independent, but up to 3 pairs share a base (and its measurement error), so that CI is somewhat too narrow. The within-arm CIs have one pair per base.
+3. Selection: only 53% of E mutants survive the core-band and stationarity filter, against 65-68% for S and C. If the dropped E mutants differ in kappa, E's mean d is biased in an unknown direction.
+4. No arm isolates "early flip, lead unchanged". C flips late letters, so M2 controls composition, not position. W6 found early-letter effects of both signs at fixed area, so S could partly be an early-position effect rather than a lead effect.
+5. The area-adjusted E/S symmetry is post hoc.
+
+#### Addendum 2026-10-18 20:15 (+13:00): correction to the Reading above
+The registration says: *"Failure of M1 and M2 together would mean the lead association is not causal at the single-flip scale."*
+M1 and M2 both failed. **By the criterion fixed before the run, single-flip causality of the lead association is not established.**
+The Reading paragraph above ("causal at fixed area, in both directions") overrode that criterion post hoc and is withdrawn as a conclusion.
+Revision, labelled as such: the registered half of M1 (pooled area-adjusted b = +0.158 [+0.139, +0.179]) and M3 (S: -0.198 [-0.290, -0.110]
+at unchanged area) both point the same way as the cross-sectional effect. In hindsight, the total-effect criterion for E could not separate
+a lead effect from the area loss that comes with lengthening the lead. The +0.24 area-adjusted E residual is post hoc, and c ≈ 1 is partly definitional.
+So the evidence *suggests* a direct (area-conditional) effect, and the registered test should be replaced by one designed for it. This is not a result.
+Further caveat on M3: arm S has no composition control. C is a late L->R flip, while S is an early R->L flip, so S's -0.198 combines
+"one fewer R" with "early position", and no arm tests either factor alone. M3 alone therefore does not establish causality either.
+
+## Proposed next steps, written 2026-10-19 (PROPOSALS ONLY: not registered, nothing run)
+Both follow from the Part B addendum. Neither fixes a threshold, a sample or a prediction; each must be registered
+here (with predictions, analysis script and base commit) before any run. Choices marked **open** are undecided.
+
+### Proposal 1: lead-preserving early flips (position and composition controls)
+*Gap it addresses.* No arm flips an early letter without changing the lead (caveat 4), so M3's -0.198 mixes "one fewer
+R", "early position" and "shorter lead". C controls composition only at late positions. W6 found early-letter effects of both
+signs at fixed area, so an early-position effect could masquerade as a lead effect.
+*Design sketch.* Mutate the base's letter at index k+1 or k+2, where k is the base's lead run length, so the flip lies just past the
+run and the lead stays k. Flip both directions (L->R and R->L) so letter composition changes in both senses. Paired against the base,
+same seeds, same `probe 27 8192` settings and survivor filter as Parts A/B.
+*What it would discriminate.* If the lead is the active factor, lead-preserving early flips should shift ln kappa by about zero at
+fixed ln A, with no net sign. If early position or composition drives it, they should shift ln kappa by a size comparable to S
+(about 0.2 in magnitude), with sign depending on flip direction (W6 mixed signs).
+*Statistic.* Area-adjusted effect (regression of d ln kappa on dA), as in the Part B addendum, with bootstrap over bases (not pairs) to
+handle shared bases.
+*Open.* Which bases (all 157, or lead strata with room past the run); how many flips per base; index k+1 vs k+2 as separate arms;
+whether to add a composition-matched lead-extending control (the missing S counterpart); required effect size and the sample size
+that resolves it; whether "unchanged" needs an equivalence margin and what it is.
+
+### Proposal 2: bound the arm-E dropout bias
+*Gap it addresses.* Only 53% of extend-lead mutants pass the core-band and stationarity filter (S 65%, C 68%); if the dropped ones
+differ in kappa, E's mean d is biased in an unknown direction (caveat 3). L5 already showed lead-dependent attrition in Part A.
+*Design sketch (no new runs).* From the existing `mutants.csv` / `mutant_pairs.csv`, classify why each E mutant dropped (escape,
+alpha_w outside band, non-stationary, too few seeds), then report bounds on E's mean d instead of a point estimate: for example
+inverse-probability weighting by base lead and rule length, and worst-case (Manski-style) bounds from imputing the dropped E mutants
+at the observed extremes of the kept ones. Repeat for S and C so the comparison is like for like.
+*What it would discriminate.* Whether the failed M1/M2 conclusion (E not distinguishable from 0 or from C) is robust to attrition, or
+whether plausible dropout behaviour could flip it either way. A bound that includes both signs means M1/M2 are uninformative, not failed.
+*Open.* Which imputation range is defensible; whether dropped-for-escape mutants are censored (they never reach the measurement
+area) rather than missing; whether non-stationary mutants need a separate arm because the model for them differs. Any choice made
+after looking at the dropped rules' kappa must be labelled post hoc.
+
+### Ordering
+Proposal 2 costs no compute and could be registered and run first; its outcome tells us whether the E arm is worth repeating inside
+Proposal 1. Proposal 1 needs a new probe run (about 30 min at Part B's scale) and a registered sample size.

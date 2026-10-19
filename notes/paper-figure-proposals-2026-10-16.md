@@ -97,3 +97,5 @@ Item 1 is implemented as `fig/late_switch.pdf`, linked from the RLRLLL
 subsection. Its script reads compact results recovered from the proposal
 worktree; details, checks and reproduction commands are in
 `experiments/2026-10-13-g1-ribbon-breakout/README.md`. Other proposals remain open.
+
+Status 2026-10-17 (from the proposal branch, merged 2026-10-19): items 1-3 and 5 were not built there; see `notes/handover-paper-figures-2026-10-17.md`.
