@@ -193,3 +193,67 @@ after that check. Goal remains active: a supported local process determining
 state frequencies, a tested replacement closure and coefficient derivation
 are still missing. Next session must redesign and register those tests,
 not relaunch the completed diagnostic or score the original rich lookup.
+
+### 2026-10-20 01:06:34 (+13:00) · a95ad13 · intent
+
+Previous goal turn was progress: calibrated recorder, failed sampling gate
+and unsupported rich representation were measured and committed. Inspected
+current files and goal; no own experiment job is live. A separate lattice
+colour job (PID 1663389) is live, so do not begin new ant measurements yet.
+Register the finite colour-memory intervention in README before implementation:
+apply target-rule phase updates exactly while resident; erase only forgotten
+phases, retaining the model's own visited geometry. M0 oracle tests come first.
+Four excluded base rules, two seeds, fixed radii/policies; main cohort unopened.
+
+### 2026-10-20 01:06:34 (+13:00) · a95ad13 · decision
+
+The earlier 10% consumed-band requirement is not retained for this new pilot:
+it mixes a size requirement into a boundary-cost measurement and failed
+despite some substantial boundary samples. Replace it prospectively by minimum
+boundary reads/births and an upper depletion bound, reporting every exclusion.
+This does not change the original failed verdict. The finite-memory model is
+a counterfactual colour-field closure, not an unmodified ant and not a proof
+that local geometry alone suffices. Its source phase must be reset before
+instrumentation; a Walker.step-only reset would label the wrong phase.
+
+### 2026-10-20 01:23:41 (+13:00) · a95ad13 · deviation
+
+Before any new model run, amended the proposed fixed-time pilot to a boundary
+clock: warm 2048 reads, measure 8192, global cap 2^28 steps. The original
+fixed-time proposal remains in README. At most 10240 births can occur before
+completion, analytically preventing band depletion (<2%) in every completed
+run. Complete model windows with zero births remain outcomes, not exclusions.
+This is a new prospective window; rotor/rw calibration and independent
+offline-window equivalence are mandatory before interpreting comparisons.
+
+### 2026-10-20 01:23:41 (+13:00) · a95ad13 · observation
+
+Implemented finite colour cache, source-preparation hook and boundary clock.
+Release checks: 5 local-memory tests, 4 existing renewal tests and 5 original
+aggregate-tracer tests pass; driver builds and Python runner/analysis compile.
+Logs: `scratch/memory-instrument-tests.log`, `scratch/memory-driver-build.log`.
+The new walker matches independent HashMap cache eviction step for step with
+seeded wrapping paths; full mode equals AntWalker. Known loops and an entire
+path retained in-cache have zero resets. No ant-pilot outcomes measured yet.
+
+### 2026-10-20 01:23:41 (+13:00) · a95ad13 · interpretation
+
+Exact geometric deduction: alternating axes imply a closed k-step path has
+k/4 positive and k/4 negative moves along each axis, so no coordinate can
+stray by more than k/4. Cache eviction at radius r therefore requires a
+return lag >=4(r+1). Radius 4 preserves every <=16-step source phase. Tests
+exhaust all 16-step turn words/closed prefixes and check the bound on every
+oracle-observed reset. This clarifies the intervention: it directly erases
+only long-return phases while preserving immediate short-loop clocks, though
+the changed path may alter the frequency of those short loops indirectly.
+It does not yet explain the measured c-law coefficients.
+
+### 2026-10-20 01:23:41 (+13:00) · a95ad13 · decision
+
+Freeze `memory_design.json`, implementation and M1/M2/M3 analysis before
+launch. Cases are four excluded bases x two seeds x seven arms, no fitting or
+main-outcome access. A fresh build re-runs oracle tests; boundary-clock rotor
+and random-walk controls gate the pilot. Source hashes and deterministic
+per-case markers make the run resumable. Most recent process inspection
+showed no cargo/lattice/memory runner live, but the launcher rechecks actual
+heavy jobs before each stage. Do not claim locality from a low-exposure match.

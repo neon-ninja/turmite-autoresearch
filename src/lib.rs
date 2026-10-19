@@ -22,6 +22,7 @@ pub mod fixed_area;
 pub mod gpu;
 pub mod lattice_probe;
 pub mod lean;
+pub mod local_memory;
 pub mod onset;
 pub mod prefix_exposure;
 pub mod probe;

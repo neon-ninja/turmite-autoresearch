@@ -45,6 +45,9 @@ pub struct Event {
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Summary {
     pub steps: u64,
+    pub start_step: u64,
+    pub window_steps: u64,
+    pub window_complete: bool,
     pub boundary_reads: u64,
     pub births: u64,
     pub lag: [u64; 4],
@@ -70,15 +73,60 @@ pub fn lag_class(now: u64, previous: u64) -> u8 {
 /// `rule` labels features only; it must describe an ant walker when present.
 /// `None` permits rotor/random-walk accounting controls without fictitious turns.
 pub fn trace<W: Walker>(
-    mut walker: W,
+    walker: W,
     rule: Option<&Rule>,
     lay: Layout,
     prefill: &dyn Fn(usize, usize) -> Option<u8>,
     start: (usize, usize, u8),
     log2: u32,
+    emit: impl FnMut(Event),
+) -> Summary {
+    trace_clock(
+        walker,
+        rule,
+        lay,
+        prefill,
+        start,
+        Clock::Octave(log2),
+        |_, _, _| {},
+        emit,
+    )
+}
+
+#[derive(Clone, Copy, Debug)]
+pub enum Clock {
+    Octave(u32),
+    Boundary {
+        warmup: u64,
+        reads: u64,
+        max_steps: u64,
+    },
+}
+
+/// The pre-read hook may change the source phase but not geometry or heading.
+/// A reset performed in Walker.step would mislabel the recorded source state.
+pub fn trace_clock<W: Walker>(
+    mut walker: W,
+    rule: Option<&Rule>,
+    lay: Layout,
+    prefill: &dyn Fn(usize, usize) -> Option<u8>,
+    start: (usize, usize, u8),
+    clock: Clock,
+    mut prepare: impl FnMut(&mut W, &mut u8, u8),
     mut emit: impl FnMut(Event),
 ) -> Summary {
-    assert!((1..=30).contains(&log2));
+    let (total, fixed_start) = match clock {
+        Clock::Octave(log2) => {
+            assert!((1..=30).contains(&log2));
+            (1u64 << log2, Some(1u64 << (log2 - 1)))
+        }
+        Clock::Boundary {
+            reads, max_steps, ..
+        } => {
+            assert!(reads > 0 && max_steps > 0 && max_steps <= 1 << 30);
+            (max_steps, None)
+        }
+    };
     let Layout { w, h, wrap } = lay;
     assert!(w >= 8 && h >= 8);
     let norm = |x: i64, y: i64| -> usize {
@@ -133,13 +181,18 @@ pub fn trace<W: Walker>(
     let reflected = rule.is_some_and(|r| r.0[0].delta() == 3);
     let mut run = 0usize;
     let mut window_run = 0usize;
-    let total = 1u64 << log2;
-    let t0 = total / 2;
+    let mut seen_boundary = 0u64;
+    let mut started = matches!(clock, Clock::Boundary { warmup: 0, .. });
+    if started {
+        out.area_t0 = out.area;
+    }
     for t in 1..=total {
         let i = y * w + x;
         let on_b = unv[i] > 0;
+        let in_window = started;
+        prepare(&mut walker, &mut col[i], hd);
         let mut state = State::default();
-        if t > t0 && on_b {
+        if in_window && on_b {
             state.colour = col[i];
             state.lag = lag_class(t, last[i] as u64);
             state.chain_before = run.min(4) as u8;
@@ -189,11 +242,18 @@ pub fn trace<W: Walker>(
             }
             out.perimeter += u64::from(unv[j] > 0);
         }
-        if t == t0 {
-            out.area_t0 = out.area;
+        if on_b {
+            seen_boundary += 1;
         }
-        if t > t0 {
-            if t == t0 + 1 {
+        let opens = fixed_start == Some(t)
+            || matches!(clock, Clock::Boundary { warmup, .. } if !started && seen_boundary == warmup);
+        if opens {
+            out.area_t0 = out.area;
+            out.start_step = t;
+            started = true;
+        }
+        if in_window {
+            if t == out.start_step + 1 {
                 out.left_chain_censored = run > 0 && born;
             }
             if on_b {
@@ -212,10 +272,20 @@ pub fn trace<W: Walker>(
         }
         run = if born { run + 1 } else { 0 };
         out.steps = t;
+        if in_window {
+            out.window_steps += 1;
+        }
         if !wrap && (x <= 2 || y <= 2 || x >= w - 2 || y >= h - 2) {
             out.escaped = true;
             break;
         }
+        if matches!(clock, Clock::Boundary { reads, .. } if out.boundary_reads == reads) {
+            out.window_complete = true;
+            break;
+        }
+    }
+    if fixed_start.is_some() && !out.escaped && out.steps == total {
+        out.window_complete = true;
     }
     if window_run > 0 {
         out.chains[window_run.min(CHC - 1)] += 1;

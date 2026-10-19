@@ -385,3 +385,168 @@ return information. A pool of observed successors must not silently change
 the target rule. This compositional closure is a proposal, not an implemented
 or registered main model. Its synthetic calibration, sampling revision,
 mechanism tests and held-out evaluation remain required. P1–P4 are untested.
+
+## Finite colour-memory closure pilot — 2026-10-20 01:06:34 (+13:00)
+
+Registered before implementing or measuring the new model. This is an
+excluded-pilot intervention, not a replacement score for original P1–P4.
+The previous turn made progress by rejecting an unsupported representation;
+all original jobs are terminal. The main cohort stays unopened.
+
+**H-memory:** exact phase updates in a small moving patch are sufficient to
+reproduce the ant's boundary-read cost. Long-range phase memory is dispensable
+for c even if it changes growth or boundary occupation. This is stronger than
+the known immediate-birth identity and is falsified by a changed return budget.
+
+The model generates its own complete path and visited set. Keep colours for
+read cells inside a Chebyshev-radius r square centred on the walker, evicting
+the outgoing strip after every step. Inside the patch, turn and increment by
+the target rule exactly. At a previously read cell absent from the cache,
+replace its phase by a uniform draw from 0..n-1 before reading, then advance
+normally. First reads retain their original blank/background phase. No target
+trajectory, target state frequency, census c, or learned rule identifier is
+used. The persistent visited geometry is produced by this model, not supplied
+by the full ant. Thus it tests local **colour** memory, not whether global
+geometry is dispensable. An r=4 reset-to-zero arm challenges sensitivity to
+the chosen external-phase distribution. The no-eviction arm is the exact ant.
+
+Random draws: the existing SplitMix64 stream, one draw per forgotten re-read,
+uniform modulo n. Interior seeds 2026102021/22 use reset seeds 2026102061/62,
+respectively; all arms have these fixed seeds. Rule phase remains exact
+between explicit resets. Resets occur before source statistics are recorded;
+the instrument needs a tested pre-read hook to avoid labelling the old phase.
+Neighbour phase labels in the old rich lookup are not model inputs or scored
+predictions. A reset changes colour, never whether a cell has been visited.
+
+### Frozen pilot recipe and predictions
+
+- Four **base** rules of the existing excluded pilot, both original seeds;
+  no choice by c or survival, no replacement. T=2^26, original 256x4096 torus,
+  2048 fresh rows, same start and hash. Window `(2^25,2^26]`.
+- Arms: full ant; uniform-reset r=0,1,2,4,8; zero-reset r=4. At most
+  56*2^26 steps. Fresh build, binary/source hashes, background log, resumable
+  per-(rule,seed,arm) chunks. No overlapping heavy job or GPU timing.
+- **M0 oracle gate:** ring-cache walker matches an independent HashMap
+  implementation step for step (phase before/after reset, headings, positions,
+  eviction and reset counts) on seeded blank/band cases including wrapping.
+  Full arm matches `AntWalker`; a cache containing the entire path causes
+  no resets; a radius >=1 preserves the all-same-turn four-step loop.
+  The pre-read instrument matches existing no-hook control totals exactly.
+- **M1 pilot sufficiency candidate:** r=4 and r=8 uniform arms each have median
+  absolute paired `ln(c_model/c_full)` <=0.10 and maximum <=0.25 on eligible
+  pairs. This criterion is not a proof of transfer and cannot finish the goal.
+- **M2 accounting challenge:** at r=4 and r=8, median over eligible pairs of
+  the maximum absolute error across `first/lag4/other-short/long reads per
+  birth` <=0.20. Matching c with a wrong decomposition fails the candidate.
+- **M3 phase-prior challenge:** r=4 zero and uniform arms have median absolute
+  paired ln c difference <=0.10. Failure says the external-phase closure
+  matters, not that long-range memory is necessarily required.
+
+Sampling revision for this pilot only: eligibility requires >=1000 boundary
+reads and >=500 births in both compared windows, no escape and <80% total
+fresh-band consumption at the end. Do not require 10% consumption: the earlier
+pilot showed this geometric-size gate suppresses many otherwise measurable
+boundary samples. This explicitly revises the pilot sampling criterion; it
+does not retrospectively pass the failed original gate. Require >=6/8 eligible
+pairs for each primary comparison, otherwise UNINFORMATIVE. Publish all runs,
+eligibility reasons, per-seed deltas and within-rule two-seed spread. These
+pilot comparisons are descriptive feasibility tests; no tiny-n significance
+claim or main-cohort validation. r=0/1/2 profiles and reset exposure are
+descriptive, with no monotonicity assumed. All arms are fixed before data.
+
+If no finite radius meets M1+M2, stop this closure and diagnose which budget
+component changes. If it does, freeze a fresh held-out test and paired-mutant
+challenge before opening the main cohort. Deriving/predicting the c-law
+coefficients and later-letter corrections remains part of the research goal.
+
+### Boundary-clock amendment — 2026-10-20 01:09:00 (+13:00), before implementation/run
+
+Prospective design correction, not a response to new model outcomes. The
+fixed-step recipe immediately above is superseded for the finite-memory
+pilot; retain it as the original proposal. Forgetting bulk phases may change
+growth enough to exhaust the finite band before a step-time window opens.
+That would confound a local boundary-cost comparison with growth rate again.
+
+Use an **embedded boundary-event clock**: exclude the first 2048 boundary
+reads, measure the next 8192, cap the entire run at 2^28 physical steps.
+The measurement includes all physical steps between its first/last boundary
+events; lag is still physical time since any previous read. Record physical
+start/end time, completeness, clipped chains and partial windows explicitly.
+No choice of clock or threshold per rule. Stop a completed run on its last
+measured boundary read. At most 10240 births can occur before this stop, so
+fresh-band consumption cannot exceed 10240/524288 (<2%); this analytically
+prevents the depletion confound without dropping fast-growing model arms.
+The original failed fixed-time pilot remains failed.
+
+Eligibility: the full-ant reference must complete its 8192-read window with
+>=500 births; each comparison arm must complete the same read count without
+escape. >=6/8 eligible pairs are needed for M1/M2, otherwise UNINFORMATIVE.
+A complete model window with zero/few births is **not excluded**: it is an
+outcome (zero c gives an infinite log-cost discrepancy and fails sufficiency).
+Cap failures remain visible, with read progress and all partial summaries.
+All original M1/M2/M3 thresholds, arms, excluded base rules, seeds and policy
+choices are unchanged. Worst-case bound is now 56*2^28 steps; actual work
+stops at the event budget. Profile feasibility/runtime on these fixed cases;
+do not enlarge the cap or replace slow rules without another registration.
+
+This changes the observation window, so add calibration before any pilot
+claim: independent offline prefix/window selection must agree exactly with
+the new clock (including physical lags and chain censoring). Rotor and random
+walk controls: 8 seeds 2026102051..58, blank 4096 board, the same boundary clock
+and cap; means within G2's original ranges, report sd and deviations from the
+parent controls. The M0 walker oracle and no-reset identity remain mandatory.
+
+### Exact spatial-return bound — 2026-10-20 01:21:42 (+13:00)
+
+This is a geometric deduction, not a simulation result. Between two reads
+of the same cell on the square lattice, axes alternate. A closed path of
+length k has k/2 horizontal moves, half in either sign, and the same vertically.
+Therefore k is divisible by 4 and its maximum coordinate excursion from the
+source is at most k/4. Evicting that source from a Chebyshev-radius r cache
+before its next read requires an excursion >=r+1, hence **k>=4(r+1)**.
+For the large torus this also holds for winding returns: each circumference
+exceeds 2r+1, so an alternating-axis winding route takes at least 4(r+1) steps.
+
+Consequences: radius 1 always preserves lag-4 source phases; radius 4 preserves
+every source phase returned to within 16 physical steps; radius 8 within 32.
+The r=4/r=8 interventions directly change only the registered long-read class,
+although a reset can indirectly change all subsequent trajectories and budgets.
+This sharpens the mechanism test: preservation of immediate short loops is
+guaranteed, while the importance of longer-return phase memory is empirical.
+It does not predict that c or the lag-4 *frequency* stays unchanged.
+
+M0 additionally checks this bound on every reset in the sparse oracle, and
+exhausts all 16-step turn words and their closed prefixes. The driver reports
+reset exposure by read-lag class; r>=4 must have no resets in first/4/<=16
+classes. Exact turn-bound logic is not a fitted statistic. These checks and
+exposure reports are registered before new model measurements.
+
+### Implementation and reproducible commands
+
+`src/local_memory.rs` has a ring cache checked against independent HashMap
+eviction; `edge_renewal::trace_clock` applies resets before read labels and
+implements the embedded window. Existing `trace` remains the exact old
+octave interface. Source-phase exposure and per-colour read/birth counts are
+recorded, with reset counts by lag class. A match without meaningful reset
+exposure is only a weak locality challenge and cannot establish sufficiency.
+
+All code, seeds, clock, policies and analysis criteria are frozen in the
+implementation commit and `memory_design.json` before data collection. Commands
+from WSL repository root with usual UV exports:
+
+```bash
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_memory.py --stage build
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_memory.py --stage controls
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_memory.py --stage pilot
+uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/analyse_memory.py
+```
+
+For a detached sequential execution of these stages, after waiting on verified
+heavy jobs: `uv run --frozen
+experiments/2026-10-20-c-law-renewal/scripts/launch_memory.py`. Read the actual
+worker PID/terminal status before retrying. Results and background log are in
+`results/memory_v1/`. Fresh build directory, binary/source hashes and oracle
+test exit status are captured. Each case has a recipe-keyed `.done` marker;
+parallelism is across independent seeded cases (default 2 workers), with
+identical scientific JSON regardless of scheduling. Timing is printed only to
+the log; there is no speed claim. Old data are never overwritten.
