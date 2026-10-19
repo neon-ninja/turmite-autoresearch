@@ -30,3 +30,6 @@ Prefix info is essentially "how many identical letters open the rule". Confound 
 
 ### 2026-10-16 09:50 (+13:00) · 269288e · deviation
 No executed notebook.ipynb written (template left as is); README holds the results. To do before this experiment counts as finished.
+
+### 2026-10-19 (+13:00) · 8f4b978 · interpretation
+Co-reading note appended at the 2026-10-19 merge (the entry corrects nothing above). `../2026-10-19-c-law-mechanism/` Stage 4 (registered before computation; Q1-Q4, P-1 held; re-run of 4a/4b at merge reproduced the numbers) shows the fixed-area lead-on-ln-kappa slope (+0.15) is reproduced by conditioning on the collider ln A22 = f(ln c, ln kappa) with no direct effect (null +0.145 [0.137, 0.153]; adding ln c gives +0.014 [-0.045, +0.062]). Read the interpretation and any 'causal at fixed area' wording above as superseded in part: association conditional on area, not evidence of a direct lead effect. Unexplained and still open: the S-arm drop (-0.198) and its confounding with flip direction. See notes/open-questions-hypotheses.md, Reconciliation 2026-10-19.
