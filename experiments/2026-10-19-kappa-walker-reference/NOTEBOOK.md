@@ -26,3 +26,6 @@ Ant median 0.81 is below every non-uniform walker tested, and the mean-field wal
 
 ### 2026-10-19 (+13) · 34fbf45 · decision
 Stop at accounting. Next step proposed: noisy rotor (eps scan) to locate where ratio crosses 0.81. Release tests pass (`cargo test --release`, no Rust changed).
+
+### 2026-10-19 (+13) · 0169fee · interpretation
+Addendum to the interpretation above (second reader, no new data). (1) The "(mean - ant q75)/seed-sd" figures in `analysis.txt` (5-25) compare a walker's 8-seed mean to a quantile of single-run, rule-dependent ant ratios (ln-kappa reliability ~0.6); they measure walker seed noise only and are not significance tests. (2) The walker ratios are > 1 for every non-uniform walker and the ant median is < 1, but the ant 5-95% range spans 0.44-1.33, so rule-level structure, not the median, is the better lever. (3) An earlier version of this session's summary quoted the halved-kappa `analysis.txt` (ratios 0.62-0.90); the deviation entry above gives the cause (window-end `t` taken as window start) and those numbers must not be quoted. (4) Paper edit not made; proposal in `notes/paper-and-supplementary-plan-2026-10-19.md`.
