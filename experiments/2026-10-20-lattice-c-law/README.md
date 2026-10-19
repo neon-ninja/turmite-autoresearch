@@ -179,3 +179,26 @@ F2 dropped exactly one rule (`rrrrrLrrrLrrLL`, r-lead; none in R-lead). Fits (ru
   (+0.1 in 1/c per 0.1 of `f_big`) and absent in r-lead. **T4 FAILED**: r-lead intercept at f_big = 0 stays 2.37; R-lead falls to 2.33 (not registered).
 - Reading: the hex slope/intercept difference from square and triangular is not a mixed-letter artefact or an outlier artefact. The hex lead fits remain noisy (R^2 0.42 and 0.69
   against 0.94-0.95), with most of the scatter unexplained by lead, composition or letter type. Not tested: other tail features (second run length, letters 6-8 as in the square law).
+
+## Follow-up B: a new loop length on the Moore lattice (registered 2026-10-20 01:30 (+13:00), base commit after `lattice_probe: add Moore`)
+
+**Nothing has been run on Moore ants.** Instrument: `Lattice::Moore` in `src/lattice_probe.rs` (8 neighbours, headings N,NE,E,SE,S,SW,W,NW; `r`/`l` turn 45 degrees, `R`/`L` 90 degrees);
+G2 (naive HashMap oracle, ant and random movers) and G3 (loops: r, l -> 8, R, L -> 4) pass in `tests/lattice_probe.rs`, and a mutation of the `l` turn was caught.
+Rule lists: `scripts/make_lists_moore.py` (seed 20261021): 48 per lead 1..5 in two strata, **r-lead (loop 8)** and **R-lead (loop 4, but z = 8 not 4)**; 480 ants; controls rw 32 and mf 8.
+Run and filters exactly as the main experiment (2^27 steps, board 8192, windows 12..26, F2 = registered filter plus `beta < 0.8`, fit `1/c = a + b*lead`, 2000-draw rule bootstrap seed 20261020).
+
+**Models for b(loop length l) fixed from the four existing strata (l, b) = (3, 0.86), (4, 0.70), (6, 0.34), (6, 0.28)** (the hex values use the F2 fits where relevant):
+- **M-lin** `b = 1.5 - 0.2 l` (the post hoc line): l = 4 -> 0.70, l = 8 -> -0.10 (so b ~ 0).
+- **M-inv** `b = 2.47 / l` (least squares through the origin on b vs 1/l): l = 4 -> 0.62, l = 8 -> 0.31.
+- **M-z** b depends on coordination as well as l, which neither M-lin nor M-inv covers; it is the residual hypothesis if both miss.
+
+**Predictions (odds in brackets).**
+- **B1** Moore R-lead (l = 4, z = 8): b within 0.15 of the square value 0.70, i.e. [0.55, 0.85] (loop length, not z, sets b): 40%.
+- **B2** Moore r-lead (l = 8): M-lin is supported if b < 0.12 and the bootstrap CI excludes 0.31; M-inv is supported if b in [0.20, 0.42]; otherwise neither. Odds: M-lin 15%, M-inv 35%, neither 50%.
+- **B3** within Moore, b(r-lead) < b(R-lead), bootstrap CI of the ratio b_r/b_R below 1: 80%.
+- **B4** both Moore fits have R^2 >= 0.5 and retention >= 8 kept rules per (stratum, lead): 55%.
+- **B5** the Moore intercepts a lie within 0.5 of 1.3 (the square/triangular value): 30% (hex was 2.4-2.8, which scales with nothing I have).
+- **B6** random-walk kappa ratio >= 1.10 and mean-field ratio within 0.05 of 1 (gate G4) on Moore: 85%. If G4 fails, no kappa claim there.
+
+Decision: M-lin and M-inv are scored on B2 only; a supported model must also not miss B1 by more than 0.15 of its own l = 4 prediction (0.70 / 0.62). Results will be appended below, not edited above.
+Script `scripts/analyse_moore.py` -> `results/analysis_moore.txt`.
