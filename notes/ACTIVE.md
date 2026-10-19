@@ -44,8 +44,9 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 - **Push `main`.** Local `main` is ahead of `origin/main` (merge `8f4b978`, reconciliation `5d866ce`, loop-surgery closure
   `8b290d8`, and any later commits). Not pushed; needs the user's go-ahead.
-- **Re-execute `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb`** (taken from the branch at merge, not re-run here;
-  build with `scripts/build_notebook.py`, execute with the command in `experiments/README.md`).
+- **Jupyter is not in `pyproject.toml`**: `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb` was re-executed 2026-10-20
+  using `uv pip install ipykernel` into the WSL venv plus `ipykernel install --sys-prefix`; decide whether to `uv add` it.
+  Its Proposal 2 bounds are not in the notebook (rebuild with `scripts/build_notebook.py` if wanted).
 - **Refresh `blog/index.html`** with the c-law / collider result (convention in `AGENTS.md`). The experiment pages were
   re-rendered 2026-10-20 (from a worktree under WSL set `GIT_DIR=/mnt/f/Code/turmite/.git/worktrees/<name>` and `GIT_WORK_TREE=$PWD`).
 - **Stale worktrees and branches** (nothing deleted yet; on 2026-10-20 their uncommitted work was committed on their own

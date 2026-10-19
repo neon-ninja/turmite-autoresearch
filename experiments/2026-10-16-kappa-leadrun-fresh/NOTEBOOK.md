@@ -89,3 +89,6 @@ Ran `scripts/dropout_bounds.py` (no new runs; `results/dropout_bounds.txt`). Den
 
 ### 2026-10-20 00:10 (+13:00) · 0de4d38 · interpretation
 E's null (M1/M2 failed) is not robust to attrition in either direction: the bounds include both signs, so M1/M2 are uninformative about E rather than cleanly failed. S's M3 (negative) is sturdier but not sign-identified under the worst-case 5th/95th bound (upper end +0.015). Limits: dropout reasons (escape vs core-band vs non-stationary) are not recoverable from committed files (need the gitignored `dumps/`), so escape-censoring is not separated from missingness; IPW adjusts only for observed lead and length.
+
+### 2026-10-20 01:30 (+13:00) · 768f267 · observation
+Re-executed `notebook.ipynb` top to bottom from a clean kernel (`jupyter nbconvert --to notebook --execute --inplace`, ipykernel installed into the WSL project venv with `uv pip install`, not added to `pyproject.toml`; kernelspec `python3` registered with `--sys-prefix`). 0 error outputs; the diff against the committed notebook is 23 lines of the 50 KB file. The notebook was not re-built by `build_notebook.py`, so the Proposal 2 dropout bounds are not in it (README and this NOTEBOOK carry them).
