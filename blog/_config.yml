@@ -1,0 +1,34 @@
+title: Turmite
+description: Field notes on generalised Langton's ants — experiments, mechanisms, and open questions.
+url: ""
+baseurl: ""
+# Filled automatically by GitHub Actions. Set this locally to enable source links.
+repository_url: ""
+lang: en-NZ
+timezone: Pacific/Auckland
+permalink: /:year/:month/:day/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+plugins:
+  - jekyll-feed
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: page
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author: Turmite researchers
+      status: Field note
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - scripts
+  - templates

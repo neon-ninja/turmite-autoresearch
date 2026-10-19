@@ -1,0 +1,24 @@
+---
+layout: default
+---
+<article class="entry">
+  <header class="entry-header">
+    <a class="back-link" href="{{ '/' | relative_url }}">← All entries</a>
+    <p class="eyebrow"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%d %B %Y' }}</time> / {{ page.status | escape }}</p>
+    <h1>{{ page.title | escape }}</h1>
+    {% if page.description %}<p class="dek">{{ page.description | escape }}</p>{% endif %}
+    <p class="byline">{{ page.author | escape }}{% if page.tags.size > 0 %} · {{ page.tags | join: ' / ' | escape }}{% endif %}</p>
+  </header>
+  {% if page.experiment or page.commit %}
+  <aside class="provenance" aria-label="Research provenance">
+    <strong>Research trail</strong>
+    {% if page.experiment %}<span>Experiment: {% if site.repository_url != '' %}<a href="{{ site.repository_url | escape }}/tree/{{ page.commit | default: 'HEAD' | escape }}/{{ page.experiment | escape }}">{{ page.experiment | escape }}</a>{% else %}<code>{{ page.experiment | escape }}</code>{% endif %}</span>{% endif %}
+    {% if page.commit %}<span>Revision: {% if site.repository_url != '' %}<a href="{{ site.repository_url | escape }}/commit/{{ page.commit | escape }}"><code>{{ page.commit | truncate: 12, '' | escape }}</code></a>{% else %}<code>{{ page.commit | escape }}</code>{% endif %}</span>{% endif %}
+  </aside>
+  {% endif %}
+  <div class="prose">{{ content }}</div>
+  <nav class="post-nav" aria-label="Other entries">
+    <span>{% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title | escape }}</a>{% endif %}</span>
+    <span>{% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title | escape }} →</a>{% endif %}</span>
+  </nav>
+</article>

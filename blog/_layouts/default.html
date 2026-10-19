@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title | escape }} · {% endif %}{{ site.title | escape }}</title>
+  <meta name="description" content="{{ page.description | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | escape }}">
+  <meta name="color-scheme" content="light dark">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+  {% feed_meta %}
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+  <header class="site-header shell">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="Turmite home"><span class="mark" aria-hidden="true">↱</span> turmite<span class="brand-note"> / research log</span></a>
+    <nav aria-label="Main navigation">
+      <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Entries</a>
+      <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      {% if site.repository_url != '' %}<a href="{{ site.repository_url | escape }}">Code ↗</a>{% endif %}
+    </nav>
+  </header>
+  <main id="content" class="shell">{{ content }}</main>
+  <footer class="site-footer shell">
+    <span>Simple rules. Unfinished questions.</span>
+    <span>A working research notebook · <a href="{{ '/feed.xml' | relative_url }}">Follow the feed</a></span>
+  </footer>
+</body>
+</html>

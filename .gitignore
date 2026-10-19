@@ -22,3 +22,11 @@ experiments/*/synth/
 /tmp/
 .claude/worktrees/
 .claude/scheduled_tasks.lock
+
+# Research blog (source is tracked; generated site and local gems are not)
+/blog/_site/
+/blog/.jekyll-cache/
+/blog/.jekyll-metadata
+/blog/.bundle/
+/blog/vendor/
+/blog/_deploy.yml
