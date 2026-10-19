@@ -19,6 +19,7 @@ pub mod field_age;
 pub mod fixed_area;
 #[cfg(feature = "cuda")]
 pub mod gpu;
+pub mod lattice_probe;
 pub mod lean;
 pub mod onset;
 pub mod prefix_exposure;
