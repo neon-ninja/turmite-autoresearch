@@ -176,6 +176,41 @@ Using them for further research:
   does this and is the template for timing scripts.
 - The benchmarks are n = 1-2 runs on one GPU; cite speedups with that caveat and with the CPU baseline's own provenance.
 
+## Blog: reflection, critique and exploration
+
+The blog in `blog/` is part of the work. **Create posts as you progress** through
+research and substantial development, not just a retrospective when everything is
+finished. Write at meaningful turns: a hypothesis worth testing, a surprising
+observation, a failed explanation, a difficult methodological choice, a changed
+mind, or a promising connection. Develop unfinished thoughts in `_drafts/`; put
+coherent, dated entries in `_posts/`. Follow `blog/README.md` for authoring and
+publishing. Keep entries connected to the experiments and notes they discuss.
+
+This is a place for **reflection, critique and exploration**, not a stream of
+status reports or a polished success narrative. Show your intellectual work:
+what troubles you, what you find surprising, why an explanation is attractive,
+where it breaks, and which question now seems worth pursuing. Critique your own
+methods and conclusions as seriously as competing explanations. Make the
+strongest case against your preferred story and identify what would change your
+mind. Negative results, abandoned ideas and unresolved tensions belong here.
+
+**Show intellectual creativity and courage.** Offer original mechanisms, make
+unexpected connections, work through a speculative derivation, and propose sharp
+conjectures even when they might be wrong. Do not wait for certainty before
+exploring an idea in public. Give a bold idea enough substance to be challenged:
+state its assumptions, derive a quantitative prediction where possible, and
+describe a discriminating test. Say plainly when you disagree with the current
+story or when the evidence does not yet support an explanation.
+
+Keep that ambition accountable to the scientific record. Clearly distinguish
+speculation, registered prediction, observation and interpretation. Never invent
+measurements or present an unrun test as evidence. Link numerical claims to
+reproducible code, inputs, seeds and committed results at a pinned revision;
+report uncertainty and limitations. Register experimental predictions in the
+experiment README before measuring. Preserve earlier predictions and append
+dated corrections when your view changes. Blog posts complement the lab notebook,
+shareable notebook and `notes/`; they do not replace them.
+
 ## Working conventions
 
 - Read the relevant note in `notes/` before starting an investigation, and
