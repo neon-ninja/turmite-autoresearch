@@ -7,7 +7,7 @@ abstract: >-
   (rules over {L, R}), asking why chaotic rules grow as t^(1/3) in width.
 authors:
   - family-names: McNamara
-    given-names: Tim
+    given-names: "T.S."
     orcid: "https://orcid.org/0000-0002-2494-2700"
     affiliation: "Accelerant Limited"
 # Copyright holder: Accelerant Limited. The author asserts the moral right of attribution.
@@ -24,7 +24,7 @@ preferred-citation:
   title: "Cube-root growth of most non-highway generalised Langton's ants of length up to 12"
   authors:
     - family-names: McNamara
-      given-names: Tim
+      given-names: "T.S."
       orcid: "https://orcid.org/0000-0002-2494-2700"
       affiliation: "Accelerant Limited"
   year: 2026

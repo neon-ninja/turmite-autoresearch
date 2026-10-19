@@ -20,7 +20,7 @@
   margin: (left: 24mm, right: 24mm, top: 23mm, bottom: 23mm),
   header: context if counter(page).get().first() > 1 [
     #set text(font: sans, size: 8pt, fill: muted)
-    #grid(columns: (1fr, auto), [GENERALISED LANGTON’S ANTS], [Tim McNamara])
+    #grid(columns: (1fr, auto), [GENERALISED LANGTON’S ANTS], [T.S. McNamara])
   ],
   footer: context [
     #set text(font: sans, size: 8pt, fill: muted)
@@ -68,7 +68,7 @@
   #v(18pt)
   #text(font: "Libertinus Serif", size: 14pt, style: "italic", fill: muted)[Rules of length $<= 12$: calibrated growth and boundary transport]
   #v(17pt)
-  #text(font: sans, size: 10pt, weight: "bold")[Tim McNamara]
+  #text(font: sans, size: 10pt, weight: "bold")[T.S. McNamara]
   #v(3pt)
   #text(font: sans, size: 9pt, fill: muted)[Accelerant Ltd, Wellington, New Zealand · tim\@accelerant.dev]
   #v(14pt)

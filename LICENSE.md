@@ -29,8 +29,8 @@ Notes:
 
 ## Copyright and authorship
 
-Copyright in this repository is held by Accelerant Limited. Tim McNamara is the
+Copyright in this repository is held by Accelerant Limited. T.S. McNamara is the
 author and asserts the right to be identified as the author of the work
 (moral right of attribution). Reuse under the licenses above should credit
-Tim McNamara as author, alongside the copyright notice where a license requires
+T.S. McNamara as author, alongside the copyright notice where a license requires
 one.
