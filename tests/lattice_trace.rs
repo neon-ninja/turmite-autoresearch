@@ -16,6 +16,7 @@ type P = (i64, i64);
 fn neighbours(lat: Lattice, p: P) -> Vec<P> {
     match lat {
         Lattice::Square => DIRS.iter().map(|d| (p.0 + d.0 as i64, p.1 + d.1 as i64)).collect(),
+        Lattice::Moore => turmite::lattice_probe::MOORE_DIRS.iter().map(|d| (p.0 + d.0 as i64, p.1 + d.1 as i64)).collect(),
         Lattice::Hex => HEX_DIRS.iter().map(|d| (p.0 + d.0 as i64, p.1 + d.1 as i64)).collect(),
         Lattice::Tri => {
             let v = if (p.0 + p.1).rem_euclid(2) == 0 { 1 } else { -1 };
@@ -28,12 +29,15 @@ fn naive(lat: Lattice, rule: &str, size: usize, log2: u32) -> LTrace {
     let c = (size / 2) as i64;
     let turns: Vec<i64> = match lat {
         Lattice::Square => rule.chars().map(|ch| if ch == 'R' { 1 } else { 3 }).collect(),
+        Lattice::Moore => rule.chars().map(|ch| match ch { 'r' => 1, 'R' => 2, 'l' => 7, _ => 6 }).collect(),
         Lattice::Hex => hex_turns(rule).unwrap().into_iter().map(|x| x as i64).collect(),
         Lattice::Tri => rule.chars().map(|ch| if ch == 'L' { 2 } else { 4 }).collect(),
     };
     let ell = match (lat, rule.chars().next().unwrap()) {
         (Lattice::Square, _) => 4u32,
         (Lattice::Tri, _) => 6,
+        (Lattice::Moore, 'r' | 'l') => 8,
+        (Lattice::Moore, _) => 4,
         (Lattice::Hex, 'r' | 'l') => 6,
         _ => 3,
     };
@@ -93,6 +97,11 @@ fn naive(lat: Lattice, rule: &str, size: usize, log2: u32) -> LTrace {
             Lattice::Square => {
                 h = (h + turn).rem_euclid(4);
                 pos = (pos.0 + DIRS[h as usize].0 as i64, pos.1 + DIRS[h as usize].1 as i64);
+            }
+            Lattice::Moore => {
+                h = (h + turn).rem_euclid(8);
+                let d = turmite::lattice_probe::MOORE_DIRS[h as usize];
+                pos = (pos.0 + d.0 as i64, pos.1 + d.1 as i64);
             }
             Lattice::Hex => {
                 h = (h + turn).rem_euclid(6);
@@ -167,6 +176,11 @@ proptest! {
     #[test]
     fn g2_square(rule in letters("LR", 2, 12)) {
         prop_assert_eq!(lattice_trace(Lattice::Square, &rule, 128, 13), naive(Lattice::Square, &rule, 128, 13));
+    }
+
+    #[test]
+    fn g2_moore(rule in letters("rlRL", 2, 12)) {
+        prop_assert_eq!(lattice_trace(Lattice::Moore, &rule, 128, 13), naive(Lattice::Moore, &rule, 128, 13));
     }
 
     #[test]

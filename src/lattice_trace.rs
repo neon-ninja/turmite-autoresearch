@@ -10,7 +10,7 @@
 
 use crate::DIRS;
 use crate::ext::{HEX_DIRS, hex_turns, tri_step};
-use crate::lattice_probe::Lattice;
+use crate::lattice_probe::{Lattice, MOORE_DIRS};
 
 pub const KC: usize = 64;
 pub const LAGK: usize = 8;
@@ -50,12 +50,19 @@ const NONE_T: u32 = u32::MAX;
 const TRACKED: u16 = 0x8000;
 
 #[inline(always)]
-fn nbrs(lat: Lattice, idx: usize, size: usize) -> ([isize; 6], usize) {
+fn nbrs(lat: Lattice, idx: usize, size: usize) -> ([isize; 8], usize) {
     let s = size as isize;
     match lat {
-        Lattice::Square => ([-s, 1, s, -1, 0, 0], 4),
+        Lattice::Square => ([-s, 1, s, -1, 0, 0, 0, 0], 4),
+        Lattice::Moore => {
+            let mut o = [0isize; 8];
+            for (i, (dx, dy)) in MOORE_DIRS.iter().enumerate() {
+                o[i] = *dy as isize * s + *dx as isize;
+            }
+            (o, 8)
+        }
         Lattice::Hex => {
-            let mut o = [0isize; 6];
+            let mut o = [0isize; 8];
             for (i, (dq, dr)) in HEX_DIRS.iter().enumerate() {
                 o[i] = *dr as isize * s + *dq as isize;
             }
@@ -64,7 +71,7 @@ fn nbrs(lat: Lattice, idx: usize, size: usize) -> ([isize; 6], usize) {
         Lattice::Tri => {
             let (x, y) = (idx % size, idx / size);
             let up = (x + y) % 2 == 0;
-            ([-1, 1, if up { s } else { -s }, 0, 0, 0], 3)
+            ([-1, 1, if up { s } else { -s }, 0, 0, 0, 0, 0], 3)
         }
     }
 }
@@ -73,6 +80,8 @@ fn nbrs(lat: Lattice, idx: usize, size: usize) -> ([isize; 6], usize) {
 pub fn loop_len(lat: Lattice, rule: &str) -> u32 {
     match (lat, rule.chars().next()) {
         (Lattice::Square, _) => 4,
+        (Lattice::Moore, Some('r' | 'l')) => 8,
+        (Lattice::Moore, Some('R' | 'L')) => 4,
         (Lattice::Tri, _) => 6,
         (Lattice::Hex, Some('r' | 'l')) => 6,
         (Lattice::Hex, Some('R' | 'L')) => 3,
@@ -101,6 +110,7 @@ pub fn lattice_trace(lat: Lattice, rule: &str, size: usize, log2: u32) -> LTrace
     let (turns, modulus): (Vec<u8>, u8) = match lat {
         Lattice::Square => (rule.chars().map(|ch| match ch { 'R' => 1, 'L' => 3, o => panic!("bad turn {o:?}") }).collect(), 4),
         Lattice::Hex => (hex_turns(rule).expect("hex rule"), 6),
+        Lattice::Moore => (rule.chars().map(|ch| match ch { 'r' => 1, 'R' => 2, 'l' => 7, 'L' => 6, o => panic!("bad turn {o:?}") }).collect(), 8),
         Lattice::Tri => (rule.chars().map(|ch| match ch { 'L' => 2, 'R' => 4, o => panic!("bad turn {o:?}") }).collect(), 6),
     };
     let n = turns.len() as u8;
@@ -187,6 +197,11 @@ pub fn lattice_trace(lat: Lattice, rule: &str, size: usize, log2: u32) -> LTrace
                 h = (h + turns[col as usize]) % modulus;
                 let (dq, dr) = HEX_DIRS[h as usize];
                 idx = (idx as isize + dr as isize * s + dq as isize) as usize;
+            }
+            Lattice::Moore => {
+                h = (h + turns[col as usize]) % modulus;
+                let (dx, dy) = MOORE_DIRS[h as usize];
+                idx = (idx as isize + dy as isize * s + dx as isize) as usize;
             }
             Lattice::Tri => {
                 let exit = (h + turns[col as usize]) % modulus;
