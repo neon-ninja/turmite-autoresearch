@@ -55,11 +55,11 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Uncommitted work in progress (do not lose)
 
-- **n-rotor reference, `experiments/2026-10-19-kappa-walker-reference/`**: modified `README.md`, `NOTEBOOK.md`, untracked
-  `notebook.ipynb`, plus `results/specs_nrotor.txt`, `scripts/analyse_nrotor.py`, `scripts/run_nrotor.sh` (status at session
-  start; another session may have committed since; check `git status`).
-- **`experiments/2026-10-16-kappa-uniform-baseline/NOTEBOOK.md`**: uncommitted edit.
-- **Blog:** `blog/index.html` modified, `blog/_posts/2026-10-19-the-ant-below-every-walker.md` untracked.
+- **c-law renewal scaffold** (`experiments/2026-10-20-c-law-renewal/` README/NOTEBOOK/scripts, `src/lib.rs`, untracked
+  `src/edge_renewal.rs`, `tests/edge_renewal.rs`, `examples/c_law_renewal_trace.rs`): files were edited minutes before
+  2026-10-20 00:42, so another session is likely live. Not touched here; its owner should run `cargo test --release` and commit.
+- The n-rotor reference, uniform-baseline notebook edit and blog index/post listed here earlier are committed (`18b79d7`,
+  `3117e1b`); `main` equals `origin/main` (`bf4ca54`) as of 2026-10-20 00:42.
 - **rulepat, branch `claude/rule-pattern-experiment-aa95e3`**: committed 2026-10-20 as `275d52b` and merged into local `main`
   on 2026-10-20 at the user's request (reader guide added, covering only the early README steps). Still open: its gitignored
   `dumps/` (192 MB) and `scratch/` (3 MB) exist only in the worktree, so archive them before removing it; its README
@@ -67,8 +67,6 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Repository housekeeping
 
-- **`main` pushed 2026-10-20** up to `7339dc9` (user: "push"). Later commits on `worktree-paper-figure-proposals` (family hold-out
-  and after) are not on `origin/main` until merged and pushed.
 - **Jupyter is not in `pyproject.toml`**: `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb` was re-executed 2026-10-20
   using `uv pip install ipykernel` into the WSL venv plus `ipykernel install --sys-prefix`; decide whether to `uv add` it.
   Its Proposal 2 bounds are not in the notebook (rebuild with `scripts/build_notebook.py` if wanted).
@@ -85,12 +83,12 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   `notes/g1-builder-structure-2026-10-14.md` (handover item 3). Deletion needs the user's go-ahead:
   - `.claude/worktrees/agent-a810708e829d8af34` and branch `backup/pre-census-split`: same commits; the unique `39df9f2` content is in
     `main`. Its uncommitted GPU probe port (`src/gpu/probe.rs`, `experiments/2026-10-16-gpu-probe-port/`) is an earlier attempt at what
-    `main` has as `gpu_probe`; compare `experiments/2026-10-16-gpu-probe-port/results/` with `experiments/2026-10-16-gpu-probe/results/` before discarding.
-  - `.claude/worktrees/g1-builder-structure`: old `data/` layout; content appears superseded by `main`. Confirm the dropped
-    `TODO(G1)` paper change is already in `research-outputs/cube-root-growth-paper/main.typ`, then remove.
+    `main` has as `gpu_probe`; checked 2026-10-20: the two `results/` dirs differ (the port has `full_L2400*`, `cpu_full.*`, `block_sweep_*`; `gpu-probe` has the bench files), so keep the port's results before discarding.
+  - `.claude/worktrees/g1-builder-structure`: old `data/` layout; content appears superseded by `main`. Checked 2026-10-20: no
+    `TODO(G1)` remains in `main.typ`. Still archive `dumps/` (73 MB) first.
   - `.claude/worktrees/paper-figure-proposals` (locked): merged into local `main` on 2026-10-20 (user-approved local merge, not
-    pushed; `main.typ` and `rebuild_figures.py` auto-merged, `ACTIVE.md` and `main.pdf` resolved by hand / recompile). The branch
-    keeps receiving work; remove the worktree only when finished.
+    pushed; `main.typ` and `rebuild_figures.py` auto-merged, `ACTIVE.md` and `main.pdf` resolved by hand / recompile). Checked 2026-10-20: no commits
+    beyond `main`; the worktree can be removed when finished.
 
 ## Closed (for reference, do not reopen without new grounds)
 
