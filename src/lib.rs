@@ -20,6 +20,7 @@ pub mod fixed_area;
 #[cfg(feature = "cuda")]
 pub mod gpu;
 pub mod lattice_probe;
+pub mod lattice_trace;
 pub mod lean;
 pub mod onset;
 pub mod prefix_exposure;
