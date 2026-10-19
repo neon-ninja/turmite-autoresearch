@@ -127,6 +127,36 @@ under the repository's normal experiment conventions.
 
 ## Homepage
 
+The **Preliminary results** section gives each of the manuscript's nine key-result
+bullets a card in a responsive masonry layout. Existing figures link to full-size
+copies; native details preserve caveats without JavaScript. Two sliders illustrate
+the stated cube-root scaling and the fitted opening-run law, and a toggle compares
+saved occupation values with their growth-adjusted references. The controls do not
+run simulations or estimate new scientific quantities. The ant bar is a median
+over rules; walker bars are eight-seed means, with the window mismatch disclosed.
+
+Numbers, paper bullet titles, and five figure copies are exported from committed
+sources, with hashes and a pinned revision:
+
+```bash
+uv run --frozen --only-group blog blog/scripts/export_results.py
+uv run --frozen --only-group blog blog/scripts/export_results.py --check
+```
+
+Commit the exported JSON and images whenever the manuscript inputs change; CI
+checks freshness. The exporter ignores WSL mount-only executable-bit differences,
+while refusing content changes in scientific inputs. After the normal Jekyll build,
+`node blog/scripts/test_results.js` checks all nine paper headings, saved-source
+hashes, useful no-JavaScript content, and the slider/toggle behaviour. It uses the
+existing pinned `web/` jsdom dependency. Homepage-only styles and script are loaded
+by `preliminary_results: true` in front matter.
+
+Verified on 2026-10-20: production Jekyll build and link checker; nine-card DOM
+and source-hash checks; existing ant controls; headless browser checks at 1280px
+desktop, 390px mobile and 860px dark mode, including keyboard sliders, the
+reference toggle, image loads, overflow and JavaScript-disabled details. Review
+captures live in ignored `tmp/homepage-review/`.
+
 The homepage includes three live, deterministic blank-grid ant trails. They pause
 offscreen and in hidden tabs, start as still previews with reduced motion enabled,
 and stop at 100,000 steps. Play and Start over replay the same rules from blank

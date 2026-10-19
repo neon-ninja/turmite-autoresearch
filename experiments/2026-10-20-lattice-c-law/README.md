@@ -92,6 +92,52 @@ This file and `NOTEBOOK.md` are committed first. Then `src/lattice_probe.rs` and
 triangular rules but aggregate no c; any peek at c before the instrument is final is disclosed in the notebook), then
 `scripts/make_lists.py`, the run, and `scripts/analyse.py` writing to `results/`.
 
-## Results
+## Results (run 2026-10-20; commit `adf6677` for the instrument and lists, results committed after)
 
-None yet.
+Command: `bash experiments/2026-10-20-lattice-c-law/scripts/run.sh` (fresh target dir, binary sha256 `d135514050596c44078a9635582a4837faea55858d8004c4be0ab612e0f8a74e`
+in `results/run.log`; 120 controls 106 s, 960 ants 488 s wall on 6 threads), then `uv run .../scripts/analyse.py` -> `results/analysis.{txt,json}`;
+post hoc `uv run .../scripts/explore.py` -> `results/explore.txt`. Raw windows: `results/{ants,controls}.csv`. Deviations: runs go to 2^27 steps
+(windows k = 12..26, the census octave), the lattice probe does not produce the gyration/ant-spread fields (G1 compares the seven it does),
+the random walk uses windows k = 16..22 because it leaves the 8192 board before 2^27 (so the rw rows use a different window from the ants).
+
+**Gates.** G1-G3 pass (`cargo test --release --test lattice_probe`; a deliberate mutation was caught). **G4 passes**: mean-field kappa ratio
+0.994 (sd 0.021, square), 1.005 (0.013, triangular), 1.004 (0.014, hex), 8 seeds each, so the analytic `kappa_unif(a, beta)` is a valid
+reference on all three lattices. **G5 passes**: square b = 0.696 [0.666, 0.724], a = 1.286 [1.188, 1.386] (census 0.70, 1.36).
+
+**Retention** (kept / 48 per lead): square 31 18 29 27 28; triangular 36 47 47 47 46; hex r-lead 38 41 47 47 47; hex R-lead 33 28 37 42 34. No cell is
+underpowered, but square lead 2 (kept 18, alive 36) and hex R lead 2 (28) lose more than half, so survivor selection is not negligible there.
+
+**Registered fits** of `1/c = a + b * lead` (rule bootstrap, 95%):
+
+| stratum | n | a | b | R^2 |
+|---|---|---|---|---|
+| square | 133 | 1.29 [1.19, 1.39] | 0.696 [0.666, 0.724] | 0.954 |
+| triangular | 223 | 1.28 [1.22, 1.33] | **0.355** [0.340, 0.371] | 0.936 |
+| hex R-lead | 174 | 2.80 [2.49, 3.09] | **0.876** [0.782, 0.983] | 0.689 |
+| hex r-lead | 220 | -1.18 [-9.5, 2.5] | 1.98 [0.23, 5.82] | 0.011 |
+
+The hex r-lead OLS is destroyed by a single rule that passed the frozen filters with 1/c = 390 (lead 5); it is reported as it came out.
+
+**Hypotheses.** Measured vector (triangular, hex R, hex r) = (0.355, 0.876, 1.980) versus H-A (1.05, 0.52, 1.05), H-B (0.70, 0.70, 0.70),
+H-C (0.93, 0.47, 0.47). The frozen decision rule returns **undecided** (no vector within 0.15). **L1 as registered: FAILED** (b_r/b_R = 2.26
+[0.25, 6.76], dominated by the outlier). Without relying on the outlier-corrupted fit, the triangular stratum alone refutes all three: its
+bootstrap CI [0.340, 0.371] is at least 0.33, 0.56 and 0.68 below B, C and A, and the hex R stratum (0.876, CI [0.78, 0.98]) is 0.18, 0.41 and 0.36 above B, C and A. So **H-A,
+H-B and H-C are all disproven as stated** (each predicted a triangular slope of 0.70 or more; observed 0.355, and b falls as the loop gets longer).
+
+**Post hoc, unregistered** (`results/explore.txt`): slopes of per-lead medians of 1/c, which are insensitive to the outlier: square 0.68 (OLS on medians 0.70),
+triangular 0.335, hex R-lead 0.86, **hex r-lead 0.27-0.28** (per-lead medians 2.63, 2.77, 3.04, 3.39, 3.72). Against loop length l = 3, 4, 6, 6
+(hex R, square, triangular, hex r) b = 0.86, 0.70, 0.34, 0.28. Within hex, b_r / b_R ~ 0.32, the opposite direction to H-A's 2. A straight line
+b ~ 1.5 - 0.2 l fits the four points, but that is two parameters for four points, chosen after seeing them, and is a description, not a model.
+The intercept is 1.3 on square and triangular but ~2.4-2.8 on hex (hex r from the lead-1 median 2.63 minus b).
+
+**Kappa.** Ratio kappa/kappa_unif(a, beta), own (a, beta) per run, last window k = 26, kept ants: square median 0.770 (IQR 0.62-0.90, census 0.81),
+triangular 0.744 (0.66-0.82), hex 0.860 (0.75-1.01). **K1 held on both new lattices** (medians < 1 and inside [0.65, 0.97]). Random walks (k = 16..22):
+1.33 (square), 1.44 (triangular), 1.28 (hex) (**K2 held**). **K3 held** (|slope of ln kappa on lead| 0.007, 0.079, 0.059, 0.075; the triangular one only just).
+**K4 FAILED**: random-walk c (0.44 / 0.46 / 0.42) is above the ant median c (0.29 / 0.41 / 0.27) on every lattice including the square, so my
+memory that square ants sit above the random walk was wrong; ant median c here pools leads 1-5. **L2 FAILED** (hex intercept 2.8).
+
+**Reading.** The kappa deficit (ants at 0.74-0.86 of uniform) is not a square-lattice artefact: it appears on all three lattices with a validated reference.
+The c law form (1/c linear in lead, R^2 0.94-0.95 on square and triangular, 0.69 on hex R-lead) survives, but its slope and intercept are **lattice-
+and loop-dependent**, falling with loop length rather than rising. The 2x2-loop picture of the square slope therefore carries no information
+about the number 0.70 by itself; whatever sets b depends on the loop it circulates. Not tested: why hex fits are worse (four-letter alphabet, letters after the lead are not
+separated into types), any mechanism for b(l), more loop lengths, mixed-letter leads.

@@ -1,0 +1,17 @@
+{
+  "status": "design_only_no_measurements",
+  "base_revision": "adf66774570469da30b10ffc1ceab911670a9d09",
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/prepare.py",
+  "environment": "WSL; UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy; Python >=3.12",
+  "sampling_seed": 2026102001,
+  "inputs_sha256": {
+    "experiments/2026-10-20-c-law-renewal/design.json": "78310cba688b7da1476c02dd37f3e1bccb68b68448f743f24d83d9338adc6b76",
+    "experiments/2026-10-20-c-law-renewal/scripts/prepare.py": "16605e4d5442aae7a82b2129245a6dd2fab12337a0c98ebcfdd8d9ad3ab81870",
+    "experiments/2026-10-19-c-law-mechanism/results/lists/sample.txt": "341140f9cda5569ae5a5ce8debffccacfd36974d0ab1696045e755fb5ba26b2e",
+    "experiments/2026-10-19-c-law-mechanism/results/lists/band.txt": "4871bc4c82432f5a81770efa444db4761612a441417d1c22f2c254daf06f6e03",
+    "experiments/2026-10-19-c-law-mechanism/results/lists/valid_candidates.txt": "c798535e4006bd4c68cd134133e020a7f29192b50ccc81bae9703a5ba04c4c46"
+  },
+  "families": 52,
+  "rules": 156,
+  "manifest_sha256": "bc37ff7e19aa4102dbbec69d17d39cb13986ea73f9225343263cad9eb1b946c8"
+}
