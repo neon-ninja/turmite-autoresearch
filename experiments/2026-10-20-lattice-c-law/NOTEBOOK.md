@@ -69,3 +69,7 @@ lattices), R^2 0.94, OLS slope 0.355 agrees with the per-lead-median slope 0.335
 ### 2026-10-20 03:25 (+13:00) · 3117e1b · observation
 Full `cargo test --release` (WSL, after adding `src/lattice_probe.rs`): every test binary reports ok, no failures. Registered result and post hoc reading are kept
 separate in README, notes and blog; the outlier was not trimmed from the registered fit.
+
+### 2026-10-20 00:50 (+13:00) · 7df6d35 · intent
+Registered follow-up A in README (letter-typed hex lead, beta < 0.8 filter, T1-T5) before running anything on it. Also added ipykernel/nbformat/nbclient to
+`pyproject.toml` (user chose `uv add`). The b(l) model on a new loop length is not started: it needs a lattice with a new loop length and a registered model; see next entry.

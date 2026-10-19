@@ -149,3 +149,22 @@ exponent 1.0, a lacy territory) while its area and width exponents look blob-lik
 on hex (`results/outlier.txt`). The next largest hex 1/c (12.9, 9.7, 8.8) are genuine blobs with beta 0.59-0.62. `run.log` says "dirty: 88 files"; those are stat and line-ending
 noise (`git diff --ignore-cr-at-eol --stat adf6677 -- src examples`: 0 insertions, 0 deletions, appended to `run.log`). The refutation of A, B and C rests on the triangular stratum
 alone, where none of the listed confounds can rescue any of them: retention 0.75-0.98 (highest of the three lattices), R^2 0.94, and the OLS slope 0.355 matches the per-lead-median slope 0.335.
+
+## Follow-up A: letter-typed hex lead with a beta filter (registered 2026-10-20 00:50 (+13:00), base commit `7df6d35`)
+
+Re-analysis of the existing `results/ants.csv` (no new runs). Nothing below has been computed; the only things seen so far are the pooled fits above,
+the outlier's beta = 1.0, and the beta of the next three largest 1/c (0.59-0.62). It addresses ACTIVE's "do the hex letter types after the lead matter?".
+
+**Definitions (frozen).** Hex rules only. Filter F2 = the registered filter plus per-run perimeter exponent `beta < 0.8` (beta as in `analyse.py`, k = 20..26).
+`f_big` = fraction of letters in {R, L} among the letters *after* the lead. Hex strata as before (r-lead, R-lead). Fit M0: `1/c = a + b*lead`;
+M1: `1/c = a + b*lead + d*f_big`. Bootstrap as before (rule resampling, 2000 draws, seed 20261020). Compare M1 to M0 by 5-fold CV R^2 (folds by rule index mod 5).
+
+**Predictions.**
+- **T1** F2 removes only the outlier-type rules: <= 5 rules per stratum drop from the kept sets (80% confident), and the r-lead fit becomes usable: R^2 >= 0.5 and
+  b in [0.15, 0.45] (the per-lead-median slope was 0.28). 55%.
+- **T2** the R-lead b is unchanged by F2: within 0.1 of 0.876. 75%.
+- **T3** letter type matters: M1 beats M0 in CV R^2 by >= 0.05 in the R-lead stratum, and `d` has a bootstrap CI excluding 0 in at least one stratum. 40%.
+- **T4** the hex intercept is partly composition: in M1 evaluated at f_big = 0 the intercept `a` falls below 2.0 in the r-lead stratum. 25%.
+- **T5** the b_r / b_R ratio (F2 fits) has a bootstrap CI below 1 (the opposite of H-A, as in the medians, ~0.3). 60%.
+
+Null/negative outcomes are reported as such. Script `scripts/hex_letters.py` -> `results/hex_letters.txt`.
