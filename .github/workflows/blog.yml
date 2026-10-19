@@ -2,7 +2,7 @@ name: Research blog
 
 on:
   push:
-    branches: [master, main]
+    branches: [main]
     paths: ['blog/**', 'experiments/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   pull_request:
     paths: ['blog/**', 'experiments/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']

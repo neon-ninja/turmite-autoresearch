@@ -81,7 +81,7 @@ source and provenance links. GitHub Actions supplies all three automatically.
 
 1. Push this repository to GitHub. In **Settings → Pages → Build and
    deployment → Source**, select **GitHub Actions**.
-2. Ensure the default branch is `master` or `main` (or adjust the workflow's
+2. Ensure the default branch is `main` (or adjust the workflow's
    push branches). The first push containing the blog runs the workflow;
    alternatively run **Research blog** manually on the default branch.
 3. The workflow builds and checks PRs, and deploys only from the repository's
