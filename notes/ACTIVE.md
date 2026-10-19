@@ -17,7 +17,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   survivor-selected. A tighter test needs a mediator-free kappa (late windows only) or a second cohort.
   `experiments/2026-10-19-c-law-mechanism/results/stage4_analysis.txt`, `notes/open-questions-hypotheses.md` (Reconciliation).
 - **Mixed-turn loops (period 6/8) and opening-transient loops** were not tested; the square-loop failure only covers same-turn
-  2x2 loops. Also no CI on the "lead-colour laps are ~8% of loop steps" figure.
+  2x2 loops. (CI on the 8% figure done 2026-10-20: 7.6% [3.2, 12.3] at lead 6.)
   `experiments/2026-10-16-kappa-square-loop/NOTEBOOK.md` (22:58 end-of-session entry), `experiments/2026-10-16-kappa-square-loop/README.md` (Results).
 - **Blob-regime boundary** of the c law between sparse-background density 0.2 and 0.7 (kept fraction 0-2% at density 1).
   `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3 results).

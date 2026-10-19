@@ -1,0 +1,9 @@
+# cmd: uv run experiments/2026-10-16-kappa-square-loop/scripts/lead_share_ci.py  seed 20261016  bootstraps 4000 over rules (post hoc)
+rules 183; share = mean(frac_lead)/mean(frac_all) over rules; 95% percentile CI
+lead 1: n=37 ratio-of-means share 0.0001 [0.0001, 0.0001]; mean of per-rule shares 0.0001 [0.0001, 0.0001]  frac_lead mean 0.00001
+lead 2: n=32 ratio-of-means share 0.0013 [0.0009, 0.0017]; mean of per-rule shares 0.0015 [0.0010, 0.0020]  frac_lead mean 0.00024
+lead 3: n=35 ratio-of-means share 0.0059 [0.0036, 0.0084]; mean of per-rule shares 0.0066 [0.0040, 0.0093]  frac_lead mean 0.00096
+lead 4: n=31 ratio-of-means share 0.0219 [0.0136, 0.0312]; mean of per-rule shares 0.0260 [0.0168, 0.0350]  frac_lead mean 0.00393
+lead 5: n=28 ratio-of-means share 0.0499 [0.0342, 0.0668]; mean of per-rule shares 0.0541 [0.0343, 0.0741]  frac_lead mean 0.00969
+lead 6: n=20 ratio-of-means share 0.0625 [0.0286, 0.1017]; mean of per-rule shares 0.0758 [0.0317, 0.1228]  frac_lead mean 0.01555
+all leads: n=183 ratio-of-means share 0.0223 [0.0156, 0.0298]; mean of per-rule shares 0.0225 [0.0158, 0.0303]  frac_lead mean 0.00407

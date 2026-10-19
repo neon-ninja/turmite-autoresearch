@@ -140,6 +140,7 @@ Retention by lead 1..6 (kept / stationary of 50 sampled): 37/34, 32/32, 35/34, 3
 **Reading (decision table row 1): H-loop is dead at this scale.** P2 failed, and every downstream test also failed. Loop steps are plentiful (16-26% of all steps at
 every lead) but almost all of them are "other" same-turn 4-loops that are present at lead 1 and are determined by the rule (ICC 1.0), not by the seed; the lead-colour
 laps that the mechanism is about rise monotonically with lead but are at most 1.6% of steps (8% of loop steps) even at lead 6, and their partial association with ln kappa at fixed area and lead is negative.
+(CI added 2026-10-20, post hoc, `scripts/lead_share_ci.py` -> `results/lead_share_ci.txt`, bootstrap over rules: the 8% is 7.6% [3.2, 12.3] at lead 6, n=20 rules; 5.4% [3.4, 7.4] at lead 5; 2.3% [1.6, 3.0] over all leads. The ratio-of-means variant gives 6.3% [2.9, 10.2] at lead 6.)
 Not shown: that loops of other shapes (period 6/8, mixed turns), or loops earlier in the run, play no role; and the lead effect itself is still unexplained. This is the cohort in which the lead effect
 was found: mediation here is legitimate but is not a replication of the effect, and the single out-of-sample element (C3, parent's mutants) is unpowered.
 `../2026-10-16-kappa-loop-surgery/` was not started (gate: P2 must hold).
