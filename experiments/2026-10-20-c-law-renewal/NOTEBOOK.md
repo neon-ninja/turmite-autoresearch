@@ -334,3 +334,13 @@ target ant. A match requires substantial actual phase scrambling and correct
 return budgets, not just close c. No variant is implemented yet; register
 predictions and a new sparse oracle before running. Main outcomes and original
 P1–P4 remain unopened/untested. The full scientific goal is not achieved.
+
+### 2026-10-20 01:42:49 (+13:00) · aaf6662 · observation
+
+Rendered actual committed experiment pages with `uv run --frozen --only-group
+blog blog/scripts/experiments.py --baseurl /turmite-autoresearch
+--repository-url https://github.com/timClicks/turmite-autoresearch`:
+102 pages and 37 saved notebooks, exit 0. The renewal page includes its
+assets/notebook. The sole unavailable reference is the existing `end` link
+in the kappa-rule-space README, not a renewal source. Generated publication
+files remain ignored. This is a local render, not an external deployment.
