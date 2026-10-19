@@ -1,0 +1,14 @@
+ant (census_spread.txt): {'q05': 0.443, 'q25': 0.664, 'med': 0.814, 'q75': 0.957, 'q95': 1.332}
+rw k=12..22                n=8/8 esc_runs=0 a=0.920 (sd 0.028) beta=0.917 (sd 0.041) kappa=1.307 (sd 0.030) kunif=1.024 (sd 0.011) ratio=1.277 (sd 0.042)  [local-ref ratio=1.273 (sd 0.036)]
+                           -> above ant IQR, inside ant 5-95; (mean - ant q75)/seed-sd = 7.6; ant median 0.814
+pw:0.25 k=12..22           n=8/8 esc_runs=0 a=0.903 (sd 0.017) beta=0.898 (sd 0.021) kappa=1.271 (sd 0.027) kunif=1.029 (sd 0.006) ratio=1.235 (sd 0.026)  [local-ref ratio=1.232 (sd 0.032)]
+                           -> above ant IQR, inside ant 5-95; (mean - ant q75)/seed-sd = 10.7; ant median 0.814
+pw:0.5 k=12..22            n=8/8 esc_runs=0 a=0.920 (sd 0.030) beta=0.909 (sd 0.037) kappa=1.350 (sd 0.036) kunif=1.026 (sd 0.010) ratio=1.316 (sd 0.043)  [local-ref ratio=1.311 (sd 0.042)]
+                           -> above ant IQR, inside ant 5-95; (mean - ant q75)/seed-sd = 8.4; ant median 0.814
+pw:0.75 k=12..22           n=8/8 esc_runs=0 a=0.911 (sd 0.026) beta=0.907 (sd 0.027) kappa=1.287 (sd 0.051) kunif=1.026 (sd 0.007) ratio=1.255 (sd 0.056)  [local-ref ratio=1.251 (sd 0.057)]
+                           -> above ant IQR, inside ant 5-95; (mean - ant q75)/seed-sd = 5.4; ant median 0.814
+rotor k=12..22             n=8/8 esc_runs=0 a=0.730 (sd 0.020) beta=0.575 (sd 0.030) kappa=1.858 (sd 0.039) kunif=1.102 (sd 0.005) ratio=1.686 (sd 0.035)  [local-ref ratio=1.680 (sd 0.038)]
+                           -> above ant IQR, OUTSIDE ant 5-95; (mean - ant q75)/seed-sd = 21.1; ant median 0.814
+rotor k=20..26             n=8/8 esc_runs=0 a=0.685 (sd 0.006) beta=0.530 (sd 0.026) kappa=1.989 (sd 0.034) kunif=1.106 (sd 0.006) ratio=1.799 (sd 0.033)  [local-ref ratio=1.796 (sd 0.024)]
+                           -> above ant IQR, OUTSIDE ant 5-95; (mean - ant q75)/seed-sd = 25.2; ant median 0.814
+mean-field anchor (baseline expt, not rerun): kappa 1.118 / kunif 1.107 = 1.010 (seed sd 0.009)

@@ -11,3 +11,18 @@ Recompute rotor and memoryless-walker kappa/kappa_unif with each walker's own me
 
 ### 2026-10-19 (+13) · 6de71f2 · surprise
 The task premise "memoryless reference near 1.16" does not hold: the 1.16 value assumes beta = 1/2, but porous memoryless territories have beta ~0.9, giving kappa_unif ~1.02-1.03. Registered in README before the run. The ratios therefore stay ~1.2-1.3 rather than dropping.
+
+### 2026-10-19 (+13) · 34fbf45 · observation
+Ran `scripts/run.sh` (8 seeds 2026101901..08 each of rw, pw:0.25/0.5/0.75 at `probe 23 16384`, rotor at `probe 27 8192`); no escaped windows. Raw output in results/probe_{mem,rotor}.csv.
+
+### 2026-10-19 (+13) · 34fbf45 · deviation
+First `analyse.py` gave kappa 0.64-0.93 (ratios 0.6-0.9), half the existing values (rotor 2.0, rw 1.37). Cause: I took t_end = 2^(k+1) (the baseline experiment's window-start labelling) but the probe CSV's t column is already the window end. Fixed to use the CSV t; no data touched, the buggy analysis.txt was overwritten (never committed). Caught only because the output disagreed with the prior_ab.py numbers; the rerun matches them.
+
+### 2026-10-19 (+13) · 34fbf45 · observation
+Corrected analysis: rw 1.28, pw 1.24/1.32/1.26, rotor 1.69 (k12-22) / 1.80 (k20-26), all with seed sd <= 0.06, vs kappa_unif 1.02-1.03 (memoryless) and 1.10 (rotor). See README table. All registered predictions 1-3 held; walker ratios all exceed the ant IQR.
+
+### 2026-10-19 (+13) · 34fbf45 · interpretation
+Ant median 0.81 is below every non-uniform walker tested, and the mean-field walker sits at 1.0, so the ratio is not walker-universal. Memoryless walkers (1.24-1.32) are inside the ant 5-95% range at its top, so the control is weak there; the rotor (1.7-1.8) is clearly outside. No mechanism claimed. Confounds not excluded: window (memoryless at k<=22, a not asymptotic), single-run ant noise, 8-seed walker means vs ant distribution.
+
+### 2026-10-19 (+13) · 34fbf45 · decision
+Stop at accounting. Next step proposed: noisy rotor (eps scan) to locate where ratio crosses 0.81. Release tests pass (`cargo test --release`, no Rust changed).
