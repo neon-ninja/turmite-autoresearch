@@ -48,6 +48,7 @@ INPUTS = [
     *(f"experiments/2026-10-13-probe-growth-census/results/{f}" for f in (
         "probe_summary.csv", "c_model.csv")),
     "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt",  # cross-check only
+    "experiments/2026-10-19-kappa-chiral-edge/results/c_law.json",
 ]
 SPREAD = ROOT / "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt"
 CSV = OUT / "rule_census.csv"
@@ -98,6 +99,8 @@ def build() -> tuple[pl.DataFrame, str, dict]:
         analysed=pl.col("probe_alpha_w").is_not_null(),
         n_L=pl.col("rule").str.count_matches("L"),
         n_R=pl.col("rule").str.count_matches("R"),
+        opening_run=pl.col("rule").map_elements(
+            lambda s: len(s) - len(s.lstrip(s[0])), return_dtype=pl.Int64),
         primitive_root=pl.col("rule").map_elements(root_of, return_dtype=pl.String),
         highway_1e9=pl.col("rule").is_in(list(b1_hw)),
     ).with_columns(
@@ -114,6 +117,9 @@ def build() -> tuple[pl.DataFrame, str, dict]:
         probe_kappa_unif=2 * (1 - 0.5 ** (1 - e)) / (1 - e),
         kappa_stationary=pl.col("probe_g_k").abs() < 0.05,
     ).with_columns(probe_kappa_ratio=pl.col("probe_kappa") / pl.col("probe_kappa_unif"))
+
+    law = json.loads((ROOT / INPUTS[-1]).read_text())["C1"]
+    d = d.with_columns(c_lead_pred=1 / (law["a"] + law["b"] * pl.col("opening_run").clip(upper_bound=8)))
 
     front = ["rule", "n", "n_L", "n_R", "primitive_root", "is_repeat", "phase", "in_census",
              "census_late_escape", "analysed"]

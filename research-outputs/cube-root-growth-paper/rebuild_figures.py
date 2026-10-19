@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import subprocess
 import sys
+from recent_findings_numbers import FILES as RECENT_INPUTS
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "research-outputs/cube-root-growth-paper/fig"
@@ -25,6 +26,8 @@ INPUTS = [
     "research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py",
     "research-outputs/cube-root-growth-paper/tail_budget.json",
     "research-outputs/cube-root-growth-paper/tail_budget_numbers.py",
+    "research-outputs/cube-root-growth-paper/recent_findings.json",
+    "research-outputs/cube-root-growth-paper/recent_findings_numbers.py",
     "experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.analysis.json",
     "experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.decomposition.json",
     "experiments/2026-10-kappa-rule-space/results/w3c_stats.txt",
@@ -40,7 +43,7 @@ INPUTS = [
     "experiments/2026-10-13-a4-boundary-width/results/a4c_shape_ants.csv",
     "experiments/2026-10-13-a4-boundary-width/results/a4c_shape_rotor.csv",
     CENSUS_TABLE, CENSUS_TABLE.replace("build_rule_census.py", "rule_census.csv"),
-] + [f"experiments/2026-10-13-g1-ribbon-breakout/results/{name}" for name in
+] + list(RECENT_INPUTS.values()) + ["research-outputs/cube-root-growth-paper/audit.typ"] + [f"experiments/2026-10-13-g1-ribbon-breakout/results/{name}" for name in
      ("g1_ribbon.csv", "g1_wake_extract.json", "g1_wake_crop_12800000000.csv", "g1_sweep_trace_12800000000.csv")
 ] + [f"research-outputs/cube-root-growth-paper/{name}" for name in SCRIPTS]
 
@@ -54,6 +57,7 @@ def main():
     os.chdir(ROOT)
     subprocess.run([sys.executable, "research-outputs/cube-root-growth-paper/kappa_prediction_numbers.py"], check=True)
     subprocess.run([sys.executable, "research-outputs/cube-root-growth-paper/tail_budget_numbers.py"], check=True)
+    subprocess.run([sys.executable, "research-outputs/cube-root-growth-paper/recent_findings_numbers.py", "--check"], check=True)
     # Regenerate the supplementary per-rule table; exits non-zero if it disagrees with numbers.json.
     subprocess.run([sys.executable, CENSUS_TABLE], check=True)
     gal = Path(os.environ.get("GAL", Path.home() / "gal")).resolve()

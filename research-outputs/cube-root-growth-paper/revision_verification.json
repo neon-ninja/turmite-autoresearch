@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-20",
+  "evidence_commit": "0de4d38de7c468583bc8c8aba4dc6ed54edada10",
+  "base_commit": "da7a9a3f972b50ffd670a305b9d40793793905bb",
+  "scope": "Editorial synthesis of committed results; extraction and supplementary regeneration only. No new simulations or fits.",
+  "tools": {
+    "cargo": "1.98.1",
+    "typst": "0.15.1",
+    "uv": "0.5.15"
+  },
+  "validation": {
+    "pdf": "compiled without diagnostics; 45 pages; all contact sheets and selected detailed pages visually reviewed",
+    "release_tests": "passed, exit 0; existing compiler warnings",
+    "census_guard": "passed, 4083 rows, 65 columns; census counts unchanged",
+    "blog": "production build and local-link check passed, 102 HTML pages",
+    "extraction_guard": "passed",
+    "walker_guard": "passed"
+  },
+  "pdf_sha256": "d1d68a9a7278e992121aaddc1fd637f9d48ddd4d0c6b25fa001adaf4f5d271ba",
+  "sha256": {
+    "main.typ": "bfa0a785f0e4ae3059d99350121279c0e38f3592286fd71ced0a869d140eb510",
+    "audit.typ": "b26c1654f72f007ae2ed032fc39bdf65ab7f7347e2b8e2f09f198fb5f57fa17e",
+    "recent_findings_numbers.py": "89a4b9afcedb1336f7fd4c05dfd82063b259c0b3e6159366830758df434c7701",
+    "recent_findings.json": "a5d27ddf0d6653693fdc85e748acc8805fdc1c37ea035f054078c10a25f60c70",
+    "rebuild_figures.py": "95d0c152f097de122d20a548bf11dc8353a22a7acf434f3267e62893a2b44e07",
+    "supplementary/rule-census/build_rule_census.py": "77390aac163e5ab1afe80fa0511a5900a0d910fe92e6dc40d5c8d2f9fb5c533b",
+    "supplementary/rule-census/rule_census.csv": "2bd4a2cacb08a9b5f52d45c2e2804ddda662b8fd691fdb47f16f7519626c29fb",
+    "supplementary/rule-census/rule_census.build.json": "b45bfb27c6c9504f3979a40bf7c118cb85c11c2e3a61e5edbbff432e1431ee9b"
+  },
+  "recipe": "README.md, October follow-up revision",
+  "temporary_logs": "tmp/paper-update/ (ignored)"
+}

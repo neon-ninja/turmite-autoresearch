@@ -72,12 +72,15 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
     `main` has as `gpu_probe`; compare `experiments/2026-10-16-gpu-probe-port/results/` with `experiments/2026-10-16-gpu-probe/results/` before discarding.
   - `.claude/worktrees/g1-builder-structure`: old `data/` layout; content appears superseded by `main`. Confirm the dropped
     `TODO(G1)` paper change is already in `research-outputs/cube-root-growth-paper/main.typ`, then remove.
-  - `.claude/worktrees/paper-figure-proposals` (locked) is **not** fully merged: since the 2026-10-19 merge it carries commits
-    `70c8050`..`0eb4822` (housekeeping, four new paper figures with `main.typ` / `rebuild_figures.py` edits, notebook re-run). `main`
-    has moved on (`cd2f20c`..`ec63e68`, including large `research-outputs/` changes), so merging this branch will need a
-    `main.typ` / `rebuild_figures.py` conflict check. Do not remove it before that merge.
+  - `.claude/worktrees/paper-figure-proposals` (locked): merged into local `main` on 2026-10-20 (user-approved local merge, not
+    pushed; `main.typ` and `rebuild_figures.py` auto-merged, `ACTIVE.md` and `main.pdf` resolved by hand / recompile). The branch
+    keeps receiving work; remove the worktree only when finished.
 
 ## Closed (for reference, do not reopen without new grounds)
+
+- **Paper follow-up revision (2026-10-20):** c law, corrected uniform reference,
+  conditioning check and negative-test statuses incorporated; PDF rebuilt and
+  visually checked, release tests passed. Recipe and output hash in the paper README.
 
 - `experiments/2026-10-16-kappa-square-loop/`: H-loop dead at this scale (P2 failed).
 - `experiments/2026-10-16-kappa-loop-surgery/`: closed unrun on 2026-10-19 (gate failed; premise further weakened by the collider result).

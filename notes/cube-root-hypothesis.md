@@ -61,3 +61,30 @@ boundary access. The revised paper states that the physical closure remains
 missing; calibration concerns estimator bias. See the
 [response audit](accounting-identity-response-2026-10-16.md) for evidence limits
 and what independent prediction and intervention would need to establish.
+
+## Manuscript interpretation update — 2026-10-20
+
+Evidence revision `0de4d38de7c468583bc8c8aba4dc6ed54edada10`; editorial work
+follows blog commit `0e7d251`. No new simulations or fits are introduced.
+The probe's window-normalized uniform reference is about 1.11 in the cube-root
+regime, verified by the uniform-resampling control; the stationary census
+median ratio to each rule's own reference is 0.814. This corrects the reference
+used to interpret P3, without changing its registered statement above.
+
+The opening-run law for edge entry, `1/c = 1.363 + 0.696 min(m,8)`, transfers
+to fresh stationary rules (R² 0.877) but misses its broader-validation target
+(0.711 versus 0.80). Flat-band initial-interior ablations support a local
+fresh-ground contribution; failed profile and kernel predictions leave the
+constants unexplained. The registered no-direct-effect construction reproduces
+the area-conditioned opening-run association with occupation. This limits a
+mechanistic reading of prediction beyond early area; it does not remove the
+prefix prediction, prove no direct effect, or explain the shortening mutation.
+
+Records, commands, seeds and caveats:
+[c law](../experiments/2026-10-19-kappa-chiral-edge/README.md),
+[mechanism and conditioning](../experiments/2026-10-19-c-law-mechanism/README.md),
+[uniform control](../experiments/2026-10-16-kappa-uniform-baseline/README.md),
+[walker controls](../experiments/2026-10-19-kappa-walker-reference/README.md).
+The square-loop null, unrun surgery and growth-clock support failure retain
+their distinct verdicts. The headline census and growth exponent are unchanged;
+neither stationarity nor cube-root growth is derived from the microscopic rule.

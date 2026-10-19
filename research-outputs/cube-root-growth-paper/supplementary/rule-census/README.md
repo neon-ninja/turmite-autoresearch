@@ -1,7 +1,7 @@
 # Supplementary dataset: per-rule census table
 
 `rule_census.csv` has one row per rule swept (all 4083 canonical, non-trivial
-L/R rules of length 2-12) and 63 columns. It collects every per-rule quantity
+L/R rules of length 2-12) and 65 columns. It collects every per-rule quantity
 behind the paper's census tables and figures. Nothing is re-measured: the file is
 a join of committed result files, rebuilt by
 
@@ -31,6 +31,12 @@ are kept in the census; these are flagged by `census_late_escape`.)
 
 Identity and class
 - `rule`, `n` (length), `n_L`, `n_R` (letter counts).
+- `opening_run`: number of consecutive copies of the first letter at the start.
+  `c_lead_pred` = 1 / (a + b min(opening_run, 8)), using the full-precision
+  census coefficients in `2026-10-19-kappa-chiral-edge/results/c_law.json`.
+  This is a fitted prediction, not a measurement or a per-rule held-out score.
+  Values are supplied for all rows for reproducibility; the fit used only 2185
+  stationary blobs, so values for other classes are extrapolations.
 - `primitive_root`, `is_repeat`: shortest `u` with `u^k = rule`; repeats behave
   identically to their root (52 census rules are repeats).
 - `phase`: `highway` (removed by sweep), else the census class `builder` /

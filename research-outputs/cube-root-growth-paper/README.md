@@ -1,9 +1,59 @@
 # Manuscript build
 
+## October follow-up revision (2026-10-20)
+
+Follows the blog assessment in commit `0e7d251`; scientific evidence is pinned
+at `0de4d38de7c468583bc8c8aba4dc6ed54edada10`. No simulations, estimators or
+scientific fits were changed. The abstract, key results, definitions, transport
+discussion, edge-entry results, evidence table and conclusion now incorporate:
+
+- the growth-adjusted uniform reference for window-normalized kappa, with the
+  uniform-resampling calibration and walker-specific comparisons;
+- the opening-run c law, both fresh-rule validation scores (including the
+  broader-validation failure), flat-band ablations and failed mechanism targets;
+- the registered no-direct-effect construction for the area-conditioned lead
+  association, survivor selection and the still-unexplained shortening mutation;
+- the failed same-turn square-loop test, surgery closed unrun, and the
+  uninformative growth-clock support failure, with distinct verdicts.
+
+The original census, exponents, numerical inputs and figure assets are retained.
+`recent_findings_numbers.py` extracts the new numbers from committed summaries
+into `recent_findings.json`, with input hashes. It does not invoke the original
+analysis producer: that producer can omit Stage 4c when ignored dumps are absent.
+Audits 44--48 preserve commands, seeds, windows, deviations and provenance limits.
+The supplementary census gains `opening_run` and `c_lead_pred` (65 columns);
+the prediction is explicitly labelled as fitted, with extrapolation outside the
+stationary calibration class. A rounding correction to the blog's analytical
+uniform reference (1.1101) is included with the paper revision.
+
+Reproduce from the repository root in WSL, after setting
+`export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy`:
+
+```bash
+uv run research-outputs/cube-root-growth-paper/recent_findings_numbers.py --check
+uv run research-outputs/cube-root-growth-paper/supplementary/rule-census/build_rule_census.py --check
+uv run research-outputs/cube-root-growth-paper/supplementary/walker-reference/build_walker_reference.py --check
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+typst compile --root . --format png --ppi 55 research-outputs/cube-root-growth-paper/main.typ 'tmp/paper-update/page-{p}.png'
+cargo test --release > tmp/paper-update/release-tests.log 2>&1
+```
+
+Create `tmp/paper-update` first. To regenerate the extracted JSON rather than
+check it, omit `--check`; this refreshes its recorded base commit. No dependency
+declarations changed. Tools: Typst 0.15.1, uv 0.5.15, cargo 1.98.1. The release
+suite passed (existing compiler warnings remain); both supplementary guards and
+the extraction guard passed. The blog's production build and local-link check
+passed (102 HTML pages). The 45-page PDF compiled without diagnostics, all pages
+were visually reviewed in contact sheets, and the opening, new results and audit
+pages were checked individually. No blank pages, clipping or overlap was found.
+Final PDF SHA-256: `d1d68a9a7278e992121aaddc1fd637f9d48ddd4d0c6b25fa001adaf4f5d271ba`.
+`revision_verification.json` records source/output hashes and validation scope;
+temporary renders and logs are in `tmp/paper-update/` (ignored).
+
 ## Keep the census dataset current
 
 `supplementary/rule-census/rule_census.csv` is the paper's per-rule supplementary
-dataset (all 4083 swept rules, 63 columns; data dictionary in its README). It is a
+dataset (all 4083 swept rules, 65 columns; data dictionary in its README). It is a
 join of committed result files, so it goes stale silently. Rebuild it and commit
 the result in the same change whenever you touch anything it reads:
 
