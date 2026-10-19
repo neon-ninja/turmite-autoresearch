@@ -1,1 +1,1 @@
-Update experiments index to list all experiment directories
+Keep experiments README as a reference index only
