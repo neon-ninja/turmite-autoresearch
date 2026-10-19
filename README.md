@@ -17,8 +17,7 @@ measurements, hypotheses and unresolved explanations live together here.
 > predictions, an oracle implementation, lab notebooks, negative results kept).
 > Whether that process produces trustworthy science is part of what is being
 > tested, so treat the claims with the same scrutiny as any other result and
-> check them against the code and data. The paper's "Use of AI tools" statement
-> says which tools did what.
+> check them against the code and data.
 
 Start with [the open questions](notes/open-questions-hypotheses.md),
 [the experiments guide](experiments/README.md), and
