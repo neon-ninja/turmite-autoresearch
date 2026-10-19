@@ -54,7 +54,9 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Jupyter is not in `pyproject.toml`**: `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb` was re-executed 2026-10-20
   using `uv pip install ipykernel` into the WSL venv plus `ipykernel install --sys-prefix`; decide whether to `uv add` it.
   Its Proposal 2 bounds are not in the notebook (rebuild with `scripts/build_notebook.py` if wanted).
-- **Refresh `blog/index.html`** with the c-law / collider result (convention in `AGENTS.md`). The experiment pages were
+- **Refresh `blog/index.html`** with the c-law / collider result (convention in `AGENTS.md`). A null-result post
+  (`blog/_posts/2026-10-20-where-kappa-is-not.md`, with reader guides for the three 2026-10-20 kappa experiments) was added 2026-10-20;
+  the index itself was not touched. The experiment pages were
   re-rendered 2026-10-20 (from a worktree under WSL set `GIT_DIR=/mnt/f/Code/turmite/.git/worktrees/<name>` and `GIT_WORK_TREE=$PWD`).
 - **Stale worktrees and branches** (nothing deleted). On 2026-10-20 tracked work was committed on their own branches
   (`agent-a810708e829d8af34` as `4cb0261`, `g1-builder-structure` as `b985636`, rulepat as `275d52b`), but **gitignored data
