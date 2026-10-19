@@ -425,3 +425,60 @@ Resumed from committed read/write failures. No live release/cargo experiment
 process found. Register the native-return/waiting/serial audit before measuring;
 keep physical-budget failures and main-outcome seal. Boundary lag tracks warmup;
 complete inter-birth waits retain explicit endpoint censoring. No new model arm.
+
+### 2026-10-20 07:36 (+13:00) · b1bcbbc · observation
+
+Native-lag sparse path oracle passes all four release tests, including seeded
+band, blank ant and walker controls; warmup is tracked before emission. Synthetic
+known-wait, endpoint, time-stretch and equal-marginal/different-order checks pass
+(seed 2026102071; serial TV .997494 in the deliberately reordered control).
+Repository-wide cargo fmt --check reports pre-existing formatting differences;
+only the three edited Rust files were formatted. No unrelated files changed.
+
+### 2026-10-20 07:36 (+13:00) · b1bcbbc · decision
+
+Launched background audit worker PID 1997684, fresh target and entire release
+suite before any pilot interpretation. Log results/native_v1/session.log,
+PID/exit files local and ignored. Forty inspected pilot trajectories will be
+replayed, preserving every old summary field before native comparisons. An
+untracked lattice regression file predates this session and is left untouched.
+
+### 2026-10-20 07:34 (+13:00) · b1bcbbc · deviation
+
+Timestamp correction: the two entries labelled 07:36 above were written before
+07:33:12 (verified UTC clock 2026-10-19 18:33:12). Their minute labels were
+mistaken estimates, not measurement times; preserve them with this correction.
+The registration commit 3521b6c preceded implementation b1bcbbc, synthetic checks
+and worker launch, and no native ant output exists yet. Worker is live, fresh
+release compilation continues. Commands, source hashes and eventual case markers
+are the measurement provenance; notebook clock labels are not elapsed timings.
+
+### 2026-10-20 07:35 (+13:00) · b1bcbbc · observation
+
+Worker 1997684 terminal exit 0. Fresh full release suite passes; all 40 old
+ant summaries replay exactly. Known-wait/time-stretch/order calibration passes;
+all native windows have 8192 reads, 8 eligible pairs per arm. N1 and N2 fail
+for uniform/read/write/pair. Pair-bit sensitive native-budget errors are
+.574366/.619567, waiting TV .143930/.145131, serial TV .289429/.281639.
+Reference seed distances .050881/.044029/.041941 respectively. Report and
+all exact histograms/recipes in results/native_report.json and native_v1/.
+No main outcomes measured, no fit, no dependency changes. Counter accounting
+and all physical summary fields match; bulk event rows need not be committed.
+
+### 2026-10-20 07:35 (+13:00) · b1bcbbc · interpretation
+
+Physical-time stretching alone cannot explain the failed memory budgets:
+the boundary-native birth process changes too. Both-bit total c agreement
+conceals different waits and serial ordering. Small early pilot, two seeds
+per rule, descriptive thresholds; no asymptotic theorem or general memory
+lower bound. Keep every original failure. Coefficients remain unexplained.
+
+### 2026-10-20 07:35 (+13:00) · b1bcbbc · question
+
+Prefer a single coupled phase edit over another larger-word sweep. Two equal
+future turns force identical paths through the first two reads of that source;
+the first differing rule turn determines the first possible path divergence.
+Can the delayed effect then persist in boundary waits? This is a proposal,
+not a run or a new pass criterion. Register branch selection, horizon,
+controls and censoring before measuring. Update notebook and public priorities
+with the completed native-clock failure first.

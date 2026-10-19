@@ -1,0 +1,159 @@
+Fresh build, release tests and synthetic calibration pass
+pilot-m1-00-2026102021-full exact replay; native events 8192 seconds 0.43
+pilot-m1-00-2026102021-turn-4 exact replay; native events 8192 seconds 0.63
+pilot-m1-00-2026102021-uniform-4 exact replay; native events 8192 seconds 0.15
+pilot-m1-00-2026102021-next-4 exact replay; native events 8192 seconds 1.95
+pilot-m1-00-2026102021-word2-4 exact replay; native events 8192 seconds 0.71
+pilot-m1-00-2026102022-full exact replay; native events 8192 seconds 0.55
+pilot-m1-00-2026102022-turn-4 exact replay; native events 8192 seconds 0.36
+pilot-m1-00-2026102022-next-4 exact replay; native events 8192 seconds 1.15
+pilot-m1-00-2026102022-uniform-4 exact replay; native events 8192 seconds 0.62
+pilot-m2-00-2026102021-full exact replay; native events 8192 seconds 1.13
+pilot-m1-00-2026102022-word2-4 exact replay; native events 8192 seconds 1.72
+pilot-m2-00-2026102021-turn-4 exact replay; native events 8192 seconds 0.64
+pilot-m2-00-2026102021-uniform-4 exact replay; native events 8192 seconds 0.72
+pilot-m2-00-2026102021-word2-4 exact replay; native events 8192 seconds 1.55
+pilot-m2-00-2026102021-next-4 exact replay; native events 8192 seconds 3.2
+pilot-m2-00-2026102022-full exact replay; native events 8192 seconds 0.67
+pilot-m2-00-2026102022-next-4 exact replay; native events 8192 seconds 1.12
+pilot-m2-00-2026102022-turn-4 exact replay; native events 8192 seconds 1.16
+pilot-m2-00-2026102022-uniform-4 exact replay; native events 8192 seconds 0.81
+pilot-m3-00-2026102021-full exact replay; native events 8192 seconds 0.13
+pilot-m3-00-2026102021-next-4 exact replay; native events 8192 seconds 0.13
+pilot-m3-00-2026102021-turn-4 exact replay; native events 8192 seconds 0.17
+pilot-m3-00-2026102021-uniform-4 exact replay; native events 8192 seconds 0.52
+pilot-m2-00-2026102022-word2-4 exact replay; native events 8192 seconds 3.03
+pilot-m3-00-2026102022-full exact replay; native events 8192 seconds 0.19
+pilot-m3-00-2026102021-word2-4 exact replay; native events 8192 seconds 1.7
+pilot-m3-00-2026102022-next-4 exact replay; native events 8192 seconds 0.19
+pilot-m3-00-2026102022-turn-4 exact replay; native events 8192 seconds 0.18
+pilot-m3-00-2026102022-word2-4 exact replay; native events 8192 seconds 0.13
+pilot-m3-00-2026102022-uniform-4 exact replay; native events 8192 seconds 0.14
+pilot-m4-00-2026102021-next-4 exact replay; native events 8192 seconds 1.97
+pilot-m4-00-2026102021-full exact replay; native events 8192 seconds 3.32
+pilot-m4-00-2026102021-turn-4 exact replay; native events 8192 seconds 2.82
+pilot-m4-00-2026102021-uniform-4 exact replay; native events 8192 seconds 2.06
+pilot-m4-00-2026102021-word2-4 exact replay; native events 8192 seconds 2.52
+pilot-m4-00-2026102022-next-4 exact replay; native events 8192 seconds 0.34
+pilot-m4-00-2026102022-full exact replay; native events 8192 seconds 3.79
+pilot-m4-00-2026102022-turn-4 exact replay; native events 8192 seconds 1.81
+pilot-m4-00-2026102022-uniform-4 exact replay; native events 8192 seconds 0.26
+pilot-m4-00-2026102022-word2-4 exact replay; native events 8192 seconds 2.92
+{
+  "uniform:4": {
+    "eligible": 8,
+    "N1": "FAILED",
+    "N2": "FAILED",
+    "median_budget_error": 0.2289049961356466,
+    "waiting_pass_pairs": 2,
+    "sensitive": [
+      {
+        "family": "pilot-m4-00",
+        "rule": "RRRRLLRRLLLLRR",
+        "seed": "2026102021",
+        "mode": "uniform:4",
+        "eligible": true,
+        "native_budget_error": 1.1803134344395358,
+        "wait_tv": 0.1288695811670375,
+        "joint_tv": 0.27011696785091494
+      },
+      {
+        "family": "pilot-m4-00",
+        "rule": "RRRRLLRRLLLLRR",
+        "seed": "2026102022",
+        "mode": "uniform:4",
+        "eligible": true,
+        "native_budget_error": 1.173555973411283,
+        "wait_tv": 0.14303062507242612,
+        "joint_tv": 0.2937611830188783
+      }
+    ]
+  },
+  "turn:4": {
+    "eligible": 8,
+    "N1": "FAILED",
+    "N2": "FAILED",
+    "median_budget_error": 0.22112920981112058,
+    "waiting_pass_pairs": 2,
+    "sensitive": [
+      {
+        "family": "pilot-m4-00",
+        "rule": "RRRRLLRRLLLLRR",
+        "seed": "2026102021",
+        "mode": "turn:4",
+        "eligible": true,
+        "native_budget_error": 0.8632407738977129,
+        "wait_tv": 0.15398413802138444,
+        "joint_tv": 0.3168192921342004
+      },
+      {
+        "family": "pilot-m4-00",
+        "rule": "RRRRLLRRLLLLRR",
+        "seed": "2026102022",
+        "mode": "turn:4",
+        "eligible": true,
+        "native_budget_error": 0.8886841166740018,
+        "wait_tv": 0.15883879711704954,
+        "joint_tv": 0.3164849106901025
+      }
+    ]
+  },
+  "next:4": {
+    "eligible": 8,
+    "N1": "FAILED",
+    "N2": "FAILED",
+    "median_budget_error": 0.16951628465404817,
+    "waiting_pass_pairs": 2,
+    "sensitive": [
+      {
+        "family": "pilot-m4-00",
+        "rule": "RRRRLLRRLLLLRR",
+        "seed": "2026102021",
+        "mode": "next:4",
+        "eligible": true,
+        "native_budget_error": 1.192697480259164,
+        "wait_tv": 0.12456058726220015,
+        "joint_tv": 0.2646623319989612
+      },
+      {
+        "family": "pilot-m4-00",
+        "rule": "RRRRLLRRLLLLRR",
+        "seed": "2026102022",
+        "mode": "next:4",
+        "eligible": true,
+        "native_budget_error": 1.1413735921688208,
+        "wait_tv": 0.12387813392451119,
+        "joint_tv": 0.26260145617170755
+      }
+    ]
+  },
+  "word2:4": {
+    "eligible": 8,
+    "N1": "FAILED",
+    "N2": "FAILED",
+    "median_budget_error": 0.13727524297030747,
+    "waiting_pass_pairs": 4,
+    "sensitive": [
+      {
+        "family": "pilot-m4-00",
+        "rule": "RRRRLLRRLLLLRR",
+        "seed": "2026102021",
+        "mode": "word2:4",
+        "eligible": true,
+        "native_budget_error": 0.5743657113955111,
+        "wait_tv": 0.14392986276635814,
+        "joint_tv": 0.28942879895382
+      },
+      {
+        "family": "pilot-m4-00",
+        "rule": "RRRRLLRRLLLLRR",
+        "seed": "2026102022",
+        "mode": "word2:4",
+        "eligible": true,
+        "native_budget_error": 0.6195667937662779,
+        "wait_tv": 0.14513057050893174,
+        "joint_tv": 0.281639469992835
+      }
+    ]
+  }
+}

@@ -299,3 +299,22 @@ timing. This proposal is unimplemented and needs fresh registered tests.
 
 ### Lattice c law: slope falls with loop length; the kappa deficit is not square-specific — 2026-10-20 (`experiments/2026-10-20-lattice-c-law`)
 Registered (README, before any lattice c): A b ~ loop length, B b lattice-independent, C b ~ 4/z, as vectors over (triangular, hex R-lead, hex r-lead). 960 ants (48 per lead 1..5 per stratum, primitive rules of length 10-14) and 120 controls, 2^27 steps, board 8192, generic octave probe `src/lattice_probe.rs` (oracle tests: square equals `probe.rs`, hex/triangular equal a HashMap version; mean-field gate G4 passes at 0.994/1.005/1.004). **A, B and C are all disproven as stated.** Registered fits: b = 0.696 square (census 0.70), **0.355 triangular** [0.340, 0.371], 0.876 hex R-lead [0.78, 0.98]; the hex r-lead OLS is wrecked by one rule with 1/c = 390 (the frozen decision rule returns "undecided"; L1, L2, K4 failed). Post hoc (unregistered), per-lead medians give hex r-lead b ~ 0.27, so b is 0.86, 0.70, 0.34, 0.28 for loop lengths 3 (hex R), 4 (square), 6 (triangular), 6 (hex r): it **falls** with loop length. Intercept 1.3 on square and triangular, ~2.4-2.8 on hex. Kappa: ant median kappa/kappa_unif is 0.77 square, 0.74 triangular, 0.86 hex (random walks 1.28-1.44), so the deficit is not a square-lattice artefact. K3 held (no lead slope of ln kappa beyond 0.08). Open: why b falls with loop length (the Little's-law derivation b = l_b / N_b leaves N_b's scaling free; the data say N_b grows faster than l_b), the hex letter-type effect, more loop lengths, whether the intercept tracks coordination. Reproduce: `experiments/2026-10-20-lattice-c-law/README.md`.
+
+#### Native boundary clock rejects the excursion-duration rescue — 2026-10-20 07:35 (+13:00)
+
+[Renewal audit](../experiments/2026-10-20-c-law-renewal/README.md), registered
+3521b6c037168657e26b21bb0b6bdc254eed8faf, implementation
+b1bcbbc4844a221abb02a36778664ae23a53ccaf: all 40 pilot summaries replay
+exactly; sparse native-lag oracle, synthetic time-stretch/order checks and full
+release tests pass. Same four excluded rules x two seeds, 2048+8192 boundary
+reads; no main outcomes. All compressed policies FAIL native budget N1 and
+complete-wait/adjacent-wait N2. Both-bit sensitive-rule waiting TV .143930/.145131,
+serial TV .289429/.281639, versus full-ant seed distances .044029/.041941.
+So physical excursion stretching alone cannot explain the earlier failed
+physical-budget tests. Close c still conceals a different boundary birth process.
+No universal locality rejection, fitted coefficients or asymptotic claim.
+Reproduce: experiment scripts/run_native.py and analyse_native.py; exact counts,
+source/binary hashes and cases in results/native_v1/, results/native_report.json.
+Next proposal is one coupled phase edit preserving two turns, to separate delayed
+future-clock release from accumulated geometry changes under repeated resets.
+It needs its own registration/oracle; no such causal branch test has run.

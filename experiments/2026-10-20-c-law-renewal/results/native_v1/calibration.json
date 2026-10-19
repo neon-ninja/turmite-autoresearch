@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "seed": 2026102071,
+    "known_wait_counts_exact": true,
+    "time_stretch_invariant": true,
+    "same_marginal_serial_tv": 0.9974937343358395,
+    "empty_window_accounting": true
+  },
+  "analysis_sha256": "f42c702a6fd88b8aa4aade6a8cf832a388a24a7ca069a23adb4580a3ad84cc98"
+}
