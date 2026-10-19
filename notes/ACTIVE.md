@@ -10,6 +10,10 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Why does the c-law slope b fall with loop length?** Lattice experiment: b = 0.86 / 0.70 / 0.34 / 0.28 for loops 3 (hex R), 4 (square), 6 (triangular), 6
   (hex r); hypotheses A, B, C all disproven. Needs a registered b(l) model, a letter-typed hex lead, and ideally a new loop length; also why the hex
   intercept is ~2.5 vs 1.3. `experiments/2026-10-20-lattice-c-law/README.md` (Results), post hoc `results/explore.txt`.
+  Follow-up `experiments/2026-10-20-lattice-c-law-colours/` (2026-10-20): the registered circulation decomposition failed (P1, P2, P6 failed;
+  P3 passed on a flawed interior-contaminated estimator and is not counted). Post hoc: the slope lives in boundary reads at the circulating
+  colours, ~0.95 per colour (hex R), 0.8 (square), 0.65 to 0.35 (tri), 0.7 to 0.5 (hex r); lag-ell ring returns carry them only on the square
+  lattice; hex r fills ring centres (15% of lead-1 births). Next: boundary-only episode segmentation, and what sets the per-colour survival plateau.
 - **Origin of the c law constants a = 1.4, b = 0.68** (1/c = 1.36 + 0.70 lead). Candidate: loop-formation probability x 4 steps
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).
