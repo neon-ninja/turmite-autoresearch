@@ -418,3 +418,10 @@ costs differ too? Do not withdraw I2 failures. Add a stronger, native-process
 audit (return lags plus complete waiting law and serial transitions), calibrated
 on time-stretched traces/known renewal sequences and frozen before new outputs.
 This tests a confound instead of automatically expanding the word length.
+
+### 2026-10-20 07:30 (+13:00) · 6bb01f2 · intent
+
+Resumed from committed read/write failures. No live release/cargo experiment
+process found. Register the native-return/waiting/serial audit before measuring;
+keep physical-budget failures and main-outcome seal. Boundary lag tracks warmup;
+complete inter-birth waits retain explicit endpoint censoring. No new model arm.
