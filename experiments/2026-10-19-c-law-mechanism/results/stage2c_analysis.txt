@@ -1,0 +1,5 @@
+U rerun identical to the main band run on births and boundary steps for all 60 rules: True
+Z: kept 59/60, median |c_Z/c_U - 1| = 0.0029 (median ratio 1.0006, corr2 0.9940), 1/c = 1.409 + 0.676 lead, median band consumption 0.70 -> A1 PASS
+Y: kept 58/60, median |c_Y/c_U - 1| = 0.0031 (median ratio 0.9999, corr2 0.9989), 1/c = 1.412 + 0.674 lead, median band consumption 0.72 -> A2 PASS
+H: kept 58/60, median |c_H/c_U - 1| = 0.0028 (median ratio 1.0008, corr2 0.9984), 1/c = 1.382 + 0.682 lead, median band consumption 0.70 -> A3 PASS
+A4 (all slopes in [0.55, 0.85]): PASS
