@@ -7,16 +7,16 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Science: open questions
 
-- **Why does the c-law slope b fall with loop length?** Lattice experiment: b = 0.86 / 0.70 / 0.34 / 0.28 for loops 3 (hex R), 4 (square), 6 (triangular), 6
-  (hex r); A, B, C all disproven. The falling pattern is post hoc on four strata, no mechanism; the Little's-law derivation b = l_b / N_b leaves N_b(l) free
-  (the data say births per episode grow faster than boundary loop cells). Close with a registered b(l) model, tested on a new loop length.
-  `experiments/2026-10-20-lattice-c-law/README.md` (Results), post hoc `results/explore.txt`.
+- **Why does the c-law slope b fall with loop length, and what sets the intercept?** Registered Moore-lattice test (follow-up B, `experiments/2026-10-20-lattice-c-law/README.md`): b = 0.775 at loop 4 (z = 8), 0.260 at loop 8; M-lin refuted, M-inv missed its own consistency clause by 0.005, so neither supported. b looks floor-like (~0.26-0.28 at l = 6 and 8), within-lattice doubling of l multiplies b by ~0.3. Intercept is lattice-set (1.3 for z = 3, 4; 2.4 for z = 6, 8), not loop-set. No mechanism; closing needs a derivation of N_b(l) and the intercept, then a registered test on another lattice.
 - **Why is the hex lead fit so noisy, and what sets its intercept?** Follow-up A (2026-10-20, registered, `experiments/2026-10-20-lattice-c-law/README.md`) removed the lacy outlier (beta < 0.8) and
   separated tail letter types: clean r-lead b = 0.262 [0.21, 0.31] (R^2 only 0.42), R-lead 0.876 (R^2 0.69), b_r/b_R = 0.30 [0.24, 0.37]; tail letter type adds ~nothing
   (R-lead CV gain +0.014, r-lead none). Intercept stays 2.4-2.8. Unexplained scatter remains; candidate features untested: second run length, letters 6-8.
 - **Origin of the c law constants a = 1.4, b = 0.68** (1/c = 1.36 + 0.70 lead). Candidate: loop-formation probability x 4 steps
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).
+- **Local renewal mechanism for c:** ordered-event recorder and controls pass; excluded pilot has no usable common horizon.
+  Main cohort remains unrun. Registered same-horizon support diagnostic will check family-specific state sparsity, then sampling
+  and target-rule-compatible transitions need a prospective revision. `experiments/2026-10-20-c-law-renewal/README.md`.
 - **S-arm kappa drop (d = -0.198) is unexplained.** A total effect, not area-conditioned; confounded with flip direction
   (L>R +0.15, R>L -0.21, post hoc). Needs direction-balanced flips. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 4
   results), `experiments/2026-10-16-kappa-leadrun-fresh/README.md` (Part B addendum, Proposal 1).
@@ -53,9 +53,8 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Uncommitted work in progress (do not lose)
 
-- **c-law renewal scaffold** (`experiments/2026-10-20-c-law-renewal/` README/NOTEBOOK/scripts, `src/lib.rs`, untracked
-  `src/edge_renewal.rs`, `tests/edge_renewal.rs`, `examples/c_law_renewal_trace.rs`): files were edited minutes before
-  2026-10-20 00:42, so another session is likely live. Not touched here; its owner should run `cargo test --release` and commit.
+- **c-law renewal work is active in its owning session:** instrument and oracle tests committed (`ccbd9cd`), release suite passes,
+  failed pilot and calibration committed (`e81f238`). Do not replace its pilot families or launch the unopened main cohort.
 - The n-rotor reference, uniform-baseline notebook edit and blog index/post listed here earlier are committed (`18b79d7`,
   `3117e1b`); `main` equals `origin/main` (`bf4ca54`) as of 2026-10-20 00:42.
 - **rulepat, branch `claude/rule-pattern-experiment-aa95e3`**: committed 2026-10-20 as `275d52b` and merged into local `main`

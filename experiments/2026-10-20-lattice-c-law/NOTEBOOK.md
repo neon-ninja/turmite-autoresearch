@@ -85,3 +85,9 @@ with a new loop length (implementation plus oracle tests per AGENTS rule 4) and 
 
 ### 2026-10-20 01:30 (+13:00) · plan
 user selected the b(l) item. Added the Moore lattice (new loop length 8, plus a loop-4 control at z = 8) to `lattice_probe` with oracle tests; registered M-lin / M-inv and B1-B6 in README before any Moore ant was run. Reason for Moore: hex offers only loops 3 and 6, triangular 6; any new loop length needs a new lattice.
+
+### 2026-10-20 02:05 (+13:00) · 02f5d13 · observation
+Follow-up B ran as registered (`results/analysis_moore.txt`). B1, B3, B4, B6 held; B5 failed; B2 gave M-lin refuted, M-inv number met but its own consistency clause missed by 0.005, so by the frozen rule neither is supported. b = 0.260 (l=8), 0.775 (l=4, z=8); intercept 2.4 on both.
+
+### 2026-10-20 02:05 (+13:00) · 02f5d13 · interpretation
+b looks like ~0.26-0.28 for l = 6 and 8, so a floor-like or slowly falling dependence, not linear to zero. Intercept tracks the lattice (z >= 6 gives 2.4+), not the loop. Both remain without mechanism; the b(l) item is narrowed, not closed.

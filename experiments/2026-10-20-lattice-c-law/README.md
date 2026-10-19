@@ -202,3 +202,13 @@ Run and filters exactly as the main experiment (2^27 steps, board 8192, windows 
 
 Decision: M-lin and M-inv are scored on B2 only; a supported model must also not miss B1 by more than 0.15 of its own l = 4 prediction (0.70 / 0.62). Results will be appended below, not edited above.
 Script `scripts/analyse_moore.py` -> `results/analysis_moore.txt`.
+
+### Follow-up B results (run 2026-10-20; `scripts/run_moore.sh`, commit `02f5d13`, binary sha256 `ae948ed0...8049d6a` in `results/run_moore.log`; `scripts/analyse_moore.py` -> `results/analysis_moore.txt`)
+
+Controls 103 s, 480 ants 303 s. Retention high (kept 39-48 of 48 in every cell). Fits (rule bootstrap 95%):
+r-lead (loop 8) `a = 2.39`, `b = 0.260 [0.235, 0.284]`, R^2 0.69 (n = 234); R-lead (loop 4, z = 8) `a = 2.41`, `b = 0.775 [0.711, 0.857]`, R^2 0.74 (n = 207); b_r/b_R = 0.335 [0.291, 0.380].
+- **B1 held** (0.775 in [0.55, 0.85]; the 0.075 excess over the square 0.70 is outside the Moore CI, so z has a small effect or none beyond it). **B3 held. B4 held. B6 held** (mean-field 0.999, random walk 1.19).
+- **B2**: M-lin **not supported** (b = 0.26, not ~0): the linear description is refuted at l = 8. M-inv's number was met (b in [0.20, 0.42]) but it fails its own consistency clause (R-lead deviation from its l = 4 prediction 0.62 is 0.155 > 0.15), so by the frozen rule **neither model is supported**. Marginal and I do not round it up.
+- **B5 FAILED**: Moore intercepts 2.39 and 2.41, like hex (2.4-2.8) and unlike square/triangular (1.3). Intercepts: z = 3: 1.3, z = 4: 1.3, z = 6: 2.4-2.8, z = 8: 2.4 (post hoc; not monotone in z, and equal for both Moore loops).
+- Post hoc, unregistered: within a lattice, doubling the loop length from 3 to 6 (hex) and 4 to 8 (Moore) multiplies b by 0.30 and 0.335, i.e. b ~ l^-1.6 locally, steeper than both 1/l and the cross-lattice triangular/square ratio (0.49). A model must say why the within-lattice drop is steeper than the across-lattice one. Ant kappa ratio median 0.96 on Moore (higher than 0.74-0.86 elsewhere), so the kappa deficit weakens with z; also post hoc.
+- Conclusion: the registered test of the b(l) models on a new loop length falls to "neither", but constrains the answer: b(8) = 0.26 is far from zero, b is flat at ~0.26-0.28 for l = 6 and 8 in different lattices, and the intercept looks set by the lattice (hex-like on Moore), not the loop. No mechanism yet.
