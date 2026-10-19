@@ -3,9 +3,9 @@ name: Research blog
 on:
   push:
     branches: [main]
-    paths: ['blog/**', 'experiments/**', 'research-outputs/cube-root-growth-paper/fig/**', 'research-outputs/cube-root-growth-paper/*.py', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
+    paths: ['blog/**', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   pull_request:
-    paths: ['blog/**', 'experiments/**', 'research-outputs/cube-root-growth-paper/fig/**', 'research-outputs/cube-root-growth-paper/*.py', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
+    paths: ['blog/**', 'experiments/**', 'research-outputs/cube-root-growth-paper/**', 'pyproject.toml', 'uv.lock', '.github/workflows/blog.yml']
   workflow_dispatch:
 
 permissions:
@@ -63,6 +63,7 @@ jobs:
           REPOSITORY_URL: ${{ github.server_url }}/${{ github.repository }}
         run: |
           uv run --frozen --only-group blog blog/scripts/test_experiments.py
+          uv run --frozen --only-group blog blog/scripts/export_results.py --check
           uv run --frozen --only-group blog blog/scripts/experiments.py --baseurl "$SITE_BASE_PATH" --repository-url "$REPOSITORY_URL"
       - name: Build
         working-directory: blog
@@ -74,6 +75,8 @@ jobs:
         env:
           SITE_BASE_PATH: ${{ steps.pages.outputs.base_path }}
         run: bundle exec ruby scripts/check.rb _site "$SITE_BASE_PATH"
+      - name: Check preliminary result cards
+        run: node blog/scripts/test_results.js
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request' && github.ref_name == github.event.repository.default_branch
         with:

@@ -1,0 +1,114 @@
+{
+  "titles": [
+    "Doubling the width takes about eight times the steps.",
+    "Similar interiors hide different edges.",
+    "Departures from the cube root appear in boundary occupation.",
+    "Opening turns predict edge-entry cost.",
+    "Predicting occupation does not establish a direct opening-run effect.",
+    "Uniform occupation has a growth-adjusted reference.",
+    "Early growth budgets predict later growth.",
+    "The tested memory models do not reproduce the joint regime.",
+    "Billions of blob-like steps need not be permanent."
+  ],
+  "images": {
+    "exponents": {
+      "width": 1015,
+      "height": 361
+    },
+    "hero": {
+      "width": 816,
+      "height": 334
+    },
+    "ck_time": {
+      "width": 1008,
+      "height": 346
+    },
+    "memory_paths": {
+      "width": 1040,
+      "height": 962
+    },
+    "late_switch": {
+      "width": 1012,
+      "height": 697
+    }
+  },
+  "blob_count": 2630,
+  "exponent": 0.3326,
+  "profile_difference_pct": 5,
+  "log_count": 425,
+  "fast_count": 109,
+  "law": {
+    "a": 1.3634822200790424,
+    "b": 0.6959395841100399,
+    "r2": 0.876760905992503,
+    "median_rel_err": 0.041165226759370274
+  },
+  "broad_r2": 0.7114221822929732,
+  "prefix_r2": 0.633,
+  "conditioning": {
+    "n": 176,
+    "marginal_lead_on_lnk": -0.02209338748299613,
+    "marginal_lead_on_lnc": -0.20107616093863026,
+    "growth_fit": [
+      11.446774397697142,
+      0.6865988404925633,
+      0.8069414006906293
+    ],
+    "obs_lead": 0.1476862162902805,
+    "obs_lnA": 1.0731073144206815,
+    "null_lead_mean": 0.14530059776784895,
+    "null_lead_ci": [
+      0.13736384327670315,
+      0.15296562165062208
+    ],
+    "null_lnA_mean": 1.0351756994354275,
+    "with_c": {
+      "lead": 0.014164996819848423,
+      "ci": [
+        -0.04478052836751924,
+        0.06200702675114781
+      ],
+      "lnA": 1.086303151589532,
+      "lnc": -0.6744159663725118
+    },
+    "Q1": true,
+    "Q2": true,
+    "Q3": true
+  },
+  "ant_ratio": 0.814,
+  "ant_raw": 0.899,
+  "walkers": [
+    {
+      "label": "Random walk",
+      "raw": 1.3066526250000001,
+      "ratio": 1.2767958750000001
+    },
+    {
+      "label": "Rotor",
+      "raw": 1.9891976249999999,
+      "ratio": 1.79858775
+    }
+  ],
+  "forecast_reduction_pct": 68.5,
+  "forecast_rules": 99,
+  "onset_billions": 12.7,
+  "provenance": {
+    "revision": "26ae8e3d7b6586f04e91e382e1edc5258d24d0a6",
+    "command": "uv run --frozen --only-group blog blog/scripts/export_results.py",
+    "sha256": {
+      "research-outputs/cube-root-growth-paper/main.typ": "e07462a74e46bf1929698a21c925a689027b2c78a06463b3cc616bdbe47e0adf",
+      "research-outputs/cube-root-growth-paper/numbers.json": "dcc4a0a7b69ce589f37e2670f3612ee51966ea4f4eb509a4b60f3b07263794cc",
+      "research-outputs/cube-root-growth-paper/recent_findings.json": "a5d27ddf0d6653693fdc85e748acc8805fdc1c37ea035f054078c10a25f60c70",
+      "research-outputs/cube-root-growth-paper/kappa_prediction.json": "94fb4290e9945d90f5867a275311cc88d7c38ddee99623e2bd6bba33f5e280fa",
+      "research-outputs/cube-root-growth-paper/supplementary/rule-census/rule_census.build.json": "b45bfb27c6c9504f3979a40bf7c118cb85c11c2e3a61e5edbbff432e1431ee9b",
+      "research-outputs/cube-root-growth-paper/supplementary/walker-reference/walker_reference.csv": "9d9b05f2ebbdfe8ae1106ca333cac5cca5e3bba3be7b94d39d246bd186af9f76",
+      "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
+      "research-outputs/cube-root-growth-paper/fig/exponents.png": "34dd06ca248ae909021d5c8ac5875321c94b0474637558889dff9f21d931375d",
+      "research-outputs/cube-root-growth-paper/fig/hero.png": "372e58458aceebd31ac87ebdf801aa99d13509428fa96c3fda6354bfadf626f6",
+      "research-outputs/cube-root-growth-paper/fig/ck_time.png": "7c26e81bed73cb4883d3acf32a507eac36758ddc11132d509d65fb4a66bb3602",
+      "research-outputs/cube-root-growth-paper/fig/memory_paths.png": "41eb73e0f4f797502e0ba38bcac16133f8dc971cf728df3f9a6a26cb9aaa856d",
+      "research-outputs/cube-root-growth-paper/fig/late_switch.png": "fa2105a3bc85bfff10bb523498126d0619508e977c0d539e88e6df5aceeb346f",
+      "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt": "ad7a062d72dd9390f936e40aaefa53ff3d69e58c1acb79aa44c499082a7b6913"
+    }
+  }
+}
