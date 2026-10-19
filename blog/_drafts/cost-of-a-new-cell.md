@@ -69,3 +69,19 @@ spending more time on a longer run, a separate diagnostic will ask whether
 the state definition can transfer across these pilot families at all.
 An eight-turn word can be a concealed family label. More events would not
 by themselves repair that kind of mistake.
+
+## The rich state did turn into a family label
+
+The [registered support audit](https://github.com/timClicks/turmite-autoresearch/blob/0fa4db2807247a2214fbcd433876d6062ba83e37/experiments/2026-10-20-c-law-renewal/README.md)
+repeated all 24 excluded runs at the same longest horizon. Their summaries
+matched exactly, but the full colour/eight-turn state had no shared observed
+support when a pilot family was held out. Every read was unseen. This was
+the anticipated feasibility failure, not a failed mechanistic prediction.
+
+Dropping the word and colour recovers much more support. That is not yet
+a solution: a smaller state can forget the phase clock that makes this an
+ant in the first place. The next candidate should apply the target rule's
+updates exactly and learn only what the local patch cannot supply about
+outside cells or returns. That keeps the interesting part of the question
+alive. It also prevents a table of incompatible successors from looking
+like a physical explanation. No replacement has been tested yet.

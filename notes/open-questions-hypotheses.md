@@ -250,5 +250,21 @@ The exact immediate birth predicate is already local (turn plus fresh mask).
 The open mechanism is the distribution of local states; a pooled kernel must
 respect target-rule-compatible successors rather than borrow target counts.
 
+#### Rich-state lookup lacks pilot transfer support — 2026-10-20 00:59 (+13:00)
+
+Registered diagnostic complete, evidence revision
+`0fa4db2807247a2214fbcd433876d6062ba83e37`, same 24 excluded runs and k=26.
+Counts-mode summaries reproduce the original runs exactly; flow and reward
+checks pass. S0/S1/S2 all have 100% unseen read mass in every held-out pilot
+family run. Eight turns plus patch, omitting source colour, still has median
+94.44% unseen mass; current turn plus patch has median 2.26%, maximum 7.46%.
+This establishes a feasibility problem for the proposed lookup in this
+pilot, not a rejection of all local mechanisms or a main-cohort score.
+Reproduce: experiment `scripts/support_probe.py`; compact evidence and hashes
+in `results/support_report.json` and `results/pilot_support/`. The failed
+common-horizon gate stands. Main P1–P4 remain untested. Next proposal:
+compositional target-rule updates with learned missing patch/return conditions,
+requiring its own calibration, sampling revision and frozen predictions.
+
 ### Lattice c law: slope falls with loop length; the kappa deficit is not square-specific — 2026-10-20 (`experiments/2026-10-20-lattice-c-law`)
 Registered (README, before any lattice c): A b ~ loop length, B b lattice-independent, C b ~ 4/z, as vectors over (triangular, hex R-lead, hex r-lead). 960 ants (48 per lead 1..5 per stratum, primitive rules of length 10-14) and 120 controls, 2^27 steps, board 8192, generic octave probe `src/lattice_probe.rs` (oracle tests: square equals `probe.rs`, hex/triangular equal a HashMap version; mean-field gate G4 passes at 0.994/1.005/1.004). **A, B and C are all disproven as stated.** Registered fits: b = 0.696 square (census 0.70), **0.355 triangular** [0.340, 0.371], 0.876 hex R-lead [0.78, 0.98]; the hex r-lead OLS is wrecked by one rule with 1/c = 390 (the frozen decision rule returns "undecided"; L1, L2, K4 failed). Post hoc (unregistered), per-lead medians give hex r-lead b ~ 0.27, so b is 0.86, 0.70, 0.34, 0.28 for loop lengths 3 (hex R), 4 (square), 6 (triangular), 6 (hex r): it **falls** with loop length. Intercept 1.3 on square and triangular, ~2.4-2.8 on hex. Kappa: ant median kappa/kappa_unif is 0.77 square, 0.74 triangular, 0.86 hex (random walks 1.28-1.44), so the deficit is not a square-lattice artefact. K3 held (no lead slope of ln kappa beyond 0.08). Open: why b falls with loop length (the Little's-law derivation b = l_b / N_b leaves N_b's scaling free; the data say N_b grows faster than l_b), the hex letter-type effect, more loop lengths, whether the intercept tracks coordination. Reproduce: `experiments/2026-10-20-lattice-c-law/README.md`.

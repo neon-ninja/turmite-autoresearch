@@ -179,3 +179,17 @@ revision is compositional: apply the target rule's colour clock exactly and
 learn only unknown patch/return conditions. That proposal still requires a
 sampling revision, synthetic calibration and new frozen predictions before
 any main measurement. The original horizon failure stands.
+
+### 2026-10-20 01:02:24 (+13:00) · 0fa4db2 · observation
+
+Rebuilt and re-executed `notebook.ipynb` in a clean kernel after committing
+the support summaries; it reproduces the complete support table and retains
+all untested predictions as untested. Experiment-page publication tests pass
+again (2 tests). Updated the open-question record, active-work index, blog
+draft, reader guide and homepage with the support failure and pinned evidence.
+The support worker is terminal with exit 0; no experiment job remains live.
+Release tests passed earlier; only data, notebooks and documentation changed
+after that check. Goal remains active: a supported local process determining
+state frequencies, a tested replacement closure and coefficient derivation
+are still missing. Next session must redesign and register those tests,
+not relaunch the completed diagnostic or score the original rich lookup.

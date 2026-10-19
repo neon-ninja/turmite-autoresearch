@@ -15,8 +15,9 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).
 - **Local renewal mechanism for c:** ordered-event recorder and controls pass; excluded pilot has no usable common horizon.
-  Main cohort remains unrun. Registered same-horizon support diagnostic will check family-specific state sparsity, then sampling
-  and target-rule-compatible transitions need a prospective revision. `experiments/2026-10-20-c-law-renewal/README.md`.
+  Full colour/eight-turn states have 100% unseen mass in every leave-one-pilot-family-out run (support audit `0fa4db2`).
+  Main cohort remains unrun. Next: revise sampling and construct a compositional model with exact target-rule phase updates,
+  rather than pooled rule-specific successors. `experiments/2026-10-20-c-law-renewal/README.md`.
 - **S-arm kappa drop (d = -0.198) is unexplained.** A total effect, not area-conditioned; confounded with flip direction
   (L>R +0.15, R>L -0.21, post hoc). Needs direction-balanced flips. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 4
   results), `experiments/2026-10-16-kappa-leadrun-fresh/README.md` (Part B addendum, Proposal 1).
