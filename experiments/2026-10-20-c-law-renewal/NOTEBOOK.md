@@ -482,3 +482,26 @@ Can the delayed effect then persist in boundary waits? This is a proposal,
 not a run or a new pass criterion. Register branch selection, horizon,
 controls and censoring before measuring. Update notebook and public priorities
 with the completed native-clock failure first.
+
+### 2026-10-20 07:37 (+13:00) · 94516e5 · observation
+
+Shareable notebook rebuilt and executed top to bottom from committed JSON
+summaries in a clean kernel; all native accounting and input-hash checks pass.
+Outputs include the prior information-policy failures, native N1/N2 failures,
+sensitive-seed distances and full-reference seed distances. Publication tests
+pass (2 tests). First full page render failed because an existing tracked
+lattice-colours experiment lacked a reader-guide row; added a record-based
+summary without changing that experiment. Re-render succeeds: 103 experiment
+pages, 37 saved notebooks, one pre-existing unavailable source reference.
+Generated pages remain ignored. This is a local render, not a deployment.
+
+### 2026-10-20 07:37 (+13:00) · 94516e5 · decision
+
+Updated homepage, reader guide, active questions and a coherent blog post with
+pinned native-clock evidence and the single-edit proposal. All original
+failures remain. No own experiment/build process remains live; worker exited 0.
+This continuation completes the registered native audit, not the overarching
+scientific objective. Before further simulations, register the coupled branch
+instrument, event-selection rule, censoring and frozen response windows. Main
+cohort stays unopened. The pre-existing untracked lattice regression remains
+untouched.
