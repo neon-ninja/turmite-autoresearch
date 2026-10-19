@@ -128,3 +128,27 @@ the horizon failure. It will test whether the source-colour/eight-turn word
 isolates families before any model is fitted. A separate lattice sweep
 (observed live PID 1655913) currently occupies the machine; wait for it to
 finish before this diagnostic. Main prediction tests P1–P4 remain unrun.
+
+### 2026-10-20 00:57:10 (+13:00) · e81f238 · observation
+
+Updated shareable notebook from committed calibration/pilot summaries using
+`scripts/build_notebook.py`, then executed it top to bottom in a new kernel
+with the README's nbconvert command. Outputs reproduce control means,
+between-seed variation and failed horizon gate. Support results are explicitly
+pending. `uv run --frozen --only-group blog blog/scripts/test_experiments.py`
+passes (2 tests); homepage and reader guide now point to the pinned pilot
+failure, not a claimed mechanism. The full release suite already passed.
+
+### 2026-10-20 00:57:10 (+13:00) · e81f238 · decision
+
+`uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/launch_support.py`
+queued the registered support diagnostic. Worker PID 1662130 was confirmed
+live with its exact command; it checks actual `/proc` command lines before
+starting, waiting for all observed release/cargo jobs. The earlier lattice
+PID 1655913 finished; a new live colour-analysis job PID 1661904 still runs.
+Worker log: `results/pilot_support/session.log`; runtime PID/exit files are
+local and ignored. Do not restart this job based on a stale log or observation
+timeout: inspect that handle and terminal status first. The research goal is
+not achieved: no ant transition model, held-out prediction, or coefficient
+derivation exists yet. Sampling and physically compatible transitions remain
+the next scientific decisions after the excluded support audit.

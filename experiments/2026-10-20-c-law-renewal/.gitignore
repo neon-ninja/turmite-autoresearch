@@ -1,0 +1,5 @@
+# Runtime process handles are observations on one machine, not portable data.
+/results/pilot_v1/session.pid
+/results/pilot_v1/session.exit
+/results/pilot_support/session.pid
+/results/pilot_support/session.exit

@@ -334,3 +334,10 @@ the horizon failure, demonstrate transfer or establish a mechanism.
 
 Command, usual WSL UV exports: `uv run --frozen
 experiments/2026-10-20-c-law-renewal/scripts/support_probe.py`.
+
+To queue this diagnostic behind existing heavy jobs, use `uv run --frozen
+experiments/2026-10-20-c-law-renewal/scripts/launch_support.py`. The worker
+records its live PID and waits on actual `/proc` release/cargo command lines;
+read `results/pilot_support/session.log` and local `.exit` status before
+attempting a restart. No scientific inference follows from waiting or from
+completion of a process alone; inspect its validated outputs.

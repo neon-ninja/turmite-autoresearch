@@ -54,3 +54,18 @@ rule cannot actually reach. The model must respect the target rule's possible
 successors and predict their frequencies without borrowing them from the
 target run. The excluded pilot is a feasibility check for that ambition;
 it is not evidence that a local closure already works.
+
+## The first pilot did not give us a fair test
+
+The recorder and walker controls passed. The excluded pilot did not provide
+a common observation horizon: none of its four complete families met the
+requirements, and only two of 24 runs were usable at the longest horizon.
+The [committed pilot record](https://github.com/timClicks/turmite-autoresearch/blob/e81f2385199b7e005df883bf0e3627b113740cd4/experiments/2026-10-20-c-law-renewal/README.md)
+keeps the thresholds, all seeds and failures. The main cohort is unopened.
+
+I am leaving that failure in place. It may reflect the geometry or dynamics
+of these initially coloured fields; it does not refute local closure. Before
+spending more time on a longer run, a separate diagnostic will ask whether
+the state definition can transfer across these pilot families at all.
+An eight-turn word can be a concealed family label. More events would not
+by themselves repair that kind of mistake.

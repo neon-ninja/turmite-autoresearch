@@ -33,12 +33,15 @@ def code(identity, text):
     return {"cell_type": "code", "id": identity, "metadata": {}, "execution_count": None, "outputs": [], "source": text.splitlines(keepends=True)}
 cells.extend([
     markdown("pilot-provenance", "## Pilot provenance and results\nOnly committed JSON/CSV summaries are read. Every input is checked for content changes and hashed; ignored event dumps are not notebook inputs. Uncertainty below is between seeds, not a fit standard error.\n"),
-    code("pilot-audit", '''files = [EXP / 'results' / name for name in ['calibration.json', 'pilot_report.json', 'pilot_diagnostics.json', 'pilot_diagnostics.csv', 'support_report.json']]
+    code("pilot-audit", '''files = [EXP / 'results' / name for name in ['calibration.json', 'pilot_report.json', 'pilot_diagnostics.json', 'pilot_diagnostics.csv']]
+if (EXP / 'results/support_report.json').exists():
+    files.append(EXP / 'results/support_report.json')
 for p in files:
     subprocess.run(['git', 'ls-files', '--error-unmatch', str(p.relative_to(ROOT))], cwd=ROOT, check=True, capture_output=True)
     subprocess.run(['git', '-c', 'core.filemode=false', 'diff', '--exit-code', 'HEAD', '--', str(p.relative_to(ROOT))], cwd=ROOT, check=True, capture_output=True)
     print(hashlib.sha256(p.read_bytes()).hexdigest(), p.relative_to(ROOT))
-calibration, controls, diagnostic, support = [json.loads(p.read_text()) for p in [files[0], files[1], files[2], files[4]]]
+calibration, controls, diagnostic = [json.loads(p.read_text()) for p in files[:3]]
+support = json.loads(files[4].read_text()) if len(files) == 5 else None
 assert calibration['passed']
 print('Synthetic reward solver: maximum |c error|', calibration['max_absolute_error'], 'signed bias', calibration['signed_bias'], 'between-seed sd', calibration['between_seed_sd'])
 print('Hidden-history control: pooled c', calibration['negative_control']['pooled_c'], 'conditional contrast', calibration['negative_control']['contrast'])
@@ -49,8 +52,10 @@ assert controls['thread_check']['identical']
 assert controls['horizon']['selected_log2'] is None
 print('Original pilot horizon verdict:', controls['horizon']['status'])
 print('Usable k=26 runs:', diagnostic['k26_usable_runs'], '/', diagnostic['k26_n'])
-for name, result in support['models'].items():
+for name, result in (support['models'] if support else {}).items():
     print(name, 'unseen read mass median', result['median_unseen_mass'], 'maximum', result['max_unseen_mass'], 'runs >5%', result['runs_over_5pct'])
+if support is None:
+    print('Excluded support diagnostic is pending; no support verdict yet.')
 print('These outputs are calibration and feasibility evidence; P1-P4 are untested.')
 '''),
     markdown("pilot-interpretation", "## Interpretation and next discrimination\nThe controls validate recording and the narrow solver task. They do not validate a model of ant state frequencies. The original pilot failed to supply a common sampling window; its support diagnostic cannot retroactively make that gate pass. Full eight-turn states may encode family identity and lose transfer support. A smaller state still needs a generative transition rule consistent with the target rule and a test against hidden history.\n")

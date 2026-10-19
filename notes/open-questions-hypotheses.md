@@ -232,5 +232,23 @@ instrumentation and scientific analysis are not implemented. Calibration and
 an excluded pilot must precede a dated model freeze and main measurement.
 Draft predictions only; no new scientific evidence or claim about kappa.
 
+#### Local renewal instrument and pilot — 2026-10-20 00:52 (+13:00)
+
+The [recorder and pilot](../experiments/2026-10-20-c-law-renewal/README.md)
+now exist (evidence revision `e81f2385199b7e005df883bf0e3627b113740cd4`).
+Ordered states match a sparse path oracle and aggregate tracer. Rotor/rw
+controls pass (8 seeds each, c means 0.497504/0.446602, between-seed sd
+0.000467/0.008122, no escapes); synthetic stationary-reward solver calibration
+passes, but the ant backoff model is not implemented or calibrated.
+The excluded pilot's common-horizon gate fails: 0/4 complete families at
+every k=22..26, only 2/24 individual runs usable at k=26. No main outcomes
+opened and no P1–P4 verdict. Reproduce with `scripts/run_pilot_all.sh`,
+`scripts/pilot_diagnose.py`; per-run hashes, commands, seeds and failures in
+that experiment's `results/`. A registered support diagnostic on the same
+excluded pilots is pending; it cannot rescue the failed sampling gate.
+The exact immediate birth predicate is already local (turn plus fresh mask).
+The open mechanism is the distribution of local states; a pooled kernel must
+respect target-rule-compatible successors rather than borrow target counts.
+
 ### Lattice c law: slope falls with loop length; the kappa deficit is not square-specific — 2026-10-20 (`experiments/2026-10-20-lattice-c-law`)
 Registered (README, before any lattice c): A b ~ loop length, B b lattice-independent, C b ~ 4/z, as vectors over (triangular, hex R-lead, hex r-lead). 960 ants (48 per lead 1..5 per stratum, primitive rules of length 10-14) and 120 controls, 2^27 steps, board 8192, generic octave probe `src/lattice_probe.rs` (oracle tests: square equals `probe.rs`, hex/triangular equal a HashMap version; mean-field gate G4 passes at 0.994/1.005/1.004). **A, B and C are all disproven as stated.** Registered fits: b = 0.696 square (census 0.70), **0.355 triangular** [0.340, 0.371], 0.876 hex R-lead [0.78, 0.98]; the hex r-lead OLS is wrecked by one rule with 1/c = 390 (the frozen decision rule returns "undecided"; L1, L2, K4 failed). Post hoc (unregistered), per-lead medians give hex r-lead b ~ 0.27, so b is 0.86, 0.70, 0.34, 0.28 for loop lengths 3 (hex R), 4 (square), 6 (triangular), 6 (hex r): it **falls** with loop length. Intercept 1.3 on square and triangular, ~2.4-2.8 on hex. Kappa: ant median kappa/kappa_unif is 0.77 square, 0.74 triangular, 0.86 hex (random walks 1.28-1.44), so the deficit is not a square-lattice artefact. K3 held (no lead slope of ln kappa beyond 0.08). Open: why b falls with loop length (the Little's-law derivation b = l_b / N_b leaves N_b's scaling free; the data say N_b grows faster than l_b), the hex letter-type effect, more loop lengths, whether the intercept tracks coordination. Reproduce: `experiments/2026-10-20-lattice-c-law/README.md`.
