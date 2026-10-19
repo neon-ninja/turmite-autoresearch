@@ -117,3 +117,92 @@ power-law reference to <= 0.006 in every row (columns in `analysis.txt`).
 - Next: a walker with the ant's a ~ 2/3, beta ~ 1/2 but intermediate memory (noisy rotor `nrotor:EPS`, Arm B of A1) to
   see where between 1.8 and 1.0 the ratio crosses the ant median; that discriminates 'memory in the environment
   lowers kappa' from 'it is ant-specific', which is not tested here.
+
+## Next steps (detailed; none of these has been run)
+
+Status of the question: the ant median ratio (0.81) is below every non-uniform walker tested
+(memoryless 1.24-1.32, rotor 1.7-1.8) and the mean-field walker is 1.0. What is open is where and
+why the ratio moves between those walkers and the ants. Each step below is written so that its
+prediction can be registered in this README (dated, before the run) and can fail.
+
+### 0. Housekeeping this experiment still owes (do first, small)
+- `notebook.ipynb` from `experiments/_template/` (required by AGENTS.md): question, the
+  `kappa_unif` formula, provenance cell (commit, sha256 of `results/probe_*.csv` and the two scripts),
+  the results table read from `results/analysis.txt`, caveats, next steps. It must run top to bottom
+  from a clean kernel under `uv`, reading only committed `results/`. Jupyter is not yet in
+  `pyproject.toml`; see `experiments/README.md` for the setup, and mention any `uv add` in the commit.
+- Add a short pointer in `notes/open-questions-hypotheses.md` with the correction (memoryless reference
+  is 1.03, not 1.16) and the ratio table. That file has uncommitted edits from other work: commit only
+  the new hunk (`git add -p`) or ask first.
+- Append a new entry to the `2026-10-16-kappa-uniform-baseline` NOTEBOOK saying its window labels are
+  start-of-window while the probe CSV labels by window end. Its numbers are unaffected (own CSV, own
+  estimator), but "k=12..22" differs by one octave between the two experiments.
+- Find which window the census kappa actually is (`probe_summary.csv`,
+  `experiments/2026-10-13-probe-growth-census`: last octave? which k?) and state it here. The rotor's
+  ratio moves by 0.11 between k=12..22 and k=20..26, so the window match matters for every comparison.
+
+### 1. Close the window confound for the memoryless walkers
+- Question: is the memoryless ratio window-dependent like the rotor's? At the census window would it be
+  nearer 1.1 or nearer 1.4?
+- Obstacle: reaching 2^27 steps needs R ~ 35 000 cells, a ~1.2 GB board per walker, which is
+  borderline with 6 in parallel. Options, in order of preference: (a) a sparse/hash-set walker used only
+  for this control, with a property test against `probe_walker` step-for-step on a small board
+  (AGENTS.md rule 4); (b) 2^25 steps on a 16384 board, one walker at a time, windows k=20..24, with
+  escapes reported (rms R ~ 5800, some will leave); (c) accept k <= 22 and say so.
+- Run: `rw` and `pw:0.5`, 8 new seeds 2026102001..08.
+- Prediction to register: ratio at k=20..24 within +-0.1 of the k=12..22 value (1.24-1.32). Falsified if
+  the shift exceeds 0.15; the memoryless walkers could then drift into or out of the ant IQR and the
+  "above every ant-typical value" statement must be revised.
+- Cost: (b) is minutes; (a) is about a day.
+
+### 2. Noisy rotor: locate the ratio between 1.8 and the ant's 0.8 (main discriminating experiment)
+- Rationale: `NoisyRotor` (`nrotor:EPS:SEED`, `src/walkers.rs`) interpolates from the rotor (EPS=0,
+  a ~ 2/3, beta ~ 1/2, ratio 1.8) to a memoryless walker that never turns back on its own board (EPS=1,
+  a ~ 0.9, ratio ~ 1.25). It stays on the a ~ 2/3 branch for small EPS, so `kappa_unif` stays ~1.10 and the
+  comparison with the ant is clean. Earlier Arm B work found kappa drifts with EPS (non-stationary; 3-4
+  runs per EPS; `notes/frontier-2026-10-13-results.md`), so report the drift `g_k` as well as the level,
+  and apply the census stationarity cut (|g_k| < 0.05) before comparing with the ant distribution.
+- Design: EPS in {0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1.0}, 8 seeds each, `probe 27 8192`, windows
+  k=20..26 (census-matched) and k=12..22 (this experiment). 72 runs; rotor runs took about a minute each.
+- Predictions to register: (i) ratio(EPS) is monotone non-increasing from 1.8 towards ~1.25. (ii) The ant
+  median 0.81 is not reached at any EPS: the noisy rotor stays >= 1.0. (iii) a(EPS) stays <= 0.75 up to
+  EPS ~ 0.1, i.e. the cube-root-like regime survives weak noise (consistent with D3).
+- Reading the outcomes: if no EPS gets below 1, neither "remove environment memory" nor "add noise" lowers
+  the ratio below 1, and the ant deficit must come from something a rotor cannot do (a deterministic,
+  rule-written colour field). If some EPS crosses 0.81 at a ~ 2/3, a stochastic walker reproduces the ant
+  median and "ant-specific" is refuted for the location.
+- Log, do not hide: runs leaving the board, runs where kappa drifts, and any disagreement between EPS=1
+  and `pw:0.5` (their ratios should agree; a mismatch is a code bug, not a finding).
+
+### 3. Calibrate what a ratio means (accounting for the formula itself)
+- The `kappa_unif` formula assumes uniform occupancy. Test it where the answer is known by construction:
+  a mean-field variant that resamples only from the outer fraction f of the visited cells (by age or by
+  distance from the centre), f = 1, 0.5, 0.25, 0.1. f = 1 reproduces the 1.01 already measured.
+- Prediction: ratio rises monotonically as f falls, and reaches ~1.8 at some f in 0.1-0.4. This maps a
+  ratio r to an effective sampled layer, so the ant's 0.81 reads as "samples a layer wider than uniform
+  occupancy implies". It does not assert that the rotor or the ant does this; many occupancy profiles give
+  the same ratio.
+- Needs a new example named with the slug prefix (`examples/kappa_walker_reference_*.rs`) with the same
+  brute-force recount assert as `kappa_uniform_baseline.rs`.
+
+### 4. Ant side: reduce the noise of the ant distribution before comparing
+- The ant ratios are single run (ln-kappa reliability ~0.6), so the 0.44-1.33 range is inflated and the
+  comparison is walker mean vs ant distribution, which is not like with like.
+- Use the 8 patched seeds per rule already held in `2026-10-14-t1-excursion-tomography` and
+  `2026-10-13-patched-starts`; compute per-rule mean ratios with each rule's own (a, beta) and report the
+  distribution of rule means. Prediction: the spread narrows (sd of ln ratio from 0.35 towards 0.25) and
+  the median stays 0.8 +- 0.05. If the median moves above 0.96, "ant below every walker" was a single-run
+  artefact.
+- Split the ants by their own a. Rules with a near 0.9, if any, should be compared with the memoryless
+  1.25, not with the a ~ 2/3 rotor. Pre-register the sign of the within-ant slope of ln ratio on a; the
+  walkers are not monotone in a (rotor a 0.69 -> 1.8, memoryless a 0.92 -> 1.25, mean-field a 0.68 -> 1.0),
+  so a within-ant slope would not be explained by a alone.
+
+### 5. Stopping rules and what I will not claim
+- No mechanism is inferred from the ratio alone, consistent with the failed entries in the kappa-mechanisms
+  ledger (P1, return gates, cutoff-ratio mixed model, square-loop test).
+- Stop after steps 0-2 if step 2 shows no EPS below 1. The finding then stands as "walker ratios >= 1 at all
+  memory levels tested; ants below 1", and the next experiment belongs on the rule-space side (what in a
+  deterministic rule-written colour field lowers the ratio), not in more walkers.
+- If step 1 or 4 overturns "ant below every walker", append a correcting NOTEBOOK entry and add a dated
+  addendum below the results verdict; do not edit the original text.
