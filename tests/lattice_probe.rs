@@ -6,7 +6,7 @@ use std::collections::{HashMap, HashSet};
 use turmite::DIRS;
 use turmite::Rule;
 use turmite::ext::{HEX_DIRS, HexSim, Sim, TriSim, hex_turns, tri_step};
-use turmite::lattice_probe::*;
+use turmite::lattice_probe::{MOORE_DIRS, *};
 use turmite::probe::probe;
 use turmite::walkers::splitmix_next;
 
@@ -16,6 +16,7 @@ fn neighbours(lat: Lattice, p: P) -> Vec<P> {
     match lat {
         Lattice::Square => DIRS.iter().map(|d| (p.0 + d.0 as i64, p.1 + d.1 as i64)).collect(),
         Lattice::Hex => HEX_DIRS.iter().map(|d| (p.0 + d.0 as i64, p.1 + d.1 as i64)).collect(),
+        Lattice::Moore => MOORE_DIRS.iter().map(|d| (p.0 + d.0 as i64, p.1 + d.1 as i64)).collect(),
         Lattice::Tri => {
             let v = if (p.0 + p.1).rem_euclid(2) == 0 { 1 } else { -1 };
             vec![(p.0 - 1, p.1), (p.0 + 1, p.1), (p.0, p.1 + v)]
@@ -39,6 +40,10 @@ fn naive(lat: Lattice, mover: &Mover, size: usize, min_log2: u32, max_log2: u32)
             (Lattice::Hex, 'R') => 2,
             (Lattice::Hex, 'l') => 5,
             (Lattice::Hex, 'L') => 4,
+            (Lattice::Moore, 'r') => 1,
+            (Lattice::Moore, 'R') => 2,
+            (Lattice::Moore, 'l') => 7,
+            (Lattice::Moore, 'L') => 6,
             (Lattice::Tri, 'L') => 2,
             (Lattice::Tri, 'R') => -2,
             _ => panic!("bad letter"),
@@ -81,6 +86,10 @@ fn naive(lat: Lattice, mover: &Mover, size: usize, min_log2: u32, max_log2: u32)
                         Lattice::Hex => {
                             h = (h + turn).rem_euclid(6);
                             pos = (pos.0 + HEX_DIRS[h as usize].0 as i64, pos.1 + HEX_DIRS[h as usize].1 as i64);
+                        }
+                        Lattice::Moore => {
+                            h = (h + turn).rem_euclid(8);
+                            pos = (pos.0 + MOORE_DIRS[h as usize].0 as i64, pos.1 + MOORE_DIRS[h as usize].1 as i64);
                         }
                         Lattice::Tri => {
                             let exit = (h + turn).rem_euclid(6);
@@ -170,8 +179,16 @@ proptest! {
     }
 
     #[test]
-    fn g2_random_movers(seed in 1u64..1000, lat in 0usize..3, mf in proptest::bool::ANY) {
-        let lat = [Lattice::Square, Lattice::Hex, Lattice::Tri][lat];
+    fn g2_moore_ant(rule in letters("rlRL", 2, 12)) {
+        let m = Mover::Ant(rule);
+        let (a, b) = (lattice_probe(Lattice::Moore, &m, 128, 1, 12), naive(Lattice::Moore, &m, 128, 1, 12));
+        prop_assert_eq!(a.windows, b.windows);
+        prop_assert_eq!(a.escaped, b.escaped);
+    }
+
+    #[test]
+    fn g2_random_movers(seed in 1u64..1000, lat in 0usize..4, mf in proptest::bool::ANY) {
+        let lat = [Lattice::Square, Lattice::Hex, Lattice::Tri, Lattice::Moore][lat];
         let m = if mf { Mover::MeanField(seed) } else { Mover::RandomWalk(seed) };
         let (a, b) = (lattice_probe(lat, &m, 128, 1, 11), naive(lat, &m, 128, 1, 11));
         prop_assert_eq!(a.windows, b.windows);
@@ -223,6 +240,10 @@ fn g3_loop_lengths() {
     assert_eq!(area(Lattice::Hex, "l"), 6);
     assert_eq!(area(Lattice::Hex, "R"), 3);
     assert_eq!(area(Lattice::Hex, "L"), 3);
+    assert_eq!(area(Lattice::Moore, "r"), 8);
+    assert_eq!(area(Lattice::Moore, "l"), 8);
+    assert_eq!(area(Lattice::Moore, "R"), 4);
+    assert_eq!(area(Lattice::Moore, "L"), 4);
     assert_eq!(area(Lattice::Tri, "R"), 6);
     assert_eq!(area(Lattice::Tri, "L"), 6);
 }
