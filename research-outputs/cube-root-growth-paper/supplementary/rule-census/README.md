@@ -1,7 +1,7 @@
 # Supplementary dataset: per-rule census table
 
 `rule_census.csv` has one row per rule swept (all 4083 canonical, non-trivial
-L/R rules of length 2-12) and 60 columns. It collects every per-rule quantity
+L/R rules of length 2-12) and 63 columns. It collects every per-rule quantity
 behind the paper's census tables and figures. Nothing is re-measured: the file is
 a join of committed result files, rebuilt by
 
@@ -80,6 +80,19 @@ octave windows k = 20..26 (`experiments/_lib/analyse_probe.py`):
 
 `cmodel_c_pred`, `cmodel_held_out`: out-of-sample prediction of `c` from rule
 letters (`c_model.csv`) and whether the rule was held out of that fit.
+
+Per-rule uniform reference (derived columns, added 2026-10-19; computed in the builder from the
+`probe_*` columns, no new measurement). `probe_kappa_unif` = `2(1 - 2^-(1-e))/(1-e)` with
+`e = probe_a * (1 - probe_beta)`: the probe `kappa` of a walker uniform on its territory at every instant,
+from this rule's own fitted `a` and `beta` (about 1.10 for blobs; derivation and mean-field check in
+`experiments/2026-10-16-kappa-uniform-baseline`). `probe_kappa_ratio` = `probe_kappa / probe_kappa_unif`.
+`kappa_stationary` = `|probe_g_k| < 0.05` (kappa not drifting; the cut the baseline note uses).
+Among blob rules with `kappa_stationary` (n = 2185) the ratio has median 0.814, IQR 0.664-0.957 and 5-95%
+0.443-1.332; the builder asserts this equals `census_spread.txt`. The ratio is a single run per rule
+(ln-kappa reliability about 0.6), so compare distributions, not individual rules. Calibration-walker
+values on the same scale are in `../walker-reference/`. Not included: the eight-letter prefix prediction
+and the growth-clock quantities, which were measured on other rule sets (lengths 13-14, fresh pools), not on
+these 4083 rules.
 
 Empty cells mean "not applicable / not measured" (e.g. no probe statistics for
 highway rules, builders or the unfitted growers), not zero.

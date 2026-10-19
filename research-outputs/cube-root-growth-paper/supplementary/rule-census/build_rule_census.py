@@ -21,6 +21,7 @@ the dataset cannot drift apart silently.
 """
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -46,7 +47,9 @@ INPUTS = [
         "1B_highways.txt", "census.csv")),
     *(f"experiments/2026-10-13-probe-growth-census/results/{f}" for f in (
         "probe_summary.csv", "c_model.csv")),
+    "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt",  # cross-check only
 ]
+SPREAD = ROOT / "experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt"
 CSV = OUT / "rule_census.csv"
 SUMMARY = OUT / "rule_census.build.json"
 NUMBERS = ROOT / "research-outputs/cube-root-growth-paper/numbers.json"
@@ -103,6 +106,15 @@ def build() -> tuple[pl.DataFrame, str, dict]:
         census_late_escape=pl.col("in_census") & (pl.col("sweep_stop") == "escaped"),
     ).drop("phase_census")
 
+    # Per-rule uniform reference (experiments/2026-10-16-kappa-uniform-baseline): the probe kappa of a walker that is
+    # uniform on its territory at every instant, 2 * int_{1/2}^1 x^-e dx with e = a(1 - beta), from this rule's own
+    # fitted a and beta. kappa_stationary: |g_k| < 0.05, the cut the baseline note uses (kappa not drifting).
+    e = pl.col("probe_a") * (1 - pl.col("probe_beta"))
+    d = d.with_columns(
+        probe_kappa_unif=2 * (1 - 0.5 ** (1 - e)) / (1 - e),
+        kappa_stationary=pl.col("probe_g_k").abs() < 0.05,
+    ).with_columns(probe_kappa_ratio=pl.col("probe_kappa") / pl.col("probe_kappa_unif"))
+
     front = ["rule", "n", "n_L", "n_R", "primitive_root", "is_repeat", "phase", "in_census",
              "census_late_escape", "analysed"]
     d = d.select(front + [c for c in d.columns if c not in front]).sort("n", "rule")
@@ -115,6 +127,11 @@ def build() -> tuple[pl.DataFrame, str, dict]:
         "blob_median_probe_alpha_w": round(float(
             d.filter(pl.col("phase") == "blob", pl.col("analysed"))["probe_alpha_w"].median()), 6),
     }
+    st = d.filter(pl.col("phase") == "blob", pl.col("kappa_stationary"))["probe_kappa_ratio"]
+    summary["kappa_ratio_stationary_blob"] = {
+        "n": st.len(), "q05": round(float(st.quantile(0.05, "linear")), 3), "q25": round(float(st.quantile(0.25, "linear")), 3),
+        "median": round(float(st.median()), 3), "q75": round(float(st.quantile(0.75, "linear")), 3),
+        "q95": round(float(st.quantile(0.95, "linear")), 3)}
     return d, text, summary
 
 
@@ -132,7 +149,16 @@ def paper_mismatches(summary: dict) -> list[str]:
         "analysed rules": (summary["analysed"], n["probe"]["analysed"]),
         "blob median alpha_w": (summary["blob_median_probe_alpha_w"], round(n["alpha_w_blob"][0], 6)),
     }
-    return [f"{k}: dataset {a} != numbers.json {b}" for k, (a, b) in want.items() if a != b]
+    bad = [f"{k}: dataset {a} != numbers.json {b}" for k, (a, b) in want.items() if a != b]
+    # the per-rule kappa ratio must reproduce the published census_spread line
+    line = next((l for l in SPREAD.read_text().splitlines() if l.startswith("kappa/kappa_unif, stationary")), "")
+    m = re.search(r"n=(\d+) q05/25/50/75/95=\[([^\]]+)\]", line)
+    k = summary["kappa_ratio_stationary_blob"]
+    got = [k["n"], k["q05"], k["q25"], k["median"], k["q75"], k["q95"]]
+    ref = [int(m.group(1))] + [float(x) for x in m.group(2).split(",")] if m else None
+    if ref != got:
+        bad.append(f"kappa ratio quantiles: dataset {got} != census_spread.txt {ref}")
+    return bad
 def same_text(path: Path, text: str) -> bool:
     # git on Windows may check files out with CRLF; the content is what matters
     return path.exists() and path.read_text(encoding="utf-8").replace("\r\n", "\n") == text

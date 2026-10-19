@@ -89,3 +89,12 @@ to the data (AGENTS.md reproducibility rules 1-2, 6-7).
 - The GPU-probe work (P2/P4) was committed by a parallel session as `a12ecd5`;
   the walker-reference results as `0169fee`. Nothing from step 1 remained to commit
   there.
+
+## Status (2026-10-19, later)
+
+- Dataset 1 done: `supplementary/walker-reference/` (4e09f65).
+- Dataset 2 done in part: `rule_census.csv` gained `probe_kappa_unif`, `probe_kappa_ratio`,
+  `kappa_stationary` (63 columns; the original 60 are byte-identical). The builder asserts the
+  ratio quantiles equal `census_spread.txt`. The prefix-prediction and growth-clock columns were not
+  added: those quantities exist only for rule sets other than the 4083 swept rules.
+- Datasets 3-5 not started.

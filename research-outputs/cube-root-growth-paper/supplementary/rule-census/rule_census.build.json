@@ -1,8 +1,16 @@
 {
  "analysed": 3055,
  "blob_median_probe_alpha_w": 0.332597,
- "columns": 60,
+ "columns": 63,
  "in_census": 3512,
+ "kappa_ratio_stationary_blob": {
+  "median": 0.814,
+  "n": 2185,
+  "q05": 0.443,
+  "q25": 0.664,
+  "q75": 0.957,
+  "q95": 1.332
+ },
  "phase_counts": {
   "blob": 2637,
   "builder": 304,
