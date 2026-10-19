@@ -260,3 +260,5 @@ Commands: `uv run experiments/2026-10-19-c-law-mechanism/scripts/stage4_lists.py
 | P-5 retention | 0.65 (Part B: 0.53-0.68) |
 Post hoc, not registered: split by flip direction, L>R d +0.153 (n 98), R>L d -0.207 (n 79), sd of d 0.43; S and E arms are direction-confounded.
 Reading: the fixed-area "lead effect" on kappa is a conditioning artefact (4a) with no detectable direct effect (|b| below ~0.06 per step given ln c); lead-preserving early flips shift kappa by zero on average, but single flips move it by about 0.2 in a letter-direction-dependent way, which I cannot separate from lead in the S/E arms. No causal claim that lead sets kappa.
+
+**Erratum (added after the gap review).** Stage 1 says the K of `edgestats_sample.csv` is "not recorded": it is K = 23 (window (2^22, 2^23]), recovered by `scripts/find_edgestats_k.sh`; the Stage 2 tracer window is 2^24. Real clock times and commits for all result files: `results/PROVENANCE.md`.

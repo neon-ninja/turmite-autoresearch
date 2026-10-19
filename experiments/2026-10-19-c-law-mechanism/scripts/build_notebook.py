@@ -26,9 +26,9 @@ SEED = 20261019
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "AGENTS.md").exists())
 R = ROOT / "experiments/2026-10-19-c-law-mechanism/results"
 names = ["stage1_profile.json", "stage1_k3.json", "stage2_analysis.json", "stage2c_analysis.json", "stage3_analysis.json", "stage4_analysis.json",
-         "stage2_decompose.txt", "p1/p1_pairs.csv"]
+         "stage2_decompose.txt", "p1/p1_pairs.csv", "PROVENANCE.md"]
 assert all((R / n).exists() for n in names), [n for n in names if not (R / n).exists()]
-sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip() or "unknown (WSL cannot resolve worktree gitdir)"
+sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip() or "unresolvable from WSL; see PROVENANCE.md: base f0b96b7, code b7b4758, results 8cc447f"
 print("git", sha, "| seed", SEED, "| run", datetime.date.today().isoformat())
 for n in names:
     print(hashlib.sha256((R / n).read_bytes()).hexdigest()[:16], n)
@@ -70,7 +70,7 @@ print(pp.group_by("flip").agg(n=pl.len(), mean_d=pl.col("d").mean(), sd_d=pl.col
 md("""Conditioning on ln A22 (a function of c and kappa, residual sd 0.09) manufactures the +0.15 "lead effect on kappa"; a null with no direct effect reproduces it and adding ln c removes it. The E/S area asymmetry of the earlier mutants follows from the c law. Lead-preserving flips change kappa by zero on average. It does **not** show that lead has no causal effect on kappa: single flips move kappa by about +/-0.2 with sign set by letter direction (post hoc split), and the S and E arms are confounded with that direction."""),
 md("""## Caveats and controls
 - Registered failures: D1-D4 (flat plateau), C1 (geometric chains), K3-1, K4 (all), V1, S5, L2, B5; B1 untestable. Deviations: random-walk calibration at 2^20, band window rule, Stage 3 restated cohort, P-4 NaN fix. All in README/NOTEBOOK.
-- Timestamps in early NOTEBOOK entries were estimated, not read from the clock (corrected there).
+- Timestamps in early NOTEBOOK entries were estimated, not read from the clock; real times and commits are in `results/PROVENANCE.md`. The edgestats sample used K = 23 (recovered).
 - Survivor selection limits Stage 3 (d = 0.4) and Stage 4c (retention 0.65).
 
 ## What this changes / next steps
