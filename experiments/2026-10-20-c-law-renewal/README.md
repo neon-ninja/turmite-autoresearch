@@ -192,3 +192,12 @@ uv run --frozen --with jupyter --with nbconvert --with ipykernel jupyter nbconve
 ## Results
 
 None. The generated manifest contains planned rules and assignments only.
+
+### Scaffold verification — 2026-10-20 00:36 (+13:00)
+
+Design generated and byte-checked: 4 pilot + 32 training + 16 validation
+families, three rules each. The shareable notebook executed in a fresh kernel
+against committed design inputs; `cargo test --release` passed (existing
+warnings). These checks do not evaluate G0–G3 or P1–P4. No Rust instrumentation
+or scientific estimator was implemented. See `NOTEBOOK.md` for commands,
+the mount-mode correction and concurrent commit provenance.
