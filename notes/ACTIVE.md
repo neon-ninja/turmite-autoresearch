@@ -49,15 +49,22 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   Its Proposal 2 bounds are not in the notebook (rebuild with `scripts/build_notebook.py` if wanted).
 - **Refresh `blog/index.html`** with the c-law / collider result (convention in `AGENTS.md`). The experiment pages were
   re-rendered 2026-10-20 (from a worktree under WSL set `GIT_DIR=/mnt/f/Code/turmite/.git/worktrees/<name>` and `GIT_WORK_TREE=$PWD`).
-- **Stale worktrees and branches** (nothing deleted yet; on 2026-10-20 their uncommitted work was committed on their own
-  branches, `agent-a810708e829d8af34` as `4cb0261` and `g1-builder-structure` as `b985636`, leaving only two empty `g1_dump_*.log`
-  untracked; deletion still needs the user's go-ahead):
+- **Stale worktrees and branches** (nothing deleted). On 2026-10-20 tracked work was committed on their own branches
+  (`agent-a810708e829d8af34` as `4cb0261`, `g1-builder-structure` as `b985636`, rulepat as `275d52b`), but **gitignored data
+  exists only in the worktrees and is lost on removal** (checked with `git status --ignored`): `g1-builder-structure/dumps/`
+  73 MB (the only raw input for `g1_wake_extract.py`; regenerating takes hours), `rule-pattern-experiment-aa95e3/experiments/2026-10-14-rulepat/dumps/`
+  192 MB and `scratch/` 3 MB (plus `target/`, rebuildable), `agent-a810708e829d8af34/experiments/2026-10-16-gpu-probe-port/scratch/` 19 MB.
+  Archive what matters before any removal. `g1-builder-structure` is also the only home of `examples/builder_dump.rs` and
+  `notes/g1-builder-structure-2026-10-14.md` (handover item 3). Deletion needs the user's go-ahead:
   - `.claude/worktrees/agent-a810708e829d8af34` and branch `backup/pre-census-split`: same commits; the unique `39df9f2` content is in
     `main`. Its uncommitted GPU probe port (`src/gpu/probe.rs`, `experiments/2026-10-16-gpu-probe-port/`) is an earlier attempt at what
     `main` has as `gpu_probe`; compare `experiments/2026-10-16-gpu-probe-port/results/` with `experiments/2026-10-16-gpu-probe/results/` before discarding.
   - `.claude/worktrees/g1-builder-structure`: old `data/` layout; content appears superseded by `main`. Confirm the dropped
     `TODO(G1)` paper change is already in `research-outputs/cube-root-growth-paper/main.typ`, then remove.
-  - `.claude/worktrees/paper-figure-proposals` (locked) is now merged; remove after confirming nothing else is unsaved there.
+  - `.claude/worktrees/paper-figure-proposals` (locked) is **not** fully merged: since the 2026-10-19 merge it carries commits
+    `70c8050`..`0eb4822` (housekeeping, four new paper figures with `main.typ` / `rebuild_figures.py` edits, notebook re-run). `main`
+    has moved on (`cd2f20c`..`ec63e68`, including large `research-outputs/` changes), so merging this branch will need a
+    `main.typ` / `rebuild_figures.py` conflict check. Do not remove it before that merge.
 
 ## Closed (for reference, do not reopen without new grounds)
 

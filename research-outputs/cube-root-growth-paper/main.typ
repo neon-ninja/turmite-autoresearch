@@ -447,7 +447,7 @@ The other nine have deeper occupation within 30% of uniform and $kappa=0.82$–$
 
 #figure(
   image("fig/layers.pdf", width: 60%),
-  caption: [Layer profiles $rho(d)$ for the 24 selected blank-board ant rules (15 with a crust, 9 without; thin lines), the rotor (mean of 12 seeds) and a persistent walk (mean of 5 runs), windows $k >= 22$, recomputed from the committed layer counts. Layer 0 is the edge, so $rho(0) = kappa$; the right-hand point pools all depths $>= 5$. Crust rules are depleted at depths 2–4 and span $kappa$ from about 0.1 to 15; the non-crust rules, the rotor and the persistent walk stay close to 1 beyond the edge layer. The crust label comes from the exploratory split described in the text.],
+  caption: [Layer profiles $rho(d)$ for the 24 selected blank-board ant rules (15 with a crust, 9 without; thin lines), the rotor (mean of 12 seeds) and a persistent walk (mean of 5 runs), windows $k >= 22$, recomputed from the committed layer counts. Layer 0 is the edge, so $rho(0) = kappa$; the right-hand point pools all depths $>= 5$. Crust rules are depleted at depths 2–4 and span $kappa$ from 0.13 to 18 (the text above; the plotted values are window means); the non-crust rules, the rotor and the persistent walk stay close to 1 beyond the edge layer. The crust label comes from the exploratory split described in the text.],
 ) <fig:layers>
 
 The class split is exploratory. Depletion extends beyond layers 0–1, and dwell–occupation correlations are negative (Spearman $rho=-0.26$ in the extreme cohort, $-0.59$ in the typical cohort), constraining both the registered first-two-layer explanation and the proposed positive dwell association.
