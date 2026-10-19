@@ -79,6 +79,52 @@ source and provenance links and defaults to `https://github.com/timClicks/turmit
 GitHub Actions supplies all three automatically, including the `/turmite-autoresearch`
 base path for this repository’s project site.
 
+## Interactive statistics in posts
+
+Pair statistical claims with an embedded, bespoke explorer when changing a
+window or parameter helps readers judge them. Keep the explanation and a static
+fallback in the post. Sliders should select recorded parameters or explicitly
+labelled model assumptions; do not imply a fresh simulation or interpolate
+unmeasured noise levels. Show sample counts, between-seed spread, exclusions,
+and drift alongside the estimate.
+
+The first example is the noisy-rotor explorer in **The ant below every walker**.
+It refits saved probe windows entirely in the browser, with no server, remote
+plotting library, or simulation. Noise selects one of nine measured levels;
+two window sliders change the first and last included window ends. The graph
+uses equally spaced, labelled noise categories and does not connect them.
+The table and live text provide the same results without relying on colour
+or the SVG. Sliders support keyboard input; no animation is required.
+
+To reuse that instrument in another post, add `interactive_stats: true` to its
+front matter and put this on its own line, with blank lines around it:
+
+```liquid
+{% include stats-explorer.html data="noisy_rotor" %}
+```
+
+`_includes/stats-explorer.html` defines this instrument's controls, fallback,
+method and provenance. `assets/stats.js` supplies the browser fits and a small
+SVG plot. New scientific instruments should get their own include and a
+specific data schema rather than inheriting noisy-rotor assumptions.
+The layout loads the shared script only on opted-in pages; multiple instances
+have independent controls. Styling follows the blog's light/dark themes.
+
+The compact `_data/noisy_rotor.json` is generated from committed CSVs with
+`uv run --frozen blog/scripts/export_stats.py` (WSL, normal environment exports).
+It records source revision, input SHA-256 hashes, column meanings, seeds,
+run escape flags and the generating command. The exporter refuses uncommitted
+input changes. Regenerate and commit the payload when adopting new evidence;
+do not hand-edit it. Jekyll embeds it directly, so Pages subpaths need no fetch
+configuration. Nothing executes notebook cells or rewrites research results.
+
+Run `node blog/scripts/test_stats.js` using the existing pinned jsdom dependency
+(`npm ci --prefix web`). Tests check analytical controls, every row of the
+published numpy analysis at its reported precision, source hashes, missing
+windows, slider bounds, reset and independent instances. This preserves the
+existing estimator; any future estimator change requires scientific calibration
+under the repository's normal experiment conventions.
+
 ## Homepage
 
 The homepage includes three live, deterministic blank-grid ant trails. They pause

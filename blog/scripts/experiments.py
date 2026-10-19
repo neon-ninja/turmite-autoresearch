@@ -145,7 +145,7 @@ def build(baseurl: str, repository: str) -> None:
         notebook_info = []
         for path in notebooks:
             manifest["inputs"][path.relative_to(ROOT).as_posix()] = digest(path)
-            data = json.loads(path.read_text())
+            data = json.loads(path.read_text(encoding="utf-8-sig"))
             # Older notebooks lack cell IDs. Assign stable IDs in memory only;
             # nbformat otherwise introduces random IDs when repairing them.
             for index, cell in enumerate(data.get("cells", [])):

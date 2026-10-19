@@ -1,4 +1,32 @@
 :root { color-scheme: light dark; --paper: #f7f6f0; --ink: #242e2b; --muted: #626c65; --line: #d5dacf; --accent: #b74727; --panel: #eceee5; }
+.stats-explorer { margin-block: 36px; padding: 24px; border: 1px solid var(--line); background: var(--panel); }
+.stats-explorer h3 { margin-top: 10px; }
+.stats-explorer p { font-size: 16px; }
+.stats-explorer [hidden] { display: none; }
+.stats-controls { display: grid; gap: 18px; margin-block: 24px; }
+.stats-controls label { display: grid; grid-template-columns: 1fr auto; gap: 6px; font: 13px/1.6 ui-monospace, monospace; }
+.stats-controls input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); min-height: 28px; }
+.stats-controls output { font-weight: bold; }
+.stats-controls button { justify-self: start; border: 1px solid var(--line); padding: 8px 12px; background: var(--paper); color: var(--ink); cursor: pointer; }
+.stats-controls :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.stats-plot { overflow-x: auto; }
+.stats-plot:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.stats-explorer svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.stats-explorer svg text { fill: var(--muted); font: 11px ui-monospace, monospace; }
+.stats-grid { stroke: var(--line); }
+.stats-reference { stroke: var(--muted); stroke-dasharray: 5 5; }
+.stats-whisker { stroke: var(--ink); fill: none; stroke-width: 2; }
+.stats-point { fill: var(--ink); }
+.stats-selected { fill: var(--accent); stroke: var(--paper); stroke-width: 2; }
+.stats-summary { font-variant-numeric: tabular-nums; }
+.stats-warning { border-left: 2px solid var(--accent); padding-left: 14px; }
+.stats-explorer .stats-method { font-size: 13px; color: var(--muted); }
+.stats-explorer table { max-width: 100%; white-space: nowrap; font: 12px/1.6 ui-monospace, monospace; }
+.stats-explorer caption { text-align: left; margin-bottom: 10px; }
+.stats-explorer td, .stats-explorer th { padding: 9px; }
+.stats-active-row { background: var(--paper); font-weight: bold; }
+@media (max-width: 640px) { .stats-explorer { padding: 14px; margin-inline: -8px; } }
+@media print { .stats-controls { display: none; } }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.75 Georgia, 'Times New Roman', serif; }
 a { color: inherit; text-underline-offset: .2em; text-decoration-thickness: 1px; }

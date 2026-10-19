@@ -7,6 +7,7 @@ status: "Hypothesis"
 tags: [growth]
 # experiment: experiments/YYYY-MM-DD-slug
 # commit: FULL_GIT_COMMIT_HASH
+# interactive_stats: true  # Opt in when embedding a saved-data instrument; see blog/README.md.
 ---
 
 ## Question and prediction

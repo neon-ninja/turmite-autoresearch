@@ -1,0 +1,24 @@
+{% assign stats = site.data[include.data] %}
+<section class="stats-explorer" data-stats-explorer aria-label="Noisy rotor statistics explorer">
+  <p class="eyebrow">Explore the saved runs</p>
+  <h3>Does the peak survive a different window?</h3>
+  <p>Move the noise and window sliders to inspect the recorded runs. Each point is a mean of per-seed ratios; whiskers show ±1 between-seed standard deviation.</p>
+  <div class="stats-controls" hidden>
+    <label>Noise probability ε <output data-value="eps">0.01</output><input aria-label="Noise probability" data-control="eps" type="range" min="0" max="8" step="1" value="1"></label>
+    <label>First window end, log₂ steps <output data-value="lo">12</output><input aria-label="First window end" data-control="lo" type="range" min="12" max="25" step="1" value="12"></label>
+    <label>Last window end, log₂ steps <output data-value="hi">22</output><input aria-label="Last window end" data-control="hi" type="range" min="13" max="26" step="1" value="22"></label>
+    <button type="button" data-reset>Reset to post window</button>
+  </div>
+  <div data-live hidden>
+    <div class="stats-plot" role="region" tabindex="0" aria-label="Noise comparison plot; scroll horizontally on a narrow screen"><svg viewBox="0 0 640 320" role="img" aria-label="Boundary use relative to each walker's uniform reference, by noise probability"></svg></div>
+    <p class="stats-summary" role="status" aria-live="polite" aria-atomic="true"></p>
+    <p class="stats-warning"></p>
+    <table><caption>All measured noise levels in the selected window</caption><thead><tr><th>ε</th><th>Usable / total</th><th>Ratio mean ± sd</th><th>Area exponent</th><th>Stationary seeds</th></tr></thead><tbody></tbody></table>
+  </div>
+  <div data-fallback>
+    <p>The post uses window ends k = 12…22. At ε = 0.01 the ratio is 2.588 (between-seed sd 0.086, 8 seeds); at ε = 0 it is 1.685 (sd 0.020, 8 seeds). Enable JavaScript to explore other windows.</p>
+  </div>
+  <p class="stats-method">Exploratory refits of saved data, not new simulations. For each seed, fit a from log area against log time and β from log perimeter against log area; divide mean κ by 2∫<sub>½</sub><sup>1</sup> x<sup>−a(1−β)</sup> dx. A seed is usable only when every selected window exists. Stationary means |slope of ln κ against k| &lt; 0.05; no stationarity filter is applied to the plotted means. An escaped run still contributes its complete windows before escape. Changing windows can change which seeds contribute. These exploratory choices do not replace the registered analysis.</p>
+  <p class="stats-method">Seeds 2026102001…2026102008 at each of nine measured noise levels; probe 27, grid 8192. <a href="{{ '/experiments/2026-10-19-kappa-walker-reference/' | relative_url }}">Experiment and caveats</a> · <a href="{{ site.repository_url }}/blob/{{ stats.revision }}/experiments/2026-10-19-kappa-walker-reference/results/probe_nrotor.csv">Pinned source CSV</a> · <a href="{{ site.repository_url }}/blob/{{ stats.revision }}/experiments/2026-10-19-kappa-walker-reference/scripts/analyse_nrotor.py">Original estimator</a>. Input hashes and source revision are embedded with the data.</p>
+  <script type="application/json" data-stats-data>{{ stats | jsonify }}</script>
+</section>

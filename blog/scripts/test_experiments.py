@@ -44,7 +44,7 @@ class PublishingTest(unittest.TestCase):
             for cell in notebook.cells:
                 cell.pop("id", None)
             notebook_path = nested / "detail.ipynb"
-            notebook_path.write_text(json.dumps(notebook))
+            notebook_path.write_text(json.dumps(notebook), encoding="utf-8-sig")
             original = notebook_path.read_bytes()
             internal = root / "experiments/_template"
             internal.mkdir()

@@ -23,6 +23,16 @@ jobs:
       pages: read
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Check interactive blog instruments
+        run: |
+          npm ci --prefix web
+          node blog/scripts/test_stats.js
+          node blog/scripts/test_ants.js
       - uses: astral-sh/setup-uv@v6
         with:
           version: '0.5.15'
