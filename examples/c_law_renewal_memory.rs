@@ -23,7 +23,18 @@ fn run<W: Walker>(
     let (mut resets, mut changes) = (0u64, 0u64);
     let mut reset_lag = [0u64; 4];
     let (mut turn_changes, mut next_changes, mut ambiguous) = (0u64, 0u64, 0u64);
+    let native_events = std::env::var_os("TURMITE_NATIVE_EVENTS").is_some();
     let out = er::trace_clock(walker, None, lay, prefill, start, clock, prepare, |e| {
+        if native_events {
+            eprintln!(
+                "{},{},{},{},{}",
+                e.t,
+                e.boundary_lag,
+                e.state.lag,
+                u8::from(e.born),
+                e.state.colour
+            );
+        }
         phase_reads[e.state.colour as usize] += 1;
         phase_births[e.state.colour as usize] += u64::from(e.born);
         resets += u64::from(exposure.last_reset.get());
