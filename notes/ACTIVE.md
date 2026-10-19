@@ -26,8 +26,9 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
-- **Paper-figure proposal 1 (walker map, (a, kappa) plane) not built** (2, 3 and 5 built 2026-10-20 as `fig:edge-gap`, `fig:layers`, `fig:prefix`; 4 earlier). `notes/paper-figure-proposals-2026-10-16.md`,
-  `notes/handover-paper-figures-2026-10-17.md`.
+- **Paper figures 1-5 are built** (2026-10-20: `fig:walker-map`, `fig:edge-gap`, `fig:layers`, `fig:prefix`; late-switch earlier). Open:
+  run `rebuild_figures.py` once to confirm the recipe regenerates them (not run; it overwrites all figures), and proposals 6-8 are
+  unattempted. `notes/paper-figure-proposals-2026-10-16.md`, `notes/handover-paper-figures-2026-10-17.md` (stale for item 4).
 
 ## Uncommitted work in progress (do not lose)
 

@@ -424,6 +424,11 @@ The registered pilot used eight seeds (301–308) per setting, up to $2^20$ step
 ) <tab:memory>
 
 #figure(
+  image("fig/walker_map.pdf", width: 100%),
+  caption: [Walker map in the $(a, kappa)$ plane. Small blue points: blob-class census rules; the log-growth class (425 rules) lies mostly below and to the left of this view, and 451 of the 3055 fitted rules fall outside it; fits over $k = 20$–$26$. Large markers: means of the eight-seed memory pilot (small markers: single seeds; fits over $k = 16$–$20$, $kappa$ at $2^20$; directional cookies escaped and are absent; strong edge reinforcement, $a approx 0.22$, lies off the left edge). Red line: the rotor with arrow noise $epsilon = 0$ to $0.1$ (median over seeds, $k = 20$–$26$; $epsilon = 0.1$ has one fitted seed): $kappa$ rises to 6.7 as $a$ climbs to 0.91 and then falls. Dashed lines: $a = 2 slash 3$ and $kappa = 1$. No tested memory or noise variant lands in the ant cluster near $(2 slash 3, 0.9)$. Windows differ between sources, so positions are comparable to about 0.05 in $a$, not exactly.],
+) <fig:walker-map>
+
+#figure(
   image("fig/memory_growth.pdf", width: 100%),
   caption: [Growth and boundary occupancy across the same pilot. Thin lines are individual seeds; thick lines show the geometric mean area and arithmetic mean $kappa$. All solid curves have eight seeds. Dashed directional-cookie curves end when runs escape; terminal labels give the number still contributing, and later points describe survivors only. The grey guides show area proportional to $t^(2/3)$ and $kappa=1$. Persistent memory can suppress exploration without producing stable ant-like boundary occupancy.],
 ) <fig:memory-growth>
