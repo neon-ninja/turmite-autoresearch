@@ -73,3 +73,12 @@ separate in README, notes and blog; the outlier was not trimmed from the registe
 ### 2026-10-20 00:50 (+13:00) · 7df6d35 · intent
 Registered follow-up A in README (letter-typed hex lead, beta < 0.8 filter, T1-T5) before running anything on it. Also added ipykernel/nbformat/nbclient to
 `pyproject.toml` (user chose `uv add`). The b(l) model on a new loop length is not started: it needs a lattice with a new loop length and a registered model; see next entry.
+
+### 2026-10-20 01:05 (+13:00) · 78122d9 · observation
+Follow-up A ran as registered (`results/hex_letters.txt`). T2 and T5 held; T1 partly failed (r-lead R^2 0.42, b 0.262 clean); T3 and T4 failed. The r-lead slope was never an
+outlier-driven artefact: b_r/b_R = 0.30 [0.24, 0.37].
+
+### 2026-10-20 01:05 (+13:00) · 78122d9 · interpretation
+Letter type after the lead has a small detectable effect in R-lead only (d ~ 1.0, CV gain 0.014); it does not explain the hex intercept or the poor fit. The open items "hex intercept"
+and "hex letter types" shrink to: why the hex scatter is large and why a ~ 2.4-2.8. The b(l) model on a new loop length is not attempted this session: it needs a new lattice
+with a new loop length (implementation plus oracle tests per AGENTS rule 4) and a model registered first; no model with a mechanism exists yet beyond the post hoc line.

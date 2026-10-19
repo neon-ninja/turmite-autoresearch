@@ -168,3 +168,14 @@ M1: `1/c = a + b*lead + d*f_big`. Bootstrap as before (rule resampling, 2000 dra
 - **T5** the b_r / b_R ratio (F2 fits) has a bootstrap CI below 1 (the opposite of H-A, as in the medians, ~0.3). 60%.
 
 Null/negative outcomes are reported as such. Script `scripts/hex_letters.py` -> `results/hex_letters.txt`.
+
+### Follow-up A results (run 2026-10-20, `scripts/hex_letters.py` -> `results/hex_letters.txt`, ants.csv unchanged)
+
+F2 dropped exactly one rule (`rrrrrLrrrLrrLL`, r-lead; none in R-lead). Fits (rule bootstrap 95%): r-lead M0 `a = 2.41 [2.23, 2.60]`, `b = 0.262 [0.210, 0.310]`, R^2 0.42
+(n = 219); R-lead M0 `a = 2.80`, `b = 0.876 [0.788, 0.987]`, R^2 0.69 (n = 174). R-lead M1 adds `d = 0.99 [0.37, 1.66]` on `f_big`; r-lead `d = 0.08 [-0.27, 0.41]`.
+- **T1 PARTLY FAILED**: the one-rule drop and b in [0.15, 0.45] held (b = 0.262), but R^2 = 0.42 < 0.5. The clean r-lead slope matches the per-lead-median slope 0.28.
+- **T2 held** (R-lead b unchanged, 0.876). **T5 held**: b_r / b_R = 0.30 [0.24, 0.37], the opposite of H-A's 2 and now with a bootstrap CI free of the outlier.
+- **T3 FAILED as registered** (both conjuncts were required): the R-lead CV gain is only +0.014 although `d`'s CI excludes 0 there; so tail letter type is real but tiny in R-lead
+  (+0.1 in 1/c per 0.1 of `f_big`) and absent in r-lead. **T4 FAILED**: r-lead intercept at f_big = 0 stays 2.37; R-lead falls to 2.33 (not registered).
+- Reading: the hex slope/intercept difference from square and triangular is not a mixed-letter artefact or an outlier artefact. The hex lead fits remain noisy (R^2 0.42 and 0.69
+  against 0.94-0.95), with most of the scatter unexplained by lead, composition or letter type. Not tested: other tail features (second run length, letters 6-8 as in the square law).
