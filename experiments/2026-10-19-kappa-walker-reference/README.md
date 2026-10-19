@@ -206,3 +206,58 @@ prediction can be registered in this README (dated, before the run) and can fail
   deterministic rule-written colour field lowers the ratio), not in more walkers.
 - If step 1 or 4 overturns "ant below every walker", append a correcting NOTEBOOK entry and add a dated
   addendum below the results verdict; do not edit the original text.
+
+## Step 2 registration: noisy-rotor scan (2026-10-19 21:35 NZST, base commit f414649, **before the run**)
+
+Executes "Next steps" item 2 above as written; nothing in the design changes. Specs `results/specs_nrotor.txt`:
+`nrotor:EPS:SEED`, EPS in {0, 0.01, 0.02, 0.05, 0.1, 0.2, 0.4, 0.7, 1.0}, seeds 2026102001..08 (72 runs),
+`probe 27 8192`, script `scripts/run_nrotor.sh`, analysis `scripts/analyse_nrotor.py` (same estimators as `analyse.py`;
+windows k = 12..22 and k = 20..26; ratio per seed with the seed's own a, beta).
+Drift definition (fixed now): `g` = least-squares slope of ln(kappa_k) on k over the window set (per octave);
+stationary if |g| < 0.05 (the census cut). Runs with any escaped window are dropped from means and counted.
+
+Predictions (i)-(iii) are those in item 2, plus numbers I commit to now:
+- (i) mean ratio (k=20..26) is monotone non-increasing in EPS within 1 between-seed sd; EPS=0: 1.7-1.9; EPS=1.0: 1.15-1.40.
+- (ii) no EPS has mean ratio < 1.0 at k=20..26. Falsified if any EPS mean is < 0.96 with a <= 0.75.
+- (iii) a(EPS) <= 0.75 for EPS <= 0.1 (k=20..26).
+- (iv) EPS=1.0 agrees with `pw:0.5` (1.32 +- 0.1 at k=12..22). A mismatch > 0.15 is a code bug to be chased, not a finding.
+- (v) the EPS=0 run reproduces the plain rotor (ratio 1.69 +- 0.1 at k=12..22).
+
+## Step 2 results: noisy-rotor scan (2026-10-19, run at f414649; sha256 in `results/probe_bin_nrotor.sha256`)
+
+Commands: `bash $E/scripts/run_nrotor.sh` then `uv run $E/scripts/analyse_nrotor.py` -> `results/analysis_nrotor.txt`.
+72 runs, 8 seeds per EPS. Mean (between-seed sd), a/beta fitted per seed.
+
+**Deviation from the registration.** The probe's `escaped` column is a run-level flag repeated on every row; an escaping run
+simply ends, and its complete windows before that are valid. My first analysis dropped every run with the flag, which left
+nothing for EPS >= 0.02. Fixed to keep complete windows (no data touched). Noisy walkers have a ~ 0.9 and leave the 8192 board
+at 2^23-2^26 steps (EPS=0 never escapes), so the registered census-matched window k=20..26 exists only for EPS=0 (8/8) and
+EPS=0.01 (6/8; 2/8 at 0.02). **Windows k=12..22 (and k=12..20 for all runs) are the comparison.** This is a window deviation
+decided after seeing the escapes, not before.
+
+| EPS | a (12..22) | beta | kappa | kunif | ratio (12..22) | drift g | stationary | ratio (12..20) |
+|---|---|---|---|---|---|---|---|---|
+| 0 | 0.734 (.016) | 0.588 | 1.852 | 1.099 | **1.69** (.02) | 0.018 | 8/8 | 1.66 |
+| 0.01 | 0.871 (.022) | 0.708 | 2.800 | 1.082 | **2.59** (.09) | 0.099 | 0/8 | 2.29 |
+| 0.02 | 0.905 (.033) | 0.782 | 2.557 | 1.063 | **2.41** (.17) | 0.079 | 0/8 | 2.21 |
+| 0.05 | 0.935 (.015) | 0.859 | 2.196 | 1.042 | **2.11** (.15) | 0.053 | 4/8 | 2.00 |
+| 0.10 | 0.931 (.024) | 0.878 | 1.900 | 1.035 | **1.84** (.09) | 0.038 | 7/8 | 1.77 |
+| 0.20 | 0.936 (.011) | 0.902 | 1.663 | 1.029 | **1.62** (.05) | 0.024 | 7/7 usable | 1.56 |
+| 0.40 | 0.922 (.016) | 0.898 | 1.465 | 1.029 | **1.42** (.05) | 0.018 | 7/7 usable | 1.41 |
+| 0.70 | 0.933 (.017) | 0.920 | 1.339 | 1.023 | **1.31** (.03) | 0.008 | 8/8 | 1.30 |
+| 1.00 | 0.931 (.028) | 0.924 | 1.290 | 1.022 | **1.26** (.03) | 0.010 | 8/8 | 1.26 |
+
+(EPS=0.2, 0.4 have 7 of 8 runs complete through k=22.) At k=20..26: EPS=0 ratio 1.79 (.03); EPS=0.01 (n=6) 4.6 with g=0.095, a=0.92.
+
+### Against the registered predictions
+- (i) monotone non-increasing from 1.8 to ~1.25: **falsified.** Ratio *rises* to 2.4-2.6 at EPS 0.01-0.02, then falls monotonically to 1.26 for EPS >= 0.02. Endpoints held (EPS=0 1.69, EPS=1 1.26).
+- (ii) no EPS below 1.0: **held** (minimum 1.26). Neither removing environment memory nor adding noise gets near the ant median 0.81 or even 1.
+- (iii) a <= 0.75 for EPS <= 0.1: **falsified.** a is already 0.87 at EPS=0.01 (0.92 at k=20..26). The cube-root-like regime does not survive even 1% noise over these windows; this is not consistent with D3 as I stated it.
+- (iv) EPS=1 vs pw:0.5: 1.26 vs 1.32, difference 0.06, within the 0.15 bar: **held** (the walkers differ in turn rule, so exact equality was not expected).
+- (v) EPS=0 reproduces the rotor: 1.69 vs 1.69: **held.**
+
+### What this does and does not show
+- Observation: for 0.01 <= EPS <= 0.05 kappa/kappa_unif is above the rotor's, and these runs are not stationary (g 0.05-0.10 per octave, 0/8 at EPS 0.01-0.02), so the level there is a transient between two regimes, not a fixed point. The drift is positive: kappa is still rising, so the 12..22 value understates where it is heading (k=20..26 gives 4.6 at EPS=0.01).
+- Interpretation (unverified): a small amount of noise breaks the rotor's compact-blob structure fast (a 0.69 -> 0.87) while the territory keeps a memory-like rough edge, which inflates boundary revisits; I have not tested this and do not claim a mechanism.
+- The ratio never goes below 1 at any EPS. Per the pre-registered stopping rule (item 5) the finding stands as "walker ratios >= 1 at all memory levels tested; ants below 1", and the next experiment belongs on the rule-space side. Steps 1, 3, 4 (memoryless window control, f-layer calibration, ant-side noise reduction) are not run.
+- Caveats: windows are k <= 22 for everything but EPS=0 (a ~ 0.9 is not asymptotic); 8 seeds; non-stationary rows (EPS <= 0.05) are not comparable with the stationary ant distribution; the board limit made the registered census window unavailable.

@@ -29,3 +29,18 @@ Stop at accounting. Next step proposed: noisy rotor (eps scan) to locate where r
 
 ### 2026-10-19 (+13) · 0169fee · interpretation
 Addendum to the interpretation above (second reader, no new data). (1) The "(mean - ant q75)/seed-sd" figures in `analysis.txt` (5-25) compare a walker's 8-seed mean to a quantile of single-run, rule-dependent ant ratios (ln-kappa reliability ~0.6); they measure walker seed noise only and are not significance tests. (2) The walker ratios are > 1 for every non-uniform walker and the ant median is < 1, but the ant 5-95% range spans 0.44-1.33, so rule-level structure, not the median, is the better lever. (3) An earlier version of this session's summary quoted the halved-kappa `analysis.txt` (ratios 0.62-0.90); the deviation entry above gives the cause (window-end `t` taken as window start) and those numbers must not be quoted. (4) Paper edit not made; proposal in `notes/paper-and-supplementary-plan-2026-10-19.md`.
+
+### 2026-10-19 (+13) · f414649 · intent
+Step 2 of the README next steps: noisy-rotor scan (9 EPS x 8 seeds, `probe 27 8192`). Predictions (i)-(v) registered in the README at 21:35 NZST before the run. Fresh target dir, binary sha256 logged.
+
+### 2026-10-19 (+13) · f414649 · deviation
+First analysis dropped every run with `escaped=true`, leaving no data for EPS >= 0.02. The flag is run-level and repeated on each row; complete windows before the escape are valid. Fixed `analyse_nrotor.py` to keep them. Also: noisy walkers (a ~ 0.9) leave the 8192 board at 2^23-2^26, so the registered window k=20..26 exists only for EPS 0 and 0.01; comparison moved to k=12..22 and k=12..20 after seeing this. No data touched.
+
+### 2026-10-19 (+13) · f414649 · observation
+Ratio (k=12..22): EPS 0 1.69, 0.01 2.59, 0.02 2.41, 0.05 2.11, 0.1 1.84, 0.2 1.62, 0.4 1.42, 0.7 1.31, 1.0 1.26. a is 0.87 at EPS=0.01. EPS=0.01-0.05 runs drift (g 0.05-0.10). Minimum ratio 1.26.
+
+### 2026-10-19 (+13) · f414649 · surprise
+(i) and (iii) falsified: the ratio is non-monotone (peak ~2.6 at EPS=0.01, above the rotor's 1.7) and a leaves the 2/3 branch at EPS=0.01. (ii), (iv), (v) held. I expected noise to interpolate smoothly between rotor and memoryless; it does not.
+
+### 2026-10-19 (+13) · f414649 · interpretation
+No EPS gets below 1, so the ant deficit (median 0.81) is not reproduced by any rotor/noise mixture tested. Stopping rule from README item 5 applies. The low-EPS peak is a non-stationary transient; mechanism untested.
