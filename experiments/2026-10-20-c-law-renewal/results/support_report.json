@@ -1,0 +1,1079 @@
+{
+  "scope": "excluded pilot support only; original horizon failure stands",
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/support_probe.py",
+  "git_revision": "e7052b70e9c131164475aa6a2cdbecce6acbddaa",
+  "script_sha256": "9af210148612467b348f911891567f910bd2c51864cbf1501773193d3261c168",
+  "projection_script_sha256": "8bc4b97d21bc8ef40ea27d17bd25bbda6edf0fc9d8a455e7c9e52afa43365e5a",
+  "models": {
+    "S0": {
+      "median_unseen_mass": 1.0,
+      "max_unseen_mass": 1.0,
+      "runs_over_5pct": 24,
+      "runs": [
+        {
+          "run": "pilot-m1-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 39
+        },
+        {
+          "run": "pilot-m1-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 39
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 47
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 34
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 43
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 35
+        },
+        {
+          "run": "pilot-m2-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 34
+        },
+        {
+          "run": "pilot-m2-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 34
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 18
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 22
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 41
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 42
+        },
+        {
+          "run": "pilot-m3-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 47
+        },
+        {
+          "run": "pilot-m3-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 44
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 47
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 45
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 37
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 45
+        },
+        {
+          "run": "pilot-m4-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 30
+        },
+        {
+          "run": "pilot-m4-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 37
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 40
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 36
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 36
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 47
+        }
+      ]
+    },
+    "S1": {
+      "median_unseen_mass": 1.0,
+      "max_unseen_mass": 1.0,
+      "runs_over_5pct": 24,
+      "runs": [
+        {
+          "run": "pilot-m1-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 2088
+        },
+        {
+          "run": "pilot-m1-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1631
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1565
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 935
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1848
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1426
+        },
+        {
+          "run": "pilot-m2-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1132
+        },
+        {
+          "run": "pilot-m2-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1387
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 214
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 254
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1515
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1772
+        },
+        {
+          "run": "pilot-m3-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 3758
+        },
+        {
+          "run": "pilot-m3-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 3148
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 3814
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 2817
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 3755
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 3838
+        },
+        {
+          "run": "pilot-m4-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 343
+        },
+        {
+          "run": "pilot-m4-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 524
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1521
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1278
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 707
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1026
+        }
+      ]
+    },
+    "S2": {
+      "median_unseen_mass": 1.0,
+      "max_unseen_mass": 1.0,
+      "runs_over_5pct": 24,
+      "runs": [
+        {
+          "run": "pilot-m1-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 2824
+        },
+        {
+          "run": "pilot-m1-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 2123
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1999
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1134
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 2437
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1862
+        },
+        {
+          "run": "pilot-m2-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1396
+        },
+        {
+          "run": "pilot-m2-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1809
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 239
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 288
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1907
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 2273
+        },
+        {
+          "run": "pilot-m3-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 5376
+        },
+        {
+          "run": "pilot-m3-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 4191
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 5272
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 3717
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 5880
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 5973
+        },
+        {
+          "run": "pilot-m4-00-base-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 368
+        },
+        {
+          "run": "pilot-m4-00-base-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 609
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1881
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1549
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 990
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1498
+        }
+      ]
+    },
+    "C0": {
+      "median_unseen_mass": 0.008884325343085211,
+      "max_unseen_mass": 0.06893571487365215,
+      "runs_over_5pct": 4,
+      "runs": [
+        {
+          "run": "pilot-m1-00-base-2026102021-k26",
+          "unseen_mass": 0.06632124352331606,
+          "states": 900
+        },
+        {
+          "run": "pilot-m1-00-base-2026102022-k26",
+          "unseen_mass": 0.06593610010736367,
+          "states": 766
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.04966147063454574,
+          "states": 745
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.025621936844717415,
+          "states": 546
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.068613840239214,
+          "states": 840
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.06893571487365215,
+          "states": 734
+        },
+        {
+          "run": "pilot-m2-00-base-2026102021-k26",
+          "unseen_mass": 0.0008377158281751757,
+          "states": 726
+        },
+        {
+          "run": "pilot-m2-00-base-2026102022-k26",
+          "unseen_mass": 0.00016115753148702856,
+          "states": 835
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.0,
+          "states": 197
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.0,
+          "states": 226
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.0018406961178045514,
+          "states": 830
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.0017474370922646784,
+          "states": 901
+        },
+        {
+          "run": "pilot-m3-00-base-2026102021-k26",
+          "unseen_mass": 0.04040970955521257,
+          "states": 1141
+        },
+        {
+          "run": "pilot-m3-00-base-2026102022-k26",
+          "unseen_mass": 0.03325057105968815,
+          "states": 1042
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.016843147253802083,
+          "states": 1105
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.015927954568365873,
+          "states": 987
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.029213278999143458,
+          "states": 1203
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.023877110978411466,
+          "states": 1209
+        },
+        {
+          "run": "pilot-m4-00-base-2026102021-k26",
+          "unseen_mass": 0.0,
+          "states": 206
+        },
+        {
+          "run": "pilot-m4-00-base-2026102022-k26",
+          "unseen_mass": 0.0,
+          "states": 286
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102021-k26",
+          "unseen_mass": 2.418028822903569e-05,
+          "states": 762
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.0,
+          "states": 693
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.0,
+          "states": 348
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.0,
+          "states": 429
+        }
+      ]
+    },
+    "C1": {
+      "median_unseen_mass": 0.02264340955995678,
+      "max_unseen_mass": 0.07459419051687313,
+      "runs_over_5pct": 7,
+      "runs": [
+        {
+          "run": "pilot-m1-00-base-2026102021-k26",
+          "unseen_mass": 0.0720782959124928,
+          "states": 1370
+        },
+        {
+          "run": "pilot-m1-00-base-2026102022-k26",
+          "unseen_mass": 0.0711191736699863,
+          "states": 1115
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.05003936387970399,
+          "states": 1033
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.02568397543271915,
+          "states": 686
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.07459419051687313,
+          "states": 1262
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.0742036381595193,
+          "states": 1045
+        },
+        {
+          "run": "pilot-m2-00-base-2026102021-k26",
+          "unseen_mass": 0.0009773351328710384,
+          "states": 948
+        },
+        {
+          "run": "pilot-m2-00-base-2026102022-k26",
+          "unseen_mass": 0.00019268835286492545,
+          "states": 1117
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.0,
+          "states": 202
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.0005089058524173028,
+          "states": 239
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.0018964747880410532,
+          "states": 1159
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.0018251009630319975,
+          "states": 1271
+        },
+        {
+          "run": "pilot-m3-00-base-2026102021-k26",
+          "unseen_mass": 0.06572424114868342,
+          "states": 1805
+        },
+        {
+          "run": "pilot-m3-00-base-2026102022-k26",
+          "unseen_mass": 0.06536895421591021,
+          "states": 1599
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.019602843687194407,
+          "states": 1803
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.01854901038341342,
+          "states": 1535
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.046852856438341944,
+          "states": 1949
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.03810865747509185,
+          "states": 1958
+        },
+        {
+          "run": "pilot-m4-00-base-2026102021-k26",
+          "unseen_mass": 0.0,
+          "states": 241
+        },
+        {
+          "run": "pilot-m4-00-base-2026102022-k26",
+          "unseen_mass": 0.0011851149561507466,
+          "states": 346
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.03155527613889158,
+          "states": 977
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.03266080358682531,
+          "states": 868
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.0009193993257738277,
+          "states": 448
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.0009354536950420954,
+          "states": 570
+        }
+      ]
+    },
+    "C2": {
+      "median_unseen_mass": 0.042752241640382826,
+      "max_unseen_mass": 0.30088715180842485,
+      "runs_over_5pct": 12,
+      "runs": [
+        {
+          "run": "pilot-m1-00-base-2026102021-k26",
+          "unseen_mass": 0.25402034158510844,
+          "states": 1771
+        },
+        {
+          "run": "pilot-m1-00-base-2026102022-k26",
+          "unseen_mass": 0.255377438821221,
+          "states": 1406
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.2583530152731853,
+          "states": 1321
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.30088715180842485,
+          "states": 838
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.2533105510465613,
+          "states": 1590
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.2601860235410322,
+          "states": 1283
+        },
+        {
+          "run": "pilot-m2-00-base-2026102021-k26",
+          "unseen_mass": 0.014892725834225346,
+          "states": 1083
+        },
+        {
+          "run": "pilot-m2-00-base-2026102022-k26",
+          "unseen_mass": 0.022695184542890677,
+          "states": 1313
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.0012987012987012987,
+          "states": 214
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.004071246819338422,
+          "states": 252
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.023650156180276664,
+          "states": 1381
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.026250388319353838,
+          "states": 1561
+        },
+        {
+          "run": "pilot-m3-00-base-2026102021-k26",
+          "unseen_mass": 0.09920022449838642,
+          "states": 2533
+        },
+        {
+          "run": "pilot-m3-00-base-2026102022-k26",
+          "unseen_mass": 0.11149071407289701,
+          "states": 2204
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.052809190988991214,
+          "states": 2336
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.05393326388655533,
+          "states": 1925
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.07840215952448933,
+          "states": 2602
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.06440966144921738,
+          "states": 2622
+        },
+        {
+          "run": "pilot-m4-00-base-2026102021-k26",
+          "unseen_mass": 0.006243838317449885,
+          "states": 288
+        },
+        {
+          "run": "pilot-m4-00-base-2026102022-k26",
+          "unseen_mass": 0.00711068973690448,
+          "states": 423
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.031603636715349645,
+          "states": 1192
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.032695292291774446,
+          "states": 1036
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.011339258351210543,
+          "states": 565
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.010523854069223574,
+          "states": 733
+        }
+      ]
+    },
+    "C4": {
+      "median_unseen_mass": 0.361318097157028,
+      "max_unseen_mass": 0.5462187480612941,
+      "runs_over_5pct": 24,
+      "runs": [
+        {
+          "run": "pilot-m1-00-base-2026102021-k26",
+          "unseen_mass": 0.28493571291498754,
+          "states": 2070
+        },
+        {
+          "run": "pilot-m1-00-base-2026102022-k26",
+          "unseen_mass": 0.2849950020362075,
+          "states": 1612
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.4018894662257912,
+          "states": 1538
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.5462187480612941,
+          "states": 933
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.28769756514310124,
+          "states": 1845
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.2951271709605729,
+          "states": 1425
+        },
+        {
+          "run": "pilot-m2-00-base-2026102021-k26",
+          "unseen_mass": 0.23144226741750826,
+          "states": 1122
+        },
+        {
+          "run": "pilot-m2-00-base-2026102022-k26",
+          "unseen_mass": 0.2501375094154536,
+          "states": 1372
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.2785714285714286,
+          "states": 214
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.27531806615776083,
+          "states": 254
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.2613230700580098,
+          "states": 1483
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.2553976390183287,
+          "states": 1709
+        },
+        {
+          "run": "pilot-m3-00-base-2026102021-k26",
+          "unseen_mass": 0.4298793321173004,
+          "states": 3542
+        },
+        {
+          "run": "pilot-m3-00-base-2026102022-k26",
+          "unseen_mass": 0.44413546528950243,
+          "states": 2995
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.45645978942316345,
+          "states": 3256
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.4589535938707618,
+          "states": 2513
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.5080878345056713,
+          "states": 3543
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.5048198406231523,
+          "states": 3612
+        },
+        {
+          "run": "pilot-m4-00-base-2026102021-k26",
+          "unseen_mass": 0.37101544528425895,
+          "states": 342
+        },
+        {
+          "run": "pilot-m4-00-base-2026102022-k26",
+          "unseen_mass": 0.36833372837165207,
+          "states": 521
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.35213753747944676,
+          "states": 1517
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.3543024659424039,
+          "states": 1277
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.37434875881091023,
+          "states": 698
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.3738696601184908,
+          "states": 989
+        }
+      ]
+    },
+    "C8": {
+      "median_unseen_mass": 0.9444270080966247,
+      "max_unseen_mass": 1.0,
+      "runs_over_5pct": 24,
+      "runs": [
+        {
+          "run": "pilot-m1-00-base-2026102021-k26",
+          "unseen_mass": 0.9043561696411437,
+          "states": 2088
+        },
+        {
+          "run": "pilot-m1-00-base-2026102022-k26",
+          "unseen_mass": 0.9072229832290548,
+          "states": 1631
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.9999055266887105,
+          "states": 1565
+        },
+        {
+          "run": "pilot-m1-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 935
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.980457069628364,
+          "states": 1848
+        },
+        {
+          "run": "pilot-m1-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.9817268911021483,
+          "states": 1426
+        },
+        {
+          "run": "pilot-m2-00-base-2026102021-k26",
+          "unseen_mass": 0.9958579606273561,
+          "states": 1132
+        },
+        {
+          "run": "pilot-m2-00-base-2026102022-k26",
+          "unseen_mass": 0.9990190411126877,
+          "states": 1387
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.9012987012987013,
+          "states": 214
+        },
+        {
+          "run": "pilot-m2-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.9083969465648855,
+          "states": 254
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.9988286479250335,
+          "states": 1515
+        },
+        {
+          "run": "pilot-m2-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.9988350419384903,
+          "states": 1772
+        },
+        {
+          "run": "pilot-m3-00-base-2026102021-k26",
+          "unseen_mass": 0.8805247649782517,
+          "states": 3758
+        },
+        {
+          "run": "pilot-m3-00-base-2026102022-k26",
+          "unseen_mass": 0.8866421690336677,
+          "states": 3148
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102021-k26",
+          "unseen_mass": 0.997030326664067,
+          "states": 3570
+        },
+        {
+          "run": "pilot-m3-00-early_swap-2026102022-k26",
+          "unseen_mass": 0.9967404818710306,
+          "states": 2702
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.8253744127495003,
+          "states": 3755
+        },
+        {
+          "run": "pilot-m3-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.830871689576966,
+          "states": 3838
+        },
+        {
+          "run": "pilot-m4-00-base-2026102021-k26",
+          "unseen_mass": 0.8439040420637529,
+          "states": 343
+        },
+        {
+          "run": "pilot-m4-00-base-2026102022-k26",
+          "unseen_mass": 0.8378762739985779,
+          "states": 524
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102021-k26",
+          "unseen_mass": 1.0,
+          "states": 1521
+        },
+        {
+          "run": "pilot-m4-00-early_swap-2026102022-k26",
+          "unseen_mass": 1.0,
+          "states": 1278
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102021-k26",
+          "unseen_mass": 0.8608642353662274,
+          "states": 707
+        },
+        {
+          "run": "pilot-m4-00-late_swap-2026102022-k26",
+          "unseen_mass": 0.8603055815403804,
+          "states": 1026
+        }
+      ]
+    }
+  },
+  "feasibility_prediction_held": true,
+  "inputs_sha256": {
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/build.json": "8c5c166623d6133af555b0a7544ffa987e84a373e0020d6d74e6518c73937cd3",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/horizon.json": "ceeb9b317d05a2dfdeb77577b8edacc06ae80f87bcf4b810eef7983a263dd969",
+    "experiments/2026-10-20-c-law-renewal/results/design/families.csv": "bc37ff7e19aa4102dbbec69d17d39cb13986ea73f9225343263cad9eb1b946c8",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m1-00-base-2026102021-k26.json": "744bcddb05b5a44a952c7c0cab30fef36c388f0a664f1d492dcf7a56c3da43b3",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m1-00-base-2026102021-k26.json": "2497fe054a8df514e15e29fdf46d68cc89624d11edd6a8496141c463e3677349",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m1-00-base-2026102022-k26.json": "75f2e92c9cf2f80ecc18240ac012449132a514359f4d5581b1df484d6e85ec0d",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m1-00-base-2026102022-k26.json": "3b40d0d2ffd55d855bee5b9b1faafb0f43ea3858ca81e89c20fec7af69681730",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m1-00-early_swap-2026102021-k26.json": "4af973a31de238c829ed9761f13a42681a6dae86227b1655a806e246ec00bd74",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m1-00-early_swap-2026102021-k26.json": "56c90af95e4065f46a13a5c7d08769d2c687bad02853b2eda187fd995c630e54",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m1-00-early_swap-2026102022-k26.json": "c66505666f93e85deb515ff8f2a426280989d039686a390a19704287b495c4a0",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m1-00-early_swap-2026102022-k26.json": "37fb9c6b375f79bae3cae0df91b3cd759fdc5a54a7a7b42c9a16a7792caab4be",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m1-00-late_swap-2026102021-k26.json": "9dc1f1d89261489fbc523642032385e0165d4ffd8afc2f44043b3ea56d0d2712",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m1-00-late_swap-2026102021-k26.json": "b16b2486ecd1be4166b6cd4ae790c55fcfae623958c0f6cbebd59b539e053d11",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m1-00-late_swap-2026102022-k26.json": "5b47a256e0fc30f5672789d102408936ec70626b702c95536983aabdfcf5d0fc",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m1-00-late_swap-2026102022-k26.json": "0f98a9619d430b7da3ad719bf1fda773f1ca8809f01871548b2b622403f71e33",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m2-00-base-2026102021-k26.json": "8765ad9c0fc1207df277327ee7e7130f3866674b57fa81f315e060084203b11c",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m2-00-base-2026102021-k26.json": "ea4f112e1f73cc8661af705129b53784058d58c64c94e54d4182c5bf1131cfef",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m2-00-base-2026102022-k26.json": "65e6c3e6be53e796f9476372f2ece015933644e24238cff70512b028e3fa830a",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m2-00-base-2026102022-k26.json": "e6a59c9a42d32b6a98b3673c74a5a1cd93a42e287787eeac3651c5172e1821ee",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m2-00-early_swap-2026102021-k26.json": "dcaf9187e41b9ef1dcd2032c65c9505f819fed803210c11ac13bc2909f507307",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m2-00-early_swap-2026102021-k26.json": "85ee12048f0274ef9126aea20e5e7f379448083c0537dccc7df13965193312a5",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m2-00-early_swap-2026102022-k26.json": "b849aab48f2cfd293905a94332ffae34d11ad3ee0fcadc3459c8851f0b4ecc6c",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m2-00-early_swap-2026102022-k26.json": "589cb7721c2b4c5aa4dfd5c32a87c901ea18331295689608dde00db38cdcb6e0",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m2-00-late_swap-2026102021-k26.json": "18714a4c237c1e9fb6b791156b6c233c1f16e7c414cd835a47c97d280c5dc66c",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m2-00-late_swap-2026102021-k26.json": "e3a8406de5df0e0d6338b9360baee1f642062817228626ee69dba5280140c2d5",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m2-00-late_swap-2026102022-k26.json": "a9dc04e9cca32e6146f723a1d1403fec5cab7f56a742e0afe4662b4fcb31ea23",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m2-00-late_swap-2026102022-k26.json": "43e182849ebab2d21a2d652ff35e77c382756d1c2b046b37b45586b2879335ee",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m3-00-base-2026102021-k26.json": "8d3e24b372233655f8d580e80f2f6abf7e502fae375950aa6328be93eba7c995",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m3-00-base-2026102021-k26.json": "f961772255ced20afdc56756aa267548a030ef0feaa7a469d327eba0c92c89dc",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m3-00-base-2026102022-k26.json": "5c9bc199c290858ea34d03c1246cfae3f382294da3548e3b716bc2b7df840b10",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m3-00-base-2026102022-k26.json": "56426f437f86c27263625cf4a90a4afd798e018c0673d29881318757d77f1fa0",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m3-00-early_swap-2026102021-k26.json": "099efe428319a5a742094053e281d3cccab64ba547ae6264cfe4e1660753ab44",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m3-00-early_swap-2026102021-k26.json": "6a6ff22130702b42317491a03eb9d5657786a409882595f3a03f9e1ddb0819bb",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m3-00-early_swap-2026102022-k26.json": "9bdce29aa1ae1994c5b8b0d176a5e34efca36af6068dc57c117682b69182799a",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m3-00-early_swap-2026102022-k26.json": "dd63f5f124c9fc9cdd71634535fcb89c47a72a8b60eef9e60516d4f500c1e1b2",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m3-00-late_swap-2026102021-k26.json": "433e985c13a4e7a24d24ce921b8f93b14668a85ba43de9b23bf2459511fa4a75",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m3-00-late_swap-2026102021-k26.json": "6d240509405adfd8441bc1460d55255bef9c5ce653fd009f8e31a7f72412f54e",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m3-00-late_swap-2026102022-k26.json": "0286eb1986f66c41c45a6e076df649120fe3397423e499d01427b94c1c76c796",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m3-00-late_swap-2026102022-k26.json": "48a7c66d716864fea72f24a234e92310e62e16879c604366b50c71cc9930f564",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m4-00-base-2026102021-k26.json": "a10c66b8c82661891dbc50fff137e9167cdf1d12650819d91051a58850356ead",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m4-00-base-2026102021-k26.json": "54fb92d8082a51d569cff003580f8f9ed0b95f24e7e7c4a9374bbceb6bb05ed1",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m4-00-base-2026102022-k26.json": "98500eefcbe80a1d6c48b3f6ff6810dc52768e76f5abd0da2f918b8d1a2c9385",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m4-00-base-2026102022-k26.json": "3f0da0aeb8955b9d8417747d9b73a349e42b4ee279e848fb59697e6ab9945762",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m4-00-early_swap-2026102021-k26.json": "19283697c9c03a5790619000e6ac184cd8667375b1b945c052fe9d9a32d497e7",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m4-00-early_swap-2026102021-k26.json": "39a9003edf6ab2ee919e169344de8e7d9da79560d9f5d9311cc958cc3af77c94",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m4-00-early_swap-2026102022-k26.json": "4bb12949f7ef5bae7c11594decfcafd4c1d301f8b313124322a7355c2d28c69b",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m4-00-early_swap-2026102022-k26.json": "ab1107eb72cd6f352a93ec1fa43252fed09d4affed01f19a8d0a7e3718c2f4ac",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m4-00-late_swap-2026102021-k26.json": "e53fd31cade0f7180aa30145fc650817024db572f85172a550c455080acef2cb",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m4-00-late_swap-2026102021-k26.json": "0467ad0da8cc3bda09cb3fbe877e0951177abc9a4f9ab66d9e6b629737d19d24",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/pilot-m4-00-late_swap-2026102022-k26.json": "b71a99fe39a492ee87f86a2b05e96bff5b420fa1bfc3618d14b5376a8c78dc68",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_support/pilot-m4-00-late_swap-2026102022-k26.json": "8dd1420a8f988bf7762473d7a0e76fafcd8238c1a83dda9268bee5aaf525fe08"
+  }
+}

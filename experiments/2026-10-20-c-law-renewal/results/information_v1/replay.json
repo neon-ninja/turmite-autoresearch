@@ -1,0 +1,18 @@
+{
+  "controls": 16,
+  "ant_baselines": 16,
+  "all_old_fields_exact": true,
+  "thread_bytes_identical": true,
+  "thread_check_argv": [
+    "band",
+    "RRRRLLRRLLLLRR",
+    "2026102021",
+    "word2:4",
+    "2026102061",
+    "16",
+    "64",
+    "12"
+  ],
+  "build_sha256": "1c61ed204e86063d5a37c1984496a0af6fe79b5ed427970291db1ea0b5f8a342",
+  "config_sha256": "dad69395d1a3b8d6dc27cd430ea37061a425911eba682e1985d77d5ba2e446ee"
+}

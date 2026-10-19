@@ -1,0 +1,97 @@
+{
+  "recipe": {
+    "argv": [
+      "control",
+      "rotor",
+      "2026102054",
+      "2048",
+      "8192",
+      "28"
+    ],
+    "binary_sha256": "ca76f109822d48c15db2d3ba3abd878d73fbbd4b76fbbfb86634e77321d82c97",
+    "build_sha256": "1c61ed204e86063d5a37c1984496a0af6fe79b5ed427970291db1ea0b5f8a342",
+    "config_sha256": "dad69395d1a3b8d6dc27cd430ea37061a425911eba682e1985d77d5ba2e446ee",
+    "driver_sha256": "4db2fcaa4b08c725bbe6af5b83e0f6ad8df33226599bf92f1896d8de41b41f95",
+    "baseline_file": "experiments/2026-10-20-c-law-renewal/results/memory_v1/control-rotor-2026102054.json",
+    "baseline_sha256": "4f4fb78227698cb9539856d9151bb0c1cb60bb7f8b6ef4a8e5464ed7cee35b09"
+  },
+  "summary": {
+    "steps": 37974,
+    "start_step": 4491,
+    "window_steps": 33483,
+    "window_complete": true,
+    "boundary_reads": 8192,
+    "births": 4092,
+    "lag": [
+      3793,
+      853,
+      2226,
+      1320
+    ],
+    "chains": [
+      0,
+      1080,
+      366,
+      197,
+      109,
+      66,
+      41,
+      34,
+      16,
+      12,
+      10,
+      1,
+      1,
+      4,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "left_chain_censored": false,
+    "right_chain_censored": false,
+    "area_t0": 1031,
+    "area": 5123,
+    "perimeter": 724,
+    "escaped": false,
+    "resets_total": 0,
+    "changed_total": 0,
+    "boundary_resets": 0,
+    "boundary_changes": 0,
+    "boundary_reset_lag": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "phase_reads": [
+      2070,
+      2049,
+      1989,
+      2084
+    ],
+    "phase_births": [
+      983,
+      1089,
+      1022,
+      998
+    ],
+    "boundary_turn_changes": 0,
+    "boundary_next_turn_changes": 0,
+    "boundary_ambiguous_resets": 0
+  }
+}

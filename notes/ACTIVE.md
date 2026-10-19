@@ -7,16 +7,22 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Science: open questions
 
-- **Why does the c-law slope b fall with loop length?** Lattice experiment: b = 0.86 / 0.70 / 0.34 / 0.28 for loops 3 (hex R), 4 (square), 6 (triangular), 6
-  (hex r); hypotheses A, B, C all disproven. Needs a registered b(l) model, a letter-typed hex lead, and ideally a new loop length; also why the hex
-  intercept is ~2.5 vs 1.3. `experiments/2026-10-20-lattice-c-law/README.md` (Results), post hoc `results/explore.txt`.
-  Follow-up `experiments/2026-10-20-lattice-c-law-colours/` (2026-10-20): the registered circulation decomposition failed (P1, P2, P6 failed;
-  P3 passed on a flawed interior-contaminated estimator and is not counted). Post hoc: the slope lives in boundary reads at the circulating
-  colours, ~0.95 per colour (hex R), 0.8 (square), 0.65 to 0.35 (tri), 0.7 to 0.5 (hex r); lag-ell ring returns carry them only on the square
-  lattice; hex r fills ring centres (15% of lead-1 births). Next: boundary-only episode segmentation, and what sets the per-colour survival plateau.
+- **Why does the c-law slope b fall with loop length, and what sets the intercept?** Registered Moore-lattice test (follow-up B, `experiments/2026-10-20-lattice-c-law/README.md`): b = 0.775 at loop 4 (z = 8), 0.260 at loop 8; M-lin refuted, M-inv missed its own consistency clause by 0.005, so neither supported. b looks floor-like (~0.26-0.28 at l = 6 and 8), within-lattice doubling of l multiplies b by ~0.3. Intercept is lattice-set (1.3 for z = 3, 4; 2.4 for z = 6, 8), not loop-set. No mechanism; closing needs a derivation of N_b(l) and the intercept, then a registered test on another lattice.
+- **Why is the hex lead fit so noisy, and what sets its intercept?** Follow-up A (2026-10-20, registered, `experiments/2026-10-20-lattice-c-law/README.md`) removed the lacy outlier (beta < 0.8) and
+  separated tail letter types: clean r-lead b = 0.262 [0.21, 0.31] (R^2 only 0.42), R-lead 0.876 (R^2 0.69), b_r/b_R = 0.30 [0.24, 0.37]; tail letter type adds ~nothing
+  (R-lead CV gain +0.014, r-lead none). Intercept stays 2.4-2.8. Unexplained scatter remains; candidate features untested: second run length, letters 6-8.
+- **Where does the lead slope of 1/c live, by colour? (follow-up, `experiments/2026-10-20-lattice-c-law-colours/`, 2026-10-20).** The registered circulation
+  decomposition failed (P1, P2, P6 failed; P3 passed on a flawed interior-contaminated estimator and is not counted). Post hoc: the slope lives in
+  boundary reads at the circulating colours, ~0.95 per colour (hex R), 0.8 (square), 0.65 to 0.35 (tri), 0.7 to 0.5 (hex r); lag-ell ring returns carry them
+  only on the square lattice; hex r fills ring centres (15% of lead-1 births). Next: boundary-only episode segmentation, and what sets the per-colour survival plateau.
 - **Origin of the c law constants a = 1.4, b = 0.68** (1/c = 1.36 + 0.70 lead). Candidate: loop-formation probability x 4 steps
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).
+- **Local renewal mechanism for c:** rich lookup lacks pilot support (`0fa4db2`). Exact-rule finite colour-memory model then
+  fails M1/M2 at r=4 and r=8 (`a878d5e`): nearby phase clocks plus uniform forgotten phases miss the cost/budget. An exact
+  return bound ensures r=4 directly changes only >16-step phases. Long-budget loss can be hidden by more short loops.
+  Next: test preserving the old turn bit versus future-turn timing at forgotten cells; new oracle/registration still needed.
+  Main cohort remains unopened. `experiments/2026-10-20-c-law-renewal/README.md`.
 - **S-arm kappa drop (d = -0.198) is unexplained.** A total effect, not area-conditioned; confounded with flip direction
   (L>R +0.15, R>L -0.21, post hoc). Needs direction-balanced flips. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 4
   results), `experiments/2026-10-16-kappa-leadrun-fresh/README.md` (Part B addendum, Proposal 1).
@@ -53,11 +59,11 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Uncommitted work in progress (do not lose)
 
-- **n-rotor reference, `experiments/2026-10-19-kappa-walker-reference/`**: modified `README.md`, `NOTEBOOK.md`, untracked
-  `notebook.ipynb`, plus `results/specs_nrotor.txt`, `scripts/analyse_nrotor.py`, `scripts/run_nrotor.sh` (status at session
-  start; another session may have committed since; check `git status`).
-- **`experiments/2026-10-16-kappa-uniform-baseline/NOTEBOOK.md`**: uncommitted edit.
-- **Blog:** `blog/index.html` modified, `blog/_posts/2026-10-19-the-ant-below-every-walker.md` untracked.
+- **c-law renewal work is active in its owning session:** instrument and oracle tests committed (`ccbd9cd`), release suite passes,
+  finite-memory model/clock (`c826721`) and failures (`a878d5e`) committed. All own jobs are terminal. Do not replace its pilot
+  families, relaunch completed pilots, or open main outcomes before the next mechanism is registered.
+- The n-rotor reference, uniform-baseline notebook edit and blog index/post listed here earlier are committed (`18b79d7`,
+  `3117e1b`); `main` equals `origin/main` (`bf4ca54`) as of 2026-10-20 00:42.
 - **rulepat, branch `claude/rule-pattern-experiment-aa95e3`**: committed 2026-10-20 as `275d52b` and merged into local `main`
   on 2026-10-20 at the user's request (reader guide added, covering only the early README steps). Still open: its gitignored
   `dumps/` (192 MB) and `scratch/` (3 MB) exist only in the worktree, so archive them before removing it; its README
@@ -65,11 +71,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Repository housekeeping
 
-- **`main` pushed 2026-10-20** up to `7339dc9` (user: "push"). Later commits on `worktree-paper-figure-proposals` (family hold-out
-  and after) are not on `origin/main` until merged and pushed.
-- **Jupyter is not in `pyproject.toml`**: `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb` was re-executed 2026-10-20
-  using `uv pip install ipykernel` into the WSL venv plus `ipykernel install --sys-prefix`; decide whether to `uv add` it.
-  Its Proposal 2 bounds are not in the notebook (rebuild with `scripts/build_notebook.py` if wanted).
+- **Jupyter**: `ipykernel`, `nbformat`, `nbclient` added to `pyproject.toml`/`uv.lock` (`7df6d35`). The leadrun-fresh notebook's Proposal 2 bounds are not in it (rebuild with `scripts/build_notebook.py` if wanted).
 - **Refresh `blog/index.html`** with the c-law / collider result (convention in `AGENTS.md`). A null-result post
   (`blog/_posts/2026-10-20-where-kappa-is-not.md`, with reader guides for the three 2026-10-20 kappa experiments) was added 2026-10-20;
   the index itself was not touched. The experiment pages were
@@ -83,12 +85,12 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   `notes/g1-builder-structure-2026-10-14.md` (handover item 3). Deletion needs the user's go-ahead:
   - `.claude/worktrees/agent-a810708e829d8af34` and branch `backup/pre-census-split`: same commits; the unique `39df9f2` content is in
     `main`. Its uncommitted GPU probe port (`src/gpu/probe.rs`, `experiments/2026-10-16-gpu-probe-port/`) is an earlier attempt at what
-    `main` has as `gpu_probe`; compare `experiments/2026-10-16-gpu-probe-port/results/` with `experiments/2026-10-16-gpu-probe/results/` before discarding.
-  - `.claude/worktrees/g1-builder-structure`: old `data/` layout; content appears superseded by `main`. Confirm the dropped
-    `TODO(G1)` paper change is already in `research-outputs/cube-root-growth-paper/main.typ`, then remove.
+    `main` has as `gpu_probe`; checked 2026-10-20: the two `results/` dirs differ (the port has `full_L2400*`, `cpu_full.*`, `block_sweep_*`; `gpu-probe` has the bench files), so keep the port's results before discarding.
+  - `.claude/worktrees/g1-builder-structure`: old `data/` layout; content appears superseded by `main`. Checked 2026-10-20: no
+    `TODO(G1)` remains in `main.typ`. Still archive `dumps/` (73 MB) first.
   - `.claude/worktrees/paper-figure-proposals` (locked): merged into local `main` on 2026-10-20 (user-approved local merge, not
-    pushed; `main.typ` and `rebuild_figures.py` auto-merged, `ACTIVE.md` and `main.pdf` resolved by hand / recompile). The branch
-    keeps receiving work; remove the worktree only when finished.
+    pushed; `main.typ` and `rebuild_figures.py` auto-merged, `ACTIVE.md` and `main.pdf` resolved by hand / recompile). Checked 2026-10-20: no commits
+    beyond `main`; the worktree can be removed when finished.
 
 ## Closed (for reference, do not reopen without new grounds)
 

@@ -232,5 +232,70 @@ instrumentation and scientific analysis are not implemented. Calibration and
 an excluded pilot must precede a dated model freeze and main measurement.
 Draft predictions only; no new scientific evidence or claim about kappa.
 
+#### Local renewal instrument and pilot — 2026-10-20 00:52 (+13:00)
+
+The [recorder and pilot](../experiments/2026-10-20-c-law-renewal/README.md)
+now exist (evidence revision `e81f2385199b7e005df883bf0e3627b113740cd4`).
+Ordered states match a sparse path oracle and aggregate tracer. Rotor/rw
+controls pass (8 seeds each, c means 0.497504/0.446602, between-seed sd
+0.000467/0.008122, no escapes); synthetic stationary-reward solver calibration
+passes, but the ant backoff model is not implemented or calibrated.
+The excluded pilot's common-horizon gate fails: 0/4 complete families at
+every k=22..26, only 2/24 individual runs usable at k=26. No main outcomes
+opened and no P1–P4 verdict. Reproduce with `scripts/run_pilot_all.sh`,
+`scripts/pilot_diagnose.py`; per-run hashes, commands, seeds and failures in
+that experiment's `results/`. A registered support diagnostic on the same
+excluded pilots is pending; it cannot rescue the failed sampling gate.
+The exact immediate birth predicate is already local (turn plus fresh mask).
+The open mechanism is the distribution of local states; a pooled kernel must
+respect target-rule-compatible successors rather than borrow target counts.
+
+#### Rich-state lookup lacks pilot transfer support — 2026-10-20 00:59 (+13:00)
+
+Registered diagnostic complete, evidence revision
+`0fa4db2807247a2214fbcd433876d6062ba83e37`, same 24 excluded runs and k=26.
+Counts-mode summaries reproduce the original runs exactly; flow and reward
+checks pass. S0/S1/S2 all have 100% unseen read mass in every held-out pilot
+family run. Eight turns plus patch, omitting source colour, still has median
+94.44% unseen mass; current turn plus patch has median 2.26%, maximum 7.46%.
+This establishes a feasibility problem for the proposed lookup in this
+pilot, not a rejection of all local mechanisms or a main-cohort score.
+Reproduce: experiment `scripts/support_probe.py`; compact evidence and hashes
+in `results/support_report.json` and `results/pilot_support/`. The failed
+common-horizon gate stands. Main P1–P4 remain untested. Next proposal:
+compositional target-rule updates with learned missing patch/return conditions,
+requiring its own calibration, sampling revision and frozen predictions.
+
+#### Finite short-phase memory is insufficient with a uniform exterior — 2026-10-20 01:34 (+13:00)
+
+Registration/code `c826721c2591201c45efeca9900abac5f8f4f841`; outcomes and
+recipes `a878d5e9acc3411fa0a3b745d66a8e3a552e6ee8`,
+[experiment](../experiments/2026-10-20-c-law-renewal/README.md). Four excluded
+base rules, two seeds, full plus five uniform cache radii and r=4 zero reset.
+New prospective clock: 2048 warmup + 8192 measured boundary reads, cap 2^28.
+Window/path/cache oracles and full release tests pass; rotor/rw clock controls
+pass with means 0.500748/0.462433 (8-seed sd 0.003133/0.006132), but rw is
+0.015830 above its earlier fixed-time mean, so finite-window bias remains.
+
+Exact deduction: a quarter-turn return of k steps has maximum coordinate
+excursion <=k/4. Radius-r phase eviction therefore requires lag >=4(r+1).
+r=4 preserves every <=16-step source phase. Nevertheless both uniform r=4
+and r=8 FAIL registered M1/M2 (8/8 eligible pairs): median |ln c ratio|
+0.012054/0.012623 but maximum 0.298926/0.276185; median largest budget errors
+0.248662/0.200881 (limit .20, latter narrowly fails). Zero reset caps in 6/8;
+M3 has only two defined comparisons and is UNINFORMATIVE, not a prior test pass.
+
+In RRRRLLRRLLLLRR, r=4 c is 31–35% higher in both seeds (24–26% fewer reads
+per birth). Exploratory decomposition loses 1.63/1.59 long reads per birth
+and gains 0.51/0.47 lag-4 reads, net -0.95/-1.05. Lead-2 changes nearly cancel
+in total c. Thus retaining direct short-phase clocks does not preserve their
+frequencies or the full cost. This is a failure of the uniform-exterior
+closure, not a universal locality theorem. Main outcomes remain unopened.
+Commands: `scripts/launch_memory.py`, `analyse_memory.py`, `diagnose_memory.py`;
+JSON evidence, all cases/caps and figure are in that experiment's results.
+Next proposal: retain only the old turn bit at forgotten cells, then compare
+two-turn information, to separate directional field memory from distant phase
+timing. This proposal is unimplemented and needs fresh registered tests.
+
 ### Lattice c law: slope falls with loop length; the kappa deficit is not square-specific — 2026-10-20 (`experiments/2026-10-20-lattice-c-law`)
 Registered (README, before any lattice c): A b ~ loop length, B b lattice-independent, C b ~ 4/z, as vectors over (triangular, hex R-lead, hex r-lead). 960 ants (48 per lead 1..5 per stratum, primitive rules of length 10-14) and 120 controls, 2^27 steps, board 8192, generic octave probe `src/lattice_probe.rs` (oracle tests: square equals `probe.rs`, hex/triangular equal a HashMap version; mean-field gate G4 passes at 0.994/1.005/1.004). **A, B and C are all disproven as stated.** Registered fits: b = 0.696 square (census 0.70), **0.355 triangular** [0.340, 0.371], 0.876 hex R-lead [0.78, 0.98]; the hex r-lead OLS is wrecked by one rule with 1/c = 390 (the frozen decision rule returns "undecided"; L1, L2, K4 failed). Post hoc (unregistered), per-lead medians give hex r-lead b ~ 0.27, so b is 0.86, 0.70, 0.34, 0.28 for loop lengths 3 (hex R), 4 (square), 6 (triangular), 6 (hex r): it **falls** with loop length. Intercept 1.3 on square and triangular, ~2.4-2.8 on hex. Kappa: ant median kappa/kappa_unif is 0.77 square, 0.74 triangular, 0.86 hex (random walks 1.28-1.44), so the deficit is not a square-lattice artefact. K3 held (no lead slope of ln kappa beyond 0.08). Open: why b falls with loop length (the Little's-law derivation b = l_b / N_b leaves N_b's scaling free; the data say N_b grows faster than l_b), the hex letter-type effect, more loop lengths, whether the intercept tracks coordination. Reproduce: `experiments/2026-10-20-lattice-c-law/README.md`.

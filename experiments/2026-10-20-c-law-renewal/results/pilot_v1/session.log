@@ -1,0 +1,282 @@
+{
+  "status": "synthetic_only",
+  "git_revision": "78122d90009e6baff23c204a8aa468ea5a57da23",
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/calibrate.py",
+  "script_sha256": "5aff8905b66925281fb94d9c4bebfb63a96eb4c81be06462bb7354f4d39f5243",
+  "n_events_per_seed": 1000000,
+  "seeds": [
+    2026102031,
+    2026102032,
+    2026102033,
+    2026102034,
+    2026102035,
+    2026102036,
+    2026102037,
+    2026102038,
+    2026102039,
+    2026102040,
+    2026102041,
+    2026102042,
+    2026102043,
+    2026102044,
+    2026102045,
+    2026102046
+  ],
+  "true_c": 0.3,
+  "estimates": [
+    0.30036620056215163,
+    0.29863059571526646,
+    0.300671604076985,
+    0.3007172009079947,
+    0.2995421995484714,
+    0.29897719923306526,
+    0.29950120041878686,
+    0.30185020182741823,
+    0.2996411995694412,
+    0.30078720121359676,
+    0.30058060647733503,
+    0.30137820065472726,
+    0.29989160267613263,
+    0.30024160237043307,
+    0.30093320017243674,
+    0.2996626059119252
+  ],
+  "signed_bias": 0.0002107888335104724,
+  "between_seed_sd": 0.000865310084626809,
+  "max_absolute_error": 0.0018502018274182408,
+  "negative_control": {
+    "seed": 2026102047,
+    "hidden_block_length": 256,
+    "after_birth": 0.9014471467277115,
+    "after_no_birth": 0.09845139598246501,
+    "contrast": 0.8029957507452465,
+    "pooled_c": 0.499742,
+    "interpretation": "pooled c can be correct despite failure of history-free conditional prediction"
+  },
+  "passed": true,
+  "scope": "stationary solver and reward estimator only; ant state/backoff model not calibrated yet"
+}
+Built fresh instrument /home/tim/turmite-renewal-fq6jshff/release/examples/c_law_renewal_trace
+rotor-2026102051 births 136709 seconds 0.418
+rw-2026102051 births 101711 seconds 0.116
+rotor-2026102052 births 144368 seconds 0.445
+rw-2026102052 births 119749 seconds 0.133
+rotor-2026102053 births 143260 seconds 0.511
+rw-2026102053 births 109476 seconds 0.131
+rotor-2026102054 births 142701 seconds 0.431
+rw-2026102054 births 94499 seconds 0.124
+rotor-2026102055 births 142682 seconds 0.573
+rw-2026102055 births 83567 seconds 0.2
+rotor-2026102056 births 143047 seconds 0.473
+rw-2026102056 births 81662 seconds 0.164
+rotor-2026102057 births 145717 seconds 0.844
+rw-2026102057 births 118061 seconds 0.321
+rotor-2026102058 births 137678 seconds 0.562
+rw-2026102058 births 112721 seconds 0.309
+pilot-m1-00-base-2026102021-k22 births 707 seconds 0.143
+pilot-m1-00-base-2026102022-k22 births 1676 seconds 0.13
+pilot-m1-00-early_swap-2026102021-k22 births 1785 seconds 0.125
+pilot-m1-00-early_swap-2026102022-k22 births 0 seconds 0.13
+pilot-m1-00-late_swap-2026102021-k22 births 815 seconds 0.201
+pilot-m1-00-late_swap-2026102022-k22 births 1144 seconds 0.174
+pilot-m2-00-base-2026102021-k22 births 335 seconds 0.184
+pilot-m2-00-base-2026102022-k22 births 0 seconds 0.211
+pilot-m2-00-early_swap-2026102021-k22 births 357 seconds 0.175
+pilot-m2-00-early_swap-2026102022-k22 births 688 seconds 0.176
+pilot-m2-00-late_swap-2026102021-k22 births 1427 seconds 0.211
+pilot-m2-00-late_swap-2026102022-k22 births 0 seconds 0.188
+pilot-m3-00-base-2026102021-k22 births 97835 seconds 0.203
+pilot-m3-00-base-2026102022-k22 births 53167 seconds 0.183
+pilot-m3-00-early_swap-2026102021-k22 births 294 seconds 0.376
+pilot-m3-00-early_swap-2026102022-k22 births 2068 seconds 0.191
+pilot-m3-00-late_swap-2026102021-k22 births 29598 seconds 0.279
+pilot-m3-00-late_swap-2026102022-k22 births 138883 seconds 0.188
+pilot-m4-00-base-2026102021-k22 births 200 seconds 0.129
+pilot-m4-00-base-2026102022-k22 births 0 seconds 0.123
+pilot-m4-00-early_swap-2026102021-k22 births 790 seconds 0.268
+pilot-m4-00-early_swap-2026102022-k22 births 265 seconds 0.16
+pilot-m4-00-late_swap-2026102021-k22 births 66 seconds 0.299
+pilot-m4-00-late_swap-2026102022-k22 births 218 seconds 0.388
+pilot-m1-00-base-2026102021-k23 births 2046 seconds 0.335
+pilot-m1-00-base-2026102022-k23 births 231 seconds 0.252
+pilot-m1-00-early_swap-2026102021-k23 births 870 seconds 0.302
+pilot-m1-00-early_swap-2026102022-k23 births 2971 seconds 0.669
+pilot-m1-00-late_swap-2026102021-k23 births 1820 seconds 0.636
+pilot-m1-00-late_swap-2026102022-k23 births 934 seconds 0.25
+pilot-m2-00-base-2026102021-k23 births 2055 seconds 0.258
+pilot-m2-00-base-2026102022-k23 births 170 seconds 0.291
+pilot-m2-00-early_swap-2026102021-k23 births 547 seconds 0.431
+pilot-m2-00-early_swap-2026102022-k23 births 791 seconds 0.506
+pilot-m2-00-late_swap-2026102021-k23 births 2624 seconds 0.259
+pilot-m2-00-late_swap-2026102022-k23 births 639 seconds 0.241
+pilot-m3-00-base-2026102021-k23 births 118325 seconds 0.303
+pilot-m3-00-base-2026102022-k23 births 147993 seconds 0.42
+pilot-m3-00-early_swap-2026102021-k23 births 2244 seconds 0.336
+pilot-m3-00-early_swap-2026102022-k23 births 1304 seconds 0.334
+pilot-m3-00-late_swap-2026102021-k23 births 63 seconds 0.401
+pilot-m3-00-late_swap-2026102022-k23 births 159337 seconds 0.433
+pilot-m4-00-base-2026102021-k23 births 416 seconds 0.318
+pilot-m4-00-base-2026102022-k23 births 661 seconds 0.362
+pilot-m4-00-early_swap-2026102021-k23 births 0 seconds 0.408
+pilot-m4-00-early_swap-2026102022-k23 births 1290 seconds 0.224
+pilot-m4-00-late_swap-2026102021-k23 births 652 seconds 0.229
+pilot-m4-00-late_swap-2026102022-k23 births 105 seconds 0.238
+pilot-m1-00-base-2026102021-k24 births 6628 seconds 0.431
+pilot-m1-00-base-2026102022-k24 births 3676 seconds 0.494
+pilot-m1-00-early_swap-2026102021-k24 births 911 seconds 0.648
+pilot-m1-00-early_swap-2026102022-k24 births 4672 seconds 0.506
+pilot-m1-00-late_swap-2026102021-k24 births 4305 seconds 0.481
+pilot-m1-00-late_swap-2026102022-k24 births 1848 seconds 0.703
+pilot-m2-00-base-2026102021-k24 births 523 seconds 0.731
+pilot-m2-00-base-2026102022-k24 births 2765 seconds 0.555
+pilot-m2-00-early_swap-2026102021-k24 births 803 seconds 0.473
+pilot-m2-00-early_swap-2026102022-k24 births 140 seconds 1.009
+pilot-m2-00-late_swap-2026102021-k24 births 822 seconds 0.535
+pilot-m2-00-late_swap-2026102022-k24 births 3338 seconds 0.675
+pilot-m3-00-base-2026102021-k24 births 83514 seconds 1.48
+pilot-m3-00-base-2026102022-k24 births 35088 seconds 0.602
+pilot-m3-00-early_swap-2026102021-k24 births 3239 seconds 0.556
+pilot-m3-00-early_swap-2026102022-k24 births 5959 seconds 0.646
+pilot-m3-00-late_swap-2026102021-k24 births 194166 seconds 0.689
+pilot-m3-00-late_swap-2026102022-k24 births 0 seconds 0.537
+pilot-m4-00-base-2026102021-k24 births 684 seconds 0.647
+pilot-m4-00-base-2026102022-k24 births 353 seconds 1.011
+pilot-m4-00-early_swap-2026102021-k24 births 1706 seconds 0.566
+pilot-m4-00-early_swap-2026102022-k24 births 1751 seconds 0.537
+pilot-m4-00-late_swap-2026102021-k24 births 1066 seconds 0.691
+pilot-m4-00-late_swap-2026102022-k24 births 482 seconds 0.497
+pilot-m1-00-base-2026102021-k25 births 12052 seconds 1.057
+pilot-m1-00-base-2026102022-k25 births 8472 seconds 1.251
+pilot-m1-00-early_swap-2026102021-k25 births 1854 seconds 1.084
+pilot-m1-00-early_swap-2026102022-k25 births 10697 seconds 1.217
+pilot-m1-00-late_swap-2026102021-k25 births 5464 seconds 1.025
+pilot-m1-00-late_swap-2026102022-k25 births 7312 seconds 1.197
+pilot-m2-00-base-2026102021-k25 births 53262 seconds 1.097
+pilot-m2-00-base-2026102022-k25 births 5973 seconds 1.194
+pilot-m2-00-early_swap-2026102021-k25 births 951 seconds 1.002
+pilot-m2-00-early_swap-2026102022-k25 births 837 seconds 1.33
+pilot-m2-00-late_swap-2026102021-k25 births 6545 seconds 1.026
+pilot-m2-00-late_swap-2026102022-k25 births 4577 seconds 1.654
+pilot-m3-00-base-2026102021-k25 births 69235 seconds 1.263
+pilot-m3-00-base-2026102022-k25 births 172808 seconds 1.471
+pilot-m3-00-early_swap-2026102021-k25 births 6143 seconds 1.147
+pilot-m3-00-early_swap-2026102022-k25 births 5745 seconds 1.093
+pilot-m3-00-late_swap-2026102021-k25 births 82770 seconds 1.108
+pilot-m3-00-late_swap-2026102022-k25 births 77021 seconds 1.052
+pilot-m4-00-base-2026102021-k25 births 535 seconds 1.147
+pilot-m4-00-base-2026102022-k25 births 505 seconds 1.068
+pilot-m4-00-early_swap-2026102021-k25 births 4903 seconds 1.029
+pilot-m4-00-early_swap-2026102022-k25 births 3467 seconds 1.393
+pilot-m4-00-late_swap-2026102021-k25 births 1085 seconds 1.67
+pilot-m4-00-late_swap-2026102022-k25 births 1316 seconds 1.721
+pilot-m1-00-base-2026102021-k26 births 24244 seconds 2.885
+pilot-m1-00-base-2026102022-k26 births 12656 seconds 2.574
+pilot-m1-00-early_swap-2026102021-k26 births 15717 seconds 2.174
+pilot-m1-00-early_swap-2026102022-k26 births 19176 seconds 3.209
+pilot-m1-00-late_swap-2026102021-k26 births 17322 seconds 2.792
+pilot-m1-00-late_swap-2026102022-k26 births 11654 seconds 3.11
+pilot-m2-00-base-2026102021-k26 births 8728 seconds 4.747
+pilot-m2-00-base-2026102022-k26 births 114231 seconds 4.137
+pilot-m2-00-early_swap-2026102021-k26 births 630 seconds 4.776
+pilot-m2-00-early_swap-2026102022-k26 births 763 seconds 8.094
+pilot-m2-00-late_swap-2026102021-k26 births 7142 seconds 5.971
+pilot-m2-00-late_swap-2026102022-k26 births 10155 seconds 3.383
+pilot-m3-00-base-2026102021-k26 births 26682 seconds 2.863
+pilot-m3-00-base-2026102022-k26 births 15776 seconds 3.096
+pilot-m3-00-early_swap-2026102021-k26 births 17700 seconds 2.758
+pilot-m3-00-early_swap-2026102022-k26 births 7758 seconds 2.023
+pilot-m3-00-late_swap-2026102021-k26 births 118616 seconds 1.975
+pilot-m3-00-late_swap-2026102022-k26 births 103753 seconds 1.784
+pilot-m4-00-base-2026102021-k26 births 751 seconds 1.668
+pilot-m4-00-base-2026102022-k26 births 995 seconds 1.602
+pilot-m4-00-early_swap-2026102021-k26 births 10494 seconds 1.989
+pilot-m4-00-early_swap-2026102022-k26 births 7388 seconds 2.421
+pilot-m4-00-late_swap-2026102021-k26 births 1572 seconds 3.303
+pilot-m4-00-late_swap-2026102022-k26 births 3101 seconds 3.19
+{"selected_log2": null, "gate": "at least 3/4 complete pilot families, all arms/seeds 10-80% band consumed and >=5000 window births", "status": "STOP_register_geometry_or_budget_revision", "design_sha256": "bc37ff7e19aa4102dbbec69d17d39cb13986ea73f9225343263cad9eb1b946c8", "build_sha256": "8c5c166623d6133af555b0a7544ffa987e84a373e0020d6d74e6518c73937cd3"}
+{
+  "status": "excluded_pilot_only",
+  "git_revision": "68dff6bb1a631610f9d644a21acd059f2460e027",
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/pilot_report.py",
+  "script_sha256": "8bc4b97d21bc8ef40ea27d17bd25bbda6edf0fc9d8a455e7c9e52afa43365e5a",
+  "controls": {
+    "rotor": {
+      "n": 8,
+      "c_by_seed": [
+        0.49849222410618244,
+        0.49706309693501627,
+        0.49766383547843607,
+        0.49775193501016773,
+        0.49716368400512906,
+        0.49716742433721206,
+        0.4973632922496152,
+        0.49736646267891077
+      ],
+      "mean": 0.4975039943500837,
+      "between_seed_sd": 0.00046687638082219373,
+      "escapes": 0,
+      "passed": true
+    },
+    "rw": {
+      "n": 8,
+      "c_by_seed": [
+        0.4473093973190726,
+        0.45719859956704173,
+        0.45140274776929296,
+        0.4374224666259327,
+        0.43785137563725723,
+        0.43729617709900775,
+        0.45504160708573105,
+        0.44929708270388985
+      ],
+      "mean": 0.44660243172590325,
+      "between_seed_sd": 0.008121941614407723,
+      "escapes": 0,
+      "passed": true
+    }
+  },
+  "thread_check": {
+    "argv": [
+      "band",
+      "RRRLRLLRLRLLRL",
+      "2026102021",
+      "12",
+      "32",
+      "64",
+      "32",
+      "counts"
+    ],
+    "sha256_1_and_6": "8b0b6b27c133f955f14cf5f133054841073fd346110449ceb9c54b8bdbbc04c0",
+    "identical": true
+  },
+  "horizon": {
+    "selected_log2": null,
+    "gate": "at least 3/4 complete pilot families, all arms/seeds 10-80% band consumed and >=5000 window births",
+    "status": "STOP_register_geometry_or_budget_revision",
+    "design_sha256": "bc37ff7e19aa4102dbbec69d17d39cb13986ea73f9225343263cad9eb1b946c8",
+    "build_sha256": "8c5c166623d6133af555b0a7544ffa987e84a373e0020d6d74e6518c73937cd3"
+  },
+  "state_support": {},
+  "inputs_sha256": {
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/build.json": "8c5c166623d6133af555b0a7544ffa987e84a373e0020d6d74e6518c73937cd3",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/horizon.json": "ceeb9b317d05a2dfdeb77577b8edacc06ae80f87bcf4b810eef7983a263dd969",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/thread_check.json": "469fe82c68ca07707fc4bba8c62bc1eddb377a6d6faad4a08b96150e57fe034c",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102051.json": "d74bac7554fca6c28517da606e2a255a5220cf74b7263c2904dcca7902c05da7",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102052.json": "174d07a5d5aff577da8057f29c98c01101cf35740ced8400db3237df30086ddc",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102053.json": "209f475dcfd737bb8ac9fde16acde7923d8ab7b38155678ef300a0ee3a0e185f",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102054.json": "81f24519b56e934b3e40008c24c84a41e32b4d66ae3b42ec1dd7d456a56047fb",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102055.json": "f7a7e1221bc448774a266f3252456956b8ab7a5481440eaddb380a1c2e204a87",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102056.json": "bae49ca4edb5caa54c6dd10ef23748b7a8701b4f5b1f63b0194e6d14905dfed8",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102057.json": "06a93fd6e729a9eb2bd37bce420649acfb3557343dab4ae9fba9b2f4997c1ecc",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rotor-2026102058.json": "707499761620369dc023b93c7126a93eb4eb79283e387aebffdf957663ec1dda",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102051.json": "79172959913faab0b76acabb27a033556229db308431f0563e083e35aacf1531",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102052.json": "efb02b533c3c671e1464f50e3f5c90f8129272344f9c5a6ab311de189ede1691",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102053.json": "320f72116f27c4d19d8940c8ba1eb35d0deca6f27b804e13252ba28aa20de9bd",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102054.json": "52eda653bf06ff911a2228fd8b581c3e45d68fe4afb807bf827ced0774de5b88",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102055.json": "c3fd98068b59c3c95507fb1928ab607f5fb350696c3e23ab228f8c1d1f85d067",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102056.json": "928da1f9e220ee4a2a6c1035060419b93fdb3e6f36a093345cdbb81fe8f4e0b7",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102057.json": "65de5e2eecc68b2f0b93cc3241c03d0640ecca59ea168179f7c061353be4dfc9",
+    "experiments/2026-10-20-c-law-renewal/results/pilot_v1/rw-2026102058.json": "3b63feba753da348d871dbcb3d25814c72ba72330bdd7825b3b511613bc7d7f1"
+  },
+  "scope": "instrument controls and feasibility only; no validation outcomes or mechanism verdict"
+}

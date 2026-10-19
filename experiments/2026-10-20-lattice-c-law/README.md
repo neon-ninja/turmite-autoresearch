@@ -133,11 +133,82 @@ The intercept is 1.3 on square and triangular but ~2.4-2.8 on hex (hex r from th
 **Kappa.** Ratio kappa/kappa_unif(a, beta), own (a, beta) per run, last window k = 26, kept ants: square median 0.770 (IQR 0.62-0.90, census 0.81),
 triangular 0.744 (0.66-0.82), hex 0.860 (0.75-1.01). **K1 held on both new lattices** (medians < 1 and inside [0.65, 0.97]). Random walks (k = 16..22):
 1.33 (square), 1.44 (triangular), 1.28 (hex) (**K2 held**). **K3 held** (|slope of ln kappa on lead| 0.007, 0.079, 0.059, 0.075; the triangular one only just).
-**K4 FAILED**: random-walk c (0.44 / 0.46 / 0.42) is above the ant median c (0.29 / 0.41 / 0.27) on every lattice including the square, so my
-memory that square ants sit above the random walk was wrong; ant median c here pools leads 1-5. **L2 FAILED** (hex intercept 2.8).
+**K4 FAILED as registered**: random-walk c (0.44 / 0.46 / 0.42) is above the ant median c (0.29 / 0.41 / 0.27) on every lattice. The pooled median is a design
+artefact (leads 1-5 sampled uniformly, so it sits near lead 3). By lead-1 medians (`results/explore.txt`, 1/c = 2.09, 1.60, 2.63, 3.59) ant c is 0.48 (square) and
+0.63 (triangular), above the random walk, but 0.38 (hex r-lead) and 0.28 (hex R-lead), below it: whether ants out-enter fresh ground than a random walk depends on lead and
+lattice. (An earlier version of this paragraph blamed my memory of the square comparison; see the NOTEBOOK correction.) **L2 FAILED** (hex intercept 2.8).
 
 **Reading.** The kappa deficit (ants at 0.74-0.86 of uniform) is not a square-lattice artefact: it appears on all three lattices with a validated reference.
 The c law form (1/c linear in lead, R^2 0.94-0.95 on square and triangular, 0.69 on hex R-lead) survives, but its slope and intercept are **lattice-
 and loop-dependent**, falling with loop length rather than rising. The 2x2-loop picture of the square slope therefore carries no information
 about the number 0.70 by itself; whatever sets b depends on the loop it circulates. Not tested: why hex fits are worse (four-letter alphabet, letters after the lead are not
 separated into types), any mechanism for b(l), more loop lengths, mixed-letter leads.
+
+**Outlier and provenance notes.** The hex r-lead outlier is `ant:rrrrrLrrrLrrLL` (lead 5, 1/c = 390): its perimeter equals its area at every window (perimeter
+exponent 1.0, a lacy territory) while its area and width exponents look blob-like, so the `alpha_w` proxy and `|g_k| < 0.05` both let it through; the proxy leaks
+on hex (`results/outlier.txt`). The next largest hex 1/c (12.9, 9.7, 8.8) are genuine blobs with beta 0.59-0.62. `run.log` says "dirty: 88 files"; those are stat and line-ending
+noise (`git diff --ignore-cr-at-eol --stat adf6677 -- src examples`: 0 insertions, 0 deletions, appended to `run.log`). The refutation of A, B and C rests on the triangular stratum
+alone, where none of the listed confounds can rescue any of them: retention 0.75-0.98 (highest of the three lattices), R^2 0.94, and the OLS slope 0.355 matches the per-lead-median slope 0.335.
+
+## Follow-up A: letter-typed hex lead with a beta filter (registered 2026-10-20 00:50 (+13:00), base commit `7df6d35`)
+
+Re-analysis of the existing `results/ants.csv` (no new runs). Nothing below has been computed; the only things seen so far are the pooled fits above,
+the outlier's beta = 1.0, and the beta of the next three largest 1/c (0.59-0.62). It addresses ACTIVE's "do the hex letter types after the lead matter?".
+
+**Definitions (frozen).** Hex rules only. Filter F2 = the registered filter plus per-run perimeter exponent `beta < 0.8` (beta as in `analyse.py`, k = 20..26).
+`f_big` = fraction of letters in {R, L} among the letters *after* the lead. Hex strata as before (r-lead, R-lead). Fit M0: `1/c = a + b*lead`;
+M1: `1/c = a + b*lead + d*f_big`. Bootstrap as before (rule resampling, 2000 draws, seed 20261020). Compare M1 to M0 by 5-fold CV R^2 (folds by rule index mod 5).
+
+**Predictions.**
+- **T1** F2 removes only the outlier-type rules: <= 5 rules per stratum drop from the kept sets (80% confident), and the r-lead fit becomes usable: R^2 >= 0.5 and
+  b in [0.15, 0.45] (the per-lead-median slope was 0.28). 55%.
+- **T2** the R-lead b is unchanged by F2: within 0.1 of 0.876. 75%.
+- **T3** letter type matters: M1 beats M0 in CV R^2 by >= 0.05 in the R-lead stratum, and `d` has a bootstrap CI excluding 0 in at least one stratum. 40%.
+- **T4** the hex intercept is partly composition: in M1 evaluated at f_big = 0 the intercept `a` falls below 2.0 in the r-lead stratum. 25%.
+- **T5** the b_r / b_R ratio (F2 fits) has a bootstrap CI below 1 (the opposite of H-A, as in the medians, ~0.3). 60%.
+
+Null/negative outcomes are reported as such. Script `scripts/hex_letters.py` -> `results/hex_letters.txt`.
+
+### Follow-up A results (run 2026-10-20, `scripts/hex_letters.py` -> `results/hex_letters.txt`, ants.csv unchanged)
+
+F2 dropped exactly one rule (`rrrrrLrrrLrrLL`, r-lead; none in R-lead). Fits (rule bootstrap 95%): r-lead M0 `a = 2.41 [2.23, 2.60]`, `b = 0.262 [0.210, 0.310]`, R^2 0.42
+(n = 219); R-lead M0 `a = 2.80`, `b = 0.876 [0.788, 0.987]`, R^2 0.69 (n = 174). R-lead M1 adds `d = 0.99 [0.37, 1.66]` on `f_big`; r-lead `d = 0.08 [-0.27, 0.41]`.
+- **T1 PARTLY FAILED**: the one-rule drop and b in [0.15, 0.45] held (b = 0.262), but R^2 = 0.42 < 0.5. The clean r-lead slope matches the per-lead-median slope 0.28.
+- **T2 held** (R-lead b unchanged, 0.876). **T5 held**: b_r / b_R = 0.30 [0.24, 0.37], the opposite of H-A's 2 and now with a bootstrap CI free of the outlier.
+- **T3 FAILED as registered** (both conjuncts were required): the R-lead CV gain is only +0.014 although `d`'s CI excludes 0 there; so tail letter type is real but tiny in R-lead
+  (+0.1 in 1/c per 0.1 of `f_big`) and absent in r-lead. **T4 FAILED**: r-lead intercept at f_big = 0 stays 2.37; R-lead falls to 2.33 (not registered).
+- Reading: the hex slope/intercept difference from square and triangular is not a mixed-letter artefact or an outlier artefact. The hex lead fits remain noisy (R^2 0.42 and 0.69
+  against 0.94-0.95), with most of the scatter unexplained by lead, composition or letter type. Not tested: other tail features (second run length, letters 6-8 as in the square law).
+
+## Follow-up B: a new loop length on the Moore lattice (registered 2026-10-20 01:30 (+13:00), base commit after `lattice_probe: add Moore`)
+
+**Nothing has been run on Moore ants.** Instrument: `Lattice::Moore` in `src/lattice_probe.rs` (8 neighbours, headings N,NE,E,SE,S,SW,W,NW; `r`/`l` turn 45 degrees, `R`/`L` 90 degrees);
+G2 (naive HashMap oracle, ant and random movers) and G3 (loops: r, l -> 8, R, L -> 4) pass in `tests/lattice_probe.rs`, and a mutation of the `l` turn was caught.
+Rule lists: `scripts/make_lists_moore.py` (seed 20261021): 48 per lead 1..5 in two strata, **r-lead (loop 8)** and **R-lead (loop 4, but z = 8 not 4)**; 480 ants; controls rw 32 and mf 8.
+Run and filters exactly as the main experiment (2^27 steps, board 8192, windows 12..26, F2 = registered filter plus `beta < 0.8`, fit `1/c = a + b*lead`, 2000-draw rule bootstrap seed 20261020).
+
+**Models for b(loop length l) fixed from the four existing strata (l, b) = (3, 0.86), (4, 0.70), (6, 0.34), (6, 0.28)** (the hex values use the F2 fits where relevant):
+- **M-lin** `b = 1.5 - 0.2 l` (the post hoc line): l = 4 -> 0.70, l = 8 -> -0.10 (so b ~ 0).
+- **M-inv** `b = 2.47 / l` (least squares through the origin on b vs 1/l): l = 4 -> 0.62, l = 8 -> 0.31.
+- **M-z** b depends on coordination as well as l, which neither M-lin nor M-inv covers; it is the residual hypothesis if both miss.
+
+**Predictions (odds in brackets).**
+- **B1** Moore R-lead (l = 4, z = 8): b within 0.15 of the square value 0.70, i.e. [0.55, 0.85] (loop length, not z, sets b): 40%.
+- **B2** Moore r-lead (l = 8): M-lin is supported if b < 0.12 and the bootstrap CI excludes 0.31; M-inv is supported if b in [0.20, 0.42]; otherwise neither. Odds: M-lin 15%, M-inv 35%, neither 50%.
+- **B3** within Moore, b(r-lead) < b(R-lead), bootstrap CI of the ratio b_r/b_R below 1: 80%.
+- **B4** both Moore fits have R^2 >= 0.5 and retention >= 8 kept rules per (stratum, lead): 55%.
+- **B5** the Moore intercepts a lie within 0.5 of 1.3 (the square/triangular value): 30% (hex was 2.4-2.8, which scales with nothing I have).
+- **B6** random-walk kappa ratio >= 1.10 and mean-field ratio within 0.05 of 1 (gate G4) on Moore: 85%. If G4 fails, no kappa claim there.
+
+Decision: M-lin and M-inv are scored on B2 only; a supported model must also not miss B1 by more than 0.15 of its own l = 4 prediction (0.70 / 0.62). Results will be appended below, not edited above.
+Script `scripts/analyse_moore.py` -> `results/analysis_moore.txt`.
+
+### Follow-up B results (run 2026-10-20; `scripts/run_moore.sh`, commit `02f5d13`, binary sha256 `ae948ed0...8049d6a` in `results/run_moore.log`; `scripts/analyse_moore.py` -> `results/analysis_moore.txt`)
+
+Controls 103 s, 480 ants 303 s. Retention high (kept 39-48 of 48 in every cell). Fits (rule bootstrap 95%):
+r-lead (loop 8) `a = 2.39`, `b = 0.260 [0.235, 0.284]`, R^2 0.69 (n = 234); R-lead (loop 4, z = 8) `a = 2.41`, `b = 0.775 [0.711, 0.857]`, R^2 0.74 (n = 207); b_r/b_R = 0.335 [0.291, 0.380].
+- **B1 held** (0.775 in [0.55, 0.85]; the 0.075 excess over the square 0.70 is outside the Moore CI, so z has a small effect or none beyond it). **B3 held. B4 held. B6 held** (mean-field 0.999, random walk 1.19).
+- **B2**: M-lin **not supported** (b = 0.26, not ~0): the linear description is refuted at l = 8. M-inv's number was met (b in [0.20, 0.42]) but it fails its own consistency clause (R-lead deviation from its l = 4 prediction 0.62 is 0.155 > 0.15), so by the frozen rule **neither model is supported**. Marginal and I do not round it up.
+- **B5 FAILED**: Moore intercepts 2.39 and 2.41, like hex (2.4-2.8) and unlike square/triangular (1.3). Intercepts: z = 3: 1.3, z = 4: 1.3, z = 6: 2.4-2.8, z = 8: 2.4 (post hoc; not monotone in z, and equal for both Moore loops).
+- Post hoc, unregistered: within a lattice, doubling the loop length from 3 to 6 (hex) and 4 to 8 (Moore) multiplies b by 0.30 and 0.335, i.e. b ~ l^-1.6 locally, steeper than both 1/l and the cross-lattice triangular/square ratio (0.49). A model must say why the within-lattice drop is steeper than the across-lattice one. Ant kappa ratio median 0.96 on Moore (higher than 0.74-0.86 elsewhere), so the kappa deficit weakens with z; also post hoc.
+- Conclusion: the registered test of the b(l) models on a new loop length falls to "neither", but constrains the answer: b(8) = 0.26 is far from zero, b is flat at ~0.26-0.28 for l = 6 and 8 in different lattices, and the intercept looks set by the lattice (hex-like on Moore), not the loop. No mechanism yet.

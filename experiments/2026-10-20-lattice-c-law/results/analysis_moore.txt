@@ -1,0 +1,20 @@
+# Follow-up B: Moore lattice (scripts/analyse_moore.py; seed 20261020)
+
+## Retention (kept by F2 / 48) and alive (ran to 2^27)
+r-lead kept [46, 45, 48, 47, 48] alive [47, 46, 48, 48, 48]
+R-lead kept [41, 42, 44, 41, 39] alive [41, 42, 44, 41, 39]
+
+## 1/c = a + b*lead, kept rules, 2000-draw rule bootstrap
+r-lead (loop 8) n=234 a=2.391 [2.313,2.474] b=0.260 [0.235,0.284] R2=0.694; per-lead median 1/c [2.6, 2.83, 3.04, 3.38, 3.66]
+R-lead (loop 4) n=207 a=2.409 [2.215,2.574] b=0.775 [0.711,0.857] R2=0.736; per-lead median 1/c [3.12, 3.72, 4.58, 5.37, 5.96]
+b_r/b_R = 0.335 [0.291,0.380]
+
+## Scorecard
+B1 R-lead b in [0.55,0.85]: 0.775 -> True
+B2 r-lead b=0.260 [0.235,0.284]: M-lin supported False; M-inv supported True
+   B1 consistency: M-lin l=4 pred 0.70 (dev 0.075); M-inv l=4 pred 0.62 (dev 0.155); rule: dev <= 0.15
+B3 b_r<b_R with ratio CI below 1: True
+B4 R2>=0.5 both: True; >=8 kept per cell: True
+B5 intercepts within 0.5 of 1.3: r False, R False
+B6 mean-field ratio 0.999 (sd 0.013, n=8) within 0.05 of 1: True; rw ratio 1.194 (n=16) >=1.10: True
+ant kappa ratio median 0.960 (n=441); rw c 0.405; ant median c 0.283

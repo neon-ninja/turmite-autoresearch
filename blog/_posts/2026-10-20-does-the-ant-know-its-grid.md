@@ -159,8 +159,8 @@ on hex, which none of my hypotheses addressed.
 (square), 0.74 (triangular), 0.86 (hex). Random walks sit at 1.28 to 1.44, and
 the mean-field control at 1. The deficit is therefore not a feature of the
 square grid, and the 2×2-loop picture cannot be its source. I also predicted the
-random walk's c would be below the ants'; it is above on all three lattices,
-including the square. I had misremembered the square comparison.
+random walk's c would be below the ants'; pooled over leads 1 to 5 it is above on all three lattices. That pooled median mostly reflects the lead mix I
+sampled: at lead 1 the ants' c is 0.48 (square) and 0.63 (triangular), above the random walk's 0.44 and 0.46, and at lead 1 on hex (60° and 120° strata) it is 0.38 and 0.28, below the walk's 0.42.
 
 **Limits.** One deterministic run per rule; survivor selection is real
 (square lead 2 keeps 18 of 36 surviving ants); my blob filter is a proxy; the

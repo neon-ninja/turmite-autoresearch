@@ -1,0 +1,30 @@
+{
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_information.py --stage build",
+  "git_revision": "1002d9c14e55cfc8a6d5fb924cb7e529b8263985",
+  "binary": "/home/tim/turmite-renewal-info-ozstcs04/release/examples/c_law_renewal_memory",
+  "binary_sha256": "ca76f109822d48c15db2d3ba3abd878d73fbbd4b76fbbfb86634e77321d82c97",
+  "fresh_target": "/home/tim/turmite-renewal-info-ozstcs04",
+  "sources_sha256": {
+    "src/local_memory.rs": "47df8090e36bb885bbadf0f58bb07d125b93180ea032306f70a2d251d71bc328",
+    "src/edge_renewal.rs": "9dc186fbefa10147fb3cc6f791a008c8cbefe4a98e30b0435cae87aab1402dba",
+    "src/edge_trace.rs": "b466b8397ec67667bcf1c18c2badb2b52e3a98918ec7ee4ff4dc79eae50b6f12",
+    "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76",
+    "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+    "examples/c_law_renewal_memory.rs": "ced252c530d4992fb7a927229bb80eb7336b715cec9fc3f42a4754eb1bba4ecc",
+    "tests/local_memory.rs": "aaa104505e2e771062c247556075bf134306fe9bc0dd3b412b6012d4e848fc92",
+    "tests/edge_renewal.rs": "ff59995e96fa40bfb2f6c4a437d581c11a9fd3a026c917ab4b398d2fca217c7c",
+    "tests/edge_trace.rs": "38c45461428ed4e82987f4c62062aa26e10fcb9e061ab014b71d1f18b42b0c1a",
+    "Cargo.toml": "6c79cef37d9d63b0b6c6beaa145c2a5151823424d346431f5e405adf786b689e",
+    "Cargo.lock": "10e4dd6eb9399e13617dadc91fe871cd730673109b6977c6f9659ea91b3fb6f1",
+    "experiments/2026-10-20-c-law-renewal/information_design.json": "dad69395d1a3b8d6dc27cd430ea37061a425911eba682e1985d77d5ba2e446ee",
+    "experiments/2026-10-20-c-law-renewal/scripts/run_information.py": "4db2fcaa4b08c725bbe6af5b83e0f6ad8df33226599bf92f1896d8de41b41f95",
+    "experiments/2026-10-20-c-law-renewal/results/design/families.csv": "bc37ff7e19aa4102dbbec69d17d39cb13986ea73f9225343263cad9eb1b946c8",
+    "experiments/2026-10-20-c-law-renewal/scripts/run_memory.py": "1942633a63539dcc16d95e8918b1a316871bfbb069144250f5cfe5a45127eb4e",
+    "experiments/2026-10-20-c-law-renewal/scripts/analyse_information.py": "a7e8a35bb855912067f1490b5a6e496f67b235a16e83348bd5356d132affe7e2",
+    "experiments/2026-10-20-c-law-renewal/scripts/analyse_memory.py": "e96d67ccab876682a0582a8ed0fea48cc40e099f5bb89f52b75fc8767758bd7d",
+    "experiments/2026-10-20-c-law-renewal/scripts/launch_information.py": "692a0bd1c08e4d9bf03cf7bfc90b53cffd1e3e293322f27e0503fd0dd9509270"
+  },
+  "test_exit": 0,
+  "build_exit": 0,
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+}

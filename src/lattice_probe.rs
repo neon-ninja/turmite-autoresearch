@@ -18,6 +18,8 @@ pub enum Lattice {
     Square,
     Hex,
     Tri,
+    /// Square lattice with 8 neighbours (Moore). Headings N, NE, E, SE, S, SW, W, NW; letters `r`/`l` turn 45 degrees (loop 8), `R`/`L` 90 degrees (loop 4).
+    Moore,
 }
 
 #[derive(Clone, Debug)]
@@ -48,16 +50,25 @@ pub struct LResult {
     pub escaped: bool,
 }
 
+pub const MOORE_DIRS: [(i32, i32); 8] = [(0, -1), (1, -1), (1, 0), (1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1)];
+
 const UNVISITED: u8 = u8::MAX;
 
 /// Neighbour index offsets of cell `idx` (row-major, `size` per row); count is 4, 6 or 3.
 #[inline(always)]
-fn nbrs(lat: Lattice, idx: usize, size: usize) -> ([isize; 6], usize) {
+fn nbrs(lat: Lattice, idx: usize, size: usize) -> ([isize; 8], usize) {
     let s = size as isize;
     match lat {
-        Lattice::Square => ([-s, 1, s, -1, 0, 0], 4),
+        Lattice::Square => ([-s, 1, s, -1, 0, 0, 0, 0], 4),
+        Lattice::Moore => {
+            let mut o = [0isize; 8];
+            for (i, (dx, dy)) in MOORE_DIRS.iter().enumerate() {
+                o[i] = *dy as isize * s + *dx as isize;
+            }
+            (o, 8)
+        }
         Lattice::Hex => {
-            let mut o = [0isize; 6];
+            let mut o = [0isize; 6 + 2];
             for (i, (dq, dr)) in HEX_DIRS.iter().enumerate() {
                 o[i] = *dr as isize * s + *dq as isize;
             }
@@ -66,7 +77,7 @@ fn nbrs(lat: Lattice, idx: usize, size: usize) -> ([isize; 6], usize) {
         Lattice::Tri => {
             let (x, y) = (idx % size, idx / size);
             let up = (x + y) % 2 == 0;
-            ([-1, 1, if up { s } else { -s }, 0, 0, 0], 3)
+            ([-1, 1, if up { s } else { -s }, 0, 0, 0, 0, 0], 3)
         }
     }
 }
@@ -132,11 +143,12 @@ pub fn lattice_probe(lat: Lattice, mover: &Mover, size: usize, min_log2: u32, ma
             Lattice::Square => (rule.chars().map(|ch| match ch { 'R' => 1, 'L' => 3, o => panic!("bad turn {o:?}") }).collect(), 4),
             Lattice::Hex => (hex_turns(rule).expect("hex rule"), 6),
             Lattice::Tri => (rule.chars().map(|ch| match ch { 'L' => 2, 'R' => 4, o => panic!("bad turn {o:?}") }).collect(), 6),
+            Lattice::Moore => (rule.chars().map(|ch| match ch { 'r' => 1, 'R' => 2, 'l' => 7, 'L' => 6, o => panic!("bad turn {o:?}") }).collect(), 8),
         },
         _ => (vec![], 1),
     };
     let n = turns.len() as u8;
-    let mut h: u8 = 0; // heading (square, hex) or entry edge (triangular, starts at 4)
+    let mut h: u8 = 0; // heading (square, hex, moore) or entry edge (triangular, starts at 4)
     if lat == Lattice::Tri {
         h = 4;
     }
@@ -175,6 +187,11 @@ pub fn lattice_probe(lat: Lattice, mover: &Mover, size: usize, min_log2: u32, ma
                             h = (h + turns[col as usize]) % modulus;
                             let (dq, dr) = HEX_DIRS[h as usize];
                             idx = (idx as isize + dr as isize * s + dq as isize) as usize;
+                        }
+                        Lattice::Moore => {
+                            h = (h + turns[col as usize]) % modulus;
+                            let (dx, dy) = MOORE_DIRS[h as usize];
+                            idx = (idx as isize + dy as isize * s + dx as isize) as usize;
                         }
                         Lattice::Tri => {
                             let exit = (h + turns[col as usize]) % modulus;
@@ -231,6 +248,7 @@ pub fn csv_rows(lat: Lattice, spec: &str, res: &LResult) -> String {
         Lattice::Square => "square",
         Lattice::Hex => "hex",
         Lattice::Tri => "tri",
+        Lattice::Moore => "moore",
     };
     res.windows
         .iter()

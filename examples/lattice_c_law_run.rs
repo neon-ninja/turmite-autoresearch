@@ -1,5 +1,5 @@
 //! lattice_c_law_run MIN_LOG2 MAX_LOG2 SIZE < specs > windows.csv
-//! One spec per line: `LATTICE MOVER` with LATTICE in square|hex|tri and MOVER `ant:RULE`, `rw:SEED` or `mf:SEED`.
+//! One spec per line: `LATTICE MOVER` with LATTICE in square|hex|tri|moore and MOVER `ant:RULE`, `rw:SEED` or `mf:SEED`.
 //! Output rows (see `lattice_probe::CSV_HEADER`) in spec order, independent of the thread count.
 
 use rayon::prelude::*;
@@ -20,6 +20,7 @@ fn main() {
                 "square" => Lattice::Square,
                 "hex" => Lattice::Hex,
                 "tri" => Lattice::Tri,
+                "moore" => Lattice::Moore,
                 o => panic!("bad lattice {o}"),
             };
             (lat, m.trim().to_string())

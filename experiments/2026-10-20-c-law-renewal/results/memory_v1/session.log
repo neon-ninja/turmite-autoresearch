@@ -1,0 +1,183 @@
+Starting memory stage build
+Fresh memory instrument built and oracle-tested
+Starting memory stage controls
+control-rotor-2026102051 complete True reads 8192 births 4132 seconds 0.157
+control-rotor-2026102052 complete True reads 8192 births 4085 seconds 0.173
+control-rotor-2026102053 complete True reads 8192 births 4108 seconds 0.222
+control-rotor-2026102054 complete True reads 8192 births 4092 seconds 0.221
+control-rotor-2026102055 complete True reads 8192 births 4117 seconds 0.134
+control-rotor-2026102056 complete True reads 8192 births 4138 seconds 0.133
+control-rotor-2026102057 complete True reads 8192 births 4069 seconds 0.127
+control-rotor-2026102058 complete True reads 8192 births 4076 seconds 0.126
+control-rw-2026102052 complete True reads 8192 births 3819 seconds 0.104
+control-rw-2026102051 complete True reads 8192 births 3778 seconds 0.106
+control-rw-2026102054 complete True reads 8192 births 3773 seconds 0.097
+control-rw-2026102053 complete True reads 8192 births 3836 seconds 0.098
+control-rw-2026102055 complete True reads 8192 births 3822 seconds 0.079
+control-rw-2026102056 complete True reads 8192 births 3728 seconds 0.081
+control-rw-2026102058 complete True reads 8192 births 3708 seconds 0.093
+control-rw-2026102057 complete True reads 8192 births 3842 seconds 0.099
+Starting memory stage pilot
+pilot-m1-00-2026102021-uniform-0 complete True reads 8192 births 3732 seconds 0.225
+pilot-m1-00-2026102021-full complete True reads 8192 births 3664 seconds 0.394
+pilot-m1-00-2026102021-uniform-1 complete True reads 8192 births 3808 seconds 0.34
+pilot-m1-00-2026102021-uniform-4 complete True reads 8192 births 3613 seconds 0.057
+pilot-m1-00-2026102021-uniform-8 complete True reads 8192 births 3610 seconds 0.205
+pilot-m1-00-2026102021-uniform-2 complete True reads 8192 births 3767 seconds 0.636
+pilot-m1-00-2026102022-full complete True reads 8192 births 3791 seconds 0.883
+pilot-m1-00-2026102022-uniform-0 complete True reads 8192 births 3658 seconds 0.372
+pilot-m1-00-2026102022-uniform-1 complete True reads 8192 births 3725 seconds 0.181
+pilot-m1-00-2026102022-uniform-2 complete True reads 8192 births 3740 seconds 0.319
+pilot-m1-00-2026102022-uniform-4 complete True reads 8192 births 3668 seconds 0.984
+pilot-m1-00-2026102022-uniform-8 complete True reads 8192 births 3564 seconds 0.417
+pilot-m1-00-2026102021-zero-4 complete False reads 0 births 0 seconds 18.294
+pilot-m2-00-2026102021-full complete True reads 8192 births 3287 seconds 0.552
+pilot-m2-00-2026102021-uniform-0 complete True reads 8192 births 3573 seconds 0.179
+pilot-m2-00-2026102021-uniform-1 complete True reads 8192 births 3040 seconds 0.371
+pilot-m1-00-2026102022-zero-4 complete False reads 0 births 0 seconds 16.64
+pilot-m2-00-2026102021-uniform-2 complete True reads 8192 births 3220 seconds 1.549
+pilot-m2-00-2026102021-uniform-4 complete True reads 8192 births 3254 seconds 1.016
+pilot-m2-00-2026102021-uniform-8 complete True reads 8192 births 3253 seconds 1.963
+pilot-m2-00-2026102022-full complete True reads 8192 births 3241 seconds 0.808
+pilot-m2-00-2026102022-uniform-0 complete True reads 8192 births 3524 seconds 0.13
+pilot-m2-00-2026102022-uniform-1 complete True reads 8192 births 2967 seconds 0.296
+pilot-m2-00-2026102022-uniform-2 complete True reads 8192 births 3229 seconds 0.501
+pilot-m2-00-2026102022-uniform-4 complete True reads 8192 births 3235 seconds 0.571
+pilot-m2-00-2026102022-uniform-8 complete True reads 8192 births 3256 seconds 0.586
+pilot-m2-00-2026102021-zero-4 complete False reads 0 births 0 seconds 20.459
+pilot-m3-00-2026102021-full complete True reads 8192 births 2641 seconds 0.027
+pilot-m3-00-2026102021-uniform-0 complete True reads 8192 births 3268 seconds 0.048
+pilot-m3-00-2026102021-uniform-1 complete True reads 8192 births 2356 seconds 0.375
+pilot-m3-00-2026102021-uniform-2 complete True reads 8192 births 2367 seconds 0.134
+pilot-m3-00-2026102021-uniform-4 complete True reads 8192 births 2645 seconds 0.03
+pilot-m3-00-2026102021-uniform-8 complete True reads 8192 births 2641 seconds 0.03
+pilot-m3-00-2026102021-zero-4 complete True reads 8192 births 2643 seconds 0.029
+pilot-m3-00-2026102022-full complete True reads 8192 births 2643 seconds 0.028
+pilot-m2-00-2026102022-zero-4 complete False reads 0 births 0 seconds 16.351
+pilot-m3-00-2026102022-uniform-1 complete True reads 8192 births 2362 seconds 0.141
+pilot-m3-00-2026102022-uniform-0 complete True reads 8192 births 3281 seconds 0.19
+pilot-m3-00-2026102022-uniform-4 complete True reads 8192 births 2643 seconds 0.029
+pilot-m3-00-2026102022-uniform-8 complete True reads 8192 births 2640 seconds 0.038
+pilot-m3-00-2026102022-zero-4 complete True reads 8192 births 2642 seconds 0.029
+pilot-m3-00-2026102022-uniform-2 complete True reads 8192 births 2394 seconds 0.252
+pilot-m4-00-2026102021-uniform-0 complete True reads 8192 births 3472 seconds 0.931
+pilot-m4-00-2026102021-uniform-1 complete True reads 8192 births 2835 seconds 0.407
+pilot-m4-00-2026102021-full complete True reads 8192 births 2047 seconds 2.56
+pilot-m4-00-2026102021-uniform-4 complete True reads 8192 births 2687 seconds 1.896
+pilot-m4-00-2026102021-uniform-2 complete True reads 8192 births 2866 seconds 3.045
+pilot-m4-00-2026102021-uniform-8 complete True reads 8192 births 2651 seconds 1.643
+pilot-m4-00-2026102022-full complete True reads 8192 births 2012 seconds 3.333
+pilot-m4-00-2026102022-uniform-0 complete True reads 8192 births 3499 seconds 0.132
+pilot-m4-00-2026102022-uniform-1 complete True reads 8192 births 2753 seconds 0.338
+pilot-m4-00-2026102022-uniform-2 complete True reads 8192 births 2852 seconds 1.402
+pilot-m4-00-2026102022-uniform-4 complete True reads 8192 births 2713 seconds 0.271
+pilot-m4-00-2026102022-uniform-8 complete True reads 8192 births 2652 seconds 3.341
+pilot-m4-00-2026102021-zero-4 complete False reads 0 births 0 seconds 24.06
+pilot-m4-00-2026102022-zero-4 complete False reads 0 births 0 seconds 22.604
+{
+  "tests": {
+    "uniform:4": {
+      "eligible_pairs": 8,
+      "required": 6,
+      "median_abs_log_error": 0.012053640265808484,
+      "median_error_infinite": false,
+      "max_abs_log_error": 0.29892578143930193,
+      "max_error_infinite": false,
+      "median_max_budget_error": 0.24866150578978552,
+      "median_budget_infinite": false,
+      "M1": "FAILED",
+      "M2": "FAILED"
+    },
+    "uniform:8": {
+      "eligible_pairs": 8,
+      "required": 6,
+      "median_abs_log_error": 0.012622660828981086,
+      "median_error_infinite": false,
+      "max_abs_log_error": 0.27618482008612333,
+      "max_error_infinite": false,
+      "median_max_budget_error": 0.20088074993888094,
+      "median_budget_infinite": false,
+      "M1": "FAILED",
+      "M2": "FAILED"
+    }
+  },
+  "policy": {
+    "eligible_defined_pairs": 2,
+    "median_abs_log_error": 0.0005674296050645833,
+    "median_infinite": false,
+    "M3": "UNINFORMATIVE",
+    "pairs": [
+      {
+        "family": "pilot-m3-00",
+        "seed": "2026102021",
+        "abs_log_error": 0.0007564296881105858,
+        "infinite": false
+      },
+      {
+        "family": "pilot-m3-00",
+        "seed": "2026102022",
+        "abs_log_error": 0.00037842952201858076,
+        "infinite": false
+      }
+    ],
+    "note": "both-zero policy comparisons are undefined, not passes",
+    "status_all_pairs": [
+      {
+        "family": "pilot-m1-00",
+        "seed": "2026102021",
+        "windows_and_reference_eligible": false,
+        "both_model_birth_counts_zero": false,
+        "defined_comparison": false
+      },
+      {
+        "family": "pilot-m1-00",
+        "seed": "2026102022",
+        "windows_and_reference_eligible": false,
+        "both_model_birth_counts_zero": false,
+        "defined_comparison": false
+      },
+      {
+        "family": "pilot-m2-00",
+        "seed": "2026102021",
+        "windows_and_reference_eligible": false,
+        "both_model_birth_counts_zero": false,
+        "defined_comparison": false
+      },
+      {
+        "family": "pilot-m2-00",
+        "seed": "2026102022",
+        "windows_and_reference_eligible": false,
+        "both_model_birth_counts_zero": false,
+        "defined_comparison": false
+      },
+      {
+        "family": "pilot-m3-00",
+        "seed": "2026102021",
+        "windows_and_reference_eligible": true,
+        "both_model_birth_counts_zero": false,
+        "defined_comparison": true
+      },
+      {
+        "family": "pilot-m3-00",
+        "seed": "2026102022",
+        "windows_and_reference_eligible": true,
+        "both_model_birth_counts_zero": false,
+        "defined_comparison": true
+      },
+      {
+        "family": "pilot-m4-00",
+        "seed": "2026102021",
+        "windows_and_reference_eligible": false,
+        "both_model_birth_counts_zero": false,
+        "defined_comparison": false
+      },
+      {
+        "family": "pilot-m4-00",
+        "seed": "2026102022",
+        "windows_and_reference_eligible": false,
+        "both_model_birth_counts_zero": false,
+        "defined_comparison": false
+      }
+    ]
+  }
+}

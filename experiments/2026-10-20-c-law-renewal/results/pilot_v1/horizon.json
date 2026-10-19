@@ -1,0 +1,7 @@
+{
+  "selected_log2": null,
+  "gate": "at least 3/4 complete pilot families, all arms/seeds 10-80% band consumed and >=5000 window births",
+  "status": "STOP_register_geometry_or_budget_revision",
+  "design_sha256": "bc37ff7e19aa4102dbbec69d17d39cb13986ea73f9225343263cad9eb1b946c8",
+  "build_sha256": "8c5c166623d6133af555b0a7544ffa987e84a373e0020d6d74e6518c73937cd3"
+}

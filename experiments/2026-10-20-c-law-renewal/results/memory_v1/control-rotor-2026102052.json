@@ -1,0 +1,93 @@
+{
+  "recipe": {
+    "argv": [
+      "control",
+      "rotor",
+      "2026102052",
+      "2048",
+      "8192",
+      "28"
+    ],
+    "binary_sha256": "393aafa68177b7c51f94a967583290a742b7c6912da65e3ef9f15b4033eb29e7",
+    "build_sha256": "350b3a414fbd32773b534768f512a6abe2e7804b50b14e3dd18453adbc59da7e",
+    "config_sha256": "b270f7ef11897eb6b54bf4a781c4627c05082167b9ee28588afbef8333304666",
+    "driver_sha256": "1942633a63539dcc16d95e8918b1a316871bfbb069144250f5cfe5a45127eb4e",
+    "rules_sha256": "bc37ff7e19aa4102dbbec69d17d39cb13986ea73f9225343263cad9eb1b946c8"
+  },
+  "summary": {
+    "steps": 44453,
+    "start_step": 4172,
+    "window_steps": 40281,
+    "window_complete": true,
+    "boundary_reads": 8192,
+    "births": 4085,
+    "lag": [
+      3745,
+      828,
+      2237,
+      1382
+    ],
+    "chains": [
+      0,
+      1134,
+      393,
+      193,
+      124,
+      63,
+      39,
+      17,
+      18,
+      8,
+      6,
+      3,
+      7,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "left_chain_censored": false,
+    "right_chain_censored": true,
+    "area_t0": 1043,
+    "area": 5128,
+    "perimeter": 502,
+    "escaped": false,
+    "resets_total": 0,
+    "changed_total": 0,
+    "boundary_resets": 0,
+    "boundary_changes": 0,
+    "boundary_reset_lag": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "phase_reads": [
+      2061,
+      2061,
+      2045,
+      2025
+    ],
+    "phase_births": [
+      1009,
+      1058,
+      1025,
+      993
+    ]
+  }
+}
