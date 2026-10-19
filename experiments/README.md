@@ -1,1 +1,1 @@
-Update experiments index with current priorities and guidance
+Update experiments index to list all experiment directories
