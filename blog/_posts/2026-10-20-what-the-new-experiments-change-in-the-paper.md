@@ -93,7 +93,7 @@ The probe divides boundary time averaged over an octave by the boundary's
 fraction of the territory at the octave's end. A uniformly occupying walker
 therefore need not report κ = 1. With area exponent a and perimeter exponent β,
 its reference is **2 ∫ from 1/2 to 1 of x<sup>−a(1−β)</sup> dx**.
-For a = 2/3 and β = 1/2, this is 1.1102.
+For a = 2/3 and β = 1/2, this is 1.1101.
 
 The [uniform-by-construction control]({{ '/experiments/2026-10-16-kappa-uniform-baseline/' | relative_url }})
 gave κ = 1.118 ± 0.009 across eight seeds, against a reference of 1.107

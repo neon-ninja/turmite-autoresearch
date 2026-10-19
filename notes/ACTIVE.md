@@ -46,16 +46,8 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Repository housekeeping
 
-- **Push `main`.** Local `main` is ahead of `origin/main` (merge `8f4b978`, reconciliation `5d866ce`, loop-surgery closure
-  `8b290d8`, and any later commits). Not pushed; needs the user's go-ahead.
-- **Rebuild `research-outputs/cube-root-growth-paper/main.pdf`.** The merge kept `main`'s PDF; it was not recompiled
-  (`typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf`).
-  Check no sentence says lead *raises* kappa (see Reconciliation in `notes/open-questions-hypotheses.md`).
 - **Re-execute `experiments/2026-10-16-kappa-leadrun-fresh/notebook.ipynb`** (taken from the branch at merge, not re-run here;
   build with `scripts/build_notebook.py`, execute with the command in `experiments/README.md`).
-- **Re-render the blog experiment pages** (`uv run --frozen --only-group blog blog/scripts/experiments.py`); the generated
-  `blog/experiments/2026-10-16-kappa-loop-surgery/index.html` still says "DRAFT plan" although the experiment is closed.
-  Refresh `blog/index.html` with the c-law / collider result (convention in `AGENTS.md`).
 - **Stale worktrees and branches** (nothing deleted yet):
   - `.claude/worktrees/agent-a810708e829d8af34` and branch `backup/pre-census-split`: same commits; the unique `39df9f2` content is in
     `main`. Its uncommitted GPU probe port (`src/gpu/probe.rs`, `experiments/2026-10-16-gpu-probe-port/`) is an earlier attempt at what
@@ -68,6 +60,10 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   restored from git). Guard the script or note it in the README.
 
 ## Closed (for reference, do not reopen without new grounds)
+
+- **Paper follow-up revision (2026-10-20):** c law, corrected uniform reference,
+  conditioning check and negative-test statuses incorporated; PDF rebuilt and
+  visually checked, release tests passed. Recipe and output hash in the paper README.
 
 - `experiments/2026-10-16-kappa-square-loop/`: H-loop dead at this scale (P2 failed).
 - `experiments/2026-10-16-kappa-loop-surgery/`: closed unrun on 2026-10-19 (gate failed; premise further weakened by the collider result).

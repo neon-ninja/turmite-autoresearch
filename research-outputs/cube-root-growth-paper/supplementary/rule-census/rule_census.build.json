@@ -1,7 +1,7 @@
 {
  "analysed": 3055,
  "blob_median_probe_alpha_w": 0.332597,
- "columns": 63,
+ "columns": 65,
  "in_census": 3512,
  "kappa_ratio_stationary_blob": {
   "median": 0.814,
