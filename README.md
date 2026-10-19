@@ -9,6 +9,17 @@ as `t^(1/3)` (area roughly `t^(2/3)`), and how the pattern field, boundary and
 mixing statistics produce that behaviour. These are research questions;
 measurements, hypotheses and unresolved explanations live together here.
 
+> **This repository is a meta-experiment as much as an experiment.** The
+> cellular-automata question is a genuine one, but it is also a test case for
+> how computational research might be done from now on: AI agents wrote most of
+> the code, analyses, notes and draft paper under the author's direction, working
+> to the reproducibility rules in [`AGENTS.md`](AGENTS.md) (registered
+> predictions, an oracle implementation, lab notebooks, negative results kept).
+> Whether that process produces trustworthy science is part of what is being
+> tested, so treat the claims with the same scrutiny as any other result and
+> check them against the code and data. The paper's "Use of AI tools" statement
+> says which tools did what.
+
 Start with [the open questions](notes/open-questions-hypotheses.md),
 [the experiments guide](experiments/README.md), and
 [the research blog guide](blog/README.md). The Rust simulation code is in
