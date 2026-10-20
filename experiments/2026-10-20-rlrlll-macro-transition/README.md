@@ -305,7 +305,7 @@ at canonical (row 24, col 46), absolute (-1503, -932), expected 5, got 0, a cell
 cell outside the rectangle behind the front is 31 to 278 rows from it. So:
 
 - The sweeper is on C(m, q) at the cell level from **x = -1552, m = 4, q = 1, step 12,676,237,591**, 769,586 steps before
-  the original base case (C(434, 0) at 12,677,007,177) and 183,018 steps before the front crosses the old blob edge. That
+  the original base case (C(434, 0) at 12,677,007,177) and 184,176 steps before the front crosses the old blob edge. That
   is 89 cycles before the edge crossing.
 - Neither the 48-column window nor the off-family wake of the m < 2 cycles contaminates it, contrary to my registered
   expectation (ii): the window at m = 4 spans columns -1552 .. -1505, which contain the wake of cycles with m = 2, 0, -2, ...
@@ -318,3 +318,25 @@ What this does and does not earn: with C(4, 1) as the base case, the closure giv
 (not a longer one). The ant never reading the old blob cells outside the cone is a consequence of closure plus the cone
 margin; the margin (3 rows) is chosen from the observed growth, **not derived from the checker**, so "blank ground" is
 verified for a 3-row margin and 320 columns, and beyond column -1872 by the fact that the global front was at -1820.
+
+## Task B: the seed, from the apex to the family (registered 2026-10-21, before the run)
+
+Task A fixed where the family starts at the cell level (m = 4, x = -1552) and that the clock formula with the extended
+`m(x)` still holds at x = -1540 .. -1549 (m = -4 .. 2) but fails at -1537 (m = -6). Cycle boundaries stay front-free in the
+sense of Task A (the ant's own minimum x since a tracking time), now with `T_track2` = 12,676,223,500, just after the last
+irregular turnaround logged at x = -1473 (step 12,676,223,434), with targets x = 2 (mod 3) from -1471 to -1537.
+Same tool, same binary as the scan (`results/window_binary.sha256`), default apron.
+
+Predictions:
+- **B1.** Events fire for most targets in [-1537, -1471] in strictly decreasing x with increasing t (the ant's own minimum is
+  monotone by construction; the prediction is that few targets are skipped: <= 5 of 23). Fails if > 5 skipped, which would
+  mean the ant retreats and re-advances in this zone (not a sweep).
+- **B2.** The formula `dt = 12 m(x) + c_q(x)` fails for every pair with m <= -6 (x >= -1537): the law is not a continuation
+  of the family below the point where the end blocks of the configuration overlap. Fails if it holds for any such pair.
+- **B3 (what fits instead).** For those pairs, `dt - 12 * swing` (swing = y-extent of the ant's excursions in the cycle, taken
+  from the same dumps as the extent of nonzero cells in the front column's rows) is NOT constant: its sd over the pairs with
+  x >= -1537 is more than 10 steps. Exploratory; no pass/fail beyond this.
+- **B4.** At no target x in [-1537, -1471] does the window equal a rectangle `top . bulk^m . bottom` of the family (m is
+  undefined there); only reported as the first differing cell vs the m = 0 construction `top_q . bottom_q`, no score.
+Not predicted: the seed itself. If B1 or B2 fails the interpretation "chaotic corner, then a clean family from m ~ -4" must be
+revised and I will say so.
