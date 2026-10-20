@@ -162,3 +162,10 @@ reported analysis is the FP_SKIP_P3=1 run, whose predictions match the partial f
 is from the full run's early stage, results/confirm_analysis_skipP3.json from the second run). No P3 numbers exist. (2) Verdicts: P2 FAIL; P1, P3, P4 untested; deep-dominance rule triggered.
 (3) Written up in README "Results", notebook.ipynb (executed from committed results), notes/kappa-mechanisms-2026-10-15.md, blog post 2026-10-21 and blog/index.html.
 (4) Unresolved/open: why E[T] ~ L; calibrated tail estimator; deeper milestones and radius-4 context; the 2 budget-capped drifting rules. (5) tests/kappa_first_passage.rs is marked superseded, not deleted.
+
+### 2026-10-21 03:06 +13:00 · c0cbb76 · interpretation
+
+Correction (new entry; the 03:xx entries above stand as written). Review showed that the post hoc "renewal identity check" (1 + delta - slope_ET = 0.002 vs measured -0.003) is the identity f ~ E[D]/E[T]
+at small B/S, not evidence: per-rule residual median |0.036|, 90th percentile 0.91 (describe.json). So "kappa is constant because E[T] ~ L" restates kappa-constancy given delta ~ 0; what is new is delta ~ 0.
+Added the exploratory geometry-conditional kappa-persistence null (median relative error 0.097, mean abs error 0.0206 vs M2 0.0372). Large-B/S rules are unchecked as a class (possible highway onset).
+Rewording done in README (correction section), notes ledger, ACTIVE, notebook.ipynb, the blog post and homepage (unpublished, edited in place). Analysis time for the P3-skipped run was ~9 min; the full run never completed (see README).

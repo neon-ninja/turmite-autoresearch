@@ -1,8 +1,8 @@
 {
   "note": "post hoc, exploratory; thresholds and verdicts are those frozen in README",
   "stop_by_role": {
-    "outcome/escaped": 2,
     "kernel/budget": 16,
+    "outcome/escaped": 2,
     "kernel/complete": 368,
     "outcome/complete": 366,
     "outcome/budget": 16
@@ -75,5 +75,22 @@
   ],
   "frac_within_factor_2": 0.17391304347826086,
   "frac_obs_gt_2x_pred": 0.2608695652173913,
-  "frac_obs_below_0p6_pred": 0.717391304347826
+  "frac_obs_below_0p6_pred": 0.717391304347826,
+  "identity_residual_per_rule": {
+    "n": 46,
+    "abs_quantiles_50_90_max": [
+      0.03622808011293832,
+      0.9089741768798388,
+      1.5703934241922446
+    ],
+    "median_band2_BS": 0.008344486606749293,
+    "reading": "residuals are O(B/S): the relation slope_ET = 1 + delta - slope_kappa is the renewal identity (f ~ E[D]/E[T]), not an independent finding. The new measurement is delta ~ 0."
+  },
+  "kappa_persistence_exploratory": {
+    "median_rel_err": 0.09671677417402827,
+    "mean_abs_err": 0.02064900515847106,
+    "vs_M2_mean_abs_err": 0.037151634780423694,
+    "vs_B3_persistence_mean_abs_err": 0.027721873065663573,
+    "note": "post hoc, geometry-conditional (uses band-2 P/A from outcome runs); does not change any frozen verdict"
+  }
 }

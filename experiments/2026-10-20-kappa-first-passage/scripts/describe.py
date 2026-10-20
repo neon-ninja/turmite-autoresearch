@@ -84,3 +84,36 @@ ax[1].set(xlabel="d ln E[T] / d ln (A/P), three bands", ylabel="rules")
 ax[0].set_title("blue stationary, red drifting", fontsize=9)
 fig.savefig(R / "fig_pred_vs_obs.png", dpi=130)
 print(json.dumps(out, indent=2))
+
+
+# ---- added 2026-10-21 after review: is the renewal "identity check" an algebraic identity? ----
+# f = E[D]/(E[D]+E[T]) ~ E[D]/E[T] when B/S is small, so ln kappa = ln L + ln f makes
+# slope_ET = 1 + slope_ED - slope_kappa hold up to O(B/S) corrections, for every rule.
+res, bs2 = [], []
+for rule in elig:
+    o = runs.filter((pl.col("rule") == rule) & (pl.col("role") == "outcome") & (pl.col("reached_hi") == 1))
+    g = o.group_by("band").agg(
+        (pl.col("I_entered_complete_steps").sum() / pl.col("I_entered_complete").sum()).alias("ET"),
+        (pl.col("B_entered_complete_steps").sum() / pl.col("B_entered_complete").sum()).alias("ED"),
+        (pl.col("area_end") / pl.col("perim_end")).mean().alias("L"),
+        pl.col("kappa").mean().alias("k"),
+        pl.col("BS").mean().alias("bs"),
+    ).sort("band")
+    if g.height == 3:
+        lL = np.log(g["L"].to_numpy())
+        sT, sD, sK = (np.polyfit(lL, np.log(g[c].to_numpy()), 1)[0] for c in ("ET", "ED", "k"))
+        res.append(sT - (1 + sD - sK))
+        bs2.append(float(g["bs"].to_numpy()[2]))
+res = np.array(res)
+out["identity_residual_per_rule"] = dict(n=len(res), abs_quantiles_50_90_max=[float(np.quantile(np.abs(res), 0.5)), float(np.quantile(np.abs(res), 0.9)), float(np.abs(res).max())],
+                                         median_band2_BS=float(np.median(bs2)),
+                                         reading="residuals are O(B/S): the relation slope_ET = 1 + delta - slope_kappa is the renewal identity (f ~ E[D]/E[T]), not an independent finding. The new measurement is delta ~ 0.")
+# kappa persistence (geometry-conditional): rule's own kernel-seed band-1 kappa times its band-2 outcome P/A. Exploratory.
+kp = (pred["kernel_obs_kappa_b1"] * pred["obs_PA"]).to_numpy()
+y = pred["obs_BS"].to_numpy()
+out["kappa_persistence_exploratory"] = dict(median_rel_err=float(np.median(np.abs(kp - y) / y)), mean_abs_err=float(np.abs(kp - y).mean()),
+                                            vs_M2_mean_abs_err=float(np.abs(pred["pred_M2"].to_numpy() - y).mean()),
+                                            vs_B3_persistence_mean_abs_err=float(np.abs(pred["B3_persist"].to_numpy() - y).mean()),
+                                            note="post hoc, geometry-conditional (uses band-2 P/A from outcome runs); does not change any frozen verdict")
+(R / "describe.json").write_text(json.dumps(out, indent=2))
+print(json.dumps({k: out[k] for k in ("identity_residual_per_rule", "kappa_persistence_exploratory")}, indent=2))
