@@ -240,3 +240,8 @@ in-sample "closure" cannot be wrong and a closure test must be out-of-sample (th
 Post-hoc, descriptive: over 46 rules the slope of ln E[T] on ln(A/P) is 0.998 (quartiles 0.88-1.10) and that of ln E[D] is about 0, so the registered condition 1 + delta - z(1-theta) = 0 holds in the median
 (1 + delta - slope = 0.002 against a measured kappa slope of -0.003). This says kappa is constant because interior returns scale with the boundary scale; it does not say why, and 26% of rules drift strongly.
 Next: a calibrated tail estimator (theta, z) on entry-conditioned T, a test of E[T] ~ L on new starts at larger bands, deeper milestones and radius-4 context in the recorder.
+
+### Correction to the first-passage entry — 2026-10-21 03:06 +13:00
+
+The sentence above that kappa is "constant because interior returns scale with the boundary scale" is bookkeeping, not a finding: with B/S of 0.005-0.05, f ~ E[D]/E[T], so ln kappa = ln L + ln E[D] - ln E[T] and slope_ET = 1 + slope_ED - slope_kappa is the renewal identity (per-rule residual median 0.036, but up to 1.6 for high-B/S rules). The new measurement is delta ~ 0 (E[D] flat over a 4x range of L), and the open question is only restated: why does E[T] track L.
+The P2 failure follows for the same reason (B/S ~ 1/L misses any small-band persistence by about the L ratio). A post hoc geometry-conditional kappa persistence (own band-1 kappa times band-2 P/A) has median relative error 0.097: the null the design lacked. The 26% large-drift rules are unchecked as a class (possible highway onset). See the experiment README "Correction after review".
