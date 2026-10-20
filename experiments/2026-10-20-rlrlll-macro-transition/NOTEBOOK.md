@@ -104,3 +104,12 @@ rejected as registered; the README now says so. (4) The interpretation entry's "
 family" overstated: only the clock was shown, not the configuration, and the window behind the sweeper overlapped old
 blob cells for ~7 cycles. Corrected wording: on the sweeper clock. Next: dump the window at a cycle clear of the blob and
 compare cell for cell with `results/canonical_k0.txt`.
+
+### 2026-10-21 07:45 +1300 · f67d3f4 · intent
+Task A (cell-level family membership at the sweeper's own front). Registration committed first as f67d3f4 (README
+"Task A"): single hypothesis (m(x), q(x)) from the canonical file, primary score = colour equality over the apron (the
+checker's blank-outside hypothesis), predictions A1-A4, controls C1-C4. Key arithmetic noted before any run: the family
+needs even m >= 2, i.e. x <= -1549, so "matches earlier than swing 41" is impossible by construction. Wrote
+`examples/rlrlll_macro_transition_window.rs` (hot loop copied from the tracer, ant-front events, no state bits) and
+`scripts/window_compare.py`; tool commit 79dd2b5, binary sha256 in `results/window_binary.sha256` (fresh target dir). Run
+launched on one core (targets x = 2 mod 3 from -1699 to -1480, plus -2197/-2200/-2203 as controls).
