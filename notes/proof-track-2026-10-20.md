@@ -76,13 +76,13 @@ in the paper.
   **Result (2026-10-20):** P1-P5 held; the three-phase family is closed for all even m >= 2 (checker plus brute-force
   cross-checks and negative controls). First level-3 result of the track; see that README for what it rests on.
   **Entry (2026-10-21):** the cell-level family holds from step 12,676,237,591 (C(4,1) at x = -1552; base case moved 769,586 steps earlier, 184,176 before the edge crossing); the clock formula extends exactly to m = -24 (x = -1510, height-19 first column), so the wedge does not start at zero height; registered E1, A2, B2 failed. The 3-row light-cone margin is observed, not derived from the checker.
+  **Task C (2026-10-21):** (C1) an independent second checker (stdlib Python, own ant, own pipeline S1 . descent^n . S3 . return^n . S5; `c1b.py`) reproduces 12m + 934/1058/898, lemma periods 2 (20 and 4 steps), m0 = 2, and 150 brute-force cycles; its ant agrees with `reference::Ant` on 1e6 steps and 12 windows; controls: broken ants and a mutated bulk cell rejected as registered, `RLRLLR` rejected at a different place than the first checker (scored split). (C2) cycles visit at most 2 rows above and 1 below their rectangle and up to 18 columns east of the front; the exact criterion (real configuration = ideal initial configuration on every cell the ideal ant visits, 97 cycles) passes in 50 of 50 windows including the base case C(4,1), but Task A's cone (3 + s//3) was too small (excess up to 7 rows); registered C2a failed. (C3) Lean 4: frame lemma and the two shift lemmas as iteration theorems for all n, six kernel-decided certificates (`experiments/2026-10-20-rlrlll-macro-transition/lean/`); the end runs, composition and cycle-to-cycle padding are still paper steps.
 
 ## Next steps (proposed, none started)
 
-1. *Assurance*: an independent second checker, or a Lean/Coq statement of the two shift lemmas and three end cases
-   (the obligations are small: H <= 2, p = 2, s <= 20, plus three concrete turnarounds of ~1,000 steps).
+1. *Assurance* (partly done 2026-10-21, Task C): second checker and Lean shift lemmas exist. Left: Lean statements of S1, S3, S5 and the composition identity for all n (the generator and the iteration theorems are in place; needs a bounded-run semantics for "first reaches column -3" and a padding story across cycles), and a re-run of the 1.27e10-step base case by a second simulator.
 2. *Generalise the checker*, not the rule: run the same propose-then-check loop on the other no-highway escapes
    (`RLLLLRRL`, `RLLLLRLRRL`, `RLLLRLRLLL`) and on every census highway (a highway is the m-free special case). A
    "sweeper decider" over the census would be the proof-track analogue of the bbchallenge deciders.
-3. *Entry* (mostly done 2026-10-21): family at the cell level from m = 4, clock to m = -24; open: derive the cone margin from the checker, explain the clock at m < 2, and what at the blob NW corner makes a height-19 first column.
+3. *Entry* (mostly done 2026-10-21): family at the cell level from m = 4, clock to m = -24; cone margin derived (exact criterion, Task C; the observed 3-row margin was too small); open: explain the clock at m < 2, and what at the blob NW corner makes a height-19 first column.
 4. *Explain, not just certify*: why the bulk row is `14435435...` and why the colour period is 3 for a length-6 rule.

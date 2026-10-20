@@ -587,3 +587,8 @@ What is machine-checked: for the model below, the statements named above. The mo
 and by C1a, not proved. The certificates take their rows (A, r', A', r'') from `c1b.py`; they are checked data, not trusted data. What is **not** machine-checked: S1, S3, S5,
 the composition identity (`E5 . r''^(2n) . D3` = next family member), the claim that arrival at column -3 happens first only at the end, and the passage from one cycle to the next
 (padding of blank rows shrinks by the wedge each cycle). Those remain paper steps (2) and (3) of C1c; step (1), the iteration over n, is now machine-checked.
+
+**L4 (stretch): not attempted in this session; scored as not achieved.** The route is mapped: add a bounded-run semantics `runB` (every intermediate state has -2 <= x <= 47, so "first reaches column -3" is the last step), restate `descent_iter` / `return_iter` with it, add the three end-run certificates (S1 387/383/383 steps, S3 216, S5 355/483/323) by `decide +kernel`, and prove `E5 . (rpp^n).flatten . D3` shifted by 3 columns equals the next phase's grid by list algebra. A closed multi-cycle statement additionally needs a padding story (the blank rows above the rectangle shrink by the wedge each cycle).
+
+### Task C status (appended 2026-10-21; nothing above is edited)
+Done: C1 (second checker, controls scored, theorem and unchecked steps listed), C2 (reach, exact criterion, Task A's cone shown too small), C3 L1-L3. Open: L4, a re-run of the 1.27e10-step base case by a second simulator, the global-front premise outside the dump, and the explanation of the clock at m < 2 and of the first column at the blob corner. Registered predictions not held: C1a-1 as revised (held as originally registered), C2a; split: controls 2/4 for RLRLLR; not attempted: L4.

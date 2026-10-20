@@ -194,3 +194,14 @@ Quot.sound (results/c3_axioms.txt): no native_decide. The certificates are a thi
 20- and 4-step lemma runs. NOT done: S1, S3, S5, the composition identity and the multi-cycle statement (L4); those remain the paper steps (2) and (3) of C1c.
 Timestamp correction: the C3 registration header says 08:41 but `date` read 08:38 when it was written (I typed a time instead of reading the clock);
 the registration still precedes every Lean file.
+
+### 2026-10-21 08:51 +1300 · 4f9af03 · decision
+Stop Task C here. L4 (end runs and composition in Lean, bounded-run semantics) is mapped but not attempted: the task listed C3 as optional and the requested
+content (two shift lemmas as finite computations plus the induction over naturals) is machine-checked. Blog homepage updated (second checker, Lean shift lemmas,
+Task A margin too small, exact criterion passes); notes/ACTIVE.md and notes/proof-track-2026-10-20.md updated; notebook.ipynb rebuilt and executed clean.
+
+### 2026-10-21 08:51 +1300 · 4f9af03 · question
+(1) Why does the exact criterion pass with ~0 mismatches while the observed margin was too small? Because the real board is blank far beyond 3 rows (the nearest old blob
+cell was >= 31 rows from the rectangle), so the margin question never bit; it was a certificate gap, not a physical risk. (2) A re-simulation of the 1.27e10-step base case by an
+independent simulator is the remaining big trust gap; the GPU sweeper is byte-identical to fast::run, not to the tracer's plain loop. (3) The family needs only 19 columns of
+the 48; is the minimal width 19 or 20, and does it matter for a decider?
