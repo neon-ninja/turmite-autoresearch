@@ -1,4 +1,4 @@
-//! `first_passage`: the incremental depth field against a from-scratch BFS after every
+//! `first_plet totlet t_done: u64 = out.tallies.values().map(|p| p.time).sum();l_done: u64 = out.tallies.iter().filter(|(k, _)| k.2.is_some()).map(|(_, p)| p.n).sum();ssert!(o.tallies.keys().all(|k| k.2.is_none()));ssage`: the incremental depth field against a from-scratch BFS after every
 //! step, the observer against `fixed_area` and against offline recomputation from the
 //! recorded state stream, hand fixtures, and clone-as-checkpoint determinism.
 
@@ -117,7 +117,7 @@ fn one_cell_and_straight_line() {
     s.advance(None);
     let o = s.finish();
     // a line never has interior cells: no segments leave milestone 0
-    assert!(o.tallies.values().all(|a| a.n_to.iter().sum::<u64>() == 0));
+    assert!(o.tallies.keys().all(|k| k.2.is_none()));
     assert_eq!(o.bands[0].eps[1].overlap, 0);
     assert_eq!(o.stop, Some(Stop::Budget));
 }
@@ -226,32 +226,45 @@ fn matches_offline_recomputation() {
             }
             let _ = (lo, hi);
         }
-        // milestone chain: totals by (band-independent) start milestone
-        let mut cur = 0usize;
-        let mut st = 0usize;
-        let mut n_to = [[0u64; 8]; 8];
-        let mut tm = [[0u64; 8]; 8];
-        let ms = MILESTONES;
+        // milestone chain recomputed from the depth stream, tallied by (start band, from, to)
+        let band_of = |st: usize| -> Option<usize> {
+            bands.iter().position(|&(lo, hi)| {
+                let Some(ts) = (0..=tt).find(|&t| tr[t].1 >= lo) else { return false };
+                let te = (0..=tt).find(|&t| tr[t].1 >= hi).unwrap_or(tt + 1);
+                ts <= st && st < te
+            })
+        };
+        let mut exp: std::collections::BTreeMap<(usize, usize, Option<usize>), (u64, u64)> = Default::default();
+        let (mut cur, mut st) = (0usize, 0usize);
         for t in 1..=tt {
-            if let Some(j) = ms.iter().position(|&m| m == tr[t].3) {
+            if let Some(j) = MILESTONES.iter().position(|&m| m == tr[t].3) {
                 if j != cur {
-                    n_to[cur][j] += 1;
-                    tm[cur][j] += (t - st) as u64;
+                    if let Some(b) = band_of(st) {
+                        let e = exp.entry((b, cur, Some(j))).or_default();
+                        e.0 += 1;
+                        e.1 += (t - st) as u64;
+                    }
                     cur = j;
                     st = t;
                 }
             }
         }
-        // all tallies are by start band; here sum only those with a start band, so compare
-        // against the full chain restricted to segments starting in a band by recomputing that
-        // restriction offline is overkill: instead check total completed + open covers the run.
-        let total_done: u64 = out.tallies.values().map(|a| a.n_to.iter().sum::<u64>()).sum();
-        let chain: u64 = n_to.iter().flatten().sum();
-        assert!(total_done <= chain, "{rule}");
-        let t_done: u64 = out.tallies.values().map(|a| a.time_to.iter().sum::<u64>() + a.open_time).sum();
-        assert!(t_done <= tt as u64);
+        if let Some(b) = band_of(st) {
+            let e = exp.entry((b, cur, None)).or_default();
+            e.0 += 1;
+            e.1 += (tt - st) as u64;
+        }
+        let mut got: std::collections::BTreeMap<(usize, usize, Option<usize>), (u64, u64)> = Default::default();
+        for (&(b, a, n), p) in &out.tallies {
+            let e = got.entry((b, a.m as usize, n.map(|k| k.m as usize))).or_default();
+            e.0 += p.n;
+            e.1 += p.time;
+        }
+        assert_eq!(got, exp, "{rule}");
+        assert_eq!(out.overflowed, 0);
     }
 }
+
 
 /// Clone is a checkpoint: stepping in chunks, or cloning mid-run and continuing, gives identical output.
 #[test]

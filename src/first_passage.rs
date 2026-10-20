@@ -97,9 +97,10 @@ impl DepthField {
     }
 }
 
-/// Segment start state. M0 = (milestone, dir); M1 adds heading and phase; M2 adds the radius-2
-/// patch (exact, 13 cells x 4 bits, 15 = unvisited) and the last four milestone labels;
-/// `p4` is a hash of the radius-4 patch (41 cells) for the sufficiency check.
+/// Segment state at a milestone hit. M0 = (m, dir); M1 adds absolute heading and the colour class
+/// under the ant; M2 adds the colour classes of the four axis neighbours relative to the heading
+/// (3 bits each, 4 = unvisited) and the last four milestone labels (including this one).
+/// Colour class = 2*turn(c) + turn(c+1) (L=0,R=1): comparable across rules of different length.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub struct StateKey {
     pub m: u8,
@@ -107,22 +108,26 @@ pub struct StateKey {
     pub dir: u8,
     pub heading: u8,
     pub phase: u8,
-    pub patch2: u64,
+    pub patch: u16,
     pub hist: u16,
-    pub p4: u64,
 }
 
+impl StateKey {
+    /// M1 backoff (patch and history unknown).
+    pub fn m1(self) -> Self {
+        Self { patch: OVERFLOW, hist: OVERFLOW, ..self }
+    }
+}
+
+pub const OVERFLOW: u16 = 0xFFFF;
+
 #[derive(Clone, Debug, Default, PartialEq)]
-pub struct SegAgg {
-    /// Completed segments by destination milestone index, and their summed elapsed times.
-    pub n_to: [u64; 8],
-    pub time_to: [u64; 8],
+pub struct Pair {
+    pub n: u64,
+    pub time: u64,
     pub skipped: u64,
     pub jumps: u64,
     pub revisits: u64,
-    /// Segments still open at the end of the run (no destination) and their lower-bound time.
-    pub open_n: u64,
-    pub open_time: u64,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -222,9 +227,12 @@ pub struct Sim<W: Walker + Clone> {
     prev: Option<Prev>,
     run: Option<Run>,
     seg: Option<Seg>,
-    pub tallies: BTreeMap<(usize, StateKey), SegAgg>,
-    p2: Vec<isize>,
-    p4: Vec<isize>,
+    /// (band of segment start, start state, destination state or None if open at the end).
+    pub tallies: BTreeMap<(usize, StateKey, Option<StateKey>), Pair>,
+    cls: Vec<u8>,
+    max_pairs: usize,
+    /// Segments folded to M1 backoff keys because the pair table was full.
+    pub overflowed: u64,
     /// Steps that were a geometry jump (all, in or out of band).
     pub jump_steps: u64,
     /// Steps onto a visited cell whose depth changed by more than one (must stay 0).
@@ -232,18 +240,6 @@ pub struct Sim<W: Walker + Clone> {
     pub stop: Option<Stop>,
     /// Observed state sequence is recorded only when asked (tests).
     pub trace: Option<Vec<(bool, u64, u64, u8, Geom)>>,
-}
-
-fn patch_offsets(size: usize, r: i32) -> Vec<isize> {
-    let mut v = Vec::new();
-    for dy in -r..=r {
-        for dx in -r..=r {
-            if dx.abs() + dy.abs() <= r {
-                v.push(dy as isize * size as isize + dx as isize);
-            }
-        }
-    }
-    v
 }
 
 impl<W: Walker + Clone> Sim<W> {
@@ -271,8 +267,9 @@ impl<W: Walker + Clone> Sim<W> {
             run: None,
             seg: None,
             tallies: BTreeMap::new(),
-            p2: patch_offsets(size, 2),
-            p4: patch_offsets(size, 4),
+            cls: (0..256).map(|c| (c as u8).min(3)).collect(),
+            max_pairs: 3_000_000,
+            overflowed: 0,
             jump_steps: 0,
             lipschitz_violations: 0,
             stop: None,
@@ -285,24 +282,32 @@ impl<W: Walker + Clone> Sim<W> {
         self
     }
 
-    fn patch_nibbles<'a>(&'a self, offs: &'a [isize]) -> impl Iterator<Item = u64> + 'a {
-        let idx = self.idx as isize;
-        offs.iter().map(move |&o| {
-            let j = (idx + o) as usize;
-            if self.field.region.visited(j) { self.colour[j] as u64 & 15 } else { 15 }
-        })
+    /// Colour classes (see [`StateKey`]) for each colour value, e.g. from the rule.
+    pub fn with_classes(mut self, cls: Vec<u8>) -> Self {
+        assert!(cls.iter().all(|&c| c < 4));
+        self.cls = cls;
+        self
+    }
+
+    pub fn with_max_pairs(mut self, n: usize) -> Self {
+        self.max_pairs = n;
+        self
+    }
+
+    fn class_at(&self, j: usize) -> u16 {
+        if self.field.region.visited(j) { self.cls[self.colour[j] as usize] as u16 } else { 4 }
     }
 
     fn key(&self, m: usize, dir: u8, hist: u16) -> StateKey {
-        let mut patch2 = 0u64;
-        for v in self.patch_nibbles(&self.p2) {
-            patch2 = (patch2 << 4) | v;
+        // relative to the heading: ahead, right, behind, left
+        let s = self.field.size as isize;
+        let nb = [-s, 1, s, -1];
+        let mut patch = 0u16;
+        for k in 0..4 {
+            let j = (self.idx as isize + nb[(self.h as usize + k) & 3]) as usize;
+            patch = (patch << 3) | self.class_at(j);
         }
-        let mut p4 = 0xCBF2_9CE4_8422_2325u64;
-        for v in self.patch_nibbles(&self.p4) {
-            p4 = crate::walkers::mix64(p4 ^ v);
-        }
-        StateKey { m: m as u8, dir, heading: self.h, phase: self.colour[self.idx], patch2, hist, p4 }
+        StateKey { m: m as u8, dir, heading: self.h, phase: self.cls[self.colour[self.idx] as usize], patch, hist }
     }
 
     /// True when every band closed and the run in force began after the last band ended
@@ -407,26 +412,28 @@ impl<W: Walker + Clone> Sim<W> {
                 self.bands[k].seg_overlap += hi.min(t).saturating_sub(lo.max(s.start_t));
             }
         }
-        if let Some(k) = s.start_band {
-            let a = self.tallies.entry((k, s.key)).or_default();
-            a.revisits += s.revisits;
-            a.jumps += s.jump_any as u64;
-            match to {
-                Some(j) => {
-                    a.n_to[j] += 1;
-                    a.time_to[j] += elapsed;
-                    a.skipped += (j as i64 - s.cur as i64).unsigned_abs() - 1;
-                }
-                None => {
-                    a.open_n += 1;
-                    a.open_time += elapsed;
-                }
-            }
-        }
-        if let Some(j) = to {
+        let next = to.map(|j| {
             let dir = if j > s.cur { 1 } else { 2 };
             let hist = ((s.hist << 3) | j as u16) & 0xFFF;
-            let key = self.key(j, dir, hist);
+            (self.key(j, dir, hist), hist)
+        });
+        if let Some(k) = s.start_band {
+            let (mut a, mut b) = (s.key, next.map(|n| n.0));
+            if self.tallies.len() >= self.max_pairs && !self.tallies.contains_key(&(k, a, b)) {
+                a = a.m1();
+                b = b.map(StateKey::m1);
+                self.overflowed += 1;
+            }
+            let p = self.tallies.entry((k, a, b)).or_default();
+            p.n += 1;
+            p.time += elapsed;
+            p.revisits += s.revisits;
+            p.jumps += s.jump_any as u64;
+            if let Some(j) = to {
+                p.skipped += (j as i64 - s.cur as i64).unsigned_abs() - 1;
+            }
+        }
+        if let (Some(j), Some((key, hist))) = (to, next) {
             self.seg = Some(Seg { cur: j, start_t: t, key, start_band: self.active, revisits: 0, jump_any: false, hist });
         }
     }
@@ -518,7 +525,7 @@ impl<W: Walker + Clone> Sim<W> {
             s.bands[k].area_end = p.area;
             s.bands[k].perim_end = p.perim;
         }
-        Output { stop: s.stop, t, bands: s.bands, tallies: s.tallies, area: s.field.region.area, perimeter: s.field.region.perimeter, jump_steps: s.jump_steps, lipschitz_violations: s.lipschitz_violations, depth_decreases: s.field.decreases, depth_raises: s.field.raised }
+        Output { stop: s.stop, t, bands: s.bands, tallies: s.tallies, overflowed: s.overflowed, area: s.field.region.area, perimeter: s.field.region.perimeter, jump_steps: s.jump_steps, lipschitz_violations: s.lipschitz_violations, depth_decreases: s.field.decreases, depth_raises: s.field.raised }
     }
 }
 
@@ -527,7 +534,8 @@ pub struct Output {
     pub stop: Option<Stop>,
     pub t: u64,
     pub bands: Vec<BandAgg>,
-    pub tallies: BTreeMap<(usize, StateKey), SegAgg>,
+    pub tallies: BTreeMap<(usize, StateKey, Option<StateKey>), Pair>,
+    pub overflowed: u64,
     pub area: u64,
     pub perimeter: u64,
     pub jump_steps: u64,
