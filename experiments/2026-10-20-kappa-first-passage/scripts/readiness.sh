@@ -24,7 +24,7 @@ cat > $E/results/readiness.json <<J
  "resume_skipped_specs": $rerun, "resume_bytes_unchanged": $([ "$before" = "$after" ] && echo true || echo false),
  "changed_recipe_refused": $([ "$refuse" -ge 1 ] && echo true || echo false),
  "in_memory_checkpoint_test": "tests/first_passage.rs::checkpoint_by_clone_is_exact",
- "on_disk_mid_trajectory_checkpoint": "not implemented (runs take 10-165 s; run-level .done markers are the resume unit)",
- "full_release_tests": "results/release-tests.log"}
+ "on_disk_mid_trajectory_checkpoint": "implemented in stage V2; see results/resume_check.json and tests/first_passage.rs::disk_checkpoint_roundtrip_is_exact",
+ "full_release_tests": "results/release-tests-v2.log (155 passed, 0 failed)"}
 J
 cat $E/results/readiness.json

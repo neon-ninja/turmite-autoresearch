@@ -2,7 +2,7 @@
 
 Created 2026-10-20 21:10 +13:00, base
 `44ed81f71f4bb1fdccdcdc1cbd586bc1b2eb5613`.
-Status: **COMPLETED 2026-10-21: instrument, calibration, pilot and confirmation run; P2 failed, P1/P3/P4 untested (see "Results" at the end)**. Text above is the original prospective scaffold, kept unedited apart from this line.
+Status: **COMPLETED 2026-10-21: P2 FAILED; P1, P3, P4 UNINFORMATIVE after stage V2 (see "Stage V2 results" at the end)**. Text above is the original prospective scaffold, kept unedited apart from this line.
 This records hypotheses before measurement. It is not a frozen confirmation
 registration: cohort, calibrated estimator and resource manifest remain to be
 frozen after feasibility. No simulation is authorized by the scaffold itself.
@@ -306,3 +306,16 @@ P1 rule (as in the scaffold): for identifiable rules, predicted d ln kappa / d l
 **V2-C. P3 (unseen families).** The only frozen-model form is the rule-independent pooled chain per training fold (no rule-conditional input). Run it to completion with a value-iteration solver (the sparse direct solve did not finish in 2.5 h) and report R2 and the M2-over-M0 gain. Verdict rule: UNINFORMATIVE (structurally, a constant per fold carries no rule information); the numbers are reported with it. If a rule-conditional extension is not specified before running, none is claimed.
 
 **V2-D. P4 (state sufficiency).** Recorder v2 adds, per segment start, a hash of the radius-4 colour-class context (41 cells), stored with the M2 key in a capped table (3,000,000 rows, overflow folds to the M2 key). Rerun with unchanged seeds (kernel and outcome roles; trajectories are bit-identical to v1, which is checked). Criterion 1 (E[T] changes < 10% when context is added) is vacuous in-sample (identity) and is reported as such. Criterion 2: held-out-seed log-loss of next-milestone direction; DeltaLL = LL(M2) - LL(M2 + r4, backoff floor 20); the tolerance is the 95th percentile of DeltaLL under a synthetic world in which M2 is sufficient. PASS if DeltaLL <= tolerance for >= 80% of eligible rules; FAIL if it exceeds it for > 20%; UNINFORMATIVE if fewer than 30% of held-out segments have a supported r4 state.
+
+## Stage V2 results (appended 2026-10-21 03:57 +13:00; registered above before any V2 measurement; frozen P2 verdict unchanged)
+
+| Item | Outcome | Evidence |
+|---|---|---|
+| V2-A on-disk mid-trajectory checkpoint | **gate met** | tests/first_passage.rs::disk_checkpoint_roundtrip_is_exact; results/resume_check.json: SIGKILL at 1.5 s with a 7.9 MB checkpoint, resumed, all files byte-identical to the uninterrupted run (stateless walkers only) |
+| **P1** scaling | **UNINFORMATIVE** | calibration C6 FAILED the registered criteria (results/calibration_c6.json): |bias theta| max 0.015 (ok) but |bias ln tau| max 0.238 (needs < 0.2) and pooled coverage of theta 0.893 (needs 0.90-0.99); and only 33 of 46 eligible rules (72%) are identifiable (needs >= 80%). Descriptive, not a test: median theta 0.54 (quartiles 0.41, 0.58), median z 2.20 (2.03, 2.31), z(1-theta) ~ 1.0; median |predicted - observed| kappa slope 0.094 against 0.109 for zero drift (t0 = 64; 32 and 128 agree). results/p1_test.json |
+| **P3** unseen families | **UNINFORMATIVE** (registered) | pooled rule-independent chain run to completion with the checked iterative solver (5.4 min): out-of-fold R2 -0.132 at M0, M1 and M2 alike; M2 minus M0 gain 1.7e-7, family-bootstrap 95% interval [-3.4e-7, 1.1e-6]. Constant per fold, no rule-conditional input, so it cannot test transfer. results/p3_pooled.json |
+| **P4** state sufficiency | **UNINFORMATIVE** (registered) | recorder v2 reran all 384 kernel-role runs; trajectories identical to v1 (bands 0,1 rows 384/384, results/v2_identity.json). Median share of held-out segments whose radius-4 context was seen >= 20 times in training: 0.005 (needs 0.30): 41-cell contexts almost never repeat, so the test has no data. Criterion 1 (E[T] changes < 10%) is vacuous in-sample (identity). results/p4_test.json |
+
+Deviations during V2: calibration seed base 202610208000 coincides numerically with the kernel-seed range minus one; it seeds only numpy's generator for synthetic data, no simulated trajectory. The P4 rerun used bands 0 and 1 only and a 400,000-row context cap (registered as 3,000,000; reduced for disk, deviation). fpkernel.py switches to BiCGSTAB above 50,000 states (frozen per-rule fits stay below it, numbers unchanged). Full test suite: 155 passed, 0 failed (results/release-tests-v2.log).
+
+What V2 changes in the reading: nothing about P2. It removes three "untested" labels by running the tests and finding them uninformative for stated reasons: the tail estimator is not calibrated well enough at these sample sizes, the only frozen unseen-family model carries no rule information, and radius-4 contexts are too sparse. Whether the descriptive fit theta ~ 1/2, z ~ 2 is real is open: it would need a tail estimator that passes C6 (larger samples or a better-conditioned cutoff parameter).

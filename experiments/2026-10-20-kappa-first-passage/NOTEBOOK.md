@@ -176,3 +176,9 @@ V2-A (README "Stage V2", registered before): on-disk mid-trajectory checkpoint i
 Rust test `disk_checkpoint_roundtrip_is_exact`: snapshot at many points including t = 0 and the end, restore, finish = uninterrupted run; re-snapshot is a fixed point; other recipe, truncated and corrupted bytes refused.
 Shell check `scripts/resume_check.sh` -> `results/resume_check.json`: SIGKILL after 1.5 s with a 7.9 MB checkpoint on disk and no outputs, resume, all files byte-identical to the uninterrupted run (excluding wall-clock seconds). Gate met. Stateless walkers only (PatchedAnt, Rotor).
 Also added (for V2-D, not yet run): passive radius-4 context table (`with_ctx4`, `FP_CTX4_ROWS`), tested to leave every other output unchanged and to account for every completed segment (`ctx4_recording_is_passive_and_consistent`); P1 tail estimator and its calibration script (`tailfit.py`, `calibrate_tail.py`, `p1_test.py`); P3 pooled-chain script with a checked iterative solver (`p3_pooled.py`). fpkernel.py uses BiCGSTAB above 50k states (small chains, hence all frozen per-rule fits, still use the direct solve: unchanged numbers).
+
+### 2026-10-21 03:57 +13:00 · 27853e0 · observation
+
+Stage V2 outcomes (registered in README before measuring). V2-A checkpoint gate met. C6 tail calibration FAILED (ln tau bias 0.238, coverage 0.893) so P1 = UNINFORMATIVE; also only 72% of rules identifiable. Descriptive fit: theta ~ 0.54, z ~ 2.2, z(1-theta) ~ 1.0.
+P3 pooled chain run to completion: R2 -0.132 for M0/M1/M2, gain 1.7e-7: UNINFORMATIVE as registered. P4 radius-4 rerun (384 runs, trajectories identical to v1): median supported share 0.005 < 0.30: UNINFORMATIVE.
+Surprise (mild): theta ~ 1/2 and z ~ 2 are the values written into the scaffold as the "conversational proposal"; with a failed calibration this is a hint, not evidence. Deviation: context cap 400k rows (registered 3M), bands 0-1 only. Full test suite 155 passed.

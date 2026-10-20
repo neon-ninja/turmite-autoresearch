@@ -35,7 +35,7 @@ M2 = ["m", "dir", "heading", "phase", "patch", "hist"]
 def load(rule: str, seeds: list[int]) -> pl.DataFrame:
     parts = []
     for s in seeds:
-        d = pl.read_csv(V2 / f"{rule}_{s}.ctx4.csv").filter(pl.col("band") <= 1)
+        d = pl.read_csv(V2 / f"{rule}_{s}.ctx4.csv", schema_overrides={"r4": pl.UInt64}).filter(pl.col("band") <= 1)
         parts.append(d.drop("spec", "band").group_by(M2 + ["r4"]).agg(pl.col("n").sum(), pl.col("up").sum()))
     return pl.concat(parts).group_by(M2 + ["r4"]).agg(pl.col("n").sum(), pl.col("up").sum())
 
