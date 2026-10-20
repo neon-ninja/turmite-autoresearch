@@ -7,6 +7,12 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Science: open questions
 
+- **Proof track (parallel, started 2026-10-20):** turn simulated regularities into checked macro-transitions
+  (`notes/proof-track-2026-10-20.md`). First target: is the `RLRLLL` column sweeper `C(L) -> C(L+g)` for all heights?
+  `experiments/2026-10-20-rlrlll-macro-transition/`: P1-P5 held and the family is checked closed for all even m >= 2
+  (cycle law 12m + (934, 1058, 898), |x|^2/t -> 3/4). Open: independent assurance, entry, other escapes, a census-wide
+  sweeper decider (`notes/proof-track-2026-10-20.md`, Next steps). Single-core runs only; no conflict with the census.
+
 - **First-passage closure (done 2026-10-21):** P2 failed, P1/P3/P4 uninformative (stage V2; the tail fit failed calibration, so its theta and z are not reported as findings); boundary dwell is flat over L (delta ~ 0), so constant kappa is equivalent to E[T] tracking L (renewal identity, not a mechanism). Open: why E[T] tracks L; a calibrated tail estimator; deeper milestones; whether the large-B/S rules are highway onsets. `experiments/2026-10-20-kappa-first-passage/` (README "Correction after review"), `notes/kappa-mechanisms-2026-10-15.md`.
   Proposed work list for it (added 2026-10-20; the calibration and the E[T]-versus-L measurement were done by the first-passage experiment, the rest is open; register predictions in the README before measuring):
   - *Instrument calibration (before trusting any exponent).* Known-answer walkers for theta and z: run the nested-depth and
