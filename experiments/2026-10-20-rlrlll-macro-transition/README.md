@@ -213,3 +213,54 @@ height" is an extrapolation, not an observation, and m below ~20 is not covered 
 for cycles since the apex (the proved family is C(m, q) for even m >= 2 on blank ground ahead). The wedge having started
 inside a chaotic region at the blob's corner explains why the census sees a long transient but does not explain *why that
 corner seeds a sweeper*.
+
+## Task A: is the configuration behind the sweeper already C(m, q)? (registered 2026-10-21, before any code for it is written or run)
+
+Question: the sweeper clock holds for 94 cycles before the front crosses the old blob edge. Does the *cell-level*
+configuration behind the sweeper, at those cycles, equal the closed family `results/canonical_k0.txt`?
+
+**What the family claims (read from the checker's header).** `C(m, q)`: on columns `[x_f, x_f+48)` the rows `top_q`, the bulk
+row x m, `bottom_q`; **every other cell in columns west of `x_f+48` has colour 0** (above, below, and ahead of the front);
+the ant stands at `(x_f + dx, top_row + dy)` heading `h` on the still-unvisited front column. My membership test is
+exactly that, evaluated on a dump apron (columns `[x_f-320, x_f+64)`, rows `ant_y +- 450`), because a rectangle-only
+match with a stray blob cell one row outside would not license the closure.
+
+**Scoring conventions (fixed now).** Primary score: *colour equality with unvisited = colour 0* (the dynamics see colour only)
+over the apron, plus the ant offset and heading. Secondary: equality of the visited flag as well. The one hypothesis scored is
+the single `(m(x), q(x))` below; any search over other `m`, `q` is post hoc diagnostics.
+
+**Boundaries and the family's range (arithmetic, not a measurement).** Use the tracer's event: the ant's `x` first goes below
+its minimum since `T_track` = 12,676,233,000, at a column x = 2 (mod 3) (the residue of `canonical_k0.txt`; snapshot 0 is at
+x = -2197). The canonical file gives, for x = 2 (mod 3):
+
+    j = (-2197 - x)/3,   m(x) = 434 + 2 j   (m(-2197) = 434, m(-2200) = 436, m(-2203) = 438),   q(x) = j mod 3.
+
+The family needs even `m >= 2`, so it **cannot** apply east of x = -1549 (m = 2); "matches earlier than swing 41" is impossible by
+construction (swing 41 at x = -1536 is m ~ -7). The question is the first x <= -1549 where it holds. Two contamination sources,
+each with its own threshold, both about columns of the 48-wide window:
+(i) old blob cells in columns about -1540 .. -1500 (blob reaches y = -952, overlapping the sweeper's rows);
+(ii) the wake of the off-family cycles with m < 2, in columns about -1546 .. -1474.
+The full window clears both only if `x + 47 < -1546`, i.e. x <= -1594 (x = 2 mod 3).
+
+**Controls (must behave as stated before the scan is looked at).**
+- C1. Events at x = -2197, -2200, -2203 occur at `t` equal to rows 0, 1, 2 of `results/cycles.csv` (12677007177, 12677013319,
+  12677019609), and their dumps equal `C(434, 0)`, `C(436, 1)`, `C(438, 2)` on the full membership test.
+- C2. The same dumps compared with the wrong q (two alternatives) and with m +- 2 all fail.
+- C3. A one-cell perturbation (one in each of top, bulk, bottom) fails, with first differing cell exactly the perturbed one.
+- C4. Hot loop, DIRS and update order byte-identical to the tracer's; the tool adds no state bits to `cells`.
+
+**Predictions for the scan** (targets: every x = 2 (mod 3) from -1699 to -1480; whichever fire):
+- **A1 (clock).** For consecutive events (x, x-3): `dt = 12 m(x) + c_q(x)`, c = (934, 1058, 898), holds for every pair with
+  x <= -1552 (both ends m >= 2). Not predicted east of that; report the first failure going east.
+- **A2 (family).** Every target x <= -1594 (about 37 events) passes the primary test. Confidence ~55%: the sweeper clock held
+  but the cell-level claim was never checked, and an off-family transient could leave a different wake. Fails if any of them fails.
+- **A3 (contamination).** For targets -1591 <= x <= -1552 the primary test fails, and every differing cell is either
+  visited before `T_track` (old blob) or in a column >= -1546. Fails if a differing cell lies elsewhere (that would be a third
+  source I did not name) or if some of these targets pass (then the contamination is smaller than I thought; report how far).
+- **A4 (exploratory, no pass/fail).** Report the first x going east at which a 21-column window (the checker's reach is
+  <= 20) still passes the primary test.
+Per-event output: first differing cell as canonical (row, col), absolute (x, y), expected vs actual value, and whether the
+cell was visited before `T_track`.
+
+Instrument: `examples/rlrlll_macro_transition_window.rs` (to be written next), built into a fresh `CARGO_TARGET_DIR`,
+sha256 logged. Comparison: `scripts/window_compare.py`. Task B (the seed) is registered separately after A is scored.
