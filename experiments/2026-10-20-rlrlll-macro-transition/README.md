@@ -362,3 +362,74 @@ blocks) is unexplained: C(m, q) is undefined there, so the exact formula is an o
 closure. What at the NW blob corner makes a height-19 first column: open.
 
 Commit of this section: after `dbc3827`. Notebook `notebook.ipynb` rebuilt (Task A/B cells, executed clean from the built script).
+
+## Task C: assurance. An independent second checker, and a derived cone margin (registered 2026-10-21 08:15 +1300, before any Task C code is written or run)
+
+Aim: reduce the trust placed in `examples/rlrlll_macro_transition_check.rs` and close the weak joint of Task A (the
+3-row cone margin). Nothing below is marked "proved" on my say-so: I report agreement and disagreement. If the two checkers
+disagree anywhere, the smallest disagreeing case is settled by brute force before anything else is said.
+
+**Independence rules for the second checker** (`scripts/c1_*.py`, Python 3 stdlib only, run under `uv`): no import from
+`src/` (no `turmite` crate, `reference.rs`, `fast.rs`) and none of the first checker's code or data structures (`Sym`, `Seg`,
+`Count`, `normalise`, `run_patch`). It reads only `results/canonical_k0.txt` (the proposal, as text) and the rule string. The
+only place `reference::Ant` is used is the *comparison driver* for C1a (a small Rust example
+`examples/rlrlll_c1_reference_hash.rs` that prints reference-ant hashes and traces), kept separate from the second checker.
+Its proof architecture is my own and differs from the first checker's peel-and-regroup engine: a fixed pipeline
+`S1 (top block -> descent frame) . descent lemma^n . S3 (bottom turnaround) . return lemma^n . S5 (top block -> new front)`,
+each stage a finite run on an explicit patch, composed by explicit row-count bookkeeping. Stage boundaries are found by a
+separate, untrusted `c1_derive.py` from a brute-force exemplar trajectory; the verifier consumes its JSON output as data.
+
+**Conventions to re-derive, not copy.** Heading/turn conventions come from `canonical_k0.txt` (ant heading 3 = west, the front
+column is the unvisited one on the west) and a brute-force closure test: of the four candidates (heading table clockwise or
+counter-clockwise from heading 0 = north, R = +1 or -1), those that make C(m, q) -> C(m+2, q+1) are accepted.
+
+### Predictions
+
+- **C1a-1 (conventions).** Exactly 2 of the 4 candidates close the cycle for RLRLLL on the canonical file, and they are the
+  same dynamics up to heading labels; I then use the clockwise table, heading 0 = north, R = +1.
+  Fails if 0, 1, 3 or 4 of the candidates close, or if the two closing ones are not label-equivalent.
+- **C1a-2 (semantics, blank board).** Over the first 1e6 steps from a blank board (heading 0 = north), my ant and
+  `reference::Ant` agree at all 1,000 checkpoints (hash of (x, y, heading, colour read) accumulated every 1,000 steps) and in
+  the full final state (position, heading, step count, number and hash of non-zero cells). Fails on any single disagreement.
+- **C1a-3 (semantics, windows).** For m in {2, 4, 10, 50} and q = 0, 1, 2 (12 cases), one full cycle from `canonical_k0.txt`
+  (until the minimum x first reaches x_f - 3): the position-sequence hash, the step count and the final window agree with
+  `reference::Ant` in all 12. Fails on any disagreement.
+- **C1b (finite lemmas). Held means all of the following.**
+  (a) a descent lemma exists for each q with p = 2 rows per application and s = 20 steps; (b) a return lemma exists for each q
+  with p = 2 and s = 4 (the frame height H is a property of where I cut the frame and **may differ** from the first checker's
+  2 and 1; I do not predict it); (c) the three end-case finite runs (S1, S3, S5) exist with no sentinel read, no cell east of
+  the 52-column strip touched and no premature front advance, for all three q; (d) the composed cycle length from brute force
+  at m = 2, 4, ..., 100 (50 values x 3 phases = 150 runs) is exactly `12 m + (934, 1058, 898)[q]` and the end state is exactly
+  C(m + 2, q + 1) (window and ant); (e) the symbolic lower bound my pipeline needs, `m0`, is <= 4 (probability ~55%; where
+  `m0 > 2`, the cases `2 <= m < m0` are covered only by the brute-force runs up to 100 and I say so). A single mismatch in (d),
+  or any of (a)-(c) not existing, is a fail.
+- **C1c (induction, in my own words).** Written as a theorem in this README after the code runs, with an explicit list of the
+  hypotheses checked by code and those argued on paper. Anything on paper only is listed as an unchecked step. No numerical
+  prediction; the deliverable is the list.
+- **C1 controls (each must behave as stated).**
+  (1) an ant with one wrong turn (colour 3 turns L instead of R) disagrees with `reference::Ant` at C1a-2 (first checkpoint
+  reported);
+  (2) rule RLRLLR fails C1b where the first checker fails it (the ant leaves the strip: "left the strip");
+  (3) one cell of the bulk row changed (column 46, 3 -> 4, as in `results/check_negative_controls.txt`) fails C1b in all three
+  phases at the composition or stage-existence level, not by a crash;
+  (4) both files the first checker rejected (mutated bulk cell; wrong rule) are rejected by mine too with the same verdict class
+  ("result is not C(m', q+1)" in each phase; "left the strip" for RLRLLR).
+  A control that does not behave as stated is scored as a fail of the control, and the verifier is not trusted until it is
+  explained.
+- **C2 (derive the cone margin).** Quantity: for each cycle of C(m, q), m = 2..100 step 2, q = 0, 1, 2 (150 cycles), the max
+  number of rows **visited** (ant position at some step; this counts a cell that returns to colour 0 after 6 visits) above the
+  initial top row and below the initial bottom row of the rectangle, and the min column visited.
+  **C2a** rows above <= 1 and rows below <= 1 in all 150 cycles (probability ~45%: the end blocks are diagonal and I have not
+  looked at them from this angle).
+  **C2b** column x_f - 3 is reached only on the cycle's final step and nothing further west is visited (largely definitional;
+  a failure would mean a bug in my cycle cut).
+  **C2c (symbolic, all m)** the reach beyond the rectangle is attained inside S1, S3 and S5, which are finite runs independent of
+  m, while the lemma runs only touch rows of their own patch; so the maximum over all m equals the maximum over those three runs
+  per phase, and I predict it equals the brute-force maximum of C2a.
+  **C2d (recheck of Task A)** simulate the ideal family forward 110 cycles from C(m, q) at each of Task A's 50 matching windows
+  (x = -1552 .. -1699) with my ant, take every cell the ant ever visits, and require the real base configuration
+  (`scratch/win` dumps, regenerated if absent) to have colour 0 at every such cell outside the base rectangle, and to equal the
+  family inside it: all 50 windows pass (probability ~75%). If the derived margin is > 3 and some window has a non-zero cell
+  inside it, Task A's base case is invalid and I say so first.
+- **C3 (optional)**: only if C1 and C2 are done. First check whether Lean 4 / Coq is installed in WSL (`lean`, `lake`, `coqc`
+  on PATH); if not, the result is "toolchain absent" and stop. No install.

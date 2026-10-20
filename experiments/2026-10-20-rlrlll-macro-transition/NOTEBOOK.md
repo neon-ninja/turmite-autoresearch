@@ -140,3 +140,8 @@ an extrapolation artefact. The "swing 41" floor was the zigzag filter. B3 uninfo
 Why does the clock formula hold at m < 2 where C(m,q) is not defined (end blocks longer than the column)? Is there an extended
 family of truncated configurations? What at the blob's NW corner produces a height-19 first column? The 3-row cone margin should be
 derived from the checker (the maximum row reach beyond the rectangle per cycle).
+
+### 2026-10-21 08:15 +1300 · b012636 · intent
+Task C: independent second checker (C1), derived cone margin (C2), proof-assistant statement only if time and toolchain (C3).
+Predictions C1a-1..3, C1b (a-e), C1 controls 1-4, C2a-d registered in README before any Task C code exists. 8 logical cores
+visible, no cargo/release processes running; I work on one core regardless.
