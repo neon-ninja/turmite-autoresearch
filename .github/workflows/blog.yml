@@ -23,6 +23,10 @@ jobs:
       pages: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          # export_results.py pins provenance to `git log -1 -- <inputs>`; a
+          # shallow clone would report HEAD and fail the --check.
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
