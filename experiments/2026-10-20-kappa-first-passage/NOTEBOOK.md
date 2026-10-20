@@ -154,3 +154,11 @@ Frozen analysis (scripts/analyze.py; results/confirm_analysis_skipP3.json, resul
 - **Deviation (performance only, after seeing predictions):** the full analysis spent > 2 h in the exploratory pooled P3 block (sparse solve on ~1e6 pooled states). I added FP_SKIP_P3 to analyze.py and ran a second instance without it; no verdict-bearing quantity changed. The full run is left running; if it finishes its P3 numbers are exploratory only.
 Post-hoc descriptives (scripts/describe.py, results/describe.json, labelled exploratory): across 46 rules the slope of ln E[T] on ln(A/P) over the three bands has median 0.998 (quartiles 0.88, 1.10; 93% within 0.5-1.5), the slope of ln E[D] median -0.0007 (delta ~ 0), and the slope of ln kappa_inst median -0.003.
 Reading (interpretation, post hoc): the renewal identity d ln kappa/d ln L = 1 + delta - slope_ET is satisfied to about 0.005 in the medians; kappa is stable because the interior return time grows linearly with the boundary scale (E[T] ~ L) while the boundary dwell stays constant. That is the registered condition z(1-theta) = 1 + delta with delta = 0, measured as a descriptive slope, not as a P1 test (no theta or z was estimated). It also explains the P2 failure: a kernel fitted at smaller L carries E[T] smaller by roughly the scale ratio (pred/obs E[T] 0.42-0.49), a non-stationarity no state refinement in this instrument can capture.
+
+### 2026-10-21 03:03 +13:00 · e9bb959 · decision
+
+End of session. (1) The full-length frozen analysis (with the exploratory pooled P3 block) was stopped after about 2.5 h without finishing; the
+reported analysis is the FP_SKIP_P3=1 run, whose predictions match the partial full run's predictions.csv at the 1e-16 level (results/confirm_predictions.csv
+is from the full run's early stage, results/confirm_analysis_skipP3.json from the second run). No P3 numbers exist. (2) Verdicts: P2 FAIL; P1, P3, P4 untested; deep-dominance rule triggered.
+(3) Written up in README "Results", notebook.ipynb (executed from committed results), notes/kappa-mechanisms-2026-10-15.md, blog post 2026-10-21 and blog/index.html.
+(4) Unresolved/open: why E[T] ~ L; calibrated tail estimator; deeper milestones and radius-4 context; the 2 budget-capped drifting rules. (5) tests/kappa_first_passage.rs is marked superseded, not deleted.
