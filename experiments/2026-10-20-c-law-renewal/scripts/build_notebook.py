@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[3]
 EXP = Path(__file__).resolve().parents[1]
 path = EXP / "notebook.ipynb"
 book = json.loads(path.read_text())
-cells = [c for c in book["cells"] if c["id"] not in {"pilot-provenance", "pilot-audit", "pilot-interpretation", "memory-method", "memory-audit", "memory-figure", "memory-interpretation"}]
+cells = [c for c in book["cells"] if c["id"] not in {"pilot-provenance", "pilot-audit", "pilot-interpretation", "memory-method", "memory-audit", "memory-figure", "memory-interpretation", "information-audit", "native-method", "native-audit", "native-limits"}]
 cells[0]["source"] = [
     "# What does a new cell cost?\n\n",
     "This experiment asks what process sets births per boundary read. See [the protocol](README.md) and [the append-only log](NOTEBOOK.md). Calibrated recording exposed an unsupported rich lookup; a finite colour-memory closure subsequently failed both registered cost and return-budget tests. The main cohort remains unrun.\n\n",
@@ -102,6 +102,50 @@ M1 and M2 fail at both r=4 and r=8; r=8's budget miss is narrow but remains a fa
 Short-loop phase preservation alone with uniform forgotten phases is insufficient here. This is not a general rejection of local mechanisms. Global geometry is retained by the model, the window is early, there are only four pilot rules, and main outcomes remain unopened. The full-ant clock audit is exploratory and not a proof of asymptotic equivalence.
 
 Next proposal: preserve only the old turn bit when scrambling a forgotten phase, then compare preserving two future turns. That distinguishes a directional field from a distant phase clock. It needs a fresh oracle, registration, exposure checks and held-out confirmation; no such result exists yet. The c-law coefficients and later-letter corrections remain unexplained.
+''')
+    ])
+if (EXP / 'results/information_report.json').exists():
+    cells.append(code('information-audit', '''# Subsequent read/write-information pilot; original failures stand.
+p = EXP / 'results/information_report.json'
+subprocess.run(['git', 'ls-files', '--error-unmatch', str(p.relative_to(ROOT))], cwd=ROOT, check=True, capture_output=True)
+subprocess.run(['git', '-c', 'core.filemode=false', 'diff', '--exit-code', 'HEAD', '--', str(p.relative_to(ROOT))], cwd=ROOT, check=True, capture_output=True)
+print(hashlib.sha256(p.read_bytes()).hexdigest(), p.relative_to(ROOT))
+information = json.loads(p.read_text())
+print(json.dumps(information['tests'], indent=2))
+print('All information candidates fail I2; close total cost does not restore the physical return budget.')
+'''))
+if (EXP / 'results/native_report.json').exists():
+    cells.extend([
+        markdown('native-method', '''## Does the boundary birth process differ, or only physical return time?
+The next registered audit keeps all earlier failures. A boundary source cannot have been interior on a previous read, since visitation only removes fresh neighbours. Its phase clock therefore counts boundary visits. Compare first/1..4/5..16/>16 native return budgets, the complete empirical inter-birth waiting distribution, and adjacent waiting pairs in fixed bins. Left and right partial waits are retained as censored endpoints.
+
+Same four excluded bases, two seeds, five arms, 2048 warmup plus 8192 measurement reads. No main outcomes, parameter fitting or new treatment. Known synthetic waits calibrate the counters; physical-time stretching must leave native summaries invariant, and reordering equal-marginal waits must change the serial test. The sparse path oracle checks native lags through warmup. Every earlier ant summary must replay exactly.
+'''),
+        code('native-audit', '''p = EXP / 'results/native_report.json'
+subprocess.run(['git', 'ls-files', '--error-unmatch', str(p.relative_to(ROOT))], cwd=ROOT, check=True, capture_output=True)
+subprocess.run(['git', '-c', 'core.filemode=false', 'diff', '--exit-code', 'HEAD', '--', str(p.relative_to(ROOT))], cwd=ROOT, check=True, capture_output=True)
+print(hashlib.sha256(p.read_bytes()).hexdigest(), p.relative_to(ROOT))
+native = json.loads(p.read_text())
+print('Synthetic calibration:', native['calibration'])
+for name, digest in native['inputs_sha256'].items():
+    q = ROOT / name
+    subprocess.run(['git', 'ls-files', '--error-unmatch', name], cwd=ROOT, check=True, capture_output=True)
+    assert hashlib.sha256(q.read_bytes()).hexdigest() == digest
+    r = json.loads(q.read_text())
+    s = r['native']
+    assert sum(s['native_lag']) == s['reads'] == r['summary']['boundary_reads']
+    assert s['births'] == r['summary']['births']
+    assert s['left_partial_reads'] + sum(int(k)*v for k,v in s['wait_counts'].items()) + s['right_censored_reads'] == s['reads']
+    assert sum(s['wait_counts'].values()) == s['complete_waits']
+    assert sum(s['joint_counts'].values()) == max(0, s['complete_waits']-1)
+for mode, result in native['tests'].items():
+    print(mode, 'N1', result['N1'], 'N2', result['N2'], 'median native budget error', result['median_budget_error'], 'waiting-pass pairs', result['waiting_pass_pairs'])
+    for r in result['sensitive']:
+        print('  sensitive seed', r['seed'], 'budget', r['native_budget_error'], 'wait TV', r['wait_tv'], 'serial TV', r['joint_tv'])
+print('Full-reference between-seed distances:', native['reference_seed_spreads'])
+'''),
+        markdown('native-limits', '''## Limits of the native-clock comparison
+These are descriptive distances between finite early windows, not independent-event significance tests. Complete waits exclude endpoint-censored intervals; the exact endpoint identity checks accounting without assuming their absence. Adjacent-pair agreement would not prove independence or equality of all higher-order history. Two seeds per four previously inspected pilot rules cannot establish general sufficiency. Full-reference seed distances expose sampling variability but do not change registered thresholds. All physical-budget failures remain recorded; main P1–P4 are untested, and the c-law intercept and slope remain unexplained.
 ''')
     ])
 for cell in cells:

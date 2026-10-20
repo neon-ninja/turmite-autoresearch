@@ -38,6 +38,8 @@ pub struct State {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Event {
     pub t: u64,
+    /// All-boundary-read clock, including warmup; zero means first source read.
+    pub boundary_lag: u64,
     pub state: State,
     pub born: bool,
 }
@@ -147,6 +149,7 @@ pub fn trace_clock<W: Walker>(
     let mut vis = vec![false; w * h];
     let mut unv = vec![0u8; w * h];
     let mut last = vec![0u32; w * h];
+    let mut last_boundary = vec![0u32; w * h];
     let mut out = Summary {
         chains: vec![0; CHC],
         ..Summary::default()
@@ -189,6 +192,14 @@ pub fn trace_clock<W: Walker>(
     for t in 1..=total {
         let i = y * w + x;
         let on_b = unv[i] > 0;
+        let boundary_lag = if on_b {
+            let previous = last_boundary[i] as u64;
+            let now = seen_boundary + 1;
+            last_boundary[i] = now as u32;
+            if previous == 0 { 0 } else { now - previous }
+        } else {
+            0
+        };
         let in_window = started;
         prepare(&mut walker, &mut col[i], hd);
         let mut state = State::default();
@@ -259,7 +270,12 @@ pub fn trace_clock<W: Walker>(
             if on_b {
                 out.boundary_reads += 1;
                 out.lag[state.lag as usize] += 1;
-                emit(Event { t, state, born });
+                emit(Event {
+                    t,
+                    boundary_lag,
+                    state,
+                    born,
+                });
             }
             assert!(!born || on_b);
             out.births += u64::from(born);

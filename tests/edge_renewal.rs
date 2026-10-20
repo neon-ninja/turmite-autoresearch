@@ -43,6 +43,8 @@ fn oracle<W: Walker>(
     let mut pos = (start.0 as i64, start.1 as i64);
     let mut heading = start.2 as usize;
     let mut last = HashMap::new();
+    let mut last_boundary = HashMap::new();
+    let mut boundary_index = 0u64;
     let mut chain = 0;
     let mut events = Vec::new();
     for t in 1..=(1u64 << log2) {
@@ -54,6 +56,14 @@ fn oracle<W: Walker>(
             colour,
             chain_before: chain.min(4),
             ..State::default()
+        };
+        let boundary_lag = if boundary {
+            boundary_index += 1;
+            last_boundary
+                .insert(pos, boundary_index)
+                .map_or(0, |p| boundary_index - p)
+        } else {
+            0
         };
         if let Some(prev) = last.get(&pos) {
             let dt = t - prev;
@@ -125,7 +135,12 @@ fn oracle<W: Walker>(
         pos = norm((pos.0 + d.0 as i64, pos.1 + d.1 as i64));
         let born = visited.insert(pos);
         if t > (1u64 << (log2 - 1)) && boundary {
-            events.push(Event { t, state: s, born });
+            events.push(Event {
+                t,
+                boundary_lag,
+                state: s,
+                born,
+            });
         }
         chain = if born { chain + 1 } else { 0 };
         if !lay.wrap

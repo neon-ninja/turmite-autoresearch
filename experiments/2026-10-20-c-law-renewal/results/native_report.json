@@ -1,0 +1,524 @@
+{
+  "calibration": {
+    "seed": 2026102071,
+    "known_wait_counts_exact": true,
+    "time_stretch_invariant": true,
+    "same_marginal_serial_tv": 0.9974937343358395,
+    "empty_window_accounting": true
+  },
+  "tests": {
+    "uniform:4": {
+      "eligible": 8,
+      "N1": "FAILED",
+      "N2": "FAILED",
+      "median_budget_error": 0.2289049961356466,
+      "waiting_pass_pairs": 2,
+      "sensitive": [
+        {
+          "family": "pilot-m4-00",
+          "rule": "RRRRLLRRLLLLRR",
+          "seed": "2026102021",
+          "mode": "uniform:4",
+          "eligible": true,
+          "native_budget_error": 1.1803134344395358,
+          "wait_tv": 0.1288695811670375,
+          "joint_tv": 0.27011696785091494
+        },
+        {
+          "family": "pilot-m4-00",
+          "rule": "RRRRLLRRLLLLRR",
+          "seed": "2026102022",
+          "mode": "uniform:4",
+          "eligible": true,
+          "native_budget_error": 1.173555973411283,
+          "wait_tv": 0.14303062507242612,
+          "joint_tv": 0.2937611830188783
+        }
+      ]
+    },
+    "turn:4": {
+      "eligible": 8,
+      "N1": "FAILED",
+      "N2": "FAILED",
+      "median_budget_error": 0.22112920981112058,
+      "waiting_pass_pairs": 2,
+      "sensitive": [
+        {
+          "family": "pilot-m4-00",
+          "rule": "RRRRLLRRLLLLRR",
+          "seed": "2026102021",
+          "mode": "turn:4",
+          "eligible": true,
+          "native_budget_error": 0.8632407738977129,
+          "wait_tv": 0.15398413802138444,
+          "joint_tv": 0.3168192921342004
+        },
+        {
+          "family": "pilot-m4-00",
+          "rule": "RRRRLLRRLLLLRR",
+          "seed": "2026102022",
+          "mode": "turn:4",
+          "eligible": true,
+          "native_budget_error": 0.8886841166740018,
+          "wait_tv": 0.15883879711704954,
+          "joint_tv": 0.3164849106901025
+        }
+      ]
+    },
+    "next:4": {
+      "eligible": 8,
+      "N1": "FAILED",
+      "N2": "FAILED",
+      "median_budget_error": 0.16951628465404817,
+      "waiting_pass_pairs": 2,
+      "sensitive": [
+        {
+          "family": "pilot-m4-00",
+          "rule": "RRRRLLRRLLLLRR",
+          "seed": "2026102021",
+          "mode": "next:4",
+          "eligible": true,
+          "native_budget_error": 1.192697480259164,
+          "wait_tv": 0.12456058726220015,
+          "joint_tv": 0.2646623319989612
+        },
+        {
+          "family": "pilot-m4-00",
+          "rule": "RRRRLLRRLLLLRR",
+          "seed": "2026102022",
+          "mode": "next:4",
+          "eligible": true,
+          "native_budget_error": 1.1413735921688208,
+          "wait_tv": 0.12387813392451119,
+          "joint_tv": 0.26260145617170755
+        }
+      ]
+    },
+    "word2:4": {
+      "eligible": 8,
+      "N1": "FAILED",
+      "N2": "FAILED",
+      "median_budget_error": 0.13727524297030747,
+      "waiting_pass_pairs": 4,
+      "sensitive": [
+        {
+          "family": "pilot-m4-00",
+          "rule": "RRRRLLRRLLLLRR",
+          "seed": "2026102021",
+          "mode": "word2:4",
+          "eligible": true,
+          "native_budget_error": 0.5743657113955111,
+          "wait_tv": 0.14392986276635814,
+          "joint_tv": 0.28942879895382
+        },
+        {
+          "family": "pilot-m4-00",
+          "rule": "RRRRLLRRLLLLRR",
+          "seed": "2026102022",
+          "mode": "word2:4",
+          "eligible": true,
+          "native_budget_error": 0.6195667937662779,
+          "wait_tv": 0.14513057050893174,
+          "joint_tv": 0.281639469992835
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "seed": "2026102021",
+      "mode": "next:4",
+      "eligible": true,
+      "native_budget_error": 0.16379565185822903,
+      "wait_tv": 0.1206751206751207,
+      "joint_tv": 0.22642072733633115
+    },
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "seed": "2026102021",
+      "mode": "turn:4",
+      "eligible": true,
+      "native_budget_error": 0.1268278105278441,
+      "wait_tv": 0.06990946055207611,
+      "joint_tv": 0.1389011598481621
+    },
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "seed": "2026102021",
+      "mode": "uniform:4",
+      "eligible": true,
+      "native_budget_error": 0.15742838512552315,
+      "wait_tv": 0.11302936884332235,
+      "joint_tv": 0.20634459214297718
+    },
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "seed": "2026102021",
+      "mode": "word2:4",
+      "eligible": true,
+      "native_budget_error": 0.0642870652666539,
+      "wait_tv": 0.014537152956771517,
+      "joint_tv": 0.032377712866996866
+    },
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "seed": "2026102022",
+      "mode": "next:4",
+      "eligible": true,
+      "native_budget_error": 0.21926394701598487,
+      "wait_tv": 0.13971431170958054,
+      "joint_tv": 0.25918139163283554
+    },
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "seed": "2026102022",
+      "mode": "turn:4",
+      "eligible": true,
+      "native_budget_error": 0.19602660195435873,
+      "wait_tv": 0.0980834631624523,
+      "joint_tv": 0.17973413203025237
+    },
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "seed": "2026102022",
+      "mode": "uniform:4",
+      "eligible": true,
+      "native_budget_error": 0.24112782757302426,
+      "wait_tv": 0.13769338311532722,
+      "joint_tv": 0.24435127267795181
+    },
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "seed": "2026102022",
+      "mode": "word2:4",
+      "eligible": true,
+      "native_budget_error": 0.16226378751021261,
+      "wait_tv": 0.037577694745975804,
+      "joint_tv": 0.07380466458851258
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "seed": "2026102021",
+      "mode": "next:4",
+      "eligible": true,
+      "native_budget_error": 0.1752369174498673,
+      "wait_tv": 0.11755322961878735,
+      "joint_tv": 0.21704575722983258
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "seed": "2026102021",
+      "mode": "turn:4",
+      "eligible": true,
+      "native_budget_error": 0.24623181766788244,
+      "wait_tv": 0.08467666608413729,
+      "joint_tv": 0.17603833865814694
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "seed": "2026102021",
+      "mode": "uniform:4",
+      "eligible": true,
+      "native_budget_error": 0.22026257168869778,
+      "wait_tv": 0.09923795236346276,
+      "joint_tv": 0.19335540615680127
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "seed": "2026102021",
+      "mode": "word2:4",
+      "eligible": true,
+      "native_budget_error": 0.14191436795635148,
+      "wait_tv": 0.05891178397364714,
+      "joint_tv": 0.11428802548374768
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "seed": "2026102022",
+      "mode": "next:4",
+      "eligible": true,
+      "native_budget_error": 0.12352470517556441,
+      "wait_tv": 0.1059520591150761,
+      "joint_tv": 0.22079589216944803
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "seed": "2026102022",
+      "mode": "turn:4",
+      "eligible": true,
+      "native_budget_error": 0.2857962877893741,
+      "wait_tv": 0.09940259571654027,
+      "joint_tv": 0.21509234004781064
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "seed": "2026102022",
+      "mode": "uniform:4",
+      "eligible": true,
+      "native_budget_error": 0.23754742058259543,
+      "wait_tv": 0.11341132412560981,
+      "joint_tv": 0.2310927551596987
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "seed": "2026102022",
+      "mode": "word2:4",
+      "eligible": true,
+      "native_budget_error": 0.13263611798426345,
+      "wait_tv": 0.0585738089828069,
+      "joint_tv": 0.13311208583710665
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "seed": "2026102021",
+      "mode": "next:4",
+      "eligible": true,
+      "native_budget_error": 0.000984876866027884,
+      "wait_tv": 0.00015145778114353248,
+      "joint_tv": 0.00030314513073130545
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "seed": "2026102021",
+      "mode": "turn:4",
+      "eligible": true,
+      "native_budget_error": 0.000984876866027884,
+      "wait_tv": 0.00015145778114353248,
+      "joint_tv": 0.00030314513073130545
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "seed": "2026102021",
+      "mode": "uniform:4",
+      "eligible": true,
+      "native_budget_error": 0.004691182880976141,
+      "wait_tv": 0.00045385779122541353,
+      "joint_tv": 0.0006056020772839538
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "seed": "2026102021",
+      "mode": "word2:4",
+      "eligible": true,
+      "native_budget_error": 0.000984876866027884,
+      "wait_tv": 0.00015145778114353248,
+      "joint_tv": 0.00030314513073130545
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "seed": "2026102022",
+      "mode": "next:4",
+      "eligible": true,
+      "native_budget_error": 0.0013623463117835577,
+      "wait_tv": 0.0001513431272592014,
+      "joint_tv": 0.00030291556228700944
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "seed": "2026102022",
+      "mode": "turn:4",
+      "eligible": true,
+      "native_budget_error": 0.0003783579265985715,
+      "wait_tv": 0.0,
+      "joint_tv": 0.0
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "seed": "2026102022",
+      "mode": "uniform:4",
+      "eligible": true,
+      "native_budget_error": 0.0003783579265985715,
+      "wait_tv": 0.0,
+      "joint_tv": 0.0
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "seed": "2026102022",
+      "mode": "word2:4",
+      "eligible": true,
+      "native_budget_error": 0.0019654585676613934,
+      "wait_tv": 0.00030262912271338677,
+      "joint_tv": 0.0006054299878097691
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "seed": "2026102021",
+      "mode": "next:4",
+      "eligible": true,
+      "native_budget_error": 1.192697480259164,
+      "wait_tv": 0.12456058726220015,
+      "joint_tv": 0.2646623319989612
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "seed": "2026102021",
+      "mode": "turn:4",
+      "eligible": true,
+      "native_budget_error": 0.8632407738977129,
+      "wait_tv": 0.15398413802138444,
+      "joint_tv": 0.3168192921342004
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "seed": "2026102021",
+      "mode": "uniform:4",
+      "eligible": true,
+      "native_budget_error": 1.1803134344395358,
+      "wait_tv": 0.1288695811670375,
+      "joint_tv": 0.27011696785091494
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "seed": "2026102021",
+      "mode": "word2:4",
+      "eligible": true,
+      "native_budget_error": 0.5743657113955111,
+      "wait_tv": 0.14392986276635814,
+      "joint_tv": 0.28942879895382
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "seed": "2026102022",
+      "mode": "next:4",
+      "eligible": true,
+      "native_budget_error": 1.1413735921688208,
+      "wait_tv": 0.12387813392451119,
+      "joint_tv": 0.26260145617170755
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "seed": "2026102022",
+      "mode": "turn:4",
+      "eligible": true,
+      "native_budget_error": 0.8886841166740018,
+      "wait_tv": 0.15883879711704954,
+      "joint_tv": 0.3164849106901025
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "seed": "2026102022",
+      "mode": "uniform:4",
+      "eligible": true,
+      "native_budget_error": 1.173555973411283,
+      "wait_tv": 0.14303062507242612,
+      "joint_tv": 0.2937611830188783
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "seed": "2026102022",
+      "mode": "word2:4",
+      "eligible": true,
+      "native_budget_error": 0.6195667937662779,
+      "wait_tv": 0.14513057050893174,
+      "joint_tv": 0.281639469992835
+    }
+  ],
+  "reference_seed_spreads": [
+    {
+      "family": "pilot-m1-00",
+      "rule": "RLLRLRRRLLRLLL",
+      "native_budget_error": 0.06866195966314159,
+      "wait_tv": 0.03198597974323568,
+      "joint_tv": 0.05292412036970971
+    },
+    {
+      "family": "pilot-m2-00",
+      "rule": "RRLLRLRLRRRLLR",
+      "native_budget_error": 0.01897050895757091,
+      "wait_tv": 0.029350480527189794,
+      "joint_tv": 0.03683606803121957
+    },
+    {
+      "family": "pilot-m3-00",
+      "rule": "RRRLRRRLLRRLRL",
+      "native_budget_error": 0.002725724313314748,
+      "wait_tv": 0.0003028009084027339,
+      "joint_tv": 0.0004545455197637466
+    },
+    {
+      "family": "pilot-m4-00",
+      "rule": "RRRRLLRRLLLLRR",
+      "native_budget_error": 0.05088084099215162,
+      "wait_tv": 0.04402934398442972,
+      "joint_tv": 0.04194066343101121
+    }
+  ],
+  "inputs_sha256": {
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102021-full.json": "d875f048a9126633ba207add454d1b0c42199a2e605019d4818ce26b0163de2b",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102021-next-4.json": "531c1288acd9cd510af5ddbfbdce011100aff80e3847a7e4d53f0d71b6023929",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102021-turn-4.json": "007e119291056041e001ea4918bef66fd594ee816a8deb2bd82852210924cfe5",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102021-uniform-4.json": "cf0457d6f1b4780de48f699ed1f1bbe394c429f74881f232991cf9d5da8af11b",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102021-word2-4.json": "239329826cffcea737bc59ccbf99c1dd989609701f7161c27b4c348544056126",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102022-full.json": "b3305543c1b58ae6892ef6bb851c4523453d06dcac6dee3b06db36f6580efbb6",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102022-next-4.json": "630aa22b002b3a2d3968fb91cc439cdd783d74eda919a575d7440df9b3255abd",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102022-turn-4.json": "1ecd070e3803238d71a4dbc9d5f2db3f5b9546229ff1e3b5452f5a4ef004ae59",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102022-uniform-4.json": "eec04506dac6039f5537c44c0a4d029fc1b522c42a06f6dbaed3bc107a0d91fd",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m1-00-2026102022-word2-4.json": "ccc331dbba8a6cfb4cdeee995e993667b42cd302fd5362653421ee5e316ce27b",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102021-full.json": "648bc6f773e72ecaaf5eec486e2215d56245f18df5d27b0004966fc468fcff4e",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102021-next-4.json": "221af2d8884840d7ca13f16f774bb5deb2478e8972bf93e021bd9b1ab81cc925",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102021-turn-4.json": "b2e24832851e6b9d228e84f31a9fd003c4968bd56a083fb7aea56e811f57b295",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102021-uniform-4.json": "872c4574ca211563a60dd79189d352d133af5734e8418cde1bb3c4815fe59b9e",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102021-word2-4.json": "35bdee3b3b0d56220fc8c7212db7bf89f4d79882a782f12c7b981d6c9239ee17",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102022-full.json": "7695c1bd9fd060ef1f081ccf8be7855768a1b50244af9f510d3e295f16677718",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102022-next-4.json": "fc3549e574c2ba969e59b8a93c5a66043b4434cedc8284bf4afffd0aa0523734",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102022-turn-4.json": "7e7aacfeb4ba3f3c212f2408c9c12e2ecc8c9c367d27b0835eb5b75ff8a914a5",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102022-uniform-4.json": "d0126bfcecf5fdeca71e69b10425341169a959d4ecfb06565439c9e2d16ee13d",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m2-00-2026102022-word2-4.json": "5b947c4a5649a8153f4a5e00e113359f197e9d824d7a35218780c436f2940ddf",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102021-full.json": "824324ceb26dac975756bc6e8fc1b107792f326beffa0703297d5852024fe25e",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102021-next-4.json": "a356aff3ddb099a1e43bf1337bddde0a8146ac7c10eb8fa51a50da17fc3a28c9",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102021-turn-4.json": "402f75bad7e1af449bcd7af35163437be587763bd174fc2c1165f7d5338c606f",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102021-uniform-4.json": "f89335be3d29d7f0e9b14f560b6b0b68e189e82dec5261f51479465acc9202fb",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102021-word2-4.json": "b29e54994d05663401e9a75661d02a8c9008bb4fc3203d97cf3ad3e42f85433d",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102022-full.json": "06a1967d2ade0499eb248218cb1d0ad48d0b26b060f0bdd074c51f3c491aae8b",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102022-next-4.json": "2dd09e894d61eb399fefedbd885bf2a2648a09ad6aea0bef964f4a98fb4bec95",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102022-turn-4.json": "19a72eb6eac2cdae99f205cf51c0a286b9ca9dda3ae545352d6bc6f694e86320",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102022-uniform-4.json": "e0b6f6ed87cdcf700a68dc8639473228deec16a31c3608cc63cdcb444c29c94d",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m3-00-2026102022-word2-4.json": "69ef546b65371e389cddb8ab7d5a4a6425960014fcddc0830ce2de44b86f0ca1",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102021-full.json": "2e2c2fb9d898f3c8f5121dc7567b1c283b6963e1212f037f47beed9d52695d3a",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102021-next-4.json": "fd6691ecfa9e3dd89002ee67d9ee16f1bd23c45355113826143b70ee742ff635",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102021-turn-4.json": "baa472ce0e102f6fd950bd2d02201be14fde612d4ed946c41470d7c365594b17",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102021-uniform-4.json": "c210b69db250f44f4b1a8eaead0cc3d10a8b206f7d2cfa893586496c79d75f60",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102021-word2-4.json": "4561cbda522c9ab69410b4a585360e986eecab243a47d5d36a28df8631fb0221",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102022-full.json": "f0ccb8a2d34c026393e63c4f9ff29829e3d59c682276145ebeaa33fcd2cecc7b",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102022-next-4.json": "ae40f2be125f7f7531cb2040dc5e73fa75d91cd073baa55e99a8cf1446775bcb",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102022-turn-4.json": "3b34574d6cddb9ea40380724f28e921a59fe5e0f9b87eb2b8c9c94f3352aecd9",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102022-uniform-4.json": "0aac51a0ce93d22b523e3570e5dfe8b14e5f4a2591ac3456a560e7e968a56283",
+    "experiments/2026-10-20-c-law-renewal/results/native_v1/pilot-m4-00-2026102022-word2-4.json": "8b198f98dcc640678bd8ce59ed867a7fb127c143036ab706682934714bba592a"
+  },
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/analyse_native.py",
+  "script_sha256": "f42c702a6fd88b8aa4aade6a8cf832a388a24a7ca069a23adb4580a3ad84cc98",
+  "git_revision": "b1bcbbc4844a221abb02a36778664ae23a53ccaf"
+}

@@ -1,0 +1,25 @@
+{
+  "git_revision": "b1bcbbc4844a221abb02a36778664ae23a53ccaf",
+  "binary": "/home/tim/turmite-renewal-native-by4mj8mx/release/examples/c_law_renewal_memory",
+  "binary_sha256": "ac9e1412fecb0f9e9aa398bc9c0251457b3c76747a5e4840e7081bfbf2312d73",
+  "sources_sha256": {
+    "src/edge_renewal.rs": "62743877697d08c59431755a774cc4d7a8c832b29ac0c550755f76e00e8f3de2",
+    "src/local_memory.rs": "47df8090e36bb885bbadf0f58bb07d125b93180ea032306f70a2d251d71bc328",
+    "src/edge_trace.rs": "b466b8397ec67667bcf1c18c2badb2b52e3a98918ec7ee4ff4dc79eae50b6f12",
+    "src/walkers.rs": "501047a540bd5d727febb40df74a6340419a8a82b780729c1ebdb2a2849eba76",
+    "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+    "examples/c_law_renewal_memory.rs": "17197886e86587b45dc91e65e7b4af406e995acfb8801175812bd5c700a64683",
+    "tests/edge_renewal.rs": "a20aa60ec2a1c9f0b46830a201a37e2a0f7aaede6700a0f8cb04bfd692eb5f92",
+    "tests/local_memory.rs": "aaa104505e2e771062c247556075bf134306fe9bc0dd3b412b6012d4e848fc92",
+    "Cargo.toml": "6c79cef37d9d63b0b6c6beaa145c2a5151823424d346431f5e405adf786b689e",
+    "Cargo.lock": "10e4dd6eb9399e13617dadc91fe871cd730673109b6977c6f9659ea91b3fb6f1",
+    "experiments/2026-10-20-c-law-renewal/information_design.json": "dad69395d1a3b8d6dc27cd430ea37061a425911eba682e1985d77d5ba2e446ee",
+    "experiments/2026-10-20-c-law-renewal/scripts/run_native.py": "7aac48806554439f75db4966567022301f59ab5c13f542f9837879c7b164cf71",
+    "experiments/2026-10-20-c-law-renewal/scripts/analyse_native.py": "f42c702a6fd88b8aa4aade6a8cf832a388a24a7ca069a23adb4580a3ad84cc98"
+  },
+  "release_test_exit": 0,
+  "build_exit": 0,
+  "fresh_target": "/home/tim/turmite-renewal-native-by4mj8mx",
+  "command": "uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_native.py",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+}

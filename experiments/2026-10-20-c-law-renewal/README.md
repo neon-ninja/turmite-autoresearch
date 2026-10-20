@@ -4,7 +4,9 @@
 The rich lookup lacks transfer support. A finite colour-memory model also
 fails its registered cost/budget tests: preserving nearby short-loop phases
 while randomizing forgotten long-return phases is insufficient in this pilot.
-Main outcomes remain unopened; the c-law coefficients remain unexplained.
+Read/write-bit closures also fail native boundary-return and birth-wait tests;
+physical-time stretching alone cannot rescue them. Main outcomes remain unopened;
+the c-law coefficients remain unexplained.
 
 Scaffold created 2026-10-20 (+13:00), base revision
 `adf66774570469da30b10ffc1ceab911670a9d09`.
@@ -780,3 +782,113 @@ clock stretching and known renewal sequences; replay old trajectories exactly.
 Freeze new thresholds before inspecting native-clock outputs. Any alternative
 mechanism still needs fresh main/window/mutation tests. No goal completion
 or retrospective pass is claimed by raising this instrument question.
+
+## Native boundary-process audit — 2026-10-20 07:30 (+13:00)
+
+Registered before native-clock instrumentation or outcomes. Existing M/I failures
+stand. Hypothesis H-clock: physical-time budget differences can coexist with a
+matching boundary birth process. Test the same four excluded bases, two seeds,
+five information arms, unchanged 2048+8192 boundary window and 2^28 cap.
+No main outcomes, changed radius or longer retained word.
+
+Add a per-event return lag in **all boundary reads**, including warmup, since
+the source's previous boundary read; zero denotes no previous read. Monotone
+visitation implies a boundary source has never previously been interior, so
+first-read status must agree with the physical clock. Classify native returns
+as first / 1..4 / 5..16 / >16; these counts per birth sum exactly to 1/c.
+This is a new classification, not a reinterpretation of physical lag-4.
+
+Record the complete empirical distribution of waits between successive births
+in boundary-event indices. Exclude the left partial and right censored waits,
+report both explicitly, and verify first-birth-index + complete wait sum +
+right tail = window reads. Report adjacent-wait joint distributions using
+fixed bins 1,2,3,4,5..8,9..16,17..32,>32. This tests serial structure beyond
+a matched marginal or mean; finite samples do not establish renewal/independence.
+
+N0: independent sparse path oracle must reproduce native lags including warmup;
+all 40 old ant summaries replay every old field exactly before interpretation.
+Calibrate the analysis on known deterministic renewal sequences, arbitrary
+physical-time stretching (native summaries exactly invariant), and sequences
+with equal waiting marginals but changed serial order (joint TV >.20).
+Instrument equality and these analysis calibrations gate interpretation.
+
+N1 (each compressed arm): >=6/8 eligible pairs, median largest native-budget
+error <=.20, and both sensitive-rule seeds <=.20. N2: complete waiting-law
+TV <=.05 and adjacent binned-wait joint TV <=.075 in both sensitive seeds
+and in >=6/8 eligible pairs. Eligibility is unchanged; zero-birth complete
+arms fail, caps are retained. Compare uniform as a negative comparator, not
+a required negative result. Preserve I1/I3 exposure gates; even all N tests
+holding would support only this pilot's boundary-process approximation and
+would not withdraw I2 or explain c-law coefficients. Any failed N test rejects
+H-clock as a sufficient explanation for that arm under these descriptive
+thresholds. No p-values or confidence intervals from eight dependent pairs.
+Thresholds are prospective resolution choices; report all distances and two-seed
+spreads, including the full reference's own seed-to-seed distances.
+
+Fresh build and SHA-256, no overlapping heavy jobs, per-case provenance and
+validated .done markers required. New recorder emits optional event rows;
+compact exact histograms/joint counts are committed, bulk rows are discarded
+after checks and can be regenerated. Synthetic calibration uses seed 2026102071.
+Commands: `uv run --frozen experiments/2026-10-20-c-law-renewal/scripts/run_native.py`
+(background, results/native_v1/session.log), then `scripts/analyse_native.py`.
+
+## Native-clock outcome — 2026-10-20 07:35 (+13:00)
+
+Registration `3521b6c037168657e26b21bb0b6bdc254eed8faf`; instrument/analysis
+`b1bcbbc4844a221abb02a36778664ae23a53ccaf`. Background worker 1997684
+completed with exit 0. All 40 old ant summaries replay every prior field
+exactly. All windows complete, with 8 eligible pairs per treatment. Independent
+sparse native-lag oracle and synthetic counter/time-stretch/order tests pass.
+The full `cargo test --release` suite passes in a fresh target; logs, binary
+SHA-256, source hashes and per-case recipes are in `results/native_v1/`.
+No dependencies added; no GPU code changed. No main-cohort outcomes opened.
+
+**N1 and N2 FAIL for every arm.** The physical-budget failure is not explained
+solely by stretching interior excursion durations: native return costs and
+the boundary birth-waiting process differ too, on these inspected pilots.
+
+| Retained bits | Median largest native-budget error | Waiting/serial pass pairs | Sensitive waiting TV (two seeds) | Sensitive serial TV (two seeds) |
+|---|---:|---:|---:|---:|
+| Neither (uniform) | .228905 | 2/8 | .128870 / .143031 | .270117 / .293761 |
+| Read | .221129 | 2/8 | .153984 / .158839 | .316819 / .316485 |
+| Written | .169516 | 2/8 | .124561 / .123878 | .264662 / .262601 |
+| Both | .137275 | 4/8 | .143930 / .145131 | .289429 / .281639 |
+
+Sensitive native-budget errors for both bits are .574366/.619567 (limit .20).
+For comparison, the full reference's two sensitive-rule seeds differ by .050881
+in native budget, .044029 in waiting TV and .041941 in serial TV. These
+between-seed distances are descriptive, not confidence bounds or independent
+replication. Across all four full rules the waiting TV is .000303–.044029,
+serial TV .000455–.052924. Full per-case exact waiting histograms and fixed-bin
+joint counts are committed, including endpoint censoring and accounting checks.
+Source: `results/native_report.json`; regenerate with the registered commands.
+
+The pair-of-bits model has a close total c in the prior test, yet plainly
+changes the distribution and ordering of boundary effort between births in
+this challenge. This rejects H-clock as a sufficient explanation for these
+arms under the frozen resolutions. It does not establish what remote
+information is sufficient, whether larger words work, or an asymptotic result.
+Keep I2 and every original failed prediction. Main P1–P4 remain untested;
+no intercept, slope or later-letter correction has been derived.
+
+### Next discrimination: one phase edit rather than sustained forgetting
+
+Proposal only, no new measurement. Repeated resets change the field and path
+together, so their failure does not isolate a single causal carrier. At a
+predetermined eligible boundary read of the full ant, replace only that source
+phase by another phase with the same next two turns, then evolve both copies
+with full memory and no more resets. Until the perturbed source reaches its
+first differing future turn, all moves and visited geometry must be identical:
+with a preserved two-turn word, no heading divergence can occur before its
+third read counting the edited read. This is an exact coupling prediction,
+not a fitted locality claim. A longer shared cyclic prefix delays divergence
+further; the first differing turn fixes the first divergent departure exactly.
+
+A registered branch test could ask whether hidden future-clock information
+has sustained effects on boundary birth waits or washes out after a finite
+boundary horizon. Choose eligible events and phase draws without target future
+outcomes, retain censored/no-return branches, calibrate the coupling with an
+independent oracle, and freeze the horizon/response before inspecting it.
+This would separate delayed causal release from the accumulated geometry
+changes of repeated forgetting. It would not by itself derive the c law.
+

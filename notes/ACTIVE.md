@@ -21,7 +21,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Local renewal mechanism for c:** rich lookup lacks pilot support (`0fa4db2`). Exact-rule finite colour-memory model then
   fails M1/M2 at r=4 and r=8 (`a878d5e`): nearby phase clocks plus uniform forgotten phases miss the cost/budget. An exact
   return bound ensures r=4 directly changes only >16-step phases. Long-budget loss can be hidden by more short loops.
-  Next: test preserving the old turn bit versus future-turn timing at forgotten cells; new oracle/registration still needed.
+  Read/write/pair closures also fail native return-budget and birth-wait tests (`94516e5`), rejecting physical-time stretching as a sufficient rescue. Next proposal: one coupled phase edit preserving two turns, with full memory thereafter; register branching/censoring and response horizons before measuring.
   Main cohort remains unopened. `experiments/2026-10-20-c-law-renewal/README.md`.
 - **S-arm kappa drop (d = -0.198) is unexplained.** A total effect, not area-conditioned; confounded with flip direction
   (L>R +0.15, R>L -0.21, post hoc). Needs direction-balanced flips. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 4
@@ -100,3 +100,4 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 - `experiments/2026-10-16-kappa-square-loop/`: H-loop dead at this scale (P2 failed).
 - `experiments/2026-10-16-kappa-loop-surgery/`: closed unrun on 2026-10-19 (gate failed; premise further weakened by the collider result).
+
