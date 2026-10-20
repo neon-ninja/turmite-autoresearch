@@ -8,7 +8,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Science: open questions
 
 - **First-passage closure (done 2026-10-21):** P2 failed, P1/P3/P4 untested; E[T] ~ L (slope 0.998) with E[D] flat explains constant kappa and the failure. Open: why E[T] ~ L; calibrated tail estimator; deeper milestones. `experiments/2026-10-20-kappa-first-passage/`, `notes/kappa-mechanisms-2026-10-15.md`.
-  Proposed work list for it (added 2026-10-20, none started; register predictions in the README before measuring):
+  Proposed work list for it (added 2026-10-20; the calibration and the E[T]-versus-L measurement were done by the first-passage experiment, the rest is open; register predictions in the README before measuring):
   - *Instrument calibration (before trusting any exponent).* Known-answer walkers for theta and z: run the nested-depth and
     survival-tail estimator on the rotor walker (known t^(1/3) radius), a random walk on a growing cluster (theta = 1/2 at fixed
     geometry, negative control) and the mean-field walker (repo mean-field kappa 1.118); reproduce the probe's window-averaging
