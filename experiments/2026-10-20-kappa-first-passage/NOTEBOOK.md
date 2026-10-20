@@ -73,3 +73,17 @@ Verified:
    - Distinguishes geometry-induced reclassification from physical contour crossings.
 All 4 test targets in `tests/kappa_first_passage.rs` pass with `--release`.
 
+
+### 2026-10-20 22:46 +13:00 · ba38590b33e32c8c0a7078d390cee8c11aa2ab20 · deviation
+
+Correction to the 21:26 entry (not an edit of it). The prototype in
+`tests/kappa_first_passage.rs` is not the instrument and "evolving depth
+maintenance" does not exist yet: (1) `is_geometry_induced` can never be true
+(an already-visited cell's depth is the same before and after insertion; a new
+cell is hard-coded false); (2) a geometry jump that skips a milestone (e.g.
+depth 3 -> 5) is silently dropped, leaving `current_milestone` stale and later
+segments misattributed; (3) it runs a full BFS every step (quadratic). The
+B+I=S and time-sum properties hold by construction, so they say little. Those
+tests verify only the oracle and bookkeeping skeleton. Plan: PLAN.md; fast
+depth field goes in `src/`, layered on `fixed_area` so band/sum_pa conventions
+are inherited and checkable byte for byte.
