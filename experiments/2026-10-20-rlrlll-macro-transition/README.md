@@ -467,3 +467,93 @@ counter-clockwise from heading 0 = north, R = +1 or -1), those that make C(m, q)
    envelope of the union of visited cells against Task A's `3 + s//3` cone; if the union pokes outside that cone anywhere, Task A's margin was not a
    sufficient certificate even if C2d passes, and the headline says so.
 7. **C3**: `which lean lake` finds `~/.elan/bin/lean` and `lake` in WSL, so C3 is not blocked by the toolchain. Version recorded when used.
+
+### Task C results: C1 and C2 (appended 2026-10-21 08:38 +1300; the registration and the corrections above are not edited)
+
+Commands (all one core, WSL; Python 3.12 stdlib only for the second checker; the only `src/` consumers are the first checker and the C1a driver; fresh
+`CARGO_TARGET_DIR=~/turmite-target-c1`, build exit status checked; driver sha256 in `results/c1_driver.sha256`, first-checker sha256 in the header of
+`results/c1_first_checker_controls.txt`):
+
+```bash
+E=experiments/2026-10-20-rlrlll-macro-transition
+python3 $E/scripts/c1_conventions.py                       > $E/results/c1a_conventions.txt     # C1a-1
+python3 $E/scripts/c1a.py $DRIVER $E/scratch/c1a           > $E/results/c1a_semantics.txt        # C1a-2, C1a-3, controls 1a/1b
+python3 $E/scripts/c1b.py                                  > $E/results/c1b_verify.txt           # C1b (a)-(e)
+python3 $E/scripts/c1b.py --canonical $E/results/canonical_k0_mut46.txt --skip-brute > $E/results/c1b_control_mut46.txt
+python3 $E/scripts/c1b.py --rule RLRLLR --skip-brute       > $E/results/c1b_control_rlrllr.txt
+python3 $E/scripts/c1_controls.py                          > $E/results/c1_controls.txt          # brute-force side of controls 2-4
+python3 $E/scripts/c2_reach.py                             > $E/results/c2_reach.txt             # C2a-c
+python3 $E/scripts/c2_recheck.py $E/scratch/win            > $E/results/c2_recheck.txt           # C2d (dumps: Task A command)
+python3 $E/scripts/c2_control.py $E/scratch/win            > $E/results/c2_control.txt
+```
+
+**Scores, as registered (a split outcome is not Held).**
+
+| Prediction | Outcome | Evidence |
+|---|---|---|
+| C1a-1 exactly 2 of 4 conventions close, label-equivalent | **Held** as registered. **Failed** as revised in the 08:16 correction (I then expected 1 of 4; the revision rested on a wrong premise, that heading 3 = west excludes the CCW table). Closing: (CW table, R = +1) and (CCW table, R = -1), 12/12 test cycles each; the two mirror ants close 0/12 | `results/c1a_conventions.txt` |
+| C1a-2 blank board 1e6 steps identical | **Held**: 1000/1000 checkpoints, same final position (-4, -22), heading, 12,699 cells, cell hash | `results/c1a_semantics.txt` |
+| C1a-3 12 window cycles identical | **Held**: 12/12 (checkpoints every 100 steps, final cell sets, min x = -3) | same |
+| C1b (a) descent lemma p = 2, s = 20 | **Held** for q = 0, 1, 2 (my frame has H = 1, K1 = 1 band row consumed by S1) | `results/c1b_verify.txt` |
+| C1b (b) return lemma p = 2, s = 4 | **Held** (H' = 1, e = 1 band row in S3) | same |
+| C1b (c) end-case runs exist, no sentinel read, nothing east of the strip, no early front advance | **Held**: S1, S3, S5 for all q; max column 18 (S5, q = 0), lemma runs within x = -2..2 | same |
+| C1b (d) 150 brute-force cycles = `12 m + (934, 1058, 898)[q]`, end state C(m+2, q+1) | **Held**: 150/150 | same |
+| C1b (e) `m0 <= 4` | **Held**: m0 = 2 (n >= 0 with m = 1 + 2n + 1), so no gap to cover by brute force | same |
+| Control 1 (broken ant disagrees) | **Held**: `RLRRLL` (colour 3 L -> R) and `LLRLLL` (colour 0 R -> L) both differ from the first checkpoint (within 1,000 steps) | `results/c1a_semantics.txt` |
+| Control 3 (mutated bulk cell fails C1b in all phases, not by a crash) | **Held**: all three phases rejected at the composition equality ("final state is not C(m+2, q+1)", 8 cells differ, first at x = 46). The mutated cell is never read (trajectories identical, ant reaches column <= 18); only the window bookkeeping can see it | `results/c1b_control_mut46.txt`, `results/c1_controls.txt` |
+| Control 2 / 4 (RLRLLR rejected, same verdict class) | **Split**: rejected in all three phases, **but** my verdict is "S5 arrived on a sentinel row without completing the cycle" in each phase, whereas the first checker (re-run, reproduces its committed output) says "left the strip" (q = 0, 1) and "segment counts differ" (q = 2), and brute force agrees with the first checker (q = 0, 1 leave the strip after ~5,000 steps; q = 2 completes a cycle in the wrong state). The difference is architectural: my S5 patch is finite, so it cannot let the long excursion play out. Mutated-bulk verdict class matches the first checker's ("segments differ") | `results/c1b_control_rlrllr.txt`, `results/c1_first_checker_controls.txt`, `results/c1_controls.txt` |
+| C2a rows visited above <= 1 and below <= 1 per cycle | **Failed**: above is 2 for q = 0 (0 for q = 1, 1 for q = 2), below is 1; same numbers from the finite runs and from 150 brute-force cycles | `results/c2_reach.txt` |
+| C2b column -3 reached only at the last step, nothing further west | **Held** (150/150; largely definitional) | same |
+| C2c symbolic maximum = brute-force maximum | **Held**: above 2 / below 1 / east 18 both ways. Also no cell outside the rectangle's rows is visited six times (0 cells end at colour 0; max 4 visits) | same |
+| C2d 50 of 50 windows pass | **Held under the exact criterion** (below). Registered wording asked for colour 0 outside the base rectangle and family equality inside it; I score the stronger-in-one-way, weaker-in-another exact criterion (equality on every cell the ideal ant visits, over ~97 cycles); whole-rectangle equality is Task A's result for the same windows | `results/c2_recheck.txt`, `results/c2_control.txt` |
+
+**Headline from C2 (disagrees with Task A's certificate).** Over 110 cycles the family's ant stands on cells outside Task A's cone (rectangle widened by
+3 + s // 3 rows s columns ahead of the front) in **all 50 windows**: excess over the wedge up to 7 rows above and 2 below (the cone has 3), because a cycle's
+rows are visited up to 18 columns *east* of its own front, where the wedge is smaller by 6 rows. Task A's cone test (no non-zero cell in the cone) was therefore not
+a sufficient certificate for the base case. The exact criterion replaces it and passes:
+
+- *Criterion.* Let V be the set of cells the ideal ant (my ant, from the family configuration over a blank board) stands on during J cycles. The real run equals
+  the ideal one forever iff the real configuration at the event equals the ideal initial configuration on V (induction on steps; the ant reads only the cell it
+  stands on). J = (x + 1820 + 18) // 3 + 3 (97 to 98 for the base case x = -1552), chosen so that cycles >= J stand only on columns < -1820 - 9.
+- *Result.* 50 of 50 windows: 0 mismatches over |V| = 30,215 .. 45,498 cells each, no cell of V outside the dump, zero visited cells west of x = -1820 in the dump
+  (columns -2019 .. -1821 for the most distant window). Control (`results/c2_control.txt`): a one-cell change on a visited cell outside or inside the
+  rectangle gives exactly 1 mismatch, on an unvisited cell 0.
+- *Premise not checked here.* For cycles >= J (columns < about -1829, all the way to the board edge) it is assumed that nothing the real run visited lies west of x = -1820 at the
+  event. `ref.bin` (step 12,676,233,000, columns -2030 .. -1401, rows -2000 .. -1) has westmost visited column -1818; rows outside that snapshot and columns west of -2030
+  rest on the tracer's global front record (front -1820 at step 12,676,421,767, 184,176 steps after the base event), which I did not re-derive.
+- *Exact wedge (from the verified composition, matches an ideal 14-cycle run cell for cell).* The rectangle's top moves up 2, 0, 1 rows and its bottom down 1, 1, 1 rows
+  in phases 0, 1, 2 (3 rows per 3 cycles per side), and a cycle visits at most 2 rows above and 1 below its own rectangle, so the required blank region is the union over cycles
+  j of rows [top_j - (2, 0, 1)[q_j], bottom_j + 1] on columns [x_j - 3, x_j + 18]. The margin a slope-1/3 cone needs, measured on the 50 ideal runs, is 7 rows above and 2 below, not 3 (the reach figures bound it by 2 + 18/3 = 8 above).
+
+### C1c: the induction, in my own words
+
+**Theorem (what the second checker proves, conditional on the unchecked steps below).** Fix R = RLRLLL and the proposal text. Write Rect(m, q) for the rows
+`top_q . bulk^m . bottom_q` on strip columns 0..47 (front = column 0, y downward), and Conf(m, q) for: cells of Rect(m, q) on columns 0..47, colour 0 on every other cell of
+columns <= 47, ant on column `dx_q` = 0 at `dy_q` below the first row with heading 3 (west); columns >= 48 arbitrary. For q in {0, 1, 2}, every even m >= 2 and every n >= 0 with
+m = 2 + 2n, the ant started in Conf(m, q) first reaches column -3 after exactly `12 m + (934, 1058, 898)[q]` steps, never stands on column >= 48, and at that moment
+columns -3 .. 44 (renamed 0 .. 47) hold Rect(m + 2, q + 1 mod 3) with colour 0 elsewhere and the ant on column 0 at `dy_{q+1}` with heading 3.
+
+*Finite hypotheses (each is a run of my ant, checked by `c1b.py`).*
+- **S1** `[blank^14 . top_q . bulk]` from the ant start ends at the first arrival on the row below (x = -1, heading 2) without reading it, staying in columns -2..9. Its output rows are U (above) and A (one row).
+- **D (descent)** `[A . bulk^2]` from the ant on the first bulk row ends at the first arrival on the row below after 20 steps, same column and heading, with A reproduced on row 2 and the two rows r' above it; never above A, never at the sentinel, columns -2..1.
+- **S3** `[A . bulk . bottom_q . blank^14]` from the same ant state ends at the first arrival on the row above A after 216 steps (all q), touching at most one row below the bottom block, columns -2..2.
+- **R (return)** `[sentinel . r' . A']` (A' = S3's first row) from the ant on the last r' row ends at the first arrival on the sentinel after 4 steps, same column and heading, with A' reproduced two rows higher and r'' below; columns 1..2.
+- **S5** `[U . A']` (k5 = 0) from the ant on the last row of U ends at the first arrival on column -3 after 355 / 483 / 323 steps, staying in columns -3..18 (and never in column <= -3 earlier).
+- **Compose** `E5 . r''^(2n) . D3`, shifted by 3 columns and cut at column 47, equals Rect(m + 2, q + 1) cell for cell, the ant has the stated state, each r'' row shifted by 3 is the next bulk row, and the junction E5 | band lies inside the target's bulk run.
+- **Count** steps = s1 + s3 + s5 + n (20 + 4) with m = 2 + 2n, i.e. 12 m + c_q as a linear identity.
+
+*Argument.* By D and the pre/post equality (post-state = pre-state shifted two rows), n applications turn `A . bulk^(2n)` into `r'^n . A` in 20 n steps, each application seeing only its own
+three-row patch; likewise R turns `r'^n . A'` into `A' . r''^n` in 4 n steps. S1, S3, S5 are the same kind of finite statement for the end blocks. Chaining S1 -> D^n -> S3 -> R^n -> S5 gives the theorem.
+
+*Checked by code:* every finite run above (with a sentinel on every open side: arriving on it is allowed only as the success step, reading it fails), the pre/post equality of D and R in full width
+(x = -3 .. 47), the handoffs by construction (each stage's patch is built from the previous stage's output rows and ant state), the composition equality at n = 0..3 plus the bulk-row and junction conditions,
+the linear step identity, no column > 47 anywhere, no column < -2 before S5, and 150 brute-force cycles m = 2..100.
+**Argued on paper only (unchecked steps):** (1) the n-fold iteration of D and R, i.e. that an application sees nothing outside its patch rows (the run checks this for one application; the induction is the standard
+frame argument); (2) that the row groups U, A, r', r'', D3 tile the global configuration exactly (the code concatenates them, it does not prove the concatenation is the configuration); (3) the step from
+"composition equality for n = 0..3 and the insertion conditions" to "for all n"; (4) that cells at columns >= 48 are irrelevant (the code checks no run reaches them; that dropping them in the shift is harmless is
+definitional); (5) fidelity of my ant to the reference ant (C1a: 1e6 steps and 12 windows, empirical); (6) that the real run is in Conf(4, 1) at step 12,676,237,591 (Task A's 1.27e10-step simulation, not repeated here; the second
+checker never re-ran it) and the global-front premise above. Items (1) to (3) are what C3 below tries to machine-check.
+
+**What C1 does and does not add.** Two programs written to the same semantics, with different proof architectures (the first checker peels and regroups bands symbolically; mine cuts at arrival rows and composes five explicit
+finite runs), agree on every constant (12 m + 934 / 1058 / 898; lemma periods 2; s = 20 and 4; m0 = 2) and on the brute-force cycle for 150 cases, and both reject the controls they share. They also share an author, an interpretation of
+the family (the 48-column strip with blank outside) and the same proposal file; they test the implementation of the argument, not the argument's premises.
