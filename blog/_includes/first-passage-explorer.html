@@ -1,0 +1,31 @@
+<section class="fp-explorer" aria-labelledby="fp-title">
+  <h3 id="fp-title">Try the scaling assumption</h3>
+  <p><strong>Illustrative model only. No ant data.</strong> The curves show the tail-dominated approximation κ(L)/κ(L₀) = (L/L₀)<sup>1+δ−z(1−θ)</sup>. Amplitudes cancel in this ratio.</p>
+  <div class="fp-controls" hidden>
+    <label>Tail exponent θ <output id="fp-theta-value">0.50</output>
+      <input id="fp-theta" type="range" min="0.1" max="0.9" step="0.05" value="0.5"></label>
+    <label>Cutoff exponent z <output id="fp-z-value">2.00</output>
+      <input id="fp-z" type="range" min="1" max="3" step="0.1" value="2"></label>
+    <label>Dwell exponent δ <output id="fp-delta-value">0.00</output>
+      <input id="fp-delta" type="range" min="-0.3" max="0.3" step="0.05" value="0"></label>
+    <button type="button" id="fp-reset">Reset candidate</button>
+  </div>
+  <svg viewBox="0 0 700 300" role="img" aria-labelledby="fp-chart-title fp-chart-desc">
+    <title id="fp-chart-title">Predicted relative boundary occupation as territory scale grows</title>
+    <desc id="fp-chart-desc">At theta one half, z two and delta zero, relative kappa is constant. Both axes use logarithmic spacing.</desc>
+    <g class="fp-grid" stroke="currentColor" opacity=".18">
+      <path d="M80 55H650M80 145H650M80 235H650M80 55V235M365 55V235M650 55V235"/>
+    </g>
+    <g fill="currentColor" font-size="14" font-family="system-ui,sans-serif">
+      <text x="22" y="60">16×</text><text x="30" y="150">1×</text><text x="14" y="240">1/16×</text>
+      <text x="75" y="260">1</text><text x="360" y="260">4</text><text x="640" y="260">16</text>
+      <text x="280" y="288">Territory scale L / L₀</text>
+      <text x="80" y="28">Relative κ (log scale)</text>
+    </g>
+    <path id="fp-curve" d="M80 145L650 145" fill="none" stroke="#b45330" stroke-width="4"/>
+  </svg>
+  <p id="fp-verdict" aria-live="polite">Candidate: θ = 0.50, z = 2.00, δ = 0.00. Predicted drift is 0: κ stays constant.</p>
+  <p class="fp-caveat">For constant dwell and z = 2: θ = 0.25 predicts κ ∝ L⁻⁰·⁵; θ = 0.50 predicts a plateau; θ = 0.75 predicts κ ∝ L⁰·⁵. A plateau alone does not identify the mechanism or predict κ's absolute value.</p>
+</section>
+<link rel="stylesheet" href="{{ '/assets/first-passage.css' | relative_url }}">
+<script src="{{ '/assets/first-passage.js' | relative_url }}" defer></script>

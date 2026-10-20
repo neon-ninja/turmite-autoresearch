@@ -35,3 +35,41 @@ a clean kernel with nbclient. No scientific inputs were read. The full
 `cargo test --release` check is still running at this commit; its log is
 `scratch/release.log`. Concurrent unrelated edits exist in the shared checkout;
 only this experiment and its note pointers belong to this change.
+
+### 2026-10-20 21:24 +13:00 · 2bf8cc97c69b9278ca6bb8be26605c515cb3f756 · observation
+
+Full `cargo test --release` completed with exit 0 (existing warnings).
+The blog renderer initially rejected missing reader-guide coverage; adding this
+experiment's guide resolved it. WSL commands: `uv run --frozen --only-group blog
+blog/scripts/experiments.py --baseurl /turmite-autoresearch`, then from blog/
+`JEKYLL_ENV=production bundle exec jekyll build --strict_front_matter --baseurl
+/turmite-autoresearch` and `bundle exec ruby scripts/check.rb _site
+/turmite-autoresearch`. Build and links passed. An existing unavailable source
+reference `end` in the rule-space README remains reported by the generator.
+
+WSL has no node executable, so the desktop's bundled browser-automation runtime
+was used for the local headless Edge check (`scratch/browser-check.cjs`).
+Plateau, rising/falling examples, reset, mobile overflow, no-JavaScript fallback
+and absence of page errors passed. Desktop/mobile screenshots in scratch/ were
+visually reviewed; mobile axis type was enlarged afterwards. The interactive
+curves are analytic illustrations, not measurements or calibration results.
+
+### 2026-10-20 21:24 +13:00 · 2bf8cc97c69b9278ca6bb8be26605c515cb3f756 · decision
+
+End scaffolding session with the scientific stages unrun. The accompanying blog
+post explains the original argument and why the completed tail-budget failures
+require this stronger crossing-kernel test. Next work starts at HANDOFF step 1,
+not at confirmation. Cohort/model/resource registration remains outstanding.
+
+### 2026-10-20 21:26 +13:00 · 2bf8cc97c69b9278ca6bb8be26605c515cb3f756 · observation
+
+Implemented from-scratch BFS depth oracle, evolving depth maintenance, and milestone segment accountant in `tests/kappa_first_passage.rs` (HANDOFF steps 3-4).
+Verified:
+1. Exact depth matching: boundary cells (unvisited 4-neighbours) have depth 0; interior cells have shortest visited-path distance.
+2. Property tests (`property_ant_budget_conservation_and_valid_milestones`):
+   - B + I = S holds unconditionally for all trajectories.
+   - All milestone transitions occur strictly between adjacent milestones in [0, 1, 2, 4, 8, 16, 32, 64].
+   - Completed segment elapsed times plus unresolved segment time exactly equal total trajectory steps.
+   - Distinguishes geometry-induced reclassification from physical contour crossings.
+All 4 test targets in `tests/kappa_first_passage.rs` pass with `--release`.
+

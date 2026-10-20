@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="280" viewBox="0 0 800 280" role="img" aria-labelledby="title desc">
+<title id="title">From shallow returns to deep excursions</title>
+<desc id="desc">Illustrative depth surfaces and two possible excursions. This is a schematic, not measured data.</desc>
+<rect width="800" height="280" rx="16" fill="#f4f0e8"/>
+<g font-family="system-ui,sans-serif" fill="#203f45">
+<text x="28" y="32" font-size="16" font-weight="bold">WHAT LETS A SHORT RETURN BECOME A LONG JOURNEY?</text>
+<g stroke="#b1c3bd" stroke-width="2" stroke-dasharray="4 5">
+<path d="M130 68V222M250 68V222M370 68V222M490 68V222M610 68V222"/>
+</g>
+<g font-size="14" text-anchor="middle">
+<text x="130" y="58">boundary</text><text x="250" y="58">depth 1</text><text x="370" y="58">depth 2</text><text x="490" y="58">depth 4</text><text x="610" y="58">depth 8</text>
+</g>
+<path d="M130 95 Q330 105 130 145" fill="none" stroke="#157b7a" stroke-width="4"/>
+<path d="M130 165 C250 150 300 180 370 165 S540 140 610 160 C700 190 410 220 130 211" fill="none" stroke="#ac4e29" stroke-width="4"/>
+<g fill="#203f45"><circle cx="130" cy="95" r="5"/><circle cx="130" cy="165" r="5"/></g>
+<g fill="#157b7a"><path d="m130 145 12-9 2 14z"/></g>
+<g fill="#ac4e29"><path d="m130 211 14-6-1 14z"/></g>
+<text x="28" y="258" font-size="14">Measure crossing probabilities + elapsed times. Compose them into a return prediction.</text>
+</g></svg>
