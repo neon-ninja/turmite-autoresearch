@@ -37,3 +37,17 @@ windows (area, perimeter, new_cells, boundary_steps): 0 mismatches.
 ### 2026-10-20 09:46 (+00:00) · ba38590 · decision
 Registered P0-P4 in README.md before running the sample. Sample fixed by `scripts/select_rules.py`
 (seed 20261020). Preferred hypothesis H-exposed (median Q >= 1.18).
+
+### 2026-10-20 09:49 (+00:00) · 1593b61 · assumption
+corrects: 2026-10-20 09:46 (README rationale for H-exposed). The README cites "depleted sub-edge
+layers (`fig:layers`)" as generic. `notes/kappa-experiment-design.md` (Arm A, exploratory) places
+the depletion in a "crust" class (15 of 24 selected rules; ~12% of the census by the c >= 0.6
+proxy), while "uniform"-class ants have rho(d) within 0.3 of 1 for d = 2..4. The rationale is
+therefore weaker than written; the registered prediction P3 itself is unchanged. Untested.
+Exploratory follow-up (not registered): split Q by c >= 0.6 (crust proxy).
+
+### 2026-10-20 09:49 (+00:00) · 1593b61 · observation
+Main run finished before I looked at any output: `scripts/run.sh` (PID 9888) wrote
+`results/classes.csv`, `classes.done`, `run.log` (binary sha256, specs sha256, elapsed). All 344
+specs ran in `--check` mode with no panic (exit 0), so every window matched `probe::probe_walker`
+and a board scan.
