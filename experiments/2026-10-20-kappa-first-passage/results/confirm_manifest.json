@@ -1,0 +1,383 @@
+{
+  "purpose": "confirmation cohort, frozen before any confirmation run",
+  "source": "experiments/2026-10-13-probe-growth-census/results/probe_summary.csv",
+  "source_sha256": "c76c7927185b1cee273433c340cfa393fb16696fbe4a6f155fc49c33ef32cb5d",
+  "pilot_families_excluded": [
+    "RLLLLL",
+    "RLLLRL",
+    "RLLRRR",
+    "RRLLLL",
+    "RRLLRL",
+    "RRLRLL",
+    "RRRLLL",
+    "RRRLRL"
+  ],
+  "n_candidate_families": 23,
+  "selection_seed": 202610207097,
+  "fold_seed": 202610207096,
+  "families": [
+    "RLLLLR",
+    "RLRLRR",
+    "RRLRRR",
+    "RLLLRR",
+    "RLRLLL",
+    "RLRRRL",
+    "RRLLRR",
+    "RLRLRL",
+    "RLLRRL",
+    "RLRRLL",
+    "RRRLLR",
+    "RRRRRR"
+  ],
+  "folds": {
+    "0": [
+      "RLRRRL",
+      "RRLLRR",
+      "RLRRLL"
+    ],
+    "1": [
+      "RLRLLL",
+      "RLLRRL",
+      "RRRRRR"
+    ],
+    "2": [
+      "RLLLRR",
+      "RLRLRL",
+      "RRRLLR"
+    ],
+    "3": [
+      "RLLLLR",
+      "RLRLRR",
+      "RRLRRR"
+    ]
+  },
+  "shortfalls": [
+    {
+      "family": "RLRLLL",
+      "stratum": "drifting",
+      "missing": 1
+    },
+    {
+      "family": "RRRRRR",
+      "stratum": "drifting",
+      "missing": 1
+    }
+  ],
+  "n_rules": 48,
+  "n_specs": 768,
+  "strata_counts": {
+    "stationary": 26,
+    "drifting": 22
+  },
+  "rules": [
+    {
+      "family": "RLLLLR",
+      "rule": "RLLLLRLLRLRL",
+      "stratum": "stationary",
+      "fold": 3
+    },
+    {
+      "family": "RLLLLR",
+      "rule": "RLLLLRRRLRL",
+      "stratum": "stationary",
+      "fold": 3
+    },
+    {
+      "family": "RLLLLR",
+      "rule": "RLLLLRRLLRRR",
+      "stratum": "drifting",
+      "fold": 3
+    },
+    {
+      "family": "RLLLLR",
+      "rule": "RLLLLRRLLRLR",
+      "stratum": "drifting",
+      "fold": 3
+    },
+    {
+      "family": "RLRLRR",
+      "rule": "RLRLRRL",
+      "stratum": "stationary",
+      "fold": 3
+    },
+    {
+      "family": "RLRLRR",
+      "rule": "RLRLRRLR",
+      "stratum": "stationary",
+      "fold": 3
+    },
+    {
+      "family": "RLRLRR",
+      "rule": "RLRLRRLLLLLR",
+      "stratum": "drifting",
+      "fold": 3
+    },
+    {
+      "family": "RLRLRR",
+      "rule": "RLRLRRLRRRRR",
+      "stratum": "drifting",
+      "fold": 3
+    },
+    {
+      "family": "RRLRRR",
+      "rule": "RRLRRRLRRLRR",
+      "stratum": "stationary",
+      "fold": 3
+    },
+    {
+      "family": "RRLRRR",
+      "rule": "RRLRRRLLRLR",
+      "stratum": "stationary",
+      "fold": 3
+    },
+    {
+      "family": "RRLRRR",
+      "rule": "RRLRRRL",
+      "stratum": "drifting",
+      "fold": 3
+    },
+    {
+      "family": "RRLRRR",
+      "rule": "RRLRRRRRRRRR",
+      "stratum": "drifting",
+      "fold": 3
+    },
+    {
+      "family": "RLLLRR",
+      "rule": "RLLLRRLRRRLR",
+      "stratum": "stationary",
+      "fold": 2
+    },
+    {
+      "family": "RLLLRR",
+      "rule": "RLLLRRRLLLR",
+      "stratum": "stationary",
+      "fold": 2
+    },
+    {
+      "family": "RLLLRR",
+      "rule": "RLLLRRRLL",
+      "stratum": "drifting",
+      "fold": 2
+    },
+    {
+      "family": "RLLLRR",
+      "rule": "RLLLRRLRLL",
+      "stratum": "drifting",
+      "fold": 2
+    },
+    {
+      "family": "RLRLLL",
+      "rule": "RLRLLLRRRLL",
+      "stratum": "stationary",
+      "fold": 1
+    },
+    {
+      "family": "RLRLLL",
+      "rule": "RLRLLLLLLRLR",
+      "stratum": "stationary",
+      "fold": 1
+    },
+    {
+      "family": "RLRLLL",
+      "rule": "RLRLLLL",
+      "stratum": "drifting",
+      "fold": 1
+    },
+    {
+      "family": "RLRLLL",
+      "rule": "RLRLLLLLRR",
+      "stratum": "stationary",
+      "fold": 1
+    },
+    {
+      "family": "RLRRRL",
+      "rule": "RLRRRLRLLLLL",
+      "stratum": "stationary",
+      "fold": 0
+    },
+    {
+      "family": "RLRRRL",
+      "rule": "RLRRRLRRLRLL",
+      "stratum": "stationary",
+      "fold": 0
+    },
+    {
+      "family": "RLRRRL",
+      "rule": "RLRRRLLLLRRL",
+      "stratum": "drifting",
+      "fold": 0
+    },
+    {
+      "family": "RLRRRL",
+      "rule": "RLRRRLLLLLRL",
+      "stratum": "drifting",
+      "fold": 0
+    },
+    {
+      "family": "RRLLRR",
+      "rule": "RRLLRRLRL",
+      "stratum": "stationary",
+      "fold": 0
+    },
+    {
+      "family": "RRLLRR",
+      "rule": "RRLLRRRRLRR",
+      "stratum": "stationary",
+      "fold": 0
+    },
+    {
+      "family": "RRLLRR",
+      "rule": "RRLLRRLLLLRR",
+      "stratum": "drifting",
+      "fold": 0
+    },
+    {
+      "family": "RRLLRR",
+      "rule": "RRLLRRLLRRLL",
+      "stratum": "drifting",
+      "fold": 0
+    },
+    {
+      "family": "RLRLRL",
+      "rule": "RLRLRLRRLRL",
+      "stratum": "stationary",
+      "fold": 2
+    },
+    {
+      "family": "RLRLRL",
+      "rule": "RLRLRLLL",
+      "stratum": "stationary",
+      "fold": 2
+    },
+    {
+      "family": "RLRLRL",
+      "rule": "RLRLRLLRRLRR",
+      "stratum": "drifting",
+      "fold": 2
+    },
+    {
+      "family": "RLRLRL",
+      "rule": "RLRLRLLLRL",
+      "stratum": "drifting",
+      "fold": 2
+    },
+    {
+      "family": "RLLRRL",
+      "rule": "RLLRRLLLLLLL",
+      "stratum": "stationary",
+      "fold": 1
+    },
+    {
+      "family": "RLLRRL",
+      "rule": "RLLRRLLLLRLR",
+      "stratum": "stationary",
+      "fold": 1
+    },
+    {
+      "family": "RLLRRL",
+      "rule": "RLLRRLRLLLLR",
+      "stratum": "drifting",
+      "fold": 1
+    },
+    {
+      "family": "RLLRRL",
+      "rule": "RLLRRLLLLRLL",
+      "stratum": "drifting",
+      "fold": 1
+    },
+    {
+      "family": "RLRRLL",
+      "rule": "RLRRLLRRRR",
+      "stratum": "stationary",
+      "fold": 0
+    },
+    {
+      "family": "RLRRLL",
+      "rule": "RLRRLLRLRLR",
+      "stratum": "stationary",
+      "fold": 0
+    },
+    {
+      "family": "RLRRLL",
+      "rule": "RLRRLLLLRL",
+      "stratum": "drifting",
+      "fold": 0
+    },
+    {
+      "family": "RLRRLL",
+      "rule": "RLRRLLRRRRRR",
+      "stratum": "drifting",
+      "fold": 0
+    },
+    {
+      "family": "RRRLLR",
+      "rule": "RRRLLRLRLRLL",
+      "stratum": "stationary",
+      "fold": 2
+    },
+    {
+      "family": "RRRLLR",
+      "rule": "RRRLLRLRRLR",
+      "stratum": "stationary",
+      "fold": 2
+    },
+    {
+      "family": "RRRLLR",
+      "rule": "RRRLLRLRRRLR",
+      "stratum": "drifting",
+      "fold": 2
+    },
+    {
+      "family": "RRRLLR",
+      "rule": "RRRLLRRLLLLR",
+      "stratum": "drifting",
+      "fold": 2
+    },
+    {
+      "family": "RRRRRR",
+      "rule": "RRRRRRLRRRLL",
+      "stratum": "stationary",
+      "fold": 1
+    },
+    {
+      "family": "RRRRRR",
+      "rule": "RRRRRRRLR",
+      "stratum": "stationary",
+      "fold": 1
+    },
+    {
+      "family": "RRRRRR",
+      "rule": "RRRRRRLLLLLL",
+      "stratum": "drifting",
+      "fold": 1
+    },
+    {
+      "family": "RRRRRR",
+      "rule": "RRRRRRRLLRRL",
+      "stratum": "stationary",
+      "fold": 1
+    }
+  ],
+  "kernel_seeds": [
+    202610208001,
+    202610208002,
+    202610208003,
+    202610208004,
+    202610208005,
+    202610208006,
+    202610208007,
+    202610208008
+  ],
+  "outcome_seeds": [
+    202610209001,
+    202610209002,
+    202610209003,
+    202610209004,
+    202610209005,
+    202610209006,
+    202610209007,
+    202610209008
+  ],
+  "git": "e931af26c316b7df9adfb44a4e350647a7acbccd"
+}
