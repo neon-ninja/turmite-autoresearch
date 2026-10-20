@@ -1,0 +1,24 @@
+{
+  "pass": true,
+  "rows": [
+    {
+      "between_family_share": 0.3,
+      "coverage": 0.92,
+      "mean_width": 0.7257728459858959,
+      "true_mean": 0.3
+    },
+    {
+      "between_family_share": 0.6,
+      "coverage": 0.9225,
+      "mean_width": 0.8752941854971296,
+      "true_mean": 0.3
+    },
+    {
+      "between_family_share": 0.3,
+      "coverage": 0.9,
+      "mean_width": 0.7344735571190381,
+      "true_mean": 0.0
+    }
+  ],
+  "seed_base": 202610207800
+}
