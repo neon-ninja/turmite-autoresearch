@@ -32,6 +32,7 @@ pub struct Geom {
 
 /// The visited region on a dense board. Same bookkeeping as `probe::Region`
 /// (kept separate: that one is private and window-oriented).
+#[derive(Clone)]
 pub struct Region {
     unv: Vec<u8>,
     nbr: [isize; 4],

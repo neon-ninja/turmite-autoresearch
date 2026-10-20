@@ -17,6 +17,7 @@ pub mod edge_trace;
 pub mod ext;
 pub mod fast;
 pub mod field_age;
+pub mod first_passage;
 pub mod fixed_area;
 #[cfg(feature = "cuda")]
 pub mod gpu;

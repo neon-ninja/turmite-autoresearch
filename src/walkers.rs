@@ -41,6 +41,7 @@ pub trait Walker {
     fn step(&mut self, cell: &mut u8, heading: &mut u8);
 }
 
+#[derive(Clone)]
 pub struct AntWalker {
     turn: Vec<u8>,
     next: Vec<u8>,
@@ -69,6 +70,7 @@ impl Walker for AntWalker {
     }
 }
 
+#[derive(Clone)]
 pub struct Rotor {
     pub seed: u64,
 }
@@ -85,6 +87,7 @@ impl Walker for Rotor {
     }
 }
 
+#[derive(Clone)]
 pub struct RandomWalk {
     pub state: u64,
 }
@@ -179,6 +182,7 @@ impl Walker for RandomWalk {
 /// of random colours around the start. Different seeds give independent runs
 /// of the same rule, which measures how much a fitted exponent scatters for
 /// one rule.
+#[derive(Clone)]
 pub struct PatchedAnt {
     pub ant: AntWalker,
     pub n: u8,

@@ -87,3 +87,28 @@ B+I=S and time-sum properties hold by construction, so they say little. Those
 tests verify only the oracle and bookkeeping skeleton. Plan: PLAN.md; fast
 depth field goes in `src/`, layered on `fixed_area` so band/sum_pa conventions
 are inherited and checkable byte for byte.
+
+### 2026-10-20 22:52 +13:00 · 5e2fa56+wip · observation
+
+Chunks 1-3 (PLAN.md). New `src/first_passage.rs` (DepthField, Sim) and
+`tests/first_passage.rs` (9 tests, all pass under `cargo test --release --test first_passage`).
+- Depth monotonicity: across random ants (20 proptest cases x 1500 steps, BFS
+  recomputed after EVERY step), rotor and random walks, and a serpentine fill past the
+  clamp, no insertion ever lowered a depth (`decreases == 0`), so increase-only
+  worklist repair is exact; matches BFS clamped at 65.
+- Observer matches `fixed_area::drive` state-for-state, and band t_start/t_end,
+  area, perimeter, b_dep, i_dep and sum_pa (bitwise) match `fixed_area::run`; in-band
+  segment time sums exactly to band steps; episode tallies match offline
+  recomputation from the recorded stream; clone-as-checkpoint reproduces output.
+- Derivation (interpretation, tested only as area constancy): area cannot grow
+  during an interior episode, so the territory, boundary set and depth map are frozen
+  for its whole duration. The README's "frozen-depth" termination therefore coincides
+  with the evolving one on this lattice; the planned >10% disagreement gate is
+  vacuous (expected 0, not a measurement of scale separation). Real geometry effects
+  live at boundary steps: geometry jumps (new cell, |depth change| > 1) occur
+  (>0 over 20 random walks) and physical moves were never non-Lipschitz.
+- Skipped-milestone policy (written before use on ant data): hit of a milestone
+  >1 index from the current one records a segment with skipped=|diff|-1.
+- Deviation: mid-trajectory checkpoint is an in-memory clone for now; on-disk
+  checkpoint only if the pilot shows runs long enough to need it. Run-level `.done` markers still apply.
+Still not run: any ant science, calibration, pilot, confirmation.
