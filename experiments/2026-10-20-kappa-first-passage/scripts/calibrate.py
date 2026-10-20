@@ -28,10 +28,10 @@ COLS = ["band", "m", "dir", "heading", "phase", "patch", "hist", "nm", "ndir", "
 
 
 class World:
-    def __init__(self, pu, mu, q=0.5, tail=("exp",), visible=False, d0=2.0, patch_noise=0):
+    def __init__(self, pu, mu, q=0.5, tail=("exp",), visible=False, d0=2.0, patch_noise=0, entry_p1=0.5):
         self.pu = np.array(pu, float)  # [mode][m], m = 0..7
         self.mu = np.array(mu, float)  # mean dwell of a segment starting at (m, mode)
-        self.q, self.tail, self.visible, self.d0, self.patch_noise = q, tail, visible, d0, patch_noise
+        self.q, self.tail, self.visible, self.d0, self.patch_noise, self.entry_p1 = q, tail, visible, d0, patch_noise, entry_p1
 
     def dwell(self, rng, mean, m):
         if self.tail[0] == "pareto" and m >= self.tail[2]:
@@ -55,7 +55,9 @@ class World:
                 if m > 1:
                     A[i, idx[(m - 1, gp)]] -= (1 - pu) * P[g, gp]
         u = np.linalg.solve(A, b)
-        pi = np.array([0.5, 0.5])
+        p1 = self.entry_p1  # entry mode law at the cycle start; the hit of milestone 1 follows one mode switch
+        pe1 = p1 * self.q + (1 - p1) * (1 - self.q)
+        pi = np.array([1 - pe1, pe1])
         return float(sum(pi[g] * u[idx[(1, g)]] for g in range(2))), self.d0
 
     def simulate(self, rng, ncycles=None, budget=None):
@@ -74,7 +76,7 @@ class World:
             if ncycles is not None and cyc >= ncycles:
                 break
             cyc += 1
-            g = int(rng.random() < 0.5)
+            g = int(rng.random() < self.entry_p1)
             m, dir_, hist = 0, 2, 0
             src = key(m, dir_, g, hist)
             while True:
@@ -208,10 +210,37 @@ def run(quick: bool) -> dict:
     return out
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and "--c2b" not in sys.argv:
     quick = "--quick" in sys.argv
     res = run(quick)
     dest = EXP / "results" / ("calibration_quick.json" if quick else "calibration.json")
     dest.parent.mkdir(exist_ok=True)
     dest.write_text(json.dumps(res, indent=2, sort_keys=True))
     print(json.dumps(res, indent=2, sort_keys=True))
+
+
+def run_c2b() -> dict:
+    """README "C2 revision": train on entry mixture 0.5, predict a world whose entry law is 0.9 excursion-prone."""
+    out = {"seed_base": BASE_SEED + 500}
+    res = {}
+    for vis, level in [(False, 0), (True, 1)]:
+        train, target = hidden_world(vis), hidden_world(vis)
+        target.entry_p1 = 0.9
+        truth, _ = target.true_ET()
+        b = []
+        for k in range(20):
+            rng = np.random.default_rng(BASE_SEED + 500 + 2 * k + 1 + (1000 if vis else 0))
+            tr = pl.concat([train.simulate(rng, ncycles=1500) for _ in range(3)])
+            tg = pl.concat([target.simulate(rng, ncycles=1500) for _ in range(3)])
+            b.append(fpkernel.fit(tr, level=level, floor=20, entry_df=tg)["ET"])
+        res[f"visible={vis},level=M{level}"] = dict(truth_ET_target=truth, truth_ET_train=train.true_ET()[0], mean_rel_bias=float(np.mean(rel(np.array(b), truth))), sd_rel=float(np.std(rel(np.array(b), truth))), n=len(b))
+    out["C2b"] = res
+    out["pass_M0_fails"] = bool(abs(res["visible=False,level=M0"]["mean_rel_bias"]) > 0.20)
+    out["pass_M1_visible_ok"] = bool(abs(res["visible=True,level=M1"]["mean_rel_bias"]) < 0.10)
+    return out
+
+
+if __name__ == "__main__" and "--c2b" in sys.argv:
+    r = run_c2b()
+    (EXP / "results" / "calibration_c2b.json").write_text(json.dumps(r, indent=2, sort_keys=True))
+    print(json.dumps(r, indent=2, sort_keys=True))

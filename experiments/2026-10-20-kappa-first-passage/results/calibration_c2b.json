@@ -1,0 +1,21 @@
+{
+  "C2b": {
+    "visible=False,level=M0": {
+      "mean_rel_bias": -0.3965450298673704,
+      "n": 20,
+      "sd_rel": 0.012782774385335094,
+      "truth_ET_target": 774.8349477698155,
+      "truth_ET_train": 466.9626274198299
+    },
+    "visible=True,level=M1": {
+      "mean_rel_bias": -0.0049483631104550885,
+      "n": 20,
+      "sd_rel": 0.024587753789955407,
+      "truth_ET_target": 774.8349477698155,
+      "truth_ET_train": 466.9626274198299
+    }
+  },
+  "pass_M0_fails": true,
+  "pass_M1_visible_ok": true,
+  "seed_base": 202610207500
+}
