@@ -92,3 +92,15 @@ proved family explains everything after the seed; what makes the corner produce 
 the sweeper pre-dates the edge crossing (94 exact cycles); moderate on "seed height near zero" (extrapolation only).
 Alternative not excluded: the wedge started at a nonzero height from a different local configuration whose first cycles
 are off-family. Not done: `notebook.ipynb` has not been rebuilt for this section.
+
+### 2026-10-21 07:27 (+13:00) · 9d0621a · deviation
+corrects: the five entries above dated 2026-10-21 07:26. (1) The entry-probe registration (README "Entry probe") was
+committed together with the results in `9d0621a`, not before the run, so git cannot show it preceded the measurement,
+unlike `4bc029a`; it was written to the README before the first run in the working tree, which is only my word. (2) Those
+entries were written after the runs, all stamped with one time, and cite `67f7d03`, where the probe code did not yet
+exist; the code is at `9d0621a`. (3) The README table originally scored E1b as "Held". By the registered rule it failed
+(swing = column extent fails at x in [-1800, -1700]; constants 358/374/514 are not the registered set) and E1 is
+rejected as registered; the README now says so. (4) The interpretation entry's "from swing ~41 it is the checked
+family" overstated: only the clock was shown, not the configuration, and the window behind the sweeper overlapped old
+blob cells for ~7 cycles. Corrected wording: on the sweeper clock. Next: dump the window at a cycle clear of the blob and
+compare cell for cell with `results/canonical_k0.txt`.

@@ -72,13 +72,21 @@ print("measured cycles reproduced exactly:", int((T[1:] == pred).sum()), "of", l
 e = pl.read_csv(R / "cycles_early.csv")
 print("early probe: first cycle at front x =", e["x_f"][0], "with column height", e["L_prev_col"][0],
       "; T - 12 L values", sorted(set((e["steps"] - 12 * e["L_prev_col"]).to_list())))"""),
+md("""## Entry probe (2026-10-21; registered in the README before measuring, but committed together with the results)
+`results/entry_backtrack.txt` is the ant's turnaround log (swing >= 40 rows) walked backwards from the first front advance.
+Registered outcome: E1a failed (column counts include the old blob) and E1b failed on its swing = L(x) clause, so E1 is
+rejected as registered. Post hoc: the ant is on the sweeper clock well before the edge."""),
+code("""print(chr(10).join(l for l in (R / "entry_backtrack.txt").read_text().splitlines()
+                 if l.startswith(("maxima", "run starts", "all cycles", "swing increments"))))"""),
 md("""Snapshot 0 is `C(434, 0)`, so given that one 1.27e10-step simulation, the blank-board `RLRLLL` ant never builds a
 highway: it sweeps forever, with `|x|^2 / t -> 9/12 = 3/4`.
 
 ## What this does not show (caveats)
-- **Entry.** Why the blob produces the sweeper is open. The early probe shows the law already holds when the front first
-  passes the old blob edge (height 226); extrapolating puts the wedge's apex inside the blob, where the background is not
-  blank and the family does not apply.
+- **Entry.** The ant is on the sweeper clock (period-3 `T - 12 swing`, 3 columns and 1 row per cycle) from step 12,676,233,468
+  (swing 41, x = -1536), 188,299 steps before the front crosses the old blob edge; the apex extrapolates to x ~ -1474, at
+  the blob's NW corner, where the log is irregular for >= 1e4 steps before. Not shown: that the configuration is in the
+  closed family (no cell-level comparison; old blob cells lie in the window behind the first ~7 cycles) and what seeds the
+  wedge. The registered entry prediction E1 is rejected as scored (E1b's geometry clause failed).
 - **Trust.** The base case is one run of an uncertified plain loop (consistent with an independent run's exit step).
   The checker is ~640 lines of Rust, not a proof assistant; brute force and negative controls test it but do not prove it.
 - **Explanation.** The check certifies the period-3 wake and the bulk row `14435435...`; it does not say why they arise.
@@ -86,7 +94,7 @@ highway: it sweeps forever, with `|x|^2 / t -> 9/12 = 3/4`.
 
 ## Next
 An independent second checker or a Lean/Coq statement of the two lemmas; the same propose-then-check loop on the other
-no-highway escapes and on census highways (a "sweeper decider"); a moving-frame trace of where the wedge begins inside the blob."""),
+no-highway escapes and on census highways (a "sweeper decider"); a cell-for-cell comparison of the window at a cycle clear of the blob with `canonical_k0.txt`, then a front-free cycle definition to resolve the seed."""),
 ]
 nb = nbf.v4.new_notebook(cells=cells)
 nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}

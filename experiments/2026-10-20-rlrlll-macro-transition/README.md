@@ -183,18 +183,25 @@ $B RLRLLL 12676233468 12676233000 $E/scratch/entry_onset 32768 40  # column exte
 
 | Prediction | Outcome |
 |---|---|
-| E1a linear column extents, slope 1/3 | **Failed as registered, wrong observable.** Visited-cell counts per column west of the edge grow 3 to 12 per column, because they include the old blob. The wedge is only visible in the ant's turnarounds, not in the column counts. |
-| E1b period-3 law, swing = L(x) | **Held** on the whole contiguous run found: 94 cycles from x = -1536 to the blob edge. `T - 12 swing` takes exactly 358, 374, 514 (31 each, period 3); swing grows 2 rows per cycle on average; maxima move 3 columns west and rise 1 row per cycle. |
+| E1a linear column extents, slope 1/3 | **Failed as registered.** Visited-cell counts per column west of the edge grow 3 to 12 per column, because they include the old blob. (Post hoc: the observable was wrong; the wedge is visible in the ant's turnarounds, not in the column counts.) |
+| E1b period-3 spacing and swing = L(x) within 3 rows | **Failed as registered (second clause), so by the registered rule E1 is rejected.** Clock clause: period 3 holds on all 94 cycles, but the constants are `T - 12 swing` = 358, 374, 514 (31 each), not the registered "{374, 402, 530}-like" and not the first run's {358, 394, 518}; the likely cause is cutting cycles at the maximum turnaround instead of at a front advance (not tested). Geometry clause: at x in [-1800, -1700] the counts are about 700 to 925 while the swings are about 170 to 215, so swing = L(x) fails. |
 | E2 born at the edge | **Not supported**: the swing is continuous in x across x = -1820 (167 at x = -1720, 226 at -1815). |
 
+Post hoc reading (not a registered outcome): E1's geometry test used the wrong observable, but the clock and the
+swing-vs-x line (slope 2/3 per column, 3-column and 1-row steps per cycle) say the ant is on the *sweeper clock* well
+before the edge. Whether the configuration behind it equals the closed family C(m, q) is **not** shown: no cell-level
+comparison was made, and in columns -1540 to -1500 the blob reaches y = -952, overlapping the sweeper's rows
+(-953 to -912), so for roughly the first 7 cycles the window behind the sweeper still holds old blob cells.
+"Blank ground" is established only for the cells ahead of it.
+
 What the run shows (observations; 1 run, deterministic, no seed):
-- The sweeper is on the exact law from t = 12,676,233,468 (swing 41, x = -1536, the swing filter's floor) to the exit.
+- The ant is on the sweeper clock (not shown: the closed family itself) from t = 12,676,233,468 (swing 41, x = -1536, the swing filter's floor) to the exit.
   The first front advance (12,676,421,767, x = -1820) is just the sweeper crossing the old blob's west edge; nothing
   happens to the law there. Before t = 12,676,233,468 the turnaround log is irregular (swings 5 to 20 around
   x = -1470 .. -1500, y = -930 +- 20) for at least 1e4 steps.
 - Backward extrapolation (swing 0 at x ~ -1474) agrees with the last irregular turnaround, at x = -1473 (step
   12,676,223,434). So the wedge appears to grow from a seed of height near zero at the NW corner of the old blob.
-- At the onset the sweeper's rows lie north of the blob's top edge in every column it later enters (checked on the
+- Ahead of the sweeper: its rows lie north of the blob top edge in every column it later enters (checked on the
   onset dump: blob top row at x = -1541 is -839, at x <= -1700 is >= -399, sweeper rows <= -819), i.e. it runs on
   blank ground, consistent with the closure's hypothesis.
 
