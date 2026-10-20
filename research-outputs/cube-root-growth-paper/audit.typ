@@ -1,4 +1,4 @@
-= Appendix: Reproducibility & Preregistration Audit Table <sec:audit>
+= Supplementary material: Reproducibility & Preregistration Audit Table <sec:audit>
 
 This audit preserves the repository locations displaced from the main narrative. All paths are relative to the repository root. Audit numbers link the physical tests to their records; they are not additional scientific results.
 

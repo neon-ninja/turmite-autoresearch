@@ -437,3 +437,26 @@ No commit was made.
 The literature review in `experiments/2026-10-15-literature-review/` removes the broad absence-of-prior-growth claim. User-supplied Meng–Cohen1994 full text directly measures area and boundary growth in periodic binary media and supplies a boundary-access mechanism anticipating the scaling argument. The manuscript distinguishes uniform multicolour census coverage and separately measured c/kappa from this prior work. It also corrects cone assumptions, rotor theorem scope, finite-horizon highway language, boundary estimator conventions, matched-step wording and selected-cohort scope. Wavelength outcomes remain mixed and no interface class is assigned.
 
 Rebuild with the existing Typst command above; final compile had no diagnostics. The resulting27-page PDF and selected changed pages were rendered/checked; exact hashes are in `experiments/2026-10-15-literature-review/results/verification.json`. The review notebook executed cleanly. No figures or measurements were regenerated, no dependency declarations changed, no simulator/estimator change required Rust tests, and no commit was made. Coverage and source-ambiguity limitations are explicit in the report.
+
+## Audit moved to supplementary material (2026-10-20)
+
+The reproducibility and preregistration audit is now a separate ten-page
+`supplementary/reproducibility-audit.pdf`. The main paper is 37 pages.
+All 48 audit entries, their numbers and provenance caveats are retained in
+`audit.typ`, included by the standalone supplementary source. Main-text audit
+links open the companion PDF; locate entries by their unchanged audit numbers.
+Keep the `supplementary/` directory beside `main.pdf` when distributing the files
+so relative PDF links work (viewer support varies).
+
+Rebuild both from the repository root in WSL:
+
+```bash
+export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
+typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
+typst compile --root . research-outputs/cube-root-growth-paper/supplementary/reproducibility-audit.typ research-outputs/cube-root-growth-paper/supplementary/reproducibility-audit.pdf
+```
+
+`rebuild_figures.py` also builds and hashes both PDFs. Both standalone builds
+completed without diagnostics. The supplement's opening and final pages and the
+main paper's final bibliography page were rendered and visually checked.
+This is an editorial relocation; no data, figures, fits or simulations changed.`cargo test --release` passed (exit 0; existing warnings remain).
