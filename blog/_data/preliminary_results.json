@@ -93,13 +93,13 @@
   "forecast_rules": 99,
   "onset_billions": 12.7,
   "provenance": {
-    "revision": "26ae8e3d7b6586f04e91e382e1edc5258d24d0a6",
+    "revision": "b1c886a8b8dadc770e7724c33f519bc957e07c56",
     "command": "uv run --frozen --only-group blog blog/scripts/export_results.py",
     "sha256": {
       "research-outputs/cube-root-growth-paper/main.typ": "e07462a74e46bf1929698a21c925a689027b2c78a06463b3cc616bdbe47e0adf",
       "research-outputs/cube-root-growth-paper/numbers.json": "dcc4a0a7b69ce589f37e2670f3612ee51966ea4f4eb509a4b60f3b07263794cc",
       "research-outputs/cube-root-growth-paper/recent_findings.json": "a5d27ddf0d6653693fdc85e748acc8805fdc1c37ea035f054078c10a25f60c70",
-      "research-outputs/cube-root-growth-paper/kappa_prediction.json": "94fb4290e9945d90f5867a275311cc88d7c38ddee99623e2bd6bba33f5e280fa",
+      "research-outputs/cube-root-growth-paper/kappa_prediction.json": "6226d9f050e79419945c7949f1e9b66267875ebfd3022ee4641e94ce6d2bb61e",
       "research-outputs/cube-root-growth-paper/supplementary/rule-census/rule_census.build.json": "b45bfb27c6c9504f3979a40bf7c118cb85c11c2e3a61e5edbbff432e1431ee9b",
       "research-outputs/cube-root-growth-paper/supplementary/walker-reference/walker_reference.csv": "9d9b05f2ebbdfe8ae1106ca333cac5cca5e3bba3be7b94d39d246bd186af9f76",
       "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
