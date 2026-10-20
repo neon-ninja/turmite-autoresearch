@@ -51,3 +51,42 @@ Main run finished before I looked at any output: `scripts/run.sh` (PID 9888) wro
 `results/classes.csv`, `classes.done`, `run.log` (binary sha256, specs sha256, elapsed). All 344
 specs ran in `--check` mode with no panic (exit 0), so every window matched `probe::probe_walker`
 and a board scan.
+
+### 2026-10-20 09:49 (+00:00) · 181742c · observation
+`uv run .../scripts/analyse.py` -> `results/analysis.txt`. P0 held (1152 windows, 0 mismatches
+against `probe_all.csv`), P1 held (mf rho 0.9985-1.0020), P2 held (ant median rho 0.874, frac >= 1
+0.312; rotor 1.798; rw 1.315), P2b held (median |ln dev| 0.036). P3 FAILED: median Q 1.349
+[1.091, 1.593] but Q > 1 in only 64% of rules (needed 75%). P4 failed with the wrong sign
+(Spearman +0.197). 5 of 256 patched runs excluded for escape. Between-seed sd: rho 0.023, Q 0.011.
+
+### 2026-10-20 09:50 (+00:00) · 181742c · surprise
+The rotor has a larger Q (1.60) than the median ant (1.35). Exposed-cell returns are depleted for
+every non-uniform walker (rotor 0.71, rw 0.76, ant 0.41), so Q > 1 is not an ant signature.
+The ant's distinctive shortfall is flat-edge returns: rho_1^ret 0.59 versus rotor 1.14 and rw 0.78.
+
+### 2026-10-20 09:50 (+00:00) · 181742c · interpretation
+POST HOC (`scripts/explore.py`): across rules rho tracks rho_1^ret (Spearman +0.93) rather than Q
+(+0.05). The deficit's rule-to-rule variation lives in returns to flat edge. Confidence moderate:
+flat cells are ~72% of time-averaged P, so composition contributes; age/colour/depth were not
+recorded and are confounded with exposure. My welcome post's speculation that "the birth part does
+not separate ant and rotor" holds only as a fraction of B (c ~ 0.44 vs 0.45); per unit of P/A the
+birth part is c*rho and differs (0.33 vs 0.82), so that sentence needs a correction in the next post.
+
+### 2026-10-20 09:51 (+00:00) · 181742c · decision
+Byte-identical rerun with RAYON_NUM_THREADS=3 (scratch/, sha256 50ca6573...). Record results in
+README (append-only below the registration), update notes, write a short blog progress entry.
+Next test proposed, not registered: age-resolved flat-edge returns on a fresh sample.
+
+### 2026-10-20 09:52 (+00:00) · 181742c · surprise
+The notebook figure showed two ant rules with rule-mean returns 40-130x uniform. Cause: three patched
+runs became board fillers without escaping (`RLLLRLLL@2` births/step 0.4998; `RLRRRRLRR@1` and `@3`
+both 0.250116, i.e. the same attractor from two different patches). Blank-board runs of both rules
+are census-stationary blobs. The registered plan only excluded escapes, so the registered numbers
+include them; medians are robust.
+
+### 2026-10-20 09:52 (+00:00) · 181742c · decision
+Post hoc sensitivity in `scripts/explore.py`: drop runs with births/step > 0.05 in window 26
+(clear gap: next highest 0.0101). No verdict changes (median Q 1.349, Q > 1 in 64.1%, P4 +0.21).
+The notebook figure uses the filtered runs and says so. Open question for the notes: how often does
+a 5x5 patch switch a census-stationary rule into a filler within 2^26 steps (here 3 of 256 runs, 2 of
+64 rules)?

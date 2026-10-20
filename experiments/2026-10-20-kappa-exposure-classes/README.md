@@ -94,3 +94,83 @@ explain it.
 ## Results
 
 (Appended below after the run; predictions above are not edited.)
+
+### Run and analysis — appended 2026-10-20 09:51 UTC
+
+Run: `scripts/run.sh` at commit `1593b61` (clean `src`/`examples`), 2026-10-20 09:46:44 UTC, 81 s on
+8 threads; binary sha256 `0e6df95c...192e9f`, `results/classes.csv` sha256 `50ca6573...84f79` (full
+hashes in `results/run.log`). All 344 specs ran in `--check` mode without a panic. A rerun with
+`RAYON_NUM_THREADS=3` (no `--check`, into gitignored `scratch/`) is byte-identical.
+Analysis: `uv run experiments/2026-10-20-kappa-exposure-classes/scripts/analyse.py` ->
+`results/analysis.txt`, `results/analysis.json`, `results/rule_stats.csv`.
+
+| prediction | registered | measured | verdict |
+|---|---|---|---|
+| P0 reproduction | every shared census window identical | 1152 windows (k = 9..26) over 64/64 blank-board rules, 0 mismatches | **held** |
+| P1 mean-field | \|rho-1\| <= .01, \|rho_1-1\| <= .02, \|rho_2-1\| <= .03, \|rho_3-1\| <= .10 | all 8 seeds within (rho 0.9985-1.0020) | **held** |
+| P2 ant median rho | [0.70, 0.92] | 0.874 (rule IQR 0.719-1.072) | held |
+| P2 fraction rho >= 1 | [0.08, 0.35] | 0.312 | held |
+| P2 rotor median rho | [1.45, 1.95] | 1.798 (8/8 seeds, sd 0.004) | held |
+| P2 rw median rho | [1.05, 1.45] | 1.315 (8/8 usable, 7-8 windows each before escape) | held |
+| P2b rule-by-rule conversion | median \|ln(rho_blank/(kappa_26/1.105))\| <= 0.05 | 0.036; ratio 5-95%: 0.931-1.086 | **held** |
+| P3 H-exposed | median Q >= 1.18 **and** Q > 1 in >= 75% of rules | median Q 1.349 [rule bootstrap 95% 1.091, 1.593]; Q > 1 in 64% | **FAILED** (second clause) |
+| P4 | Spearman(rho, exposed share) <= -0.4 | +0.197 (p 0.12) | **failed** (wrong sign) |
+
+Sample: 256 patched runs, 5 excluded (escaped before window 26), so some rules have fewer than
+4 seeds (minimum 1); all 64 rules retained. Between-seed sd (median over rules): rho 0.023,
+Q 0.011, rho_1^ret 0.014, rho_2+^ret 0.011. Q is a reproducible property of a rule (seed sd 0.011)
+with a wide spread between rules (5-95%: 0.58-2.38), so the P3 failure is not seed noise.
+
+Class-resolved medians over rules: rho_1 0.66, rho_2+ 1.57; returns only: rho_1^ret 0.59,
+rho_2+^ret 0.41. The first departure from a newborn cell accounts for a median 41% of ant boundary
+steps (rotor 45%, rw 41%), close to c, as the bookkeeping requires.
+
+Calibration walkers (exploratory, no prediction): rotor Q 1.60 (sd 0.003), rho_1^ret 1.14,
+rho_2+^ret 0.71; random walk Q 1.03, rho_1^ret 0.78, rho_2+^ret 0.76; mean-field Q 1.00.
+
+### Post hoc exploration (unregistered) — `scripts/explore.py` -> `results/explore.txt`
+
+- Across rules, rho follows flat-edge returns (Spearman with rho_1^ret +0.93) much more than
+  exposed returns (+0.66), and is unrelated to Q (+0.05) or to the exposed share of P (+0.20).
+  Flat cells are ~72% of the ant's time-averaged boundary (w_1 0.72), so part of this is composition.
+- Decomposing rho into contributions per unit time-averaged P/A (medians): ants: birth steps 0.33,
+  flat returns 0.43, exposed returns 0.11 (sum 0.87); rotor 0.82 / 0.72 / 0.26 (1.80);
+  rw 0.54 / 0.51 / 0.26 (1.31); mean-field 0 / 0.60 / 0.40 (1.00).
+- Returns to exposed cells are below uniform for every non-uniform walker (rotor 0.71, rw 0.76,
+  ant 0.41): reaching corners and tips by return rather than by birth is rare in general, not an
+  ant peculiarity. The ant-specific feature is the flat edge: rho_1^ret 0.59 against 1.14 (rotor) and 0.78 (rw).
+- Only 3 of 64 sampled rules have census c >= 0.6 (the crust proxy); all three have Q < 1 (0.50 median).
+  Too few to say anything.
+
+- **Board fillers (surprise).** Three patched runs left the blob regime without escaping:
+  `RLLLRLLL@2` (births/step 0.4998 in window 26, area 3.35e7) and `RLRRRRLRR@1`, `@3` (both exactly
+  0.250116, area 1.68e7). All other ant runs have births/step <= 0.0101. Both rules are stationary
+  blobs from a blank board (their blank runs reproduce the census). The registered plan excluded only
+  escapes, so these runs are in the registered rule means; they make two rule means absurd
+  (rho ~ 140-150). Sensitivity with them dropped (post hoc, same seeds and windows): median rho 0.874,
+  fraction rho >= 1 0.281, median Q 1.349 [1.099, 1.594], Q > 1 in 64.1%, Spearman(rho, exposed
+  share) +0.21, Spearman(rho, rho_1^ret) +0.92, (rho, rho_2+^ret) +0.61, (rho, Q) +0.00. **No verdict
+  changes.** The figure in `notebook.ipynb` (`results/returns_by_class.png`) excludes these three runs.
+  After exclusion every ant rule has rho_1^ret <= 1.01, while the rotor is at 1.14.
+
+### Interpretation and limits
+
+Observations: the convention-free ratio confirms the deficit (ants 0.87 x uniform, rotor 1.80,
+rw 1.31; mean-field exactly 1), and P2b shows that kappa / 1.105 recovers it rule by rule to a
+median 3.6%. The registered H-exposed picture fails: the median of Q is above 1.18, but a third of
+the rules have Q < 1, and edge exposure does not track the deficit across rules (P4 has the
+wrong sign). Interpretation (post hoc, needs a registered test): the rule-to-rule variation of
+boundary occupation is carried by **returns to flat edge**, and that is where ants differ most from
+the rotor and random walk. Q mostly records a property common to all non-uniform walkers: corners
+and tips are reached by births, not by returns.
+Limits: one cohort of 64 stationary rules, windows (2^16, 2^26], one board size; exposure is
+confounded with age, colour and depth, which were not recorded; the exploratory split was chosen
+after seeing the data.
+
+### Next test (proposed, not registered)
+
+Register on a fresh rule sample: (i) Spearman(rho, rho_1^ret) >= 0.85 and rho_1^ret explains more
+between-rule variance of ln rho than the exposed-return term after removing the composition
+effect (hold w_1 fixed by reweighting); (ii) resolve flat-edge returns by the age of the edge
+cell (steps since birth), to test whether the ant's flat-edge shortfall is concentrated in
+recently born edge (a short-horizon effect) or spread over old edge (a long-excursion effect).
