@@ -355,7 +355,7 @@ scan), then `uv run $E/scripts/window_seed.py $E/scratch/winB $E/scratch/targets
 
 Heights of cells first visited after `T_track2` in the column 3 east of each event: 3 (col -1504), 19 (-1507), 21 (-1510), 23 (-1513),
 ..., +2 per 3 columns thereafter. **The wedge does not grow from zero height**: a column of height ~19 appears right after a
-column of height 3, and from there every cycle obeys the family's clock exactly, 41 cycles (m = -24 .. 4) before the cell-level
+column of height 3, and from there every cycle obeys the family's clock exactly, 14 cycles (m = -24 .. 2) before the cell-level
 family applies. The backward extrapolation to an apex at x ~ -1474 (README Entry probe) was wrong, and the "swing 41" floor
 was my zigzag filter, not the sweeper. The clock law's validity at negative m (columns shorter than the family's own end
 blocks) is unexplained: C(m, q) is undefined there, so the exact formula is an observation about the trajectory, not covered by the

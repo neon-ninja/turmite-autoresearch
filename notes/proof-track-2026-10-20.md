@@ -75,7 +75,7 @@ in the paper.
   predictions P1-P5 registered at `4bc029a`), and if so, can it be checked for all heights (Stage 2)?
   **Result (2026-10-20):** P1-P5 held; the three-phase family is closed for all even m >= 2 (checker plus brute-force
   cross-checks and negative controls). First level-3 result of the track; see that README for what it rests on.
-  **Entry probe (2026-10-21):** the sweeper is already on the law 188,299 steps before the edge crossing (94 exact cycles from swing 41 at x = -1536); apex extrapolates to x ~ -1474, the blob NW corner; seed itself unresolved.
+  **Entry (2026-10-21):** the cell-level family holds from step 12,676,237,591 (C(4,1) at x = -1552; base case moved 769,586 steps earlier, 184,176 before the edge crossing); the clock formula extends exactly to m = -24 (x = -1510, height-19 first column), so the wedge does not start at zero height; registered E1, A2, B2 failed. The 3-row light-cone margin is observed, not derived from the checker.
 
 ## Next steps (proposed, none started)
 
@@ -84,5 +84,5 @@ in the paper.
 2. *Generalise the checker*, not the rule: run the same propose-then-check loop on the other no-highway escapes
    (`RLLLLRRL`, `RLLLLRLRRL`, `RLLLRLRLLL`) and on every census highway (a highway is the m-free special case). A
    "sweeper decider" over the census would be the proof-track analogue of the bbchallenge deciders.
-3. *Entry* (partly done 2026-10-21): the family holds from swing ~41 back; resolve the seed (swing < 40) with a front-free cycle definition, and ask why the blob corner produces it.
+3. *Entry* (mostly done 2026-10-21): family at the cell level from m = 4, clock to m = -24; open: derive the cone margin from the checker, explain the clock at m < 2, and what at the blob NW corner makes a height-19 first column.
 4. *Explain, not just certify*: why the bulk row is `14435435...` and why the colour period is 3 for a length-6 rule.
