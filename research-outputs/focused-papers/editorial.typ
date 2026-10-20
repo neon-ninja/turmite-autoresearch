@@ -9,8 +9,8 @@
     ],
     footer: context [#set text(font: "Lato", size: 8pt, fill: rgb("#6b706d"))
       #grid(columns: (1fr, auto), [RESEARCH DRAFT · 20 OCTOBER 2026 / #issue], [#counter(page).display("01")])])
-  set text(font: "Libertinus Serif", size: 11pt, fill: rgb("#202623"))
-  set par(justify: true, leading: 0.72em, spacing: 0.95em)
+  set text(font: ("Georgia", "Libertinus Serif"), size: 10.6pt, fill: rgb("#202623"))
+  set par(justify: true, leading: 0.8em, spacing: 1.05em)
   set heading(numbering: "1.1")
   show heading.where(level: 1): it => block(above: 22pt, below: 11pt)[
     #set text(font: "Lato", size: 19pt, weight: "bold", fill: accent)
@@ -34,9 +34,9 @@
   set list(spacing: 5pt)
   set enum(spacing: 5pt)
   [#set par(justify: false)
-    #text(font: "Lato", size: 9pt, weight: "bold", fill: accent, tracking: 1.5pt)[FIELDNOTES / #issue · DISCRETE DYNAMICS]
+    #grid(columns: (1fr, auto), align: (left, right), [#text(font: "Lato", size: 9pt, weight: "bold", fill: accent, tracking: 1.5pt)[FIELDNOTES / DISCRETE DYNAMICS]], [#text(font: "Lato", size: 30pt, weight: "light", fill: accent)[#issue]])
     #v(14mm)
-    #text(size: 37pt, weight: "regular")[#title]
+    #text(size: 43pt, weight: "regular")[#title]
     #v(6mm)
     #text(font: "Lato", size: 13pt, fill: rgb("#56625c"))[#deck]
     #v(7mm)
@@ -52,7 +52,7 @@
   [#set par(justify: false)
     #text(font: "Lato", size: 9pt, weight: "bold", fill: accent, tracking: 1pt)[THE QUESTION & THE EVIDENCE]
     #v(5mm)
-    #text(size: 13pt)[#abstract]
+    #text(size: 13.5pt)[#abstract]
     #v(7mm)
     #block(width: 100%, inset: 13pt, fill: accent.lighten(93%), stroke: (left: 2pt + accent))[
       #set text(font: "Lato", size: 10pt)
@@ -66,4 +66,5 @@
   v(5mm)
   body
 }
+
 

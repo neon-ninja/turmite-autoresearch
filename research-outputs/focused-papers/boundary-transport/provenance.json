@@ -13,9 +13,10 @@
     "seed_uncertainty.json": "4668c75657db7ecc5486ca16658c9fd5868346adb66e6edb822c117f875cf24f",
     "tail_budget.json": "202d8a5ea4ca44c797837b49c7d49952d50bc190e17fa57955da440ed59a1b47"
   },
-  "draft_sha256": "4b6324f5c783b3c56b2ca6b81c14b30599ced1fa508f134aaba89754646bcb0e",
+  "draft_sha256": "b6f29cbffddf691e4b0980d9b871adf09fb4e4cd71e66e67d28207e7d4565328",
   "externalized_references": [
     "tab:calib",
     "tab:memory"
-  ]
+  ],
+  "additional_qualification": "The transport draft also references the 2026-10-20 family hold-out README and ACTIVE.md; no new result was computed."
 }

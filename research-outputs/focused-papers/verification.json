@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-20",
+  "checks": "All drafts compiled without diagnostics; page contact sheets and enlarged cover, reading and figure pages visually reviewed. Text bounds checked against page media boxes. No simulations or Rust changes; release tests not rerun for editorial-only changes.",
+  "papers": {
+    "ant-rotor-boundaries": {
+      "pages": 7,
+      "pdf_sha256": "e61f5e56f1c7b943a66c27c33fd19634f601de7e5ad396a94bdb41f3f96cf716",
+      "pages_with_text_outside_media_box": []
+    },
+    "boundary-transport": {
+      "pages": 18,
+      "pdf_sha256": "c48f1d4a39882a6d08d9367a1b0aee164c0d19f9d46ef55ee24c4bc79ce1448b",
+      "pages_with_text_outside_media_box": []
+    },
+    "growth-census": {
+      "pages": 12,
+      "pdf_sha256": "0a371d568ee1eb5edbf8a6767df15dfbea71c36fea654f9d9f0b8c014fee7be6",
+      "pages_with_text_outside_media_box": []
+    }
+  }
+}

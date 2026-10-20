@@ -1,0 +1,121 @@
+{
+  "typst": "typst 0.15.1 (unknown commit)",
+  "git_commit_at_build": "99d67d16291314911c7753583edfd7fa068f0960",
+  "note": "Sources may be uncommitted; content hashes identify actual inputs.",
+  "papers": {
+    "growth-census": {
+      "command": [
+        "typst",
+        "compile",
+        "--root",
+        "/mnt/f/Code/turmite",
+        "--font-path",
+        "/mnt/c/Windows/Fonts",
+        "/mnt/f/Code/turmite/research-outputs/focused-papers/growth-census/main.typ",
+        "/mnt/f/Code/turmite/research-outputs/focused-papers/growth-census/main.pdf"
+      ],
+      "inputs_sha256": {
+        "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
+        "research-outputs/cube-root-growth-paper/chirality_baselines.json": "074fc01fc8be56a08afdf3a5640de519adb6969fde07e3edacae24d92277e287",
+        "research-outputs/cube-root-growth-paper/fig/alpha_gap.pdf": "68d67d22e72d6cbe584cf5b6ec70bf096534d92977e5077c90a3c66edd9bc66d",
+        "research-outputs/cube-root-growth-paper/fig/census.pdf": "76a1f5a4838904d1e41475f81dc48526a2acafa957927d67f2eb00303ac1f80e",
+        "research-outputs/cube-root-growth-paper/fig/exponents.pdf": "7e2046d0b8f8cec378c3e388ed1e4a623c08736c8038d91c493d003380e20c9d",
+        "research-outputs/cube-root-growth-paper/fig/growth_curves.pdf": "85085b3164095a1e180c91dedb1b46e345ee7c7fe7d20f8b1a4f3b9ec1452f61",
+        "research-outputs/cube-root-growth-paper/fig/late_switch.pdf": "39dff47b1b434c9a47e56f393097402ed294c1381c8621c57354a0eb2a0b58ba",
+        "research-outputs/cube-root-growth-paper/fig/mechanics.pdf": "5756969f2baafa4324760e1e9dd2d82634469eb036e36636d90cff356d947ace",
+        "research-outputs/cube-root-growth-paper/fig/timelapse.pdf": "c725d75bfbdaebfeb16eabf8571b42c310ef76c7744f0cfb336d0b325f6252e7",
+        "research-outputs/cube-root-growth-paper/kappa_prediction.json": "6226d9f050e79419945c7949f1e9b66267875ebfd3022ee4641e94ce6d2bb61e",
+        "research-outputs/cube-root-growth-paper/numbers.json": "dcc4a0a7b69ce589f37e2670f3612ee51966ea4f4eb509a4b60f3b07263794cc",
+        "research-outputs/cube-root-growth-paper/recent_findings.json": "a5d27ddf0d6653693fdc85e748acc8805fdc1c37ea035f054078c10a25f60c70",
+        "research-outputs/cube-root-growth-paper/refs.bib": "99c793cbab1099ad6271e1d63dd88d22d4b4cfedd072dc3fa69e861af9c86769",
+        "research-outputs/cube-root-growth-paper/tail_budget.json": "202d8a5ea4ca44c797837b49c7d49952d50bc190e17fa57955da440ed59a1b47",
+        "research-outputs/focused-papers/editorial.typ": "51f974e9542a3d0bb3a13b8a36cdf52cf72ead5a54e37a53edd53f6f72d39f13",
+        "research-outputs/focused-papers/growth-census/main.typ": "f72b73be7f49643cc680776af0882a04dc26b7578713fcda874c046584b064e5",
+        "research-outputs/focused-papers/provenance/synthesis-source.typ.txt": "cf46c1202f4fcc328f9f111bc5e42f4bdac66245e69aa320fce822f706e2c323"
+      },
+      "georgia_fonts_sha256": {
+        "georgia.ttf": "38dffcaf1fac89492f7c56c600a14daf36ae42f7c21985cd4134ae113124a58f",
+        "georgiab.ttf": "72a6cd94fab6c179392075d3fb361e269cdddfad41bb7ab385fa22a37e49a900",
+        "georgiai.ttf": "d3e4bad27651d120ac8f2cea42cf4b4f077264fb243f66b3caffcfd35465f49b",
+        "georgiaz.ttf": "3f9e512f82eaf6f1b7869b82013fb79f6eaf1a41e75a0e7b96f31f35b1022ae4"
+      },
+      "pdf_sha256": "0a371d568ee1eb5edbf8a6767df15dfbea71c36fea654f9d9f0b8c014fee7be6",
+      "diagnostics": ""
+    },
+    "boundary-transport": {
+      "command": [
+        "typst",
+        "compile",
+        "--root",
+        "/mnt/f/Code/turmite",
+        "--font-path",
+        "/mnt/c/Windows/Fonts",
+        "/mnt/f/Code/turmite/research-outputs/focused-papers/boundary-transport/main.typ",
+        "/mnt/f/Code/turmite/research-outputs/focused-papers/boundary-transport/main.pdf"
+      ],
+      "inputs_sha256": {
+        "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
+        "experiments/2026-10-20-kappa-prefix-family-holdout/README.md": "5bf7c35fee5ebdc7cc99edb1d57ab78b0668e776b2feca9e6cd640a61e6bcc57",
+        "experiments/2026-10-20-kappa-prefix-family-holdout/results/holdout.json": "2186a043a87d9eb08df4c01979a530cda0ebbcb161778061a3e35082ed6f7c4c",
+        "research-outputs/cube-root-growth-paper/chirality_baselines.json": "074fc01fc8be56a08afdf3a5640de519adb6969fde07e3edacae24d92277e287",
+        "research-outputs/cube-root-growth-paper/fig/ck_time.pdf": "d0defac27e2a4a1d49fe6850fc74d8d89bdc270beb7947f3e03ce6fb3b14bb5c",
+        "research-outputs/cube-root-growth-paper/fig/cmodel.pdf": "99e395e0c9130675e253cfc62d26e10ffc60e1139b2ca161c2beb9348ffa4870",
+        "research-outputs/cube-root-growth-paper/fig/deviations.pdf": "bf14a09458e984c5e888af3b51257383da386f3b2089668daa2c0e6a8fe09fc3",
+        "research-outputs/cube-root-growth-paper/fig/edge.pdf": "a2d6829281169af18f3482fd300719a25ad380b519cfd27ca7accf9689ec7bd3",
+        "research-outputs/cube-root-growth-paper/fig/layers.pdf": "e22d80acaca19ef449f14775f3906cd2a3548d479ae05f4189b4e9115f5c61f2",
+        "research-outputs/cube-root-growth-paper/fig/prefix_lookup.pdf": "77c638dcfa8d64581b8df60a6e4993b199855f6388d82d261cb5c2ac4a3ca731",
+        "research-outputs/cube-root-growth-paper/kappa_prediction.json": "6226d9f050e79419945c7949f1e9b66267875ebfd3022ee4641e94ce6d2bb61e",
+        "research-outputs/cube-root-growth-paper/numbers.json": "dcc4a0a7b69ce589f37e2670f3612ee51966ea4f4eb509a4b60f3b07263794cc",
+        "research-outputs/cube-root-growth-paper/recent_findings.json": "a5d27ddf0d6653693fdc85e748acc8805fdc1c37ea035f054078c10a25f60c70",
+        "research-outputs/cube-root-growth-paper/refs.bib": "99c793cbab1099ad6271e1d63dd88d22d4b4cfedd072dc3fa69e861af9c86769",
+        "research-outputs/cube-root-growth-paper/tail_budget.json": "202d8a5ea4ca44c797837b49c7d49952d50bc190e17fa57955da440ed59a1b47",
+        "research-outputs/focused-papers/boundary-transport/main.typ": "b6f29cbffddf691e4b0980d9b871adf09fb4e4cd71e66e67d28207e7d4565328",
+        "research-outputs/focused-papers/editorial.typ": "51f974e9542a3d0bb3a13b8a36cdf52cf72ead5a54e37a53edd53f6f72d39f13",
+        "research-outputs/focused-papers/provenance/synthesis-source.typ.txt": "cf46c1202f4fcc328f9f111bc5e42f4bdac66245e69aa320fce822f706e2c323"
+      },
+      "georgia_fonts_sha256": {
+        "georgia.ttf": "38dffcaf1fac89492f7c56c600a14daf36ae42f7c21985cd4134ae113124a58f",
+        "georgiab.ttf": "72a6cd94fab6c179392075d3fb361e269cdddfad41bb7ab385fa22a37e49a900",
+        "georgiai.ttf": "d3e4bad27651d120ac8f2cea42cf4b4f077264fb243f66b3caffcfd35465f49b",
+        "georgiaz.ttf": "3f9e512f82eaf6f1b7869b82013fb79f6eaf1a41e75a0e7b96f31f35b1022ae4"
+      },
+      "pdf_sha256": "c48f1d4a39882a6d08d9367a1b0aee164c0d19f9d46ef55ee24c4bc79ce1448b",
+      "diagnostics": ""
+    },
+    "ant-rotor-boundaries": {
+      "command": [
+        "typst",
+        "compile",
+        "--root",
+        "/mnt/f/Code/turmite",
+        "--font-path",
+        "/mnt/c/Windows/Fonts",
+        "/mnt/f/Code/turmite/research-outputs/focused-papers/ant-rotor-boundaries/main.typ",
+        "/mnt/f/Code/turmite/research-outputs/focused-papers/ant-rotor-boundaries/main.pdf"
+      ],
+      "inputs_sha256": {
+        "experiments/2026-10-13-transport-forecast/results/transport_forecast.json": "99d24645c76be2fdc1f422470e72a7507a8ae8a0597e1b194c593d1eb8559d9a",
+        "research-outputs/cube-root-growth-paper/chirality_baselines.json": "074fc01fc8be56a08afdf3a5640de519adb6969fde07e3edacae24d92277e287",
+        "research-outputs/cube-root-growth-paper/fig/edge_gap.pdf": "777583eb95a8e97898cf82daa6dd6bdec7b593f0561717f348722ec2d012f5c1",
+        "research-outputs/cube-root-growth-paper/fig/hero.pdf": "30ca20c602e181215ff9584f12948b7f96f7acc0fca752d92568807870909e90",
+        "research-outputs/cube-root-growth-paper/fig/rotor.pdf": "62d300b8ab3f7492da535cc6cb5feca84b20fe5f1ac330323cbbbfb57fb5e0ab",
+        "research-outputs/cube-root-growth-paper/kappa_prediction.json": "6226d9f050e79419945c7949f1e9b66267875ebfd3022ee4641e94ce6d2bb61e",
+        "research-outputs/cube-root-growth-paper/numbers.json": "dcc4a0a7b69ce589f37e2670f3612ee51966ea4f4eb509a4b60f3b07263794cc",
+        "research-outputs/cube-root-growth-paper/recent_findings.json": "a5d27ddf0d6653693fdc85e748acc8805fdc1c37ea035f054078c10a25f60c70",
+        "research-outputs/cube-root-growth-paper/refs.bib": "99c793cbab1099ad6271e1d63dd88d22d4b4cfedd072dc3fa69e861af9c86769",
+        "research-outputs/cube-root-growth-paper/tail_budget.json": "202d8a5ea4ca44c797837b49c7d49952d50bc190e17fa57955da440ed59a1b47",
+        "research-outputs/focused-papers/ant-rotor-boundaries/main.typ": "286a178debf00a400f3837a08575247d6324c5e56c494398dfe13af3e30ccda7",
+        "research-outputs/focused-papers/editorial.typ": "51f974e9542a3d0bb3a13b8a36cdf52cf72ead5a54e37a53edd53f6f72d39f13",
+        "research-outputs/focused-papers/provenance/synthesis-source.typ.txt": "cf46c1202f4fcc328f9f111bc5e42f4bdac66245e69aa320fce822f706e2c323"
+      },
+      "georgia_fonts_sha256": {
+        "georgia.ttf": "38dffcaf1fac89492f7c56c600a14daf36ae42f7c21985cd4134ae113124a58f",
+        "georgiab.ttf": "72a6cd94fab6c179392075d3fb361e269cdddfad41bb7ab385fa22a37e49a900",
+        "georgiai.ttf": "d3e4bad27651d120ac8f2cea42cf4b4f077264fb243f66b3caffcfd35465f49b",
+        "georgiaz.ttf": "3f9e512f82eaf6f1b7869b82013fb79f6eaf1a41e75a0e7b96f31f35b1022ae4"
+      },
+      "pdf_sha256": "e61f5e56f1c7b943a66c27c33fd19634f601de7e5ad396a94bdb41f3f96cf716",
+      "diagnostics": ""
+    }
+  }
+}
