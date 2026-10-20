@@ -7,7 +7,7 @@ use rayon::prelude::*;
 use std::io::Write;
 use turmite::Rule;
 use turmite::fast::{self, Config, Stop};
-use turmite::lean::{LeanGrid, highway_onset_flat, run_lean};
+use turmite::lean::{Ckpt, LeanGrid, highway_onset_flat, run_lean_ckpt};
 
 fn main() {
     let raw: Vec<String> = std::env::args().skip(1).collect();
@@ -32,13 +32,21 @@ fn main() {
         max_steps,
         ..Config::default()
     };
+    // Optional mid-trajectory checkpoints: TURMITE_CKPT_DIR=dir [TURMITE_CKPT_EVERY=steps, default 1e9]. A rerun resumes,
+    // and a larger MAX_STEPS extends finished runs instead of restarting them (same CSV as an uninterrupted run).
+    let ckpt_dir = std::env::var("TURMITE_CKPT_DIR").ok();
+    let ckpt_every: u64 = std::env::var("TURMITE_CKPT_EVERY").ok().map_or(1_000_000_000, |v| v.parse().unwrap());
+    if let Some(d) = &ckpt_dir {
+        std::fs::create_dir_all(d).unwrap();
+    }
     let done = std::sync::atomic::AtomicUsize::new(0);
     let rows: Vec<String> = rules
         .par_iter()
         .map_init(
             || LeanGrid::new(grid_size),
             |grid, rule| {
-                let res = run_lean(rule, grid, &cfg);
+                let ck = ckpt_dir.as_ref().map(|d| Ckpt { path: format!("{d}/{rule}_{grid_size}.ckpt").into(), every: ckpt_every });
+                let res = run_lean_ckpt(rule, grid, &cfg, ck.as_ref());
                 let (period, dx, dy, onset) = match res.highway {
                     Some(h) => (
                         h.period.to_string(),

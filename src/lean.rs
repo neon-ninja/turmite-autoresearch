@@ -95,6 +95,12 @@ fn advance(cells: &mut [u8], t: &Tables, idx: &mut usize, h: &mut u8, k: u64) ->
 
 /// Same contract as `fast::run`, on a fresh blank grid (the grid is cleared first).
 pub fn run_lean(rule: &Rule, grid: &mut LeanGrid, cfg: &Config) -> RunResult {
+    run_lean_ckpt(rule, grid, cfg, None)
+}
+
+/// As `run_lean`, but resumes from `ckpt.path` if it holds a state of this rule and board at or before `cfg.max_steps`,
+/// saves every `ckpt.every` steps, and saves the final state of a run that stops at the budget (not an escape).
+pub fn run_lean_ckpt(rule: &Rule, grid: &mut LeanGrid, cfg: &Config, ckpt: Option<&Ckpt>) -> RunResult {
     grid.clear();
     let mut t = tables(rule);
     let s = grid.stride;
@@ -106,12 +112,22 @@ pub fn run_lean(rule: &Rule, grid: &mut LeanGrid, cfg: &Config) -> RunResult {
     let mut h = 0u8;
     let mut steps = 0u64;
     let mut stop = Stop::Budget;
+    if let Some(ck) = ckpt {
+        match load_ckpt(&ck.path, rule, grid) {
+            Some((i, hh, s0)) if s0 <= cfg.max_steps => (idx, h, steps) = (i, hh, s0),
+            _ => grid.clear(),
+        }
+    }
     while steps < cfg.max_steps {
-        let (d, hit) = advance(&mut grid.cells, &t, &mut idx, &mut h, cfg.max_steps - steps);
+        let k = ckpt.map_or(u64::MAX, |c| c.every.max(1)).min(cfg.max_steps - steps);
+        let (d, hit) = advance(&mut grid.cells, &t, &mut idx, &mut h, k);
         steps += d;
         if hit {
             stop = Stop::Escaped;
             break;
+        }
+        if let Some(ck) = ckpt {
+            save_ckpt(&ck.path, rule, grid, idx, h, steps).expect("checkpoint write failed");
         }
     }
     let pos_of = |i: usize| ((i % s) as i64 - 1 - c as i64, (i / s) as i64 - 1 - c as i64);
@@ -226,4 +242,75 @@ pub fn highway_onset_flat(rule: &Rule, hw: crate::detect::Highway, until: u64, s
         }
     }
     (last_bad + 1).saturating_sub(p as u64)
+}
+
+/// Mid-trajectory checkpointing for `run_lean_ckpt`. The ant is deterministic, so a run resumed from a checkpoint is
+/// step-for-step the run that was never interrupted (tests/lean_ckpt.rs), and a checkpoint written at the budget lets a
+/// later call with a larger `max_steps` extend the run instead of restarting it.
+pub struct Ckpt {
+    pub path: std::path::PathBuf,
+    /// Steps between saves.
+    pub every: u64,
+}
+
+const MAGIC: &[u8; 4] = b"TCK1";
+
+fn save_ckpt(path: &std::path::Path, rule: &Rule, grid: &LeanGrid, idx: usize, h: u8, steps: u64) -> std::io::Result<()> {
+    use std::io::Write;
+    let tmp = path.with_extension("tmp");
+    let mut w = std::io::BufWriter::new(std::fs::File::create(&tmp)?);
+    let name = rule.to_string();
+    w.write_all(MAGIC)?;
+    w.write_all(&(name.len() as u32).to_le_bytes())?;
+    w.write_all(name.as_bytes())?;
+    for v in [grid.size as u64, steps, idx as u64] {
+        w.write_all(&v.to_le_bytes())?;
+    }
+    w.write_all(&[h])?;
+    // Run-length coding of zero bytes: (zeros, literal length, literal bytes)*, the blob is sparse in the board.
+    let c = &grid.cells;
+    let mut i = 0;
+    while i < c.len() {
+        let z = c[i..].iter().position(|&b| b != 0).unwrap_or(c.len() - i);
+        i += z;
+        let l = c[i..].iter().position(|&b| b == 0).unwrap_or(c.len() - i);
+        w.write_all(&(z as u64).to_le_bytes())?;
+        w.write_all(&(l as u64).to_le_bytes())?;
+        w.write_all(&c[i..i + l])?;
+        i += l;
+    }
+    w.flush()?;
+    w.into_inner().map_err(|e| e.into_error())?.sync_all()?;
+    std::fs::rename(&tmp, path) // atomic: a kill mid-save leaves the previous checkpoint intact
+}
+
+/// Loads into `grid`; None (grid untouched or cleared) if the file is absent, damaged or for another rule/board.
+fn load_ckpt(path: &std::path::Path, rule: &Rule, grid: &mut LeanGrid) -> Option<(usize, u8, u64)> {
+    let b = std::fs::read(path).ok()?;
+    let u64_at = |o: usize| b.get(o..o + 8).map(|s| u64::from_le_bytes(s.try_into().unwrap()));
+    if b.get(..4)? != MAGIC {
+        return None;
+    }
+    let nl = u32::from_le_bytes(b.get(4..8)?.try_into().unwrap()) as usize;
+    if b.get(8..8 + nl)? != rule.to_string().as_bytes() {
+        return None;
+    }
+    let o = 8 + nl;
+    let (size, steps, idx) = (u64_at(o)?, u64_at(o + 8)?, u64_at(o + 16)?);
+    let h = *b.get(o + 24)?;
+    if size as usize != grid.size {
+        return None;
+    }
+    let mut cells = vec![0u8; grid.cells.len()];
+    let (mut p, mut i) = (o + 25, 0usize);
+    while p < b.len() {
+        let (z, l) = (u64_at(p)? as usize, u64_at(p + 8)? as usize);
+        p += 16;
+        i += z;
+        cells.get_mut(i..i + l)?.copy_from_slice(b.get(p..p + l)?);
+        p += l;
+        i += l;
+    }
+    grid.cells = cells;
+    Some((idx as usize, h, steps))
 }
