@@ -171,3 +171,14 @@ row; the E5 | band | D3 junction lies inside the target's bulk run). Controls: m
 composition equality (trajectories identical during the whole cycle, ant never beyond column 18, so only the window bookkeeping can see it);
 RLRLLR rejected in all three phases but at S5 (sentinel), whereas brute force and the first checker show 'left the strip' for q = 0, 1 and
 'cycle completes, wrong final state' for q = 2. The first checker re-run on the regenerated inputs reproduces its committed verdicts.
+
+### 2026-10-21 08:35 +1300 · 64b12ec · observation
+C2: per-cycle reach, brute force (150 cycles) and from the finite runs: rows visited above the rectangle's first row: 2 (q=0), 0 (q=1),
+1 (q=2); below the last row: 1 for all q; max column 18 east of the front; column -3 only on the final position. Symbolic = brute force.
+Registered C2a (<= 1 row per side) FAILED (q = 0 reaches 2 above). The rectangle's top moves up 2, 0, 1 rows and the bottom down 1, 1, 1 rows
+per cycle (verified composition; matches an ideal 14-cycle run exactly), i.e. a wedge of 1 row/cycle per side.
+C2d: by the exact criterion (real dump equals the ideal initial configuration on every cell the ideal ant ever stands on, J ~ 97 cycles,
+~4.5e4 cells per window) 50 of 50 windows pass, 0 mismatches; control: a one-cell change on a visited cell is flagged, on an unvisited one not.
+BUT every one of the 50 windows has visited cells outside Task A's cone (3 + s//3): excess over the wedge up to 7 above / 2 below. The cone
+margin of 3 was too small by the wedge slope times the 18-column east reach of a cycle; Task A's cone test was not a sufficient certificate,
+although the exact criterion passes anyway.

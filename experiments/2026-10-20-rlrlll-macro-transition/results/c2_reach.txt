@@ -1,0 +1,13 @@
+# (a) brute force, my ant; coordinates: rectangle top row y = 0, bottom row y = T + m + Bt - 1, front column x = 0
+per phase max over m = 2..100 of rows visited above the top row / below the bottom row / max column visited:
+  q=0: above 2, below 1, max column 18
+  q=1: above 0, below 1, max column 17
+  q=2: above 1, below 1, max column 10
+overall: above (2, (0, 2)), below (1, (0, 2)), east (18, (0, 2))  (value, (q, m) first attaining it)
+C2b: in all 150 cycles column -3 is visited only by the final position (and nothing further west): True
+visited cells outside the rectangle rows that end at colour 0 (visited 6 times): 0; max visits to any such cell: 4
+# (b) symbolic: finite runs of c1b.verify_phase (independent of m)
+  q=0: S1 above 0, S5 above 2, S3 below 1, S1/S3/S5 max column 9/2/18 (lemma runs: descent x -2..1, return x 1..2); S1 min column -2, S3 -2, S5 -3
+  q=1: S1 above 0, S5 above 0, S3 below 1, S1/S3/S5 max column 8/2/17 (lemma runs: descent x -2..1, return x 1..2); S1 min column -2, S3 -2, S5 -3
+  q=2: S1 above 0, S5 above 1, S3 below 1, S1/S3/S5 max column 8/2/10 (lemma runs: descent x -2..1, return x 1..2); S1 min column -2, S3 -2, S5 -3
+symbolic maxima over q: above 2 below 1 east 18

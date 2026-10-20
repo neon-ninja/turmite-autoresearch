@@ -237,7 +237,10 @@ def verify_phase(rule, ph, q, lines, mmax):
     m0 = K1 + e + p * nmin
     log(f"compose: for n = {nmin}..{nmin + 3} (m = K1 + p n + e = {K1 + p * nmin + e}..) final = C(m + 2, {(q + 1) % 3}) exactly "
         f"(all cells in x = 0..47 and the ant); steps = {desc['s1']} + {ret['s3']} + {s5} + n ({sd} + {sr}) = {a_coef} m + {b_const}")
-    return dict(a=a_coef, b=b_const, m0=m0, K1=K1, e=e, p=p, k5=k5, nmin=nmin, sd=sd, sr=sr, H=H, Hp=Hp,
+    t0 = pos5[1] - nq["dy"]
+    dtop_up = NB - t0  # rows the rectangle's top row moves up in one cycle
+    dbot_down = t0 + len(ntop) + len(nbottom) + 2 - NB - T - Bt  # rows its bottom row moves down (independent of m)
+    return dict(a=a_coef, b=b_const, m0=m0, dtop_up=dtop_up, dbot_down=dbot_down, _std=desc["std"], _strr=ret["strr"], K1=K1, e=e, p=p, k5=k5, nmin=nmin, sd=sd, sr=sr, H=H, Hp=Hp,
                 reach=dict(s1=desc["st1"], s3=ret["st3"], s5=fin["st5"], NB=NB, T=T, Bt=Bt, H=H, e=e, K1=K1))
 
 
@@ -290,4 +293,5 @@ def main():
     print("\n".join(out))
 
 
-main()
+if __name__ == "__main__":
+    main()
