@@ -20,7 +20,10 @@ import load_runs  # noqa: E402
 
 EXP = HERE.parent
 SUB = sys.argv[1] if len(sys.argv) > 1 else "confirm"
-RES, PAIRS = EXP / "results" / SUB, EXP / "scratch" / SUB / "pairs"
+import os
+OUTDIR = Path(os.environ.get("FP_OUT", EXP / "results"))
+MINSEED = int(os.environ.get("FP_MINSEED", "6"))
+RES, PAIRS = Path(os.environ.get("FP_RES", EXP / "results" / SUB)), Path(os.environ.get("FP_PAIRS", EXP / "scratch" / SUB / "pairs"))
 BOOT, BOOT_SEED, FLOOR = 2000, 202610207099, 20
 KEYS = fpkernel.KEYS + fpkernel.NEXT
 
@@ -38,8 +41,10 @@ def pairs_of(specs: list[str], bands: list[int]) -> pl.DataFrame:
 
 
 def main():
-    man = json.loads((EXP / "results" / f"{SUB}_manifest.json").read_text())
-    roles = pl.read_csv(EXP / "results" / f"{SUB}_roles.csv") if (EXP / "results" / f"{SUB}_roles.csv").exists() else None
+    man_p = Path(os.environ.get("FP_MAN", EXP / "results" / f"{SUB}_manifest.json"))
+    man = json.loads(man_p.read_text())
+    roles_p = Path(os.environ.get("FP_ROLES", EXP / "results" / f"{SUB}_roles.csv"))
+    roles = pl.read_csv(roles_p) if roles_p.exists() else None
     runs = load_runs.runs(RES).join(roles, on="spec", how="left", suffix="_r") if roles is not None else load_runs.runs(RES)
     out: dict = {"subdir": SUB, "n_runs": runs["spec"].n_unique()}
     st = runs.unique("spec")
@@ -55,11 +60,11 @@ def main():
     for rule in rules:
         k = runs.filter((pl.col("rule") == rule) & (pl.col("role") == "kernel"))
         o = runs.filter((pl.col("rule") == rule) & (pl.col("role") == "outcome"))
-        nk = k.filter((pl.col("band") <= 1) & (pl.col("reached_hi") == 1)).group_by("spec").len().filter(pl.col("len") == 2).height
-        no = o.filter((pl.col("band") == 2) & (pl.col("reached_hi") == 1)).height
+        nk = k.filter(pl.col("reached_hi") == 1).group_by("spec").len().filter(pl.col("len") == 3).height
+        no = o.filter(pl.col("reached_hi") == 1).group_by("spec").len().filter(pl.col("len") == 3).height
         ks = k["spec"].unique().to_list()
         deep = pairs_of(ks, [0, 1]).filter(((pl.col("m") == 7) | (pl.col("nm") == 7)) & pl.col("nm").is_not_null())["n"].sum() if nk else 0
-        ok = nk >= 6 and no >= 6 and deep >= 200 and float(runs.filter(pl.col("rule") == rule)["unres_share"].max()) <= 0.05
+        ok = nk >= MINSEED and no >= MINSEED and deep >= 200 and float(runs.filter(pl.col("rule") == rule)["unres_share"].max()) <= 0.05
         reasons[rule] = dict(kernel_seeds_ok=nk, outcome_seeds_ok=no, deep_segments=int(deep), eligible=bool(ok))
         if ok:
             elig.append(rule)
@@ -97,7 +102,7 @@ def main():
         b1.append(float(tr["obs_BS"].mean()))
         b2.append(float(tr["obs_kappa"].mean()) * r["obs_PA"])
     P = P.with_columns(B1_trainmean=pl.Series(b1), B2_geometry=pl.Series(b2))
-    P.write_csv(EXP / "results" / f"{SUB}_predictions.csv")
+    P.write_csv(OUTDIR / f"{SUB}_predictions.csv")
     y = P["obs_BS"].to_numpy()
     fams = P["family"].to_numpy()
     uf = sorted(set(fams))
@@ -138,6 +143,9 @@ def main():
     p2["frac_pred_above_obs"] = float((pm2.astype(float) > y).mean())
     p2["deep_share_quartiles"] = [float(q) for q in np.nanquantile(P["deep_share"].to_numpy().astype(float), [0.25, 0.5, 0.75])]
     p2["ET_pred_over_obs_quartiles"] = [float(q) for q in np.quantile(P["ET_M2"].to_numpy() / P["obs_ET"].to_numpy(), [0.25, 0.5, 0.75])]
+    out["deep_dominance"] = dict(threshold=0.5, n_rules_deep_share_gt_threshold=int((P["deep_share"] > 0.5).sum()), n_rules=P.height,
+                                 closure_uninformative_about_locality=bool((P["deep_share"] > 0.5).sum() > P.height / 2),
+                                 rule="frozen: depth-64 share of fitted E[T] > 0.5 for more than half the rules => P2/P4 cannot be read as evidence about local closure")
     out["P2"] = p2
 
     # ---- P3 (weak form: rule-independent pooled chain per training fold) ----
@@ -163,7 +171,7 @@ def main():
     p3["r2_gain_M2_over_M0"] = p3["r2_M2"] - p3["r2_M0"]
     p3["ci95_gain_family_bootstrap"] = boot(lambda idx: r2(pred3[2], idx) - r2(pred3[0], idx))
     p3["ci95_r2_M2_family_bootstrap"] = boot(lambda idx: r2(pred3[2], idx))
-    p3["verdict"] = ("uninformative" if not out["eligibility"]["gate_ge_0p8"] else ("PASS" if (p3["r2_M2"] > 0 and p3["r2_gain_M2_over_M0"] >= 0.10) else "FAIL")) + " (weak form only)"
+    p3["verdict"] = "untested (the weak form has no rule-conditional input, so it cannot test transfer; numbers below are exploratory only)"
     out["P3"] = p3
 
     # ---- P4: untested (radius-4 context not recorded). Exploratory out-of-band log-loss. ----
@@ -183,7 +191,8 @@ def main():
             cur = te.with_columns(pl.lit(None, dtype=pl.Float64).alias("p"))
             p = pl.Series([None] * te.height, dtype=pl.Float64)
             for l in range(lvl + 1):
-                j = te.join(stats[l].filter(pl.col("N") >= FLOOR), left_on=f"c{l}", right_on=f"c{l}", how="left")
+                j = te.join(stats[l].filter(pl.col("N") >= FLOOR), left_on=f"c{l}", right_on=f"c{l}", how="left", maintain_order="left")
+                assert j.height == te.height
                 pl_l = ((j["u"] + 0.5) / (j["N"] + 1.0))
                 p = pl.Series(np.where(np.isfinite(pl_l.to_numpy().astype(float)), pl_l.to_numpy().astype(float), p.to_numpy().astype(float)))
             pv = p.to_numpy().astype(float)
@@ -202,10 +211,16 @@ def main():
         o = o.sort("band")
         if o.height == 3:
             sl.append(float(np.polyfit(np.log(o["L"].to_numpy()), np.log(o["k"].to_numpy()), 1)[0]))
-    out["P1"] = dict(verdict="uninformative (no calibrated tail estimator; the earlier truncated-power-law fit failed calibration)",
+    dl = []
+    for rule in elig:
+        o = runs.filter((pl.col("rule") == rule) & (pl.col("role") == "outcome") & (pl.col("reached_hi") == 1)).group_by("band").agg(pl.col("B_entered_complete_steps").sum().alias("ds"), pl.col("B_entered_complete").sum().alias("dn"), (pl.col("area_end") / pl.col("perim_end")).mean().alias("L")).sort("band")
+        if o.height == 3:
+            dl.append(float(np.polyfit(np.log(o["L"].to_numpy()), np.log((o["ds"] / o["dn"]).to_numpy()), 1)[0]))
+    out["delta"] = dict(descriptive="slope of ln E[D] (entered complete boundary episodes) on ln(A/P) over the three bands, outcome seeds", n=len(dl), quartiles=[float(q) for q in np.quantile(dl, [0.25, 0.5, 0.75])] if dl else None)
+    out["P1"] = dict(verdict="untested (no tail estimator was calibrated; the earlier truncated-power-law fit failed its calibration)",
                      descriptive_observed_dlogkappa_dlogL=dict(n=len(sl), quartiles=[float(q) for q in np.quantile(sl, [0.25, 0.5, 0.75])] if sl else None,
                                                               frac_abs_le_0p15=float(np.mean(np.abs(sl) <= 0.15)) if sl else None))
-    (EXP / "results" / f"{SUB}_analysis.json").write_text(json.dumps(out, indent=2, default=float))
+    (OUTDIR / f"{SUB}_analysis.json").write_text(json.dumps(out, indent=2, default=float))
     print(json.dumps({k: v for k, v in out.items() if k != "eligibility"}, indent=2, default=float))
     print("eligible", out["eligibility"]["n_eligible"], "/", out["eligibility"]["n_rules"])
 

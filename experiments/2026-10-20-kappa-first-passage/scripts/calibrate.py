@@ -210,7 +210,7 @@ def run(quick: bool) -> dict:
     return out
 
 
-if __name__ == "__main__" and "--c2b" not in sys.argv:
+if __name__ == "__main__" and "--c2b" not in sys.argv and "--c5" not in sys.argv:
     quick = "--quick" in sys.argv
     res = run(quick)
     dest = EXP / "results" / ("calibration_quick.json" if quick else "calibration.json")
@@ -243,4 +243,31 @@ def run_c2b() -> dict:
 if __name__ == "__main__" and "--c2b" in sys.argv:
     r = run_c2b()
     (EXP / "results" / "calibration_c2b.json").write_text(json.dumps(r, indent=2, sort_keys=True))
+    print(json.dumps(r, indent=2, sort_keys=True))
+
+
+def run_c5(ndata=400, nboot=1000) -> dict:
+    """Coverage of the percentile family bootstrap used by analyze.py (12 groups x 4 rules)."""
+    out = {"seed_base": BASE_SEED + 800}
+    rows = []
+    for icc, mu in [(0.3, 0.3), (0.6, 0.3), (0.3, 0.0)]:  # (share of variance between families, true mean improvement)
+        rng = np.random.default_rng(BASE_SEED + 800 + int(10 * icc) + int(100 * mu))
+        cover, width = 0, []
+        for _ in range(ndata):
+            g = rng.normal(0, np.sqrt(icc), 12)
+            d = mu + g[:, None] + rng.normal(0, np.sqrt(1 - icc), (12, 4))  # paired improvements per rule
+            est = d.mean()
+            boots = np.array([d[rng.integers(0, 12, 12)].mean() for _ in range(nboot)])
+            lo, hi = np.quantile(boots, [0.025, 0.975])
+            cover += lo <= mu <= hi
+            width.append(hi - lo)
+        rows.append(dict(between_family_share=icc, true_mean=mu, coverage=cover / ndata, mean_width=float(np.mean(width))))
+    out["rows"] = rows
+    out["pass"] = bool(all(0.90 <= r["coverage"] <= 0.99 for r in rows))
+    return out
+
+
+if __name__ == "__main__" and "--c5" in sys.argv:
+    r = run_c5()
+    (EXP / "results" / "calibration_c5.json").write_text(json.dumps(r, indent=2, sort_keys=True))
     print(json.dumps(r, indent=2, sort_keys=True))
