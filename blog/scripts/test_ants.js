@@ -5,7 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { JSDOM } = require('../../web/node_modules/jsdom');
 const { Ant } = require('../../web/sim');
-const { Trail } = require('../assets/ants');
+const { Trail, RULES } = require('../assets/ants');
 const source = fs.readFileSync(path.join(__dirname, '../assets/ants.js'), 'utf8');
 
 // Compare every step to an independent sparse oracle, including cells that cycle to zero.
@@ -58,6 +58,8 @@ function checkControls(reduced) {
   }
   advance(); advance();
   assert.ok(steps() > 4000);
+  for (let i = 0; i < 60; i++) advance();
+  assert.notEqual(d.querySelector('.ant-portrait').dataset.rule, 'RL', 'highway is replaced automatically');
   pause.click();
   const paused = steps();
   advance();
@@ -70,13 +72,26 @@ function checkControls(reduced) {
   observer([{ isIntersecting: false }]);
   assert.equal(frames.size, 0, 'offscreen ants stop scheduling frames');
   observer([{ isIntersecting: true }]);
-  for (let i = 0; i < 340; i++) advance();
-  assert.equal(steps(), 100000);
-  assert.equal(frames.size, 0, 'finished runs stop scheduling frames');
-  pause.click(); advance(); advance();
-  assert.ok(steps() > 0 && steps() < 100000, 'play restarts a completed run');
+  const initialRules = [...d.querySelectorAll('.ant-portrait')].map(p => p.dataset.rule);
+  d.querySelector('#ants-reset').click();
+  assert.ok([...d.querySelectorAll('.ant-portrait')].every((p, i) => p.dataset.rule !== initialRules[i]));
+  for (let i = 0; i < 4; i++) advance();
+  assert.equal(new Set([...d.querySelectorAll('.ant-portrait')].map(p => p.dataset.rule)).size, 9);
+  assert.ok(frames.size > 0, 'the gallery keeps running');
   dom.window.close();
 }
+assert.equal(RULES.length, 384);
+assert.equal(new Set(RULES).size, 384);
+assert.ok(RULES.every(r => /^[LR]{2,12}$/.test(r) && r.includes('L') && r.includes('R')));
+const highway = new Trail('RL');
+highway.run(20000);
+assert.equal(highway.reason, 'Likely highway');
+const builder = new Trail('LLRR');
+builder.run(2000000);
+assert.equal(builder.reason, null, 'builder passes must not look like a highway');
+builder.maxX = builder.minX + 256;
+builder.run(1);
+assert.equal(builder.reason, 'View bounds reached');
 checkControls(false);
 checkControls(true);
-console.log('PASS: sparse oracle, web simulator agreement, pause/play/reset, reduced motion, offscreen suspension and run limit');
+console.log('PASS: sparse oracle, web simulator agreement, pause/play/reset, reduced motion, offscreen suspension 384-rule pool, highway detection and view bounds');

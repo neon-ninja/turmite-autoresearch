@@ -262,3 +262,26 @@ records and notebook headings.
 
 References: [Jekyll authoring](https://jekyllrb.com/docs/posts/) and
 [GitHub's custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
+
+## Homepage ant gallery
+
+`assets/ants.js` drives the nine blank-grid trails on `index.html`. The pool
+contains nine named starting examples plus a deterministic sample of mixed,
+primitive rules of lengths 5–12 (384 total, xorshift32 seed `0x20a17`).
+The sample is for visual variety, not a census or a measured classification.
+Rules are taken in pool order, skipping any already on screen.
+
+A trail pauses for 1.8 seconds before replacement when its extent reaches
+256 by 200 cells in either dimension, its visited map reaches 30,000 cells,
+or its recent read colours and absolute headings repeat with displacement.
+The visual highway heuristic requires at least six cycles over at least
+4,096 steps, checking even periods through 1,024 every 256 steps. It can miss
+long periods or mistake a long transient for a highway; it does not produce
+research results. There is no step limit. Pause and New rules apply to all
+nine cards; reduced motion starts paused, and hidden/offscreen pages suspend.
+
+Check with `node blog/scripts/test_ants.js` from the repository root (after
+`npm ci --prefix web`). It compares stepping with the independent oracle and
+web simulator, exercises replacement and controls, and checks the classic RL
+highway against LLRR builder passes. Desktop uses three columns; narrow
+screens stack the cards for readable trails.

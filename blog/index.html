@@ -11,13 +11,19 @@ preliminary_results: true
   <a class="text-link" href="{{ '/about/' | relative_url }}">What we’re trying to work out ↗</a>
 </section>
 <section class="ant-playground" aria-labelledby="ants-heading" hidden>
-  <div class="section-heading"><h2 id="ants-heading">Three rules, three trails</h2><div class="ant-controls"><button type="button" id="ants-pause">Pause</button><button type="button" id="ants-reset">Start over</button></div></div>
+  <div class="section-heading"><h2 id="ants-heading">Nine rules, endless trails</h2><div class="ant-controls"><button type="button" id="ants-pause">Pause</button><button type="button" id="ants-reset">New rules</button></div></div>
   <div class="ant-grid">
-    <figure class="ant-portrait" data-rule="RL"><canvas width="560" height="440" role="img" aria-label="Live trail of the classic Langton’s ant, rule RL"></canvas><figcaption><strong>RL</strong> The classic ant <span class="ant-steps"></span></figcaption></figure>
-    <figure class="ant-portrait" data-rule="RLRLLL"><canvas width="560" height="440" role="img" aria-label="Live trail of rule RLRLLL from a blank grid"></canvas><figcaption><strong>RLRLLL</strong> Before the late switch <span class="ant-steps"></span></figcaption></figure>
-    <figure class="ant-portrait" data-rule="LLRR"><canvas width="560" height="440" role="img" aria-label="Live trail of the symmetric builder, rule LLRR"></canvas><figcaption><strong>LLRR</strong> A symmetric builder <span class="ant-steps"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="RL"><canvas width="420" height="330" role="img" aria-label="Live trail of rule RL"></canvas><figcaption><strong>RL</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="RLR"><canvas width="420" height="330" role="img" aria-label="Live trail of rule RLR"></canvas><figcaption><strong>RLR</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="LLRR"><canvas width="420" height="330" role="img" aria-label="Live trail of rule LLRR"></canvas><figcaption><strong>LLRR</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="RLRLLL"><canvas width="420" height="330" role="img" aria-label="Live trail of rule RLRLLL"></canvas><figcaption><strong>RLRLLL</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="RLLLLLRRL"><canvas width="420" height="330" role="img" aria-label="Live trail of rule RLLLLLRRL"></canvas><figcaption><strong>RLLLLLRRL</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="RRRRLL"><canvas width="420" height="330" role="img" aria-label="Live trail of rule RRRRLL"></canvas><figcaption><strong>RRRRLL</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="RRLRLLRRR"><canvas width="420" height="330" role="img" aria-label="Live trail of rule RRLRLLRRR"></canvas><figcaption><strong>RRLRLLRRR</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="RRRLRLLRRRLR"><canvas width="420" height="330" role="img" aria-label="Live trail of rule RRRLRLLRRRLR"></canvas><figcaption><strong>RRRLRLLRRRLR</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
+    <figure class="ant-portrait" data-rule="RRLRLLRLRRLR"><canvas width="420" height="330" role="img" aria-label="Live trail of rule RRLRLLRLRRLR"></canvas><figcaption><strong>RRLRLLRLRRLR</strong><span class="ant-steps"></span><span class="ant-status"></span></figcaption></figure>
   </div>
-  <p class="homepage-note">Live runs from blank grids; the dot is the ant. Each stops at 100,000 steps. The much later RLRLLL switch described below takes billions.</p>
+  <p class="homepage-note">Nine live runs from blank grids, sampling 384 mixed rules; the dot is the ant. A likely highway or a trail reaching the view’s bounds makes room for another rule. Highway detection is a visual heuristic, not a confirmed research classification. Pause to inspect the trails.</p>
 </section>
 {% include preliminary-results.html %}
 <section class="highlights" aria-labelledby="results-heading">
