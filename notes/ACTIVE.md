@@ -80,7 +80,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   held-out 6-letter prefix families (lookup 0.59 -> -0.16; pairwise 0.30 -> -0.69): the signal is family membership, not a
   transferable letter-level rule. Still open: a family random effect plus within-family letter structure, other family
   granularities (4, 8 letters), and what the unexplained third is (middle letters, dynamics).
-- **10^11 survivor census finished 2026-10-21** (61/61 chunks): 13 highways in the 492-rule extension vs 6 predicted (failed high); pooled 16/732 = 2.2% per decade, not 1.25%; result in `notes/frontier-2026-10-13-results.md` ("B5 extension result"). Open: confirm RRLLLRLRL (period 17552, `experiments/2026-10-13-b5-late-highways/results/confirm_p17552_*`), whether the 702 unresolved include bounded rules (RLLLLLR is 42x42 at 1e11), and a 1e12 extension (checkpointed runner now exists: `TURMITE_CKPT_DIR`, `run_1e11c.sh`).
+- **10^11 survivor census finished 2026-10-21** (61/61 chunks): 13 highways in the 492-rule extension vs 6 predicted (failed high); pooled 16/732 = 2.2% per decade, not 1.25%; result in `notes/frontier-2026-10-13-results.md` ("B5 extension result"). RRLLLRLRL (period 17552) confirmed on a 65536 board. Open: whether the 702 unresolved include bounded rules (RLLLLLR is 42x42 at 1e11), and a 1e12 extension (checkpointed runner now exists: `TURMITE_CKPT_DIR`, `run_1e11c.sh`).
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
