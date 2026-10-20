@@ -1,0 +1,135 @@
+Reading inline script metadata from `experiments/2026-10-20-rlrlll-macro-transition/scripts/entry_analysis.py`
+turnarounds: 134309  t range 12176431080 12676420894
+
+== E1a: visited-cell count per column (L) vs x, west end (front at x=-1820)
+x in [-1820,-1780): count 234..708 slope +11.82/col
+x in [-1780,-1740): count 728..925 slope +4.29/col
+x in [-1740,-1700): count 919..1062 slope +4.27/col
+x in [-1700,-1660): count 1063..1325 slope +6.98/col
+x in [-1660,-1620): count 1326..1462 slope +3.29/col
+x in [-1620,-1580): count 1470..1608 slope +4.39/col
+x in [-1580,-1540): count 1607..1666 slope +1.22/col
+x in [-1540,-1500): count 1666..1753 slope +2.64/col
+
+== E1b/E2: swing and dt of turnarounds by time before T_end, cycle law dt ~ 6 swing? (half cycle)
+last 1e+06 steps: n=404 median swing 86.0 median |dx| 12.0
+last 3e+06 steps: n=931 median swing 72.0 median |dx| 16.0
+last 1e+07 steps: n=2806 median swing 69.0 median |dx| 21.0
+last 3e+07 steps: n=8200 median swing 68.0 median |dx| 22.0
+last 1e+08 steps: n=26901 median swing 67.0 median |dx| 22.0
+last 3e+08 steps: n=80506 median swing 67.0 median |dx| 22.0
+last 5e+08 steps: n=134309 median swing 67.0 median |dx| 22.0
+
+== last 60 turnarounds (t_end - t, x, y, swing, dt)
+83595 -1720 -1016 167 418
+81651 -1728 -848 168 1944
+81211 -1716 -1018 170 440
+79237 -1731 -847 171 1974
+78643 -1722 -1018 171 594
+76671 -1734 -846 172 1972
+76241 -1729 -1019 173 430
+74237 -1737 -845 174 2004
+73785 -1725 -1021 176 452
+71751 -1740 -844 177 2034
+71145 -1731 -1021 177 606
+69113 -1743 -843 178 2032
+68671 -1738 -1022 179 442
+66607 -1746 -842 180 2064
+66143 -1734 -1024 182 464
+64049 -1749 -841 183 2094
+63431 -1740 -1024 183 618
+61339 -1752 -840 184 2092
+60885 -1747 -1025 185 454
+58761 -1755 -839 186 2124
+58285 -1743 -1027 188 476
+56131 -1758 -838 189 2154
+55501 -1749 -1027 189 630
+53349 -1761 -837 190 2152
+52883 -1756 -1028 191 466
+50699 -1764 -836 192 2184
+50211 -1752 -1030 194 488
+47997 -1767 -835 195 2214
+47355 -1758 -1030 195 642
+45143 -1770 -834 196 2212
+44665 -1765 -1031 197 478
+42421 -1773 -833 198 2244
+41921 -1761 -1033 200 500
+39647 -1776 -832 201 2274
+38993 -1767 -1033 201 654
+36721 -1779 -831 202 2272
+36231 -1774 -1034 203 490
+33927 -1782 -830 204 2304
+33415 -1770 -1036 206 512
+31081 -1785 -829 207 2334
+30415 -1776 -1036 207 666
+28083 -1788 -828 208 2332
+27581 -1783 -1037 209 502
+25217 -1791 -827 210 2364
+24693 -1779 -1039 212 524
+22299 -1794 -826 213 2394
+21621 -1785 -1039 213 678
+19229 -1797 -825 214 2392
+18715 -1792 -1040 215 514
+16291 -1800 -824 216 2424
+15755 -1788 -1042 218 536
+13301 -1803 -823 219 2454
+12611 -1794 -1042 219 690
+10159 -1806 -822 220 2452
+9633 -1801 -1043 221 526
+7149 -1809 -821 222 2484
+6601 -1797 -1045 224 548
+4087 -1812 -820 225 2514
+3385 -1803 -1045 225 702
+873 -1815 -819 226 2512
+
+== westward-sweep test: for each 1e7-step window, ant's min x and number of turnarounds with swing>=200
+-10M..-0M: n=2806 big=83 x range -1815..1145 swing median 69.0
+-20M..-10M: n=2707 big=54 x range -1773..1620 swing median 67.0
+-30M..-20M: n=2687 big=55 x range -1667..1781 swing median 67.0
+-40M..-30M: n=2691 big=53 x range -520..1763 swing median 66.0
+-50M..-40M: n=2666 big=60 x range -412..1348 swing median 68.0
+-60M..-50M: n=2721 big=52 x range -1805..433 swing median 67.0
+-70M..-60M: n=2645 big=57 x range -1795..417 swing median 67.0
+-80M..-70M: n=2601 big=61 x range -1795..758 swing median 68.0
+-90M..-80M: n=2721 big=44 x range -1799..235 swing median 67.0
+-100M..-90M: n=2656 big=52 x range -1666..1249 swing median 69.0
+-110M..-100M: n=2675 big=63 x range 224..1775 swing median 67.0
+-120M..-110M: n=2690 big=37 x range -237..1773 swing median 67.0
+-130M..-120M: n=2678 big=49 x range -953..1599 swing median 66.0
+-140M..-130M: n=2719 big=60 x range -229..1778 swing median 66.0
+-150M..-140M: n=2749 big=51 x range -1327..1653 swing median 66.0
+-160M..-150M: n=2594 big=66 x range -1768..1736 swing median 68.0
+-170M..-160M: n=2604 big=62 x range -1747..1437 swing median 67.0
+-180M..-170M: n=2628 big=50 x range -1678..954 swing median 69.0
+-190M..-180M: n=2744 big=57 x range -1213..1607 swing median 66.0
+-200M..-190M: n=2807 big=34 x range -350..1453 swing median 67.0
+-210M..-200M: n=2692 big=58 x range -189..1777 swing median 68.0
+-220M..-210M: n=2626 big=48 x range -745..1605 swing median 68.0
+-230M..-220M: n=2656 big=55 x range -386..1659 swing median 67.0
+-240M..-230M: n=2622 big=59 x range -671..1760 swing median 67.0
+-250M..-240M: n=2660 big=52 x range -873..1761 swing median 67.0
+-260M..-250M: n=2695 big=58 x range -1795..857 swing median 67.0
+-270M..-260M: n=2711 big=54 x range -1765..583 swing median 67.0
+-280M..-270M: n=2687 big=51 x range -1802..852 swing median 67.0
+-290M..-280M: n=2658 big=41 x range -324..1749 swing median 68.0
+-300M..-290M: n=2710 big=61 x range -1031..1605 swing median 67.0
+-310M..-300M: n=2625 big=59 x range -625..1727 swing median 68.0
+-320M..-310M: n=2627 big=54 x range 75..1756 swing median 69.0
+-330M..-320M: n=2683 big=51 x range -810..1741 swing median 68.0
+-340M..-330M: n=2702 big=55 x range -1233..1276 swing median 68.0
+-350M..-340M: n=2750 big=40 x range -854..1641 swing median 66.0
+-360M..-350M: n=2670 big=56 x range -1454..1331 swing median 68.0
+-370M..-360M: n=2652 big=51 x range -1801..861 swing median 67.0
+-380M..-370M: n=2716 big=46 x range -1731..1165 swing median 68.0
+-390M..-380M: n=2740 big=47 x range -1799..625 swing median 67.0
+-400M..-390M: n=2669 big=49 x range -1614..276 swing median 68.0
+-410M..-400M: n=2737 big=48 x range -1378..1033 swing median 66.0
+-420M..-410M: n=2659 big=39 x range -202..1743 swing median 68.0
+-430M..-420M: n=2699 big=49 x range -959..1625 swing median 68.0
+-440M..-430M: n=2656 big=51 x range -1449..1753 swing median 69.0
+-450M..-440M: n=2806 big=44 x range -909..1387 swing median 66.0
+-460M..-450M: n=2727 big=45 x range -702..1622 swing median 67.0
+-470M..-460M: n=2713 big=46 x range -1759..783 swing median 67.0
+-480M..-470M: n=2656 big=51 x range -754..1562 swing median 67.0
+-490M..-480M: n=2676 big=57 x range -102..1550 swing median 67.0
+-500M..-490M: n=2640 big=50 x range -1369..1483 swing median 67.0

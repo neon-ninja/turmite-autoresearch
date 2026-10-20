@@ -147,3 +147,62 @@ What this does **not** establish, and the trust it rests on:
   next level of assurance.
 - Why the wake has colour period 3 for a rule of length 6, and why the bulk row is `14435435...`, are not explained by
   the check: it certifies, it does not explain.
+
+## Entry probe (registered 2026-10-21, before any measurement)
+
+Question: the exact law holds from the first front advance past the old blob edge (x = -1820, L = 226). Was the
+sweeper already running inside the blob (the wedge apex extrapolates to |x| ~ 1480), or does it appear at the edge?
+
+Instrument (`examples/rlrlll_macro_transition_entry.rs`, same plain loop as the tracer): from blank, run to step
+12,676,421,767 (the first front advance after 1.26e10 in `results/cycles_early.csv`, cycle 0 ends at ...424,881). Log every
+*turnaround* of the ant for the last 5e8 steps, defined as a y-extremum after a swing of >= 40 rows (zigzag filter), as
+(t, x, y, kind). At the end dump per-column visited extent (count, top, bottom) for every column of the board.
+
+Predictions (E1 = sweeper already present, E2 = born at the edge):
+- **E1a** Column extents are linear in x: top and bottom each with slope +-1/3 row/column (wedge edges, as measured
+  at x <= -1820: L grows 2 per 3 columns) down to x >= -1600 (L ~ 140), residual <= 3 rows.
+- **E1b** Ant turnarounds with x in [-1800, -1600] show spacing T = 12 L + c_q with c_q in the early-run set
+  {374, 402, 530}-like (period 3), and swing amplitude equal to the column extent L(x) within 3 rows.
+- **E2 (alternative)** the swing amplitude jumps (is not continuous in x) at x ~ -1820 and the turnaround log earlier
+  than that is not a monotone westward sweep.
+E1 is rejected if E1b fails for x in [-1800, -1700]. If E1 holds, report the westmost x where the period-3 law still fits,
+and what lies there (the apex, or something that seeded it). Not predicted: what seeds the wedge.
+
+### Entry probe results (appended 2026-10-21; the registration above is not edited)
+
+Commands (one core, 2 min 18 s for the main run; binary sha256 in `results/entry_binary.sha256`, built in a fresh
+`CARGO_TARGET_DIR`; code at the commit that adds `examples/rlrlll_macro_transition_entry.rs`):
+
+```bash
+B=~/turmite-target-rlrlll/release/examples/rlrlll_macro_transition_entry
+$B RLRLLL 12676421767 12176421767 $E/scratch/entry 32768 40        # turns.csv, columns.csv
+uv run $E/scripts/entry_analysis.py $E/scratch/entry   > $E/results/entry_analysis.txt
+uv run $E/scripts/entry_backtrack.py $E/scratch/entry  > $E/results/entry_backtrack.txt
+$B RLRLLL 12676233468 12676233000 $E/scratch/entry_onset 32768 40  # column extents at the onset (not committed)
+```
+
+| Prediction | Outcome |
+|---|---|
+| E1a linear column extents, slope 1/3 | **Failed as registered, wrong observable.** Visited-cell counts per column west of the edge grow 3 to 12 per column, because they include the old blob. The wedge is only visible in the ant's turnarounds, not in the column counts. |
+| E1b period-3 law, swing = L(x) | **Held** on the whole contiguous run found: 94 cycles from x = -1536 to the blob edge. `T - 12 swing` takes exactly 358, 374, 514 (31 each, period 3); swing grows 2 rows per cycle on average; maxima move 3 columns west and rise 1 row per cycle. |
+| E2 born at the edge | **Not supported**: the swing is continuous in x across x = -1820 (167 at x = -1720, 226 at -1815). |
+
+What the run shows (observations; 1 run, deterministic, no seed):
+- The sweeper is on the exact law from t = 12,676,233,468 (swing 41, x = -1536, the swing filter's floor) to the exit.
+  The first front advance (12,676,421,767, x = -1820) is just the sweeper crossing the old blob's west edge; nothing
+  happens to the law there. Before t = 12,676,233,468 the turnaround log is irregular (swings 5 to 20 around
+  x = -1470 .. -1500, y = -930 +- 20) for at least 1e4 steps.
+- Backward extrapolation (swing 0 at x ~ -1474) agrees with the last irregular turnaround, at x = -1473 (step
+  12,676,223,434). So the wedge appears to grow from a seed of height near zero at the NW corner of the old blob.
+- At the onset the sweeper's rows lie north of the blob's top edge in every column it later enters (checked on the
+  onset dump: blob top row at x = -1541 is -839, at x <= -1700 is >= -399, sweeper rows <= -819), i.e. it runs on
+  blank ground, consistent with the closure's hypothesis.
+
+Caveats and a dead end: the seed itself is not resolved. Finer swing filters (3 and 10 rows) split each cycle into
+several maxima (two alternating maxima per cycle, e.g. y = -912 / -939), so the one-maximum-per-cycle law check does not
+apply there (`scripts/entry_seed.py`, `results/entry_seed.txt`, a failed method, kept for the record). A cycle-by-cycle
+trace from the apex needs cycle boundaries defined without a front, which I have not done. So "born at zero
+height" is an extrapolation, not an observation, and m below ~20 is not covered by a direct check of the family
+for cycles since the apex (the proved family is C(m, q) for even m >= 2 on blank ground ahead). The wedge having started
+inside a chaotic region at the blob's corner explains why the census sees a long transient but does not explain *why that
+corner seeds a sweeper*.

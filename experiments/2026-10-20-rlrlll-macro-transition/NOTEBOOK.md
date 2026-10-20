@@ -63,3 +63,32 @@ corrects: entries 23:44 to 23:59. Those timestamps were estimated, not read from
 this was noticed, so the 23:58 and 23:59 entries are ahead of real time. The order of entries is correct, and the
 registration (`4bc029a`) precedes every run, as git shows. Also built `notebook.ipynb` (`scripts/build_notebook.py`,
 executed in place from a clean kernel), a blog entry, and updated the homepage card for RLRLLL.
+
+### 2026-10-21 07:26 (+13:00) · 67f7d03 · intent
+Entry question (README "Entry probe", registered before the run): was the sweeper already running inside the blob
+before the first front advance at 12,676,421,767? Wrote `examples/rlrlll_macro_transition_entry.rs` (turnaround log,
+zigzag filter, plus per-column extents) and ran it from blank on one core while the 1e11 census used the others.
+
+### 2026-10-21 07:26 (+13:00) · 67f7d03 · observation
+Main run (min swing 40, last 5e8 steps): the ant's turnarounds already follow the sweeper from step 12,676,233,468
+(swing 41, x = -1536) onward, 188,299 steps before the edge crossing. 94 cycles, all on the law: T - 12 swing in
+{358, 374, 514}, 31 each; maxima x-3 and y+1 per cycle. Before that the log is irregular. Onset dump: sweeper rows are
+north of the blob's top edge everywhere ahead, so it is on blank ground.
+
+### 2026-10-21 07:26 (+13:00) · 67f7d03 · surprise
+My E1a prediction failed because I used column counts as the observable; they include the old blob and grow 3 to 12 per
+column. The prediction was wrong about the instrument, not about the wedge: swing vs x is linear with slope 2/3 per
+column. Also surprising: the apex extrapolation (x ~ -1474) lands on the last irregular turnaround (x = -1473).
+
+### 2026-10-21 07:26 (+13:00) · 67f7d03 · dead-end
+Tried to resolve the seed with finer swing filters (3, 10 rows) and a one-maximum-per-cycle check
+(`scripts/entry_seed.py`). Each cycle has two alternating maxima at that scale, so the check never holds. Not pursued;
+needs a cycle definition that does not use the front.
+
+### 2026-10-21 07:26 (+13:00) · 67f7d03 · interpretation
+Entry, as far as it is resolved: a chaotic episode at the NW corner of the old blob (x ~ -1470..-1500, >= 1e4 steps)
+seeds a wedge that grows from near-zero height on blank ground, and from swing ~41 it is the checked family. So the
+proved family explains everything after the seed; what makes the corner produce a seed is open. Confidence: high that
+the sweeper pre-dates the edge crossing (94 exact cycles); moderate on "seed height near zero" (extrapolation only).
+Alternative not excluded: the wedge started at a nonzero height from a different local configuration whose first cycles
+are off-family. Not done: `notebook.ipynb` has not been rebuilt for this section.
