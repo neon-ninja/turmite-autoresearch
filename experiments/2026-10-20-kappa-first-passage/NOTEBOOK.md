@@ -112,3 +112,28 @@ Chunks 1-3 (PLAN.md). New `src/first_passage.rs` (DepthField, Sim) and
 - Deviation: mid-trajectory checkpoint is an in-memory clone for now; on-disk
   checkpoint only if the pilot shows runs long enough to need it. Run-level `.done` markers still apply.
 Still not run: any ant science, calibration, pilot, confirmation.
+
+### 2026-10-20 23:06 +13:00 · f9b95a5 · observation
+
+Pilot (32 runs = 8 families x 4 starts, manifest results/pilot_manifest.json, built fresh into
+~/turmite-target-fp, sampler sha256 960208ff4f10..., `results/pilot.log`). Feasibility only.
+- Runtime: 2:38 wall for 32 runs on 2 workers while an unrelated `sweep_lean` 1e11 job held ~4.5
+  cores (loadavg 9-14), so wall time is an upper bound; mean 9.5 s/run (max 14 s), peak RSS 585 MB, t_final max 3.4e8
+  (cap 2^32 never binding), pair-table rows <= 288k per run (overflow cap 3e6 never hit).
+- 31 of 32 runs reached all bands. RRLRLLRLRRL@202610207001 stopped `escaped` at area 102,293 (t=7.7e5):
+  the ant left the 8192 board, presumably on a highway. Board/cap failures stay visible; this is
+  a rule x start that cannot be sampled at the larger bands and counts against the denominator.
+- Invariants over all pilot runs: depth decreases 0, Lipschitz violations 0, seg_overlap == band steps, unresolved share 0.
+- Deep milestones are well populated (1.9k-12k completed segments touching depth 64 per rule over 4 starts, above the 200 gate).
+  Depth-64 time is 50-76% of the fitted E[T] (deep_share, M0): the return is dominated by the deepest
+  resolved level, which README warns would defeat the reduction. It is not "nearly all" but it is the majority.
+- **Surprise / identity:** predicted E[T] is the same at M0, M1 and M2 to < 0.1% for all 8 rules even though
+  the state count rises from 13 to 156-2048. This is not evidence of locality. For a maximum-likelihood
+  chain fitted and evaluated on the same data, expected visits equal observed visits, so predicted E[T] equals the sample mean interior-episode
+  length whatever the state partition. In-sample, the "kernel composition" IS the empirical small-band
+  E[T] extrapolation baseline. The chain can differ from it only out-of-sample (new bands, seeds, families).
+- **Disclosure (rule 8 hygiene):** pilot_report.py printed fitted pred_BS (bands 0,1) next to observed
+  band-0..2 B/S for the 8 pilot rules. B/S falls about 2x from band 1 to band 2 in 5 of 8 rules (e.g. 0.012 -> 0.006,
+  prediction 0.014); two rules rise instead. So by inspection of the pilot the small-band kernel will overpredict
+  large-band B/S by roughly 100% for most rules; confirmation will therefore not be a blind test of P2.
+  No threshold has been changed in response.

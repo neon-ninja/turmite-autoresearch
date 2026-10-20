@@ -1,0 +1,8 @@
+git f9b95a5 dirty(src,tests,Cargo.toml)=0 2026-10-20T23:02:22+13:00
+sha256 960208ff4f107632cd3981b577b257cb3e647b00aadc3222e62796a7fbfd0c04
+specs sha256 3cfba978fe9fcf305ad8ab85a1586cfc4aa5b5063f446487a751485dd00f8380
+loadavg before: 9.23 7.04 6.36; foreign: 2801221 /home/tim/turmite-target-b5-ckpt/release/sweep_lean - - 100000000000 32768;
+cmd: /home/tim/turmite-target-fp/release/examples/kappa_first_passage_sampler experiments/2026-10-20-kappa-first-passage/results/pilot experiments/2026-10-20-kappa-first-passage/scratch/pilot/pairs 4294967296 8192 32768-34816,131072-139264,524288-557056 pilot-v1 2 < pilot_specs.txt
+exit 0 ; loadavg after: 14.28 10.16 7.66
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:38.28
+	Maximum resident set size (kbytes): 585360
