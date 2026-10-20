@@ -99,9 +99,9 @@ A further nine-level noisy-rotor scan (eight seeds per level) rejects monotone i
 
 == Reproducible differences in edge occupation
 
-The relative time spent on the edge varies between rules more reproducibly than the width exponent does. We quantify that reproducibility with intraclass correlations, as in the #link(<par:noise>)[seed-variability subsection].
+The relative time spent on the edge varies between rules more reproducibly than the width exponent does. We quantify that reproducibility with intraclass correlations, as in the #link("../growth-census/main.pdf")[growth-census seed-variability analysis].
 
-*Occupation is more rule-specific than the width exponent.* Replicated starts show _moderately reproducible_ differences (#link("../../cube-root-growth-paper/supplementary/reproducibility-audit.pdf")[Audit 10]; the within-rule sd is nearly as large as the between-rule sd): 99 random rules, each run from 12 random $5 times 5$ patches, have a between-rule sd of $kappa$ of 0.44 against a within-rule sd of 0.37 in the core band (ICC 0.58; 0.63 for $log kappa$; 58 further core rules give 0.50 and 0.63). The width exponent on this design (#link("../../cube-root-growth-paper/supplementary/reproducibility-audit.pdf")[Audit 11]) has ICC 0.12 (0.065 in the #link(<par:noise>)[seed-variability subsection], a different set of rules and starts), so $kappa$ is much more rule-specific than the measured width exponent.
+*Occupation is more rule-specific than the width exponent.* Replicated starts show _moderately reproducible_ differences (#link("../../cube-root-growth-paper/supplementary/reproducibility-audit.pdf")[Audit 10]; the within-rule sd is nearly as large as the between-rule sd): 99 random rules, each run from 12 random $5 times 5$ patches, have a between-rule sd of $kappa$ of 0.44 against a within-rule sd of 0.37 in the core band (ICC 0.58; 0.63 for $log kappa$; 58 further core rules give 0.50 and 0.63). The width exponent on this design (#link("../../cube-root-growth-paper/supplementary/reproducibility-audit.pdf")[Audit 11]) has ICC 0.12 (0.065 in the #link("../growth-census/main.pdf")[growth-census seed-variability analysis], a different set of rules and starts), so $kappa$ is much more rule-specific than the measured width exponent.
 == Longer prefixes predict occupation in fresh stationary rules <sec:prefix>
 
 *The first eight letters carry information that simple letter summaries miss.* The test transfers a prefix lookup from census rules to fresh, longer rules. Its predictive success is restricted to rules selected for a measured stationary regime; it is not a mechanism for $kappa$.
@@ -319,4 +319,5 @@ This is an editorial split of existing research, not a new measurement. Exact co
 
 #pagebreak(weak: true)
 #bibliography("../../cube-root-growth-paper/refs.bib", style: "ieee")
+
 
