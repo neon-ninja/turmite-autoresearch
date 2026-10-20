@@ -1,0 +1,4 @@
+spec,band,lo,hi,reached_lo,reached_hi,t_start,t_end,area_start,area_end,perim_end,steps,b_dep,i_dep,sum_pa,seg_overlap,B_entered_complete,B_entered_complete_steps,B_entered_unresolved,B_unresolved_lower,B_left_fragments,B_left_fragment_overlap,B_overlap,B_unresolved_overlap,I_entered_complete,I_entered_complete_steps,I_entered_unresolved,I_unresolved_lower,I_left_fragments,I_left_fragment_overlap,I_overlap,I_unresolved_overlap
+RLRRRLLLLRRL@202610209001,0,32768,34816,1,1,1298163,1309896,32768,34816,831,11733,5238,6495,286.260289942262,11733,2567,5237,0,0,1,2,5238,0,2567,6495,0,0,0,0,6495,0
+RLRRRLLLLRRL@202610209001,1,131072,139264,1,1,8218614,8271560,131072,139264,1780,52946,20573,32373,691.3747750656382,52946,10065,20571,0,0,1,3,20573,0,10065,32373,0,0,0,0,32373,0
+RLRRRLLLLRRL@202610209001,2,524288,557056,1,1,90620186,93578046,524288,557056,3791,2957860,82506,2875354,20010.819398982218,2957860,39293,82504,0,0,1,3,82506,0,39293,2875354,0,0,0,0,2875354,0

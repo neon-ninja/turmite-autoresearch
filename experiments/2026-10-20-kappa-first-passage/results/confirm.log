@@ -1,0 +1,8 @@
+== start 2026-10-20T23:17:28+13:00 git 18c25be dirty(src,tests,Cargo.toml)=0
+sha256 960208ff4f107632cd3981b577b257cb3e647b00aadc3222e62796a7fbfd0c04
+specs sha256 ff5e5bbd3f34c48a345580783916ffe2b05dfa3edeb531f6196d7d45c11b1809
+loadavg: 9.43 8.33 8.13; foreign: 2801221 /home/tim/turmite-target-b5-ckpt/release/sweep_lean - - 100000000000 32768;2818585 bash -lc cd /mnt/f/Code/turmite && export CARGO_TARGET_DIR=$HOME/turmite-target-te;2818666 /home/tim/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo test --rele;2819519 /home/tim/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-nam;2819545 /home/tim/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc --crate-nam;
+cmd: /home/tim/turmite-target-fp/release/examples/kappa_first_passage_sampler experiments/2026-10-20-kappa-first-passage/results/confirm experiments/2026-10-20-kappa-first-passage/scratch/confirm/pairs 4294967296 8192 32768-34816,131072-139264,524288-557056 confirm-v1 3 < confirm_specs.txt
+exit 0 2026-10-21T00:34:44+13:00
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:16:46
+	Maximum resident set size (kbytes): 848136

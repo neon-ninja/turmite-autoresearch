@@ -1,0 +1,79 @@
+{
+  "note": "post hoc, exploratory; thresholds and verdicts are those frozen in README",
+  "stop_by_role": {
+    "outcome/escaped": 2,
+    "kernel/budget": 16,
+    "kernel/complete": 368,
+    "outcome/complete": 366,
+    "outcome/budget": 16
+  },
+  "non_complete_runs_by_rule": [
+    {
+      "rule": "RLRLLLL",
+      "stratum": "drifting",
+      "stop": "budget",
+      "runs": 16
+    },
+    {
+      "rule": "RRRRRRLLLLLL",
+      "stratum": "drifting",
+      "stop": "budget",
+      "runs": 16
+    },
+    {
+      "rule": "RRRRRRRLR",
+      "stratum": "stationary",
+      "stop": "escaped",
+      "runs": 2
+    }
+  ],
+  "rules_with_any_non_complete": 3,
+  "non_complete_by_stratum": {
+    "drifting": 32,
+    "stationary": 2
+  },
+  "slope_lnET_on_lnL": {
+    "n": 46,
+    "quantiles_10_25_50_75_90": [
+      0.7929758267728337,
+      0.8760601964741823,
+      0.9975802722347786,
+      1.1038849357447371,
+      1.3352534757163081
+    ]
+  },
+  "slope_lnED_on_lnL": {
+    "n": 46,
+    "quantiles_10_25_50_75_90": [
+      -0.005743690699211771,
+      -0.0034808763728084073,
+      -0.000659756042177692,
+      0.004475843068821222,
+      0.011468934000406987
+    ]
+  },
+  "slope_lnkappa_on_lnL": {
+    "n": 46,
+    "quantiles_10_25_50_75_90": [
+      -0.38738016351225635,
+      -0.11265794776445645,
+      -0.003232792761516146,
+      0.1346025597650867,
+      0.9462093786405278
+    ]
+  },
+  "frac_ET_slope_within_0p5_1p5": 0.9347826086956522,
+  "identity_check": "1 + delta - slope_ET = d ln kappa_inst / d ln L (renewal-reward, README); compare medians",
+  "identity_median_lhs": 0.0017599717230436518,
+  "identity_median_rhs": -0.0032327927615161465,
+  "obs_over_pred_ratio_quantiles_10_25_50_75_90": [
+    0.38929700938484596,
+    0.44038242229584157,
+    0.4828699768608876,
+    1.7409895971974572,
+    8.901756923616821
+  ],
+  "frac_within_factor_2": 0.17391304347826086,
+  "frac_obs_gt_2x_pred": 0.2608695652173913,
+  "frac_obs_below_0p6_pred": 0.717391304347826
+}

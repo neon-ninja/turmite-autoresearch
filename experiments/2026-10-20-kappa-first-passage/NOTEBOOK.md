@@ -137,3 +137,20 @@ Pilot (32 runs = 8 families x 4 starts, manifest results/pilot_manifest.json, bu
   prediction 0.014); two rules rise instead. So by inspection of the pilot the small-band kernel will overpredict
   large-band B/S by roughly 100% for most rules; confirmation will therefore not be a blind test of P2.
   No threshold has been changed in response.
+
+### 2026-10-21 02:57 +13:00 · a8fe297 · observation
+
+Confirmation (768 runs, confirm.sh at 7ee2276 + freeze 18c25be; 1:16:46 wall on 3 workers beside an unrelated
+sweep_lean, peak RSS 848 MB; results/confirm.log, sampler sha256 in that log). Stop reasons: 734 complete, 32 budget
+(cap 2^32; all 16 kernel + 16 outcome runs of each of RLRLLLL and RRRRRRLLLLLL, both drifting rules, never reached band 2), 2 escaped
+(RRRRRRRLR outcome seeds). Eligible rules 46 of 48 (gate >= 80% passed). Depth decreases 0, overflow 0, unresolved share max 0.12%.
+Frozen analysis (scripts/analyze.py; results/confirm_analysis_skipP3.json, results/confirm_predictions.csv):
+- **P2 FAILED** on all three criteria: median |pred - obs|/obs for M2 = 1.07 (c1 needs <= 0.20); mean abs error M2 0.0372 vs
+  strongest baseline B3 (band-1 persistence) 0.0277 (c2 needs <= 0.9x); paired improvement -0.0094, family-bootstrap 95% interval [-0.0234, +0.0009] (c3 needs lower end > 0).
+  M0, M1, M2 predicted E[T] agree to 0.08%. Median obs/pred B/S ratio 0.48, i.e. the small-band kernel overpredicts B/S about 2x for 72% of rules, while 26% are underpredicted by more than 2x.
+- **Deep dominance:** depth-64 share of fitted E[T] exceeds 0.5 in 35 of 46 rules (quartiles 0.52, 0.55, 0.69): the closure is declared uninformative about locality (frozen rule).
+- P3, P4, P1 untested as frozen. Exploratory numbers: P4 log-loss of next-milestone direction M0 0.500, M1 0.474, M2 0.345 (out-of-band); P3 skipped.
+- Reproducibility: two runs of analyze.py (one full, one with FP_SKIP_P3=1) gave predictions that differ at the 1e-16 relative level (polars multithreaded aggregation order), so the analysis is reproducible to ~15 digits, not bitwise.
+- **Deviation (performance only, after seeing predictions):** the full analysis spent > 2 h in the exploratory pooled P3 block (sparse solve on ~1e6 pooled states). I added FP_SKIP_P3 to analyze.py and ran a second instance without it; no verdict-bearing quantity changed. The full run is left running; if it finishes its P3 numbers are exploratory only.
+Post-hoc descriptives (scripts/describe.py, results/describe.json, labelled exploratory): across 46 rules the slope of ln E[T] on ln(A/P) over the three bands has median 0.998 (quartiles 0.88, 1.10; 93% within 0.5-1.5), the slope of ln E[D] median -0.0007 (delta ~ 0), and the slope of ln kappa_inst median -0.003.
+Reading (interpretation, post hoc): the renewal identity d ln kappa/d ln L = 1 + delta - slope_ET is satisfied to about 0.005 in the medians; kappa is stable because the interior return time grows linearly with the boundary scale (E[T] ~ L) while the boundary dwell stays constant. That is the registered condition z(1-theta) = 1 + delta with delta = 0, measured as a descriptive slope, not as a P1 test (no theta or z was estimated). It also explains the P2 failure: a kernel fitted at smaller L carries E[T] smaller by roughly the scale ratio (pred/obs E[T] 0.42-0.49), a non-stationarity no state refinement in this instrument can capture.

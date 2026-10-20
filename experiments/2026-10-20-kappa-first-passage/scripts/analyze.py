@@ -149,30 +149,33 @@ def main():
     out["P2"] = p2
 
     # ---- P3 (weak form: rule-independent pooled chain per training fold) ----
-    folds = sorted(set(P["fold"]))
-    pooled = {}
-    for fo in folds:
-        tr_rules = [r for r in elig if meta[r]["fold"] != fo]
-        parts = []
-        for r in tr_rules:
-            ks = sorted(set(runs.filter((pl.col("rule") == r) & (pl.col("role") == "kernel") & (pl.col("band") <= 1) & (pl.col("reached_hi") == 1)).group_by("spec").len().filter(pl.col("len") == 2)["spec"]))
-            if ks:
-                parts.append(pairs_of(ks, [0, 1]))
-        agg = pl.concat(parts).group_by(KEYS).agg(pl.all().sum()).with_columns(pl.lit(0).alias("band"))
-        pooled[fo] = {lvl: fpkernel.fit(agg, level=lvl, floor=FLOOR).get("pred_BS") for lvl in (0, 2)}
-    pred3 = {lvl: np.array([pooled[f][lvl] for f in P["fold"]], float) for lvl in (0, 2)}
-    trmean = np.array(b1)
-
-    def r2(pred, idx):
-        return 1 - ((y[idx] - pred[idx]) ** 2).sum() / ((y[idx] - trmean[idx]) ** 2).sum()
-    allidx = np.arange(len(y))
-    p3 = dict(form="weak: rule-independent pooled chain (turn-class states); constant per fold; no rule-conditional input",
-              r2_M0=float(r2(pred3[0], allidx)), r2_M2=float(r2(pred3[2], allidx)), pooled_pred_by_fold={str(k): v for k, v in pooled.items()})
-    p3["r2_gain_M2_over_M0"] = p3["r2_M2"] - p3["r2_M0"]
-    p3["ci95_gain_family_bootstrap"] = boot(lambda idx: r2(pred3[2], idx) - r2(pred3[0], idx))
-    p3["ci95_r2_M2_family_bootstrap"] = boot(lambda idx: r2(pred3[2], idx))
-    p3["verdict"] = "untested (the weak form has no rule-conditional input, so it cannot test transfer; numbers below are exploratory only)"
-    out["P3"] = p3
+    if os.environ.get("FP_SKIP_P3") == "1":
+        out["P3"] = dict(verdict="untested (exploratory pooled-chain numbers skipped for runtime: FP_SKIP_P3=1)")
+    else:
+        folds = sorted(set(P["fold"]))
+        pooled = {}
+        for fo in folds:
+            tr_rules = [r for r in elig if meta[r]["fold"] != fo]
+            parts = []
+            for r in tr_rules:
+                ks = sorted(set(runs.filter((pl.col("rule") == r) & (pl.col("role") == "kernel") & (pl.col("band") <= 1) & (pl.col("reached_hi") == 1)).group_by("spec").len().filter(pl.col("len") == 2)["spec"]))
+                if ks:
+                    parts.append(pairs_of(ks, [0, 1]))
+            agg = pl.concat(parts).group_by(KEYS).agg(pl.all().sum()).with_columns(pl.lit(0).alias("band"))
+            pooled[fo] = {lvl: fpkernel.fit(agg, level=lvl, floor=FLOOR).get("pred_BS") for lvl in (0, 2)}
+        pred3 = {lvl: np.array([pooled[f][lvl] for f in P["fold"]], float) for lvl in (0, 2)}
+        trmean = np.array(b1)
+    
+        def r2(pred, idx):
+            return 1 - ((y[idx] - pred[idx]) ** 2).sum() / ((y[idx] - trmean[idx]) ** 2).sum()
+        allidx = np.arange(len(y))
+        p3 = dict(form="weak: rule-independent pooled chain (turn-class states); constant per fold; no rule-conditional input",
+                  r2_M0=float(r2(pred3[0], allidx)), r2_M2=float(r2(pred3[2], allidx)), pooled_pred_by_fold={str(k): v for k, v in pooled.items()})
+        p3["r2_gain_M2_over_M0"] = p3["r2_M2"] - p3["r2_M0"]
+        p3["ci95_gain_family_bootstrap"] = boot(lambda idx: r2(pred3[2], idx) - r2(pred3[0], idx))
+        p3["ci95_r2_M2_family_bootstrap"] = boot(lambda idx: r2(pred3[2], idx))
+        p3["verdict"] = "untested (the weak form has no rule-conditional input, so it cannot test transfer; numbers below are exploratory only)"
+        out["P3"] = p3
 
     # ---- P4: untested (radius-4 context not recorded). Exploratory out-of-band log-loss. ----
     ll = {0: [], 1: [], 2: []}
