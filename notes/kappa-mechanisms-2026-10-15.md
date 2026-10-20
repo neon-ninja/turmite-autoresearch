@@ -228,3 +228,15 @@ not attempted. Lesson for the other plans: a baseline built from depth-profile r
 accounting identity with occupation; use baselines from quantities that precede the window.
 
 - Square-loop mechanism for the lead effect (H-loop) tested and rejected at this scale (and the fixed-area lead effect itself is reproduced by a collider model with no direct effect, `experiments/2026-10-19-c-law-mechanism` Stage 4, see the reconciliation at the end of `open-questions-hypotheses.md`): see `open-questions-hypotheses.md` ("Kappa square-loop test", 2026-10-16) and `experiments/2026-10-16-kappa-square-loop/README.md`.
+
+## First-passage closure outcome — 2026-10-21
+
+[experiments/2026-10-20-kappa-first-passage](../experiments/2026-10-20-kappa-first-passage/README.md) ("Results" at the bottom; frozen before the run, 768 runs, 46 of 48 rules eligible).
+**P2 FAILED** (median relative error 1.07 against a 0.20 threshold; a band-1 persistence baseline was better; family-bootstrap interval for the improvement [-0.023, +0.001]).
+P1, P3 and P4 were **not tested** (no calibrated tail estimator; no rule-conditional input for unseen families; radius-4 context not recorded), and a frozen deep-dominance rule
+(depth-64 carries > 0.5 of E[T] in 35 of 46 rules) declares the milestone closure uninformative about locality.
+Two methodological findings: (i) for a maximum-likelihood chain scored on its own data, predicted E[T] equals the sample mean regardless of the state partition (M0, M1, M2 agreed to 0.08%), so
+in-sample "closure" cannot be wrong and a closure test must be out-of-sample (the synthetic control that detects failure did so only with a shifted entry law); (ii) interior episodes cannot change the territory, so frozen and evolving depth coincide.
+Post-hoc, descriptive: over 46 rules the slope of ln E[T] on ln(A/P) is 0.998 (quartiles 0.88-1.10) and that of ln E[D] is about 0, so the registered condition 1 + delta - z(1-theta) = 0 holds in the median
+(1 + delta - slope = 0.002 against a measured kappa slope of -0.003). This says kappa is constant because interior returns scale with the boundary scale; it does not say why, and 26% of rules drift strongly.
+Next: a calibrated tail estimator (theta, z) on entry-conditioned T, a test of E[T] ~ L on new starts at larger bands, deeper milestones and radius-4 context in the recorder.
