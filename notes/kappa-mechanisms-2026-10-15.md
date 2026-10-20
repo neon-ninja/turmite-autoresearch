@@ -249,3 +249,12 @@ The P2 failure follows for the same reason (B/S ~ 1/L misses any small-band pers
 ### First-passage stage V2 — 2026-10-21 03:58 +13:00
 
 P1, P3 and P4 were run in a registered stage V2 (experiment README "Stage V2 results"); all three are **uninformative**, P2's FAIL stands. P1: the tail estimator failed its calibration (cutoff bias 0.24 against a 0.2 limit, theta coverage 0.893 against 0.90) and only 72% of rules were identifiable; its fitted exponents are not reported as findings (z comes from tau, the parameter whose calibration failed, and z(1-theta) ~ 1 is forced by E[T] tracking L). P3: the only frozen unseen-family model is a constant per fold; out-of-fold R2 -0.132 at every state level. P4: radius-4 contexts have training support for 0.5% of held-out segments (needs 30%), so no test. The on-disk mid-trajectory checkpoint gate is met (SIGKILL, resume, byte-identical). Open: a tail estimator that passes calibration, then z(1-theta) = 1 + delta.
+
+### Boundary return map: colour-intervention outcome — 2026-10-21
+
+[experiments/2026-10-21-boundary-return-map](../experiments/2026-10-21-boundary-return-map/README.md) (registered before running; 36 rules x 2 seeds, plus a 12-rule pilot).
+Replacing colours outside radius r (within-depth shuffle) at boundary departures: the typical excursion's duration is fixed by colours within a few cells
+(population-weighted r*/L about 0.05-0.1, almost flat in L; registered P1 "no compact state" falsified), but weighted by interior time the reach is about L
+(median r*_t/L 1.16, scaling exponent about 1). So a compact boundary state describes the many short loops, not the time budget that sets kappa.
+The pasted diffusive heuristic (return time ~ L^2) is not supported: it would give t^(1/4); the census kappa ~ const already excludes it.
+Limits: the shuffle removes structure, not single cells; P5 was added after the pilot; the C2 random-walk control ran in the pilot only.

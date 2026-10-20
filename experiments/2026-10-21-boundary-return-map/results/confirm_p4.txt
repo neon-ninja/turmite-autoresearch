@@ -1,0 +1,5 @@
+shallow band 0 n_rules 35 median G_w(r=8)=0.98
+shallow band 1 n_rules 35 median G_w(r=8)=0.98
+deep band 0 n_rules 34 median G_w(r=8)=0.19
+deep band 1 n_rules 35 median G_w(r=8)=0.10
+time-weighted G_t(r=8) median 0.18; G_t(r=32) 0.52; G_t(r=64) 0.79

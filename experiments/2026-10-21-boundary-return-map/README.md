@@ -155,3 +155,41 @@ Confirmation command: `scripts/run_confirm.sh` (cohort `results/confirm_specs.tx
 ## Deviations and results
 
 (confirmation results appended below once run)
+
+### Confirmation results (2026-10-21)
+
+Run: `scripts/run_confirm.sh` (cohort `results/confirm_specs.txt`, 36 rules x 2 seeds, 72/72 finished, none ineligible), log
+`results/confirm.log`, analysis `scripts/analyze.py` -> `results/confirm_analysis.{json,txt}`, `results/confirm_p4.txt`.
+Registration commit `1998e7d`. 8252 sampled departures; 36 rules with both bands; `r*` = 80% point of `G`, interpolated in `log2(r+1)`.
+Counts of rule-bands where `G` never reached 0.8 (`r* = inf`, kept in the medians as large): population 1 (A0=2^15) and 7 (2^17) of 36;
+time-weighted 9 and 13 of 36. Those are noisy cells with ~60 departures, not evidence of long reach.
+
+| prediction | result | verdict |
+|---|---|---|
+| P1 (no compact state: median r*/L >= 0.25, gamma in [0.7,1.3]) | median r*/L 0.096 (2^15), 0.053 (2^17); gamma median 0.12 (29 rules) | **falsified** |
+| P1-alt (median r*/L <= 0.1 both bands, gamma <= 0.4) | both met | **met, for the population-weighted statistic** |
+| P2 (median E_r <= 0.02 where exposure < 0.9) | 0.001 (530 values) | met |
+| P3 (C1b, C2, C3) | C1b 8252/8252; C3 null ICC mean 0.009 sd 0.016; C2 only in the pilot (rw:301 identical at every r), not rerun in the confirmation cohort | met (C2 from the pilot) |
+| P4 (shallow G(8) >= 0.8, deep <= 0.5, median rule) | shallow 0.98 / 0.98; deep 0.19 / 0.10 (two bands) | met, but the split conditions on the outcome |
+| P5 (time-weighted r*_t/L >= 0.5 both bands, falsifier <= 0.2) | median 1.16 / 1.16; gamma_t median 0.99 over the 22 rules where both are finite; time-weighted G(8)/G(32)/G(64) medians 0.18/0.52/0.79 | met (pilot-informed, not blind) |
+
+What this shows and does not show:
+
+* Most departures (short loops) are determined by colour structure within a few cells, and that radius barely grows when
+  L doubles: a compact local return map exists **for the typical excursion**. The population-weighted `ICC` of `log2(1+T)`
+  is dominated by these.
+* Weighted by interior time, the reach is of order L and scales roughly linearly (gamma_t about 1, from 22 rules, censored cases
+  excluded, so possibly biased). So the quantity that sets kappa and growth through `E[T]` is not captured by any bounded-radius
+  boundary state, in the shuffle sense: structure out to ~L matters.
+* This is the first intervention-based version of the statement "interior time is carried by rare long journeys" that the
+  tail-budget and first-passage work approached by fitting. It does not say why `E[T] ~ L`, nor which structure matters (stripes,
+  crystal regions, sparse gates): the shuffle cannot tell colours from structure, and the single-cell flip arm is still unregistered.
+* The deep/shallow split and P4 use baseline depth, an outcome, so a deep excursion having a large reach is partly built in.
+  The cleaner evidence is the time-weighted `G`, which conditions on nothing but duration weights (duration is also an outcome,
+  but the weighting is the population's own time budget, which is what `kappa` uses).
+* Not tested: single-cell sensitivity; any rule class split by `r*` (tethered, crystal, log-growers were not in this cohort);
+  a Markov test of successive returns (the memory across excursions); the 26% large-kappa-drift rules.
+
+Next candidates (unregistered): (a) single-cell flips at distance rho on long excursions only, to see whether the reach is
+structural or a few gate cells; (b) a coarse boundary summary augmented by a depth-resolved "gate" descriptor, tested
+with this intervention as the arbiter rather than by log-likelihood; (c) the same instrument on tethered/crystal rules.
