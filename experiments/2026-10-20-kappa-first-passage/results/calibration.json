@@ -1,0 +1,84 @@
+{
+  "C1": {
+    "coverage": 0.8375,
+    "criterion": "|bias|<5% and coverage in [0.90,0.99]",
+    "cycles_per_dataset": 320,
+    "mean_rel_bias_2000cycles": -0.01691192503312463,
+    "n_datasets": 80,
+    "pass": false,
+    "sd_rel": 0.056090555881297355,
+    "truth_ET": 39.46267705950274
+  },
+  "C2": {
+    "pass_M0_fails": false,
+    "pass_M1_visible_ok": true,
+    "visible=False,level=M0": {
+      "mean_rel_bias": -0.014815687090721757,
+      "n": 20,
+      "sd_rel": 0.042270634403788275,
+      "truth_ET": 466.9626274198299
+    },
+    "visible=False,level=M2": {
+      "mean_rel_bias": 0.006262182762553847,
+      "n": 20,
+      "sd_rel": 0.053606442906522084,
+      "truth_ET": 466.9626274198299
+    },
+    "visible=True,level=M1": {
+      "mean_rel_bias": -0.00307433729582757,
+      "n": 20,
+      "sd_rel": 0.03017111910847068,
+      "truth_ET": 466.9626274198299
+    }
+  },
+  "C3": {
+    "note": "Pareto alpha=1.3 at milestones >= 4; acceptance only where censored share < 5%",
+    "rows": [
+      {
+        "budget_in_cycles": 20,
+        "mean_censored_share": 0.07421895661385268,
+        "mean_rel_bias": 0.7235469589197983,
+        "n": 30,
+        "sd_rel": 1.4905523179625457
+      },
+      {
+        "budget_in_cycles": 200,
+        "mean_censored_share": 0.01950799455875723,
+        "mean_rel_bias": -0.048697131152022004,
+        "n": 30,
+        "sd_rel": 0.19551674349538015
+      },
+      {
+        "budget_in_cycles": 2000,
+        "mean_censored_share": 0.007118521816624027,
+        "mean_rel_bias": -0.05089946402947295,
+        "n": 30,
+        "sd_rel": 0.07907301462152361
+      },
+      {
+        "budget_in_cycles": 20000,
+        "mean_censored_share": 0.0008653532577667226,
+        "mean_rel_bias": -0.025959805227479794,
+        "n": 30,
+        "sd_rel": 0.0482359018724776
+      }
+    ],
+    "truth_ET": 158.29755591645392
+  },
+  "C4": {
+    "floor=1": {
+      "mean_rel_bias": -0.003921921016743426,
+      "n": 15,
+      "sd_rel": 0.08180540253224952
+    },
+    "floor=20": {
+      "mean_rel_bias": -0.01767227158429106,
+      "n": 15,
+      "sd_rel": 0.0719838970798469
+    },
+    "pass": true
+  },
+  "quick": false,
+  "seconds": 557.4749722480774,
+  "seed_base": 202610207000
+}

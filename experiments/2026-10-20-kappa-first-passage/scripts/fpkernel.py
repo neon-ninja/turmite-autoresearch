@@ -35,7 +35,7 @@ def read_pairs(files: list[str]) -> pl.DataFrame:
     return pl.concat(frames)
 
 
-def fit(df: pl.DataFrame, level: int = 0, floor: int = 20, bands: list[int] | None = None, max_dead: float = 0.01) -> dict:
+def fit(df: pl.DataFrame, level: int = 0, floor: int = 20, bands: list[int] | None = None, max_dead: float = 0.01, entry_df: pl.DataFrame | None = None) -> dict:
     """Fit the chain on `df` (all rows used; filter bands beforehand or via `bands`)."""
     if bands is not None:
         df = df.filter(pl.col("band").is_in(bands))
@@ -118,7 +118,8 @@ def fit(df: pl.DataFrame, level: int = 0, floor: int = 20, bands: list[int] | No
     # entry law: first interior segment after a milestone-0 segment
     start = df.filter(pl.col("nm").is_not_null() & (pl.col("m") == 0))
     ed = float(start["time"].sum() / start["n"].sum()) if start.height else float("nan")
-    ent = done.filter((pl.col("m") == 0) & (pl.col("nm") >= 1))
+    ent = done if entry_df is None else entry_df.filter(pl.col("nm").is_not_null()).with_columns(*(codes(entry_df, NEXT)[l].alias(f"d{l}") for l in range(3)))
+    ent = ent.filter((pl.col("m") == 0) & (pl.col("nm") >= 1))
     ent = pick("d", ent)
     eg = ent.group_by("did").agg(pl.col("n").sum())
     wsum = 0.0; ET = 0.0; lost = 0.0
