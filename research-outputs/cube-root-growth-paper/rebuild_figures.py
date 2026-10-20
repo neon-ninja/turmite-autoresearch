@@ -43,7 +43,7 @@ INPUTS = [
     "experiments/2026-10-13-a4-boundary-width/results/a4c_shape_ants.csv",
     "experiments/2026-10-13-a4-boundary-width/results/a4c_shape_rotor.csv",
     CENSUS_TABLE, CENSUS_TABLE.replace("build_rule_census.py", "rule_census.csv"),
-] + list(RECENT_INPUTS.values()) + ["research-outputs/cube-root-growth-paper/audit.typ"] + [f"experiments/2026-10-13-g1-ribbon-breakout/results/{name}" for name in
+] + list(RECENT_INPUTS.values()) + ["research-outputs/cube-root-growth-paper/audit.typ", "research-outputs/cube-root-growth-paper/supplementary/reproducibility-audit.typ"] + [f"experiments/2026-10-13-g1-ribbon-breakout/results/{name}" for name in
      ("g1_ribbon.csv", "g1_wake_extract.json", "g1_wake_crop_12800000000.csv", "g1_sweep_trace_12800000000.csv")
 ] + [f"research-outputs/cube-root-growth-paper/{name}" for name in SCRIPTS]
 
@@ -86,8 +86,14 @@ def main():
         log.write(" ".join(command) + "\n")
         log.flush()
         subprocess.run(command, check=True, stdout=log, stderr=subprocess.STDOUT)
+        supplement = "research-outputs/cube-root-growth-paper/supplementary/reproducibility-audit"
+        command = ["typst", "compile", "--root", ".", supplement + ".typ", supplement + ".pdf"]
+        log.write(" ".join(command) + "\n")
+        log.flush()
+        subprocess.run(command, check=True, stdout=log, stderr=subprocess.STDOUT)
     recipe["outputs_sha256"] = {p.name: digest(p) for p in sorted(OUT.glob("*.pdf"))}
     recipe["outputs_sha256"]["main.pdf"] = digest(ROOT / "research-outputs/cube-root-growth-paper/main.pdf")
+    recipe["outputs_sha256"]["supplementary/reproducibility-audit.pdf"] = digest(ROOT / "research-outputs/cube-root-growth-paper/supplementary/reproducibility-audit.pdf")
     (OUT / "rebuild_recipe.json").write_text(json.dumps(recipe, indent=2) + "\n")
 
 
