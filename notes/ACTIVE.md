@@ -74,6 +74,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Repository housekeeping
 
 - **Jupyter**: `ipykernel`, `nbformat`, `nbclient` added to `pyproject.toml`/`uv.lock` (`7df6d35`). The leadrun-fresh notebook's Proposal 2 bounds are not in it (rebuild with `scripts/build_notebook.py` if wanted).
+- **CLAIMED 2026-10-20 (compute-heaviest item): the 10^11 survivor census is running.** Chunks 20-27 were killed ~2026-10-14 (only 20-26 had `.done`); resumed with `run_1e11b.sh` (6 threads, fresh binary sha in `results/h1e11/resume_binary.sha256`, log `run4.log`), ~33 chunks x 35-50 min, i.e. roughly a day of all cores. Do not start other heavy jobs. Prediction already registered in `notes/frontier-2026-10-13-results.md` (~6 highways in 492, range 2-11); `b5_stats.py` must be re-pointed at all chunks before analysis.
 - **Refresh `blog/index.html`** (convention in `AGENTS.md`): the c-law and lattice results were already on it; a kappa-spread highlight (family hold-out) was added 2026-10-20. Not yet on it: lead-slope-by-colour. A null-result post
   (`blog/_posts/2026-10-20-where-kappa-is-not.md`, with reader guides for the three 2026-10-20 kappa experiments) was added 2026-10-20;
   the post itself is not linked from the index cards. The experiment pages were
