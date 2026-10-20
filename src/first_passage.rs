@@ -17,6 +17,8 @@
 //! frozen for its whole duration: the "frozen-depth" termination coincides with the evolving one
 //! (tested by brute force in `tests/first_passage.rs`).
 
+mod ckpt;
+
 use crate::fixed_area::{Geom, Region, Stop};
 use crate::walkers::Walker;
 use crate::DIRS;
@@ -206,7 +208,22 @@ struct Seg {
     revisits: u64,
     jump_any: bool,
     hist: u16,
+    /// Hash of the radius-4 colour-class context at segment start (0 when context recording is off).
+    r4: u64,
 }
+
+/// Optional radius-4 context table for the P4 sufficiency test: per (band, M2 start state, radius-4
+/// context hash) the number of completed segments and how many of them ended at a higher milestone.
+/// Capped at `max_rows`; beyond it new contexts fold to hash 0 (an "unsupported context" bucket).
+#[derive(Clone)]
+pub struct Ctx4 {
+    max_rows: usize,
+    offs: Vec<isize>,
+    pub map: BTreeMap<(usize, StateKey, u64), (u64, u64)>,
+    pub overflowed: u64,
+}
+
+pub const R4_FOLDED: u64 = 0;
 
 #[derive(Clone)]
 pub struct Sim<W: Walker + Clone> {
@@ -240,6 +257,8 @@ pub struct Sim<W: Walker + Clone> {
     pub stop: Option<Stop>,
     /// Observed state sequence is recorded only when asked (tests).
     pub trace: Option<Vec<(bool, u64, u64, u8, Geom)>>,
+    /// Radius-4 context recording (P4); off by default, never changes the trajectory or the pair table.
+    pub ctx4: Option<Ctx4>,
 }
 
 impl<W: Walker + Clone> Sim<W> {
@@ -274,7 +293,33 @@ impl<W: Walker + Clone> Sim<W> {
             lipschitz_violations: 0,
             stop: None,
             trace: None,
+            ctx4: None,
         }
+    }
+
+    /// Record the radius-4 context table (see [`Ctx4`]).
+    pub fn with_ctx4(mut self, max_rows: usize) -> Self {
+        let size = self.field.size;
+        let mut offs = Vec::new();
+        for dy in -4i32..=4 {
+            for dx in -4i32..=4 {
+                if dx.abs() + dy.abs() <= 4 {
+                    offs.push(dy as isize * size as isize + dx as isize);
+                }
+            }
+        }
+        self.ctx4 = Some(Ctx4 { max_rows, offs, map: BTreeMap::new(), overflowed: 0 });
+        self
+    }
+
+    /// Hash of the radius-4 colour classes (3 bits per cell, 4 = unvisited); never equals [`R4_FOLDED`].
+    fn r4_hash(&self) -> u64 {
+        let Some(c) = &self.ctx4 else { return 0 };
+        let mut h = 0xCBF2_9CE4_8422_2325u64;
+        for &o in &c.offs {
+            h = crate::walkers::mix64(h ^ self.class_at((self.idx as isize + o) as usize) as u64);
+        }
+        h | 1
     }
 
     pub fn with_trace(mut self) -> Self {
@@ -375,7 +420,8 @@ impl<W: Walker + Clone> Sim<W> {
             None => {
                 let m = milestone_idx(depth).expect("start depth is 0");
                 let key = self.key(m, 0, m as u16);
-                self.seg = Some(Seg { cur: m, start_t: t, key, start_band: self.active, revisits: 0, jump_any: false, hist: m as u16 });
+                let r4 = self.r4_hash();
+                self.seg = Some(Seg { cur: m, start_t: t, key, start_band: self.active, revisits: 0, jump_any: false, hist: m as u16, r4 });
             }
             Some(_) => {
                 let last = self.prev.unwrap().depth;
@@ -433,8 +479,22 @@ impl<W: Walker + Clone> Sim<W> {
                 p.skipped += (j as i64 - s.cur as i64).unsigned_abs() - 1;
             }
         }
+        if let (Some(k), Some(j)) = (s.start_band, to) {
+            if self.ctx4.is_some() {
+                let c = self.ctx4.as_mut().unwrap();
+                let mut key = (k, s.key, s.r4);
+                if c.map.len() >= c.max_rows && !c.map.contains_key(&key) {
+                    key.2 = R4_FOLDED;
+                    c.overflowed += 1;
+                }
+                let e = c.map.entry(key).or_default();
+                e.0 += 1;
+                e.1 += (j > s.cur) as u64;
+            }
+        }
         if let (Some(j), Some((key, hist))) = (to, next) {
-            self.seg = Some(Seg { cur: j, start_t: t, key, start_band: self.active, revisits: 0, jump_any: false, hist });
+            let r4 = self.r4_hash();
+            self.seg = Some(Seg { cur: j, start_t: t, key, start_band: self.active, revisits: 0, jump_any: false, hist, r4 });
         }
     }
 
@@ -525,7 +585,7 @@ impl<W: Walker + Clone> Sim<W> {
             s.bands[k].area_end = p.area;
             s.bands[k].perim_end = p.perim;
         }
-        Output { stop: s.stop, t, bands: s.bands, tallies: s.tallies, overflowed: s.overflowed, area: s.field.region.area, perimeter: s.field.region.perimeter, jump_steps: s.jump_steps, lipschitz_violations: s.lipschitz_violations, depth_decreases: s.field.decreases, depth_raises: s.field.raised }
+        Output { stop: s.stop, t, bands: s.bands, tallies: s.tallies, overflowed: s.overflowed, area: s.field.region.area, perimeter: s.field.region.perimeter, jump_steps: s.jump_steps, lipschitz_violations: s.lipschitz_violations, depth_decreases: s.field.decreases, depth_raises: s.field.raised, ctx4: s.ctx4.map(|c| (c.map, c.overflowed)) }
     }
 }
 
@@ -542,6 +602,8 @@ pub struct Output {
     pub lipschitz_violations: u64,
     pub depth_decreases: u64,
     pub depth_raises: u64,
+    /// Radius-4 context table and its overflow count, when recorded.
+    pub ctx4: Option<(BTreeMap<(usize, StateKey, u64), (u64, u64)>, u64)>,
 }
 
 pub fn run<W: Walker + Clone>(walker: W, size: usize, cap: u64, bands: &[(u64, u64)]) -> Output {

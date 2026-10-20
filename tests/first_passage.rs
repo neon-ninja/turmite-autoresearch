@@ -289,6 +289,73 @@ fn checkpoint_by_clone_is_exact() {
     }
 }
 
+/// On-disk checkpoint: snapshot to bytes at many points (including t = 0 and the very end),
+/// restore, finish; the output equals the uninterrupted run exactly. Other recipes and damaged bytes are refused.
+#[test]
+fn disk_checkpoint_roundtrip_is_exact() {
+    let bands = [(60u64, 140u64), (300, 420)];
+    let rule: Rule = "RRLLLRLLLRRR".parse().unwrap();
+    let walker = || PatchedAnt::new(&rule, 17, 2);
+    let whole = {
+        let mut s = Sim::new(walker(), 1024, 3_000_000, &bands);
+        s.advance(None);
+        s.finish()
+    };
+    let mut s = Sim::new(walker(), 1024, 3_000_000, &bands);
+    let mut snaps = vec![s.snapshot("r1")];
+    while s.advance(Some(211)).is_none() {
+        snaps.push(s.snapshot("r1"));
+    }
+    snaps.push(s.snapshot("r1"));
+    assert!(snaps.len() > 8);
+    for (i, b) in snaps.iter().enumerate().step_by(3) {
+        let mut c = Sim::restore(walker(), b, "r1").unwrap();
+        c.advance(None);
+        assert_eq!(c.finish(), whole, "restored from snapshot {i}");
+        // the restored state re-snapshots to the same bytes
+        let again = Sim::restore(walker(), b, "r1").unwrap().snapshot("r1");
+        assert_eq!(&again, b, "snapshot {i} is not a fixed point");
+    }
+    assert!(Sim::restore(walker(), &snaps[3], "other").is_err());
+    assert!(Sim::restore(walker(), &snaps[3][..snaps[3].len() - 5], "r1").is_err());
+    let mut bad = snaps[3].clone();
+    bad[0] ^= 1;
+    assert!(Sim::restore(walker(), &bad, "r1").is_err());
+}
+
+/// Radius-4 context recording must not change anything else, and its counts must equal the completed-segment
+/// counts of the pair table (up-moves checked against destination milestones), with and without overflow folding.
+#[test]
+fn ctx4_recording_is_passive_and_consistent() {
+    let bands = [(60u64, 140u64), (300, 420)];
+    let rule: Rule = "RRLLLRLLLRRR".parse().unwrap();
+    let base = {
+        let mut s = Sim::new(PatchedAnt::new(&rule, 17, 2), 1024, 3_000_000, &bands);
+        s.advance(None);
+        s.finish()
+    };
+    for cap_rows in [usize::MAX, 50] {
+        let mut s = Sim::new(PatchedAnt::new(&rule, 17, 2), 1024, 3_000_000, &bands).with_ctx4(cap_rows);
+        s.advance(None);
+        let mut o = s.finish();
+        let (map, over) = o.ctx4.take().unwrap();
+        assert_eq!(o, base, "context recording changed the output (cap {cap_rows})");
+        let total: u64 = map.values().map(|v| v.0).sum();
+        let done: u64 = base.tallies.iter().filter(|(k, _)| k.2.is_some()).map(|(_, p)| p.n).sum();
+        assert_eq!(total, done, "context table covers every completed segment (cap {cap_rows})");
+        let up: u64 = map.values().map(|v| v.1).sum();
+        let up_pairs: u64 = base.tallies.iter().filter(|(k, _)| k.2.is_some_and(|n| n.m > k.1.m)).map(|(_, p)| p.n).sum();
+        assert_eq!(up, up_pairs);
+        if cap_rows == 50 {
+            assert!(over > 0, "overflow folding engaged");
+            assert!(map.keys().any(|k| k.2 == R4_FOLDED));
+        } else {
+            assert_eq!(over, 0);
+            assert!(map.keys().all(|k| k.2 != R4_FOLDED));
+        }
+    }
+}
+
 #[test]
 fn geometry_jumps_occur_and_physics_is_lipschitz() {
     let mut jumps = 0;

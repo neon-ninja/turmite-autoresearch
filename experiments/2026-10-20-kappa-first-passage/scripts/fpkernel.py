@@ -35,6 +35,22 @@ def read_pairs(files: list[str]) -> pl.DataFrame:
     return pl.concat(frames)
 
 
+DIRECT_MAX = 50_000  # above this many states the sparse direct solve fills in badly (the pooled P3 chains did not finish in 2.5 h)
+
+
+def _solve(A, b):
+    """Solve A x = b for the (I - Q) systems: sparse direct for small chains, BiCGSTAB (checked) for large ones."""
+    if A.shape[0] <= DIRECT_MAX:
+        return spla.spsolve(A, b)
+    x, info = spla.bicgstab(A, b, rtol=1e-11, atol=0.0, maxiter=20000)
+    if info != 0 or not np.isfinite(x).all():
+        raise RuntimeError(f"iterative solve did not converge (info={info})")
+    resid = np.linalg.norm(A @ x - b) / max(np.linalg.norm(b), 1e-300)
+    if resid > 1e-8:
+        raise RuntimeError(f"iterative solve residual {resid:.2e}")
+    return x
+
+
 def fit(df: pl.DataFrame, level: int = 0, floor: int = 20, bands: list[int] | None = None, max_dead: float = 0.01, entry_df: pl.DataFrame | None = None) -> dict:
     """Fit the chain on `df` (all rows used; filter bands beforehand or via `bands`)."""
     if bands is not None:
@@ -114,7 +130,7 @@ def fit(df: pl.DataFrame, level: int = 0, floor: int = 20, bands: list[int] | No
         res["status"] = "nonabsorbing"
         return res
     A = sp.identity(nS, format="csc") - Q.tocsc()
-    u = spla.spsolve(A, ms)
+    u = _solve(A, ms)
     # entry law: first interior segment after a milestone-0 segment
     start = df.filter(pl.col("nm").is_not_null() & (pl.col("m") == 0))
     ed = float(start["time"].sum() / start["n"].sum()) if start.height else float("nan")
@@ -135,7 +151,7 @@ def fit(df: pl.DataFrame, level: int = 0, floor: int = 20, bands: list[int] | No
         return res
     wvec /= wsum
     ET = float(wvec @ u)
-    visits = spla.spsolve(A.T.tocsc(), wvec)
+    visits = _solve(A.T.tocsc(), wvec)
     deep_time = float((visits * ms)[mil == DEEP].sum())
     res.update(ED=ed, ET=ET, pred_BS=ed / (ed + ET), deep_share=deep_time / ET if ET > 0 else float("nan"),
                entry_lost=lost / (wsum + lost), censored_time=float(openr["time"].sum()), completed_time=float(done["time"].sum()),

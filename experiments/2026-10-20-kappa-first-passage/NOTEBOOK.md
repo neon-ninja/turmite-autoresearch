@@ -169,3 +169,10 @@ Correction (new entry; the 03:xx entries above stand as written). Review showed 
 at small B/S, not evidence: per-rule residual median |0.036|, 90th percentile 0.91 (describe.json). So "kappa is constant because E[T] ~ L" restates kappa-constancy given delta ~ 0; what is new is delta ~ 0.
 Added the exploratory geometry-conditional kappa-persistence null (median relative error 0.097, mean abs error 0.0206 vs M2 0.0372). Large-B/S rules are unchecked as a class (possible highway onset).
 Rewording done in README (correction section), notes ledger, ACTIVE, notebook.ipynb, the blog post and homepage (unpublished, edited in place). Analysis time for the P3-skipped run was ~9 min; the full run never completed (see README).
+
+### 2026-10-21 03:17 +13:00 · 5af0ae7 · observation
+
+V2-A (README "Stage V2", registered before): on-disk mid-trajectory checkpoint implemented (`src/snap.rs`, `src/first_passage/ckpt.rs`, `FP_CKPT_STEPS` in the sampler).
+Rust test `disk_checkpoint_roundtrip_is_exact`: snapshot at many points including t = 0 and the end, restore, finish = uninterrupted run; re-snapshot is a fixed point; other recipe, truncated and corrupted bytes refused.
+Shell check `scripts/resume_check.sh` -> `results/resume_check.json`: SIGKILL after 1.5 s with a 7.9 MB checkpoint on disk and no outputs, resume, all files byte-identical to the uninterrupted run (excluding wall-clock seconds). Gate met. Stateless walkers only (PatchedAnt, Rotor).
+Also added (for V2-D, not yet run): passive radius-4 context table (`with_ctx4`, `FP_CTX4_ROWS`), tested to leave every other output unchanged and to account for every completed segment (`ctx4_recording_is_passive_and_consistent`); P1 tail estimator and its calibration script (`tailfit.py`, `calibrate_tail.py`, `p1_test.py`); P3 pooled-chain script with a checked iterative solver (`p3_pooled.py`). fpkernel.py uses BiCGSTAB above 50k states (small chains, hence all frozen per-rule fits, still use the direct solve: unchanged numbers).
