@@ -1,5 +1,17 @@
 # What could explain kappa? Mechanisms and discriminating experiments
 
+## Prospective first-passage follow-up — 2026-10-20 21:10 +13:00
+
+[New scaffold](../experiments/2026-10-20-kappa-first-passage/README.md), base
+`44ed81f71f4bb1fdccdcdc1cbd586bc1b2eb5613`: compose depth-crossing kernels
+into independent return and occupation predictions; test family transfer and
+the conditional drift relation `1 + delta - z(1-theta)`. Instrument and all
+measurements NOT RUN; confirmation manifest not yet frozen. This follows the
+completed tail-budget T1 failure and T2 loss to persistence recorded in that
+experiment's README, rather than treating its earlier pilot as the latest state.
+It also separates true unseen-family transfer from new-start prediction using
+the same rule's early kernel. Original historical entries below are preserved.
+
 Written 2026-10-15 22:54 +13:00; base commit
 `b3a0f762ac2230b5df92188206a4d3a1081897be`, dirty workspace.
 Scope: brainstorming and prospective research plans, requested by the user.

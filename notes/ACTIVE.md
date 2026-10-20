@@ -7,6 +7,8 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Science: open questions
 
+- **First-passage closure (prospective, 2026-10-20):** can depth-crossing kernels predict kappa on independent starts and unseen families, and its size drift? `experiments/2026-10-20-kappa-first-passage/`. Scaffold only; next is oracle/accounting and synthetic calibration, then feasibility. No new measurements or frozen confirmation manifest.
+
 - **Why does the c-law slope b fall with loop length, and what sets the intercept?** Registered Moore-lattice test (follow-up B, `experiments/2026-10-20-lattice-c-law/README.md`): b = 0.775 at loop 4 (z = 8), 0.260 at loop 8; M-lin refuted, M-inv missed its own consistency clause by 0.005, so neither supported. b looks floor-like (~0.26-0.28 at l = 6 and 8), within-lattice doubling of l multiplies b by ~0.3. Intercept is lattice-set (1.3 for z = 3, 4; 2.4 for z = 6, 8), not loop-set. No mechanism; closing needs a derivation of N_b(l) and the intercept, then a registered test on another lattice.
 - **Why is the hex lead fit so noisy, and what sets its intercept?** Follow-up A (2026-10-20, registered, `experiments/2026-10-20-lattice-c-law/README.md`) removed the lacy outlier (beta < 0.8) and
   separated tail letter types: clean r-lead b = 0.262 [0.21, 0.31] (R^2 only 0.42), R-lead 0.876 (R^2 0.69), b_r/b_R = 0.30 [0.24, 0.37]; tail letter type adds ~nothing
@@ -14,7 +16,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Where does the lead slope of 1/c live, by colour? (follow-up, `experiments/2026-10-20-lattice-c-law-colours/`, 2026-10-20).** The registered circulation
   decomposition failed (P1, P2, P6 failed; P3 passed on a flawed interior-contaminated estimator and is not counted). Post hoc: the slope lives in
   boundary reads at the circulating colours, ~0.95 per colour (hex R), 0.8 (square), 0.65 to 0.35 (tri), 0.7 to 0.5 (hex r); lag-ell ring returns carry them
-  only on the square lattice; hex r fills ring centres (15% of lead-1 births). Next: boundary-only episode segmentation, and what sets the per-colour survival plateau.
+  only on the square lattice; hex r fills ring centres (15% of lead-1 births). Shareable `notebook.ipynb` built and published (38 blog notebooks). Next: boundary-only episode segmentation, and what sets the per-colour survival plateau.
 - **Origin of the c law constants a = 1.4, b = 0.68** (1/c = 1.36 + 0.70 lead). Candidate: loop-formation probability x 4 steps
   per revolution / births per chain. Also why letters 5-8 matter. `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3,
   "Still open"), `experiments/2026-10-19-c-law-mechanism/NOTEBOOK.md` (19:22 closing entry).
@@ -53,9 +55,9 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
-- **Paper figures 1-5 are built** (2026-10-20: `fig:walker-map`, `fig:edge-gap`, `fig:layers`, `fig:prefix`; late-switch earlier). Open:
-  run `rebuild_figures.py` once to confirm the recipe regenerates them (not run; it overwrites all figures), and proposals 6-8 are
-  unattempted. `notes/paper-figure-proposals-2026-10-16.md`, `notes/handover-paper-figures-2026-10-17.md` (stale for item 4).
+- **Paper figures 1-5 are built** (2026-10-20: `fig:walker-map`, `fig:edge-gap`, `fig:layers`, `fig:prefix`; late-switch earlier). `rebuild_figures.py`
+  confirmed 2026-10-20 to regenerate all figures and `main.pdf` cleanly. Proposals 6-8 remain unattempted.
+  `notes/paper-figure-proposals-2026-10-16.md`, `notes/handover-paper-figures-2026-10-17.md` (stale for item 4).
 
 ## Uncommitted work in progress (do not lose)
 
