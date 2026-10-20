@@ -557,3 +557,15 @@ checker never re-ran it) and the global-front premise above. Items (1) to (3) ar
 **What C1 does and does not add.** Two programs written to the same semantics, with different proof architectures (the first checker peels and regroups bands symbolically; mine cuts at arrival rows and composes five explicit
 finite runs), agree on every constant (12 m + 934 / 1058 / 898; lemma periods 2; s = 20 and 4; m0 = 2) and on the brute-force cycle for 150 cases, and both reject the controls they share. They also share an author, an interpretation of
 the family (the 48-column strip with blank outside) and the same proposal file; they test the implementation of the argument, not the argument's premises.
+
+### C3 registration (appended 2026-10-21 08:41 +1300, before any Lean file exists; `which lean lake` finds Lean 4.35.0 and Lake 5.0.0 in WSL, core library only, no Mathlib, nothing installed)
+
+Plan: `experiments/2026-10-20-rlrlll-macro-transition/lean/Sweeper.lean`. A list-of-rows model of the ant (rows of 51 colours for columns -3 .. 47; a read outside the rows or
+columns is a failed step), `runN k` = k steps or failure. Statements, in order of ambition:
+
+- **L1 (finite certificates, from `c1b.py` data embedded in the file).** For each q, `runN 20` on the descent patch `A . bulk . bulk` and `runN 4` on the return patch
+  `sentinel . r' . A'` end in the stated state. Proof by `decide` (kernel) or, failing that, `native_decide`. P(all six by `decide`) ~ 50%; P(all six by `decide` or `native_decide`) ~ 85%.
+- **L2 (frame/embedding lemma, proved).** `runN k st = some st'` implies the same run inside `pre ++ g ++ post` (row offset |pre|) gives `pre ++ g' ++ post`. P(proved with no `sorry`) ~ 65%.
+- **L3 (iteration, proved).** For all n, rows `pre . A . bulk^(2n) . post` go to `pre . r'^n . A . post` in 20 n steps, and `pre . r'^n . A' . post` to `pre . A' . r''^n . post` in 4 n steps; induction on n over naturals. P ~ 60% given L2.
+- **L4 (stretch): the full cycle for all even m >= 2**, i.e. S1, S3, S5 as `runN` certificates plus the list identity `E5 . r''^(2n) . D3 = target`, for q = 0, 1, 2. P ~ 25%.
+What is claimed is exactly what `lake env lean` accepts and `#print axioms` lists; anything else stays in comments. A `sorry` anywhere is reported as not proved.

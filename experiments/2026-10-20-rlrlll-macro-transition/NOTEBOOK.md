@@ -182,3 +182,6 @@ C2d: by the exact criterion (real dump equals the ideal initial configuration on
 BUT every one of the 50 windows has visited cells outside Task A's cone (3 + s//3): excess over the wedge up to 7 above / 2 below. The cone
 margin of 3 was too small by the wedge slope times the 18-column east reach of a cycle; Task A's cone test was not a sufficient certificate,
 although the exact criterion passes anyway.
+
+### 2026-10-21 08:38 +1300 · 44aa8ca · intent
+C3: Lean 4.35.0 exists in WSL (elan), so the proof-assistant item is not blocked. Registered L1-L4 (finite certificates, embedding lemma, iteration over n, optional full cycle) in README before writing any Lean. Model: rows as lists; failure = a read outside the patch.
