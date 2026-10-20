@@ -340,3 +340,25 @@ Predictions:
   undefined there); only reported as the first differing cell vs the m = 0 construction `top_q . bottom_q`, no score.
 Not predicted: the seed itself. If B1 or B2 fails the interpretation "chaotic corner, then a clean family from m ~ -4" must be
 revised and I will say so.
+
+### Task B results (appended 2026-10-21 07:57 +1300; registration above not edited)
+
+Command: `$B RLRLLL 12676223500 $E/scratch/winB 32768 $(cat scratch/targetsB.txt)` (targets -1537 .. -1471 step 3; same binary as the
+scan), then `uv run $E/scripts/window_seed.py $E/scratch/winB $E/scratch/targetsB.txt > $E/results/window_seed.txt`. One run, 21 events.
+
+| Prediction | Outcome as registered |
+|---|---|
+| B1 <= 5 of 23 targets skipped, monotone | **Held**: 2 skipped (-1471, -1474; the ant was already at -1475), 21 fired, t strictly increasing. |
+| B2 formula fails for every pair with m <= -6 | **Failed**: the formula `12 m + c_q`, evaluated at negative m, holds exactly on 9 of 20 pairs with m <= -6, from x = -1534 down to x = -1510 (m = -24; step 12,676,226,047), and fails for every pair east of that (x = -1507 .. -1495 irregular: dt 842, 82, 10, 22, 30, 162, ...). |
+| B3 sd of dt - 12 L > 10 | Numerically true (sd 264) but uninformative: the pooled pairs include the nine exact ones, whose dt - 12 L takes the three values 382, 418, 542. Not a test of anything. |
+| B4 | Not run (no comparison construction was written). |
+
+Heights of cells first visited after `T_track2` in the column 3 east of each event: 3 (col -1504), 19 (-1507), 21 (-1510), 23 (-1513),
+..., +2 per 3 columns thereafter. **The wedge does not grow from zero height**: a column of height ~19 appears right after a
+column of height 3, and from there every cycle obeys the family's clock exactly, 41 cycles (m = -24 .. 4) before the cell-level
+family applies. The backward extrapolation to an apex at x ~ -1474 (README Entry probe) was wrong, and the "swing 41" floor
+was my zigzag filter, not the sweeper. The clock law's validity at negative m (columns shorter than the family's own end
+blocks) is unexplained: C(m, q) is undefined there, so the exact formula is an observation about the trajectory, not covered by the
+closure. What at the NW blob corner makes a height-19 first column: open.
+
+Commit of this section: after `dbc3827`. Notebook `notebook.ipynb` rebuilt (Task A/B cells, executed clean from the built script).

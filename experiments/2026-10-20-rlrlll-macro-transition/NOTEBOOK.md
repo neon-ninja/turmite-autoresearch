@@ -113,3 +113,30 @@ needs even m >= 2, i.e. x <= -1549, so "matches earlier than swing 41" is imposs
 `examples/rlrlll_macro_transition_window.rs` (hot loop copied from the tracer, ant-front events, no state bits) and
 `scripts/window_compare.py`; tool commit 79dd2b5, binary sha256 in `results/window_binary.sha256` (fresh target dir). Run
 launched on one core (targets x = 2 mod 3 from -1699 to -1480, plus -2197/-2200/-2203 as controls).
+
+### 2026-10-21 07:57 +1300 · dbc3827 · observation
+Task A controls all passed (events -2197/-2200/-2203 equal cycles.csv t and C(434/436/438, q) exactly; 24 wrong-(q,m) fits fail;
+9 one-cell perturbations fail at exactly that cell; stray-cell fails). Scan x = -1537 .. -1699 (55 events). Scored as registered:
+A1 held (51/51 pairs), A2 FAILED (0/36), A3 held but for a different reason than I predicted, A4 uninformative. First attempt
+at the controls hit an IndexError (apron 450 < m=434 rectangle): reran the control targets with apron 700, tool argument only.
+
+### 2026-10-21 07:57 +1300 · dbc3827 · surprise
+The registered whole-apron blank-outside test was wrong about what matters: old blob cells sit outside the rectangle at
+>= 31 rows. The rectangle itself matches exactly (colour and flag, 50/51 targets) from x = -1552, m = 4. My two predicted
+contamination sources do not act: the 48-column window at m = 4 includes the wake of the m = 2, 0, -2 .. cycles and still
+equals the family. Only x = -1549 (m = 2) fails, on 17 old blob cells inside the rectangle.
+
+### 2026-10-21 07:57 +1300 · dbc3827 · interpretation
+Post hoc (labelled in README): sweeper is on C(m,q) from step 12,676,237,591 (C(4,1)). Light-cone blank test uses a 3-row
+margin chosen from the observed growth, not derived from the checker: that is the weak joint of the new base case.
+
+### 2026-10-21 07:57 +1300 · dbc3827 · observation
+Task B (registered first): 21 of 23 targets fire. B1 held, B2 FAILED: the formula 12 m + c_q holds exactly at negative m down to
+m = -24 (x = -1510, step 12,676,226,047, column height 19); column heights 3 -> 19 -> 21 -> 23. The wedge starts abruptly at height
+~19, so my "grows from near-zero height at the corner" interpretation (07:26 entry) was wrong; the apex extrapolation to -1474 was
+an extrapolation artefact. The "swing 41" floor was the zigzag filter. B3 uninformative, B4 not run.
+
+### 2026-10-21 07:57 +1300 · dbc3827 · question
+Why does the clock formula hold at m < 2 where C(m,q) is not defined (end blocks longer than the column)? Is there an extended
+family of truncated configurations? What at the blob's NW corner produces a height-19 first column? The 3-row cone margin should be
+derived from the checker (the maximum row reach beyond the rectangle per cycle).

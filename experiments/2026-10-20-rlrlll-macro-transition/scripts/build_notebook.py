@@ -78,15 +78,35 @@ Registered outcome: E1a failed (column counts include the old blob) and E1b fail
 rejected as registered. Post hoc: the ant is on the sweeper clock well before the edge."""),
 code("""print(chr(10).join(l for l in (R / "entry_backtrack.txt").read_text().splitlines()
                  if l.startswith(("maxima", "run starts", "all cycles", "swing increments"))))"""),
-md("""Snapshot 0 is `C(434, 0)`, so given that one 1.27e10-step simulation, the blank-board `RLRLLL` ant never builds a
+md("""## Task A: cell-level family membership (2026-10-21; registration committed first as f67d3f4)
+Windows of 48 columns at the ant's own front (minimum x since step 12,676,233,000), x = 2 (mod 3), compared with `C(m(x), q(x))`
+from `canonical_k0.txt`, `m(x) = 434 + 2(-2197 - x)/3`. Controls (events at -2197..-2203 reproduce `cycles.csv`, match
+C(434..438, 0..2) exactly, wrong (q, m) and one-cell perturbations fail) all pass."""),
+code("""print(chr(10).join((R / "window_controls.txt").read_text().splitlines()[:2] + (R / "window_controls.txt").read_text().splitlines()[-1:]))
+print(chr(10).join(l for l in (R / "window_scan.txt").read_text().splitlines() if l.startswith(("A1", "A2", "A3", "A4", "primary", "secondary"))))
+print(chr(10).join(l for l in (R / "window_cone.txt").read_text().splitlines() if l.startswith(("rect", "-1549", "-1552", "-1600"))))"""),
+md("""Scored as registered: A1 (clock) held on 51 of 51 pairs; A2 **failed** (0 of 36 pass the registered whole-apron test, because
+old blob cells lie outside the rectangle); A3 held, for a different reason than predicted. Post hoc (labelled as such): the
+rectangle itself, ant offset and heading match exactly (colour and visited flag, zero nonzero cells in a 3-row light cone out to
+320 columns) at 50 of 51 targets, every x <= -1552 (m >= 4); x = -1549 (m = 2) fails on 17 old blob cells inside the rectangle.
+**The sweeper is on the closed family from step 12,676,237,591 (C(4, 1), x = -1552), 769,586 steps before the original base
+case and 184,176 before the front crosses the blob edge.**
+
+## Task B: below the family (registered before the run)
+Same tool from step 12,676,223,500, targets x = -1471 .. -1537."""),
+code("""print((R / "window_seed.txt").read_text())"""),
+md("""B1 held (21 of 23 targets fire, monotone). **B2 failed**: the clock formula `12 m + c_q`, evaluated at negative `m`, holds exactly
+on 9 pairs with m <= -6, down to x = -1510 (m = -24, column height 19, step 12,676,226,047) and fails at x = -1507. The column
+heights are 3 (x = -1504), 19 (-1507), 21 (-1510), 23 (-1513): the wedge starts abruptly at height ~19, not at zero, so the
+backward extrapolation to an apex at x ~ -1474 was wrong. The "swing 41" floor was my zigzag filter. B3 (sd of dt - 12 L > 10) is
+numerically true but uninformative because the pooled pairs include the exact ones. B4 was not run. No cell-level statement is
+made for m < 4: the family is undefined there.
+
+Snapshot 0 is `C(434, 0)`, so given that one 1.27e10-step simulation, the blank-board `RLRLLL` ant never builds a
 highway: it sweeps forever, with `|x|^2 / t -> 9/12 = 3/4`.
 
 ## What this does not show (caveats)
-- **Entry.** The ant is on the sweeper clock (period-3 `T - 12 swing`, 3 columns and 1 row per cycle) from step 12,676,233,468
-  (swing 41, x = -1536), 188,299 steps before the front crosses the old blob edge; the apex extrapolates to x ~ -1474, at
-  the blob's NW corner, where the log is irregular for >= 1e4 steps before. Not shown: that the configuration is in the
-  closed family (no cell-level comparison; old blob cells lie in the window behind the first ~7 cycles) and what seeds the
-  wedge. The registered entry prediction E1 is rejected as scored (E1b's geometry clause failed).
+- **Entry.** The cell-level family holds from step 12,676,237,591 (x = -1552, m = 4); the clock formula extends exactly to x = -1510 (m = -24, column height 19, step 12,676,226,047); before that the log is irregular. The wedge starts at height ~19-21, not zero (the apex extrapolation was wrong). Not shown: what inside the blob corner produces that first column, and a cell-level description for m < 4. The old-blob cells outside the rectangle are excluded by a 3-row light-cone margin chosen from the observed growth, not derived from the checker. E1 (registered) was rejected as scored; A2 and B2 also failed as registered.
 - **Trust.** The base case is one run of an uncertified plain loop (consistent with an independent run's exit step).
   The checker is ~640 lines of Rust, not a proof assistant; brute force and negative controls test it but do not prove it.
 - **Explanation.** The check certifies the period-3 wake and the bulk row `14435435...`; it does not say why they arise.
@@ -94,7 +114,7 @@ highway: it sweeps forever, with `|x|^2 / t -> 9/12 = 3/4`.
 
 ## Next
 An independent second checker or a Lean/Coq statement of the two lemmas; the same propose-then-check loop on the other
-no-highway escapes and on census highways (a "sweeper decider"); a cell-for-cell comparison of the window at a cycle clear of the blob with `canonical_k0.txt`, then a front-free cycle definition to resolve the seed."""),
+no-highway escapes and on census highways (a "sweeper decider"); a derivation of the light-cone margin from the checker, a description of the first ~25 cycles (m < 4), and what at the NW blob corner seeds the first column."""),
 ]
 nb = nbf.v4.new_notebook(cells=cells)
 nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}
