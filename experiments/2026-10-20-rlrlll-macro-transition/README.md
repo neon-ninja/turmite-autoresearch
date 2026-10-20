@@ -569,3 +569,21 @@ columns is a failed step), `runN k` = k steps or failure. Statements, in order o
 - **L3 (iteration, proved).** For all n, rows `pre . A . bulk^(2n) . post` go to `pre . r'^n . A . post` in 20 n steps, and `pre . r'^n . A' . post` to `pre . A' . r''^n . post` in 4 n steps; induction on n over naturals. P ~ 60% given L2.
 - **L4 (stretch): the full cycle for all even m >= 2**, i.e. S1, S3, S5 as `runN` certificates plus the list identity `E5 . r''^(2n) . D3 = target`, for q = 0, 1, 2. P ~ 25%.
 What is claimed is exactly what `lake env lean` accepts and `#print axioms` lists; anything else stays in comments. A `sorry` anywhere is reported as not proved.
+
+### C3 results, L1-L3 (appended 2026-10-21 08:48 +1300; L4 is reported separately below if attempted)
+
+Command (WSL, Lean 4.35.0, core library only, nothing installed): `python3 scripts/c3_gen.py > lean/Data.lean; cd lean; lake build; lake env lean Check.lean`.
+Build log and file hashes: `results/c3_build.txt` (clean rebuild, exit 0, warnings are unused simp arguments only); axioms: `results/c3_axioms.txt`.
+
+| Registered | Outcome |
+|---|---|
+| L1 six finite certificates by `decide` (kernel) or `native_decide` | **Held, all six by `decide +kernel`** (kernel evaluation; no `Lean.ofReduceBool`, so no `native_decide`): `descent_cert{q}` (20 steps on `[A, bulk, bulk]`) and `return_cert{q}` (4 steps on `[r', r', A']`), q = 0, 1, 2 |
+| L2 frame lemma proved | **Held**: `Sweeper.runN_emb` (a successful run on `g` is the same run inside `pre ++ g ++ post`, rows shifted by `|pre|`), via `cell?_emb`, `setCell_emb`, `step_emb`; no `sorry` |
+| L3 iteration for all n by induction | **Held**: `descent_iter` (`pre . A . bulk^(2n) . post` -> `pre . rp^n . A . post` in `20 n` steps) and `return_iter` (`pre . rp^n . A' . post` -> `pre . A' . rpp^n . post` in `4 n` steps), instantiated as `descent_all{q}`, `return_all{q}`. Axioms: `propext`, `Quot.sound` only |
+| L4 (stretch) full cycle for all even m | see below |
+
+What is machine-checked: for the model below, the statements named above. The model is mine (a list of 51-column rows, a read outside the rows or columns fails, headings
+0 = north .. 3 = west, colours 0 and 2 turn right, others left); that it is the RLRLLL ant is supported by the six certificates agreeing with my Python ant on the same rows
+and by C1a, not proved. The certificates take their rows (A, r', A', r'') from `c1b.py`; they are checked data, not trusted data. What is **not** machine-checked: S1, S3, S5,
+the composition identity (`E5 . r''^(2n) . D3` = next family member), the claim that arrival at column -3 happens first only at the end, and the passage from one cycle to the next
+(padding of blank rows shrinks by the wedge each cycle). Those remain paper steps (2) and (3) of C1c; step (1), the iteration over n, is now machine-checked.

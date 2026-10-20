@@ -103,18 +103,60 @@ numerically true but uninformative because the pooled pairs include the exact on
 made for m < 4: the family is undefined there.
 
 Snapshot 0 is `C(434, 0)`, so given that one 1.27e10-step simulation, the blank-board `RLRLLL` ant never builds a
-highway: it sweeps forever, with `|x|^2 / t -> 9/12 = 3/4`.
+highway: it sweeps forever, with `|x|^2 / t -> 9/12 = 3/4`."""),
+md("""## Task C: assurance (2026-10-21; registered in the README first, with a dated correction of two registration errors)
+**C1, a second checker.** `scripts/c1b.py` is written from the rule definition and the proposal text only (no `src/`, none of the first
+checker's code), with its own ant (`c1_ant.py`) and a different proof architecture: five explicit finite runs (top block -> descent frame,
+descent lemma^n, bottom turnaround, return lemma^n, top block -> new front) composed by row bookkeeping. `c1a.py` compares its ant with
+`reference::Ant` through a thin Rust driver (a per-step hash of position, colour read and heading)."""),
+code("""for n in ["c1a_conventions.txt", "c1a_semantics.txt", "c1b_verify.txt"]:
+    print("== " + n)
+    print(chr(10).join(l[:230] for l in (R / n).read_text().splitlines()))"""),
+md("""The conventions test finds that two of four heading conventions close the cycle (the same ant under two labelings) and the mirror ants close
+none. My ant agrees with `reference::Ant` at every one of 1,000 checkpoints of a 1e6-step blank-board run and on 12 window cycles; two
+deliberately wrong rules (`RLRRLL`, `LLRLLL`) disagree from the first checkpoint. The second checker reproduces the first one's constants
+exactly: `12 m + 934 / 1058 / 898`, descent lemma 20 steps per 2 rows, return lemma 4 steps per 2 rows, valid for every even `m >= 2`, and
+150 brute-force cycles (m = 2..100, three phases) agree. It uses smaller frames (H = 1) because it cuts at the ant's arrival on a row."""),
+code("""for n in ["c1b_control_mut46.txt", "c1b_control_rlrllr.txt", "c1_controls.txt"]:
+    print("== " + n)
+    print(chr(10).join(l[:200] for l in (R / n).read_text().splitlines() if not l.startswith("  S5 with")))"""),
+md("""Controls: a bulk cell changed in a column the ant never reads (trajectories identical) is rejected in all three phases at the composition
+equality, like the first checker. `RLRLLR` is rejected in all three phases, but at a different place (the finite top-block run leaves its patch)
+than the first checker's "left the strip" / "segment counts differ"; I score that control as split, not held (README).
+
+**C2, the cone margin.** Per-cycle reach of the family's ant, from the finite runs and from 150 brute-force cycles, then the exact base-case
+criterion: the real configuration at each of Task A's 50 events must equal the ideal initial configuration on every cell the ideal ant ever
+stands on."""),
+code("""print((R / "c2_reach.txt").read_text())
+print(chr(10).join(l[:330] for l in (R / "c2_recheck.txt").read_text().splitlines()[:4] + (R / "c2_recheck.txt").read_text().splitlines()[-2:]))
+print((R / "c2_control.txt").read_text())"""),
+md("""Registered C2a (at most 1 row per side) **failed**: a cycle visits up to 2 rows above its rectangle (phase 0). The rectangle's top moves up
+2, 0, 1 rows per phase and its bottom down 1 per phase, so the wedge is 1 row per cycle per side. The exact criterion passes in all 50
+windows (about 3e4 to 4.5e4 visited cells each, no mismatch), which confirms the base case without any observed margin. But **Task A's cone
+(3 + s//3 rows) was too small**: every window has visited cells outside it, by up to 7 rows above, because a cycle's rows are visited up to 18
+columns east of its front. Task A's cone test was not a sufficient certificate; the exact criterion is. One premise is not re-derived
+here: nothing the real run visited lies west of x = -1820 (checked in the dumps for rows -2000..-1 and the apron, taken from the tracer's front
+record elsewhere).
+
+**C3, Lean 4.** `lean/` (core library only, no Mathlib): a list-of-rows model of the ant, a frame lemma (a run inside a patch extends to any
+surrounding rows), and the two shift lemmas as iteration theorems for all `n`, instantiated for q = 0, 1, 2 from six finite certificates checked by
+`decide +kernel`. No `sorry`; axioms propext and Quot.sound only."""),
+code("""print((R / "c3_axioms.txt").read_text())
+print(chr(10).join(l for l in (R / "c3_build.txt").read_text().splitlines() if l.startswith(("Build", "BUILD", "Lean", "#"))))"""),
+md("""Not machine-checked: the top/bottom end runs, the composition identity for all `m`, and the passage from one cycle to the next (paper steps in
+the README).
 
 ## What this does not show (caveats)
 - **Entry.** The cell-level family holds from step 12,676,237,591 (x = -1552, m = 4); the clock formula extends exactly to x = -1510 (m = -24, column height 19, step 12,676,226,047); before that the log is irregular. The wedge starts at height ~19-21, not zero (the apex extrapolation was wrong). Not shown: what inside the blob corner produces that first column, and a cell-level description for m < 4. The old-blob cells outside the rectangle are excluded by a 3-row light-cone margin chosen from the observed growth, not derived from the checker. E1 (registered) was rejected as scored; A2 and B2 also failed as registered.
-- **Trust.** The base case is one run of an uncertified plain loop (consistent with an independent run's exit step).
-  The checker is ~640 lines of Rust, not a proof assistant; brute force and negative controls test it but do not prove it.
+- **Trust.** The base case is one run of an uncertified plain loop (consistent with an independent run's exit step); the second checker
+  did not re-run it. Two checkers (Rust, Python) by one author now agree on every constant, and the two shift lemmas are Lean-checked for all `n`;
+  the end runs and the composition are not.
 - **Explanation.** The check certifies the period-3 wake and the bulk row `14435435...`; it does not say why they arise.
 - P4 was tested on 373 sampled boundaries, not all 4,729 (the checker then covers all of them).
 
 ## Next
-An independent second checker or a Lean/Coq statement of the two lemmas; the same propose-then-check loop on the other
-no-highway escapes and on census highways (a "sweeper decider"); a derivation of the light-cone margin from the checker, a description of the first ~25 cycles (m < 4), and what at the NW blob corner seeds the first column."""),
+Lean statements of the end runs and the composition (and the cycle-to-cycle padding bookkeeping); the same propose-then-check loop on the other
+no-highway escapes and on census highways (a "sweeper decider"); an explanation of the clock at m < 2, and what at the NW blob corner seeds the first column."""),
 ]
 nb = nbf.v4.new_notebook(cells=cells)
 nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}
