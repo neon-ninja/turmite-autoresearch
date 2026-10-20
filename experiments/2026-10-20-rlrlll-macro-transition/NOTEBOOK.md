@@ -145,3 +145,8 @@ derived from the checker (the maximum row reach beyond the rectangle per cycle).
 Task C: independent second checker (C1), derived cone margin (C2), proof-assistant statement only if time and toolchain (C3).
 Predictions C1a-1..3, C1b (a-e), C1 controls 1-4, C2a-d registered in README before any Task C code exists. 8 logical cores
 visible, no cargo/release processes running; I work on one core regardless.
+
+### 2026-10-21 08:16 +1300 · c6a5b47 · deviation
+Review of my own registration before any Task C code: control (1) was vacuous (colour 3 already turns L), the first checker's RLRLLR verdicts
+differ by phase, C1a-1 is expected to fail as registered (1 of 4 candidates closes), and the C1a driver design needed to be thinner and hash every
+step. Corrections appended to README ("Task C registration corrections"); registered text unedited. Lean 4 is present in WSL, so C3 is open.

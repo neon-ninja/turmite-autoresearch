@@ -433,3 +433,37 @@ counter-clockwise from heading 0 = north, R = +1 or -1), those that make C(m, q)
   inside it, Task A's base case is invalid and I say so first.
 - **C3 (optional)**: only if C1 and C2 are done. First check whether Lean 4 / Coq is installed in WSL (`lean`, `lake`, `coqc`
   on PATH); if not, the result is "toolchain absent" and stop. No install.
+
+### Task C registration corrections (appended 2026-10-21 08:16 +1300, commit after `c6a5b47`; the registered text above is not edited, and still nothing of Task C has been run; note the registration header says 08:15 but `date` read 08:14 at that point, a clock-reading slip, not a reordering)
+
+1. **Control (1) was vacuous as written.** In RLRLLL colour 3 already turns L (0:R 1:L 2:R 3:L 4:L 5:L), so "colour 3 turns L instead of R"
+   is the correct ant. Re-registered: the broken ant flips colour 3 from L to R (rule `RLRRLL`) and, as a second broken ant, colour 0 from R to L
+   (`LLRLLL`). Each must disagree with `reference::Ant` (on `RLRLLL`) at C1a-2; the first-disagreement checkpoint is reported.
+2. **Controls (2)/(4): the first checker's RLRLLR verdict differs by phase** (`results/check_negative_controls.txt`): phases 0 and 1 give
+   "left the strip at column 52"; phase 2 gives "result is not C(m', 0): segment counts differ: 50 vs 47". Expected from my checker: for RLRLLR
+   the *class* of verdict per phase is {leaves the strip / does not reach C(m+2, q+1)}, and I do not require the same text, because the
+   stage structure differs. "Same place" is defined concretely: the first step at which a brute-force run of the mutated input deviates from
+   the unmutated run, and the stage of my pipeline that rejects it; I report both next to the first checker's verdict.
+   The mutated-bulk input file was never committed: I regenerate it (bulk row string index 46 is '3', so "3 -> 4"; the WEST-padded index would be
+   '4'), run the first checker on it, confirm it reproduces the committed output lines, commit it as `results/canonical_k0_mut46.txt`, and feed
+   identical bytes to both checkers.
+3. **C1a-1 will probably fail as registered, and I will score it as written.** The canonical file fixes heading 3 = west, which excludes the
+   counter-clockwise tables; of the clockwise pair, R = -1 is the mirror ant. My expectation (written now, before the run) is that 1 of the 4
+   candidates closes, not 2. That would be a missed registered prediction, not a disagreement between checkers, and I will not relabel it.
+4. **C1a driver is thin.** Python builds every initial state (blank and each C(m, q)) as plain `x y colour` lines plus position and heading; the Rust
+   driver only loads them, steps `reference::Ant` N times (N from Python's cycle length), folds *every* step into a 64-bit hash of
+   (x, y, heading, colour read) with explicit two's-complement encoding and prints the accumulator at each 1,000-step checkpoint. It does not parse
+   `canonical_k0.txt` and does not decide when a cycle stops. A mismatch is first diffed step by step before it is called a semantic disagreement.
+   Build in a fresh `CARGO_TARGET_DIR`, exit status checked, sha256 logged.
+5. **Verifier obligations I add to the pipeline** (checked by code, each with a failing-input test where cheap): a sentinel on every open side of
+   every finite run (above A in the descent as well), reading a sentinel fails, arriving on the far sentinel at the final step is allowed; at each
+   handoff the end state equals the next stage's precondition exactly, and rows a stage does not own are verified untouched; counts are integers
+   >= 0 for all even m >= m0 and the total equals 12 m + c_q as a polynomial identity, not only at sampled m; the post-condition includes
+   "colour 0 outside the rectangle in every strip column west of the new x_f + 48", enforced on purpose.
+6. **C2 emphasis.** The base case that matters is C(4, 1) at x = -1552; the other 49 windows are extra. 110 cycles suffice because reach is at most
+   20 columns behind the front (first checker's P3, to be re-derived by mine): once x_f(k) + 20 < -1820 every later read is in a column never visited
+   by base time, which happens for k >= 97. The dump apron reaches only 320 columns west (to x = -1872) but 110 cycles reach about 333, so I verify
+   from the dump that columns -1820 .. -1872 are unvisited, and for anything further west rely on the global-front fact, stated as such. I report the
+   envelope of the union of visited cells against Task A's `3 + s//3` cone; if the union pokes outside that cone anywhere, Task A's margin was not a
+   sufficient certificate even if C2d passes, and the headline says so.
+7. **C3**: `which lean lake` finds `~/.elan/bin/lean` and `lake` in WSL, so C3 is not blocked by the toolchain. Version recorded when used.
