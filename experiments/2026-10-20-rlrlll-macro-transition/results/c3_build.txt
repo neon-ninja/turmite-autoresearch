@@ -1,0 +1,60 @@
+# clean rebuild: lake build (Lean 4.35.0 core, no Mathlib, no native_decide)
+Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+e87b3cdf21d491cc2eb5a04b0c37786b7df8265853f4dba284bd5d0f60d59ef0  Model.lean
+ac38c283d2b2d75bbda8c3e79d19ffbcf8bac8afe4c79fe035ab9339e1219b7e  Iter.lean
+f49cad05297d4d6384fc4f014ec45ee8b272e2806fb431a472be9186e8cdd468  Data.lean
+5997af0f6da9164f97ea35f8f584fed24639db52cb9c77ba77af204f3a87e35d  Check.lean
+68125f0a2b4cfa6553edf45034ceb1a5634650eb5c7c176cfbf6496e67caf510  lakefile.toml
+⚠ [2/5] Built Model (8.0s)
+warning: Model.lean:68:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+warning: Model.lean:74:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+warning: Model.lean:82:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+⚠ [3/5] Built Iter (7.1s)
+warning: Iter.lean:75:65: This simp argument is unused:
+  List.singleton_append
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [emb, List.length_append, hF, List.append_assoc, List.cons_append, St.mk.injEq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Iter.lean:79:101: This simp argument is unused:
+  Option.some.injEq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc, St.mk.injEq,
+    true_and, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Iter.lean:80:6: This simp argument is unused:
+  St.mk.injEq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, true_and, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Iter.lean:80:19: This simp argument is unused:
+  true_and
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, St.mk.injEq, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Iter.lean:80:29: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, St.mk.injEq, true_and]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [4/5] Built Data (7.0s)
+Build completed successfully (5 jobs).
+BUILD_EXIT=0

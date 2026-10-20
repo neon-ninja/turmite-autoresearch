@@ -240,7 +240,8 @@ def verify_phase(rule, ph, q, lines, mmax):
     t0 = pos5[1] - nq["dy"]
     dtop_up = NB - t0  # rows the rectangle's top row moves up in one cycle
     dbot_down = t0 + len(ntop) + len(nbottom) + 2 - NB - T - Bt  # rows its bottom row moves down (independent of m)
-    return dict(a=a_coef, b=b_const, m0=m0, dtop_up=dtop_up, dbot_down=dbot_down, _std=desc["std"], _strr=ret["strr"], K1=K1, e=e, p=p, k5=k5, nmin=nmin, sd=sd, sr=sr, H=H, Hp=Hp,
+    data = dict(bulk=bulk, A=A, x1=desc["pos1"][0], h1=desc["h1"], rp=desc["rprime"], Ap=ret["Ap"], rpp=rpp, x3=ret["pos3"][0], h3=ret["h3"])
+    return dict(a=a_coef, b=b_const, m0=m0, _data=data, dtop_up=dtop_up, dbot_down=dbot_down, _std=desc["std"], _strr=ret["strr"], K1=K1, e=e, p=p, k5=k5, nmin=nmin, sd=sd, sr=sr, H=H, Hp=Hp,
                 reach=dict(s1=desc["st1"], s3=ret["st3"], s5=fin["st5"], NB=NB, T=T, Bt=Bt, H=H, e=e, K1=K1))
 
 

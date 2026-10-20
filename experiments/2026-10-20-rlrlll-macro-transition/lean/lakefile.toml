@@ -1,0 +1,6 @@
+name = "sweeper"
+defaultTargets = ["Sweeper"]
+
+[[lean_lib]]
+name = "Sweeper"
+roots = ["Model", "Iter", "Data"]
