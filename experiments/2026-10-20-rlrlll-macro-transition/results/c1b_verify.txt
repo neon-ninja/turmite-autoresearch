@@ -1,0 +1,28 @@
+# c1b: independent verifier. rule RLRLLL, canonical results/canonical_k0.txt, python 3.12.3
+phase 0 -> 1:
+  S1: K1 = 1 band rows, 387 steps, ant arrives on row 44 at x = -1, heading 2; rows touched 15..44 of 0..43, x -2..9
+  descent lemma: H = 1, p = 2, s = 20 steps per application; A = rows 43..43 of the S1 output; patch rows touched 0..3 of 0..2, x -2..1
+  S3: e = 1 band rows, 216 steps; rows touched -1..19 of 0..32 (A = rows 0..0, bottom_q = rows 2..18), x -2..2; ant at x = 1, heading 0
+  return lemma: H' = 1, p' = 2, s = 4 steps per application; patch rows touched 0..2 of 0..3, x 1..2
+  S5: k5 = 0 band rows, 355 steps; rows touched 12..42 of 0..43, x -3..18; final ant x = -3, heading 3
+  compose: for n = 0..3 (m = K1 + p n + e = 2..) final = C(m + 2, 1) exactly (all cells in x = 0..47 and the ant); steps = 387 + 216 + 355 + n (20 + 4) = 12 m + 934
+  OK: C(m, 0) -> C(m + 2, 1) in 12 m + 934 steps for every even m >= 2 (m = 1 + 2 n + 1, n >= 0)
+phase 1 -> 2:
+  S1: K1 = 1 band rows, 383 steps, ant arrives on row 45 at x = -1, heading 2; rows touched 16..45 of 0..44, x -2..8
+  descent lemma: H = 1, p = 2, s = 20 steps per application; A = rows 44..44 of the S1 output; patch rows touched 0..3 of 0..2, x -2..1
+  S3: e = 1 band rows, 216 steps; rows touched -1..19 of 0..32 (A = rows 0..0, bottom_q = rows 2..18), x -2..2; ant at x = 1, heading 0
+  return lemma: H' = 1, p' = 2, s = 4 steps per application; patch rows touched 0..2 of 0..3, x 1..2
+  S5: k5 = 0 band rows, 483 steps; rows touched 14..43 of 0..44, x -3..17; final ant x = -3, heading 3
+  compose: for n = 0..3 (m = K1 + p n + e = 2..) final = C(m + 2, 2) exactly (all cells in x = 0..47 and the ant); steps = 383 + 216 + 483 + n (20 + 4) = 12 m + 1058
+  OK: C(m, 1) -> C(m + 2, 2) in 12 m + 1058 steps for every even m >= 2 (m = 1 + 2 n + 1, n >= 0)
+phase 2 -> 0:
+  S1: K1 = 1 band rows, 383 steps, ant arrives on row 44 at x = -1, heading 2; rows touched 15..44 of 0..43, x -2..8
+  descent lemma: H = 1, p = 2, s = 20 steps per application; A = rows 43..43 of the S1 output; patch rows touched 0..3 of 0..2, x -2..1
+  S3: e = 1 band rows, 216 steps; rows touched -1..19 of 0..32 (A = rows 0..0, bottom_q = rows 2..18), x -2..2; ant at x = 1, heading 0
+  return lemma: H' = 1, p' = 2, s = 4 steps per application; patch rows touched 0..2 of 0..3, x 1..2
+  S5: k5 = 0 band rows, 323 steps; rows touched 13..42 of 0..43, x -3..10; final ant x = -3, heading 3
+  compose: for n = 0..3 (m = K1 + p n + e = 2..) final = C(m + 2, 0) exactly (all cells in x = 0..47 and the ant); steps = 383 + 216 + 323 + n (20 + 4) = 12 m + 898
+  OK: C(m, 2) -> C(m + 2, 0) in 12 m + 898 steps for every even m >= 2 (m = 1 + 2 n + 1, n >= 0)
+brute force m = 2..100 step 2, three phases (150 runs): all end in C(m + 2, q + 1) with 12 m + (934, 1058, 898)[q] steps
+symbolic law equals (12, 934/1058/898): True
+RESULT: CLOSED (independent verifier)

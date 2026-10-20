@@ -160,3 +160,14 @@ Blank board 1e6 steps: 1000/1000 checkpoints and the final state identical to re
 checkpoints, final cell sets and min x = -3. Controls 1a (RLRRLL) and 1b (LLRLLL) disagree from the first checkpoint (step 1000).
 (Note: canonical_k0.txt uses '0' for visited colour-0 cells; my first parse treated it as colour and every cycle failed to close:
 a bug in my reader, found by the 29-cell diff, fixed before any result was recorded.)
+
+### 2026-10-21 08:30 +1300 · bb7450b · observation
+C1b: scripts/c1b.py (stdlib Python, own ant, own pipeline S1 . descent^n . S3 . return^n . S5, own search for the lemma frames) verifies
+closure of C(m,q) -> C(m+2,q+1) for q = 0,1,2 with exactly the first checker's constants: 12 m + 934 / 1058 / 898, descent lemma p = 2,
+s = 20, return lemma p = 2, s = 4. My frames are smaller (H = 1 for both, K1 = 1 band row consumed by S1, e = 1 in S3, k5 = 0) because I cut at
+the ant's *arrival* on the next row, not at the first checker's peel point; m0 = 2. Brute force m = 2..100 step 2, 3 phases (150 runs): all
+agree (steps and end state). Composition is checked at n = 0..3 and then by an insertion argument (r'' rows shifted by 3 equal the next bulk
+row; the E5 | band | D3 junction lies inside the target's bulk run). Controls: mutated bulk (col 46) rejected in all three phases at the
+composition equality (trajectories identical during the whole cycle, ant never beyond column 18, so only the window bookkeeping can see it);
+RLRLLR rejected in all three phases but at S5 (sentinel), whereas brute force and the first checker show 'left the strip' for q = 0, 1 and
+'cycle completes, wrong final state' for q = 2. The first checker re-run on the regenerated inputs reproduces its committed verdicts.

@@ -1,0 +1,17 @@
+# control 3/4a: bulk row string index 46 changed 3 -> 4 (results/canonical_k0_mut46.txt)
+q=0 m=2: trajectories identical for the whole cycle: True (steps 958; ant reaches at most column 18 < 46); next-phase closure with mutated family: False
+q=0 m=10: trajectories identical for the whole cycle: True (steps 1054; ant reaches at most column 18 < 46); next-phase closure with mutated family: False
+q=0 m=50: trajectories identical for the whole cycle: True (steps 1534; ant reaches at most column 18 < 46); next-phase closure with mutated family: False
+q=1 m=2: trajectories identical for the whole cycle: True (steps 1082; ant reaches at most column 17 < 46); next-phase closure with mutated family: False
+q=1 m=10: trajectories identical for the whole cycle: True (steps 1178; ant reaches at most column 17 < 46); next-phase closure with mutated family: False
+q=1 m=50: trajectories identical for the whole cycle: True (steps 1658; ant reaches at most column 17 < 46); next-phase closure with mutated family: False
+q=2 m=2: trajectories identical for the whole cycle: True (steps 922; ant reaches at most column 10 < 46); next-phase closure with mutated family: False
+q=2 m=10: trajectories identical for the whole cycle: True (steps 1018; ant reaches at most column 10 < 46); next-phase closure with mutated family: False
+q=2 m=50: trajectories identical for the whole cycle: True (steps 1498; ant reaches at most column 10 < 46); next-phase closure with mutated family: False
+# control 2/4b: rule RLRLLR on the canonical file
+q=0 m=2: RLRLLR cycle ok=False (left the strip at column 48), at step 5884; trajectories first differ at step 13 (RLRLLL ant is then at (2, 9))
+q=0 m=10: RLRLLR cycle ok=False (left the strip at column 48), at step 6844; trajectories first differ at step 13 (RLRLLL ant is then at (2, 9))
+q=1 m=2: RLRLLR cycle ok=False (left the strip at column 48), at step 4968; trajectories first differ at step 13 (RLRLLL ant is then at (2, 10))
+q=1 m=10: RLRLLR cycle ok=False (left the strip at column 48), at step 5416; trajectories first differ at step 13 (RLRLLL ant is then at (2, 10))
+q=2 m=2: RLRLLR cycle ok=True (None), at step 5894; trajectories first differ at step 13 (RLRLLL ant is then at (2, 9))
+q=2 m=10: RLRLLR cycle ok=True (None), at step 6502; trajectories first differ at step 13 (RLRLLL ant is then at (2, 9))
