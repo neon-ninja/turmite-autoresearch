@@ -150,3 +150,13 @@ visible, no cargo/release processes running; I work on one core regardless.
 Review of my own registration before any Task C code: control (1) was vacuous (colour 3 already turns L), the first checker's RLRLLR verdicts
 differ by phase, C1a-1 is expected to fail as registered (1 of 4 candidates closes), and the C1a driver design needed to be thinner and hash every
 step. Corrections appended to README ("Task C registration corrections"); registered text unedited. Lean 4 is present in WSL, so C3 is open.
+
+### 2026-10-21 08:21 +1300 · 3bec721 · observation
+C1a run (driver sha256 in results/c1_driver.sha256, fresh CARGO_TARGET_DIR, exit 0). Conventions (results/c1a_conventions.txt): of
+the 4 candidates exactly 2 close all 12 test cycles, (CW table, R=+1) and (CCW table, R=-1), i.e. the same physical ant under two
+labelings; the mirror ants close 0/12. Registered C1a-1 said 2 (held); the correction at 08:16 said I now expected 1 (failed as
+revised; I believe the revision rested on a wrong premise, that heading 3 = west excludes the CCW table, which has 3 = west too).
+Blank board 1e6 steps: 1000/1000 checkpoints and the final state identical to reference::Ant. Windows (12 cases): identical
+checkpoints, final cell sets and min x = -3. Controls 1a (RLRRLL) and 1b (LLRLLL) disagree from the first checkpoint (step 1000).
+(Note: canonical_k0.txt uses '0' for visited colour-0 cells; my first parse treated it as colour and every cycle failed to close:
+a bug in my reader, found by the 29-cell diff, fixed before any result was recorded.)

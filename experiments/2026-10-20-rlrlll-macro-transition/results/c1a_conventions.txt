@@ -1,0 +1,5 @@
+table=CW R=+1: closes 12/12 of (q in 0..2) x (m in 2,4,10,50)
+table=CW R=-1: closes 0/12 of (q in 0..2) x (m in 2,4,10,50)
+table=CCW R=+1: closes 0/12 of (q in 0..2) x (m in 2,4,10,50)
+table=CCW R=-1: closes 12/12 of (q in 0..2) x (m in 2,4,10,50)
+closing candidates: [('CW', 1), ('CCW', -1)]
