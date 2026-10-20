@@ -201,3 +201,27 @@ uv run --frozen experiments/2026-10-20-kappa-first-passage/scripts/preflight.py
 This checks the scaffold and prints its provenance; it launches no simulation.
 The notebook is a planning/readiness document until committed results exist.
 No new scientific measurements, calibrated estimator, or instrument exist yet.
+
+## Calibration registration (appended 2026-10-20 22:56 +13:00, before the calibrator is written or run; code at 0e0f738)
+
+Instrument v1 differences from the scaffold text above (deviations, decided before any ant outcome was read):
+- M2 uses colour *classes* (class(c) = 2 turn(c) + turn(c+1), comparable across rule lengths),
+  the four axis neighbours relative to the heading (3 bits each, 4 = unvisited) and the last four
+  milestone labels; not the radius-2 colour patch. The radius-4 context needed by P4 is NOT recorded
+  in v1: P4 is untested unless a v2 recorder is added before confirmation.
+- Interior episodes cannot change the territory, so frozen-depth and evolving termination coincide
+  exactly; the ">10% disagreement" gate is vacuous and is reported as an identity, not a measurement.
+- Segment pair table is capped (3,000,000 rows per run); overflow folds to the M1 key and is counted.
+
+Estimator (`scripts/fpkernel.py`): chain on segment states at level L in {M0,M1,M2} with a count
+floor (a next state seen as a source fewer than `floor` times backs off one level, down to M0);
+absorbing = hit of milestone 0; `u = m + Q u`; E[T] = entry-law-weighted u; E[D] = mean elapsed of
+segments starting at milestone 0; predicted B/S = E[D]/(E[D]+E[T]). Open (censored) segments are
+excluded from Q and m and their mass reported. Unreachable-absorption classes are failures, never dropped.
+
+Predictions for the synthetic calibration (`scripts/calibrate.py`, seeds 202610207000 + k), registered now:
+- C1 planted Markov birth-death chain, exponential dwell: M0 relative bias of E[T] below 5%; 95% bootstrap-over-replicate coverage between 90% and 99%.
+- C2 planted hidden-mode chain (persistent mode changes up-probability and dwell scale): M0 relative bias of E[T] above 20% in magnitude (the memoryless closure visibly fails); with the mode visible in the key (M1) below 5%. If M0 does NOT fail, the negative control is too weak and the design is revised publicly.
+- C3 heavy-tailed dwell (Pareto alpha 0.7 at depth levels >= 4) with cap censoring: report the signed bias of E[T] against the cap-truncated truth; accept the estimator for confirmation only where censored time share is below 5%.
+- C4 sparse M2 keys (many rare keys, floor 20): backoff keeps relative bias below 10% and never errors.
+Rotor and random-walk runs of the sampler are bookkeeping checks only (identities), not tests of the ant law.
