@@ -318,3 +318,26 @@ source/binary hashes and cases in results/native_v1/, results/native_report.json
 Next proposal is one coupled phase edit preserving two turns, to separate delayed
 future-clock release from accumulated geometry changes under repeated resets.
 It needs its own registration/oracle; no such causal branch test has run.
+
+### Boundary occupation by exposure class — 2026-10-20 (`experiments/2026-10-20-kappa-exposure-classes`)
+Registered (README, commit `1593b61`, before measuring) and run; results at `1c9ac05`. New instrument
+`examples/kappa_exposure_classes.rs` (every window checked against `probe::probe_walker` and a board scan)
+splits boundary steps by the cell's number of unvisited neighbours u, and divides by the *time-integrated*
+class share, rho_u = sum b_u / sum_t P_u(t)/A(t), which is exactly 1 for an instantaneously uniform walker
+without the probe's end-of-window 1.11 reference. 64 stationary census rules x 4 patched starts + blank board,
+mf/rotor/rw x 8 seeds, 2^26 steps, board 8192, windows k = 17..26.
+- **Held:** P0 (blank runs reproduce 1152 committed census windows exactly), P1 (mean-field rho_u = 1 within
+  0.006), P2 (convention-free deficit: ant median rho 0.874, rotor 1.798, rw 1.315), P2b (kappa/1.105 equals rho
+  rule by rule to a median 3.6%; so kappa/kappa_unif is a sound rule-level proxy).
+- **Failed:** P3, the H-exposed picture (median Q = rho_1^ret/rho_2+^ret 1.349 [1.09, 1.59] but Q > 1 in only
+  64% of rules, needed 75%); P4 (Spearman(rho, exposed share) +0.20, registered <= -0.4, wrong sign).
+- Post hoc: returns to exposed cells are below uniform for every non-uniform walker (rotor 0.71, rw 0.76, ant
+  0.41), so Q > 1 is not ant-specific. The ant-specific shortfall is **returns to flat edge** (rho_1^ret 0.59
+  vs rotor 1.14, rw 0.78; every ant rule <= 1.01), and across rules rho tracks rho_1^ret (Spearman 0.92) not Q
+  (0.00). Flat cells are ~72% of the time-averaged boundary, so part is composition; age/colour/depth not recorded.
+- Surprise: 3 of 256 patched runs (RLLLRLLL@2; RLRRRRLRR@1 and @3, identical births/step 0.250116) became
+  board fillers without escaping, although both rules are stationary blobs from a blank board. Sensitivity
+  excluding them changes no verdict. Open: how often does a 5x5 patch switch a stationary rule to a filler?
+- Next (proposed, not registered): age-resolved flat-edge returns on a fresh rule sample (short-horizon vs
+  long-excursion deficit).
+Reproduce: `scripts/run.sh`, then `uv run` `scripts/analyse.py`, `scripts/explore.py`, `scripts/build_notebook.py`.

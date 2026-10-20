@@ -58,6 +58,10 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   `experiments/2026-10-16-kappa-square-loop/NOTEBOOK.md` (22:58 end-of-session entry), `experiments/2026-10-16-kappa-square-loop/README.md` (Results).
 - **Blob-regime boundary** of the c law between sparse-background density 0.2 and 0.7 (kept fraction 0-2% at density 1).
   `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3 results).
+- **Where the ant's boundary deficit lives (2026-10-20, `experiments/2026-10-20-kappa-exposure-classes/`, Turmite Research Agent):** registered
+  H-exposed (P3) and P4 FAILED; P0-P2b held (convention-free rho: ant 0.874, rotor 1.80, rw 1.31; kappa/1.105 matches rho rule by rule to 3.6%).
+  Post hoc: the ant-specific shortfall is returns to flat-edge cells (rho_1^ret 0.59 vs rotor 1.14). Next: register age-resolved flat-edge
+  returns on fresh rules. Side question: 3/256 patched starts of two stationary rules became board fillers within 2^26 steps.
 - **kappa/kappa_unif distribution, location (open):** why the median is 0.81 x kappa_unif (below every walker reference).
   `experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt`, `notes/open-questions-hypotheses.md`.
 - **kappa spread, remainder (open):** budgeted 2026-10-20 (post hoc, `experiments/2026-10-20-kappa-spread-budget/`): about 0.15 start
