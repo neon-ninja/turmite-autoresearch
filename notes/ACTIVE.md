@@ -7,7 +7,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Science: open questions
 
-- **First-passage closure (done 2026-10-21):** P2 failed, P1/P3/P4 uninformative (stage V2; tail fit hints theta ~ 0.54, z ~ 2.2 but failed calibration); boundary dwell is flat over L (delta ~ 0), so constant kappa is equivalent to E[T] tracking L (renewal identity, not a mechanism). Open: why E[T] tracks L; a calibrated tail estimator; deeper milestones; whether the large-B/S rules are highway onsets. `experiments/2026-10-20-kappa-first-passage/` (README "Correction after review"), `notes/kappa-mechanisms-2026-10-15.md`.
+- **First-passage closure (done 2026-10-21):** P2 failed, P1/P3/P4 uninformative (stage V2; the tail fit failed calibration, so its theta and z are not reported as findings); boundary dwell is flat over L (delta ~ 0), so constant kappa is equivalent to E[T] tracking L (renewal identity, not a mechanism). Open: why E[T] tracks L; a calibrated tail estimator; deeper milestones; whether the large-B/S rules are highway onsets. `experiments/2026-10-20-kappa-first-passage/` (README "Correction after review"), `notes/kappa-mechanisms-2026-10-15.md`.
   Proposed work list for it (added 2026-10-20; the calibration and the E[T]-versus-L measurement were done by the first-passage experiment, the rest is open; register predictions in the README before measuring):
   - *Instrument calibration (before trusting any exponent).* Known-answer walkers for theta and z: run the nested-depth and
     survival-tail estimator on the rotor walker (known t^(1/3) radius), a random walk on a growing cluster (theta = 1/2 at fixed

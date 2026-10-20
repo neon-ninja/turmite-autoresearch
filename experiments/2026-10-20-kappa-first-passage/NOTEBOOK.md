@@ -182,3 +182,11 @@ Also added (for V2-D, not yet run): passive radius-4 context table (`with_ctx4`,
 Stage V2 outcomes (registered in README before measuring). V2-A checkpoint gate met. C6 tail calibration FAILED (ln tau bias 0.238, coverage 0.893) so P1 = UNINFORMATIVE; also only 72% of rules identifiable. Descriptive fit: theta ~ 0.54, z ~ 2.2, z(1-theta) ~ 1.0.
 P3 pooled chain run to completion: R2 -0.132 for M0/M1/M2, gain 1.7e-7: UNINFORMATIVE as registered. P4 radius-4 rerun (384 runs, trajectories identical to v1): median supported share 0.005 < 0.30: UNINFORMATIVE.
 Surprise (mild): theta ~ 1/2 and z ~ 2 are the values written into the scaffold as the "conversational proposal"; with a failed calibration this is a hint, not evidence. Deviation: context cap 400k rows (registered 3M), bands 0-1 only. Full test suite 155 passed.
+
+### 2026-10-21 04:02 +13:00 · b921066 · interpretation
+
+Correction to the 03:5x V2 entry (new entry, nothing edited): the surprise that theta ~ 1/2, z ~ 2 matches the scaffold's proposal is withdrawn as evidence, since z(1-theta) ~ 1 is forced by E[T] tracking L and z inherits the failed tau calibration; the 0.094 vs 0.109 comparison uses the same runs for prediction and observation. P4: folded share 0 in all rules, so the 400k cap did not cause the low support (median 0.005, upper quartile 0.45). Undisclosed deviations recorded in README ("Corrections to Stage V2"). The notebook, notes, ACTIVE, blog post and homepage were reworded in place (unpublished).
+
+### 2026-10-21 04:08 +13:00 · b921066 · observation
+
+fpkernel solver-switch check: frozen analysis rerun after the change gives predictions equal to confirm_predictions_skipP3.csv to 9e-15 relative, P2 verdict FAIL unchanged.

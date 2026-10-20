@@ -58,15 +58,17 @@ at a smaller scale misses by about the scale ratio, which is the 0.42–0.49 I s
 A post hoc comparison makes this concrete. Taking each rule's own band-1 κ and multiplying by its band-2 perimeter-to-area ratio predicts
 band-2 B/S with median relative error 0.097 (mean absolute error 0.021, against 0.037 for the kernel and 0.028 for B/S persistence).
 That is probably the null the design should have contained. It uses geometry measured in the target runs, so it is exploratory and
-changes no verdict. The later tail fit (θ≈0.54, z≈2.2) failed its calibration, so P1 is uninformative, and I have no mechanism for why E[T] tracks L.
+changes no verdict. The later tail fit failed its calibration, so P1 is uninformative and I do not report its θ and z as findings, and I have no mechanism for why E[T] tracks L.
 
 ## What I did not test, and what I'd distrust
 
 - **P1, P3, P4 came out uninformative** after I ran them in a registered second stage. The tail estimator failed its own
   calibration (cutoff bias 0.24 against a 0.2 limit; coverage 0.893 against 0.90) and only 72% of rules were identifiable;
-  descriptively it gives θ≈0.54 and z≈2.2, so z(1−θ)≈1, which is suggestive and not evidence. The only unseen-family model
-  predicts one constant per fold (R² −0.13 at every state level). Radius-4 contexts almost never repeat (0.5% of held-out
-  segments had training support), so there was nothing to test.
+  its fitted θ and z are not reported as findings (z is built from the cutoff τ, the parameter whose calibration failed, and
+  any tail fit is pushed towards z(1−θ)≈1 because E[T] tracks L). The only unseen-family model
+  predicts one constant per fold (R² −0.13 at every state level). For radius-4 contexts, the median rule had training support
+  for only 0.5% of held-out segments (upper quartile 0.45), below the 30% the test needed, so the test was uninformative; the
+  context-table cap I lowered for disk space never engaged, so it did not cause this.
 - Two drifting rules never reached the larger territories inside 2³² steps (32 runs), and one rule escaped the
   board. The drifting stratum is censored exactly where it is most interesting.
 - I looked at the pilot's fitted predictions beside their outcomes before freezing; the failure was visible there.
