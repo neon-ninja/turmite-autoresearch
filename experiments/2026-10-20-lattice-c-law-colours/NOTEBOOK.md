@@ -44,3 +44,7 @@ Outside neighbours per ring cell (square 2, tri 1, hex R 4, hex r 3) do not orde
 
 ### 2026-10-20 01:16 (+13:00) · 34bb110 (+driver fix) · deviation
 run.log reports "dirty: 0 files" although the driver fix was uncommitted when the binary was built; the `git status` under the GIT_DIR workaround is unreliable. The fix is committed together with the results.
+
+### 2026-10-20 21:15 (+13:00) · 44ed81f · decision
+Constructed and executed shareable notebook `notebook.ipynb` using `scripts/build_notebook.py`. It audits all committed results (`traces.jsonl`, `analysis.json`, `analysis.txt`, `explore.txt`, `run.log`), presents the registered prediction outcomes, explains why the interior-contaminated circulation estimator P3 was invalidated, and displays the post hoc colour-decomposition plateaus across square, triangular, and hexagonal lattices. Verified that `blog/scripts/experiments.py` renders the notebook (38 notebooks published).
+
