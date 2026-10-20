@@ -264,3 +264,57 @@ cell was visited before `T_track`.
 
 Instrument: `examples/rlrlll_macro_transition_window.rs` (to be written next), built into a fresh `CARGO_TARGET_DIR`,
 sha256 logged. Comparison: `scripts/window_compare.py`. Task B (the seed) is registered separately after A is scored.
+
+### Task A results (appended 2026-10-21 07:55 +13:00; the registration above is not edited)
+
+Commands (one core; window run 2 min 36 s; binaries in `results/window_binary.sha256` (scan, 901-row apron) and
+`results/window_binary_apron.sha256` (control run, 1401-row apron, otherwise the same loop); fresh target dirs; code at
+`79dd2b5` and the APRON-argument commit):
+
+```bash
+B=~/turmite-target-rlrlll-w/release/examples/rlrlll_macro_transition_window
+$B RLRLLL 12676233000 $E/scratch/win 32768 $(seq -1699 3 -1480 | tr '\n' ','),-2197,-2200,-2203      # scan; 55 events
+$B2 RLRLLL 12676233000 $E/scratch/win_ctrl 32768 -2197,-2200,-2203 700                                 # controls
+uv run $E/scripts/window_compare.py $E/scratch/win_ctrl controls > $E/results/window_controls.txt
+uv run $E/scripts/window_compare.py $E/scratch/win scan > $E/results/window_scan.txt
+uv run $E/scripts/window_cone.py $E/scratch/win > $E/results/window_cone.txt                           # POST HOC
+```
+
+The 19 targets east of -1537 were skipped (the ant was already at x = -1534 at `T_track`; the first event is -1537).
+
+**Controls (scored before the scan was read): all pass.** C1: events at -2197, -2200, -2203 have `t` equal to rows 0-2 of
+`results/cycles.csv` and equal C(434,0), C(436,1), C(438,2) on colour, visited flag, heading and the whole apron
+(n_in = n_out = 0). C2: 8 wrong (q, m) per event all fail. C3: a one-cell change in top, bulk and bottom fails at exactly that
+cell (9 of 9). C3b: a stray cell outside the rectangle fails the blank-outside clause. (First attempt of the control script
+failed with an IndexError because the 901-row apron is shorter than the m = 434 rectangle; fixed by rerunning the three control
+targets with apron 700, a tool parameter, not by changing the comparison. Logged as a deviation.)
+
+| Prediction | Outcome as registered |
+|---|---|
+| A1 clock `dt = 12 m + c_q` for pairs x <= -1552 | **Held**: 51 of 51 pairs. East of that the formula still holds for the pairs at x = -1540, -1543, -1546, -1549 (m = -4 .. 2) and fails first (going east) at x = -1537 (m = -6): dt 678 vs 826. |
+| A2 all 36 targets x <= -1594 pass the primary test | **Failed as registered: 0 of 36 pass.** Every failure is the blank-outside clause: old blob cells (visited before `T_track`) lie inside the 384 x 901 apron outside the rectangle (all 100% of the differing cells at every target are "old"). Inside the rectangle there are no differences at any target x <= -1552. |
+| A3 for -1591 <= x <= -1552 the primary test fails and every differing cell is old blob or column >= -1546 | **Held as registered** (14 of 14 fail; all differing cells old), but for a different reason than I named: those are blob cells outside the rectangle, not contamination of the window. Registered thresholds (i), (ii) were wrong about where the window is clean. |
+| A4 21-column window, exploratory | Uninformative under the registered (whole-apron) test: 2 of 51 pass. |
+
+**Post hoc reading (not a registered outcome; `scripts/window_cone.py`, `results/window_cone.txt`).** Restricting the test to the
+object the family is actually about, the rectangle `top_q . bulk^m . bottom_q` on the 48 columns, plus the ant offset and
+heading, plus no nonzero cell in a light cone (rectangle widened by 3 rows behind the front and by 3 + s//3 rows s columns
+ahead of it, out to 320 columns west): **50 of 51 targets from x = -1699 to -1552 match exactly (colour and visited flag,
+zero cone violations), and the single failure is x = -1549 (m = 2)**: 17 cells inside the rectangle differ from C(2, 0), first
+at canonical (row 24, col 46), absolute (-1503, -932), expected 5, got 0, a cell visited before `T_track`. The nearest nonzero
+cell outside the rectangle behind the front is 31 to 278 rows from it. So:
+
+- The sweeper is on C(m, q) at the cell level from **x = -1552, m = 4, q = 1, step 12,676,237,591**, 769,586 steps before
+  the original base case (C(434, 0) at 12,677,007,177) and 183,018 steps before the front crosses the old blob edge. That
+  is 89 cycles before the edge crossing.
+- Neither the 48-column window nor the off-family wake of the m < 2 cycles contaminates it, contrary to my registered
+  expectation (ii): the window at m = 4 spans columns -1552 .. -1505, which contain the wake of cycles with m = 2, 0, -2, ...
+  and still equals the family. At m = 2 the failure is old blob cells inside the rectangle, i.e. source (i).
+- "Earlier than swing 41" is not meaningful (the family needs m >= 2, x <= -1549); the cell-level match begins one cycle after
+  that bound.
+
+What this does and does not earn: with C(4, 1) as the base case, the closure gives the law from there to the exit
+(the induction is unchanged), and the base case now rests on a 1.26768e10-step simulation that is the same plain loop
+(not a longer one). The ant never reading the old blob cells outside the cone is a consequence of closure plus the cone
+margin; the margin (3 rows) is chosen from the observed growth, **not derived from the checker**, so "blank ground" is
+verified for a 3-row margin and 320 columns, and beyond column -1872 by the fact that the global front was at -1820.
