@@ -30,3 +30,6 @@ I expected (and registered) P1: global reach even in the population statistic. I
 
 ### 2026-10-21 09:50 (+13:00) · 1998e7d · interpretation
 Two-population picture: short loops with a local return map, and rare long excursions whose duration depends on structure out to O(L). Alternatives not excluded: (i) the time-weighted reach reflects a handful of structural gates, not diffuse structure; (ii) shuffle-induced highway-like or trapped configurations lengthen T in the replicas, inflating the reach; (iii) censoring at the 2^20 cap for deep excursions (not tabulated here: check cens fraction before citing).
+
+### 2026-10-21 10:00 (+13:00) · 4a34642 · observation
+Cap check for alternative (iii): 317 of 660160 replicas (0.05%) censored at 2^20; 0 of 8252 baselines. Censoring does not drive the time-weighted reach. Alternative (ii) (shuffle creating long trapped replicas) is not excluded; its signature would be replica T far above baseline T at small r.
