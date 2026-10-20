@@ -8,6 +8,28 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Science: open questions
 
 - **First-passage closure (prospective, 2026-10-20):** can depth-crossing kernels predict kappa on independent starts and unseen families, and its size drift? `experiments/2026-10-20-kappa-first-passage/`. Scaffold only; next is oracle/accounting and synthetic calibration, then feasibility. No new measurements or frozen confirmation manifest.
+  Proposed work list for it (added 2026-10-20, none started; register predictions in the README before measuring):
+  - *Instrument calibration (before trusting any exponent).* Known-answer walkers for theta and z: run the nested-depth and
+    survival-tail estimator on the rotor walker (known t^(1/3) radius), a random walk on a growing cluster (theta = 1/2 at fixed
+    geometry, negative control) and the mean-field walker (repo mean-field kappa 1.118); reproduce the probe's window-averaging
+    convention. Synthetic renewal streams with a planted power-law tail and cutoff tau ~ L^z (known theta, z): check the fit
+    recovers z(1-theta) and that censoring does not bias it (the tail-budget calibration covers geometric and mixture laws, not a
+    scaling-form family). Censoring accounting: reuse the tail-budget sampler's lower/upper bounds for step-cap cutoffs.
+  - *Closing the accounting loop.* Check kappa_inst = (A/P) f_d on the same runs (quasi-static geometry; if it fails, P/A drifts and
+    the scaling argument has no footing). Cycle independence: autocorrelation of successive (D, T) pairs (stable means suffice, but
+    strong correlation makes finite windows misleading).
+  - *Escape mechanism.* Nested-depth crossing probabilities P(reach 2h before returning | reached h) for several h (constant ratio =
+    scale-free tail; log ratio gives theta). Local-state ablation: condition on heading, colour phase, then larger neighbourhoods of
+    recent history (plateau = local theory; continued gains = collective field organisation). Directional asymmetry via the
+    return-gates instrument (its first stage was uninformative). Matched field edits: scramble the field structure the model says
+    matters vs a same-size control; the model must predict sign and rough size of the change in kappa.
+  - *Sign of kappa below uniform.* Residence-weight test: time-averaged occupation of boundary cells vs a uniform draw over the same
+    cells at matched sizes. Moving-boundary coupling: a rotor or memoryless walker whose domain grows at the ant's measured rate;
+    does kappa fall below uniform?
+  - *Cross-checks.* Show the crossing model contains the failed explanations (dwell, crust depth, square loops) as special cases and
+    predicts why they failed. Primary validation: the six-letter family hold-out (`experiments/2026-10-20-kappa-prefix-family-holdout/`),
+    fit on some families and beat the training mean on withheld ones. Scale dependence: is fitted z stable across area bands
+    (32768, 131072, 524288) as in the tail-budget cohort (the c-law work suggests a size-dependent slope)?
 
 - **Why does the c-law slope b fall with loop length, and what sets the intercept?** Registered Moore-lattice test (follow-up B, `experiments/2026-10-20-lattice-c-law/README.md`): b = 0.775 at loop 4 (z = 8), 0.260 at loop 8; M-lin refuted, M-inv missed its own consistency clause by 0.005, so neither supported. b looks floor-like (~0.26-0.28 at l = 6 and 8), within-lattice doubling of l multiplies b by ~0.3. Intercept is lattice-set (1.3 for z = 3, 4; 2.4 for z = 6, 8), not loop-set. No mechanism; closing needs a derivation of N_b(l) and the intercept, then a registered test on another lattice.
 - **Why is the hex lead fit so noisy, and what sets its intercept?** Follow-up A (2026-10-20, registered, `experiments/2026-10-20-lattice-c-law/README.md`) removed the lacy outlier (beta < 0.8) and
@@ -52,6 +74,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   held-out 6-letter prefix families (lookup 0.59 -> -0.16; pairwise 0.30 -> -0.69): the signal is family membership, not a
   transferable letter-level rule. Still open: a family random effect plus within-family letter structure, other family
   granularities (4, 8 letters), and what the unexplained third is (middle letters, dynamics).
+- **CLAIMED 2026-10-20 (compute-heaviest item): the 10^11 survivor census is running.** Chunks 20-27 were killed ~2026-10-14 (only 20-26 had `.done`); resumed with `run_1e11b.sh` (6 threads, fresh binary sha in `results/h1e11/resume_binary.sha256`, log `run4.log`), ~33 chunks x 35-50 min, i.e. roughly a day of all cores. Do not start other heavy jobs. Prediction already registered in `notes/frontier-2026-10-13-results.md` (~6 highways in 492, range 2-11); `b5_stats.py` must be re-pointed at all chunks before analysis.
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
@@ -74,7 +97,6 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Repository housekeeping
 
 - **Jupyter**: `ipykernel`, `nbformat`, `nbclient` added to `pyproject.toml`/`uv.lock` (`7df6d35`). The leadrun-fresh notebook's Proposal 2 bounds are not in it (rebuild with `scripts/build_notebook.py` if wanted).
-- **CLAIMED 2026-10-20 (compute-heaviest item): the 10^11 survivor census is running.** Chunks 20-27 were killed ~2026-10-14 (only 20-26 had `.done`); resumed with `run_1e11b.sh` (6 threads, fresh binary sha in `results/h1e11/resume_binary.sha256`, log `run4.log`), ~33 chunks x 35-50 min, i.e. roughly a day of all cores. Do not start other heavy jobs. Prediction already registered in `notes/frontier-2026-10-13-results.md` (~6 highways in 492, range 2-11); `b5_stats.py` must be re-pointed at all chunks before analysis.
 - **Refresh `blog/index.html`** (convention in `AGENTS.md`): the c-law and lattice results were already on it; a kappa-spread highlight (family hold-out) was added 2026-10-20. Not yet on it: lead-slope-by-colour. A null-result post
   (`blog/_posts/2026-10-20-where-kappa-is-not.md`, with reader guides for the three 2026-10-20 kappa experiments) was added 2026-10-20;
   the post itself is not linked from the index cards. The experiment pages were

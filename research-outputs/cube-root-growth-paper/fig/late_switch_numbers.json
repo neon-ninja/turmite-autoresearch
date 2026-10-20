@@ -1,6 +1,6 @@
 {
   "command": "uv run research-outputs/cube-root-growth-paper/late_switch_figure.py",
-  "git_commit": "c6b5053ce923372fd2facff75966230694990c7b",
+  "git_commit": "44ed81f71f4bb1fdccdcdc1cbd586bc1b2eb5613",
   "seed": "none: deterministic blank-board RLRLLL; one trajectory",
   "onset_t": 12677000000,
   "half_window_steps": 20000000,

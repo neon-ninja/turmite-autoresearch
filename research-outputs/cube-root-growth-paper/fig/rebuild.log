@@ -7,4 +7,162 @@ edge: A, P = 3658 268
 census 'other': 0  n=2 rules: 1
 ok
 uv run research-outputs/cube-root-growth-paper/memory_figures.py
+uv run research-outputs/cube-root-growth-paper/late_switch_figure.py
+{
+  "12800000000": {
+    "L": 6400,
+    "abs_x": 11070.5,
+    "predicted": 0.8648828125,
+    "measured": 0.8622448323886636,
+    "n_windows": 39
+  },
+  "12900000000": {
+    "L": 8610,
+    "abs_x": 14386.5,
+    "predicted": 0.8354529616724738,
+    "measured": 0.8327009716599184,
+    "n_windows": 39
+  }
+}
+uv run research-outputs/cube-root-growth-paper/prefix_figure.py
+{
+  "stationary": {
+    "n": 162,
+    "r2_baseline": 0.4965803271475743,
+    "r2_prefix": 0.7364568097437925
+  },
+  "all": {
+    "n": 176,
+    "r2_baseline": 0.36256601751184214,
+    "r2_prefix": 0.39313023281293635
+  },
+  "input_sha256": "742f0fe1d776696ea7d0bbd8e889128d6cc979d912e13736801a22165023dcd2"
+}
+uv run research-outputs/cube-root-growth-paper/edge_gap_figure.py
+{
+ "ants": {
+  "runs": 36,
+  "k_max": 34,
+  "mean_d_k_ge_22": 0.24292417755516296
+ },
+ "rotor": {
+  "runs": 14,
+  "k_max": 34,
+  "mean_d_k_ge_22": 0.12878473336127946
+ },
+ "input_sha256": {
+  "a4_shape_ants.csv": "0aacf3e0e1b5bf934d4fa95c7b7b9eac5c9a5d38bc1f5236d04efbaad8ccda6e",
+  "a4c_shape_ants.csv": "0a4e77e4bd0c2f2b937edf00d6d96570c79d706ec105369e223696d30a4c4fc0",
+  "a4_shape_rotor.csv": "285a2c0d7ebacffc4cfac4f334d586824e2bc2420d1c466fb2dd0f5e27602ef5",
+  "a4c_shape_rotor.csv": "4752e758f049808ea3d6046b8d7b7f57fde19b070e7b1b4b23ab849fb42d5f4b"
+ }
+}
+uv run research-outputs/cube-root-growth-paper/layers_figure.py
+{
+ "n_ants": 24,
+ "n_crust": 15,
+ "window": "k>=22",
+ "rho_ant_crust_median": [
+  0.9288959058215362,
+  0.4384719687117375,
+  0.11385837696741148,
+  0.13344961046406306,
+  0.16002970072179118,
+  1.02998849559916
+ ],
+ "rho_ant_plain_median": [
+  0.8114046126503978,
+  0.958793439763202,
+  0.9256787025620645,
+  0.9791350886792788,
+  0.9645324749147801,
+  1.0066044308496318
+ ],
+ "rho_rotor_mean": [
+  1.819138524670918,
+  1.1049377747861886,
+  0.900595767944839,
+  0.910083945336353,
+  0.9688512334265784,
+  0.9858520937028245
+ ],
+ "rho_pw_mean": [
+  1.3776387358898676,
+  0.9710575892014521,
+  0.8985880096795512,
+  0.8593141975491811,
+  0.8347436134858899,
+  0.8007227648322199
+ ]
+}
+uv run research-outputs/cube-root-growth-paper/walker_map_figure.py
+{
+ "ants": {
+  "n": 3055,
+  "log_class_total": 425,
+  "outside_view": 451
+ },
+ "rw": {
+  "n": 8,
+  "a": 0.9214505848585187,
+  "kappa": 1.3044945541793949
+ },
+ "rotor": {
+  "n": 8,
+  "a": 0.7145431176269446,
+  "kappa": 1.893750543824328
+ },
+ "rcookie:0.25": {
+  "n": 8,
+  "a": 0.9257375076190357,
+  "kappa": 1.3330568779834233
+ },
+ "rcookie:0.75": {
+  "n": 8,
+  "a": 0.9224604793821548,
+  "kappa": 1.2910436168250299
+ },
+ "errw:1": {
+  "n": 8,
+  "a": 0.7008262784708286,
+  "kappa": 0.15462163896317227
+ },
+ "errw:4": {
+  "n": 8,
+  "a": 0.2160006796575996,
+  "kappa": 0.2905290642393158
+ },
+ "noise_path": {
+  "0": {
+   "n": 8,
+   "a": 0.6880869050183251,
+   "kappa": 2.0035769621085393
+  },
+  "0.001": {
+   "n": 8,
+   "a": 0.7623662197662455,
+   "kappa": 3.552785157961604
+  },
+  "0.003": {
+   "n": 8,
+   "a": 0.8477245448645814,
+   "kappa": 5.824873633240783
+  },
+  "0.01": {
+   "n": 7,
+   "a": 0.9140814639651251,
+   "kappa": 6.651850761379971
+  },
+  "0.03": {
+   "n": 6,
+   "a": 0.9380361416659913,
+   "kappa": 3.757242038816564
+  },
+  "0.1": {
+   "n": 1,
+   "a": 0.9480810129992657,
+   "kappa": 2.629371700926353
+  }
+ }
+}
 typst compile --root . research-outputs/cube-root-growth-paper/main.typ research-outputs/cube-root-growth-paper/main.pdf
