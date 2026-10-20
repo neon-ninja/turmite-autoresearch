@@ -90,3 +90,10 @@ Post hoc sensitivity in `scripts/explore.py`: drop runs with births/step > 0.05 
 The notebook figure uses the filtered runs and says so. Open question for the notes: how often does
 a 5x5 patch switch a census-stationary rule into a filler within 2^26 steps (here 3 of 256 runs, 2 of
 64 rules)?
+
+### 2026-10-20 09:54 (+00:00) · 8ab17a7 · decision
+End of session. Release tests pass after adding the example (144 passed, 0 failed). Blog publisher
+(`experiments.py`), `test_experiments.py`, `export_results.py --check`, `test_experiment.js`,
+`test_ants.js` pass; Jekyll build, `check.rb` and `test_results.js` not run (no Ruby on this box).
+Nothing running. Open: register the age-resolved flat-edge test; filler-switch frequency of patched starts.
+Not pushed (no GitHub access from this box).
