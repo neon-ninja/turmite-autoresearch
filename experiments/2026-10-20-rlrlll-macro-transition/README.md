@@ -592,3 +592,20 @@ the composition identity (`E5 . r''^(2n) . D3` = next family member), the claim 
 
 ### Task C status (appended 2026-10-21; nothing above is edited)
 Done: C1 (second checker, controls scored, theorem and unchecked steps listed), C2 (reach, exact criterion, Task A's cone shown too small), C3 L1-L3. Open: L4, a re-run of the 1.27e10-step base case by a second simulator, the global-front premise outside the dump, and the explanation of the clock at m < 2 and of the first column at the blob corner. Registered predictions not held: C1a-1 as revised (held as originally registered), C2a; split: controls 2/4 for RLRLLR; not attempted: L4.
+
+## Task D: re-run the base case with `fast::run` instead of the tracer's plain loop (registered 2026-10-21 17:52 +1300, before any Task D code is written or run)
+
+Question: Task A's base case (C(4, 1) at step 12,676,237,591, x = -1552) and the original one (C(434, 0)) rest on the plain loop shared by
+the trace/window examples, which is not itself proptested against `reference`. `fast::run` is. Does it reach the same state?
+
+Design: new example `rlrlll_macro_transition_resim` runs (a) `fast::run(RLRLLL, 32768 board, max_steps = T)` and (b) the plain loop of
+`rlrlll_macro_transition_window` (same hot loop, state bit stripped), both to T = 12,676,237,591, and prints position, heading, a 64-bit FNV-1a
+hash of the colour of every cell (row-major over the whole board) and the number of non-zero cells. The ant's position at T is read from
+`results/window_scan.txt`/the window dump header only after the run, as a third comparison.
+
+Predictions (numbers are from the earlier plain-loop runs, so a mismatch would be news):
+- D1: position, heading, cell hash and non-zero count are identical between (a) and (b). I expect 95% yes. Any difference is a bug in one of the two loops.
+- D2: the ant's x at T is -1552 and the step is the first one at which x = -1552 as a new minimum since 12,677,000,000... (checked by the window run, not repeated here); (a) and (b) are only compared at T.
+- D3: wall time of (a) under 5 minutes on one core (about 1e8 steps/s from earlier sweeps); (b) similar.
+Not claimed: this does not independently confirm the *cell-level C(4,1) match* (that is Task A's dump comparison); it confirms the simulation that produced the board.
+Stale-build trap: build into a fresh CARGO_TARGET_DIR, check exit status, log the binary sha256.
