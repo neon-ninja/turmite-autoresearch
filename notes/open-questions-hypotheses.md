@@ -339,3 +339,13 @@ consistent with flat. Q16 is reopened in a sharper form:
 - Q20. The board fillers `R^k L R R...` fill at exactly `2(k+1)` steps per cell (to within a perimeter term). What is the
   filling mechanism, and is it the same class as the sqrt(t) frame builders (Q15)?
 - Q19 update (2026-10-22): all 28 non-artefact late highways confirmed on a 65536 board; final yields 1.41%, 1.98%, 1.64% for the three decades.
+
+## Added 2026-10-22: invariant mining (additive local laws)
+
+`experiments/2026-10-22-invariant-mining-snf/`: every additive local law (position, heading, time, site and sublattice colour potentials)
+has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`. Signature `NR-20261022-additive-laws-order-blind`.
+- Q21. Does any non-additive local law (pair potentials on adjacent cells, an ant potential that reads the colour of the cell it
+  enters, edge flux) exist whose existence depends on the *order* of the colours? Prior 60% no. Needs a quotient by functionals that
+  vanish on every finite field (telescoping and site-duplicate terms) before group orders mean anything; register before running.
+- Q22. Why is the universal group order at modulus `n` exactly `n^2` times larger for the `(x mod 2, y mod 2)` class potentials (F3) than for
+  the `(x+y) mod 2` ones (F2), for all n = 2..8? Post hoc, unexplained.

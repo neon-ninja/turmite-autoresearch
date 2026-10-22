@@ -610,6 +610,19 @@ For each site, the number of departures fixes its colour increment modulo $n$. G
 
 **Payoff if true.** A bound on flux imbalance could explain why a noisy-looking field still redistributes visits evenly. The proof target would be a discrepancy bound under explicit assumptions, not a direct proof of the cube-root exponent. If no extra cancellation survives tiny counterexamples, stop this branch cheaply.
 
+**Update 2026-10-22 (appended; the text above is the 2026-10-13 proposal).** The algebraic first experiment was run twice
+with different search strategies: an enumerative miner at moduli 2 and 4 (`experiments/2026-10-22-invariant-mining/`) and a
+Smith-normal-form solver for all moduli with sublattice families (`experiments/2026-10-22-invariant-mining-snf/`, solver
+`experiments/_lib/lawmod.py`). They agree exactly (508 rules, 1016 cells). Result: within additive local laws
+(`a x + b y + e t + Phi(h, class) + sum w(class, colour)`) the whole law group of a rule is a function of
+`(n, ±D mod 4, trivial?)`, `D = #R - #L`; it is **blind to the order of the colours**, so `RRLL` and `RLRL` have isomorphic
+groups. The laws are checkerboard parity, heading parity, the colour clock mod `n`, sublattice colour clocks (universal
+order at `m = n`: F3 = n^2 x F2 for n = 2..8, unexplained), and for `D = 0 mod 4` heading = tape mod 4 (Langton: heading =
+number of colour-1 cells mod 4). So the "extra cancellation" this section hoped for does not exist in the additive
+ansatz; flux discrepancy, if it constrains transport at all, has to come from laws that couple the ant to neighbouring
+colours. Registered `P4` (heading from tape iff `D = 0 mod 4`) failed: heading *parity* is tape-determined for every even
+`n`. No claim about growth, highways or the exponent. Signature `NR-20261022-additive-laws-order-blind`.
+
 ## U. Rare reorganizations: nucleation, susceptibility and ageing
 
 ### U1. Is a ribbon a replicating defect?

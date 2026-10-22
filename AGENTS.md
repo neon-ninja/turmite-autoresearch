@@ -145,7 +145,7 @@ The aim is understanding, not a pile of plots. Be bold:
 | `tests/` | Property tests (`proptest`) comparing fast vs reference |
 | `experiments/YYYY-MM-slug/` | **New work goes here.** One folder per investigation: `README.md` (question, timestamped hypothesis, commands, results), `NOTEBOOK.md` (lab notebook), `notebook.ipynb` (shareable Jupyter write-up), `scripts/`, `results/` (small, committed), `experiments/2026-10-12-knockout-maps/dumps/` + `scratch/` (bulk, gitignored). Copy `experiments/_template/` to start. See `experiments/README.md` |
 | `research-outputs/<name>/` | Publishable artefacts (currently `cube-root-growth-paper/`: Typst manuscript, figure/number scripts, `fig/`). Reads committed results, not `dumps/` (one known exception, see conventions) |
-| `experiments/_lib/` | Shared Python helpers imported by several experiments (`analyse_probe.py`, `mixing.py`, `calib_kd.py`, `tether.py`); scripts add it with `sys.path.insert(0, "experiments/_lib")` |
+| `experiments/_lib/` | Shared Python helpers imported by several experiments (`analyse_probe.py`, `mixing.py`, `calib_kd.py`, `tether.py`, `lawmod.py` exact conservation-law solver); scripts add it with `sys.path.insert(0, "experiments/_lib")` |
 | `experiments/_migration/` | One-off tooling and `map.tsv` (old path -> new path) from the 2026-10-14 restructure of the flat `data/` layout |
 | `notes/` | Hypotheses, results, open questions: the scientific record |
 | `web/` | In-browser simulator; `build.py` assembles it from `template.html` + `sim.js` + `page.js` |
@@ -271,6 +271,17 @@ shareable notebook and `notes/`; they do not replace them.
   `notes/`, the blog or the paper should have survived the falsification harness (`experiments/2026-10-22-falsification-harness/GUIDE.md`),
   with the claim registered and committed before the run. A blank-board horizon run alone is not enough; say which verdict you got
   (a `Survived` is "no counterexample found", never a proof) or that the claim has not been attacked.
+- **Ask for the exact laws before the exponent.** Before characterising a new rule family, or proposing a mechanism for
+  it, compute what the dynamics *cannot* do: `uv run --no-project experiments/_lib/lawmod.py RULE... --family F3`
+  lists the additive local conservation laws (checkerboard and heading parity, the colour clock, sublattice clocks,
+  heading = tape mod 4) at every modulus, each a proof by induction over local transitions, and its fingerprint
+  against the universal laws that hold for every rule of that length. Record the fingerprint in the experiment README.
+  Know the limit before you rely on it: within these families the law group depends only on `(n, ±(#R-#L) mod 4,
+  trivial?)` (`NR-20261022-additive-laws-order-blind`), so it cannot separate rules that differ only in colour order,
+  and it says nothing about growth or highways. A claimed rule-specific invariant that is not a function of those
+  counts needs a different ansatz (pair potentials, ant potentials reading neighbouring colours; Q21), a registered
+  prediction, and an oracle test (`examples/invariant_mining_snf_verify.rs` is the template) before it is believed.
+  Treat any constraint a law places on a tile, period or displacement as a necessary condition, never a certificate.
 - **Isolate working material.** Each investigation lives in its own
   `experiments/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
   results). Bulk output (dumps, knockout maps, scratch) goes in that folder's
