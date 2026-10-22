@@ -96,3 +96,27 @@ reproduce round 1 exactly (a determinism check).
 | E6 | In C1, `evolve2` still beats `random` on max delay, one-sided p < 0.01. | 70% |
 | E7 | In C2, `evolve2` beats `random`, p < 0.05. | 60% |
 Round 2 results go to `results/round2/`.
+
+## Round 2 results (`results/round2/`; same provenance caveat as round 1)
+The `random`, `old` and `evolve` rows reproduce round 1 byte for byte (md5 of the arm's CSV rows), so the added arm changed nothing else.
+
+| claim | `evolve2` vs `random` (max delay) | `evolve2` different-type highway found |
+|---|---|---|
+| C1 RL | median 146679 vs 124144, P = 0.80, p = 4.2e-5 | n/a (no other type exists in the data) |
+| C2 RRL | median 44813 vs 37712, P = 0.72, p = 2.1e-3 | n/a |
+| C3 RRRL | saturated | 27/30 replicates (random 30/30, evolve 22/30) |
+
+- **E5 held, barely** (27/30 meets the registered threshold of 27; a coin-flip away from missing it). **E6 held** (p = 4.2e-5). **E7 held** (p = 2.1e-3).
+- `evolve2` vs `evolve` on delay: no loss (C1 p = 0.94 that evolve2 is larger, i.e. evolve is nominally ahead; C2 0.77), and a nominal
+  gain in C3 discovery (27 vs 22, p = 0.038, not corrected for the three-claim family).
+
+### Conclusion
+- **On the delay objective the adaptive search now beats random sampling** at equal budget on RL (p ~ 1e-5 to 1e-8) and RRL (p ~ 1e-3), with
+  30 replicates each, replicated seeds, and the earlier loss reproduced for the old climber.
+- **As a counterexample finder it does not beat random** on the one rule that has a counterexample (RRRL): the best arm
+  (27/30) is still below plain random draws (30/30). Immigration repairs most of the damage but not all. Do not describe the
+  adaptive class as stronger than sampling for falsification; it is stronger at hunting long transients.
+- Not tested: other rules, other budgets, the chaotic-claim objective (still the unvalidated smallest-bounding-box heuristic),
+  and an objective that rewards structural novelty rather than delay. The comparison is against one sampler.
+- Next, if worth the effort: promote `evolve2` into `falsify::adaptive_chain` (blocked on the other contributor's uncommitted edits to
+  `src/falsify.rs`), re-run `claims.txt`, and calibrate on a rule with a known rare trigger and a rarer one than RRRL's mono patch.

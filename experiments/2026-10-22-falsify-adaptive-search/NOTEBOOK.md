@@ -22,3 +22,10 @@ counterexample score and evolve finds a different highway in 22/30 replicates vs
 ### 2026-10-22 22:52 (+13:00) · b0c9e8a · surprise
 Evolve is *worse* than uniform random at finding the C3 counterexample. Delay ranking and counterexample search are different
 objectives. Registered E5-E7 (immigration variant) before implementing it.
+
+### 2026-10-22 23:05 (+13:00) · 21e025f · observation
+Round 2: E5 (27/30), E6 (p 4.2e-5), E7 (p 2.1e-3) held; first three arms reproduced round 1 exactly. Random still finds the C3
+counterexample in 30/30 replicates; no adaptive arm matched it.
+
+### 2026-10-22 23:06 (+13:00) · 21e025f · interpretation
+The search now beats sampling for long transients, not for counterexamples. Reporting both. Caveat: E5 passed on the threshold.

@@ -26,6 +26,7 @@ enum Arm {
     Random,
     Old,
     Evolve,
+    Evolve2,
 }
 
 impl Arm {
@@ -34,6 +35,7 @@ impl Arm {
             Arm::Random => "random",
             Arm::Old => "old",
             Arm::Evolve => "evolve",
+            Arm::Evolve2 => "evolve2",
         }
     }
     fn salt(self) -> u64 {
@@ -41,6 +43,7 @@ impl Arm {
             Arm::Random => 0x72616e64,
             Arm::Old => 0x6f6c64,
             Arm::Evolve => 0x65766f6c,
+            Arm::Evolve2 => 0x65766f32,
         }
     }
 }
@@ -171,12 +174,13 @@ fn run_arm(c: &Ctx, arm: Arm, rep: u32, budget: u32) -> Outcome1 {
                 o.push(score(&res.run, c.base, c.horizon), &res.run, c.base);
             }
         }
-        Arm::Evolve => {
+        Arm::Evolve | Arm::Evolve2 => {
             let mut st = mix64(c.claim_seed ^ arm.salt() ^ rep as u64);
             let mut pop: Vec<(f64, Trial)> = vec![];
             let seeding = budget / 4;
             for k in 0..budget {
-                let t = if k < seeding {
+                let fresh = arm == Arm::Evolve2 && k >= seeding && splitmix_next(&mut st) % 4 == 0;
+                let t = if k < seeding || fresh {
                     random_trial(c, rep, k, budget, arm.salt())
                 } else {
                     let parent = pop[(splitmix_next(&mut st) % pop.len() as u64) as usize].1.clone();
@@ -252,7 +256,7 @@ fn main() {
     for claim in &claims {
         let base = baseline(&claim.rule, claim.size, claim.horizon);
         let ctx = Ctx { rule: &claim.rule, base: &base, size: claim.size, horizon: claim.horizon, claim_seed: claim.seed };
-        let jobs: Vec<(Arm, u32)> = [Arm::Random, Arm::Old, Arm::Evolve].into_iter().flat_map(|a| (0..reps).map(move |r| (a, r))).collect();
+        let jobs: Vec<(Arm, u32)> = [Arm::Random, Arm::Old, Arm::Evolve, Arm::Evolve2].into_iter().flat_map(|a| (0..reps).map(move |r| (a, r))).collect();
         let done: Vec<(String, Arm, u32, Outcome1)> = jobs.par_iter().map(|&(a, r)| (claim.id.clone(), a, r, run_arm(&ctx, a, r, budget))).collect();
         rows.extend(done);
     }
@@ -278,13 +282,13 @@ fn main() {
     for claim in &claims {
         let get = |a: Arm| -> Vec<&Outcome1> { rows.iter().filter(|r| r.0 == claim.id && r.1 == a).map(|r| &r.3).collect() };
         let m = |a: Arm| get(a).iter().map(|o| o.max).collect::<Vec<_>>();
-        let (rnd, old, evo) = (m(Arm::Random), m(Arm::Old), m(Arm::Evolve));
+        let (rnd, old, evo, ev2) = (m(Arm::Random), m(Arm::Old), m(Arm::Evolve), m(Arm::Evolve2));
         let _ = writeln!(s, "\n{} (rule {})", claim.id, claim.rule);
-        for (a, v) in [(Arm::Random, &rnd), (Arm::Old, &old), (Arm::Evolve, &evo)] {
+        for (a, v) in [(Arm::Random, &rnd), (Arm::Old, &old), (Arm::Evolve, &evo), (Arm::Evolve2, &ev2)] {
             let other_reps = get(a).iter().filter(|o| o.other > 0).count();
             let _ = writeln!(s, "  {:<7} median max {:>9.0}  max {:>9.0}  replicates with a different-type highway: {other_reps}/{reps}", a.name(), median(v), v.iter().cloned().fold(0.0, f64::max));
         }
-        for (name, x, y) in [("evolve > random", &evo, &rnd), ("old > random", &old, &rnd), ("evolve > old", &evo, &old)] {
+        for (name, x, y) in [("evolve > random", &evo, &rnd), ("old > random", &old, &rnd), ("evolve > old", &evo, &old), ("evolve2 > random", &ev2, &rnd), ("evolve2 > evolve", &ev2, &evo)] {
             let (auc, p) = mann_whitney(x, y);
             let _ = writeln!(s, "  {name:<16} P(x>y)={auc:.3}  one-sided p={p:.2e}");
         }
