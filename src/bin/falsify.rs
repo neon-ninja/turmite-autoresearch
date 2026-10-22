@@ -170,7 +170,10 @@ fn run_claim(claim: &Claim, line: &str, provenance: &str, out_dir: &str) {
     for row in &report.rows {
         let _ = writeln!(v, "{:<9} {:>5} {:>8} {:>8} {:>6} {:>10}", row.class.unwrap().name(), row.n, row.hw_same, row.hw_other, row.edge, row.unresolved);
     }
-    let _ = writeln!(v, "\nconfirmed highway by horizon (attack trials only; survival is not proof):");
+    if let Some(o) = base.onset {
+        let _ = writeln!(v, "baseline highway onset (exact, blank board): step {o}");
+    }
+    let _ = writeln!(v, "\nconfirmed escapes by horizon (attack trials only; an escape lags its onset by the board-crossing time; survival is not proof):");
     for (h, k, n) in &report.rungs {
         let _ = writeln!(v, "  h = {h:>12}: {k}/{n}");
     }

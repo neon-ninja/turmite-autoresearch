@@ -1,0 +1,24 @@
+# cmd: falsify experiments\2026-10-22-falsification-harness\claims.txt experiments\2026-10-22-falsification-harness\results
+# commit: 074f4a7808223b655f01eb6ffb7fe057b0b8aa8a
+# claims file blob: a18d162e978440f86a69de7027613d30df6c36be
+# claim: id=C2-RRL-highway kind=highway rule=RRL same_canon=true horizon=2000000 ladder=0 size=2048 trials=64 seed=102 registered=2026-10-22T21:35+13:00
+claim C2-RRL-highway (Highway, rule RRL, registered 2026-10-22T21:35+13:00)
+baseline (blank start): Highway(Highway { period: 18, dx: 1, dy: 1 }), canon Some((18, 1, 1))
+
+class         n  hw_same hw_other   edge unresolved
+blank         1        1        0      0          0
+heading       4        4        0      0          0
+boundary     64       41        0     23          0
+patch        64       64        0      0          0
+mono         64       64        0      0          0
+half         64       64        0      0          0
+stripe       64       64        0      0          0
+sparse       64       64        0      0          0
+obstacle     64       64        0      0          0
+adaptive    160      160        0      0          0
+
+confirmed highway by horizon (attack trials only; survival is not proof):
+  h =      2000000: 545/545
+highway success rate, Clopper-Pearson 95%: [0.9933, 1.0000]
+counterexamples: 0 found, 0 reproduced on a second geometry
+VERDICT C2-RRL-highway: Survived

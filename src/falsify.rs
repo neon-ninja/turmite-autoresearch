@@ -492,10 +492,17 @@ pub struct Claim {
 impl Claim {
     /// One claim per line: whitespace-separated `key=value`; `#` starts a comment.
     pub fn parse(line: &str) -> Result<Claim, String> {
-        let kv: BTreeMap<&str, &str> = line
+        let mut kv = BTreeMap::new();
+        for token in line.split('#').next().unwrap_or("").split_whitespace() {
+            let (key, value) = token.split_once('=').ok_or(format!("expected key=value, got {token:?}"))?;
+            if value.is_empty() || kv.insert(key, value).is_some() {
+                return Err(format!("empty or duplicate field {key}"));
+            }
+        }
+        /* let kv: BTreeMap<&str, &str> = line
             .split_whitespace()
             .map(|t| t.split_once('=').ok_or(format!("expected key=value, got {t:?}")))
-            .collect::<Result<_, _>>()?;
+            .collect::<Result<_, _>>()?; */
         let get = |k: &str| kv.get(k).copied().ok_or(format!("missing {k}="));
         let num = |k: &str, d: &str| -> Result<f64, String> {
             kv.get(k).copied().unwrap_or(d).parse::<f64>().map_err(|e| format!("{k}: {e}"))
@@ -518,24 +525,57 @@ impl Claim {
                 return Err(format!("unknown key {k}"));
             }
         }
-        Ok(Claim {
+        let integer = |k: &str, d: &str| -> Result<u64, String> {
+            kv.get(k).copied().unwrap_or(d).parse::<u64>().map_err(|e| format!("{k}: {e}"))
+        };
+        let count = |k: &str, d: &str| -> Result<u32, String> {
+            u32::try_from(integer(k, d)?).map_err(|_| format!("{k} exceeds u32"))
+        };
+        let universal = match kv.get("quantifier").copied().unwrap_or("universal") {
+            "universal" => true,
+            "probabilistic" => false,
+            _ => return Err("quantifier must be universal|probabilistic".into()),
+        };
+        let same_canon = match kv.get("same_canon").copied().unwrap_or("true") {
+            "true" => true,
+            "false" => false,
+            _ => return Err("same_canon must be true|false".into()),
+        };
+        let claim = Claim {
             id: get("id")?.to_string(),
             kind,
             rule: get("rule")?.parse()?,
-            universal: kv.get("quantifier").copied().unwrap_or("universal") == "universal",
+            universal,
             p_min: num("p_min", "0.99")?,
-            same_canon: kv.get("same_canon").copied().unwrap_or("true") == "true",
+            same_canon,
             classes,
-            trials: num("trials", "64")? as u32,
-            horizon: num("horizon", "1000000")? as u64,
-            ladder: num("ladder", "2")? as u32,
-            size: num("size", "2048")? as usize,
-            seed: num("seed", "1")? as u64,
-            chains: num("chains", "4")? as u32,
-            evals: num("evals", "40")? as u32,
+            trials: count("trials", "64")?,
+            horizon: integer("horizon", "1000000")?,
+            ladder: count("ladder", "2")?,
+            size: usize::try_from(integer("size", "2048")?).map_err(|_| "size exceeds usize")?,
+            seed: integer("seed", "1")?,
+            chains: count("chains", "4")?,
+            evals: count("evals", "40")?,
             // The prediction must be time-stamped before the attack; the git check lives in the binary.
             registered: get("registered")?.to_string(),
-        })
+        };
+        if !claim.id.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'-' || b == b'_') {
+            return Err("id must contain only ASCII letters, digits, '-' or '_'".into());
+        }
+        if claim.rule.len() < 2 || claim.rule.len() > 255 || claim.size < 64 || claim.size > i32::MAX as usize {
+            return Err("requires 2..255 colours and board size 64..i32::MAX".into());
+        }
+        if claim.trials == 0 || claim.horizon == 0 || claim.chains == 0 || claim.evals == 0
+            || claim.chains.checked_mul(claim.evals).is_none()
+            || claim.size.checked_mul(claim.size).is_none()
+            || 4u64.checked_pow(claim.ladder).and_then(|m| claim.horizon.checked_mul(m)).is_none()
+        {
+            return Err("budgets must be positive and their products must not overflow".into());
+        }
+        if !claim.p_min.is_finite() || !(0.0..=1.0).contains(&claim.p_min) {
+            return Err("p_min must be finite and in [0,1]".into());
+        }
+        Ok(claim)
     }
 }
 
@@ -587,7 +627,7 @@ pub struct Report {
     /// Indices into the result list of trials that falsify the claim.
     pub counterexamples: Vec<usize>,
     pub success_ci: Option<(f64, f64)>,
-    /// Chaotic claim refuted only by highways that appear after the claim's stated horizon.
+    /// Chaotic claim whose blank-board highway starts after the claim's stated horizon.
     pub late: bool,
 }
 
@@ -670,11 +710,16 @@ pub fn evaluate(claim: &Claim, base: &Baseline, results: &[TrialResult]) -> Repo
     }
     let attack: Vec<&TrialResult> = results.iter().filter(|r| !r.trial.class.is_control()).collect();
     // The claim's `horizon` is what its author looked at; trials ran to horizon * 4^ladder.
-    let late = claim.kind == Kind::Chaotic
-        && !counterexamples.is_empty()
-        && counterexamples.iter().all(|&i| results[i].run.steps > claim.horizon);
+    // Lateness is judged on the claim as stated (the blank board), whose onset is exact. A trial's
+    // escape step is not an onset: it adds the board-crossing time (about size/2 / speed), so
+    // escapes by h below are a conservative count of highways that exist by h.
+    let late = claim.kind == Kind::Chaotic && base.onset.is_some_and(|o| o > claim.horizon);
     if late {
-        reasons.push(format!("horizon-sensitive: every counterexample builds its highway after the stated horizon {}", claim.horizon));
+        reasons.push(format!(
+            "horizon-sensitive: the blank-board highway starts at step {} > stated horizon {}",
+            base.onset.unwrap(),
+            claim.horizon
+        ));
     }
     let rungs = (0..=claim.ladder)
         .map(|k| {

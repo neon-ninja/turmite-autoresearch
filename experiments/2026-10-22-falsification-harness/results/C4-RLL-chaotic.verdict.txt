@@ -1,0 +1,25 @@
+# cmd: falsify experiments\2026-10-22-falsification-harness\claims.txt experiments\2026-10-22-falsification-harness\results
+# commit: 074f4a7808223b655f01eb6ffb7fe057b0b8aa8a
+# claims file blob: a18d162e978440f86a69de7027613d30df6c36be
+# claim: id=C4-RLL-chaotic kind=chaotic rule=RLL horizon=100000 ladder=2 size=2048 trials=64 seed=104 registered=2026-10-22T21:35+13:00
+claim C4-RLL-chaotic (Chaotic, rule RLL, registered 2026-10-22T21:35+13:00)
+baseline (blank start): Unresolved, canon None
+
+class         n  hw_same hw_other   edge unresolved
+blank         1        0        0      0          1
+heading       4        0        0      0          4
+boundary     64        0        0     36         28
+patch        64        0        0      0         64
+mono         64        0        0      0         64
+half         64        0        0      0         64
+stripe       64        0        0      0         64
+sparse       64        0        0      0         64
+obstacle     64        0        0      0         64
+adaptive    160        0        0      0        160
+
+confirmed highway by horizon (attack trials only; survival is not proof):
+  h =       100000: 0/545
+  h =       400000: 0/545
+  h =      1600000: 0/545
+counterexamples: 0 found, 0 reproduced on a second geometry
+VERDICT C4-RLL-chaotic: Survived
