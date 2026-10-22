@@ -88,8 +88,9 @@ fn main() {
 
 fn run_claim(claim: &Claim, line: &str, provenance: &str, out_dir: &str) {
     let rule = &claim.rule;
-    // Ladder: run once at the top horizon; a highway "by h" is one whose escape step is <= h.
-    let top = claim.horizon;
+    // `horizon` is what the claim's author looked at; attack up to 4^ladder times further. Run once at
+    // the top: a highway "by h" is one whose escape step is <= h.
+    let top = claim.horizon * 4u64.pow(claim.ladder);
     let base = baseline(rule, claim.size, top);
     let plan = plan(claim, &base);
     let mut results: Vec<TrialResult> = plan

@@ -193,6 +193,8 @@ pub fn simulate(rule: &Rule, init: &Init, sim: &Sim, perturb: Option<&Perturb>) 
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Class {
+    /// The claim as literally stated: blank board, heading 0.
+    Blank,
     /// Control: blank start, each of the four headings.
     Heading,
     /// Control: blank start near an edge of an odd-sized board.
@@ -214,7 +216,8 @@ pub enum Class {
 }
 
 impl Class {
-    pub const ALL: [Class; 9] = [
+    pub const ALL: [Class; 10] = [
+        Class::Blank,
         Class::Heading,
         Class::Boundary,
         Class::Patch,
@@ -227,6 +230,7 @@ impl Class {
     ];
     pub fn name(self) -> &'static str {
         match self {
+            Class::Blank => "blank",
             Class::Heading => "heading",
             Class::Boundary => "boundary",
             Class::Patch => "patch",
@@ -318,6 +322,7 @@ pub fn make_trial(rule: &Rule, class: Class, index: u32, claim_seed: u64, size: 
     let mut init = Init { cells: vec![], heading: (splitmix_next(&mut st) % 4) as u8 };
     let mut perturb = None;
     match class {
+        Class::Blank => init.heading = 0,
         Class::Heading => init.heading = (index % 4) as u8,
         Class::Boundary => {
             init.heading = 0;
@@ -538,8 +543,9 @@ impl Claim {
 /// Controls are always included so the instrument is checked on every claim.
 pub fn plan(claim: &Claim, base: &Baseline) -> Vec<(Class, u32)> {
     let mut v = vec![];
-    for &c in Class::ALL.iter().filter(|c| claim.classes.contains(c) || c.is_control()) {
+    for &c in Class::ALL.iter().filter(|c| claim.classes.contains(c) || c.is_control() || **c == Class::Blank) {
         match c {
+            Class::Blank => v.push((c, 0)),
             Class::Heading => v.extend((0..4).map(|i| (c, i))),
             Class::Adaptive => {}
             Class::Obstacle if base.canon.is_none() && claim.kind == Kind::Highway => {}
@@ -581,6 +587,8 @@ pub struct Report {
     /// Indices into the result list of trials that falsify the claim.
     pub counterexamples: Vec<usize>,
     pub success_ci: Option<(f64, f64)>,
+    /// Chaotic claim refuted only by highways that appear after the claim's stated horizon.
+    pub late: bool,
 }
 
 /// Exact (Clopper-Pearson) two-sided interval for k successes in n trials.
@@ -661,9 +669,16 @@ pub fn evaluate(claim: &Claim, base: &Baseline, results: &[TrialResult]) -> Repo
         }
     }
     let attack: Vec<&TrialResult> = results.iter().filter(|r| !r.trial.class.is_control()).collect();
+    // The claim's `horizon` is what its author looked at; trials ran to horizon * 4^ladder.
+    let late = claim.kind == Kind::Chaotic
+        && !counterexamples.is_empty()
+        && counterexamples.iter().all(|&i| results[i].run.steps > claim.horizon);
+    if late {
+        reasons.push(format!("horizon-sensitive: every counterexample builds its highway after the stated horizon {}", claim.horizon));
+    }
     let rungs = (0..=claim.ladder)
         .map(|k| {
-            let h = claim.horizon / 4u64.pow(claim.ladder - k);
+            let h = claim.horizon * 4u64.pow(k);
             let hits = attack.iter().filter(|r| matches!(r.run.outcome, Outcome::Highway(_)) && r.run.steps <= h).count() as u64;
             (h, hits, attack.len() as u64)
         })
@@ -693,7 +708,7 @@ pub fn evaluate(claim: &Claim, base: &Baseline, results: &[TrialResult]) -> Repo
     } else {
         Verdict::Survived
     };
-    Report { verdict, reasons, rows: rows.into_values().collect(), rungs, counterexamples, success_ci }
+    Report { verdict, reasons, rows: rows.into_values().collect(), rungs, counterexamples, success_ci, late }
 }
 
 /// Greedy delta-debugging: drop cells while `still` holds. At most `budget` evaluations.

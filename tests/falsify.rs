@@ -128,10 +128,11 @@ fn claim(line: &str) -> Claim {
 
 fn attack(c: &Claim) -> (Baseline, Report, Vec<TrialResult>) {
     use rayon::prelude::*;
-    let base = baseline(&c.rule, c.size, c.horizon);
+    let top = c.horizon * 4u64.pow(c.ladder);
+    let base = baseline(&c.rule, c.size, top);
     let mut res: Vec<TrialResult> = plan(c, &base)
         .par_iter()
-        .map(|&(k, i)| run_trial(&c.rule, &make_trial(&c.rule, k, i, c.seed, c.size, c.horizon, &base)))
+        .map(|&(k, i)| run_trial(&c.rule, &make_trial(&c.rule, k, i, c.seed, c.size, top, &base)))
         .collect();
     res.sort_by_key(|r| (r.trial.class, r.trial.index));
     let rep = evaluate(c, &base, &res);
@@ -154,7 +155,7 @@ fn baseline_matches_the_census() {
 #[test]
 fn false_chaos_claim_is_falsified() {
     // "RL has no highway" is false; any start that builds one refutes it, and the blank start does.
-    let c = claim("id=t kind=chaotic rule=RL attacks=patch,mono trials=8 horizon=150000 size=1024 seed=1");
+    let c = claim("id=t kind=chaotic rule=RL attacks=patch,mono trials=8 horizon=150000 size=1024 seed=1 ladder=0");
     let (_, rep, _) = attack(&c);
     assert_eq!(rep.verdict, Verdict::Falsified, "{:?}", rep.reasons);
     assert!(!rep.counterexamples.is_empty());
@@ -162,21 +163,21 @@ fn false_chaos_claim_is_falsified() {
 
 #[test]
 fn true_chaos_claim_survives_only_at_the_horizon() {
-    let c = claim("id=t kind=chaotic rule=RLL attacks=patch,mono,half,stripe,sparse,obstacle trials=8 horizon=60000 size=1024 seed=1");
+    let c = claim("id=t kind=chaotic rule=RLL attacks=patch,mono,half,stripe,sparse,obstacle trials=8 horizon=60000 size=1024 seed=1 ladder=0");
     let (_, rep, _) = attack(&c);
     assert_eq!(rep.verdict, Verdict::Survived, "{:?}", rep.reasons);
 }
 
 #[test]
 fn highway_claim_on_a_chaotic_rule_is_not_supported() {
-    let c = claim("id=t kind=highway rule=RLL attacks=patch,mono trials=8 horizon=60000 size=1024 seed=1");
+    let c = claim("id=t kind=highway rule=RLL attacks=patch,mono trials=8 horizon=60000 size=1024 seed=1 ladder=0");
     let (_, rep, _) = attack(&c);
     assert_eq!(rep.verdict, Verdict::Unsupported);
 }
 
 #[test]
 fn instrument_controls_pass_on_a_highway_rule() {
-    let c = claim("id=t kind=highway rule=RRL attacks=boundary trials=24 horizon=100000 size=2048 seed=3");
+    let c = claim("id=t kind=highway rule=RRL attacks=boundary trials=24 horizon=100000 size=2048 seed=3 ladder=0");
     let (_, rep, res) = attack(&c);
     assert_ne!(rep.verdict, Verdict::Invalid, "{:?}", rep.reasons);
     assert_eq!(res.iter().filter(|r| r.trial.class == Class::Heading).count(), 4);
@@ -202,4 +203,16 @@ fn claim_lines_round_trip_and_reject_typos() {
     assert!(Claim::parse("id=a kind=highway rule=RL registered=x tirals=5").is_err());
     let cells = vec![((-1, 2), 3u8), ((0, 0), 1)];
     assert_eq!(cells_from_string(&cells_to_string(&cells)).unwrap(), cells);
+}
+
+#[test]
+fn late_highway_is_flagged_as_horizon_sensitive() {
+    // Langton's ant starts its highway at step 9976. A "chaotic" claim made at horizon 5000 survives
+    // there, and only an attack past the stated horizon refutes it.
+    let c = claim("id=t kind=chaotic rule=RL attacks=patch trials=4 horizon=5000 ladder=2 size=1024 seed=1");
+    let (_, rep, _) = attack(&c);
+    assert_eq!(rep.verdict, Verdict::Falsified);
+    assert!(rep.late, "{:?}", rep.reasons);
+    assert_eq!(rep.rungs[0].1, 0, "nothing escapes by the stated horizon");
+    assert!(rep.rungs[2].1 > 0);
 }

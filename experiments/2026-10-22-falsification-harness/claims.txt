@@ -1,0 +1,8 @@
+# Registered claims (one per line; see README.md for the predictions attached to each).
+# Registered 2026-10-22 before any attack was run; the harness refuses to run this file uncommitted.
+# `horizon` is the horizon the claim's author looked at; the harness attacks to horizon * 4^ladder.
+id=C1-RL-highway kind=highway rule=RL same_canon=true horizon=2000000 ladder=0 size=2048 trials=64 seed=101 registered=2026-10-22T21:35+13:00
+id=C2-RRL-highway kind=highway rule=RRL same_canon=true horizon=2000000 ladder=0 size=2048 trials=64 seed=102 registered=2026-10-22T21:35+13:00
+id=C3-RRRL-highway kind=highway rule=RRRL same_canon=true horizon=2000000 ladder=0 size=2048 trials=64 seed=103 registered=2026-10-22T21:35+13:00
+id=C4-RLL-chaotic kind=chaotic rule=RLL horizon=100000 ladder=2 size=2048 trials=64 seed=104 registered=2026-10-22T21:35+13:00
+id=C5-RRLR-chaotic kind=chaotic rule=RRLR horizon=100000 ladder=2 size=2048 trials=64 seed=105 registered=2026-10-22T21:35+13:00
