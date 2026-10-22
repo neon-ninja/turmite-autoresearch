@@ -8,6 +8,6 @@
   "src/invariants.rs": "72c9f874bbbceb7bb06fdaf116bb72de772f1646fb3fbeb8182b1c381cefef95",
   "src/bin/invariants.rs": "015e51ffe28a7543d1953b042ec644f3187fb41c2592fc5fd48e0eefacb1793e"
  },
- "peer_files_committed": false,
- "git_head": "eaa092c6818983eb4f3a2d53539eb0057ab0c3c4"
+ "peer_files_committed": true,
+ "git_head": "53778d11804917ece5a1287635e92f16059e72e1"
 }

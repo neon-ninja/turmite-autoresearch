@@ -86,12 +86,80 @@ instrument, and it is what I expect.
 
 ## Reproduction
 
-Filled in as runs complete. Library: `experiments/_lib/lawmod.py`. Scripts: `scripts/`.
+All exact algebra or seeded; no wall-clock dependence. From the repository root (the shared `.venv` was
+unwritable here, so `uv run --no-project` was used; the scripts are standard-library Python and need no
+environment):
+
+```sh
+uv run --no-project experiments/_lib/lawmod.py --selftest                       # solver vs brute force and vs exact elimination
+uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/census.py --nmax 8   # fingerprints, universal groups, P4  (~30 s)
+uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/summarize.py         # evaluates P1, P3, P4, P6, P7 -> results/summary.json
+cargo build --release --locked --example invariant_mining_snf_verify --bin invariants       # own CARGO_TARGET_DIR
+uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/oracle.py --exe <target>/release/examples/invariant_mining_snf_verify[.exe] --nmax 6 --steps 2000 --starts 16
+uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/cross_check_peer.py --exe <target>/release/invariants[.exe]
+uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/highways.py          # reads the committed census confirmed_*.csv
+uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/build_notebook.py    # rebuilds notebook.ipynb from results/
+```
+
+Seeds: oracle seed 20261022 (a start is a function of seed, rule string and start index only); control
+vectors are drawn with `random.Random(f"{seed}-{rule}-{family}-{m}")`. Provenance (commit, command, hashes of
+`lawmod.py`, the oracle binary, the laws file and the parallel miner's sources) is written next to each result
+(`results/*_provenance.json`, `oracle_summary.json`, `crosscheck_peer.json`). Interim results from an earlier
+solver (exact integer elimination, n <= 6) were overwritten by the final-solver runs; the headline numbers were
+identical (0 violations, 0 mismatches, 0 P1 exceptions at n <= 5).
 
 ## Results, uncertainty and limitations
 
 Appended below this line only, after each run; the predictions above are not edited.
 
+### Results (2026-10-22, written after the runs; evidence at the commit that contains this section)
+
+| # | outcome | numbers |
+|---|---|---|
+| P1 | **held** | 0 exceptions among 508 rules x 4 families (fingerprint depends on `(n, #R)` only). Complement, reversal and all rotations preserve the fingerprint: 0 differences in 2032 rule-family checks. Post hoc (noticed in the table afterwards): coarser still, the fingerprint is a function of `(n, Â±D mod 4, rule trivial?)`: 68 (family, n, ±D, trivial) groups in total, none split. Only 2-3 distinct fingerprints exist per `n` in F1..F3. |
+| P2 | **held** | 0 mismatches in 1016 comparisons (508 rules x m in {2, 4}) against `src/bin/invariants.rs` (sources hashed in `crosscheck_peer.json`; they were uncommitted when first run, committed by the time of the final run). |
+| P3 | **held** | F1 universal order at m = 2 is 8 (even n) and 4 (odd n) for every n in 2..8; at p = 3, 5, 7 it is p when p divides n and 1 otherwise (21 of 21 cells). |
+| P4 | **FALSIFIED as registered** | 170 mismatches among 508 rules, all with `D = 2 mod 4` and `n` even. A pure-tape heading law (a = b = e = 0, Phi non-constant) exists for every even `n`: heading parity is a function of the tape (`Phi = 2h`), because the universal colour clock gives `t = sum c N_c mod 2` and heading parity equals time parity. What `D = 0 mod 4` buys is the full heading mod 4. A post hoc refinement (a law with `Phi(1)` odd) has 0 mismatches over 508 rules; it was written after seeing the failure, uses the same derivation, and is not independent evidence. 170 rules have `D = 0 mod 4`. |
+| P5 | **held** | 0 violations in 14,416 generator lines (A0 2280, F1 2816, F2 3672, F3 5648), each applied to 16 starts (8 on-manifold for F2/F3), 2000 reference-ant steps, plus a from-scratch recomputation at the end of each start. Controls: 6560 of 6560 random non-law vectors (n <= 4) violated. |
+| P6 | **held** | `|U^F2| / |U^F1|` at m = n is 2, 3, 2, 5, 6, 7, 4 for n = 2..8: always > 1. |
+| P7 | **held (predicted at 45%)** | F3 exceeds F2 at m = n for **all** n in 2..8. Post hoc regularity: `|U^F3| / |U^F2| = n^2` exactly for all seven n (4, 9, 16, 25, 36, 49, 64); unexplained here. |
+| P8 | **held** | 582 distinct confirmed rules (`confirmed_v2.csv` + `confirmed_1B.csv`; not 589): 0 violations of any tile-free law in F1, F2, F3. The tile-free group has the *same order for all 582 rules* (F1/F2: 4, 8, 8 at m = 2, 4, 8; F3: 8, 16, 16), so tile-free laws are the universal parity laws and add nothing to H19. |
+
+Reading. Within these families the law group of a rule is a function of the colour count `n`, the net
+turn `D = #R - #L (mod 4)` up to sign, and whether the rule is trivial. The order of the colours never
+matters, so `RRLL` and `RLRL` (or any rotation, reversal, or other permutation) have isomorphic law groups.
+The laws that exist (checkerboard parity, heading parity, the colour clock mod `n`, sublattice colour
+clocks, and for `D = 0 mod 4` heading = tape mod 4) are bookkeeping consequences of the colour cycle and the
+lattice; none of them says anything about growth, highways or chaos, and none can be used as a feature that
+separates rules with the same `(n, D class)`. Whatever distinguishes a chaotic rule from a highway rule
+among its permutations lies outside additive local laws.
+
+### Limits and deviations (stated, not hidden)
+- Exhaustive only for `n <= 8` (census) and `n <= 6` (oracle). The extension to all `n` rests on the
+  derivation above, not on a checked proof; a Lean proof would be natural for this bookkeeping argument.
+- The local solver tracks primes 2, 3, 5, 7 (up to 2^8, 3^4, 5^3, 7^3) and detects primes 11..37 (cap 1) by a
+  free-rank consistency assertion that did not fire on any rule. Primes above 37 are not detected; moduli are
+  restricted to those products. Validated against exact integer elimination on every rule of length <= 5.
+- The first solver (exact integer elimination with column tracking) was replaced mid-experiment: on F3 at
+  `n = 7` (`RRRRRLL`) its entries exceeded 4300 digits and a single rule took 28 s, stalling the census.
+- Registered text errors, not edited above: the header time "21:50" (the freezing commit is 21:43:05) and
+  "510 rules" (correct: 508).
+- The oracle's controls are random vectors, not adversarial near-laws, and exist for `n <= 4` only.
+- P8 for F2/F3 is existential over the unknown reference class, so weaker than for F1.
+- The scripts were run with `uv run --no-project`: the shared `.venv` is unwritable in this environment.
+
+### What is not shown
+Nothing about growth exponents, onset of highways, or whether any non-additive invariant (pair potentials,
+edge flux, history dependence) separates rules of equal `(n, D class)`. That is the open question this
+instrument makes sharp.
+
 ## Pruning-index outcome and next question
 
-To be appended.
+Outcome: signature `NR-20261022-additive-laws-order-blind` (see `notes/pruning-index/entries/`), empirical,
+scoped to the stated families and `n <= 8`. It defers re-mining A0-F3 for order-sensitive invariants; it does
+not prune any non-additive ansatz.
+
+Next question: build the pair-potential family (potential on horizontally and vertically adjacent cell pairs,
+ant potential depending on the colour of the cell it enters), quotient by functionals that vanish on all
+finite fields, and ask whether any law depends on the order of the colours. Register the prediction first; my
+prior is that the quotient is trivial (60%).

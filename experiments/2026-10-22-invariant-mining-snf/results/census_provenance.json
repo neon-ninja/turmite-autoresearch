@@ -1,30 +1,26 @@
 {
- "command": "experiments/2026-10-22-invariant-mining-snf/scripts/census.py --nmax 5",
- "git_head": "91186e3c25cab7151ef55412809ede2fbf51b841",
+ "command": "experiments/2026-10-22-invariant-mining-snf/scripts/census.py --nmax 8",
+ "git_head": "53778d11804917ece5a1287635e92f16059e72e1",
  "git_dirty_paths": [
-  "?? experiments/2026-10-22-invariant-mining-snf/results/",
-  "?? experiments/2026-10-22-invariant-mining-snf/scripts/",
-  "?? experiments/_lib/lawmod.py"
+  "M experiments/2026-10-22-invariant-mining-snf/results/by_counts.csv",
+  " M experiments/2026-10-22-invariant-mining-snf/results/fingerprints.csv",
+  " M experiments/2026-10-22-invariant-mining-snf/results/p4.csv",
+  " M experiments/2026-10-22-invariant-mining-snf/results/universal.csv",
+  " M experiments/_lib/lawmod.py",
+  "?? experiments/2026-10-22-invariant-mining-snf/scripts/build_notebook.py"
  ],
  "python": "3.12.11",
- "lawmod_sha256": "1f24cbfbbc6d656adf01fb35c997842f6b4511444cdb2df05b7d4fe865f934fd",
- "script_sha256": "f5676855ae3c754fa2c1d575d6845eff70d09cce86440ce2750aacf4cc3dc843",
- "nmax": 5,
+ "lawmod_sha256": "9aea69c1a5953d6d3fad92d8cb2af6f31cad03b5876d26a1ac7d002f34e72e26",
+ "script_sha256": "500e0ed50a5821344266e82098811edc543523e418e2b1bfda7d76793e81ae6c",
+ "nmax": 8,
  "P1": {
-  "rules_checked_per_family": 60,
+  "rules_checked_per_family": 508,
   "exceptions": {}
  },
- "P4_mismatches": [
-  "RR",
-  "LL",
-  "RRRL",
-  "RRLR",
-  "RLRR",
-  "RLLL",
-  "LRRR",
-  "LRLL",
-  "LLRL",
-  "LLLR"
+ "P4_mismatches": 170,
+ "P4_mismatch_D_values": [
+  2
  ],
- "P4_rules": 60
+ "P4_posthoc_mismatches": [],
+ "P4_rules": 508
 }

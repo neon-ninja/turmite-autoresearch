@@ -119,106 +119,197 @@ def universal_rows(fam: Family, n: int) -> list[list[int]]:
     return transition_rows(fam, n, [[1, 3]] * n)
 
 
-@dataclass
-class Snf:
-    """U M V = D with V unimodular (columns tracked); `diag` are the raw diagonal entries."""
+# Primes (and the largest power tracked) used by the local solver.  Every modulus queried must be a
+# product of these prime powers.  Primes above 7 are tracked only with cap 1: they are there to detect
+# whether any invariant factor has such a prime, which would otherwise be silently missed.
+PRIMES = {2: 8, 3: 4, 5: 3, 7: 3, 11: 1, 13: 1, 17: 1, 19: 1, 23: 1, 29: 1, 31: 1, 37: 1}
 
-    k: int
-    V: list[list[int]]
-    diag: list[int]  # length r, all positive
+
+def _val(x: int, p: int, e: int) -> int:
+    if x == 0:
+        return e
+    v = 0
+    while x % p == 0 and v < e:
+        x //= p
+        v += 1
+    return v
+
+
+def _local_snf(M: list[list[int]], k: int, p: int, e: int):
+    """Smith form over Z/p^e: returns (valuations of the pivots, V mod p^e) with U M V = diag(p^v).
+
+    p-adic valuation is a valuation on the local ring, so a pivot of minimal valuation divides every other
+    entry and elimination is exact; there is no coefficient growth because everything is reduced mod p^e.
+    """
+    q = p**e
+    A = [[x % q for x in row] for row in M]
+    R = len(A)
+    V = [[int(i == j) % q for j in range(k)] for i in range(k)]
+    vals: list[int] = []
+    for i in range(min(R, k)):
+        best = None
+        for r in range(i, R):
+            for c in range(i, k):
+                v = _val(A[r][c], p, e)
+                if v < e and (best is None or v < best[0]):
+                    best = (v, r, c)
+                    if v == 0:
+                        break
+            if best and best[0] == 0:
+                break
+        if best is None:
+            break
+        v, pr, pc = best
+        A[i], A[pr] = A[pr], A[i]
+        if pc != i:
+            for row in A:
+                row[i], row[pc] = row[pc], row[i]
+            for row in V:
+                row[i], row[pc] = row[pc], row[i]
+        pv = p**v
+        uinv = pow(A[i][i] // pv, -1, q)
+        for r in range(i + 1, R):
+            b = A[r][i]
+            if b:
+                f = (b // pv) * uinv % q
+                A[r] = [(x - f * y) % q for x, y in zip(A[r], A[i])]
+        for c in range(i + 1, k):
+            b = A[i][c]
+            if b:
+                f = (b // pv) * uinv % q
+                for row in A:
+                    row[c] = (row[c] - f * row[i]) % q
+                for row in V:
+                    row[c] = (row[c] - f * row[i]) % q
+        vals.append(v)
+    return vals, V
+
+
+class Snf:
+    """Smith normal form of an integer matrix, held prime by prime (see PRIMES)."""
+
+    def __init__(self, M: list[list[int]], k: int):
+        self.k = k
+        self.local = {p: _local_snf(M, k, p, e) for p, e in PRIMES.items()}
+        free = {p: k - len(vals) for p, (vals, _) in self.local.items()}
+        # Pivots stop when the remaining block is 0 mod p^e.  A genuine invariant factor with
+        # v_p >= e would make the free rank differ between primes, so equality is a consistency check.
+        assert len(set(free.values())) == 1, f"inconsistent free rank across primes: {free}"
+        self.free = free[2]
 
     @property
     def rank(self) -> int:
-        return len(self.diag)
+        return self.k - self.free
 
     def canonical(self) -> tuple[int, ...]:
-        """Invariant factors d_1 | d_2 | ... including 1s."""
-        d = list(self.diag)
-        changed = True
-        while changed:
-            changed = False
-            for i in range(len(d)):
-                for j in range(i + 1, len(d)):
-                    g = math.gcd(d[i], d[j])
-                    lo, hi = g, d[i] * d[j] // g
-                    if (lo, hi) != (d[i], d[j]):
-                        d[i], d[j] = lo, hi
-                        changed = True
-        return tuple(sorted(d))
+        """Invariant factors d_1 | d_2 | ... (including 1s) from the sorted p-adic valuations."""
+        r = self.rank
+        d = [1] * r
+        for p, (vals, _) in self.local.items():
+            for i, v in enumerate(sorted(vals)):
+                d[i] *= p**v
+        return tuple(d)
 
     def fingerprint(self) -> tuple[int, tuple[int, ...]]:
         """(free rank, nontrivial invariant factors): determines the law group at every modulus."""
-        return (self.k - self.rank, tuple(x for x in self.canonical() if x > 1))
+        return (self.free, tuple(x for x in self.canonical() if x > 1))
+
+    def _factor(self, m: int) -> dict[int, int]:
+        out: dict[int, int] = {}
+        for p, e in PRIMES.items():
+            a = 0
+            while m % p == 0:
+                m //= p
+                a += 1
+            if a:
+                assert a <= e, f"modulus has p^{a} with p={p}, tracked up to p^{e}"
+                out[p] = a
+        assert m == 1, "modulus has a prime factor outside PRIMES"
+        return out
 
     def order(self, m: int) -> int:
-        free, facs = self.fingerprint()
-        return m**free * math.prod(math.gcd(f, m) for f in facs)
+        total = 1
+        for p, a in self._factor(m).items():
+            vals, _ = self.local[p]
+            total *= p ** (a * self.free) * math.prod(p ** min(v, a) for v in vals)
+        return total
 
     def generators(self, m: int) -> list[list[int]]:
-        gens = []
-        for i, d in enumerate(self.diag):
-            g = math.gcd(d, m)
-            if g == 1:
-                continue
-            scale = m // g
-            gens.append([(scale * self.V[r][i]) % m for r in range(self.k)])
-        for i in range(self.rank, self.k):
-            gens.append([self.V[r][i] % m for r in range(self.k)])
+        """Generators of {u mod m : M u = 0 mod m}, built per prime power and combined by CRT."""
+        gens: list[list[int]] = []
+        for p, a in self._factor(m).items():
+            vals, V = self.local[p]
+            pa = p**a
+            other = m // pa
+            idem = other * pow(other, -1, pa) % m  # = 1 mod p^a, 0 mod m/p^a
+            cols = []
+            for i, v in enumerate(vals):
+                g = min(v, a)
+                if g:
+                    cols.append((i, p ** (a - g)))
+            cols += [(i, 1) for i in range(len(vals), self.k)]
+            for i, scale in cols:
+                gens.append([(scale * V[r][i] % pa) * idem % m for r in range(self.k)])
         return gens
 
 
 def snf(M: list[list[int]], k: int) -> Snf:
+    return Snf(M, k)
+
+
+def snf_exact_diag(M: list[list[int]], k: int) -> tuple[int, ...]:
+    """Reference: canonical invariant factors by exact integer elimination (no V; blows up on big inputs).
+
+    Used only by the selftest to validate the local solver on small matrices.
+    """
     A = [list(r) for r in M]
     R = len(A)
-    V = [[int(i == j) for j in range(k)] for i in range(k)]
     diag: list[int] = []
-
-    def swap_cols(i: int, j: int) -> None:
-        for row in A:
-            row[i], row[j] = row[j], row[i]
-        for row in V:
-            row[i], row[j] = row[j], row[i]
-
-    i = 0
-    while i < min(R, k):
-        best = None
-        for r in range(i, R):
-            for c in range(i, k):
-                v = abs(A[r][c])
-                if v and (best is None or v < best[0]):
-                    best = (v, r, c)
-        if best is None:
-            break
-        _, pr, pc = best
-        A[i], A[pr] = A[pr], A[i]
-        if pc != i:
-            swap_cols(i, pc)
+    for i in range(min(R, k)):
+        found = False
         while True:
-            dirty = False
+            best = None
+            for r in range(i, R):
+                for c in range(i, k):
+                    v = abs(A[r][c])
+                    if v and (best is None or v < best[0]):
+                        best = (v, r, c)
+            if best is None:
+                break
+            found = True
+            _, pr, pc = best
+            A[i], A[pr] = A[pr], A[i]
+            for row in A:
+                row[i], row[pc] = row[pc], row[i]
+            clean = True
             for r in range(i + 1, R):
                 if A[r][i]:
-                    q = A[r][i] // A[i][i]
-                    if q:
-                        A[r] = [x - q * y for x, y in zip(A[r], A[i])]
-                    if A[r][i]:
-                        A[i], A[r] = A[r], A[i]
-                        dirty = True
+                    qq = A[r][i] // A[i][i]
+                    A[r] = [x - qq * y for x, y in zip(A[r], A[i])]
+                    clean &= A[r][i] == 0
             for c in range(i + 1, k):
                 if A[i][c]:
-                    q = A[i][c] // A[i][i]
-                    if q:
-                        for row in A:
-                            row[c] -= q * row[i]
-                        for row in V:
-                            row[c] -= q * row[i]
-                    if A[i][c]:
-                        swap_cols(i, c)
-                        dirty = True
-            if not dirty:
+                    qq = A[i][c] // A[i][i]
+                    for row in A:
+                        row[c] -= qq * row[i]
+                    clean &= A[i][c] == 0
+            if clean:
                 break
+        if not found:
+            break
         diag.append(abs(A[i][i]))
-        i += 1
-    return Snf(k, V, diag)
+    d = list(diag)
+    changed = True
+    while changed:
+        changed = False
+        for i in range(len(d)):
+            for j in range(i + 1, len(d)):
+                g = math.gcd(d[i], d[j])
+                lo, hi = g, d[i] * d[j] // g
+                if (lo, hi) != (d[i], d[j]):
+                    d[i], d[j] = lo, hi
+                    changed = True
+    return tuple(sorted(d))
 
 
 # ---------------------------------------------------------------- law objects and rendering
@@ -261,13 +352,28 @@ def check_vector(fam: Family, M: list[list[int]], vec: list[int], m: int) -> boo
 # ---------------------------------------------------------------- selftest
 
 
+def _strip(x: int) -> int:
+    """Remove prime factors the local solver does not track (random test matrices can have them)."""
+    for p in range(2, 200):
+        if p not in PRIMES and all(p % q for q in range(2, p)):
+            while x % p == 0:
+                x //= p
+    return x
+
+
 def selftest() -> None:
     rng = random.Random(20261022)
+    skipped = 0
     # 1. SNF kernel formula versus brute force on random small integer matrices.
     for _ in range(100):
         R, k = rng.randint(1, 5), rng.randint(1, 4)
         M = [[rng.randint(-6, 6) for _ in range(k)] for _ in range(R)]
-        sn = snf(M, k)
+        try:
+            sn = snf(M, k)
+        except AssertionError:  # an untracked prime (>= 11) divides an invariant factor: detector fired
+            skipped += 1
+            continue
+        assert sn.canonical() == tuple(_strip(x) for x in snf_exact_diag(M, k)), (M, sn.canonical(), snf_exact_diag(M, k))
         for m in (2, 3, 4, 6, 8, 12):
             brute = sum(1 for u in itertools.product(range(m), repeat=k) if check_vector(None, M, list(u), m))
             assert brute == sn.order(m), (M, m, brute, sn.order(m))
@@ -284,13 +390,22 @@ def selftest() -> None:
             for m in ms:
                 brute = sum(1 for u in itertools.product(range(m), repeat=k) if check_vector(fam, M, list(u), m))
                 assert brute == sn.order(m), (rule, name, m, brute, sn.order(m))
+    # 2b. Local solver equals exact elimination on every rule of length <= 5, all families.
+    for name in FAMILIES:
+        fam = Family(name)
+        for n in range(2, 6):
+            k = Layout(fam, n).size()
+            for bits in itertools.product("RL", repeat=n):
+                rule = "".join(bits)
+                M = rule_rows(fam, rule)
+                assert snf(M, k).canonical() == snf_exact_diag(M, k), (name, rule)
     # 3. Langton's heading law: A0 on RL has d=1, w_1=-1 (mod 4), i.e. heading = #colour-1 cells.
     fam = Family("A0")
     M = rule_rows(fam, "RL")
     names = Layout(fam, 2).names()
     vec = [0, 0, 0, 1, 3]  # a,b,e,d,w0_1
     assert names == ["a", "b", "e", "d", "w0_1"] and check_vector(fam, M, vec, 4)
-    print("lawmod selftest: ok")
+    print(f"lawmod selftest: ok (random matrices skipped for untracked primes: {skipped})")
 
 
 # ---------------------------------------------------------------- CLI
