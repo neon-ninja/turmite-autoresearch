@@ -65,3 +65,10 @@ ending 2^20..2^26). Random walk: 16 seeds, 2^24 steps, a 7-octave window.
   small genuine rule differences remain, which may be different rates of
   convergence rather than different exponents.
 - Area exponents from 7-octave windows overshoot by about 0.02.
+
+## Falsification instrument caveat (2026-10-22)
+The adversarial harness in `src/falsify.rs` must not pool adaptive candidates and heterogeneous
+attack families into a binomial confidence interval. Probabilistic highway claims remain
+Unsupported until an IID sampling distribution is registered. See
+`experiments/2026-10-22-falsification-harness/README.md` for the correction and regression recipe.
+This is an instrument change, not a new growth-law measurement.

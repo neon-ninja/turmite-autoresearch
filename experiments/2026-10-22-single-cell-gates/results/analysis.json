@@ -1,0 +1,173 @@
+{
+  "departures": 260,
+  "ant_departures": 213,
+  "pairs": 617,
+  "missing_pairs": 25,
+  "controls": 532,
+  "censored": 15,
+  "interventions": 1234,
+  "rules": 3,
+  "bootstrap_seed": 2026102201,
+  "metrics": {
+    "time_abs": {
+      "gate_mean": 1.1578831696540335,
+      "matched_mean": 1.205179897525414,
+      "difference": -0.04729672787138047,
+      "ci95": [
+        -0.4074192149045108,
+        0.2897109740250201
+      ],
+      "between_seed_sd": {
+        "RLLLLRLLRLRL": 0.1461821874648362,
+        "RLLLRRLRLL": 0.22270019780037378,
+        "RLLRRLLLLLLL": 0.6180197396486986
+      },
+      "per_rule_difference": {
+        "RLLLLRLLRLRL": 0.3055632801924424,
+        "RLLLRRLRLL": -0.14902206054305484,
+        "RLLRRLLLLLLL": -0.29843140326352896
+      }
+    },
+    "reach_abs": {
+      "gate_mean": 0.6179349582528538,
+      "matched_mean": 0.5222319347659793,
+      "difference": 0.0957030234868745,
+      "ci95": [
+        -0.10535606792589709,
+        0.3007989535112457
+      ],
+      "between_seed_sd": {
+        "RLLLLRLLRLRL": 0.11373537659635763,
+        "RLLLRRLRLL": 0.168017939016161,
+        "RLLRRLLLLLLL": 0.22333899079306732
+      },
+      "per_rule_difference": {
+        "RLLLLRLLRLRL": 0.30293244394357505,
+        "RLLLRRLRLL": -0.091926667543431,
+        "RLLRRLLLLLLL": 0.07610329406047947
+      }
+    },
+    "time_signed": {
+      "gate_mean": 0.4466108776326137,
+      "matched_mean": 0.4290313696356854,
+      "difference": 0.017579507996928367,
+      "ci95": [
+        -0.4540532090060457,
+        0.31493379096051677
+      ],
+      "between_seed_sd": {
+        "RLLLLRLLRLRL": 0.22695596029415652,
+        "RLLLRRLRLL": 0.45406321843529696,
+        "RLLRRLLLLLLL": 1.1109391364293537
+      },
+      "per_rule_difference": {
+        "RLLLLRLLRLRL": 0.19531369912196084,
+        "RLLLRRLRLL": 0.05100458551760165,
+        "RLLRRLLLLLLL": -0.19357976064877738
+      }
+    },
+    "reach_signed": {
+      "gate_mean": 0.47792892554869454,
+      "matched_mean": 0.3758915669472749,
+      "difference": 0.10203735860141978,
+      "ci95": [
+        -0.08581717272478168,
+        0.2854449578343339
+      ],
+      "between_seed_sd": {
+        "RLLLLRLLRLRL": 0.126932425776186,
+        "RLLLRRLRLL": 0.17925059133916027,
+        "RLLRRLLLLLLL": 0.2783774956177574
+      },
+      "per_rule_difference": {
+        "RLLLLRLLRLRL": 0.27925598208534774,
+        "RLLLRRLRLL": -0.0644160129659668,
+        "RLLRRLLLLLLL": 0.09127210668487841
+      }
+    },
+    "time_factor2": {
+      "gate_mean": 0.3758625860736398,
+      "matched_mean": 0.33530802098465035,
+      "difference": 0.040554565088989504,
+      "ci95": [
+        -0.016878850796819556,
+        0.09246252318818149
+      ],
+      "between_seed_sd": {
+        "RLLLLRLLRLRL": 0.038113733486334817,
+        "RLLLRRLRLL": 0.0721644818603439,
+        "RLLRRLLLLLLL": 0.07151738780920275
+      },
+      "per_rule_difference": {
+        "RLLLLRLLRLRL": 0.08807465753271021,
+        "RLLLRRLRLL": -0.012680180180180176,
+        "RLLRRLLLLLLL": 0.04626921791443849
+      }
+    },
+    "reach_factor2": {
+      "gate_mean": 0.20433532407630514,
+      "matched_mean": 0.1791259896929159,
+      "difference": 0.025209334383389265,
+      "ci95": [
+        -0.03849562062062062,
+        0.09496676757746687
+      ],
+      "between_seed_sd": {
+        "RLLLLRLLRLRL": 0.068901945989416,
+        "RLLLRRLRLL": 0.04807777172384283,
+        "RLLRRLLLLLLL": 0.0518159599420089
+      },
+      "per_rule_difference": {
+        "RLLLLRLLRLRL": 0.09468253220549606,
+        "RLLLRRLRLL": -0.038871262566914734,
+        "RLLRRLLLLLLL": 0.019816733511586457
+      }
+    }
+  },
+  "by_band": [
+    {
+      "band": 0,
+      "arm": "gate",
+      "len": 254,
+      "time_abs": 1.2018170221185958,
+      "reach_abs": 0.585669621104625
+    },
+    {
+      "band": 0,
+      "arm": "matched",
+      "len": 254,
+      "time_abs": 1.2007166071787478,
+      "reach_abs": 0.49145855564338137
+    },
+    {
+      "band": 1,
+      "arm": "gate",
+      "len": 363,
+      "time_abs": 1.1114630054751065,
+      "reach_abs": 0.6511716783210667
+    },
+    {
+      "band": 1,
+      "arm": "matched",
+      "len": 363,
+      "time_abs": 1.05076108186396,
+      "reach_abs": 0.4911712633749753
+    }
+  ],
+  "rotor": [
+    {
+      "arm": "matched",
+      "len": 132,
+      "time_abs": 0.18851649492916955,
+      "reach_abs": 0.03978516736330677,
+      "cens": 0
+    },
+    {
+      "arm": "gate",
+      "len": 132,
+      "time_abs": 0.0011454889579428488,
+      "reach_abs": 0.0,
+      "cens": 0
+    }
+  ]
+}
