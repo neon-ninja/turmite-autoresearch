@@ -1,5 +1,15 @@
 # Proof track: from simulated regularities to checked macro-transitions (2026-10-20)
 
+## Instrument addition — 2026-10-22
+
+[Additive modular mining](../experiments/2026-10-22-invariant-mining/README.md)
+provides exhaustive candidates in a declared ansatz and checks every local
+transition. Use `cargo run --release --locked --bin invariants -- RULE ...`
+before interpreting growth metrics; the experiment wrapper records provenance.
+This supplies necessary constraints, not highway or growth certificates.
+Colour-shift symmetries require transforming the initial field; they do not
+identify distinct blank-background trajectories automatically.
+
 Started 2026-10-20 from a proposal by the project owner. This runs **in parallel with** the empirical programme. It does
 not replace it, and it reuses the same oracle, records and registration rules. Experiments live in their own folders as
 usual; this note holds the cross-cutting plan and what counts as success.
