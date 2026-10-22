@@ -79,6 +79,30 @@ in `notes/` or `experiments/*/results/` must be traceable to code, inputs and a 
    explicit predictions. Don't rewrite a prediction after seeing the data;
    append what happened and any revision.
 
+## Negative-result pruning index
+
+Before proposing a sweep or a variation on a failed test, query the shared
+Git-backed database in `notes/pruning-index/` using its README workflow. Record
+the index revision, search terms, matching signature IDs and the run/skip/reopen
+decision in the experiment README and lab notebook, including no-match searches.
+Repeat this check when changing the rule family or experimental conditions.
+
+Commit a dead-end signature after establishing a trivial family, disproving a
+mechanism, or obtaining a well-controlled negative result. Copy
+`experiments/_template/DEAD_END.md` into `notes/pruning-index/entries/` with a unique
+ID; fill every field and link committed evidence at a pinned revision. This is
+shared scientific metadata; generated measurements remain in the experiment.
+The signature must define the rule-space topology, exact membership predicate,
+allowed equivalences, research objective and validity conditions. Similar-looking
+trajectories or nearby rules do not establish membership.
+
+Only a proof covering the proposed conditions permits family-wide exclusion.
+Finite observations can defer duplicate tests within their recorded scope; they
+cannot prove asymptotic behavior or exclude untested neighbors. Chaos is central
+to this project, not inherently uninteresting. An unexplained failure, timeout,
+or detector error is inconclusive, not a dead end. Follow the index's conflict,
+reopening and append-only correction rules; retain controls needed for calibration.
+
 ## Intellectual ambition
 
 The aim is understanding, not a pile of plots. Be bold:
