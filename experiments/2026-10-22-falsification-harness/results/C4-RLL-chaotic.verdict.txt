@@ -1,5 +1,5 @@
 # cmd: falsify experiments\2026-10-22-falsification-harness\claims.txt experiments\2026-10-22-falsification-harness\results
-# commit: 074f4a7808223b655f01eb6ffb7fe057b0b8aa8a
+# commit: 20b75ae04de56075405dc5b88f629755b0cac154
 # claims file blob: a18d162e978440f86a69de7027613d30df6c36be
 # claim: id=C4-RLL-chaotic kind=chaotic rule=RLL horizon=100000 ladder=2 size=2048 trials=64 seed=104 registered=2026-10-22T21:35+13:00
 claim C4-RLL-chaotic (Chaotic, rule RLL, registered 2026-10-22T21:35+13:00)
@@ -17,7 +17,7 @@ sparse       64        0        0      0         64
 obstacle     64        0        0      0         64
 adaptive    160        0        0      0        160
 
-confirmed highway by horizon (attack trials only; survival is not proof):
+confirmed escapes by horizon (attack trials only; an escape lags its onset by the board-crossing time; survival is not proof):
   h =       100000: 0/545
   h =       400000: 0/545
   h =      1600000: 0/545

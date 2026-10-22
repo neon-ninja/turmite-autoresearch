@@ -1,5 +1,5 @@
 # cmd: falsify experiments\2026-10-22-falsification-harness\claims.txt experiments\2026-10-22-falsification-harness\results
-# commit: 074f4a7808223b655f01eb6ffb7fe057b0b8aa8a
+# commit: 20b75ae04de56075405dc5b88f629755b0cac154
 # claims file blob: a18d162e978440f86a69de7027613d30df6c36be
 # claim: id=C1-RL-highway kind=highway rule=RL same_canon=true horizon=2000000 ladder=0 size=2048 trials=64 seed=101 registered=2026-10-22T21:35+13:00
 claim C1-RL-highway (Highway, rule RL, registered 2026-10-22T21:35+13:00)
@@ -16,9 +16,9 @@ stripe       64       64        0      0          0
 sparse       64       64        0      0          0
 obstacle     64       64        0      0          0
 adaptive    160      160        0      0          0
+baseline highway onset (exact, blank board): step 9976
 
-confirmed highway by horizon (attack trials only; survival is not proof):
+confirmed escapes by horizon (attack trials only; an escape lags its onset by the board-crossing time; survival is not proof):
   h =      2000000: 545/545
-highway success rate, Clopper-Pearson 95%: [0.9933, 1.0000]
 counterexamples: 0 found, 0 reproduced on a second geometry
 VERDICT C1-RL-highway: Survived

@@ -66,3 +66,44 @@ Provenance (command, commit, claims blob hash) is the header of every `results/*
 
 ## Results
 (appended below after the run; predictions above are not edited.)
+
+## Statistical correction (2026-10-22)
+The previous pooled Clopper-Pearson interpretation is withdrawn: adaptive candidates are correlated,
+and attack classes have different distributions. The harness now omits that interval and reports
+probabilistic highway claims as Unsupported. Universal claims still use individual counterexamples.
+Shrunk witnesses must reproduce on both board geometries. Claim fields use checked integer parsing;
+invalid budgets, duplicate keys, unsafe IDs and misspelled booleans/quantifiers are rejected.
+
+## Results of the registered run (appended 2026-10-22; predictions above are unedited)
+Data: `results/C*.csv` (545 attack trials per claim + 69 controls), verdicts in `results/*.verdict.txt`. Output is
+byte-identical for `RAYON_NUM_THREADS=1` and the default 8 (header command line excluded). Whole run: 4.7 s.
+
+| # | outcome |
+|---|---|
+| P1 controls agree | **Held.** No `Invalid`. |
+| P2 RL: no other type, and some start unresolved | **Half wrong.** `hw_other = 0` held. `Unsupported` was wrong: all 545 resolved (verdict `Survived`). |
+| P3 RRL falsified | **Wrong.** 545/545 end in (18;1,1). |
+| P4 RRRL falsified | **Held.** 8 counterexamples (7 mono, 1 patch), all (156;2,2) vs blank (52;2,2); 5 of 5 checked reproduce on a second geometry. A 6-cell patch suffices. |
+| P5 RLL survives | **Held**, at 0/545 highways by 1.6e6 (a survival, not a proof). |
+| P6 RRLR falsified and late | **Partly wrong.** Falsified, yes. "Rung 0 shows 0" was wrong: 13/545 perturbed starts have escaped by 1e5 (earliest 98263; with drift 4 per 384 steps the crossing alone takes about 98k steps, so those highways started near step 0). Only the blank start is late: onset 256240, escape 349510. |
+| P7 adaptive beats sampling | **Wrong, 0 of 3.** Longest delay, adaptive vs 64 random patches: RL 76386 vs 94565; RRL 19466 vs 20118; RRRL 27726 vs 79915. |
+
+### Consequences
+- **Adaptive search is weak as built, so `Survived` is weaker than it looks.** Likely reasons (untested): the score is the
+  escape step, which is mostly the board-crossing time plus a small transient, so it is nearly flat and the climb is
+  noise; 40 single-cell mutations per chain is a short climb; and acceptance on ties (`>=`) lets it drift. Until it beats
+  random sampling on a rule with a known sensitive start, treat adaptive rows as extra random samples, not as an adversary.
+  To do: score by the transient length (needs a seeded onset), and calibrate on a rule with a known rare trigger.
+- **Both the 'late' flag and the escape rungs were wrong in kind, not just degree.** The first version fired only when *all*
+  counterexamples were late; it now uses the exact blank-board onset (`late` = onset > stated horizon). Escape counts still
+  lag onset by the crossing time, so they are conservative. Perturbed starts that form a highway early are real
+  counterexamples to a "chaotic at 1e5" claim and are listed separately, not hidden by the flag.
+- **The pooled Clopper-Pearson interval printed in the first verdict files is withdrawn** (see the correction above).
+- RL and RRL surviving 545 attacks is evidence of robustness within these classes only. Dense random backgrounds,
+  larger patches, and onset-time statistics are not tested.
+
+### Deviations
+Results were regenerated after the onset-flag fix. The CSVs are unchanged by it; the earlier verdict text is in git
+history (commit before the re-run). The re-run binary was built from a working tree that also held another contributor's
+uncommitted hardening edits (claim-field validation, no pooled CI), so the provenance header's commit hash does not fully
+describe the source; the trial rows are unaffected by those edits but a clean re-run is owed.

@@ -29,3 +29,27 @@ as literally stated is always one of the attacks.
 ### 2026-10-22 21:36 (+13:00) · cbe7b40 · assumption
 Predictions P1-P7 in README.md are registered before any run. `RRLR` chosen for P6 because the census records its
 highway (384; -4,-4) at onset 256240 (`experiments/2026-10-13-census-sweeps/results/confirmed_v2.csv`).
+
+### 2026-10-22 · fde1103 · decision
+Harness hardening: reject malformed claims and preserve full u64 seeds. Correlated adaptive candidates
+and heterogeneous attack distributions cannot justify a pooled binomial interval. Probabilistic highway
+claims remain Unsupported pending a separately registered IID sampling design. Shrinking must preserve
+the witness on both geometries. No new scientific sweep is part of this hardening pass; concurrently
+produced results are left untouched. Release regression checks follow.
+
+### 2026-10-22 22:10 (+13:00) · 20b75ae · observation
+Registered run (4.7 s, thread-count independent). Held: P1, P4 (RRRL, 8 counterexamples), P5. Wrong: P3 (RRL survived 545/545), P2's
+"Unsupported" half, P7 (adaptive lost to sampling in 3/3). Partly wrong: P6 (13 perturbed RRLR starts escape by 1e5; only the blank start is late).
+
+### 2026-10-22 22:12 (+13:00) · 20b75ae · interpretation
+The adaptive attacker is not an adversary yet: its score (escape step) is dominated by board-crossing time. A "Survived" verdict
+therefore rests on random sampling alone. Confidence that this explains P7: low; not tested.
+
+### 2026-10-22 22:13 (+13:00) · 20b75ae · deviation
+(1) The `late` flag was reworked mid-experiment after the run exposed the escape-vs-onset confound; (2) I rewrote my own unpushed commit
+fde1103 to drop another contributor's untracked files that `git add -A` had swept in, so that hash no longer exists (their entry above cites it);
+(3) the re-run binary included that contributor's uncommitted edits. A clean re-run is owed.
+
+### 2026-10-22 22:14 (+13:00) · 20b75ae · question
+Does RRLR's early perturbed highway (onset near 0) differ in type from the blank one? All 463 counterexamples are (384;4,4)-type, so no.
+What makes the blank start 256k steps slower than almost every perturbed start? Open; worth an onset-distribution experiment.
