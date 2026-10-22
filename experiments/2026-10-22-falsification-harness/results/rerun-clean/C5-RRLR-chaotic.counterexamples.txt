@@ -1,0 +1,9 @@
+# cmd: falsify experiments/2026-10-22-falsification-harness/claims.txt F:/Code/turmite/experiments/2026-10-22-falsification-harness/results/rerun-clean
+# commit: 047e395a743a073bcf1e389824f997af42f2c7f0
+# claims file blob: a18d162e978440f86a69de7027613d30df6c36be
+# claim: id=C5-RRLR-chaotic kind=chaotic rule=RRLR horizon=100000 ladder=2 size=2048 trials=64 seed=105 registered=2026-10-22T21:35+13:00
+rule=RRLR class=blank heading=0 start=1024,1024 size=2048 horizon=1600000 perturb=- cells=-
+rule=RRLR class=patch heading=2 start=1024,1024 size=2048 horizon=1600000 perturb=- cells=-
+rule=RRLR class=patch heading=3 start=1024,1024 size=2048 horizon=1600000 perturb=- cells=-
+rule=RRLR class=patch heading=0 start=1024,1024 size=2048 horizon=1600000 perturb=- cells=-
+rule=RRLR class=patch heading=1 start=1024,1024 size=2048 horizon=1600000 perturb=- cells=-

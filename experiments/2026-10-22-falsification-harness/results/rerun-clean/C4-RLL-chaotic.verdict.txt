@@ -1,0 +1,25 @@
+# cmd: falsify experiments/2026-10-22-falsification-harness/claims.txt F:/Code/turmite/experiments/2026-10-22-falsification-harness/results/rerun-clean
+# commit: 047e395a743a073bcf1e389824f997af42f2c7f0
+# claims file blob: a18d162e978440f86a69de7027613d30df6c36be
+# claim: id=C4-RLL-chaotic kind=chaotic rule=RLL horizon=100000 ladder=2 size=2048 trials=64 seed=104 registered=2026-10-22T21:35+13:00
+claim C4-RLL-chaotic (Chaotic, rule RLL, registered 2026-10-22T21:35+13:00)
+baseline (blank start): Unresolved, canon None
+
+class         n  hw_same hw_other   edge unresolved
+blank         1        0        0      0          1
+heading       4        0        0      0          4
+boundary     64        0        0     36         28
+patch       124        0        0      0        124
+mono        119        0        0      0        119
+half        133        0        0      0        133
+stripe      121        0        0      0        121
+sparse      105        0        0      0        105
+obstacle    133        0        0      0        133
+adaptive    449        0        0      0        449
+
+confirmed escapes by horizon (attack trials only; an escape lags its onset by the board-crossing time; survival is not proof):
+  h =       100000: 0/1185
+  h =       400000: 0/1185
+  h =      1600000: 0/1185
+counterexamples: 0 found, 0 reproduced on a second geometry
+VERDICT C4-RLL-chaotic: Survived

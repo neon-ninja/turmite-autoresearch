@@ -53,3 +53,8 @@ fde1103 to drop another contributor's untracked files that `git add -A` had swep
 ### 2026-10-22 22:14 (+13:00) · 20b75ae · question
 Does RRLR's early perturbed highway (onset near 0) differ in type from the blank one? All 463 counterexamples are (384;4,4)-type, so no.
 What makes the blank start 256k steps slower than almost every perturbed start? Open; worth an onset-distribution experiment.
+
+### 2026-10-22 23:40 (+13:00) · 047e395 · observation
+Other session halted. Committed its claim-field validation and withdrawal of the pooled interval (91186e3). Promoted `evolve_chain` into `falsify`
+and re-ran all five claims from a clean worktree at 047e395: verdicts unchanged, thread-independent; RRRL adaptive evaluations find a different
+highway in 126/456 (first run: 8 counterexamples total). Pays the clean-re-run debt from 22:13.

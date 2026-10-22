@@ -107,3 +107,16 @@ Results were regenerated after the onset-flag fix. The CSVs are unchanged by it;
 history (commit before the re-run). The re-run binary was built from a working tree that also held another contributor's
 uncommitted hardening edits (claim-field validation, no pooled CI), so the provenance header's commit hash does not fully
 describe the source; the trial rows are unaffected by those edits but a clean re-run is owed.
+
+## Clean re-run with the promoted search (appended 2026-10-22, commit 047e395)
+`results/rerun-clean/`, built from a throwaway worktree at 047e395 (no uncommitted source; binary sha256
+`c7b699c578e6b96ddbd165815c6192f164338ef00ded4ef4dd769bc30e3e117e`, 11.6 s, identical output for 1 and 8 threads). This pays the
+"clean re-run owed" item above. The harness's adaptive class is now `falsify::evolve_chain` (200 evaluations per chain, 4 chains,
+immigration on), per `experiments/2026-10-22-falsify-adaptive-search`. It is not a new registered test: no new prediction was made.
+- Verdicts are unchanged: C1 Survived, C2 Survived, C3 Falsified, C4 Survived, C5 Falsified (horizon-sensitive, blank onset 256240).
+- The attacker finds far more on RRRL: 126 of 456 adaptive evaluations end in a different-type highway (143 counterexamples in all),
+  against 8 in total in the first run. Five were shrunk and reproduced on a second geometry, as before.
+- Class rows now include the evolutionary chain's random draws under their generator's name (patch, mono, obstacle, ...), so those rows have
+  more than 64 trials; mutated children are `adaptive`. Row totals are therefore not comparable with the first run.
+- C1/C2: still no counterexample after ~1,300 attacks each; with the search now beating random at long transients, that survival is
+  somewhat stronger evidence than before, but it remains "no counterexample in these classes at this horizon".

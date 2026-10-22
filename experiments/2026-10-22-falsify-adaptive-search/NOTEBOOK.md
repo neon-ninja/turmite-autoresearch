@@ -29,3 +29,6 @@ counterexample in 30/30 replicates; no adaptive arm matched it.
 
 ### 2026-10-22 23:06 (+13:00) · 21e025f · interpretation
 The search now beats sampling for long transients, not for counterexamples. Reporting both. Caveat: E5 passed on the threshold.
+
+### 2026-10-22 23:42 (+13:00) · 047e395 · observation
+Clean worktree run reproduces round 2 byte for byte for all four arms through the library implementation. Provenance caveat closed.

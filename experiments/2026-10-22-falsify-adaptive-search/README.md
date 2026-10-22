@@ -120,3 +120,8 @@ The `random`, `old` and `evolve` rows reproduce round 1 byte for byte (md5 of th
   and an objective that rewards structural novelty rather than delay. The comparison is against one sampler.
 - Next, if worth the effort: promote `evolve2` into `falsify::adaptive_chain` (blocked on the other contributor's uncommitted edits to
   `src/falsify.rs`), re-run `claims.txt`, and calibrate on a rule with a known rare trigger and a rarer one than RRRL's mono patch.
+
+## Clean re-run (commit 047e395, `results/clean/`)
+`evolve` and `evolve2` now call the library function `falsify::evolve_chain`; the `random` and `old` arms are unchanged. Built from a worktree with
+no uncommitted source (`# uncommitted src/tests files: none` in the CSV header). All four arms are byte-identical to `results/round2/`, which
+closes the provenance caveat of rounds 1 and 2 and confirms the port to the library did not change behaviour. Round-2 conclusions stand unchanged.
