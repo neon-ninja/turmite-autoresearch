@@ -11,36 +11,36 @@ forward; classic Langton's ant is `RL`). The headline question is why the
 pattern-field, edge and mixing statistics around that. See `notes/` for the
 live hypotheses, results and open questions.
 
-## Environment: use WSL for toolchains
+## Environment and toolchains
 
-This is a Windows machine. **Rust, Python and friends live in WSL**, not on the
-Windows PATH. Run anything toolchain-related through WSL:
+Run commands from the repository root using the toolchains available in your
+local, remote or container environment. Do not assume a checkout path, shell,
+CPU count, GPU, or preinstalled Python packages. Inspect the environment before
+choosing commands; adapt shell syntax and paths without changing the experiment.
 
-```bash
-wsl -e bash -lc "cd /mnt/f/Code/turmite && cargo test --release"
-wsl -e bash -lc "cd /mnt/f/Code/turmite && uv run experiments/2026-10-13-census-sweeps/scripts/census.py"
-```
-
-- The repo is visible in WSL at `/mnt/f/Code/turmite`.
-- Currently installed in WSL: cargo/rustc 1.98 (edition 2024), Python 3.12,
-  `uv`, numpy, scipy, PIL. **matplotlib and pandas are not installed.**
-- **Use `uv` for all Python work**, never bare `pip` or system-wide installs:
-  `uv run script.py` for scripts, `uv add`/`uv pip install` into a project
-  venv, `uv run --with matplotlib script.py` for one-offs. Dependencies are
-  declared in `pyproject.toml` (numpy, scipy, polars, matplotlib, pillow;
-  non-package project) with `uv.lock` committed. Add new ones with `uv add`
-  and mention them in the commit/notes that need them. The venv lives in the
-  WSL home, not on `/mnt/f`; set this in every WSL invocation:
-  `export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy`
-  (e.g. `wsl -e bash -lc "export UV_PROJECT_ENVIRONMENT=\$HOME/.venvs/turmite UV_LINK_MODE=copy && cd /mnt/f/Code/turmite && uv run experiments/2026-10-13-census-sweeps/scripts/census.py"`).
-  Scripts use polars, not pandas.
-- Use `-lc` (login shell) so `~/.cargo/bin` is on PATH.
-- Machine has 6 logical cores; sweeps use `rayon`. Long jobs: run in the
-  background and write to a log under the experiment's `results/`, don't block on them.
-- Build artifacts go in `/target` (gitignored). Building from `/mnt/f` is
-  slow-ish; if it matters, set `CARGO_TARGET_DIR=~/turmite-target`.
-- Git, file editing and Windows-side tools can be used natively from
-  PowerShell/Bash; just don't expect `cargo`/`python3` there.
+- Use Rust with edition 2024 support, Python 3.12 or newer, and `uv`.
+  See `.github/CI.md` for the exact versions used in CI.
+- **Use `uv` for all Python work**, never bare `pip` or system-wide installs.
+  Install the locked environment with `uv sync --frozen`, and run project
+  scripts with `uv run --frozen script.py`. Dependencies are declared in
+  `pyproject.toml` and pinned in `uv.lock`. Add new ones with `uv add` and
+  explain them in the relevant commit/notes. Scripts use polars, not pandas.
+- Let `uv` use its default project environment unless local storage requires
+  another location. Set `UV_PROJECT_ENVIRONMENT` and, if needed, `UV_LINK_MODE`
+  for that environment; do not hard-code a contributor's home directory.
+- Build artifacts go in `target/` (gitignored). If checkout storage is slow,
+  set `CARGO_TARGET_DIR` to a suitable local build directory. Keep generated
+  artifacts out of version control.
+- Sweeps use `rayon`. Check available resources and competing jobs; set
+  `RAYON_NUM_THREADS` when needed to respect the compute budget. Long jobs
+  should run in the background with logs under the experiment's `results/`.
+- CUDA is optional. CPU work must not require a GPU. For GPU jobs, verify
+  compatible hardware, driver and runtime libraries first; consult the GPU
+  experiment guides for platform-specific setup and record the actual setup.
+- Shell examples use POSIX syntax where pipelines or environment variables
+  are needed. Translate those parts for other shells. Keep machine-specific
+  launch commands and paths in local configuration or run provenance, rather
+  than shared onboarding instructions.
 
 ## Reproducibility is the first requirement
 
@@ -126,14 +126,15 @@ The aim is understanding, not a pile of plots. Be bold:
 | `web/` | In-browser simulator; `build.py` assembles it from `template.html` + `sim.js` + `page.js` |
 | `blog/` | Jekyll research devlog and experiment pages; run `uv run --frozen --only-group blog blog/scripts/experiments.py` before Jekyll to render saved notebooks (no execution); authoring and Pages setup in `blog/README.md`; deployed by `.github/workflows/blog.yml` |
 
-Typical commands (all via WSL, from `/mnt/f/Code/turmite`):
+Typical commands (from the repository root):
 
 ```bash
-cargo test --release                        # property tests vs oracle
+cargo test --release --locked               # property tests vs oracle
 cargo run --release --bin sweep -- ...       # census sweep
 cargo run --release --example rotorstats -- ...
 uv run experiments/2026-10-13-census-sweeps/scripts/census.py                        # analysis over the census CSVs
-uv run web/build.py                          # rebuild the web page
+mkdir -p web/dist                            # POSIX shell; create this directory in your shell
+uv run --frozen web/build.py web/dist/explorer.html
 node web/smoke.js                            # web smoke test (if node installed)
 ```
 
@@ -143,10 +144,11 @@ real step counts.
 ## GPU (CUDA) tools: when to reach for them
 
 Two batch runners exist, both byte-identical to their CPU counterparts and gated behind `--features cuda`
-(WSL only; `source experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh` first). Full usage, flags, Rust API and
+(requires compatible NVIDIA hardware and CUDA runtime libraries). The environment helper in
+`experiments/2026-10-16-gpu-ant-sweep/scripts/env.sh` is one Linux setup example; inspect and adapt its paths before use. Full usage, flags, Rust API and
 etiquette: "Using the GPU sweeper" and "`gpu_probe`" in `experiments/README.md`.
 
-| You need | Use | Measured gain (RTX 4000 Ada vs 6 CPU threads) |
+| You need | Use | Historical benchmark (hardware and recipe in linked experiment) |
 |---|---|---|
 | End state of thousands of (rule, background-seed) ants: the `sweep_lean` CSV | `gpu_sweep` | 4.9x at 1e8 steps, 4083 rules (`2026-10-16-gpu-ant-sweep`) |
 | `probe MAX_LOG2 GRID` on hundreds+ of `RULE` / `RULE@SEED` lines | `gpu_probe` | 5.8x at `probe 27 8192`, 2400 runs, but the CPU baseline shifted 34% unexplained (681.6 -> 912.5 s), so quote it as roughly 4-6x (`2026-10-16-gpu-probe`) |
@@ -170,7 +172,7 @@ Using them for further research:
   fastest) and check `oom_requeues == 0` in the stats JSON (a requeue restarts that ant).
 - Nothing else heavy may run during a GPU job or its timing (it takes all free VRAM and the cores for replay). Check
   `ps -eo pid,args | grep -E '/release/|cargo'` and `nvidia-smi` first.
-- **Stale-build trap (it produced a wrong "P2 held" result):** on `/mnt/f` source mtimes can stay older than the binary
+- **Stale-build trap (it produced a wrong "P2 held" result):** on some filesystems source mtimes can stay older than the binary
   after edits, so cargo rebuilds nothing. For any timed or published run, build into a fresh `CARGO_TARGET_DIR`, check the
   build's exit status (never pipe it through `tail`) and log the binary's sha256. `experiments/2026-10-16-gpu-probe/scripts/bench_p2.sh`
   does this and is the template for timing scripts.
