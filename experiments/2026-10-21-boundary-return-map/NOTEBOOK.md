@@ -16,6 +16,22 @@ Fact, with the command and file that produced it.
 ### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · interpretation
 What I think it means; confidence; the alternative explanations I have not excluded.
 
+
+### 2026-10-21 07:10 (+13:00) · bd60f47 · intent
+User pasted a proposal: boundary return operator R: B -> B, a compact Markov boundary state, and a diffusive derivation of L ~ t^(1/3). Plan: (1) no new data for the heuristic: it is the existing kappa identity; the diffusive version (E[T] ~ L^2) gives t^(1/4) and is contradicted by kappa ~ const (README, "Relation to the pasted proposal"); (2) test the return-map idea by colour intervention at boundary departures rather than by fitting state partitions, because in-sample ML closure cannot fail (first-passage lesson).
+
+### 2026-10-21 07:30 (+13:00) · bd60f47 · decision
+README registered (P1-P4, controls C1-C4) before any sampler run.
+
+### 2026-10-21 07:50 (+13:00) · bd60f47 · deviation
+Sampling changed before any pilot: stratified by baseline episode length with a live undo log (typical departures are T=1-2 and would have hidden the deep excursions that carry the time budget). Registered in README as "Sampling (revised 07:50)".
+
+### 2026-10-21 08:05 (+13:00) · bd60f47 · observation
+Smoke test (A0=4096, 1 rule, scratch/smoke, not data): C1b live_ok 100% on ant, rotor, rw; C2 rw ident=1 at every r; r=4096 ident=1 for all. Two instrument bugs found by these controls and fixed before the pilot: (a) the replay used the walker cloned at arrival, not departure (rw live_ok 2/24); (b) `ident` included arrival colour, which differs whenever a shuffled arrival cell has the same turn, making ident < unexposed. Deviation from README: `ident` is now (T, arrival cell, arrival heading); colour is still recorded (`c`). P2's E_r is computed with this definition.
+
+### 2026-10-21 08:10 (+13:00) · bd60f47 · intent
+Pilot: 12 rules x 2 seeds + rw:301, rotor:301-302; bands 32768 and 131072; K=16 per stratum, M=8, cap 2^20, board 4096; 2 threads (a 1e11 sweep is using the CPUs, so wall time here is not a measurement). Command in results/pilot.log header via scripts; binary built into ~/turmite-target-brm. Predictions P1-P4 are tested only on the confirmation cohort.
+
 ### 2026-10-21 08:40 (+13:00) · 67f7d03 · observation
 Pilot (25/27 specs; RLRLLLL ineligible, step budget). Controls C1b 2851/2851, rw identical, null ICC 0.011+-0.019. Population G reaches 0.8 at r*~1-7; time-weighted at ~L. Details in README "Pilot results".
 
