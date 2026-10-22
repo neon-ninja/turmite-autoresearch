@@ -1,4 +1,4 @@
-﻿//! The falsification harness is checked against the oracle (`reference::Ant`), against two exact
+//! The falsification harness is checked against the oracle (`reference::Ant`), against two exact
 //! symmetries of the dynamics, and on claims whose answer is known.
 
 use proptest::prelude::*;
@@ -215,4 +215,39 @@ fn late_highway_is_flagged_as_horizon_sensitive() {
     assert!(rep.late, "{:?}", rep.reasons);
     assert_eq!(rep.rungs[0].1, 0, "nothing escapes by the stated horizon");
     assert!(rep.rungs[2].1 > 0);
+}
+#[test]
+fn malformed_claims_are_rejected_without_lossy_numeric_casts() {
+    let prefix = "id=t kind=highway rule=RL registered=test";
+    for field in ["seed=-1", "seed=1.5", "trials=0", "size=32", "ladder=32", "horizon=0", "p_min=NaN", "same_canon=yes", "quantifier=universl", "id=../escape"] {
+        assert!(Claim::parse(&format!("{prefix} {field}")).is_err(), "{field}");
+    }
+    let c = Claim::parse(&format!("{prefix} seed=18446744073709551615 # comment")).unwrap();
+    assert_eq!(c.seed, u64::MAX);
+}
+
+#[test]
+fn adaptive_attacks_do_not_produce_binomial_confidence() {
+    let c = claim("id=t kind=highway rule=RRL quantifier=probabilistic trials=1 horizon=10000 ladder=0 size=128");
+    let (_, rep, _) = attack(&c);
+    assert!(rep.success_ci.is_none());
+    assert_ne!(rep.verdict, Verdict::Survived);
+    assert_ne!(rep.verdict, Verdict::Falsified);
+}
+
+#[test]
+fn cli_rejects_missing_arguments_and_unregistered_claims() {
+    use std::process::Command;
+    let binary = env!("CARGO_BIN_EXE_falsify");
+    let missing = Command::new(binary).output().unwrap();
+    assert_eq!(missing.status.code(), Some(2));
+    let dir = std::env::temp_dir().join(format!("turmite-falsify-registration-{}", std::process::id()));
+    std::fs::create_dir(&dir).unwrap();
+    assert!(Command::new("git").args(["init", "--quiet"]).current_dir(&dir).status().unwrap().success());
+    std::fs::write(dir.join(".gitignore"), "claims.txt\n").unwrap();
+    std::fs::write(dir.join("claims.txt"), "id=t kind=highway rule=RL registered=test\n").unwrap();
+    let output = Command::new(binary).args(["claims.txt", "out"]).current_dir(&dir).output().unwrap();
+    assert_eq!(output.status.code(), Some(2), "{}", String::from_utf8_lossy(&output.stderr));
+    assert!(!dir.join("out").exists());
+    std::fs::remove_dir_all(&dir).unwrap();
 }

@@ -1,4 +1,4 @@
-﻿//! Falsification harness (experiment `2026-10-22-falsification-harness`).
+//! Falsification harness (experiment `2026-10-22-falsification-harness`).
 //!
 //! A registered claim about a rule ("this rule forms a stable highway", "this rule is chaotic")
 //! is attacked rather than merely re-run for longer: perturbed initial boards, asymmetric
@@ -499,10 +499,6 @@ impl Claim {
                 return Err(format!("empty or duplicate field {key}"));
             }
         }
-        /* let kv: BTreeMap<&str, &str> = line
-            .split_whitespace()
-            .map(|t| t.split_once('=').ok_or(format!("expected key=value, got {t:?}")))
-            .collect::<Result<_, _>>()?; */
         let get = |k: &str| kv.get(k).copied().ok_or(format!("missing {k}="));
         let num = |k: &str, d: &str| -> Result<f64, String> {
             kv.get(k).copied().unwrap_or(d).parse::<f64>().map_err(|e| format!("{k}: {e}"))
@@ -728,23 +724,13 @@ pub fn evaluate(claim: &Claim, base: &Baseline, results: &[TrialResult]) -> Repo
             (h, hits, attack.len() as u64)
         })
         .collect();
-    let success_ci = (claim.kind == Kind::Highway).then(|| {
-        let ok = attack.iter().filter(|r| matches!(categorise(&r.run, base), Cat::HwSame) || (!claim.same_canon && matches!(r.run.outcome, Outcome::Highway(_)))).count() as u64;
-        clopper_pearson(ok, attack.len() as u64, 0.05)
-    });
+    // Correlated adaptive candidates and different attack distributions are not IID trials.
+    let success_ci = None;
     let verdict = if invalid {
         Verdict::Invalid
-    } else if !claim.universal && claim.kind == Kind::Highway {
-        let (lo, hi) = success_ci.unwrap();
-        if hi < claim.p_min {
-            reasons.push(format!("success rate CI [{lo:.4}, {hi:.4}] lies below p_min {}", claim.p_min));
-            Verdict::Falsified
-        } else if lo >= claim.p_min {
-            Verdict::Survived
-        } else {
-            reasons.push(format!("success rate CI [{lo:.4}, {hi:.4}] straddles p_min {}: need more trials", claim.p_min));
-            Verdict::Unsupported
-        }
+    } else if !claim.universal {
+        reasons.push("probabilistic claims require a separately registered IID sampling distribution; pooled attacks cannot estimate p_min".into());
+        Verdict::Unsupported
     } else if !counterexamples.is_empty() {
         Verdict::Falsified
     } else if unresolved_claim > 0 {

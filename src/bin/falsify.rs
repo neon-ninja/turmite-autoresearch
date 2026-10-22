@@ -17,7 +17,9 @@ use turmite::Rule;
 use turmite::falsify::*;
 
 fn git(args: &[&str]) -> String {
-    Command::new("git").args(args).output().map(|o| String::from_utf8_lossy(&o.stdout).trim().to_string()).unwrap_or_default()
+    let output = Command::new("git").args(args).output().expect("git is required for provenance");
+    assert!(output.status.success(), "git {:?} failed: {}", args, String::from_utf8_lossy(&output.stderr));
+    String::from_utf8_lossy(&output.stdout).trim().to_string()
 }
 
 fn outcome_str(o: Outcome) -> String {
@@ -61,12 +63,18 @@ fn replay(path: &str) {
 
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
+    if args.len() < 2 {
+        eprintln!("usage: falsify CLAIMS.txt OUT_DIR [--allow-dirty] | --replay FILE");
+        std::process::exit(2);
+    }
     if args.first().map(String::as_str) == Some("--replay") {
         return replay(&args[1]);
     }
     let (claims_path, out_dir) = (&args[0], &args[1]);
     let allow_dirty = args.iter().any(|a| a == "--allow-dirty");
-    let dirty = !git(&["status", "--porcelain", "--", claims_path]).is_empty();
+    let tracked = Command::new("git").args(["ls-files", "--error-unmatch", "--", claims_path]).output()
+        .is_ok_and(|o| o.status.success());
+    let dirty = !tracked || !git(&["status", "--porcelain", "--", claims_path]).is_empty();
     if dirty && !allow_dirty {
         eprintln!("refusing: {claims_path} has uncommitted changes or is untracked. Commit the registered claims first (or --allow-dirty).");
         std::process::exit(2);
@@ -126,6 +134,7 @@ fn run_claim(claim: &Claim, line: &str, provenance: &str, out_dir: &str) {
                 let mut u = t.clone();
                 u.init = init.clone();
                 falsifies(&run_trial(rule, &u).run)
+                    && falsifies(&run_trial(rule, &on_other_geometry(&u)).run)
             });
             let mut u = t.clone();
             u.init = small;
