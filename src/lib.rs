@@ -15,6 +15,7 @@ pub mod detect;
 pub mod edge_renewal;
 pub mod edge_trace;
 pub mod ext;
+pub mod falsify;
 pub mod fast;
 pub mod field_age;
 pub mod first_passage;
