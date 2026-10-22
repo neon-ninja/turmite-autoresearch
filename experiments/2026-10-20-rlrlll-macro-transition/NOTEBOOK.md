@@ -205,3 +205,6 @@ Task A margin too small, exact criterion passes); notes/ACTIVE.md and notes/proo
 cell was >= 31 rows from the rectangle), so the margin question never bit; it was a certificate gap, not a physical risk. (2) A re-simulation of the 1.27e10-step base case by an
 independent simulator is the remaining big trust gap; the GPU sweeper is byte-identical to fast::run, not to the tracer's plain loop. (3) The family needs only 19 columns of
 the 48; is the minimal width 19 or 20, and does it matter for a decider?
+
+### 2026-10-22 20:57 +1300 · 3fcfce8d332dd82fc7b79efa445431df1f787ba6 · intent
+Continue the existing L4 registration without changing it: bounded pre-step x semantics, frame and band iterations, kernel-evaluated S1/S3/S5 certificates, and an all-n composition identity. Attempt a single-cycle theorem; leave the multi-cycle padding obligation open unless proved. WSL requires sandbox escalation; toolchain access succeeded. No measurements or new predictions. The unrelated untracked root NOTEBOOK.md is left alone.

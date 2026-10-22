@@ -3,4 +3,4 @@ defaultTargets = ["Sweeper"]
 
 [[lean_lib]]
 name = "Sweeper"
-roots = ["Model", "Iter", "Data"]
+roots = ["Model", "Iter", "Data", "Bounded", "IterB", "Composition", "Cycle", "L4Data"]
