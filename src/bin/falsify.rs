@@ -108,7 +108,7 @@ fn run_claim(claim: &Claim, line: &str, provenance: &str, out_dir: &str) {
     if claim.classes.contains(&Class::Adaptive) {
         let chains: Vec<Vec<TrialResult>> = (0..claim.chains)
             .into_par_iter()
-            .map(|c| adaptive_chain(rule, claim.kind, c, claim.evals, claim.seed, claim.size, top, &base))
+            .map(|c| evolve_chain(rule, claim.kind, c, claim.evals, true, claim.seed, 0, claim.size, top, &base))
             .collect();
         results.extend(chains.into_iter().flatten());
     }

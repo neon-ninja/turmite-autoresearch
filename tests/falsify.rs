@@ -251,3 +251,32 @@ fn cli_rejects_missing_arguments_and_unregistered_claims() {
     assert!(!dir.join("out").exists());
     std::fs::remove_dir_all(&dir).unwrap();
 }
+
+#[test]
+fn evolve_chain_is_deterministic_and_spends_exactly_its_budget() {
+    let r = rule("RRRL");
+    let base = baseline(&r, 512, 60_000);
+    let a = evolve_chain(&r, Kind::Highway, 3, 24, true, 9, 0, 512, 60_000, &base);
+    let b = evolve_chain(&r, Kind::Highway, 3, 24, true, 9, 0, 512, 60_000, &base);
+    assert_eq!(a.len(), 24);
+    assert!(a.iter().zip(&b).all(|(x, y)| x.trial.init == y.trial.init && x.run.steps == y.run.steps));
+    let c = evolve_chain(&r, Kind::Highway, 4, 24, true, 9, 0, 512, 60_000, &base);
+    assert!(a.iter().zip(&c).any(|(x, y)| x.trial.init != y.trial.init), "replicates must differ");
+}
+
+#[test]
+fn evolve_beats_one_cell_climb_on_a_planted_tail() {
+    // Planted-effect calibration: on RL, the best of 120 evaluations by `evolve_chain` should exceed
+    // the best of 120 by the old one-cell climb in most of 8 replicates (registered result: p < 1e-8 at 200 x 30).
+    let r = rule("RL");
+    let base = baseline(&r, 1024, 400_000);
+    let best = |v: Vec<TrialResult>| v.iter().map(|t| t.run.steps).max().unwrap();
+    let wins = (0..8u32)
+        .filter(|&rep| {
+            let e = best(evolve_chain(&r, Kind::Highway, rep, 120, true, 5, 0, 1024, 400_000, &base));
+            let o = best(adaptive_chain(&r, Kind::Highway, rep, 120, 5, 1024, 400_000, &base));
+            e > o
+        })
+        .count();
+    assert!(wins >= 6, "evolve won only {wins}/8");
+}

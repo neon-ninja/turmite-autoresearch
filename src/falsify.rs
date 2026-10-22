@@ -450,6 +450,119 @@ pub fn adaptive_chain(rule: &Rule, kind: Kind, chain: u32, evals: u32, claim_see
     out
 }
 
+const UNION: [Class; 6] = [Class::Patch, Class::Mono, Class::Half, Class::Stripe, Class::Sparse, Class::Obstacle];
+const ELITES: usize = 8;
+
+/// The attacker's score for the evolutionary search. Highway claims: escape step of a baseline-type
+/// highway; twice the horizon for a start that never resolved; four times the horizon for a highway of
+/// a different type (a counterexample). Chaotic claims fall back to `score`.
+pub fn attack_score(kind: Kind, r: &Run, base: &Baseline, horizon: u64) -> f64 {
+    match kind {
+        Kind::Chaotic => score(kind, r, horizon),
+        Kind::Highway => match categorise(r, base) {
+            Cat::HwSame => r.steps as f64,
+            Cat::HwOther => 4.0 * horizon as f64,
+            Cat::Edge | Cat::Unresolved => 2.0 * horizon as f64,
+        },
+    }
+}
+
+/// One draw from the plain random sampler: a uniformly chosen generator among the dense-start classes.
+pub fn random_draw(rule: &Rule, idx: u32, seed: u64, size: usize, horizon: u64, base: &Baseline) -> Trial {
+    let class = UNION[(mix64(seed ^ idx as u64) % UNION.len() as u64) as usize];
+    make_trial(rule, class, idx, seed, size, horizon, base)
+}
+
+/// Multi-scale mutation: recolour, delete, add, shift, re-aim, stamp a 3x3 patch, or change the
+/// obstacle's timing, distance, size and seed.
+fn mutate(rule: &Rule, parent: &Trial, st: &mut u64, idx: u32, claim_seed: u64, size: usize, horizon: u64, base: &Baseline) -> Trial {
+    let n = rule.len() as u64;
+    let mut t = parent.clone();
+    t.class = Class::Adaptive;
+    t.index = idx;
+    t.seed = trial_seed(claim_seed, rule, Class::Adaptive, idx);
+    let mut m: BTreeMap<(i32, i32), u8> = t.init.cells.iter().copied().collect();
+    let pick = |st: &mut u64, m: &BTreeMap<(i32, i32), u8>| -> Option<(i32, i32)> {
+        (!m.is_empty()).then(|| *m.keys().nth((splitmix_next(st) % m.len() as u64) as usize).unwrap())
+    };
+    let pos = |st: &mut u64| ((splitmix_next(st) % 25) as i32 - 12, (splitmix_next(st) % 25) as i32 - 12);
+    for _ in 0..1 + splitmix_next(st) % 3 {
+        match splitmix_next(st) % 7 {
+            0 => {
+                if let Some(p) = pick(st, &m) {
+                    let col = (splitmix_next(st) % n) as u8;
+                    if col == 0 { m.remove(&p); } else { m.insert(p, col); }
+                }
+            }
+            1 => {
+                if let Some(p) = pick(st, &m) { m.remove(&p); }
+            }
+            2 => {
+                let p = pos(st);
+                m.insert(p, 1 + (splitmix_next(st) % (n - 1)) as u8);
+            }
+            3 => {
+                let (dx, dy) = ((splitmix_next(st) % 5) as i32 - 2, (splitmix_next(st) % 5) as i32 - 2);
+                m = m.into_iter().map(|((x, y), v)| ((x + dx, y + dy), v)).filter(|((x, y), _)| x.abs() <= 40 && y.abs() <= 40).collect();
+            }
+            4 => t.init.heading = (splitmix_next(st) % 4) as u8,
+            5 => {
+                let (cx, cy) = pos(st);
+                for dy in 0..3 {
+                    for dx in 0..3 {
+                        let col = (splitmix_next(st) % n) as u8;
+                        if col == 0 { m.remove(&(cx + dx, cy + dy)); } else { m.insert((cx + dx, cy + dy), col); }
+                    }
+                }
+            }
+            _ => {
+                let scale = (base.period as i64 * 4).max(1000);
+                t.perturb = match (&t.perturb, splitmix_next(st) % 5) {
+                    (None, _) | (Some(_), 0) => make_trial(rule, Class::Obstacle, idx, claim_seed, size, horizon, base).perturb,
+                    (Some(p), 1) => Some(Perturb { at: (p.at as i64 + (splitmix_next(st) % (2 * scale as u64 + 1)) as i64 - scale).max(1) as u64, ..p.clone() }),
+                    (Some(p), 2) => Some(Perturb { ahead: (p.ahead + (splitmix_next(st) % 17) as i32 - 8).clamp(0, 200), ..p.clone() }),
+                    (Some(p), 3) => Some(Perturb { radius: (p.radius + (splitmix_next(st) % 3) as i32 - 1).clamp(0, 6), seed: splitmix_next(st), ..p.clone() }),
+                    (Some(_), _) => None,
+                };
+            }
+        }
+    }
+    t.init.cells = m.into_iter().collect();
+    t
+}
+
+/// Evolutionary attack chain: the first quarter of the budget is plain random draws, then a (mu + lambda)
+/// search (mu = 8 elites) mutates uniformly chosen elites. With `immigrate`, a quarter of the children are
+/// fresh random draws instead, which keeps rare structures (a start that gives a different highway) from
+/// being starved by delay-ranking. Equal-budget results against random sampling and the one-cell hill-climb:
+/// `experiments/2026-10-22-falsify-adaptive-search`. `salt` separates the random streams of different arms.
+pub fn evolve_chain(rule: &Rule, kind: Kind, rep: u32, budget: u32, immigrate: bool, claim_seed: u64, salt: u64, size: usize, horizon: u64, base: &Baseline) -> Vec<TrialResult> {
+    let drawn_seed = claim_seed ^ salt;
+    let mut st = mix64(claim_seed ^ salt ^ rep as u64);
+    let seeding = budget / 4;
+    let mut pop: Vec<(f64, Trial)> = vec![];
+    let mut out = Vec::with_capacity(budget as usize);
+    for k in 0..budget {
+        let idx = rep * budget + k;
+        let fresh = immigrate && k >= seeding && splitmix_next(&mut st) % 4 == 0;
+        let t = if k < seeding || fresh {
+            random_draw(rule, idx, drawn_seed, size, horizon, base)
+        } else {
+            let parent = pop[(splitmix_next(&mut st) % pop.len() as u64) as usize].1.clone();
+            mutate(rule, &parent, &mut st, idx, claim_seed, size, horizon, base)
+        };
+        let res = run_trial(rule, &t);
+        pop.push((attack_score(kind, &res.run, base, horizon), t));
+        out.push(res);
+        if k + 1 >= seeding || pop.len() > ELITES {
+            // stable sort keeps the older of equal scores
+            pop.sort_by(|a, b| b.0.partial_cmp(&a.0).unwrap());
+            pop.truncate(ELITES);
+        }
+    }
+    out
+}
+
 // ---------------------------------------------------------------- verdicts
 
 /// How one trial relates to the baseline highway type.
@@ -551,7 +664,7 @@ impl Claim {
             size: usize::try_from(integer("size", "2048")?).map_err(|_| "size exceeds usize")?,
             seed: integer("seed", "1")?,
             chains: count("chains", "4")?,
-            evals: count("evals", "40")?,
+            evals: count("evals", "200")?,
             // The prediction must be time-stamped before the attack; the git check lives in the binary.
             registered: get("registered")?.to_string(),
         };

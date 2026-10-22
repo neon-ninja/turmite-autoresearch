@@ -6,20 +6,16 @@
 //! Arms, each given exactly `budget` evaluations per replicate on claims C1..C3 of the harness:
 //! - `random`: uniform draws from the harness's own start generators (patch, mono, half, stripe, sparse, obstacle);
 //! - `old`: the harness's one-cell hill-climb (`adaptive_chain`);
-//! - `evolve`: random draws for the first quarter of the budget, then a (mu + lambda) search with multi-scale
+//! - `evolve` / `evolve2`: `falsify::evolve_chain` (the second with 1/4 fresh random draws among the children):
+//!   random draws for the first quarter of the budget, then a (mu + lambda) search with multi-scale
 //!   mutations that include the obstacle's parameters.
 //! Everything is keyed by (claim, arm, replicate), so output does not depend on the thread count.
 
 use rayon::prelude::*;
-use std::collections::BTreeMap;
 use std::fmt::Write as _;
 use std::process::Command;
 use turmite::Rule;
 use turmite::falsify::*;
-use turmite::walkers::{mix64, splitmix_next};
-
-const UNION: [Class; 6] = [Class::Patch, Class::Mono, Class::Half, Class::Stripe, Class::Sparse, Class::Obstacle];
-const ELITES: usize = 8;
 
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Debug)]
 enum Arm {
@@ -90,112 +86,19 @@ impl Outcome1 {
     }
 }
 
-fn random_trial(c: &Ctx, rep: u32, k: u32, budget: u32, arm_salt: u64) -> Trial {
-    let idx = rep * budget + k;
-    let class = UNION[(mix64(c.claim_seed ^ arm_salt ^ idx as u64) % UNION.len() as u64) as usize];
-    make_trial(c.rule, class, idx, c.claim_seed ^ arm_salt, c.size, c.horizon, c.base)
-}
-
-fn eval(c: &Ctx, t: &Trial) -> (f64, Run) {
-    let r = run_trial(c.rule, t).run;
-    (score(&r, c.base, c.horizon), r)
-}
-
-fn mutate(c: &Ctx, parent: &Trial, st: &mut u64, idx: u32) -> Trial {
-    let n = c.rule.len() as u64;
-    let mut t = parent.clone();
-    t.class = Class::Adaptive;
-    t.index = idx;
-    t.seed = trial_seed(c.claim_seed, c.rule, Class::Adaptive, idx);
-    let mut m: BTreeMap<(i32, i32), u8> = t.init.cells.iter().copied().collect();
-    let pick = |st: &mut u64, m: &BTreeMap<(i32, i32), u8>| -> Option<(i32, i32)> {
-        (!m.is_empty()).then(|| *m.keys().nth((splitmix_next(st) % m.len() as u64) as usize).unwrap())
-    };
-    let pos = |st: &mut u64| ((splitmix_next(st) % 25) as i32 - 12, (splitmix_next(st) % 25) as i32 - 12);
-    for _ in 0..1 + splitmix_next(st) % 3 {
-        match splitmix_next(st) % 7 {
-            0 => {
-                // recolour (colour 0 removes the cell)
-                if let Some(p) = pick(st, &m) {
-                    let col = (splitmix_next(st) % n) as u8;
-                    if col == 0 { m.remove(&p); } else { m.insert(p, col); }
-                }
-            }
-            1 => {
-                if let Some(p) = pick(st, &m) { m.remove(&p); }
-            }
-            2 => {
-                let p = pos(st);
-                m.insert(p, 1 + (splitmix_next(st) % (n - 1)) as u8);
-            }
-            3 => {
-                let (dx, dy) = ((splitmix_next(st) % 5) as i32 - 2, (splitmix_next(st) % 5) as i32 - 2);
-                m = m.into_iter().map(|((x, y), v)| ((x + dx, y + dy), v)).filter(|((x, y), _)| x.abs() <= 40 && y.abs() <= 40).collect();
-            }
-            4 => t.init.heading = (splitmix_next(st) % 4) as u8,
-            5 => {
-                // 3x3 stamp of random colours
-                let (cx, cy) = pos(st);
-                for dy in 0..3 {
-                    for dx in 0..3 {
-                        let col = (splitmix_next(st) % n) as u8;
-                        if col == 0 { m.remove(&(cx + dx, cy + dy)); } else { m.insert((cx + dx, cy + dy), col); }
-                    }
-                }
-            }
-            _ => {
-                let scale = (c.base.period as i64 * 4).max(1000);
-                t.perturb = match (&t.perturb, splitmix_next(st) % 5) {
-                    (None, _) | (Some(_), 0) => make_trial(c.rule, Class::Obstacle, idx, c.claim_seed, c.size, c.horizon, c.base).perturb,
-                    (Some(p), 1) => Some(Perturb { at: (p.at as i64 + (splitmix_next(st) % (2 * scale as u64 + 1)) as i64 - scale).max(1) as u64, ..p.clone() }),
-                    (Some(p), 2) => Some(Perturb { ahead: (p.ahead + (splitmix_next(st) % 17) as i32 - 8).clamp(0, 200), ..p.clone() }),
-                    (Some(p), 3) => Some(Perturb { radius: (p.radius + (splitmix_next(st) % 3) as i32 - 1).clamp(0, 6), seed: splitmix_next(st), ..p.clone() }),
-                    (Some(_), _) => None,
-                };
-            }
-        }
-    }
-    t.init.cells = m.into_iter().collect();
-    t
-}
-
 fn run_arm(c: &Ctx, arm: Arm, rep: u32, budget: u32) -> Outcome1 {
     let mut o = Outcome1::default();
-    match arm {
-        Arm::Random => {
-            for k in 0..budget {
-                let t = random_trial(c, rep, k, budget, arm.salt());
-                let (s, r) = eval(c, &t);
-                o.push(s, &r, c.base);
-            }
-        }
-        Arm::Old => {
-            for res in adaptive_chain(c.rule, Kind::Highway, rep, budget, c.claim_seed ^ arm.salt(), c.size, c.horizon, c.base) {
-                o.push(score(&res.run, c.base, c.horizon), &res.run, c.base);
-            }
-        }
+    let results: Vec<TrialResult> = match arm {
+        Arm::Random => (0..budget)
+            .map(|k| run_trial(c.rule, &random_draw(c.rule, rep * budget + k, c.claim_seed ^ arm.salt(), c.size, c.horizon, c.base)))
+            .collect(),
+        Arm::Old => adaptive_chain(c.rule, Kind::Highway, rep, budget, c.claim_seed ^ arm.salt(), c.size, c.horizon, c.base),
         Arm::Evolve | Arm::Evolve2 => {
-            let mut st = mix64(c.claim_seed ^ arm.salt() ^ rep as u64);
-            let mut pop: Vec<(f64, Trial)> = vec![];
-            let seeding = budget / 4;
-            for k in 0..budget {
-                let fresh = arm == Arm::Evolve2 && k >= seeding && splitmix_next(&mut st) % 4 == 0;
-                let t = if k < seeding || fresh {
-                    random_trial(c, rep, k, budget, arm.salt())
-                } else {
-                    let parent = pop[(splitmix_next(&mut st) % pop.len() as u64) as usize].1.clone();
-                    mutate(c, &parent, &mut st, rep * budget + k)
-                };
-                let (s, r) = eval(c, &t);
-                o.push(s, &r, c.base);
-                pop.push((s, t));
-                if k + 1 >= seeding || pop.len() > ELITES {
-                    // stable sort keeps the older of equal scores
-                    pop.sort_by(|a, b| b.0.partial_cmp(&a.0).unwrap());
-                    pop.truncate(ELITES);
-                }
-            }
+            evolve_chain(c.rule, Kind::Highway, rep, budget, arm == Arm::Evolve2, c.claim_seed, arm.salt(), c.size, c.horizon, c.base)
         }
+    };
+    for r in results {
+        o.push(score(&r.run, c.base, c.horizon), &r.run, c.base);
     }
     o
 }
