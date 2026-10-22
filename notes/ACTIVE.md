@@ -106,9 +106,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Repository housekeeping
 
 - **Jupyter**: `ipykernel`, `nbformat`, `nbclient` added to `pyproject.toml`/`uv.lock` (`7df6d35`). The leadrun-fresh notebook's Proposal 2 bounds are not in it (rebuild with `scripts/build_notebook.py` if wanted).
-- **Refresh `blog/index.html`** (convention in `AGENTS.md`): the c-law and lattice results were already on it; a kappa-spread highlight (family hold-out) was added 2026-10-20. A null-result post
-  (`blog/_posts/2026-10-20-where-kappa-is-not.md`, with reader guides for the three 2026-10-20 kappa experiments) was added 2026-10-20;
-  the post itself is not linked from the index cards. The experiment pages were
+- **Blog index refreshed (done 2026-10-22):** c-law, lattice, lead-slope-by-colour and kappa-spread highlights and the null-result post link are on `blog/index.html`. The experiment pages were
   re-rendered 2026-10-20 (from a worktree under WSL set `GIT_DIR=/mnt/f/Code/turmite/.git/worktrees/<name>` and `GIT_WORK_TREE=$PWD`).
 - **Stale worktrees and branches** (nothing deleted). On 2026-10-20 tracked work was committed on their own branches
   (`agent-a810708e829d8af34` as `4cb0261`, `g1-builder-structure` as `b985636`, rulepat as `275d52b`), but **gitignored data
