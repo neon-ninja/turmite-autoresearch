@@ -138,6 +138,7 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/gpu/`, `src/bin/gpu_sweep.rs` | CUDA batch runner for thousands of (rule, background-seed) ants; `--features cuda`; output must equal `fast::run`/`sweep_lean` (`tests/gpu.rs`). Setup and usage: `experiments/2026-10-16-gpu-ant-sweep/README.md` |
 | `src/gpu/probe.{rs,cu}`, `src/bin/gpu_probe.rs` | `probe` on the GPU for plain rules and `RULE@SEED` only (other walkers stay CPU); CSV byte-identical to `src/bin/probe.rs` (`tests/gpu_probe.rs`). Use for `probe 27 8192` batches of hundreds+ runs. `experiments/2026-10-16-gpu-probe/README.md` |
 | `src/bin/confirm.rs` | Re-verify claimed highways / classifications |
+| `src/falsify.rs`, `src/bin/falsify.rs`, `src/bin/falsify_search.rs` | Falsification harness: attacks a registered claim ("R is chaotic", "R forms this highway from every start") with perturbed starts, obstacles, edge starts and an evolutionary search; verdicts Falsified / Invalid / Unsupported / Survived. **Read `experiments/2026-10-22-falsification-harness/GUIDE.md` before using or extending it** |
 | `src/bin/growth.rs` | Growth-exponent measurement |
 | `src/bin/probe.rs` | Run the probe on a rule/seed |
 | `examples/*.rs` | One-off analyses (`edgestats`, `rotorstats`, `occupancy`, `longperiod`, ...); run with `cargo run --release --example NAME -- ARGS` |
@@ -266,6 +267,10 @@ shareable notebook and `notes/`; they do not replace them.
 - Keep Rust deterministic and dependency-light (currently only `rayon`, plus
   `proptest` for dev). Justify new crates.
 - Match surrounding style; comments explain *why*, not what.
+- **Attack classification claims before asserting them.** A "chaotic", "stabilised" or "forms highway X from every start" statement in
+  `notes/`, the blog or the paper should have survived the falsification harness (`experiments/2026-10-22-falsification-harness/GUIDE.md`),
+  with the claim registered and committed before the run. A blank-board horizon run alone is not enough; say which verdict you got
+  (a `Survived` is "no counterexample found", never a proof) or that the claim has not been attacked.
 - **Isolate working material.** Each investigation lives in its own
   `experiments/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
   results). Bulk output (dumps, knockout maps, scratch) goes in that folder's
