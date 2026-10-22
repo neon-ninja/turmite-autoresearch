@@ -1,0 +1,28 @@
+{
+ "n_highways": 582,
+ "violations": {
+  "F1": {
+   "count": 0,
+   "examples": []
+  },
+  "F2": {
+   "count": 0,
+   "examples": []
+  },
+  "F3": {
+   "count": 0,
+   "examples": []
+  }
+ },
+ "tile_free_group_orders_m2_m4_m8": {
+  "F1": {
+   "(4, 8, 8)": 582
+  },
+  "F2": {
+   "(4, 8, 8)": 582
+  },
+  "F3": {
+   "(8, 16, 16)": 582
+  }
+ }
+}

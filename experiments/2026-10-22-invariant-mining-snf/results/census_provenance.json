@@ -1,0 +1,30 @@
+{
+ "command": "experiments/2026-10-22-invariant-mining-snf/scripts/census.py --nmax 5",
+ "git_head": "91186e3c25cab7151ef55412809ede2fbf51b841",
+ "git_dirty_paths": [
+  "?? experiments/2026-10-22-invariant-mining-snf/results/",
+  "?? experiments/2026-10-22-invariant-mining-snf/scripts/",
+  "?? experiments/_lib/lawmod.py"
+ ],
+ "python": "3.12.11",
+ "lawmod_sha256": "1f24cbfbbc6d656adf01fb35c997842f6b4511444cdb2df05b7d4fe865f934fd",
+ "script_sha256": "f5676855ae3c754fa2c1d575d6845eff70d09cce86440ce2750aacf4cc3dc843",
+ "nmax": 5,
+ "P1": {
+  "rules_checked_per_family": 60,
+  "exceptions": {}
+ },
+ "P4_mismatches": [
+  "RR",
+  "LL",
+  "RRRL",
+  "RRLR",
+  "RLRR",
+  "RLLL",
+  "LRRR",
+  "LRLL",
+  "LLRL",
+  "LLLR"
+ ],
+ "P4_rules": 60
+}
