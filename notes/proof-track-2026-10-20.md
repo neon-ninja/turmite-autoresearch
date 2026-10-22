@@ -80,7 +80,7 @@ in the paper.
 
 ## Next steps (proposed, none started)
 
-1. *Assurance* (partly done 2026-10-21, Task C): second checker and Lean shift lemmas exist. Left: Lean statements of S1, S3, S5 and the composition identity for all n (the generator and the iteration theorems are in place; needs a bounded-run semantics for "first reaches column -3" and a padding story across cycles), and a re-run of the 1.27e10-step base case by a second simulator.
+1. *Assurance* (updated 2026-10-22, L4): Lean now accepts S1/S3/S5, bounded band inductions, the composition identity for all n, and the complete single-cycle clocks and first arrival at column -3 (`f90733c412c95029da2eafeaa8923a69339bc2a6`; experiment README, L4 continuation; `results/c3_l4_build.txt` and `results/c3_l4_axioms.txt`). Still open: cycle-to-cycle padding/infinite-plane closure (outputs have 12/14/13 blank rows above and 13 below, while inputs own 14 on both sides), and the independent long base-case re-simulation. This is not a Lean proof of infinitely many cycles or blank-board entry.
 2. *Generalise the checker*, not the rule: run the same propose-then-check loop on the other no-highway escapes
    (`RLLLLRRL`, `RLLLLRLRRL`, `RLLLRLRLLL`) and on every census highway (a highway is the m-free special case). A
    "sweeper decider" over the census would be the proof-track analogue of the bbchallenge deciders.

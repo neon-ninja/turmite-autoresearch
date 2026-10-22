@@ -143,19 +143,40 @@ surrounding rows), and the two shift lemmas as iteration theorems for all `n`, i
 `decide +kernel`. No `sorry`; axioms propext and Quot.sound only."""),
 code("""print((R / "c3_axioms.txt").read_text())
 print(chr(10).join(l for l in (R / "c3_build.txt").read_text().splitlines() if l.startswith(("Build", "BUILD", "Lean", "#"))))"""),
-md("""Not machine-checked: the top/bottom end runs, the composition identity for all `m`, and the passage from one cycle to the next (paper steps in
-the README).
+md("""**L4 continuation, 2026-10-22.** The earlier C3 log above is preserved. The end runs and composition are now checked too,
+at implementation `f90733c412c95029da2eafeaa8923a69339bc2a6`. `Bounded.lean` checks every pre-step x in [-2,47], while permitting
+the final arrival at -3. `IterB.lean` proves the bounded band inductions. `L4Data.lean` contains nine kernel-decided S1/S3/S5
+certificates (387/383/383, 216 each, 355/483/323 steps) and six bounded descent/return certificates. `Cycle.lean` composes the five
+stages for all n; `cycle0/1/2` and `cycle_runN0/1/2` prove the clocks 12m + 934/1058/898 for every m = 2+2n.
+`composition0/1/2` prove the next-phase grid identity for all n by list algebra, and `first_arrival0/1/2` plus `target_ant0/1/2`
+give first arrival at column -3 and the next ant state. These are single-cycle theorems in the finite list-of-rows model.
+
+Reproduce: `bash experiments/2026-10-20-rlrlll-macro-transition/scripts/l4_check.sh` under WSL, with the uv environment in the README.
+The script regenerates proposed rows, uses a fresh build directory, and records hashes and the axiom audit. No new measurements or seeds."""),
+code("""for name in ["c3_l4_build.txt", "c3_l4_axioms.txt"]:
+    raw = (R / name).read_bytes()
+    print(name, "sha256", hashlib.sha256(raw).hexdigest())
+    lines = raw.decode().splitlines()
+    if name.endswith("build.txt"):
+        print(chr(10).join(lines[:4] + lines[-3:]))
+    else:
+        assert "sorryAx" not in raw.decode() and "Lean.ofReduceBool" not in raw.decode()
+        print(chr(10).join(line for line in lines if any(
+            key in line for key in ["s1_cert", "s3_cert", "s5_cert", "composition", "cycle0", "cycle1", "cycle2", "first_arrival", "target_ant"])))"""),
+md("""**Multi-cycle padding remains open.** The output comparison has 12/14/13 blank rows above the target rectangle and 13 below,
+where the next input asks for 14 on both sides. Shifting/cutting the finite rows and adding new western blank context is a defined
+comparison operation, not a proved infinite-board extension. No Lean proof of padding replenishment or indefinitely many cycles exists here.
 
 ## What this does not show (caveats)
 - **Entry.** The cell-level family holds from step 12,676,237,591 (x = -1552, m = 4); the clock formula extends exactly to x = -1510 (m = -24, column height 19, step 12,676,226,047); before that the log is irregular. The wedge starts at height ~19-21, not zero (the apex extrapolation was wrong). Not shown: what inside the blob corner produces that first column, and a cell-level description for m < 4. The old-blob cells outside the rectangle are excluded by a 3-row light-cone margin chosen from the observed growth, not derived from the checker. E1 (registered) was rejected as scored; A2 and B2 also failed as registered.
 - **Trust.** The base case is one run of an uncertified plain loop (consistent with an independent run's exit step); the second checker
-  did not re-run it. Two checkers (Rust, Python) by one author now agree on every constant, and the two shift lemmas are Lean-checked for all `n`;
-  the end runs and the composition are not.
+  did not re-run it. Two checkers (Rust, Python) by one author agree on every constant. Lean now checks bounded single cycles and composition
+  for all `n`; infinite-plane lifting, multi-cycle padding and a model-correspondence theorem to Rust remain open.
 - **Explanation.** The check certifies the period-3 wake and the bulk row `14435435...`; it does not say why they arise.
 - P4 was tested on 373 sampled boundaries, not all 4,729 (the checker then covers all of them).
 
 ## Next
-Lean statements of the end runs and the composition (and the cycle-to-cycle padding bookkeeping); the same propose-then-check loop on the other
+Lean cycle-to-cycle padding and infinite-plane lifting; the same propose-then-check loop on the other
 no-highway escapes and on census highways (a "sweeper decider"); an explanation of the clock at m < 2, and what at the NW blob corner seeds the first column."""),
 ]
 nb = nbf.v4.new_notebook(cells=cells)

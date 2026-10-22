@@ -609,3 +609,55 @@ Predictions (numbers are from the earlier plain-loop runs, so a mismatch would b
 - D3: wall time of (a) under 5 minutes on one core (about 1e8 steps/s from earlier sweeps); (b) similar.
 Not claimed: this does not independently confirm the *cell-level C(4,1) match* (that is Task A's dump comparison); it confirms the simulation that produced the board.
 Stale-build trap: build into a fresh CARGO_TARGET_DIR, check exit status, log the binary sha256.
+
+## L4 continuation (2026-10-22 21:10 +1300; earlier registration and scores preserved)
+
+Implementation: `f90733c412c95029da2eafeaa8923a69339bc2a6`. This follows the route registered under C3;
+it changes neither the family nor any prediction. No new ant measurements, random seeds, fits or estimators.
+The generator `scripts/l4_gen.py` uses `c1b.py` and `results/canonical_k0.txt` to propose rows. The proposals
+are untrusted: Lean replays every finite run with `decide +kernel`. The original L1-L3 files and certificates remain.
+
+**Accepted single-cycle statements.** In namespace `Sweeper`, for each q = 0, 1, 2 and every natural n, m = 2 + 2n:
+
+| Lean declarations | Exact accepted claim |
+|---|---|
+| `runB_add`, `runB_runN`, `runB_emb`, `runB_prefix` in `Bounded.lean` | Every pre-step position satisfies -2 <= x <= 47; final arrival is unrestricted. Bounded runs compose, imply the original `runN`, and extend to arbitrary surrounding rows. Every strict prefix arrival under `runN` satisfies the x bound. |
+| `descent_iterB`, `return_iterB` in `IterB.lean` | Bounded versions of the existing inductions for arbitrary n, from one bounded certificate each. |
+| `s1_cert{q}`, `s3_cert{q}`, `s5_cert{q}` in `L4Data.lean` | Nine exact bounded patch runs: S1 387/383/383 steps, S3 216/216/216, S5 355/483/323. Six further bounded descent/return certificates replay 20/4 steps. All use `decide +kernel`. |
+| `compose_band`, `composition{q}` | For all n, the shifted/cut grid `E5 ++ (replicate n rpp).flatten ++ D3` is the next phase's top, 2n+4 bulk rows and bottom, with the explicit blank padding below. The proof uses list algebra and finite end/band equalities, not sampling n. |
+| `cycle_chain`, `cycle{q}`, `cycle_runN{q}` | The five bounded stages compose for all n. Starting with 14 blank rows above and below the phase-q rectangle, the exact clock is 12m + (934,1058,898)[q], and the full output state is `final{q} n`, under both `runB` and `runN`. |
+| `first_arrival{q}`, `target_ant{q}` | Every strict prefix position has -2 <= x <= 47, while the final ant is at x = -3. Renaming x to x+3 and recentering y gives exactly the next phase's ant and heading. |
+
+The composition uses `shiftRow r = [0,0,0] ++ r.take 48`: rename old x to x+3, keep new columns
+0..47, and prepend three blank western context columns. It is explicitly a finite-window grid identity.
+The target padding is:
+
+| q -> next phase | Blank rows above | Blank rows below | Final ant y in the original padded frame | Next ant dy |
+|---|---:|---:|---:|---:|
+| 0 -> 1 | 12 | 13 | 19 | 7 |
+| 1 -> 2 | 14 | 13 | 20 | 6 |
+| 2 -> 0 | 13 | 13 | 19 | 6 |
+
+**Still open: multi-cycle padding and infinite-plane closure.** The output has fewer than 14 blank rows on
+some sides, so it is not the next theorem's input. We have not proved that one may replenish blank rows,
+transport the state to an infinite board, discard eastern wake columns indefinitely, or iterate the cycle
+forever. `shiftRow`'s three new western blank context columns are a definition of the comparison window,
+not a proved infinite-board extension. Thus the registered end runs, all-n composition and one-cycle
+route are achieved; a Lean theorem of indefinitely repeated cycles remains unproved. This continuation
+also does not prove entry from a blank board, Task D, the global-front premise, or a correspondence theorem
+between the Lean model and Rust. Earlier program-checker claims retain their stated trust assumptions.
+
+**Reproduce the acceptance and axiom audit** (WSL; Lean version pinned by `lean-toolchain`):
+
+```bash
+export UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite UV_LINK_MODE=copy
+bash experiments/2026-10-20-rlrlll-macro-transition/scripts/l4_check.sh
+```
+
+This regenerates `L4Data.lean`, copies the proof project into a fresh directory under this experiment's
+ignored `scratch/`, builds every module, and runs `Check.lean`. Existing C3 logs are preserved; new output
+is `results/c3_l4_build.txt` (source commit, input/source SHA256s, exact command, toolchain and build status)
+and `results/c3_l4_axioms.txt` (theorem-by-theorem axiom report). The accepted declarations use only
+`propext` and `Quot.sound`, or no axioms; no `sorryAx`, `Lean.ofReduceBool`, `native_decide` or new axioms.
+Finite checks are deterministic and contain no statistical uncertainty. Standard release tests are also
+run; their outcome is recorded in the session notebook. No GPU tests are needed: neither Rust nor CUDA changed.
