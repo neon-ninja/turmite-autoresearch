@@ -48,3 +48,51 @@ header: command, commit, and a hash of any uncommitted `src/`+`tests/` diff, whi
 
 ## Results
 (appended after the run; predictions above are not edited.)
+
+## Round 1 results (run 2026-10-22, 30 replicates x 200 evaluations; `results/search.csv`, `results/search_summary.txt`)
+Provenance caveat: the binary was built from a working tree that also held another contributor's uncommitted edits to
+`src/falsify.rs` (listed in the CSV header). The arms use only the public API and the shared start generators, so I do not
+expect them to matter, but a clean re-run is owed. Run time 23.6 s; output identical for 1 and 8 threads (checked on a small run).
+
+| claim | arm | median max score | one-sided Mann-Whitney vs `random` |
+|---|---|---|---|
+| C1 RL | random | 124144 | - |
+| | old | 90350 | p = 1.00 (random is better) |
+| | evolve | 154172 | P(evolve>random) = 0.91, p = 2.7e-8 |
+| C2 RRL | random | 37712 | - |
+| | old | 20648 | p = 1.00 |
+| | evolve | 45996 | P = 0.73, p = 1.3e-3 |
+| C3 RRRL | random | 8000000 (saturated) | - |
+| | old | 29526 | p = 1.00 |
+| | evolve | 8000000 (saturated) | P = 0.37, p = 0.999 |
+
+Counterexample discovery in C3 (a highway of another type; score 4 x horizon): random 30/30 replicates, evolve 22/30, old 11/30.
+
+### Predictions vs outcome
+- **E1 (evolve beats random in both C1 and C3): failed.** It holds in C1 by a wide margin (median 154k vs 124k; best single
+  start 308448 steps vs 164313). In C3 the score saturates at the counterexample value, so the delay metric cannot show a win
+  there, and the discovery rate is *lower* than random's.
+- **E2 (C2 not significant): failed.** `evolve` beats `random` in C2 (p = 1.3e-3).
+- **E3 (old does not beat random): held**, and more strongly than predicted: `old` is significantly *worse* than `random`
+  in C1 and C2 (it spends 200 evaluations on a dense-patch plateau).
+- **E4 (evolve finds counterexamples in more C3 replicates than random): failed** (22 vs 30).
+
+### Interpretation
+- The original failure was mostly the search design, not a property of adaptivity: seeding from the random draws, keeping an
+  elite set, multi-scale mutations and the obstacle genes make the same budget find substantially longer delays on RL and RRL.
+- The C3 result is an objective conflict I did not anticipate: ranking by delay pulls the population toward long-transient
+  starts and away from the rare structures (one-colour patches) that produce a different highway type. A counterexample is
+  rare (about 2% of draws), so spending 150 of 200 evaluations on children of delay-elites loses discoveries that pure random
+  draws make. Untested explanation; round 2 tests it.
+- Superiority is over this sampler (uniform over six generators) on three rules, at one budget.
+
+## Round 2: registered 2026-10-22, before the variant was implemented
+Variant `evolve2`: identical to `evolve`, except each child is, with probability 1/4, a fresh random draw ("immigration")
+instead of a mutation of an elite. Same budget, same 30 replicates, same claims; the other three arms are re-run and must
+reproduce round 1 exactly (a determinism check).
+| # | prediction | confidence |
+|---|---|---|
+| E5 | In C3, `evolve2` finds a different-type highway in >= 27/30 replicates (random 30/30, evolve 22/30). | 65% |
+| E6 | In C1, `evolve2` still beats `random` on max delay, one-sided p < 0.01. | 70% |
+| E7 | In C2, `evolve2` beats `random`, p < 0.05. | 60% |
+Round 2 results go to `results/round2/`.
