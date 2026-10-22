@@ -111,6 +111,7 @@ H = json.load(open(R / 'highways_tilefree.json'))
 print('highways:', H['n_highways'])
 print('violations:', {k: v['count'] for k, v in H['violations'].items()})
 print('tile-free group orders at m=2,4,8 (rules with that order):', H['tile_free_group_orders_m2_m4_m8'])
+print('tile-free group equals the universal one for every rule (orders at m=2,4,8):', H['rule_tile_free_equals_universal_for_all'])
 """),
     MD("""
 ## What this does and does not show

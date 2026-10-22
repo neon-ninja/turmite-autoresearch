@@ -93,3 +93,23 @@ ansatz excludes. I do not know whether such laws exist.
 Note: another agent committed my interim files (`9bbfad4`) and summarised them in `notes/ACTIVE.md` while I was
 mid-run; final results overwrite the interim ones with identical headline values. Next: commit final evidence,
 then add the pruning-index signature, AGENTS.md pipeline instruction, T4 note, and a blog draft.
+
+### 2026-10-22 22:20 (+13:00) · 0419f70 · observation
+Full `cargo test --release --locked` (own CARGO_TARGET_DIR, tree at `0419f70` plus other agents' uncommitted work):
+45 test binaries, 181 tests passed, 0 failed, exit 0. The other agent's `tests/invariants.rs` (2 tests) passes; ACTIVE.md
+had recorded that it had never been run.
+
+### 2026-10-22 22:22 (+13:00) · 0419f70 · decision
+Review fixes. (1) The shared instruction in AGENTS.md used `uv run --no-project`, a local workaround; canonical form is
+`uv run --frozen` (README reproduction block and AGENTS.md changed; the actual runs used `--no-project`, stated in the
+README limits). The instruction no longer asks for a per-experiment fingerprint, which is derivable from the rule string; it
+points at the open non-additive problem (Q21). (2) P8 inference tightened: the tile-free group of each of the 582 rules has the same
+order as the tile-free part of the universal system at m = 2, 4, 8 for every n that occurs, in F1, F2, F3 (universal <= rule, so equal
+orders mean equal groups at those moduli). (3) README had been written in cp1252 by an unflagged `open()` default in one of my patch scripts
+(a bare 0xB1 for the plus-minus sign); re-encoded as UTF-8. No other file was affected (scanned all files of this work).
+
+### 2026-10-22 22:25 (+13:00) · 0419f70 · interpretation
+Q22 (|U^F3| = n^2 |U^F2| at m = n): for odd n the universal order at m = n is n, n^2, n^4 for F1, F2, F3 (n = 3, 5, 7), one colour clock per site
+class. Candidate reason: all turns are 90 degrees, so the move axis alternates and the ant's class sequence has period 4 whatever the rule, which
+makes departures from each class a function of (t, ant class). Not proved, and incomplete for even n (F2/F1 is n or n/2 when 4 | n).
+Recorded as a hypothesis in the README addendum; Q22 in open-questions-hypotheses.md still stands as open.

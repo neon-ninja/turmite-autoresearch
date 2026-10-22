@@ -91,14 +91,14 @@ unwritable here, so `uv run --no-project` was used; the scripts are standard-lib
 environment):
 
 ```sh
-uv run --no-project experiments/_lib/lawmod.py --selftest                       # solver vs brute force and vs exact elimination
-uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/census.py --nmax 8   # fingerprints, universal groups, P4  (~30 s)
-uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/summarize.py         # evaluates P1, P3, P4, P6, P7 -> results/summary.json
+uv run --frozen experiments/_lib/lawmod.py --selftest                       # solver vs brute force and vs exact elimination
+uv run --frozen experiments/2026-10-22-invariant-mining-snf/scripts/census.py --nmax 8   # fingerprints, universal groups, P4  (~30 s)
+uv run --frozen experiments/2026-10-22-invariant-mining-snf/scripts/summarize.py         # evaluates P1, P3, P4, P6, P7 -> results/summary.json
 cargo build --release --locked --example invariant_mining_snf_verify --bin invariants       # own CARGO_TARGET_DIR
-uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/oracle.py --exe <target>/release/examples/invariant_mining_snf_verify[.exe] --nmax 6 --steps 2000 --starts 16
-uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/cross_check_peer.py --exe <target>/release/invariants[.exe]
-uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/highways.py          # reads the committed census confirmed_*.csv
-uv run --no-project experiments/2026-10-22-invariant-mining-snf/scripts/build_notebook.py    # rebuilds notebook.ipynb from results/
+uv run --frozen experiments/2026-10-22-invariant-mining-snf/scripts/oracle.py --exe <target>/release/examples/invariant_mining_snf_verify[.exe] --nmax 6 --steps 2000 --starts 16
+uv run --frozen experiments/2026-10-22-invariant-mining-snf/scripts/cross_check_peer.py --exe <target>/release/invariants[.exe]
+uv run --frozen experiments/2026-10-22-invariant-mining-snf/scripts/highways.py          # reads the committed census confirmed_*.csv
+uv run --frozen experiments/2026-10-22-invariant-mining-snf/scripts/build_notebook.py    # rebuilds notebook.ipynb from results/
 ```
 
 Seeds: oracle seed 20261022 (a start is a function of seed, rule string and start index only); control
@@ -116,14 +116,14 @@ Appended below this line only, after each run; the predictions above are not edi
 
 | # | outcome | numbers |
 |---|---|---|
-| P1 | **held** | 0 exceptions among 508 rules x 4 families (fingerprint depends on `(n, #R)` only). Complement, reversal and all rotations preserve the fingerprint: 0 differences in 2032 rule-family checks. Post hoc (noticed in the table afterwards): coarser still, the fingerprint is a function of `(n, ±D mod 4, rule trivial?)`: 68 (family, n, �D, trivial) groups in total, none split. Only 2-3 distinct fingerprints exist per `n` in F1..F3. |
+| P1 | **held** | 0 exceptions among 508 rules x 4 families (fingerprint depends on `(n, #R)` only). Complement, reversal and all rotations preserve the fingerprint: 0 differences in 2032 rule-family checks. Post hoc (noticed in the table afterwards): coarser still, the fingerprint is a function of `(n, Â±D mod 4, rule trivial?)`: 68 (family, n, ±D, trivial) groups in total, none split. Only 2-3 distinct fingerprints exist per `n` in F1..F3. |
 | P2 | **held** | 0 mismatches in 1016 comparisons (508 rules x m in {2, 4}) against `src/bin/invariants.rs` (sources hashed in `crosscheck_peer.json`; they were uncommitted when first run, committed by the time of the final run). |
 | P3 | **held** | F1 universal order at m = 2 is 8 (even n) and 4 (odd n) for every n in 2..8; at p = 3, 5, 7 it is p when p divides n and 1 otherwise (21 of 21 cells). |
 | P4 | **FALSIFIED as registered** | 170 mismatches among 508 rules, all with `D = 2 mod 4` and `n` even. A pure-tape heading law (a = b = e = 0, Phi non-constant) exists for every even `n`: heading parity is a function of the tape (`Phi = 2h`), because the universal colour clock gives `t = sum c N_c mod 2` and heading parity equals time parity. What `D = 0 mod 4` buys is the full heading mod 4. A post hoc refinement (a law with `Phi(1)` odd) has 0 mismatches over 508 rules; it was written after seeing the failure, uses the same derivation, and is not independent evidence. 170 rules have `D = 0 mod 4`. |
 | P5 | **held** | 0 violations in 14,416 generator lines (A0 2280, F1 2816, F2 3672, F3 5648), each applied to 16 starts (8 on-manifold for F2/F3), 2000 reference-ant steps, plus a from-scratch recomputation at the end of each start. Controls: 6560 of 6560 random non-law vectors (n <= 4) violated. |
 | P6 | **held** | `|U^F2| / |U^F1|` at m = n is 2, 3, 2, 5, 6, 7, 4 for n = 2..8: always > 1. |
 | P7 | **held (predicted at 45%)** | F3 exceeds F2 at m = n for **all** n in 2..8. Post hoc regularity: `|U^F3| / |U^F2| = n^2` exactly for all seven n (4, 9, 16, 25, 36, 49, 64); unexplained here. |
-| P8 | **held** | 582 distinct confirmed rules (`confirmed_v2.csv` + `confirmed_1B.csv`; not 589): 0 violations of any tile-free law in F1, F2, F3. The tile-free group has the *same order for all 582 rules* (F1/F2: 4, 8, 8 at m = 2, 4, 8; F3: 8, 16, 16), so tile-free laws are the universal parity laws and add nothing to H19. |
+| P8 | **held** | 582 distinct confirmed rules (`confirmed_v2.csv` + `confirmed_1B.csv`; not 589): 0 violations of any tile-free law in F1, F2, F3. The tile-free group has the *same order for all 582 rules* (F1/F2: 4, 8, 8 at m = 2, 4, 8; F3: 8, 16, 16) and, for every `n` that occurs, that order equals the order of the tile-free part of the *universal* system at m = 2, 4, 8 (`rule_tile_free_equals_universal_for_all` is true in F1, F2, F3). The universal group is contained in each rule's group, so equal orders mean equal groups at those moduli: tile-free laws are the universal parity laws and add nothing to H19. (Equality is checked at m = 2, 4, 8 only.) |
 
 Reading. Within these families the law group of a rule is a function of the colour count `n`, the net
 turn `D = #R - #L (mod 4)` up to sign, and whether the rule is trivial. The order of the colours never
@@ -133,6 +133,8 @@ clocks, and for `D = 0 mod 4` heading = tape mod 4) are bookkeeping consequences
 lattice; none of them says anything about growth, highways or chaos, and none can be used as a feature that
 separates rules with the same `(n, D class)`. Whatever distinguishes a chaotic rule from a highway rule
 among its permutations lies outside additive local laws.
+
+Addendum on P7's regularity (hypothesis, not tested by a registered prediction). For odd `n` the universal order at `m = n` is exactly `n^1, n^2, n^4` for F1, F2, F3 (n = 3, 5, 7), i.e. one colour clock per site class. A candidate reason: every turn is ±90°, so the move axis alternates and the class sequence of the ant cycles with period 4 whatever the rule, which makes the number of departures from each class a function of `(t, ant class)`; each class then carries its own clock. For even `n` the ratio F3/F2 is still `n^2` but F2/F1 is `n` or `n/2` (`n/2` when `4 | n`), where dividing by 4 is not free, so this explanation is incomplete there. Unproved.
 
 ### Limits and deviations (stated, not hidden)
 - Exhaustive only for `n <= 8` (census) and `n <= 6` (oracle). The extension to all `n` rests on the
@@ -146,7 +148,8 @@ among its permutations lies outside additive local laws.
   "510 rules" (correct: 508).
 - The oracle's controls are random vectors, not adversarial near-laws, and exist for `n <= 4` only.
 - P8 for F2/F3 is existential over the unknown reference class, so weaker than for F1.
-- The scripts were run with `uv run --no-project`: the shared `.venv` is unwritable in this environment.
+- The scripts were actually run with `uv run --no-project` (the shared `.venv` is unwritable in this environment, `uv run --frozen` fails with `Access is denied` on `.venv\lib64`); the commands above show the canonical `--frozen` form, and the scripts need no packages.
+- Full `cargo test --release --locked` (own `CARGO_TARGET_DIR`, 2026-10-22, tree at `0419f70` plus uncommitted work of other agents): 45 test binaries, 181 passed, 0 failed, exit 0.
 
 ### What is not shown
 Nothing about growth exponents, onset of highways, or whether any non-additive invariant (pair potentials,

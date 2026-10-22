@@ -85,9 +85,30 @@ def main() -> None:
                         viol.append({"rule": rule, "m": m, "period": p, "dx": dx, "dy": dy})
         out["violations"][fname] = {"count": len(viol), "examples": viol[:5]}
         out["tile_free_group_orders_m2_m4_m8"][fname] = {str(k): v for k, v in sorted(orders.items())}
+    # Is the per-rule tile-free group the universal one?  Compare orders with the tile-free part of the universal
+    # system for every n that occurs (equal orders of nested groups imply equal groups: universal <= rule's).
+    out["universal_tile_free_orders_m2_m4_m8"] = {}
+    out["rule_tile_free_equals_universal_for_all"] = {}
+    for fname in ("F1", "F2", "F3"):
+        fam = lm.Family(fname)
+        ns = sorted({len(r["rule"]) for r in hw})
+        uni = {}
+        for n in ns:
+            k = lm.Layout(fam, n).size()
+            n_nonw = k - len(fam.classes()) * (n - 1)
+            sn = lm.snf([row[:n_nonw] for row in lm.universal_rows(fam, n)], n_nonw)
+            uni[n] = (sn.order(2), sn.order(4), sn.order(8))
+        out["universal_tile_free_orders_m2_m4_m8"][fname] = {str(n): list(v) for n, v in uni.items()}
+        ok = True
+        for r in hw:
+            n = len(r["rule"])
+            sn, _, _ = tile_free_generators(fam, r["rule"], 2)
+            ok &= (sn.order(2), sn.order(4), sn.order(8)) == uni[n]
+        out["rule_tile_free_equals_universal_for_all"][fname] = ok
     (EXP / "results" / "highways_tilefree.json").write_text(json.dumps(out, indent=1))
     print(json.dumps({"n": out["n_highways"], "violations": {k: v["count"] for k, v in out["violations"].items()},
-                      "orders": out["tile_free_group_orders_m2_m4_m8"]}))
+                      "orders": out["tile_free_group_orders_m2_m4_m8"],
+                      "equals_universal": out["rule_tile_free_equals_universal_for_all"]}))
 
 
 if __name__ == "__main__":

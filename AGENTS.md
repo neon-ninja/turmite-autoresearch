@@ -271,17 +271,17 @@ shareable notebook and `notes/`; they do not replace them.
   `notes/`, the blog or the paper should have survived the falsification harness (`experiments/2026-10-22-falsification-harness/GUIDE.md`),
   with the claim registered and committed before the run. A blank-board horizon run alone is not enough; say which verdict you got
   (a `Survived` is "no counterexample found", never a proof) or that the claim has not been attacked.
-- **Ask for the exact laws before the exponent.** Before characterising a new rule family, or proposing a mechanism for
-  it, compute what the dynamics *cannot* do: `uv run --no-project experiments/_lib/lawmod.py RULE... --family F3`
-  lists the additive local conservation laws (checkerboard and heading parity, the colour clock, sublattice clocks,
-  heading = tape mod 4) at every modulus, each a proof by induction over local transitions, and its fingerprint
-  against the universal laws that hold for every rule of that length. Record the fingerprint in the experiment README.
-  Know the limit before you rely on it: within these families the law group depends only on `(n, ±(#R-#L) mod 4,
-  trivial?)` (`NR-20261022-additive-laws-order-blind`), so it cannot separate rules that differ only in colour order,
-  and it says nothing about growth or highways. A claimed rule-specific invariant that is not a function of those
-  counts needs a different ansatz (pair potentials, ant potentials reading neighbouring colours; Q21), a registered
-  prediction, and an oracle test (`examples/invariant_mining_snf_verify.rs` is the template) before it is believed.
-  Treat any constraint a law places on a tile, period or displacement as a necessary condition, never a certificate.
+- **Ask for the exact laws before the exponent.** To vet a claimed invariant, or before proposing a mechanism for a rule
+  family, compute what the dynamics cannot do: `uv run --frozen experiments/_lib/lawmod.py RULE... --family F2` lists the
+  additive local conservation laws (checkerboard and heading parity, colour clocks, heading = tape mod 4) at every
+  modulus, each a proof by induction over local transitions, next to the laws that hold for every rule of that length.
+  Expect no rule-specific surprise there: within these families the law group depends only on `(n, ±(#R-#L) mod 4,
+  trivial?)` (`NR-20261022-additive-laws-order-blind`), so it cannot separate rules that differ only in colour order and
+  says nothing about growth or highways. The open problem is a non-additive family (pair potentials, ant potentials that
+  read neighbouring colours; Q21 in `notes/open-questions-hypotheses.md`): it needs a quotient by functionals that vanish
+  on every finite field, a registered prediction, and an oracle test (`examples/invariant_mining_snf_verify.rs` is the
+  template). Treat any constraint a law places on a tile, period or displacement as a necessary condition, never a
+  certificate.
 - **Isolate working material.** Each investigation lives in its own
   `experiments/YYYY-MM-slug/` folder (scripts, investigation-specific notes,
   results). Bulk output (dumps, knockout maps, scratch) goes in that folder's

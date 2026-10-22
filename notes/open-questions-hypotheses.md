@@ -348,4 +348,6 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
   enters, edge flux) exist whose existence depends on the *order* of the colours? Prior 60% no. Needs a quotient by functionals that
   vanish on every finite field (telescoping and site-duplicate terms) before group orders mean anything; register before running.
 - Q22. Why is the universal group order at modulus `n` exactly `n^2` times larger for the `(x mod 2, y mod 2)` class potentials (F3) than for
-  the `(x+y) mod 2` ones (F2), for all n = 2..8? Post hoc, unexplained.
+  the `(x+y) mod 2` ones (F2), for all n = 2..8? Post hoc. Candidate for odd n (3, 5, 7: orders n, n^2, n^4 for F1, F2, F3):
+  one colour clock per site class, because the move axis alternates so the class sequence has period 4. Unproved, and incomplete for
+  even n, where F2/F1 is n or n/2.
