@@ -171,4 +171,24 @@ theorem runN_sim (k : Nat) (s s' : St) (h : runN k s = some s') (ox oy : Int) (p
       rw [this.1, this.2, hc'] at hab
       simp at hab
 
+theorem step_len (s s' : St) (h : step s = some s') : s'.g.length = s.g.length := by
+  unfold step at h
+  cases hc : cell? s.g s.x s.y with
+  | none => simp [hc] at h
+  | some c =>
+    simp only [hc, Option.some.injEq] at h
+    subst h
+    simp [setCell]
+
+theorem runN_len (k : Nat) (s s' : St) (h : runN k s = some s') : s'.g.length = s.g.length := by
+  induction k generalizing s with
+  | zero => simp only [runN, Option.some.injEq] at h; subst h; rfl
+  | succ k ih =>
+    simp only [runN] at h
+    cases hs : step s with
+    | none => simp [hs] at h
+    | some s1 =>
+      simp only [hs, Option.bind_some] at h
+      rw [ih s1 h, step_len s s1 hs]
+
 end Sweeper
