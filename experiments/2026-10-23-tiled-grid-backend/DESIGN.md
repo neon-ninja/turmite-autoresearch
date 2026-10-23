@@ -49,7 +49,7 @@ absent  --first visit-->  resident  --evict-->  packed | raw     (all-blank resi
   Decoding validates length, every colour `< n`, and that off-board cells are blank.
 * **Raw inactive** - `T^2` bytes (the resident encoding without halo). Used by `Inactive::Raw`, and as the fallback when packing
   would not be smaller: `w = 7` (65 or more colours) gives `7/8 + 1/8 = 1` byte per cell, so those rules are stored raw.
-* **Compressed** - not implemented; see the README for the criterion that would trigger it and the measurement.
+* **Compressed** - an LZ4 block (`lz4_flex`, safe mode) of the canonical packed (or raw) payload, built on eviction only and kept only if smaller; expanded on a miss (length checked, then the packed-decode validation). `Inactive::Compressed`, `TURMITE_INACTIVE=lz4`. Checkpoints always hold the canonical form, so no codec version is persisted.
 
 There is exactly one authoritative copy of each cell. A resident tile has no backing copy: loading a tile removes its inactive
 payload, eviction creates a fresh one. The stepper writes the first cell it enters, so every resident tile is dirty from the
@@ -88,7 +88,7 @@ cheaper baseline here.
 
 * Square grid, one ant, blank background, fewer than 100 colours (lean's limit), `size` in `1 ..= 2^30`.
   `initial_cell` backgrounds (patched, sparse, rotor) are **rejected by omission**: the CLI only reaches the plain-rule path.
-* Tile side 2^2 .. 2^12; cache >= 2; `Inactive::{Raw, Packed}`.
+* Tile side 2^2 .. 2^12; cache >= 2; `Inactive::{Raw, Packed, Compressed}`.
 * No unbounded mode, no turmites with states, no other lattices, no walkers other than the plain ant.
 * Checkpoints do not interoperate with the dense format or across tile sizes (rejected with an explicit error).
 * The CLI aborts the sweep with a message when a tiled checkpoint is damaged or belongs to another run; the dense loader silently
@@ -128,7 +128,7 @@ lean. Dense and tiled checkpoints use different extensions (`.ckpt`, `.tkpt`) an
 ## Probe: what is and is not done
 
 Not integrated. `probe_walker` keeps two dense `size^2` arrays (colour and the per-cell unvisited-neighbour count that also
-encodes "visited"), i.e. `2 x size^2` bytes (128 MiB at 8192, 512 MiB at 16384), plus, for walkers with `RANDOM_INIT`, a
+encodes "visited"), i.e. up to `2 x size^2` bytes (128 MiB at 8192, 512 MiB at 16384; measured peak RSS is lower because zeroed pages are committed only where the ant has been: 69 MiB at 8192 for RLR to 2^22 steps), plus, for walkers with `RANDOM_INIT`, a
 `size^2` initial-background fill. `Region::visit` updates the four neighbours of each newly visited cell, so a tiled probe needs
 cross-tile neighbour access (pinning up to five tiles, or sequential per-neighbour access), and the unvisited-count array is
 *not* compressible by colour packing: it is visited-status plus a 0-4 counter per cell. Colour compression alone therefore

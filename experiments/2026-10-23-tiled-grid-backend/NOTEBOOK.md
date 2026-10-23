@@ -79,3 +79,51 @@ and `tiled` suites were re-run after the last test was added: all pass.
 ### 2026-10-23 18:58 (+13:00) · c0b1d5d · decision
 Registered predictions and adoption criteria in README.md (before any timing). Benchmarks will be built from a `git archive` of the
 registration commit into a fresh `CARGO_TARGET_DIR`, with binary hashes recorded by `scripts/build_bench.sh`.
+
+### 2026-10-23 19:02 (+13:00) · e93d4c7 · deviation
+First full benchmark pass (149 runs) reported the CSV differing from dense in 121 runs. Hand-run of one case showed byte-identical
+output: the bug was in `scripts/bench.sh`, which deleted the dense reference CSV right after the dense run (the cleanup `rm` also hit
+config A), so every later `cmp` compared against a missing file. Timings were unaffected, but identity and timing must come from one
+consistent pass, so the script was fixed (`8d89328`) and the whole batch re-run (second pass, 19:0x). The first pass's numbers were
+discarded, not used. Lesson recorded: an identity check that can fail "closed" is good, but look at one case by hand before believing
+121 differences.
+
+### 2026-10-23 19:08 (+13:00) · 8d89328 · observation
+Second pass: 149/149 runs byte-identical to dense. Medians and ranges in `results/summary.csv`; headline: RSS 0.10-0.13x dense on
+W1/W2/W4a, 0.003x on W4b (12.3 MiB vs 4227 MiB), 0.88x on W3 (footprint nearly fills the board). Throughput of B: W1 1.17x, W3 1.6x,
+W2 0.55x, W4b 185x (dense zeroes 4 GiB). C64 on W3: 0.022x of B (768k misses). Machine load 0.7-1.0 at start/end, other contributor
+idle at the time.
+
+### 2026-10-23 19:12 (+13:00) · 8d89328 · surprise
+P5 predicted B at 0.6-0.95x dense on W1 and W3. Observed 1.17x and 1.6x. Likely cause: 66-byte tile rows vs 8194-byte dense rows
+(cache/TLB locality) - a hypothesis, not tested (an ablation would use a dense board of the footprint's size). The stage-D batch
+(load 3.3) shows dense W3 at 0.9e8 steps/s against 1.3e8 earlier, so dense is noisy to about 20% and I treat the "faster than dense"
+result as weak evidence; the same-batch comparisons B vs C vs L are firmer.
+
+### 2026-10-23 19:15 (+13:00) · 8d89328 · observation
+Codec (`tiled_grid_backend_codec 20000`, real central 64x64 tile after 3e6 steps): encode 10.4-13.1 us, decode 14.3-14.9 us per
+tile; w = 2/4/4 gives 1536/2560/2560 bytes. Checkpoints of RLR/RRRRRRRLLRRR/RLLRLLLRRRLL at 1e8 steps (scratch/, gitignored) fed
+`scripts/compress_estimate.py` (an independent parser of TTK1, which also verifies the FNV checksum): per-tile deflate-9 shrinks the
+payload 1.95x / 28x / 80x, xz 1.74x / 28x / 74x. Criterion A5 (inactive payload >= 40% of C's RSS; >= 1.3x) fired for W3
+(69%; 80x).
+
+### 2026-10-23 19:20 (+13:00) · 8d89328 · decision
+Built stage D (`Inactive::Compressed`, LZ4 block of the canonical payload via `lz4_flex` 0.14.0, `default-features = false`,
+features std + safe-encode + safe-decode; one new package in Cargo.lock, no transitive crates; pure safe Rust, so no `unsafe`
+dependency). Justification: A5. Checkpoints stay canonical (tests compare bytes across all four modes). Predictions D1-D5 registered
+in README Addendum 1 before timing (commit `b53bcb6`).
+
+### 2026-10-23 19:25 (+13:00) · b53bcb6 · observation
+Stage-D batch (W1, W3; A, B6, C1024, L64, L1024, L4096; 55 runs, all byte-identical). W3: L1024 RSS 13.4 MiB (0.19x dense, 0.32x of
+C1024) at 1.06x C1024's throughput; L4096 26.2 MiB; L64 thrashes (0.023x B). Compressed payload 295 KB for 11,520 tiles. D5 failed:
+compression ~100x vs predicted 15-60x. A6 met.
+
+### 2026-10-23 19:30 (+13:00) · b53bcb6 · interpretation
+The strong W3 result reflects an unusually regular structure ("builder" rule, 25 bytes/tile after LZ4); for the chaotic W1 the
+payload barely compresses (1.9x deflate) and it is small anyway. I would not extrapolate the 0.19x to chaotic rules. The recommendation
+is therefore: sparse tiles broadly, packed/lz4 with a cache only for large structured footprints. Alternative explanations I have not
+excluded: that B's speed over dense is a layout effect specific to this CPU's caches; that W3's structure is a periodic frame whose
+tiles are near-identical.
+
+### 2026-10-23 19:35 (+13:00) · b53bcb6 · question
+Probe integration not done (see README). Would a tile-grid offset (start in a tile centre) recover W2's 0.55x? Untested.

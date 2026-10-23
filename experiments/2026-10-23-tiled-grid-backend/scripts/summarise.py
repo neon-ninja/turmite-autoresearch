@@ -11,7 +11,8 @@ from pathlib import Path
 import polars as pl
 
 root = Path(__file__).resolve().parents[1]
-runs = root / "results" / "runs"
+name = sys.argv[1] if len(sys.argv) > 1 else "runs"
+runs = root / "results" / name
 
 ident = pl.read_csv(runs / "identity.tsv", separator="\t", has_header=False, new_columns=["wl", "cfg", "rep", "same"])
 
@@ -82,7 +83,7 @@ agg = (
     )
     .drop("dense_sps", "dense_rss", "b6_sps", "b6_rss")
 )
-out = root / "results" / "summary.csv"
+out = root / "results" / ("summary.csv" if name == "runs" else f"summary_{name}.csv")
 agg.write_csv(out, float_precision=4)
 
 bad = ident.filter(pl.col("same") != 1)

@@ -1,0 +1,4 @@
+rule	n	w	packed_bytes	raw_bytes	encode_us	decode_us	cell_ns_encode	cell_ns_decode
+RLR	3	2	1536	4096	13.06	14.86	3.19	3.63
+RRRRRRRLLRRR	12	4	2560	4096	10.35	14.30	2.53	3.49
+RLLRLLLRRRLL	12	4	2560	4096	11.64	14.23	2.84	3.47

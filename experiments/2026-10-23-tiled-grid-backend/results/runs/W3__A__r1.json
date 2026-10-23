@@ -1,0 +1,5 @@
+{
+ "backend": "dense", "grid": 8192, "max_steps": 100000000, "rules": 1, "threads": 1, "wall_s": 0.906, "peak_rss_kb": 71716,
+ "dense_logical_bytes_per_worker": 67141636,
+ "per_rule": []
+}
