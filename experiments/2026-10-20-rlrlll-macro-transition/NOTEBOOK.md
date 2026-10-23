@@ -223,3 +223,13 @@ Final committed-code check: `bash experiments/2026-10-20-rlrlll-macro-transition
 
 ### 2026-10-22 21:16 +13:00 · 35d8e27 · decision
 Completed: notebook regenerated and executed from the committed result logs, exit 0; blog experiment rendering and production Jekyll build/check, exit 0 (128 HTML pages, local links and required outputs OK). Final scope is bounded single cycles at every even height and the exact composition identity; multi-cycle padding remains explicitly open. No tests were skipped other than inapplicable CUDA checks. Timestamp correction: the preceding entry labelled 21:16 was drafted before reading the clock, at approximately 21:14; its validation outcomes were already observed. This entry uses the clock directly.
+
+### 2026-10-23 18:15 +1300 · 642b4f4c710e0488dc8f1a1fc6af6298c4c09656 · observation
+L5 (plane closure): `Plane.lean`, `PlaneChain.lean`, `PlaneForever.lean` build in a fresh directory (`scripts/l5_check.sh`, 13 Lake jobs, exit 0); `Check.lean` lists
+`forever`, `relink`, `runN_sim`, `good_ideal`, `forever_ideal` with axioms propext, Classical.choice, Quot.sound only (`results/c3_l5_axioms.txt`). The registered prediction (about 45%)
+held: no new finite run was needed; the padding identity is `composition` plus blank-row merging (`pad_pad`). Development mistakes: `blank` was already defined in L4Data (name clash),
+a rcases pattern with the wrong arity tried to case on an equation, and a replicate length had to be normalised before applying a lemma; none changed the statement.
+
+### 2026-10-23 18:15 +1300 · 642b4f4c710e0488dc8f1a1fc6af6298c4c09656 · interpretation
+This removes the padding and infinite-plane caveats of L4 for the ideal plane, not for the real board (the real board is not `Good`; see README L5 "does not close" item 1).
+The remaining Lean-side gap that matters for the headline claim is a plane-agreement lemma: real = ideal on the ideal ant's visited cells, then `forever` applies to the real run.

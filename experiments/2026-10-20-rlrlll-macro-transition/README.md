@@ -679,3 +679,38 @@ What this adds: the base-case board (C(4,1) at step 12,676,237,591) is now repro
 match is still Task A's dump comparison (which uses the plain loop); the fingerprint equality here makes that dump the dump of the
 `fast`-simulated board too, assuming both loops continue to agree, which was checked at this one T only. The global-front premise
 (nothing visited west of x = -1820 at the event) is still not independently re-derived.
+
+## L5 continuation: any number of cycles in the infinite plane (2026-10-23; registered here, then done, in one session)
+
+The L4 continuation left multi-cycle padding and infinite-plane closure open: one-cycle outputs have 12/14/13 blank rows above and 13 below,
+while the one-cycle input owns 14 on each side. No ant measurement is involved; the deliverable is a Lean statement, judged by the kernel.
+Prediction made before the work (about 45% to succeed in a session): a plane model, a simulation lemma from the window model, and an
+induction over cycles whose padding bookkeeping is the list identity of `composition` plus blank-row lemmas, with no new finite run.
+Failure would be a statement that needs per-cycle finite certificates, or a Good-invariant that cannot be restored after one cycle.
+
+**Accepted (commit `642b4f4c710e0488dc8f1a1fc6af6298c4c09656`, `bash scripts/l5_check.sh`, `results/c3_l5_build.txt`, `results/c3_l5_axioms.txt`; fresh build, 13 Lake jobs):**
+
+| Lean declarations | Exact accepted claim |
+|---|---|
+| `PSt`, `stepP`, `runP`, `Emb` (`Plane.lean`) | The ant on all of Z x Z with colours a function `Int -> Int -> Nat`; `Emb ox oy g p`: the plane agrees with the window `g` placed at (ox, oy). |
+| `step_sim`, `runN_sim`, `step_dom`, `runN_len` | If the window model makes a successful (non-failing) run of `k` steps from `s` to `s'` and the plane embeds `s.g`, then `k` plane steps from the matching ant end with the plane embedding `s'.g`, the ant at the matching place, the plane unchanged on every cell outside the window, and the window's row count unchanged. |
+| `Good ox oy g p`, `relink` (`PlaneChain.lean`) | `Good`: plane agrees with the window, is blank west of the window's western context columns (a < ox - 3), and is blank in all rows outside the window's rows for columns up to ox + 47 (columns east of that are arbitrary). `relink`: after any successful cycle `I -> F` and a list identity `I1.g = blank^a ++ map shiftRow F.g ++ blank^b`, the plane carries the window `I1` at (ox - 3, oy - a) with `Good` again, and the ant is where `I1` says. |
+| `link0, link1, link2`, `good_step0/1/2`, `good_step` (`PlaneForever.lean`) | The three list identities `initial_{q+1}(n+1) = blank^a ++ map shiftRow final_q(n) ++ blank^1` with a = 2, 0, 1 (from `composition` and the six end-block equalities, by kernel `decide`), and the one-cycle step with its clock `12(2+2n) + (934, 1058, 898)`. |
+| `forever` | For every `N`, phase `q < 3`, height index `n`, plane `p` with `Good` for the phase-`q` window: after `tsum q n N` steps (the sum of the next N cycle clocks) the plane carries the window of phase `(q + N) mod 3`, height index `n + N`, at (ox - 3N, oy - asum q N) with `Good`, and the ant stands where that window says. |
+| `good_ideal`, `forever_ideal` | The hypothesis is satisfiable: the ideal plane (the window's colours, colour 0 elsewhere) is `Good`, so from a blank plane carrying C(m, q) the family persists for every number of cycles. |
+
+Axioms (`results/c3_l5_axioms.txt`): `propext`, `Quot.sound` and, in the new plane lemmas, `Classical.choice` (standard; it comes from the core library's integer and
+list lemmas). No `sorryAx`, no `Lean.ofReduceBool`, no `native_decide`.
+
+**What this closes.** The L4 caveats "multi-cycle padding" and "infinite-plane closure" for the ideal plane: padding is no longer replenished by hand, it is
+the identity `link{q}`, and the induction over cycles is `forever`. Columns east of the window and rows beyond it never need to be known: the hypothesis `Good` asks
+for blankness only west of the window and outside its rows up to column ox + 47.
+
+**What this does not close (stated plainly).**
+1. *The real board is not `Good`.* At the base case the real configuration has old-blob cells inside the window's rows (Task A's whole-apron test failed on exactly that). What
+   the real run needs is agreement with the ideal configuration on the cells the ideal ant ever reads, which is the Task C2d criterion: checked in Python for 50 windows over ~97 cycles
+   and argued, not proved in Lean, for later cycles (a premise about nothing west of x = -1820 at the event). A Lean version would be a plane-agreement lemma plus an explicit visited set.
+2. *The Lean model is mine.* Its turn function (colours 0 and 2 right, 1, 3, 4, 5 left), heading table and update order are checked against `reference::Ant` only through C1a and the six
+   finite certificates that agree with the Python ant; there is no proof that the Lean `step` is the Rust `step`.
+3. *Entry* (why a blank board reaches the family) and the 1.27e10-step base-case simulation are untouched; Task D (above) only shows `fast::run` and the plain loop agree there.
+4. *The clock sum is not simplified.* `tsum` is the sum of the cycle clocks; the closed form (and the `|x|^2 / t -> 3/4` limit) is not proved in Lean.
