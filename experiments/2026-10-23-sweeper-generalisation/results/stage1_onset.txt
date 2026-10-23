@@ -1,0 +1,9 @@
+xmin P=1 a=8: 32730 cycles; exact clock from cycle 2876 (of 32730); cycles in exact regime 29854
+onset: cycle ends t = 26351953955, swing 5809; the cycle before it ends t = 26351907669, swing 5807, residual -210
+POST HOC residuals dt-8*swing near the onset (cycle index: residual, swing):
+[(2860, -178, 5777), (2861, -210, 5779), (2862, -178, 5781), (2863, -210, 5783), (2864, -178, 5785), (2865, -210, 5787), (2866, -178, 5789), (2867, -210, 5791), (2868, -178, 5793), (2869, -210, 5795), (2870, -178, 5797), (2871, -210, 5799), (2872, -178, 5801), (2873, -210, 5803), (2874, -178, 5805), (2875, -210, 5807), (2876, -186, 5809), (2877, -218, 5811), (2878, -186, 5813), (2879, -218, 5815)]
+cycles 0-500: distinct residuals 430, top [(34, 5), (154, 5), (26, 4), (110, 4)]
+cycles 500-1500: distinct residuals 861, top [(54, 5), (38, 5), (78, 5), (-42, 5)]
+cycles 1500-2400: distinct residuals 784, top [(-82, 6), (-46, 5), (-86, 5), (470, 4)]
+cycles 2400-2860: distinct residuals 299, top [(-178, 51), (-210, 50), (-202, 17), (-170, 17)]
+swing at cycle 0: 4 t_end of cycle 0: 63
