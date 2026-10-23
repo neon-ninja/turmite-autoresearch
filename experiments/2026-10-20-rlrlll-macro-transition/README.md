@@ -661,3 +661,21 @@ and `results/c3_l4_axioms.txt` (theorem-by-theorem axiom report). The accepted d
 `propext` and `Quot.sound`, or no axioms; no `sorryAx`, `Lean.ofReduceBool`, `native_decide` or new axioms.
 Finite checks are deterministic and contain no statistical uncertainty. Standard release tests are also
 run; their outcome is recorded in the session notebook. No GPU tests are needed: neither Rust nor CUDA changed.
+
+### Task D results (appended 2026-10-23 18:40 +13:00; the registration above is not edited)
+
+Command: `bash experiments/2026-10-20-rlrlll-macro-transition/scripts/d_resim.sh` in WSL, fresh `CARGO_TARGET_DIR=~/turmite-target-resim`, build
+exit status checked (`set -e`); example binary sha256 `4de9a375ad29e8f906b76586080fcfff133c43e99f60480a82030f13948acaac`; output
+`results/d_resim.txt`. The example was committed at `ac8d88d`; one core.
+
+| Prediction | Outcome |
+|---|---|
+| D1 position, heading, cell hash, non-zero count identical between `fast::run` and the plain loop | **Held**: both pos (-1552, -951), h = 3, hash 27245db416b98a32, 7,811,102 non-zero cells; the program prints `identical: true` |
+| D2 x at T is -1552 | **Held** (the first-minimum clause was not re-checked here, as registered) |
+| D3 wall time under 5 min | **Held**: 87 s for each of the two runs |
+
+What this adds: the base-case board (C(4,1) at step 12,676,237,591) is now reproduced by `fast::run`, which is proptested against
+`reference`, so the unproptested tracer loop is no longer the sole witness for the 1.27e10-step simulation. The cell-level C(4,1)
+match is still Task A's dump comparison (which uses the plain loop); the fingerprint equality here makes that dump the dump of the
+`fast`-simulated board too, assuming both loops continue to agree, which was checked at this one T only. The global-front premise
+(nothing visited west of x = -1820 at the event) is still not independently re-derived.

@@ -22,3 +22,15 @@ the user's explicit request overrides, so the work is bounded as written in the 
 ### 2026-10-23 18:05 (+13:00) · d8c0892 · deviation
 Task D of the parent (`scripts/d_resim.sh`, registered 2026-10-21, never run) was launched first in WSL at about 17:50 as the
 cheap item-1 result; its output is `parent/results/d_resim.txt`. It is not part of this experiment.
+
+### 2026-10-23 18:40 (+13:00) · 1461cb9 · observation
+Oracle for the front log (`scripts/oracle.sh`, output `results/oracle.txt`, binary sha256 `7d135c9b...`, fresh target dir, exit 0):
+final fingerprint (position, heading, FNV-1a of all cell colours, non-zero count) is identical to `fast::run` (via the parent's resim
+example) at 1e7 and 1e8 steps for RLLLLRRL, RLLLLRLRRL, RLLLRLRLLL, RLRLLL, RRLLLLRRL on a 16384 board; an independent Python ant
+reproduces all four event files exactly for 2e5 steps for the same five rules. Instrument accepted for Stage 1.
+Side observation (not a result): RLLLLRRL has 24.7M non-zero cells at 1e8 steps versus 2.0M at 1e7, about 4 steps per new cell
+already at 1e8; the other two escapes have about 1e6 and 4.8e5 non-zero cells at 1e8.
+
+### 2026-10-23 18:40 (+13:00) · 1461cb9 · decision
+Launch Stage 1 as registered and amended (`scripts/run_stage1.sh`): five parallel single-core runs, 65536 board for the three targets,
+32768 for the controls. Machine otherwise idle (parent Task D finished).
