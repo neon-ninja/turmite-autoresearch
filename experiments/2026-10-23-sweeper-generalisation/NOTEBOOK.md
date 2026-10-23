@@ -52,3 +52,7 @@ not by a narrow front. Maximum |coordinate| of new cells (largest per 2000-windo
 1517 (6.0e9), 1941 (1.0e10), 2141 (1.4e10), 2261 (1.7e10). The growth exponents between decades are about 0.36 for RLLLLRRL. This is a
 post-hoc glance; G1-G4 are still scored only from the registered analysis (`clock.py`, `windows.py`) once the runs finish. It does
 bear on the interpretation: RLLLLRRL's escape at the 32768 board looks like a t^(1/3)-class square reaching the edge, not a sweeper.
+
+### 2026-10-23 18:45 +1300 · 597689e · deviation
+Builds of this experiment's examples (WSL, fresh target directories, recorded sha256 in results/) were made from a working tree in which other sessions were editing `src/lean.rs`, `src/lib.rs` (adds `pub mod tiled`), `src/bin/sweep_lean.rs` and `src/tiled.rs` at the same time (file times 18:23-18:43; uncommitted). The examples here use only `Rule`, `DIRS` and `reference::Ant`, whose files are unchanged in git; the oracle and the 408-rule from-zero check compare against `reference::Ant` and `fast::run` as built then. I did not rebuild from a clean checkout of a single commit for every run; the stage-1 binary record says `dirty=0` for `examples/` and `src/` at `6ecd317` (its build preceded those edits).
+Shareable `notebook.ipynb` built by `scripts/build_notebook.py` and executed from committed results (uv, WSL).

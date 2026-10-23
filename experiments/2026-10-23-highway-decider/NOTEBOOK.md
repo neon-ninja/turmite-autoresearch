@@ -15,3 +15,7 @@ Full run (registered predictions D1-D5; controls and C5 run before the summary w
 
 ### 2026-10-23 18:27 +1300 · 354eab7 · deviation
 (1) The post-registration extras: 50 additional non-highway rules in C5 and the from-zero verification (408 rules, new binary). (2) I hand-replaced the driver's wrong TOTAL line in `results/verify_from_zero.txt` (case-sensitivity bug in my one-off driver); the 408 per-rule lines are unchanged. (3) 3 dumps at K = 300 missing (board edge), not failures.
+
+### 2026-10-23 18:45 +1300 · 597689e · deviation
+Builds of this experiment's examples (WSL, fresh target directories, recorded sha256 in results/) were made from a working tree in which other sessions were editing `src/lean.rs`, `src/lib.rs` (adds `pub mod tiled`), `src/bin/sweep_lean.rs` and `src/tiled.rs` at the same time (file times 18:23-18:43; uncommitted). The examples here use only `Rule`, `DIRS` and `reference::Ant`, whose files are unchanged in git; the oracle and the 408-rule from-zero check compare against `reference::Ant` and `fast::run` as built then. I did not rebuild from a clean checkout of a single commit for every run; the stage-1 binary record says `dirty=0` for `examples/` and `src/` at `6ecd317` (its build preceded those edits).
+Shareable `notebook.ipynb` built by `scripts/build_notebook.py` and executed from committed results (uv, WSL).
