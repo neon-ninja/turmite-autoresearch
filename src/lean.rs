@@ -13,8 +13,8 @@ use crate::detect::{MIN_SPAN, exit_confirms, find_highway};
 use crate::fast::{Config, RunResult, Stop};
 use crate::{DIRS, Rule};
 
-const SENT: u8 = 0x7F;
-const TOUCHED: u8 = 0x80;
+pub(crate) const SENT: u8 = 0x7F;
+pub(crate) const TOUCHED: u8 = 0x80;
 
 pub struct LeanGrid {
     /// Side of the inner (usable) square, as in `fast::Grid`.
@@ -31,6 +31,15 @@ impl LeanGrid {
         g
     }
 
+    /// Byte (colour in bits 0..7, `TOUCHED` in bit 7) at coordinates relative to the start cell; `None` off the board.
+    /// For tests and diagnostics; the stepping code never calls it.
+    pub fn cell_byte(&self, x: i64, y: i64) -> Option<u8> {
+        let c = (self.size / 2) as i64;
+        let (gx, gy) = (x + c, y + c);
+        let inside = gx >= 0 && gy >= 0 && gx < self.size as i64 && gy < self.size as i64;
+        inside.then(|| self.cells[(gy as usize + 1) * self.stride + gx as usize + 1])
+    }
+
     fn clear(&mut self) {
         let s = self.stride;
         self.cells.fill(0);
@@ -43,16 +52,16 @@ impl LeanGrid {
     }
 }
 
-struct Tables {
-    turn: [u8; 256],
-    next: [u8; 256],
-    n: usize,
+pub(crate) struct Tables {
+    pub(crate) turn: [u8; 256],
+    pub(crate) next: [u8; 256],
+    pub(crate) n: usize,
     /// Fused transition, indexed by (heading << 8 | cell byte): (new heading, index delta). One dependent
     /// load instead of two on the critical path (turn lookup then delta lookup).
-    fused: Vec<(u32, i32)>,
+    pub(crate) fused: Vec<(u32, i32)>,
 }
 
-fn tables(rule: &Rule) -> Tables {
+pub(crate) fn tables(rule: &Rule) -> Tables {
     let n = rule.len();
     assert!(n < 100, "lean ant supports fewer than 100 colours");
     let mut t = Tables { turn: [0; 256], next: [0; 256], n, fused: vec![] };
@@ -68,9 +77,21 @@ fn tables(rule: &Rule) -> Tables {
     t
 }
 
+/// The fused transition table for a grid of row stride `stride` (see `Tables::fused`).
+pub(crate) fn fused_table(t: &Tables, stride: usize) -> Vec<(u32, i32)> {
+    let didx: [isize; 4] = DIRS.map(|(dx, dy)| dy as isize * stride as isize + dx as isize);
+    (0..1024usize)
+        .map(|k| {
+            let (h0, b) = (k >> 8, k & 255);
+            let nh = (h0 + t.turn[b] as usize) & 3;
+            (nh as u32, didx[nh] as i32)
+        })
+        .collect()
+}
+
 /// Run up to `k` steps from (idx, h). Returns (steps done, hit the sentinel).
 #[inline(never)]
-fn advance(cells: &mut [u8], t: &Tables, idx: &mut usize, h: &mut u8, k: u64) -> (u64, bool) {
+pub(crate) fn advance(cells: &mut [u8], t: &Tables, idx: &mut usize, h: &mut u8, k: u64) -> (u64, bool) {
     let (mut i, mut hh) = (*idx, *h);
     let mut done = 0u64;
     let mut hit = false;
@@ -105,7 +126,7 @@ pub fn run_lean_ckpt(rule: &Rule, grid: &mut LeanGrid, cfg: &Config, ckpt: Optio
     let mut t = tables(rule);
     let s = grid.stride;
     let didx: [isize; 4] = DIRS.map(|(dx, dy)| dy as isize * s as isize + dx as isize);
-    t.fused = (0..1024usize).map(|k| { let (h0, b) = (k >> 8, k & 255); let nh = (h0 + t.turn[b] as usize) & 3; (nh as u32, didx[nh] as i32) }).collect();
+    t.fused = fused_table(&t, s);
     let c = grid.size / 2;
     let mut idx = (c + 1) * s + c + 1;
     let start = idx;
@@ -168,12 +189,7 @@ pub fn run_lean_ckpt(rule: &Rule, grid: &mut LeanGrid, cfg: &Config, ckpt: Optio
     advance(&mut grid.cells, &t, &mut ri, &mut rh, back);
     debug_assert_eq!((ri, rh), (idx, h));
 
-    let periodic_tail = find_highway(&trail, cfg.max_period, MIN_SPAN);
-    let highway = if stop == Stop::Escaped {
-        periodic_tail.or_else(|| find_highway(&trail, cfg.max_period, 2_000)).filter(|&hw| exit_confirms(hw, h))
-    } else {
-        None
-    };
+    let (periodic_tail, highway) = classify_trail(&trail, cfg, stop, h);
 
     // Extent of touched cells (excluding the ring). The start cell is always touched.
     let (mut minx, mut miny, mut maxx, mut maxy) = (usize::MAX, usize::MAX, 0usize, 0usize);
@@ -187,16 +203,8 @@ pub fn run_lean_ckpt(rule: &Rule, grid: &mut LeanGrid, cfg: &Config, ckpt: Optio
         }
     }
     // The start cell and (if the run did not escape) the final cell are touched by arrival, not by a write.
-    let mut extra = vec![((start % s) - 1, (start / s) - 1)];
-    if stop == Stop::Budget {
-        extra.push(((idx % s) - 1, (idx / s) - 1));
-    }
-    for (ex, ey) in extra {
-        minx = minx.min(ex);
-        maxx = if minx == usize::MAX { ex } else { maxx.max(ex) };
-        miny = miny.min(ey);
-        maxy = maxy.max(ey);
-    }
+    let last = (stop == Stop::Budget).then(|| ((idx % s).wrapping_sub(1), (idx / s).wrapping_sub(1)));
+    let extent = finish_extent((minx, miny, maxx, maxy), ((start % s) - 1, (start / s) - 1), last);
     RunResult {
         steps,
         stop,
@@ -204,8 +212,39 @@ pub fn run_lean_ckpt(rule: &Rule, grid: &mut LeanGrid, cfg: &Config, ckpt: Optio
         heading: h,
         highway,
         periodic_tail,
-        extent: ((maxx - minx + 1) as u32, (maxy - miny + 1) as u32),
+        extent,
     }
+}
+
+/// Highway verdict from the rebuilt trail; shared with the tiled backend so detection cannot diverge.
+pub(crate) fn classify_trail(
+    trail: &[(i32, i32)],
+    cfg: &Config,
+    stop: Stop,
+    h: u8,
+) -> (Option<crate::detect::Highway>, Option<crate::detect::Highway>) {
+    let periodic_tail = find_highway(trail, cfg.max_period, MIN_SPAN);
+    let highway = if stop == Stop::Escaped {
+        periodic_tail.or_else(|| find_highway(trail, cfg.max_period, 2_000)).filter(|&hw| exit_confirms(hw, h))
+    } else {
+        None
+    };
+    (periodic_tail, highway)
+}
+
+/// Extent from the touched-cell bounding box `(minx, miny, maxx, maxy)` (inner-board coordinates; `usize::MAX`/0 when
+/// empty), the start cell, and the final cell of a run that stopped at its budget. Moved verbatim from the inline code.
+/// When a budget ends exactly on the step onto the ring the "final cell" is a ring cell and the result is wrong (width 0
+/// or one too large). That quirk is pinned by tests/tiled.rs and deliberately not fixed here: it would change CSVs.
+pub(crate) fn finish_extent(bbox: (usize, usize, usize, usize), start: (usize, usize), last: Option<(usize, usize)>) -> (u32, u32) {
+    let (mut minx, mut miny, mut maxx, mut maxy) = bbox;
+    for (ex, ey) in std::iter::once(start).chain(last) {
+        minx = minx.min(ex);
+        maxx = if minx == usize::MAX { ex } else { maxx.max(ex) };
+        miny = miny.min(ey);
+        maxy = maxy.max(ey);
+    }
+    (maxx.wrapping_sub(minx).wrapping_add(1) as u32, maxy.wrapping_sub(miny).wrapping_add(1) as u32)
 }
 
 /// As `fast::highway_onset` (first step s after which pos[t] - pos[t-p] == d for all t >= s + p), but on a flat grid

@@ -36,6 +36,7 @@ pub mod seed;
 pub mod snap;
 pub mod rule;
 pub mod synth;
+pub mod tiled;
 pub mod walkers;
 
 pub use rule::{Rule, Turn};
