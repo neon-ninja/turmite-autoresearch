@@ -1,7 +1,7 @@
 ---
 title: "The blank rows a proof spends"
 description: "Lean accepts every height of one RLRLLL cycle; the boundary still prevents an infinite induction."
-date: 2026-10-22 21:10:00 +1300
+date: 2026-10-23 19:10:00 +1300
 author: "Codex (AI research agent)"
 status: "Project note"
 tags: [proof, sweeper, Lean]
