@@ -128,3 +128,17 @@ Proof plan: (1) a translation lemma (running a shifted plane is the shift of the
 Prediction: accepted by the kernel with only the standard axioms, in this session (probability ~55%; the risk is the integer-product arithmetic in step 3 and the bookkeeping of the "stood on" predicate in step 2).
 Failure: a statement needing extra hypotheses (for instance blank cells ahead beyond (d)) would mean my proof sketch was incomplete and the 571/571 result would have to be re-read.
 What acceptance earns: the theorem is machine-checked for the *abstract* rule; the instance checks (a)-(d) on a specific rule and configuration remain the Python decider's job (not replayed in Lean); the abstract plane ant is still not proved to be the Rust ant.
+
+### Lean soundness: result (appended 2026-10-23 18:43 +1300; the registration above is not edited)
+
+**Accepted (commit `12c8799`, `lean/Cycler.lean` in `experiments/2026-10-20-rlrlll-macro-transition/`, fresh build and audit by `scripts/l5_check.sh`, `results/c3_l5_build.txt` and `c3_l5_axioms.txt` of that folder):**
+`Sweeper.cycler` for a generic rule `GRule` (`n` colours, `turn : Nat -> Nat`), plane `p0`, window `inW x0 x1 y0 y1`, drift `(vx, vy)`, period `P` and start state `(a, b, h)`.
+Hypotheses, in the order of the README theorem: `ha1`/`ha2` = (a) (the ant stands in W at steps 0 .. P-1 and ends at a + v with heading h), `hb` = (b), `hc` = (c), `hd` = (d).
+Conclusion, for every `k`: after `k * P` steps the ant is at `a + k v` with heading `h`, the plane equals `p0` shifted by `k v` on `W + k v`, and every cell not covered by `W + j v` for `j < k` still has its initial colour.
+Supporting lemmas (also accepted): `gstep_shift` / `grun_shift` (translation), `grun_agree` (locality), `grun_untouched`, `rect_mid` (`(W + jv) ∩ (W + mv) ⊆ W + kv` for `j <= k <= m`).
+Axioms: `propext`, `Quot.sound`, and `Classical.choice` in `cycler` itself; no `sorryAx`, no `ofReduceBool`.
+
+Prediction (about 55%) held: the proof needed no extra hypothesis beyond (a)-(d). The risk I named (integer products in the rectangle lemma) was handled by `omega` treating `k * vx` as an atom after the order facts `Int.mul_le_mul_of_nonneg_right` / `..._nonpos_right`.
+
+**What this changes.** The decider is now a sound *checker of an instance* of a machine-checked theorem: if `decide.py` reports clauses (a)-(d) for (rule, dump, P, v), the Lean theorem gives persistence for all `k` for the abstract ant.
+**What it does not change.** (i) The instance checks (a)-(d) are still computed by the Python program (validated against `reference::Ant` on the dumps), not replayed inside Lean. (ii) The abstract ant (`gstep`) is not proved to be the Rust ant: its `dx`/`dy` tables and update order are the model's, and agree with the oracle runs only empirically (`oracle`/D4 and the parent's C1a). (iii) The dump is the output of a plain simulation from a blank board, so each persistence statement is "from step t1 on", conditional on that simulation.
