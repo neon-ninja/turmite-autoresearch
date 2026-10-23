@@ -209,3 +209,33 @@ with `probe`'s CSV.
 No signature: a performance result is not a dead end. Open engineering questions: a tile-grid offset so the start cell sits in a tile
 centre (W2's 0.55x is probably a corner artefact; untested); the tiled probe; whether very long runs on boards of 2^16 and more
 behave as W4b suggests (not run: that would be a new sweep).
+
+## Addendum 2 (2026-10-23 20:25 +13:00, commit cc5b228): code review findings; known memory problem
+
+A review of `src/tiled.rs` and this experiment found no correctness bug (21 tests pass; a differential fuzz against dense `lean` of
+720 cases, 6 seeds, 0 failures, covering 1-99 colours, tile 2^2..2^12, chained checkpoint resumes, budgets at the escape step and the
+onset replay; the fuzzer was temporary and is not committed). It did find the following. **Nothing below is fixed yet.**
+
+**Known problem: a reused `TiledGrid` never gives memory back.** `TiledGrid::begin` keeps every resident-tile buffer (and the
+directory's hash-table capacity) from earlier rules "for reuse". After one big-footprint rule a worker stays at that high-water mark.
+Measured once (unlimited cache, tile 2^6, board 8192, 1 thread): `RLR` 2.5 MiB RSS; then `RLLRLLLRRRLL` (W3) 61.2 MiB RSS and 53 MiB
+logical; then `RLR` three more times: still 61.2 MiB RSS and 53 MiB logical for a ~1 MiB footprint. Consequences:
+- The benchmarks above ran one rule per process, so they never exercised this. The "12 MiB vs 4 GiB" and "0.10-0.13x dense" figures hold
+  for a single run, **not for a sweep of many rules**: there each rayon worker's memory is the largest footprint of any rule it has run,
+  so sustained RSS tends towards threads x (largest footprint) once a few big rules have passed through.
+- Until fixed, treat the sparse backend's saving on a mixed sweep as unmeasured, and do not quote the single-run numbers for one.
+- Intended fix (not applied): cap retained buffers at a byte budget (about 8 MiB, never fewer than 2) and drop an oversized directory in
+  `begin`, with a test that a reused grid shrinks, and re-measure a mixed batch.
+
+**Other findings**
+- Eviction picks the victim by a linear scan over every cache buffer per miss. Harmless at cache 1024-4096 (microseconds, against
+  10-15 us of codec), but it grows with the cache and would dominate at tens of thousands of tiles. An O(1) recency list gives the
+  identical eviction order (check: identical `TileStats`). Not applied.
+- On W3, every C1024, C4096, L1024 and L4096 run has `misses = 0` (`results/summary*.csv`): the ant never re-enters an evicted tile,
+  so the timed region contains no decoding. The "L1024 = 1.06x C1024 throughput" result measures encode cost only; decode is only
+  exercised by the thrashing L64/C64 runs (L64 about 1.04x C64).
+- Two reported ratios: C1024 on W3 vs B6 is 0.62x (0.618), not 0.60x; the "0.997" for C1024 on W1 is from the stage-D batch (the main
+  batch gives 1.034).
+- The cache-locality explanation of tiled beating dense (66-byte vs 8194-byte rows) is a hypothesis, not a result (as the notebook says).
+- `bytes_decoded` counts the stored (compressed) size for LZ4 tiles while `bytes_encoded` counts the canonical size, so they are not
+  comparable in `lz4` mode.

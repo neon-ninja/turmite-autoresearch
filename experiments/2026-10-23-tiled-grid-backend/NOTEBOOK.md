@@ -127,3 +127,8 @@ tiles are near-identical.
 
 ### 2026-10-23 19:35 (+13:00) · b53bcb6 · question
 Probe integration not done (see README). Would a tile-grid offset (start in a tile centre) recover W2's 0.55x? Untested.
+
+### 2026-10-23 20:25 (+13:00) · cc5b228 · observation
+Code review (see README Addendum 2). No correctness bug; fuzz of 720 cases vs dense lean, 0 failures. Confirmed a memory problem: a reused
+`TiledGrid` keeps its high-water buffers across rules (61.2 MiB RSS after a big rule, unchanged over three following small ones).
+Single-rule benchmarks did not exercise it. Recorded in the README; fix not applied.
