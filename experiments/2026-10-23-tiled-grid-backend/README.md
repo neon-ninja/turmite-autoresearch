@@ -239,3 +239,15 @@ logical; then `RLR` three more times: still 61.2 MiB RSS and 53 MiB logical for 
 - The cache-locality explanation of tiled beating dense (66-byte vs 8194-byte rows) is a hypothesis, not a result (as the notebook says).
 - `bytes_decoded` counts the stored (compressed) size for LZ4 tiles while `bytes_encoded` counts the canonical size, so they are not
   comparable in `lz4` mode.
+
+## Addendum 3 (2026-10-23 20:30 +13:00, base commit 8cb574b): the two Addendum 2 performance/memory problems fixed
+
+Both fixes are in `src/tiled.rs`; no registered prediction was involved (engineering fixes, not a measurement).
+- **Retained memory.** `begin` now keeps at most 8 MiB of idle tile buffers (never fewer than 2) and drops a directory whose
+  capacity exceeds 8 MiB, instead of keeping the high-water mark. New test `reused_grid_releases_buffers_beyond_the_retain_budget`.
+  **Not re-measured:** the mixed-batch RSS figures from Addendum 2 have not been redone, so the sparse backend's saving on a
+  multi-rule sweep remains unmeasured; only the mechanism is fixed. Small-tile configs with a footprint under 8 MiB still retain it.
+- **Eviction.** The per-miss linear scan is replaced by an intrusive recency list (O(1) touch and victim). The order is identical
+  (oldest entry wins; entries had unique ticks). Evidence: all 22 tests pass in `--release` (cargo test --release --locked --test tiled),
+  including the lean/reference equality tests with small caches that force thrashing. A direct `TileStats` comparison before/after
+  was not run, and no speed re-benchmark was done.

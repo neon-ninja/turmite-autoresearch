@@ -132,3 +132,7 @@ Probe integration not done (see README). Would a tile-grid offset (start in a ti
 Code review (see README Addendum 2). No correctness bug; fuzz of 720 cases vs dense lean, 0 failures. Confirmed a memory problem: a reused
 `TiledGrid` keeps its high-water buffers across rules (61.2 MiB RSS after a big rule, unchanged over three following small ones).
 Single-rule benchmarks did not exercise it. Recorded in the README; fix not applied.
+
+### 2026-10-23 20:30 (+13:00) · 8cb574b · decision
+Fixed the two Addendum 2 problems (retained buffers capped at 8 MiB in `begin`; O(1) LRU list). 22 tiled tests pass in release.
+Not re-measured: mixed-batch RSS and throughput. See README Addendum 3.

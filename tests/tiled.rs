@@ -477,3 +477,22 @@ fn lz4_compresses_structured_tiles_and_falls_back_when_it_cannot() {
     let m = g.memory();
     assert!(m.tiles_raw_inactive + m.tiles_compressed > 0);
 }
+
+#[test]
+fn reused_grid_releases_buffers_beyond_the_retain_budget() {
+    // Tile 2^12 buffers are 16 MiB each, so the retain budget keeps only the two-buffer minimum. The start cell is a tile
+    // corner, so even a short run touches four tiles.
+    let rule: Rule = "RL".parse().unwrap();
+    let mut g = TiledGrid::new(1 << 14, tcfg(12, None, Inactive::Packed)).unwrap();
+    run_tiled(&rule, &mut g, &cfg(20_000));
+    let big = g.memory().resident_bytes;
+    let (small, _) = (rule.clone(), ());
+    g.begin(&small);
+    let after = g.memory();
+    assert!(after.resident_bytes < big, "{} -> {}", big, after.resident_bytes);
+    assert!(after.resident_bytes <= 2 * 4098 * 4098);
+    let r = run_tiled(&small, &mut g, &cfg(20_000));
+    g.check_invariants().unwrap();
+    let (r2, _) = run_checked(&small, 1 << 14, 20_000, tcfg(12, None, Inactive::Packed));
+    assert_eq!(debug(&r), debug(&r2));
+}

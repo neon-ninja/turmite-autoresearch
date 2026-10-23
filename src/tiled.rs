@@ -28,6 +28,9 @@ pub const MAX_TILE_LOG2: u32 = 12;
 pub const MIN_CACHE_TILES: usize = 2;
 /// Tile coordinates must fit an i32 each (`key`).
 pub const MAX_BOARD: usize = 1 << 30;
+/// Bytes of idle tile buffers (and directory capacity) a reused grid keeps across `begin`; a bigger footprint is released.
+const RETAIN_BYTES: usize = 8 << 20;
+const NIL: u32 = u32::MAX;
 /// Checkpoint format version (the file also starts with the magic `TTK1`).
 pub const CKPT_VERSION: u32 = 1;
 
@@ -344,9 +347,12 @@ pub struct TiledGrid {
     hi: i64,
     dir: HashMap<u64, Slot, BuildHasherDefault<DetHasher>>,
     pool: Vec<Pooled>,
-    ticks: Vec<u64>,
+    /// Recency list of live buffers (doubly linked through pool indices): `head` is the newest, `tail` the LRU victim.
+    prev: Vec<u32>,
+    next: Vec<u32>,
+    head: u32,
+    tail: u32,
     free: Vec<u32>,
-    tick: u64,
     cur: u32,
     idx: usize,
     h: u8,
@@ -381,9 +387,11 @@ impl TiledGrid {
             hi: size as i64 - c,
             dir: HashMap::default(),
             pool: vec![],
-            ticks: vec![],
+            prev: vec![],
+            next: vec![],
+            head: NIL,
+            tail: NIL,
             free: vec![],
-            tick: 0,
             cur: u32::MAX,
             idx: 0,
             h: 0,
@@ -403,20 +411,33 @@ impl TiledGrid {
         &self.stats
     }
 
-    /// Forget every tile and prepare for `rule`. Buffers are kept for reuse; nothing from the previous run survives:
-    /// each buffer is fully re-initialised when it is next handed out.
+    /// Forget every tile and prepare for `rule`. Up to `RETAIN_BYTES` of buffers are kept for reuse (at least two); the rest and an
+    /// oversized directory are released, so a worker does not hold the high-water mark of the biggest rule it has run. Nothing from
+    /// the previous run survives: each buffer is fully re-initialised when it is next handed out.
     pub fn begin(&mut self, rule: &Rule) {
         let n = rule.len();
         assert!(n < 100, "tiled ant supports fewer than 100 colours");
         self.dir.clear();
+        if self.dir.capacity() * (std::mem::size_of::<(u64, Slot)>() + 1) > RETAIN_BYTES {
+            self.dir = HashMap::default();
+        }
+        let keep = (RETAIN_BYTES / (self.stride * self.stride)).max(2);
+        if self.pool.len() > keep {
+            self.pool.truncate(keep);
+            self.pool.shrink_to_fit();
+        }
+        self.prev.clear();
+        self.prev.resize(self.pool.len(), NIL);
+        self.next.clear();
+        self.next.resize(self.pool.len(), NIL);
+        self.head = NIL;
+        self.tail = NIL;
         self.free.clear();
         for (i, p) in self.pool.iter_mut().enumerate() {
             p.live = false;
-            self.ticks[i] = u64::MAX;
             self.free.push(i as u32);
         }
         self.free.reverse(); // hand out low indices first
-        self.tick = 0;
         self.cur = u32::MAX;
         self.idx = 0;
         self.h = 0;
@@ -471,6 +492,21 @@ impl TiledGrid {
         self.stats.peak_total_bytes = self.stats.peak_total_bytes.max(total);
     }
 
+    fn unlink(&mut self, i: u32) {
+        let (p, n) = (self.prev[i as usize], self.next[i as usize]);
+        if p == NIL { self.head = n } else { self.next[p as usize] = n }
+        if n == NIL { self.tail = p } else { self.prev[n as usize] = p }
+        self.prev[i as usize] = NIL;
+        self.next[i as usize] = NIL;
+    }
+
+    fn push_front(&mut self, i: u32) {
+        self.prev[i as usize] = NIL;
+        self.next[i as usize] = self.head;
+        if self.head == NIL { self.tail = i } else { self.prev[self.head as usize] = i }
+        self.head = i;
+    }
+
     /// Store the resident tile `pi` as inactive (or drop it if blank) and release its buffer.
     fn evict(&mut self, pi: u32) {
         let p = &self.pool[pi as usize];
@@ -501,7 +537,7 @@ impl TiledGrid {
                 self.stats.compressed_stores += 1;
                 self.scratch = buf;
                 self.pool[pi as usize].live = false;
-                self.ticks[pi as usize] = u64::MAX;
+                self.unlink(pi);
                 return;
             }
             let payload: Box<[u8]> = buf.as_slice().into();
@@ -514,7 +550,7 @@ impl TiledGrid {
             self.scratch = buf;
         }
         self.pool[pi as usize].live = false;
-        self.ticks[pi as usize] = u64::MAX;
+        self.unlink(pi);
     }
 
     /// A buffer for a tile about to become resident: free-listed, newly allocated, or the least recently used tile's.
@@ -524,12 +560,14 @@ impl TiledGrid {
         }
         if self.cfg.cache_tiles.is_none_or(|cap| self.pool.len() < cap) {
             self.pool.push(Pooled { key: 0, cells: vec![SENT; self.stride * self.stride].into_boxed_slice(), live: false });
-            self.ticks.push(u64::MAX);
+            self.prev.push(NIL);
+            self.next.push(NIL);
             return (self.pool.len() - 1) as u32;
         }
-        // Deterministic LRU: oldest tick wins. The current tile has the newest tick, so with at least two tiles it is never chosen.
-        let victim = (0..self.pool.len() as u32).filter(|&i| self.pool[i as usize].live && i != self.cur).min_by_key(|&i| self.ticks[i as usize]);
-        let victim = victim.expect("cache holds at least two live tiles");
+        // Deterministic LRU: the list tail is the least recently entered tile. The current tile is the head, so with at least
+        // two live tiles it is never chosen.
+        let victim = self.tail;
+        assert!(victim != NIL && victim != self.cur, "cache holds at least two live tiles");
         self.evict(victim);
         self.stats.evictions += 1;
         victim
@@ -594,16 +632,23 @@ impl TiledGrid {
         let t = self.t as i64;
         let (tx, ty) = (x.div_euclid(t), y.div_euclid(t));
         let k = key(tx, ty);
-        self.tick += 1;
         self.stats.transitions += 1;
         let pi = match self.dir.get(&k) {
             Some(Slot::Resident(i)) => {
                 self.stats.hits += 1;
-                *i
+                let i = *i;
+                if self.head != i {
+                    self.unlink(i);
+                    self.push_front(i);
+                }
+                i
             }
-            _ => self.load(k),
+            _ => {
+                let i = self.load(k);
+                self.push_front(i);
+                i
+            }
         };
-        self.ticks[pi as usize] = self.tick;
         self.cur = pi;
         let (lx, ly) = ((x - tx * t) as usize, (y - ty * t) as usize);
         self.idx = (ly + 1) * self.stride + lx + 1;
