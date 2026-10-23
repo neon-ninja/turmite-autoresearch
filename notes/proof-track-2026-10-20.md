@@ -96,3 +96,18 @@ in the paper.
    "sweeper decider" over the census would be the proof-track analogue of the bbchallenge deciders.
 3. *Entry* (mostly done 2026-10-21): family at the cell level from m = 4, clock to m = -24; cone margin derived (exact criterion, Task C; the observed 3-row margin was too small); open: explain the clock at m < 2, and what at the blob NW corner makes a height-19 first column.
 4. *Explain, not just certify*: why the bulk row is `14435435...` and why the colour period is 3 for a length-6 rule.
+
+## Status update 2026-10-23 (appended; the plan above is not edited)
+
+- **Assurance (item 1):** the L4 caveats "multi-cycle padding" and "infinite-plane closure" are closed for the ideal plane: `Plane.lean`, `PlaneChain.lean`, `PlaneForever.lean`
+  (`forever`, `forever_ideal`) prove, for every number of cycles, that the plane carries the next window; `scripts/l5_check.sh`, axioms propext/Classical.choice/Quot.sound only. Task D ran:
+  `fast::run` and the plain loop agree at the 12,676,237,591-step base case (hash 27245db416b98a32, 87 s each). Not closed: the real board is not `Good` (old blob cells inside the window rows);
+  the Lean model's fidelity to the Rust ant; the global-front premise. See the parent experiment's README (L5, Task D).
+- **Item 2, generalise the checker:** (i) the other three "escapes" are not column sweepers: two are square spirals with exact affine clocks (RLLLRLRLLL from 2.635e10, phase period 2;
+  RLLLLRRL from about 1.47e10, phase period 19, post hoc), one is a still-growing blob; the 3-stage sweeper checker does not transfer (the spiral has eight segments and a band of depth >= 77).
+  Stage 2 for the spirals is *not done*; the cell-level steady-state test (99.2-99.7% equal after 5 revolutions) says a family exists. (ii) The `m`-free case is done as a **rectangle translated-cycler decider**:
+  571/571 census highways certified (`experiments/2026-10-23-highway-decider/`), controls and an independent-ant oracle pass. The decider is the first census-wide level-3 object of the track; its theorem is checked by
+  a program and a proof sketch, not yet in Lean.
+- **Item 4, explain:** the wake's colour period 3 is the three-column advance: one visit profile (1,4,4,2,1) on offsets -2..2 for every interior bulk row, visits per cell 3, 5, 4, below 6, so colour = visit count
+  (parent Task E, 1836/1836 cells). The profile itself (the descent lemma's footprint) is not explained.
+- **Item 3, entry:** untouched this session.
