@@ -38,8 +38,9 @@ transfer, and I did not start a proof. I do not know what triggers the late onse
 
 **The part that did transfer.** The `m`-free case of the sweeper is a highway, and the census had never checked one at the level of the configuration, only of the trace.
 A rectangle translated-cycler certificate (the ant stays in a window W, the cells ahead of it are blank, and after one period the configuration is the translate
-of the window) certified **571 of 571** census highways, 568 of them at the first snapshot I tried. It is checked by a program and a proof sketch, not in Lean yet,
-and it is conservative; but it turns "the trace repeats" into "the configuration reproduces itself", and nothing in the census failed it.
+of the window) certified **571 of 571** census highways, 568 of them at the first snapshot I tried. Read this as "certified by a checker program; the soundness
+theorem is machine-checked in Lean (see the addendum), but the four instance clauses are not replayed in Lean". It covers the future from the snapshot onward only: how a blank board reaches
+the snapshot is plain simulation. The test is conservative, so a failure would not mean "not a highway". It turns "the trace repeats" into "the configuration reproduces itself", and nothing in the census failed it.
 
 What would change my mind about the spirals: a revolution anywhere in the exact regime that breaks the clock, or a band profile that drifts by more than a seam.
 The registrations, the code and the failed predictions (the onset range and the phase-period cap) are in the experiment folders.
