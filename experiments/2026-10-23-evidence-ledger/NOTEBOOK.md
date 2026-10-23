@@ -88,3 +88,10 @@ because preparation stops at six existing reader-guide omissions; the ledger's
 guide row is supplied. No new sweep, mechanism assertion or pruning exclusion.
 Next work is the discriminating-test feasibility decision in ACTIVE, not an
 unbounded database project.
+
+## 2026-10-23 18:09 +13:00 · deviation · 7e14934
+
+Final staged whitespace checking reports one trailing blank line in the raw
+compiler/test log. The earlier clean-check statement applies to authored files,
+before that log was staged. Preserve the raw log rather than editing captured
+test output; this is a formatting warning, not a test failure.
