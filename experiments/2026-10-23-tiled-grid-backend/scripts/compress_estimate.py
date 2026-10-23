@@ -59,8 +59,8 @@ def main() -> None:
         for label, fn in [
             ("deflate1", lambda d: zlib.compress(d, 1)),
             ("deflate9", lambda d: zlib.compress(d, 9)),
-            ("xz0", lambda d: lzma.compress(d, preset=0, format=lzma.FORMAT_RAW, filters=[{"id": lzma.FILTER_LZMA2, "preset": 0}])),
-            ("xz6", lambda d: lzma.compress(d, preset=6, format=lzma.FORMAT_RAW, filters=[{"id": lzma.FILTER_LZMA2, "preset": 6}])),
+            ("xz0", lambda d: lzma.compress(d, format=lzma.FORMAT_RAW, filters=[{"id": lzma.FILTER_LZMA2, "preset": 0}])),
+            ("xz6", lambda d: lzma.compress(d, format=lzma.FORMAT_RAW, filters=[{"id": lzma.FILTER_LZMA2, "preset": 6}])),
         ]:
             total, used = 0, 0
             for _, d in t["tiles"]:

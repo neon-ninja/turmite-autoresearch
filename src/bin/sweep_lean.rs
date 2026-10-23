@@ -8,7 +8,7 @@
 //!   TURMITE_GRID=dense|tiled                           storage backend, default dense
 //!   TURMITE_TILE_LOG2=k                                tiled: tile side 2^k, default 6
 //!   TURMITE_CACHE_TILES=N|unlimited                    tiled: resident-tile bound (N >= 2), default unlimited (sparse only)
-//!   TURMITE_INACTIVE=raw|packed                        tiled: how non-resident tiles are stored, default packed
+//!   TURMITE_INACTIVE=raw|packed|lz4                    tiled: how non-resident tiles are stored, default packed
 //!   TURMITE_GRID_STATS=file.json                       backend configuration, cache counters, memory, peak RSS (never in the CSV)
 
 use rayon::prelude::*;
@@ -80,7 +80,7 @@ fn main() {
     let tile_cfg = TileConfig {
         tile_log2: env_or_die("TURMITE_TILE_LOG2", 6, |v| v.parse().ok(), "an integer"),
         cache_tiles: env_or_die("TURMITE_CACHE_TILES", None, |v| if v == "unlimited" { Some(None) } else { v.parse().ok().map(Some) }, "N or unlimited"),
-        inactive: env_or_die("TURMITE_INACTIVE", Inactive::Packed, |v| match v { "raw" => Some(Inactive::Raw), "packed" => Some(Inactive::Packed), _ => None }, "raw or packed"),
+        inactive: env_or_die("TURMITE_INACTIVE", Inactive::Packed, |v| match v { "raw" => Some(Inactive::Raw), "packed" => Some(Inactive::Packed), "lz4" => Some(Inactive::Compressed), _ => None }, "raw, packed or lz4"),
     };
     let stats_path = std::env::var("TURMITE_GRID_STATS").ok();
     if tiled {
@@ -180,13 +180,13 @@ fn main() {
                 .map(|s| {
                     format!(
                         "  {{\"rule\": \"{}\", \"transitions\": {}, \"hits\": {}, \"misses\": {}, \"creations\": {}, \"evictions\": {}, \"blank_drops\": {}, \
-                         \"packed_stores\": {}, \"raw_stores\": {}, \"bytes_encoded\": {}, \"bytes_decoded\": {}, \"peak_resident_tiles\": {}, \"peak_inactive_bytes\": {}, \
-                         \"peak_total_bytes\": {}, \"end_tiles\": {}, \"end_resident_tiles\": {}, \"end_packed_bytes\": {}, \"end_raw_inactive_bytes\": {}, \
+                         \"packed_stores\": {}, \"raw_stores\": {}, \"compressed_stores\": {}, \"bytes_encoded\": {}, \"bytes_decoded\": {}, \"peak_resident_tiles\": {}, \"peak_inactive_bytes\": {}, \
+                         \"peak_total_bytes\": {}, \"end_tiles\": {}, \"end_resident_tiles\": {}, \"end_packed_bytes\": {}, \"end_raw_inactive_bytes\": {}, \"end_compressed_bytes\": {}, \
                          \"end_resident_bytes\": {}, \"end_directory_bytes\": {}, \"end_cache_meta_bytes\": {}, \"onset_peak_total_bytes\": {}}}",
                         s.rule, s.run.transitions, s.run.hits, s.run.misses, s.run.creations, s.run.evictions, s.run.blank_drops,
-                        s.run.packed_stores, s.run.raw_stores, s.run.bytes_encoded, s.run.bytes_decoded, s.run.peak_resident_tiles,
+                        s.run.packed_stores, s.run.raw_stores, s.run.compressed_stores, s.run.bytes_encoded, s.run.bytes_decoded, s.run.peak_resident_tiles,
                         s.run.peak_inactive_bytes, s.run.peak_total_bytes, s.mem.tiles_total, s.mem.tiles_resident, s.mem.packed_bytes,
-                        s.mem.raw_inactive_bytes, s.mem.resident_bytes, s.mem.directory_bytes, s.mem.cache_meta_bytes,
+                        s.mem.raw_inactive_bytes, s.mem.compressed_bytes, s.mem.resident_bytes, s.mem.directory_bytes, s.mem.cache_meta_bytes,
                         s.onset_peak_total.map_or_else(null, |v| v.to_string())
                     )
                 })

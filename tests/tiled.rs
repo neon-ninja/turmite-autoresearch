@@ -57,9 +57,9 @@ proptest! {
 
     /// Full state against the oracle: every colour, every touched flag, position, heading, step count, escape timing.
     #[test]
-    fn equals_reference_state(bits in any::<u64>(), n in 1usize..=40, size in 1usize..=45, steps in 0u64..6_000, tl in 2u32..=5, cap in 2usize..=6, packed in any::<bool>()) {
+    fn equals_reference_state(bits in any::<u64>(), n in 1usize..=40, size in 1usize..=45, steps in 0u64..6_000, tl in 2u32..=5, cap in 2usize..=6, mode in 0u8..3) {
         let rule = rule_n(bits, n);
-        let inactive = if packed { Inactive::Packed } else { Inactive::Raw };
+        let inactive = mode_of(mode);
         let (r, g) = run_checked(&rule, size, steps, tcfg(tl, Some(cap), inactive));
         let (want, pos, heading) = oracle_state(&rule, r.steps);
         prop_assert_eq!(r.pos, pos);
@@ -75,12 +75,12 @@ proptest! {
 
     /// Same RunResult as the dense lean ant, every field, and the same cells, for any tile size and cache bound.
     #[test]
-    fn equals_lean(bits in any::<u64>(), n in 2usize..=12, size in 1usize..=70, steps in 1u64..40_000, tl in 2u32..=6, cap in 2usize..=9, packed in any::<bool>(), hist in 100usize..20_000) {
+    fn equals_lean(bits in any::<u64>(), n in 2usize..=12, size in 1usize..=70, steps in 1u64..40_000, tl in 2u32..=6, cap in 2usize..=9, mode in 0u8..3, hist in 100usize..20_000) {
         let rule = rule_n(bits, n);
         let c = Config { max_steps: steps, checkpoint: 1_000, max_period: 5_000, history: hist };
         let mut lg = LeanGrid::new(size);
         let want = run_lean(&rule, &mut lg, &c);
-        let inactive = if packed { Inactive::Packed } else { Inactive::Raw };
+        let inactive = mode_of(mode);
         let mut g = TiledGrid::new(size, tcfg(tl, Some(cap), inactive)).unwrap();
         let got = run_tiled(&rule, &mut g, &c);
         prop_assert_eq!(debug(&got), debug(&want));
@@ -118,7 +118,7 @@ proptest! {
         let mut base: Option<(String, BTreeMap<(i64, i64), u8>)> = None;
         for tl in [2u32, 3, 5, 7] {
             for cache in [Some(2), Some(3), Some(8), None] {
-                for inactive in [Inactive::Raw, Inactive::Packed] {
+                for inactive in [Inactive::Raw, Inactive::Packed, Inactive::Compressed] {
                     let (r, g) = run_checked(&rule, size, steps, tcfg(tl, cache, inactive));
                     let cur = (debug(&r), tiled_state(&g));
                     match &base {
@@ -132,8 +132,8 @@ proptest! {
 
     /// One grid reused for many rules (different n, so different packing widths) behaves like a fresh grid each time.
     #[test]
-    fn reuse_across_rules(seeds in proptest::collection::vec((any::<u64>(), 1usize..=70, 100u64..8_000), 2..6), size in 16usize..80, packed in any::<bool>()) {
-        let inactive = if packed { Inactive::Packed } else { Inactive::Raw };
+    fn reuse_across_rules(seeds in proptest::collection::vec((any::<u64>(), 1usize..=70, 100u64..8_000), 2..6), size in 16usize..80, mode in 0u8..3) {
+        let inactive = mode_of(mode);
         let mut g = TiledGrid::new(size, tcfg(3, Some(4), inactive)).unwrap();
         for (bits, n, steps) in seeds {
             let rule = rule_n(bits, n);
@@ -343,18 +343,19 @@ proptest! {
         let ck = |name: &str| Ckpt { path: dir.join(name), every };
         let straight = run_lean(&rule, &mut LeanGrid::new(size), &cfg(total));
         let mut files = vec![];
-        for (i, (cache, inactive)) in [(Some(2), Inactive::Packed), (None, Inactive::Raw), (Some(5), Inactive::Raw)].into_iter().enumerate() {
+        for (i, (cache, inactive)) in [(Some(2), Inactive::Packed), (None, Inactive::Raw), (Some(5), Inactive::Raw), (Some(2), Inactive::Compressed)].into_iter().enumerate() {
             let name = format!("c{i}.tkpt");
             let mut g1 = TiledGrid::new(size, tcfg(3, cache, inactive)).unwrap();
             run_tiled_ckpt(&rule, &mut g1, &cfg(first), Some(&ck(&name))).unwrap();
             files.push(std::fs::read(dir.join(&name)).ok()); // absent when the run escaped before any save
             // resume in a different configuration than the one that wrote the file
-            let mut g2 = TiledGrid::new(size, tcfg(3, Some(3 + i), if i % 2 == 0 { Inactive::Raw } else { Inactive::Packed })).unwrap();
+            let mut g2 = TiledGrid::new(size, tcfg(3, Some(3 + i), [Inactive::Raw, Inactive::Packed, Inactive::Compressed][i % 3])).unwrap();
             let ext = run_tiled_ckpt(&rule, &mut g2, &cfg(total), Some(&ck(&name))).unwrap();
             prop_assert_eq!(debug(&ext), debug(&straight));
         }
         prop_assert_eq!(&files[0], &files[1]);
         prop_assert_eq!(&files[0], &files[2]);
+        prop_assert_eq!(&files[0], &files[3]);
         std::fs::remove_dir_all(&dir).ok();
     }
 }
@@ -453,4 +454,26 @@ fn tiny_board_cases_that_caught_a_dropped_touched_bit() {
         assert_eq!(tiled_state(&g), want);
         assert_eq!(debug(&r), debug(&run_lean(&rule, &mut LeanGrid::new(size), &cfg(steps))));
     }
+}
+
+fn mode_of(m: u8) -> Inactive {
+    [Inactive::Raw, Inactive::Packed, Inactive::Compressed][m as usize % 3]
+}
+
+#[test]
+fn lz4_compresses_structured_tiles_and_falls_back_when_it_cannot() {
+    // A structured grower: most tiles shrink well below their packed size.
+    let rule: Rule = "RLLRLLLRRRLL".parse().unwrap();
+    let (r, g) = run_checked(&rule, 1024, 3_000_000, tcfg(6, Some(4), Inactive::Compressed));
+    let (rp, gp) = run_checked(&rule, 1024, 3_000_000, tcfg(6, Some(4), Inactive::Packed));
+    assert_eq!(debug(&r), debug(&rp));
+    assert_eq!(tiled_state(&g), tiled_state(&gp));
+    let (m, mp) = (g.memory(), gp.memory());
+    assert!(m.tiles_compressed > 0 && m.inactive_bytes() < mp.inactive_bytes() / 2, "{m:?} vs {mp:?}");
+    // 70 colours are stored raw (packing cannot help) and random colours do not compress: the raw/packed fallback must engage.
+    let rule = rule_n(0x1234_5678_9abc_def1, 70);
+    let (r, g) = run_checked(&rule, 60, 30_000, tcfg(4, Some(2), Inactive::Compressed));
+    assert_eq!(debug(&r), debug(&run_lean(&rule, &mut LeanGrid::new(60), &cfg(30_000))));
+    let m = g.memory();
+    assert!(m.tiles_raw_inactive + m.tiles_compressed > 0);
 }

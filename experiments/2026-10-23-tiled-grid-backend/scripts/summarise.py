@@ -4,7 +4,8 @@ usage (repository root): uv run --frozen experiments/2026-10-23-tiled-grid-backe
 Reads only results/runs/{WL}__{CFG}__r{K}.{json,time,load,err}, the dense CSVs and identity.tsv written by bench.sh.
 Medians are over repetitions; the table also gives min and max, because the machine is shared (see provenance.txt).
 """
-import json
+import json, sys
+sys.stdout.reconfigure(encoding="utf-8")
 from pathlib import Path
 
 import polars as pl

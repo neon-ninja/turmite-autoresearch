@@ -102,3 +102,19 @@ in [results/provenance.txt](results/provenance.txt) (written by `bench.sh`) and 
 Filled in after the runs (below the line; the registration above is not edited).
 
 ---
+
+## Addendum 1 (registered 2026-10-23 19:25 +13:00, before any stage-D timing): block compression
+
+Stage-1/2 results exist (below); they fired criterion A5 (see "Results"): on W3 the packed inactive payload is about 69% of C's
+RSS and per-tile deflate shrinks the real payload 64x (xz 74x). Stage D was therefore built: `TURMITE_INACTIVE=lz4`
+(`Inactive::Compressed`): the canonical packed (or raw) payload is LZ4-block-compressed (`lz4_flex` 0.14, pure safe Rust, no
+transitive dependencies, `default-features = false`) on eviction only, kept when smaller, and expanded on a miss; checkpoints
+stay in the canonical form. Configs L64, L1024, L4096 (cache sizes, tile 2^6) on W1 and W3, plus A, B6, C1024 re-run as references
+in the same interleaved batch (5 repetitions, results/runs_d).
+
+Predictions: (D1) W3, L1024: peak RSS 14-28 MiB (resident 4.4 MiB + compressed payload 1-8 MiB + 8 MiB process baseline), i.e.
+<= 0.6 x C1024's. (D2) W3, L1024 throughput 0.3-0.6 x B6 and >= 0.8 x C1024's (LZ4 expansion is cheap next to the 14 us bit-unpack, but a
+compress is added per eviction). (D3) W3, L64: < 0.05 x B6 (thrash). (D4) W1, L1024 (no evictions): equal to B6 within 5%.
+(D5) Compressed bytes on W3 at the end: LZ4 will reach less than the deflate figure; I expect 15-60x vs packed, not 64x.
+Criterion A6 (adoption of D over C): on W3, RSS(L, some cache) <= 0.6 x RSS(C, same cache) AND throughput >= 0.8 x C's at that cache.
+If A6 fails, D stays as an opt-in with its measured trade-off reported.

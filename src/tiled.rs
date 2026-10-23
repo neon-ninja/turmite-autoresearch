@@ -61,6 +61,9 @@ pub enum Inactive {
     Raw,
     /// Fixed-width bit-packed (falls back to `Raw` when that would not be smaller, i.e. for 65 or more colours).
     Packed,
+    /// As `Packed`, then an LZ4 block (lz4_flex, safe mode) of that canonical payload when the block is smaller; otherwise the
+    /// packed or raw payload. Compression happens once per eviction, never while a tile is resident.
+    Compressed,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -95,6 +98,7 @@ pub struct TileStats {
     pub blank_drops: u64,
     pub packed_stores: u64,
     pub raw_stores: u64,
+    pub compressed_stores: u64,
     /// Payload bytes produced by evictions / consumed by misses.
     pub bytes_encoded: u64,
     pub bytes_decoded: u64,
@@ -111,10 +115,12 @@ pub struct MemoryReport {
     pub tiles_resident: usize,
     pub tiles_packed: usize,
     pub tiles_raw_inactive: usize,
+    pub tiles_compressed: usize,
     /// Allocated resident buffers, `(T+2)^2` bytes each, including free-listed ones.
     pub resident_bytes: usize,
     pub packed_bytes: usize,
     pub raw_inactive_bytes: usize,
+    pub compressed_bytes: usize,
     /// Estimate: hash-table capacity times (key + slot + control byte).
     pub directory_bytes: usize,
     /// Pool bookkeeping (tick, key, free list, scratch).
@@ -123,7 +129,7 @@ pub struct MemoryReport {
 
 impl MemoryReport {
     pub fn inactive_bytes(&self) -> usize {
-        self.packed_bytes + self.raw_inactive_bytes
+        self.packed_bytes + self.raw_inactive_bytes + self.compressed_bytes
     }
     pub fn total_bytes(&self) -> usize {
         self.resident_bytes + self.inactive_bytes() + self.directory_bytes + self.cache_meta_bytes
@@ -151,6 +157,8 @@ enum Slot {
     Resident(u32),
     Raw(Box<[u8]>),
     Packed(Box<[u8]>),
+    /// LZ4 block of the canonical payload (`canonical_len` bytes once expanded).
+    Lz4(Box<[u8]>),
 }
 
 struct Pooled {
@@ -295,6 +303,22 @@ fn load_raw(payload: &[u8], dst: &mut [u8], stride: usize, base: usize, t: usize
     Ok(())
 }
 
+/// Bytes of the canonical inactive payload: packed when that is smaller than raw, else raw.
+fn canonical_len(t: usize, w: u32) -> usize {
+    packed_len(t, w).min(t * t)
+}
+
+/// Expand an LZ4 block that must yield exactly `len` bytes.
+fn expand(block: &[u8], len: usize, out: &mut Vec<u8>) -> Result<(), TileError> {
+    out.clear();
+    out.resize(len, 0);
+    match lz4_flex::block::decompress_into(block, out) {
+        Ok(n) if n == len => Ok(()),
+        Ok(n) => Err(TileError::Corrupt(format!("lz4 block expands to {n} bytes, expected {len}"))),
+        Err(e) => Err(TileError::Corrupt(format!("lz4 block: {e}"))),
+    }
+}
+
 /// Pack a full `t x t` array of lean-encoded cells (all on board): the codec on its own, for tests and benchmarks.
 pub fn pack_cells(cells: &[u8], t: usize, w: u32) -> Vec<u8> {
     assert_eq!(cells.len(), t * t);
@@ -416,6 +440,10 @@ impl TiledGrid {
                     m.tiles_raw_inactive += 1;
                     m.raw_inactive_bytes += b.len();
                 }
+                Slot::Lz4(b) => {
+                    m.tiles_compressed += 1;
+                    m.compressed_bytes += b.len();
+                }
             }
         }
         m.resident_bytes = self.pool.len() * self.stride * self.stride;
@@ -458,7 +486,7 @@ impl TiledGrid {
             self.stats.blank_drops += 1;
         } else {
             let mut buf = std::mem::take(&mut self.scratch);
-            let pack = self.cfg.inactive == Inactive::Packed && packed_len(t, self.w) < t * t;
+            let pack = self.cfg.inactive != Inactive::Raw && packed_len(t, self.w) < t * t;
             if pack {
                 encode(&p.cells, stride, base, t, self.w, rect, &mut buf);
             } else {
@@ -466,6 +494,16 @@ impl TiledGrid {
             }
             self.stats.bytes_encoded += buf.len() as u64;
             self.inactive_bytes += buf.len();
+            let lz4 = (self.cfg.inactive == Inactive::Compressed).then(|| lz4_flex::compress(&buf)).filter(|c| c.len() < buf.len());
+            if let Some(c) = lz4 {
+                self.inactive_bytes = self.inactive_bytes - buf.len() + c.len();
+                self.dir.insert(p.key, Slot::Lz4(c.into_boxed_slice()));
+                self.stats.compressed_stores += 1;
+                self.scratch = buf;
+                self.pool[pi as usize].live = false;
+                self.ticks[pi as usize] = u64::MAX;
+                return;
+            }
             let payload: Box<[u8]> = buf.as_slice().into();
             self.dir.insert(p.key, if pack { Slot::Packed(payload) } else { Slot::Raw(payload) });
             if pack {
@@ -522,6 +560,20 @@ impl TiledGrid {
             }
             Some(Slot::Packed(b)) => {
                 decode(&b, buf, stride, base, t, w, n, rect).expect("inactive packed tile is internally consistent");
+                self.inactive_bytes -= b.len();
+                self.stats.bytes_decoded += b.len() as u64;
+                self.stats.misses += 1;
+            }
+            Some(Slot::Lz4(b)) => {
+                let mut tmp = std::mem::take(&mut self.scratch);
+                expand(&b, canonical_len(t, w), &mut tmp).expect("inactive lz4 tile is internally consistent");
+                if packed_len(t, w) < t * t {
+                    decode(&tmp, buf, stride, base, t, w, n, rect)
+                } else {
+                    load_raw(&tmp, buf, stride, base, t, n, rect)
+                }
+                .expect("inactive lz4 tile is internally consistent");
+                self.scratch = tmp;
                 self.inactive_bytes -= b.len();
                 self.stats.bytes_decoded += b.len() as u64;
                 self.stats.misses += 1;
@@ -640,6 +692,18 @@ impl TiledGrid {
                 decode(b, scratch, self.t, 0, self.t, self.w, self.n, rect)?;
                 (&scratch[..], self.t, 0)
             }
+            Slot::Lz4(b) => {
+                let mut canon = vec![];
+                expand(b, canonical_len(self.t, self.w), &mut canon)?;
+                scratch.clear();
+                scratch.resize(self.t * self.t, 0);
+                if packed_len(self.t, self.w) < self.t * self.t {
+                    decode(&canon, scratch, self.t, 0, self.t, self.w, self.n, rect)?;
+                } else {
+                    load_raw(&canon, scratch, self.t, 0, self.t, self.n, rect)?;
+                }
+                (&scratch[..], self.t, 0)
+            }
         })
     }
 
@@ -656,7 +720,7 @@ impl TiledGrid {
                     }
                     resident += 1;
                 }
-                Slot::Raw(b) | Slot::Packed(b) => inactive += b.len(),
+                Slot::Raw(b) | Slot::Packed(b) | Slot::Lz4(b) => inactive += b.len(),
             }
         }
         if inactive != self.inactive_bytes {
@@ -918,6 +982,10 @@ fn save_ckpt(path: &std::path::Path, rule: &Rule, grid: &TiledGrid, steps: u64) 
         let rect = grid.rect(tx, ty);
         let (tag, payload): (u8, &[u8]) = match slot {
             Slot::Packed(p) => (1, p), // already canonical: only built when packed is smaller
+            Slot::Lz4(b) => {
+                expand(b, canonical_len(t, w), &mut enc)?;
+                (if packed_len(t, w) < t * t { 1 } else { 2 }, &enc)
+            }
             _ => {
                 let (d, stride, base) = grid.view(k, slot, &mut scratch)?;
                 let blank = (rect.y0..rect.y1).all(|ly| d[base + ly * stride + rect.x0..base + ly * stride + rect.x1].iter().all(|&v| v == 0));

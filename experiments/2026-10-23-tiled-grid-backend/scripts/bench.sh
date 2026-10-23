@@ -23,12 +23,15 @@ declare -A ENVOF=(
   [C4096]="TURMITE_GRID=tiled TURMITE_TILE_LOG2=6 TURMITE_CACHE_TILES=4096 TURMITE_INACTIVE=packed"
   [T2c2p]="TURMITE_GRID=tiled TURMITE_TILE_LOG2=2 TURMITE_CACHE_TILES=2 TURMITE_INACTIVE=packed"
   [T3c2p]="TURMITE_GRID=tiled TURMITE_TILE_LOG2=3 TURMITE_CACHE_TILES=2 TURMITE_INACTIVE=packed"
+  [L64]="TURMITE_GRID=tiled TURMITE_TILE_LOG2=6 TURMITE_CACHE_TILES=64 TURMITE_INACTIVE=lz4"
+  [L1024]="TURMITE_GRID=tiled TURMITE_TILE_LOG2=6 TURMITE_CACHE_TILES=1024 TURMITE_INACTIVE=lz4"
+  [L4096]="TURMITE_GRID=tiled TURMITE_TILE_LOG2=6 TURMITE_CACHE_TILES=4096 TURMITE_INACTIVE=lz4"
   [T3c2r]="TURMITE_GRID=tiled TURMITE_TILE_LOG2=3 TURMITE_CACHE_TILES=2 TURMITE_INACTIVE=raw"
 )
 declare -A CONFIGS=(
-  [W1]="A B6 B5 B7 R64 C16 C64 C1024"
+  [W1]="A B6 B5 B7 R64 C16 C64 C1024 L64 L1024"
   [W2]="A B6 R64 C64"
-  [W3]="A B6 B5 B7 R64 C64 C1024 C4096"
+  [W3]="A B6 B5 B7 R64 C64 C1024 C4096 L64 L1024 L4096"
   [W4a]="A B6 C64"
   [W4b]="A B6 C64"
   [W5]="A B6 T2c2p T3c2p T3c2r"
@@ -45,11 +48,12 @@ declare -A CONFIGS=(
   echo "loadavg at start: $(cat /proc/loadavg)"
   echo "top cpu at start:"; ps -eo pid,pcpu,args --sort=-pcpu | head -6 | cut -c1-160
   echo "command: $0 $*"
-} > "$out/../provenance.txt"
+} > "${out}_provenance.txt"
 
-tail -n +2 "$here/workloads.tsv" | while IFS=$'\t' read -r wl rule board steps reps; do
+tail -n +2 "$here/workloads.tsv" | { if [ -n "${ONLYWL:-}" ]; then grep -E "^(${ONLYWL})	"; else cat; fi; } | while IFS=$'\t' read -r wl rule board steps reps; do
   for rep in $(seq 1 "$reps"); do
     for cfg in ${CONFIGS[$wl]}; do
+      if [ -n "${ONLY:-}" ] && [[ " $ONLY " != *" $cfg "* ]]; then continue; fi
       base="$out/${wl}__${cfg}__r${rep}"
       loadbefore="$(cut -d' ' -f1 /proc/loadavg)"
       # shellcheck disable=SC2086
@@ -67,6 +71,6 @@ tail -n +2 "$here/workloads.tsv" | while IFS=$'\t' read -r wl rule board steps r
     rm -f "$tmp/${wl}__A__r${rep}.csv"
   done
 done
-echo "loadavg at end: $(cat /proc/loadavg)" >> "$out/../provenance.txt"
-echo "top cpu at end:" >> "$out/../provenance.txt"; ps -eo pid,pcpu,args --sort=-pcpu | head -6 | cut -c1-160 >> "$out/../provenance.txt"
+echo "loadavg at end: $(cat /proc/loadavg)" >> "${out}_provenance.txt"
+echo "top cpu at end:" >> "${out}_provenance.txt"; ps -eo pid,pcpu,args --sort=-pcpu | head -6 | cut -c1-160 >> "${out}_provenance.txt"
 rm -rf "$tmp"
