@@ -737,3 +737,21 @@ Predictions (E-a ... E-d):
   distinct profiles found; fails if more than 6 distinct profiles (2 row classes x 3 phases) occur.
 - **E-d (the explanation).** Summing the profile over offset classes mod 3 reproduces the colours: S_rho = (4, 3, 5) in the order that matches the wake columns. Fails otherwise.
 If E-b holds but E-d fails, the colours equal the visit counts but the profile does not factor through offsets mod 3 (the explanation is wrong, the identity "colour = visits" survives).
+
+### Task E results (appended 2026-10-23 18:18 +13:00; the registration above is not edited)
+
+Command: `python3 scripts/e_visits.py 60 24` (WSL Python 3.12 stdlib, 0.6 s; commit `035e32a`), output `results/e_visits.txt`. Deterministic; one family member (m = 60, q = 0), 24 cycles.
+
+| Prediction | Outcome |
+|---|---|
+| E-a every interior bulk row is stood on exactly 12 times per cycle | **Held**: 0 deviations in 36 interior rows x 24 cycles (864 row-cycles). |
+| E-b deep-wake interior cells: total visits < 6 and equal to the colour | **Held**: 1836 of 1836 cells; visits by x mod 3 are 4, 3, 5 (all cells of a class agree). |
+| E-c support of a(d) inside offsets 0 .. 20, at most 6 distinct profiles | **Failed as registered (support clause), held (count clause)**: there is exactly **one** profile for all phases and both row parities, `a(d)` = {-2: 1, -1: 4, 0: 4, 1: 2, 2: 1} (total 12), supported on offsets -2 .. 2. My registered range 0..20 confused the 20-column reach of the end blocks with the footprint of a bulk row, and forgot that the ant stands on columns -2 and -1 before the front advances. |
+| E-d totals follow from the per-phase profiles | **Held**: 1836 of 1836 (trivially strong because there is one profile). |
+
+**What this explains (and what it does not).** A wake cell sits at offset d from the front in one cycle and d + 3 in the next, so it is visited at the offsets of its class
+d, d + 3, ... inside the footprint -2 .. 2. The classes are {-2, 1}, {-1, 2}, {0}: total visits 1 + 2 = 3, 4 + 1 = 5, 4, which are the colours of the three wake columns (the
+order 4, 3, 5 along x). They are below 6, so the colour *is* the visit count and the rule's length 6 never enters: the period 3 is the three-column advance per cycle, and the
+bulk row `...435435...` is the visit count of a cell that two successive cycles overlap with weights (1,2), (4,1), (4). The 12 = 3 + 5 + 4 visits per bulk row per cycle is the
+10 + 2 of the two shift lemmas (20 steps and 4 steps per 2 rows). **Not explained:** why the footprint is the specific profile (1, 4, 4, 2, 1), i.e. the content of the
+descent lemma, and why the cycle advances exactly 3 columns; those remain facts read off the finite runs. The note in `notes/g1-builder-structure-2026-10-14.md` that the colours are "3, 4, 5" now has a counting reason.

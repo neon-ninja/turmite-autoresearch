@@ -233,3 +233,9 @@ a rcases pattern with the wrong arity tried to case on an equation, and a replic
 ### 2026-10-23 18:15 +1300 · 642b4f4c710e0488dc8f1a1fc6af6298c4c09656 · interpretation
 This removes the padding and infinite-plane caveats of L4 for the ideal plane, not for the real board (the real board is not `Good`; see README L5 "does not close" item 1).
 The remaining Lean-side gap that matters for the headline claim is a plane-agreement lemma: real = ideal on the ideal ant's visited cells, then `forever` applies to the real run.
+
+### 2026-10-23 18:18 +1300 · 035e32a · observation
+Task E (registered 1370bd3 at 18:15:39, script 035e32a, run after): one visit profile a(d) = (1, 4, 4, 2, 1) on offsets -2 .. 2 for every interior bulk row, every phase and parity; every deep interior wake cell's colour equals its total visit count (3, 5 or 4 by x mod 3), 1836/1836. E-a, E-b, E-d held; E-c failed as registered on the support clause (0..20 vs -2..2). `results/e_visits.txt`.
+
+### 2026-10-23 18:18 +1300 · 035e32a · deviation
+corrects: the time 18:15 on the two L5 entries above (written at about 18:08 by the commit clock: `1035e5f` is 18:08:06) and the line "18:15" in the L5 README section header text: I wrote those times from the plan, not the clock. Order of events is unaffected (L5 files `642b4f4` at 18:05:43 precede the L5 notes).
