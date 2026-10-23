@@ -117,3 +117,14 @@ the driver's own summary line in that file counted `True` where the Rust program
 median area 54 cells, and the cells ahead are blank. Given the true configuration at `t1` (obtained by plain simulation from a blank plane, validated against `reference::Ant` for 408 of the 571), the ant forever continues. **What it does not earn:** nothing about the entry
 (a blank-board run reaches `t1`, which is simulation), nothing about rules not in the 571 (the 13 `confirmed_1B` rules and the later-onset 1e9..1e11 highways are untouched), and the theorem itself is checked by a program and a proof sketch; the Lean plane model of the parent
 (`Plane.lean`) could host a formal proof of it but this has not been done. The certificate is conservative: it requires the untouched cells in the window to be shift-periodic, so a failure is not a refutation of a highway.
+
+## Soundness in Lean: registration (appended 2026-10-23 18:38 +1300, before any Lean file for it exists; the sections above are not edited)
+
+The decider is a program; its theorem so far rests on a proof sketch. A bounded deliverable: state the theorem for a **generic rule** (colour modulus `n`, turn function `turn : Nat -> Nat`, any ant of the project's family)
+on the infinite-plane model already in `experiments/2026-10-20-rlrlll-macro-transition/lean/` (`PSt`), and prove it. Planned file: `lean/Cycler.lean` in the parent folder (the plane model lives there; it imports `Model` for the heading tables).
+Statement: hypotheses (a)-(d) of the theorem above, written over the plane model; conclusion: for every `k`, `runP (k * P)` leaves the ant at `a + k v` with heading `h` and the plane equal to the shifted initial plane on `W + k v`.
+Proof plan: (1) a translation lemma (running a shifted plane is the shift of the run), (2) a locality lemma (two planes that agree on the cells the ant stands on give the same ant and agree there; cells never stood on keep their value),
+(3) the rectangle lemma `(W + jv) ∩ (W + mv) ⊆ W + kv` for `j <= k <= m`, (4) induction on `k` with the two invariants F1 (agreement on `W + kv`) and F2 (untouched cells equal the initial plane).
+Prediction: accepted by the kernel with only the standard axioms, in this session (probability ~55%; the risk is the integer-product arithmetic in step 3 and the bookkeeping of the "stood on" predicate in step 2).
+Failure: a statement needing extra hypotheses (for instance blank cells ahead beyond (d)) would mean my proof sketch was incomplete and the 571/571 result would have to be re-read.
+What acceptance earns: the theorem is machine-checked for the *abstract* rule; the instance checks (a)-(d) on a specific rule and configuration remain the Python decider's job (not replayed in Lean); the abstract plane ant is still not proved to be the Rust ant.
