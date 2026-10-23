@@ -130,6 +130,7 @@ The aim is understanding, not a pile of plots. Be bold:
 | `src/rule.rs` | `Rule`, `Turn`: rule parsing, canonical forms |
 | `src/reference.rs` | Oracle ant (and reference rotor); clarity over speed |
 | `src/fast.rs` | Fast ant used by sweeps; tested against `reference` |
+| `src/tiled.rs` | Tiled CPU grid for the lean ant (`sweep_lean` with `TURMITE_GRID=tiled`): sparse 2^k tiles, bounded cache, raw/packed/LZ4 inactive tiles, `TTK1` checkpoints; equals `reference`/`lean` (`tests/tiled.rs`); dense stays default. Design, limits and when to use it: `experiments/2026-10-23-tiled-grid-backend/DESIGN.md` |
 | `src/walkers.rs` | Calibration walkers: `Rotor`, `RandomWalk` |
 | `src/detect.rs` | Highway / periodicity detection |
 | `src/probe.rs` | Growth/shape probe: width, area, edge, gyration statistics |

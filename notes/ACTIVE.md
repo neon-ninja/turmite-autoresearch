@@ -48,6 +48,15 @@ Success for this phase is an independently successful explanation of a specific
 transport feature, or a controlled rejection that narrows the possibilities.
 Neither requires claiming that the cube-root exponent has been derived.
 
+### Engineering support (not a research priority)
+
+- **Tiled CPU grid backend (2026-10-23, done for the stepping runner):** `TURMITE_GRID=tiled` for `sweep_lean`
+  (`src/tiled.rs`, `experiments/2026-10-23-tiled-grid-backend/`). Exact (all benchmark CSVs byte-identical to dense; oracle tests
+  pass). Sparse tiles cut peak RSS to ~0.1x dense on compact/thin workloads and 12 MiB against 4.2 GiB on a 65536 board; packing
+  helps little unless a large footprint has a big cache; LZ4 gave 0.19x dense on one structured rule only. Dense stays the default.
+  Open follow-ups, each optional: tiled `probe` (two dense arrays remain), tile-grid offset for compact starts. No scientific
+  classification changed and no sweep was run.
+
 ### Deferred this phase
 
 - New lattices, dimensions and walker families, except controls needed by the
