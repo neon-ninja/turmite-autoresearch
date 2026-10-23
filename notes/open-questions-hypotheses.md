@@ -356,7 +356,7 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
 
 `experiments/2026-10-23-sweeper-generalisation/` (Stage 1, instrument oracle-tested) and `experiments/2026-10-23-highway-decider/`.
 - The census "escape" of RLLLLRRL, RLLLLRLRRL, RLLLRLRLLL only meant the 32768 board's edge was reached. On a 65536 board: RLLLRLRLLL and RLLLLRRL
-  become **square spirals** (new-cell box = whole square, 2.0 steps per new cell, revolution time `8 swing + b`) after late onsets (2.635e10 and about
+  become **spiral builders** (a filled, octagon-like territory whose outer band, about 80 cells deep, is rewritten once per revolution; new-cell box = the whole territory, 2.0 steps per new cell, revolution time `8 swing + b`; unattacked by the falsification harness) after late onsets (2.635e10 and about
   1.47e10 steps); RLLLLRLRRL is still a blob-like grower at 6e10. The spirals have exact clocks (RLLLRLRLLL: phase period 2, 29,854 revolutions to the exit;
   RLLLLRRL: phase period 19, post hoc because the registered cap p <= 6 was too small). RLRLLL's column-sweeper signature S does not occur in them.
 - Q23. What triggers the late spiral onset, and why does RLLLLRRL's revolution constant have period 19 while RLLLRLRLLL's has period 2? Both look like the same

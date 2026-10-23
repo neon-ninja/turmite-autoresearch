@@ -103,7 +103,7 @@ in the paper.
   (`forever`, `forever_ideal`) prove, for every number of cycles, that the plane carries the next window; `scripts/l5_check.sh`, axioms propext/Classical.choice/Quot.sound only. Task D ran:
   `fast::run` and the plain loop agree at the 12,676,237,591-step base case (hash 27245db416b98a32, 87 s each). Not closed: the real board is not `Good` (old blob cells inside the window rows);
   the Lean model's fidelity to the Rust ant; the global-front premise. See the parent experiment's README (L5, Task D).
-- **Item 2, generalise the checker:** (i) the other three "escapes" are not column sweepers: two are square spirals with exact affine clocks (RLLLRLRLLL from 2.635e10, phase period 2;
+- **Item 2, generalise the checker:** (i) the other three "escapes" are not column sweepers: two are spiral builders (filled octagon-like territory, band rewritten once per revolution; see the experiment README correction 4; unattacked by the falsification harness) with exact affine clocks (RLLLRLRLLL from 2.635e10, phase period 2;
   RLLLLRRL from about 1.47e10, phase period 19, post hoc), one is a still-growing blob; the 3-stage sweeper checker does not transfer (the spiral has eight segments and a band of depth >= 77).
   Stage 2 for the spirals is *not done*; the cell-level steady-state test (99.2-99.7% equal after 5 revolutions) says a family exists. (ii) The `m`-free case is done as a **rectangle translated-cycler decider**:
   571/571 census highways certified (`experiments/2026-10-23-highway-decider/`), controls and an independent-ant oracle pass. The decider is the first census-wide level-3 object of the track; its theorem is checked by
