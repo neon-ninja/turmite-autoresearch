@@ -12,10 +12,11 @@ mkdirSync(scratch, { recursive: true });
 const cases = {
   small: { args: ['2', '6', '32768', '256'], lanes: 64 },
   batch: { args: ['2', '12', '1000000', '2048'], lanes: 4096 },
+  wide: { args: ['2', '12', '10000000', '2048'], lanes: 4096 },
   long: { args: ['2', '10', '10000000', '2048'], lanes: 1024 },
 };
 const name = process.argv[2];
-if (!cases[name]) throw new Error('usage: node bench.mjs small|batch|long');
+if (!cases[name]) throw new Error('usage: node bench.mjs small|batch|long|wide');
 const config = cases[name];
 const backends = ['sweep', 'sweep_lean', 'wgpu_sweep'];
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');

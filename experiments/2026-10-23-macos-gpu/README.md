@@ -81,3 +81,11 @@ Before measurements, at source revision f3c8aae: predict that GPU startup makes 
 Use `scripts/bench.mjs` for three bounded blank-board workloads: small (lengths 2..6, 32768 steps, grid 256, 64 lanes); batch (2..12, one million steps, grid 2048, 4096 lanes); long (2..10, ten million steps, grid 2048, 1024 lanes). Metal uses 65536-step slices and 65536 pool tiles. Compare `sweep`, `sweep_lean` and `wgpu_sweep`, all release builds and 16 Rayon workers. One warmup per command, then five samples with rotating backend order. Include process setup, simulation, detection, onset replay and CSV writes. Check every output hash. Report median and range, not kernel-only timing. Each invocation has a 180-second limit.
 
 The user authorized local timing after CodSpeed's exec harness failed to install on aarch64-apple-darwin. The machine has active desktop applications; record process and thermal snapshots. This is a desktop comparison, not an isolated hardware benchmark. Pruning-index query `metal|wgpu|gpu|benchmark` found no relevant entries; proceed with platform timing, without scientific exclusions.
+
+## 2026-10-23T12:58:46.039Z — registered follow-up
+
+The first three cases show that longer budgets with only 1013 jobs lose to CPU, while 4083 shorter jobs win. Before measuring the wide case, predict that 4083 jobs at ten million steps improve the CPU/Metal ratio relative to the 1013-job long case. Keep grid 2048, 4096 lanes, default slice and pool, five repetitions and 16 CPU workers. This changes the rule population as well as batch width, so it cannot isolate occupancy as the cause. No shader or runtime changes.
+
+## 2026-10-23T13:01:51.158Z — registered pool follow-up (655aec0a556ab0328c556014dd3fa10e1dde6983)
+
+The wide warmup and first measured runs report about 2000 pool-pressure retries with 65536 tiles (256 MiB). Predict that increasing only the pool to 262144 tiles (1 GiB) removes retries and reduces time on the same 4083-rule, ten-million-step workload. Keep lanes 4096, slice 65536, grid 2048, five samples and CPU baselines unchanged. The larger pool also increases setup/zeroing cost. This is an adaptive follow-up; preserve default-pool measurements.

@@ -35,3 +35,15 @@ Completed batch: five samples per backend, one warmup each, rotating order. Ever
 ## 2026-10-23T12:58:25.291Z — observation (f3c8aae860e2c8f3db8715b697132aba14e03a74)
 
 Completed long: five samples per backend, one warmup each, rotating order. Every CSV matched SHA-256 c747b55d4d8cabbc641c30939e858a5b46807681a7e85b3570a2f5ac484641d3. Median seconds: fast=2.8472575, lean=2.572413709, Metal=4.099581417. See results/benchmark-long.json for all samples and provenance.
+
+## 2026-10-23T12:58:46.039Z — registered follow-up
+
+The first three cases show that longer budgets with only 1013 jobs lose to CPU, while 4083 shorter jobs win. Before measuring the wide case, predict that 4083 jobs at ten million steps improve the CPU/Metal ratio relative to the 1013-job long case. Keep grid 2048, 4096 lanes, default slice and pool, five repetitions and 16 CPU workers. This changes the rule population as well as batch width, so it cannot isolate occupancy as the cause. No shader or runtime changes.
+
+## 2026-10-23T13:01:51.158Z — registered pool follow-up (655aec0a556ab0328c556014dd3fa10e1dde6983)
+
+The wide warmup and first measured runs report about 2000 pool-pressure retries with 65536 tiles (256 MiB). Predict that increasing only the pool to 262144 tiles (1 GiB) removes retries and reduces time on the same 4083-rule, ten-million-step workload. Keep lanes 4096, slice 65536, grid 2048, five samples and CPU baselines unchanged. The larger pool also increases setup/zeroing cost. This is an adaptive follow-up; preserve default-pool measurements.
+
+## 2026-10-23T13:02:58.845Z — observation (655aec0a556ab0328c556014dd3fa10e1dde6983)
+
+Completed wide: five samples per backend, one warmup each, rotating order. Every CSV matched SHA-256 0d5b87b237422585a5bde2eb0d254b3fecb44fcc85c5f6db03743d733e7c8612. Median seconds: fast=11.427976125, lean=10.329889084, Metal=20.640537459. See results/benchmark-wide.json for all samples and provenance.
