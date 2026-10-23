@@ -62,7 +62,7 @@ tail -n +2 "$here/workloads.tsv" | while IFS=$'\t' read -r wl rule board steps r
       fi
       if cmp -s "$tmp/${wl}__${cfg}__r${rep}.csv" "$tmp/${wl}__A__r${rep}.csv"; then same=1; else same=0; fi
       printf '%s\t%s\t%s\t%s\n' "$wl" "$cfg" "$rep" "$same" >> "$out/identity.tsv"
-      rm -f "$tmp/${wl}__${cfg}__r${rep}.csv"
+      if [ "$cfg" != A ]; then rm -f "$tmp/${wl}__${cfg}__r${rep}.csv"; fi   # keep the dense reference for the next configs
     done
     rm -f "$tmp/${wl}__A__r${rep}.csv"
   done
