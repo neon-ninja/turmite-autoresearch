@@ -3,6 +3,7 @@ import Iter
 import Data
 import L4Data
 import PlaneForever
+import Cycler
 /-! `lake env lean Check.lean` prints the axioms every theorem used. Expected: only the core axioms (propext, Quot.sound, ...),
     no `sorryAx`, no `Lean.ofReduceBool` (that one would mean `native_decide`). -/
 open Sweeper
@@ -69,3 +70,9 @@ open Sweeper
 #print axioms forever
 #print axioms good_ideal
 #print axioms forever_ideal
+#print axioms Sweeper.cycler
+#print axioms Sweeper.rect_mid
+#print axioms Sweeper.grun_agree
+#print axioms Sweeper.grun_untouched
+#print axioms Sweeper.gstep_shift
+#print axioms Sweeper.grun_shift
