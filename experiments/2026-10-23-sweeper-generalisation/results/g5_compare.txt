@@ -1,0 +1,7 @@
+# G5 comparison against the 32768-board run own exit step (the first attempt used the census exit step 28427043780, which is one revolution (262k steps) later because the census board check is one cell wider; that attempt printed identical=False only because the big run has one more row after the small run stopped)
+events_xmin.csv: 16347 rows (small) vs 16347 rows (big) before step 28426781994: identical=True
+events_xmax.csv: 16333 rows (small) vs 16333 rows (big) before step 28426781994: identical=True
+events_ymin.csv: 16365 rows (small) vs 16365 rows (big) before step 28426781994: identical=True
+events_ymax.csv: 16382 rows (small) vs 16382 rows (big) before step 28426781994: identical=True
+windows.csv: 28426 rows (small) vs 28426 rows (big) before step 28426781994: identical=True
+G5 PASS
