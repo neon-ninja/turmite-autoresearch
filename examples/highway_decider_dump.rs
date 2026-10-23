@@ -69,6 +69,19 @@ fn main() {
                 }
             }
         }
+        // Optional (env DUMP_VERIFY=1, target <= 2e7): the plain loop's state at this step against `reference::Ant` run from step 0.
+        if std::env::var("DUMP_VERIFY").is_ok() && target <= 20_000_000 {
+            let mut z = Ant::new(rule.clone());
+            for _ in 0..target {
+                z.step();
+            }
+            let mut zh = 0u64;
+            for (&(cx, cy), &v) in &z.cells {
+                zh = zh.wrapping_add(mix(cx as i64, cy as i64, v));
+            }
+            let same = zh == hash && z.cells.len() == list.len() && z.pos == ((x - c) as i32, (y - c) as i32) && z.heading == h;
+            println!("verify {rule} T={target} reference-from-zero identical={same}");
+        }
         // Reference ant loaded from the dump, stepped P times.
         let mut r = Ant::new(rule.clone());
         for &(cx, cy, v) in &list {

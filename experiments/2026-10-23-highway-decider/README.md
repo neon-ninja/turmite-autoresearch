@@ -84,3 +84,36 @@ Filled in as run. Builds into a fresh `CARGO_TARGET_DIR`, exit status checked, b
 ## Results, uncertainty and limitations
 
 (none yet)
+
+## Commands and results (appended 2026-10-23 18:27 +1300; the registration above is not edited)
+
+Provenance: dumper `examples/highway_decider_dump.rs` and `scripts/decide.py`, `run_all.py` as committed in `9a4b93f` (the run used exactly those files; the controls and C5 scripts were committed after, in the following commit);
+fresh `CARGO_TARGET_DIR=~/turmite-target-hd`, dumper sha256 and the census input hash in `results/inputs.sha256`. WSL, 3 worker processes (Stage 1 runs of the sibling experiment shared the machine).
+
+```bash
+E=experiments/2026-10-23-highway-decider; B=~/turmite-target-hd/release/examples/highway_decider_dump
+python3 $E/scripts/run_all.py $B $E/results/decide_all.csv --keep 60      # 571 rules x K in {3,10,30,100,300} + the pre-onset snapshot
+python3 $E/scripts/controls.py $E/results/controls_c1_c3.txt               # run BEFORE the summary below was read
+python3 $E/scripts/c5_nonhighway.py $B $E/results/c5_nonhighway.txt        # run BEFORE the summary below was read
+python3 $E/scripts/summarise.py $E/results/decide_all.csv > $E/results/summary.txt
+# extra provenance, added after the main run (new binary, sha256 in results/verify_binary.sha256): the plain loop against reference::Ant from step 0
+DUMP_VERIFY=1 ... highway_decider_dump RULE T P 4096 DIR    # for the 408 rules with onset <= 3e5, T = onset + 3P  -> results/verify_from_zero.txt
+```
+
+| Prediction | Outcome |
+|---|---|
+| D1 >= 90% of 571 certified at some K | **Held, 571 of 571 (100%).** First passing K: 3 for 568 rules, 10 for 2, 100 for 1. Window area of the first passing snapshot: min 12, median 54, max 3190 cells. (`results/summary.txt`) |
+| D2 controls C1-C3 reject (50 certified rules sampled) | **Held**: C1 (one cell changed in W ∩ (W+v)) 50 of 50 rejected; C2 (stray cell in the strip) 38 of 38 rejected (12 draws fell inside W and were not applied); C3 (wrong drift) 50 of 50 rejected at clause (a); `in_strip` agrees with brute force in 20,000 random cases. (`results/controls_c1_c3.txt`) |
+| D3 C4 (before the onset) and C5 (non-highways) give no certificate | **Held**: 0 certificates among 571 pre-onset snapshots; C5: 0 certificates among 72,864 candidate (P, v) in 100 non-highway rules (the registered first 50 of `non_highway.txt` plus 50 rules of length 8-10 drawn with a fixed seed, added after registration and labelled so in the output). (`results/c5_nonhighway.txt`) |
+| D4 Python ant = `reference::Ant` on all dumps examined | **Held**: 0 disagreements in 3,423 dumps (position, heading, hash and count of all cells after P steps). 3 dumps at K = 300 do not exist because the ant reached the 8192 board edge (RRLLLRLRRRL, RLRLLRLRLLRL, RRLLLRLRLRRL); those rules certified at smaller K. |
+| D5 uncertified rules, clause (a) | **No such rules**: every census rule certified, so none is an impostor of this kind. |
+
+Additional observations (not registered): the failures at some K are real obstacles rather than noise. For instance `RRLLRRLLLRLR` (P = 118, v = (1,-1)) fails clause (d) at K = 3, 10, 30 because a non-zero cell
+lies far ahead in the strip, and passes at K = 100: the highway had cleared it by then, so its "clean" regime begins later than the census onset for that rule. `RLRLRLLRLLLR` and `RRLLLRRLRLRR` likewise fail at one or more small K (clauses d and b) and pass later.
+Extra provenance (post hoc, results/verify_from_zero.txt): for the 408 rules with onset <= 3e5 the dump at `onset + 3P` is identical (position, heading, hash and count of every cell) to a `reference::Ant` run from step 0 in 408 of 408 cases;
+the driver's own summary line in that file counted `True` where the Rust program prints lowercase `true` and said 0, which I replaced by a corrected TOTAL line in the same file (hand edit of a generated summary line; the 408 per-rule lines are untouched).
+
+**What this earns.** For these 571 rules, at the first passing snapshot, the highway claim is no longer only "the trace repeats": the configuration reproduces itself under the translation `v` every P steps, the ant reads only a window of
+median area 54 cells, and the cells ahead are blank. Given the true configuration at `t1` (obtained by plain simulation from a blank plane, validated against `reference::Ant` for 408 of the 571), the ant forever continues. **What it does not earn:** nothing about the entry
+(a blank-board run reaches `t1`, which is simulation), nothing about rules not in the 571 (the 13 `confirmed_1B` rules and the later-onset 1e9..1e11 highways are untouched), and the theorem itself is checked by a program and a proof sketch; the Lean plane model of the parent
+(`Plane.lean`) could host a formal proof of it but this has not been done. The certificate is conservative: it requires the untouched cells in the window to be shift-periodic, so a failure is not a refutation of a highway.
