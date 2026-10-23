@@ -22,15 +22,12 @@ priorities, not a preregistered protocol or new scientific results.
 
 ### Ordered sequence
 
-1. **Consolidate existing evidence.** Make a compact claim ledger for boundary
-   occupation, return dynamics and regime changes: supported observation, failed
-   explanation, unresolved question, next decision. Read the
-   [accounting audit](accounting-identity-response-2026-10-16.md),
-   [first-passage corrections](../experiments/2026-10-20-kappa-first-passage/README.md),
-   [boundary return map](../experiments/2026-10-21-boundary-return-map/README.md) and
-   [single-cell gates](../experiments/2026-10-22-single-cell-gates/README.md).
-   Include the gate sampler's unknown eligibility; do not treat its null result
-   as a rejection of all gate mechanisms.
+1. **Use the consolidated evidence.** The [claim ledger and access guide](evidence-ledger.md)
+   now separate observations, failed explanations, unresolved questions and next
+   decisions, with pinned sources and a queryable JSON catalogue. Gate baseline
+   eligibility remains unknown; its null does not reject all gate mechanisms.
+   Consolidation is complete for this initial transport scope; choose the next
+   test from those constraints rather than expanding the catalogue indefinitely.
 2. **Choose one discriminating test.** The feasibility deliverable is two
    distinguishable explanations, an observable on which they disagree, and an
    instrument capable of resolving that disagreement. Use a small development

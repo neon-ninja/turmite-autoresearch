@@ -1,5 +1,14 @@
 # What could explain kappa? Mechanisms and discriminating experiments
 
+## Evidence consolidation — 2026-10-23
+
+The [claim ledger](evidence-ledger.md) reads the completed studies and their
+corrections together. It separates calibrated occupation accounting, failed
+out-of-sample closure, uninformative tail/context tests, shuffle reach and the
+single-cell gate eligibility gap. No new measurements or predictions are added.
+Use its pinned sources and next decisions before reading the historical plans
+below as a current execution queue.
+
 ## Prospective first-passage follow-up — 2026-10-20 21:10 +13:00
 
 [New scaffold](../experiments/2026-10-20-kappa-first-passage/README.md), base
