@@ -47,3 +47,13 @@ The wide warmup and first measured runs report about 2000 pool-pressure retries 
 ## 2026-10-23T13:02:58.845Z — observation (655aec0a556ab0328c556014dd3fa10e1dde6983)
 
 Completed wide: five samples per backend, one warmup each, rotating order. Every CSV matched SHA-256 0d5b87b237422585a5bde2eb0d254b3fecb44fcc85c5f6db03743d733e7c8612. Median seconds: fast=11.427976125, lean=10.329889084, Metal=20.640537459. See results/benchmark-wide.json for all samples and provenance.
+
+## 2026-10-23T13:05:56.689Z — observation (f4fd86d1c17eaf37ae6749caf711f701133fbac6)
+
+Completed wide-pool: five samples per backend, one warmup each, rotating order. Every CSV matched SHA-256 0d5b87b237422585a5bde2eb0d254b3fecb44fcc85c5f6db03743d733e7c8612. Median seconds: fast=11.236093375, lean=10.192403167, Metal=5.067945125. See results/benchmark-wide-pool.json for all samples and provenance.
+
+## 2026-10-23T13:06:29.167Z — interpretation / decision
+
+On this M4 Max, the 4083-rule, one-million-step batch was 1.84x faster on Metal than the faster CPU runner. At ten million steps, the default 256 MiB pool caused 1650–2118 retries and Metal was 2.00x slower. A 1 GiB pool removed retries and made the same workload 2.01x faster (5.068 s versus 10.192 s). The 57-rule case was 7.85x slower, and the 1013-rule, ten-million-step case was 1.59x slower. All ratios use five-run medians and the best CPU baseline per case. Desktop applications remained active. These are end-to-end measurements, not shader-only timings.
+
+The default-pool wide-case prediction failed. The registered pool increase removed retries. Keep defaults unchanged: the useful pool size depends on the workload. Save both winning and losing cases. No CUDA comparison or kernel profiling was performed.

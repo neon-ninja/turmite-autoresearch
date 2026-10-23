@@ -47,7 +47,7 @@ Validated on Apple M4 Max through Metal at source revision `c0c93c981811ef960747
 - A census of 57 canonical nontrivial rules of lengths 2 through 6, at 32768 steps and grid 256, produced CSV identical to the CPU `sweep` output. Saved output: [census.csv](results/census.csv); device counters: [census-stats.json](results/census-stats.json).
 - The mixed blank/seeded stdin path ran with a full-width seed and non-word-aligned slices: [input](results/stdin.txt), [output](results/stdin.csv), [counters](results/stdin-stats.json).
 
-These are correctness checks, not timing measurements. CUDA hardware tests, hosted Actions, other native GPU platforms and performance benchmarks were not run. The first port targets census sweeps. The CUDA `gpu_probe` statistics and the browser simulator are separate instruments.
+These initial checks establish correctness. The later [timing report](BENCHMARKS.md) measures end-to-end performance on this Mac. CUDA hardware tests, hosted Actions and other native GPU platforms were not run. The first port targets census sweeps. The CUDA `gpu_probe` statistics and the browser simulator are separate instruments.
 
 ## CLI and Rust API
 
@@ -66,9 +66,9 @@ Supported: one-state square-grid ants, 1..=128 colours in the library, blank or 
 
 Escape follows `fast::run`: the step out of the board counts, and the outside cell does not extend the bounding box. The known `lean` edge case when the budget ends on exactly that step is not copied; see the tiled-grid design note. This can affect CSV equality with `sweep_lean` for that exact boundary condition.
 
-## Performance work still needed
+## Further performance work
 
-The implementation establishes correctness on Metal, not a speedup. Use many independent, long-running jobs to evaluate throughput. Compare the same rules, seeds, grid, detection history, horizon and output hashes against the CPU runner. Separate setup, stepping, readback, detection and onset replay; compare full process wall time as well as dispatch time. Use repeated runs on an idle Mac and report spread and thermal conditions. Keep timestamp queries optional and validate their values before using them.
+The [timing report](BENCHMARKS.md) compares full process wall time with both CPU runners. Gains depend on batch size and tile-pool pressure. Kernel-only timing and profiling remain to be done. Use many independent, long-running jobs to evaluate throughput. Compare the same rules, seeds, grid, detection history, horizon and output hashes against the CPU runner. Separate setup, stepping, readback, detection and onset replay; compare full process wall time as well as dispatch time. Use repeated runs on an idle Mac and report spread and thermal conditions. Keep timestamp queries optional and validate their values before using them.
 
 Start by varying lane count and slice length; the tradeoff is latency hiding versus state readback and dispatch overhead. The current host waits for state readback once per slice and processes detection before the next slice. Overlapping that work and specializing away seeded-background code are later candidates, subject to profiling. Native MSL/objc2-metal is an alternative if validated bounds checks, packed loads, or 64-bit emulation prove material. Its additional implementation and synchronization obligations require the same oracle checks.
 
@@ -89,3 +89,9 @@ The first three cases show that longer budgets with only 1013 jobs lose to CPU, 
 ## 2026-10-23T13:01:51.158Z — registered pool follow-up (655aec0a556ab0328c556014dd3fa10e1dde6983)
 
 The wide warmup and first measured runs report about 2000 pool-pressure retries with 65536 tiles (256 MiB). Predict that increasing only the pool to 262144 tiles (1 GiB) removes retries and reduces time on the same 4083-rule, ten-million-step workload. Keep lanes 4096, slice 65536, grid 2048, five samples and CPU baselines unchanged. The larger pool also increases setup/zeroing cost. This is an adaptive follow-up; preserve default-pool measurements.
+
+## Timing outcome
+
+On this M4 Max, the 4083-rule, one-million-step batch was 1.84x faster on Metal than the faster CPU runner. At ten million steps, the default 256 MiB pool caused 1650–2118 retries and Metal was 2.00x slower. A 1 GiB pool removed retries and made the same workload 2.01x faster (5.068 s versus 10.192 s). The 57-rule case was 7.85x slower, and the 1013-rule, ten-million-step case was 1.59x slower. All ratios use five-run medians and the best CPU baseline per case. Desktop applications remained active. These are end-to-end measurements, not shader-only timings.
+
+See [BENCHMARKS.md](BENCHMARKS.md) for sample ranges, exact settings and raw evidence. The prediction that a wider long batch would improve the ratio failed with the default pool; the adaptive larger-pool follow-up removed the observed retries. No runtime source changed.
