@@ -1,4 +1,4 @@
-POST HOC: RLLLLRRL, xmax P=1: residual dt - 8*swing by block of 100 cycles (t_end of block, share of residual in 80..110, median residual)
+POST HOC: RLLLLRRL, xmax P=1: residual dt - 8*swing by block of 400 cycles (cycle, t_end, swing, share of residual in 80..110, median, min)
 cycles 32748 swing range 3 65505
 cycle     0 t=          11 swing=     3 share(80..110)=0.03 median=118 min=-134
 cycle   400 t=     2446675 swing=   806 share(80..110)=0.02 median=266 min=-7026
@@ -83,7 +83,7 @@ cycle 31600 t= 19653733111 swing= 63211 share(80..110)=0.00 median=178 min=38
 cycle 32000 t= 19857478071 swing= 64011 share(80..110)=0.00 median=178 min=38
 cycle 32400 t= 20063783171 swing= 64811 share(80..110)=0.00 median=178 min=38
 
-POST HOC: RLLLLRRL late regime, all four directions: distinct residuals dt - a*swing and smallest period of the residual sequence (cycles 28000..32000)
+POST HOC: RLLLLRRL late regime, all four directions: distinct residuals dt - 8*swing and smallest period of the residual sequence (cycles 28000..32000)
 xmin cycles 32766 distinct residuals 14 top [(46, 631), (38, 630), (62, 422), (698, 211), (610, 211), (50, 211)] exact period of residual sequence: 19
    first 24: [698, 46, 610, 50, 910, 62, 870, 2110, 62, 374, 38, 178, 38, 1902, 46, 306, 38, 498, 46, 698, 46, 610, 50, 910]
 xmax cycles 32748 distinct residuals 14 top [(46, 631), (38, 630), (62, 422), (698, 211), (610, 211), (50, 211)] exact period of residual sequence: 19

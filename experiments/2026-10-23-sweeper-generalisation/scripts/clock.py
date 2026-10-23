@@ -67,6 +67,7 @@ def main():
     t_lo, t_hi = int(float(sys.argv[2])), int(float(sys.argv[3]))
     maxp = int(sys.argv[sys.argv.index("--maxp") + 1]) if "--maxp" in sys.argv else 6
     maxP = int(sys.argv[sys.argv.index("--maxP") + 1]) if "--maxP" in sys.argv else 8
+    minper = int(sys.argv[sys.argv.index("--minper") + 1]) if "--minper" in sys.argv else 0  # post hoc guard: need >= minper cycles per phase class
     tried = 0
     results = []
     for d, name in enumerate(NAMES):
@@ -82,6 +83,8 @@ def main():
             distinct_swing = len({c[2] for c in cyc})
             best = None
             for p in range(1, maxp + 1):
+                if len(cyc) < minper * p:
+                    break
                 tried += 1
                 a, frac, bs = exact_fraction(cyc, p)
                 if a is None:

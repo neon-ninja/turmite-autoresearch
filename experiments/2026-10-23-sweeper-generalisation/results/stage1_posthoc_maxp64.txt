@@ -1,7 +1,7 @@
-# POST HOC: clock.py with --maxp 64 (registered limit was 6)
+# POST HOC: clock.py --maxp 64 --minper 8 (registered limit was p <= 6, no guard); commit c0b1d5d
 === RLLLLRRL [12401085717, 12601085717]
-candidates tried (direction x P x p): 512
-BEST NO_EXACT_CLOCK: dir=xmin P=2 p=63 a=16 exact_fraction=0.2345 cycles=307 b=[2852, 484, 776, 624, 1496, 4084, 65116, 588, 896, 628, 612, 72964, 588, 896, 13504, 612, 248864, 508, 788, 30840, 612, 97676, 712, 2944028, 1816, 760, 1016, 788, 80528, 276, 436, 4368, 612, 612, 108692, 109144, 284, 14108, 1876, 588, 896, 974060, 284, 214900, 612, 50588, 612, 2696, 79744, 620, 612, 216164, 500, 296, 1476, 620, 69272, 788, 402756, 81472, 292, 9632, 6048] kind=swing-dependent
+candidates tried (direction x P x p): 408
+BEST NO_EXACT_CLOCK: dir=xmax P=1 p=64 a=8 exact_fraction=0.2264 cycles=614 b=[86, 82, 82, 418, 90, 106, 90, 802, 82, 1422, 82, 110, 82, 82, 82, 90, 90, 90, 90, 90, 538, 90, 90, 82, 90, 90, 82, 90, 538, 90, 90, 90, 106, 82, 90, 106, 90, 538, 90, 90, 94, 82, 90, 82, 82, 106, 94, 82, 106, 90, 90, 106, 110, 90, 82, 106, 80462, 210, 82, 82, 90, 106, 106, 90] kind=swing-dependent
 === RLLLLRRL [20045062163, 20245062163]
 candidates tried (direction x P x p): 152
 BEST EXACT_CLOCK: dir=xmin P=1 p=19 a=8 exact_fraction=1.0000 cycles=383 b=[1902, 46, 306, 38, 498, 46, 698, 46, 610, 50, 910, 62, 870, 2110, 62, 374, 38, 178, 38] kind=swing-dependent
@@ -9,16 +9,8 @@ BEST EXACT_CLOCK: dir=xmin P=1 p=19 a=8 exact_fraction=1.0000 cycles=383 b=[1902
 candidates tried (direction x P x p): 12
 BEST EXACT_CLOCK: dir=xmin P=1 p=2 a=8 exact_fraction=1.0000 cycles=384 b=[-186, -218] kind=swing-dependent
 === RLLLLRLRRL [58000000000, 60000000000]
-Traceback (most recent call last):
-  File "/mnt/f/Code/turmite/experiments/2026-10-23-sweeper-generalisation/scripts/clock.py", line 111, in <module>
-    main()
-  File "/mnt/f/Code/turmite/experiments/2026-10-23-sweeper-generalisation/scripts/clock.py", line 86, in main
-    a, frac, bs = exact_fraction(cyc, p)
-                  ^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/f/Code/turmite/experiments/2026-10-23-sweeper-generalisation/scripts/clock.py", line 44, in exact_fraction
-    base = cl[0]
-           ~~^^^
-IndexError: list index out of range
+candidates tried (direction x P x p): 16
+BEST NO_EXACT_CLOCK: dir=xmin P=1 p=4 a=-6227976 exact_fraction=0.1282 cycles=39 b=[224355930058, 220618803870, 220578416598, 220588968254] kind=swing-dependent
 === RLLLLRLRRL [39419909558, 39619909558]
-candidates tried (direction x P x p): 512
-BEST NO_EXACT_CLOCK: dir=xmax P=2 p=60 a=-7837 exact_fraction=0.8971 cycles=68 b=[2744034464, 254280436, 253970392, 255572024, 256964492, 255991196, 254661196, 254555092, 258621296, 255297852, 254217004, 259947780, 257465492, 254313960, 254341880, 254374612, 254410664, 254441092, 254491480, 254515728, 254536072, 254595808, 254593416, 254629184, 254666608, 254694848, 254766108, 254884728, 254873452, 254929360, 254890432, 254914064, 254928124, 255187052, 255002584, 255036592, 255098936, 255096608, 255097376, 255347468, 255302292, 255224880, 255221376, 255253376, 255605572, 255652436, 255386724, 255490012, 256462952, 255442980, 255476076, 255507264, 255541508, 255574544, 255599500, 255630796, 255696572, 255702832, 255732572, 255798320] kind=swing-dependent
+candidates tried (direction x P x p): 96
+BEST NO_EXACT_CLOCK: dir=xmin P=2 p=8 a=-25942399 exact_fraction=0.1343 cycles=67 b=[841338467353, 838951763185, 839055528217, 839160872369, 839266017821, 839368754657, 839471607477, 839578832353] kind=swing-dependent
