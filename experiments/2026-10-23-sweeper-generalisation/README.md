@@ -36,6 +36,14 @@ Competing readings, all registered as outcomes:
   then for **one** rule at a time, capped at one working session each; stop on the first rule where the proposal cannot be
   closed by finite lemmas and record why. No sweeps, no census expansion.
 
+## Amendment (2026-10-23 18:15 +13:00, before any run; the text above is kept as committed in `7aed7de`)
+
+After a side note from the user that a filler fits the census equally well, Stage 1 runs all three rules on a **65536** board
+(4 GiB each, so the ant passes the census escape step instead of stopping there), budget <= 1.5 h per run. G5 becomes: a
+32768-board repeat of the first rule that shows SW reproduces the 65536 run's cycles up to the 32768 exit. "Window" for the
+exact-clock test = the last 2e8 steps before the rule's census escape step, and separately the last 2e8 steps of the whole run.
+Nothing else changes.
+
 ## Instrument
 
 New example `examples/sweeper_generalisation_frontlog.rs` (hot loop = the plain loop of the parent's tracer). It logs, for each of
