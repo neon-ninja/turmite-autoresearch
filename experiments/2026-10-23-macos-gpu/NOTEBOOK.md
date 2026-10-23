@@ -7,3 +7,15 @@ Add an optional native wgpu sweep backend. Keep bounded-board, seeded-background
 ## 2026-10-23T11:55:01Z — decision — b942a82854b4d61222301959b9895060d2543d3f
 
 Use one invocation per ant and reuse the CUDA tile-pool design. Retain the current CUDA and CPU code paths. Add a separate `wgpu_sweep` binary so optional backend dependencies and errors remain explicit. The pruning-index match concerns conservation laws and does not exclude this correctness work.
+
+## 2026-10-23T12:15:49.551Z — observation — c0c93c981811ef96074791c0a96d439029a05ecc
+
+The public oracle test first failed because portable_gpu did not exist. After implementation, the Metal oracle passed. The original 16-tile pressure fixture did not force exhaustion on this GPU; its retry-count assertion failed. Replaced that fixture with four lanes sharing one tile on a one-tile board, so retries are forced while every solo job can fit. The corrected pressure test and reuse after a solo allocation error passed.
+
+## 2026-10-23T12:15:49.551Z — observation — c0c93c981811ef96074791c0a96d439029a05ecc
+
+All seven Metal integration tests, two CLI parser tests, shader validation, invalid-configuration tests and the explicitly enabled counter-carry hardware test passed. The full CPU release suite passed 205 tests. Clippy succeeded with both GPU features; old warnings remain, none in the added files. The 57-rule census CSV equals CPU sweep byte-for-byte. A mixed blank/seeded CLI example also ran on Metal. See results/validation.json for commands, source and binary hashes, seed and output provenance.
+
+## 2026-10-23T12:15:49.551Z — decision — c0c93c981811ef96074791c0a96d439029a05ecc
+
+Keep this as native census support. Do not claim a Mac speedup from correctness evidence. Future work should first measure lane count, slice length, readback and host detection costs; compare an optional native wgpu 64-bit shader before committing to a separate Metal implementation. CUDA hardware, hosted CI and other GPU platforms remain untested here.

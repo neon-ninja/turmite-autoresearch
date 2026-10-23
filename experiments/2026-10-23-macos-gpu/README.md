@@ -39,8 +39,15 @@ GPU tests require a real compatible adapter and fail if it is absent. They do no
 
 ## Results and limitations
 
-Implementation and validation are in progress. No local performance measurements have been made.
-The first port targets census sweeps. The CUDA `gpu_probe` statistics and the browser simulator are separate instruments.
+Validated on Apple M4 Max through Metal at source revision `c0c93c981811ef96074791c0a96d439029a05ecc`. The [correctness record](results/validation.json) contains compiler versions, commands, test counts and SHA-256 hashes of source, binaries, inputs and outputs.
+
+- Full CPU release suite: 205 tests passed.
+- Metal integration suite: seven tests passed, including 32 property cases across three configurations with seed 20261023. The independent hardware counter/history test passed across the 32-bit carry boundary.
+- WGSL validation and CLI parsing passed. Clippy completed with CUDA and wgpu enabled together; existing repository warnings remain, with no diagnostics in the new files.
+- A census of 57 canonical nontrivial rules of lengths 2 through 6, at 32768 steps and grid 256, produced CSV identical to the CPU `sweep` output. Saved output: [census.csv](results/census.csv); device counters: [census-stats.json](results/census-stats.json).
+- The mixed blank/seeded stdin path ran with a full-width seed and non-word-aligned slices: [input](results/stdin.txt), [output](results/stdin.csv), [counters](results/stdin-stats.json).
+
+These are correctness checks, not timing measurements. CUDA hardware tests, hosted Actions, other native GPU platforms and performance benchmarks were not run. The first port targets census sweeps. The CUDA `gpu_probe` statistics and the browser simulator are separate instruments.
 
 ## CLI and Rust API
 
