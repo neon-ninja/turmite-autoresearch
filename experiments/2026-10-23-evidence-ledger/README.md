@@ -54,3 +54,15 @@ base. Next decision: repair eligibility accounting and define competing predicti
 before authorizing any new transport measurement. Index and database options in
 the guide are architecture proposals; only JSON, Markdown, query and fact export
 are implemented. Validation outcomes and environment limitations are in NOTEBOOK.md.
+
+## Verification
+
+Catalogue integrity checks, generated-view equality and fresh-kernel notebook
+execution pass. Full `cargo test --release --locked -- --test-threads=1` passes
+(exit 0; existing compiler warnings). Logs are in `results/`. No simulations or
+source measurements were regenerated for this editorial task.
+
+Blog preparation was attempted after adding this experiment's reader-guide row,
+but six existing missing guide entries block it; see `results/blog-prepare.log`
+and NOTEBOOK.md. A successful site build is not claimed. The ledger and query
+interface can be used directly from the repository.

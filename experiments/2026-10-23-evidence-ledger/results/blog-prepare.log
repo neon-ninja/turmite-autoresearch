@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/mnt/f/Code/turmite/blog/scripts/experiments.py", line 270, in <module>
+    build(args.baseurl.rstrip("/"), args.repository_url.rstrip("/"))
+  File "/mnt/f/Code/turmite/blog/scripts/experiments.py", line 69, in build
+    raise ValueError("Reader guide coverage differs from tracked experiments: "
+ValueError: Reader guide coverage differs from tracked experiments: ['2026-10-22-falsification-harness', '2026-10-22-falsify-adaptive-search', '2026-10-22-invariant-mining', '2026-10-22-invariant-mining-snf', '2026-10-22-single-cell-gates', '2026-10-23-sweeper-generalisation']
