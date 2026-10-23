@@ -714,3 +714,26 @@ for blankness only west of the window and outside its rows up to column ox + 47.
    finite certificates that agree with the Python ant; there is no proof that the Lean `step` is the Rust `step`.
 3. *Entry* (why a blank board reaches the family) and the 1.27e10-step base-case simulation are untouched; Task D (above) only shows `fast::run` and the plain loop agree there.
 4. *The clock sum is not simplified.* `tsum` is the sum of the cycle clocks; the closed form (and the `|x|^2 / t -> 3/4` limit) is not proved in Lean.
+
+## Task E: why colour period 3 and bulk row 14435435... (registered 2026-10-23 18:16 +13:00, before the script exists or runs)
+
+Open item 4 of the proof track ("explain, not just certify"). Hypothesis (a counting argument, to be broken): the wake's period 3 is the cycle's
+column advance, not a property of the rule. Each cycle puts the front 3 columns further west, so a wake cell passes through the offsets
+d, d + 3, d + 6, ... behind the front in successive cycles. If the ant stands on a bulk-row cell at offset d exactly a(d) times per cycle, then a deep-wake
+cell with offset class rho = d mod 3 is visited S_rho = sum over d = rho (mod 3) of a(d) times in total; the colour stored is that count mod 6; if the count is
+below 6 the colour *is* the count, which would give a period-3 bulk row (4, 3, 5) with 4 + 3 + 5 = 12, the number of steps per bulk row per cycle (10 in the
+descent, 2 in the return), and no reference to the rule's length 6 other than the "mod 6" never being used.
+
+Instrument: `scripts/e_visits.py` (stdlib; the second checker's ant `c1_ant.py`), ideal family C(m, q) from `results/canonical_k0.txt` on a blank plane, m = 60,
+q = 0, run for 24 consecutive cycles (the clock `12 m + c_q` is used only to know when to stop); per-cell visit counts are recorded.
+
+Predictions (E-a ... E-d):
+- **E-a.** In every interior bulk row (rows of the rectangle at least 12 rows from both ends of the initial bulk band), the ant stands on cells of that row exactly 12 times
+  per cycle, for every one of the 24 cycles. Fails on any row-cycle with a different count.
+- **E-b.** For interior bulk rows and deep-wake cells (at least 21 columns behind the front at the end of the run, so no further visits), the total visit count of a cell
+  is below 6 and equals the cell's colour, for 100% of such cells. Fails on any cell.
+- **E-c.** The per-cycle profile a(d) (visits to the cells of one interior bulk row at offset d columns west of the pre-cycle front... defined as `x - (x_front before the cycle)`) has support
+  inside the 21 offsets 0 .. 20 and is identical for all interior rows of the same parity class and for all cycles of the same phase q (period 3 in the cycle index). Reported, with the
+  distinct profiles found; fails if more than 6 distinct profiles (2 row classes x 3 phases) occur.
+- **E-d (the explanation).** Summing the profile over offset classes mod 3 reproduces the colours: S_rho = (4, 3, 5) in the order that matches the wake columns. Fails otherwise.
+If E-b holds but E-d fails, the colours equal the visit counts but the profile does not factor through offsets mod 3 (the explanation is wrong, the identity "colour = visits" survives).
