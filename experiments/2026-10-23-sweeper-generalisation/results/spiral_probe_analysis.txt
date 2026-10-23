@@ -1,0 +1,21 @@
+steps in trace 241446; bbox at T0 (x0 x1 y0 y1): [-3001, 2986, -3018, 3036], at T1: [-3006, 2991, -3023, 3041]; ant at T0 [-3001, 266, 3], at T1 [-3006, 271, 3]
+depth (distance from the T0 bbox edge, negative = outside) range: -5 76
+depth histogram (first 20 depths from the outside): [(-5, 3694), (-4, 9730), (-3, 12200), (-2, 12330), (-1, 12464), (0, 8934), (1, 3030), (2, 662), (3, 670), (4, 674), (5, 1174), (6, 1716), (7, 4574), (8, 7386), (9, 8460), (10, 9038), (11, 10718), (12, 10082), (13, 8118), (14, 8186)]
+deepest depth visited: 76 ; steps at depth >= 8: 169594
+velocity per 2000-step block, first 60 blocks (i, vx, vy):
+[(0, 0, -1000), (2000, 0, -1000), (4000, 26, -974), (6000, 736, -264), (8000, 998, -2), (10000, 982, -18), (12000, 1000, 0), (14000, 974, -26), (16000, 892, 58), (18000, 380, 620), (20000, -4, 996), (22000, -8, 992), (24000, 0, 1000), (26000, -4, 996), (28000, 0, 1000), (30000, -640, 360), (32000, -994, 6), (34000, -992, 8), (36000, -982, 18), (38000, -1000, 0), (40000, -954, -46), (42000, -394, -604), (44000, -2, -998), (46000, -6, -994), (48000, -8, -992), (50000, 0, -1000), (52000, 22, -978), (54000, 610, -390), (56000, 990, -10), (58000, 982, -18), (60000, 1000, 0), (62000, 974, -26), (64000, 908, 60), (66000, 502, 496), (68000, 0, 1000), (70000, -12, 988), (72000, 0, 1000), (74000, 0, 1000), (76000, -4, 996), (78000, -526, 474), (80000, -982, 18), (82000, -992, 8), (84000, -988, 12), (86000, -994, 6), (88000, -956, -44), (90000, -520, -480), (92000, 0, -1000), (94000, -2, -998), (96000, -14, -986), (98000, 0, -1000), (100000, 22, -978), (102000, 484, -516), (104000, 988, -12), (106000, 984, -16), (108000, 998, -2), (110000, 974, -26), (112000, 896, 54), (114000, 646, 354), (116000, 0, 1000), (118000, -12, 988)]
+block at 0: v=(0,-1000) smallest exact period over 1000 steps: (4, (0, -2))
+block at 8000: v=(998,-2) smallest exact period over 1000 steps: (4, (2, 0))
+block at 16000: v=(892,58) smallest exact period over 1000 steps: None
+block at 24000: v=(0,1000) smallest exact period over 1000 steps: (4, (0, 2))
+block at 32000: v=(-994,6) smallest exact period over 1000 steps: None
+block at 40000: v=(-954,-46) smallest exact period over 1000 steps: None
+block at 48000: v=(-8,-992) smallest exact period over 1000 steps: None
+block at 56000: v=(990,-10) smallest exact period over 1000 steps: None
+block at 64000: v=(908,60) smallest exact period over 1000 steps: None
+block at 72000: v=(0,1000) smallest exact period over 1000 steps: (4, (0, 2))
+block at 80000: v=(-982,18) smallest exact period over 1000 steps: None
+block at 88000: v=(-956,-44) smallest exact period over 1000 steps: (4, (-2, 0))
+block at 96000: v=(-14,-986) smallest exact period over 1000 steps: None
+block at 104000: v=(988,-12) smallest exact period over 1000 steps: None
+block at 112000: v=(896,54) smallest exact period over 1000 steps: None

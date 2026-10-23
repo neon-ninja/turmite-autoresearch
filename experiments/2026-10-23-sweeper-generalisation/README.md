@@ -102,3 +102,35 @@ exit status checked, binary sha256 logged. Runs are in WSL (`/mnt/f/Code/turmite
 ## Results, uncertainty and limitations
 
 (none yet)
+
+## Stage 1 results (appended 2026-10-23 18:36 +1300; the registration and amendment above are not edited)
+
+Provenance: front-log example at commit `1461cb9` (binary sha256 in `results/stage1_binary.txt`, `7d135c9b...`; the oracle in `results/oracle.txt` passed on the same source: fingerprint equal to `fast::run` at 1e7 and 1e8 steps and event logs equal to an independent
+Python ant for 2e5 steps, for all five rules used here). Runs: `scripts/run_stage1.sh` (five parallel single-core jobs, WSL, 65536 board for the three targets, 32768 for the two controls; wall times 4:16 (positive control), 0:56 (negative control), 13:58, 18:49 and 22:34 minutes).
+Analysis: `scripts/analyse_stage1.sh` -> `results/stage1_analysis.txt` (registered), `results/stage1_posthoc*.txt` and `results/stage1_onset.txt` (post hoc, labelled). Peak memory 4.2 GiB per 65536-board run.
+
+Where the runs ended: **RLLLLRRL** left the 65536 board at step 20,245,062,163 (x = -32768); **RLLLRLRLLL** at 34,863,498,538 (y = 32767); **RLLLLRLRRL** did not leave it by the 6e10-step budget (ant at (11866, -11200), 1.24e9 non-zero cells).
+So "escaped" in the census meant: the territory had reached +-16384 at 1.2601e10 / 2.8427e10 / 3.9620e10 steps, and nothing else.
+
+| | census exit (32768 board) | registered test (p <= 6) in the window before that step | registered test, last 2e8 steps of the run | window signature S (spc < 8 and aspect >= 20) | what the run shows |
+|---|---|---|---|---|---|
+| RLRLLL (positive control) | n/a | EXACT, direction xmin, P = 3, p = 3, a = 12, 100% of 4714 cycles | - | 281 of 297 windows (94.6%) | recovers the parent's clock |
+| RLLLLRRL | 1.2601e10 | **no**, best exact fraction 0.155 (614 cycles) | **no**, 0.19 (48 cycles) | 0 of 182 / 0 of 200; median 2.0 steps per new cell, aspect 1.00 | see below |
+| RLLLRLRLLL | 2.8427e10 | **EXACT**: xmin, P = 1, p = 2, a = 8, b = (-218, -186), 100% of 782 cycles | **EXACT**, 100% of 384 cycles | 0 of 200 / 0 of 200; 2.0 steps per new cell, aspect 1.00 | square spiral, exact clock |
+| RLLLLRLRRL | 3.9620e10 | no (34 cycles; irregular) | no (<= 39 cycles; gaps up to 4e9 steps) | 0 of 48 / 0 of 22; 2.4-7.1 steps per new cell, aspect 1.0 | not in a periodic regime by 6e10 |
+| negative control RRLLLLRRL (registered) | - | NO_DATA: 14 front events in 3e9 steps | - | - | vacuous control |
+| negative controls RLLLLRRLL, RLRLLLLRRL (added after registration, 3e9 steps) | - | no (best 0.14 / 0.23 on 51 / 31 cycles) | - | 0 of 117 / 0 of 1958 | the criterion rejects chaotic growth, but at low power |
+
+**Scoring against the registered predictions.**
+- **G1 (RLLLLRRL, ~45%): failed as registered.** The registered test (phase period p <= 6) finds no exact clock in either window. *Post hoc* (`results/stage1_posthoc_rlllrrl.txt`, `stage1_posthoc_maxp64.txt`): from cycle about 19,600 (step about 1.47e10) the residual `dt - 8 swing` is exactly periodic with **period 19** in the revolution index
+  (14 distinct values 38 ... 2110, direction xmin and xmax identical, 100% of 383 cycles in the last window and of the 4000 cycles examined in 28000-32000), so there is an exact affine clock with a 19-revolution super-cycle; my cap p <= 6 was too small. Before about 1.47e10, including the whole window in which the 32768 board ended the census run, revolutions are irregular (residuals up to 3.5e5).
+  So the census exit of RLLLLRRL happened about 2e9 steps *before* its exact regime began.
+- **G2 (RLLLRLRLLL, ~40% clock, ~60% onset in (1e10, 2.5e10) given a clock): the clock held; the onset prediction failed.** The exact clock begins at step **26,351,953,955** (revolution 2876, swing 5809) and holds for the **29,854 consecutive revolutions** to the exit (`results/stage1_onset.txt`); the onset is above my predicted range. (Post hoc: the 470 revolutions before it follow the same clock with constants (-178, -210) and occasional defects, then the constants shift by -8 to (-186, -218).) The census exit at 2.8427e10 therefore fell inside the exact regime.
+- **G3 (RLLLLRLRRL, ~30%): failed (inconclusive power).** No exact clock; too few revolutions (<= 39 per 2e9 steps) for the test to be informative. The census exit was the blob reaching the edge of the 32768 board; the 65536 run shows no board-independent breakout up to 6e10.
+- **G4 (S holds in >= 90% of windows iff the rule has an exact clock): falsified as registered.** S holds in 0% of the windows of every target rule, while two of them have an exact clock. S (a narrow-ribbon signature) is a column-sweeper signature; it is not a necessary signature of an exact clock.
+- **G5 (board independence): see the block below.**
+- **G6 (controls): positive control passed; the registered negative control returned NO_DATA (vacuous); the added negative controls are rejected.**
+
+**Reading (interpretation, with the confounds I know).** The three escapes are not three sweepers. Two of them (RLLLRLRLLL, RLLLLRRL) are *square spirals*: the territory is a filled square whose boundary the ant circles at 2 steps per cell (median steps per new cell 2.0, new-cell box = the whole square, aspect 1.00); each revolution takes `8 * swing + b` steps and grows the side by 2, with exact constants after a late onset
+(2.635e10 and about 1.47e10 steps). Neither is a column sweeper in the parent's sense, and the census label "builder" at about 4 steps per cell for RLLLLRRL describes an earlier phase. The third (RLLLLRLRRL) was still growing like a blob at 6e10, its census exit being the edge of the smaller board.
+Not shown: that either spiral continues forever (that is the Stage 2 question), what triggers the late onset, or why RLLLLRRL's super-cycle has period 19. Windows, direction and cycle choices were fixed before the runs; the p-range was not wide enough, which I report rather than retune.
