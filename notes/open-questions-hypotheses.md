@@ -351,3 +351,17 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
   the `(x+y) mod 2` ones (F2), for all n = 2..8? Post hoc. Candidate for odd n (3, 5, 7: orders n, n^2, n^4 for F1, F2, F3):
   one colour clock per site class, because the move axis alternates so the class sequence has period 4. Unproved, and incomplete for
   even n, where F2/F1 is n or n/2.
+
+## Added 2026-10-23: the three no-highway escapes, and the highway decider
+
+`experiments/2026-10-23-sweeper-generalisation/` (Stage 1, instrument oracle-tested) and `experiments/2026-10-23-highway-decider/`.
+- The census "escape" of RLLLLRRL, RLLLLRLRRL, RLLLRLRLLL only meant the 32768 board's edge was reached. On a 65536 board: RLLLRLRLLL and RLLLLRRL
+  become **square spirals** (new-cell box = whole square, 2.0 steps per new cell, revolution time `8 swing + b`) after late onsets (2.635e10 and about
+  1.47e10 steps); RLLLLRLRRL is still a blob-like grower at 6e10. The spirals have exact clocks (RLLLRLRLLL: phase period 2, 29,854 revolutions to the exit;
+  RLLLLRRL: phase period 19, post hoc because the registered cap p <= 6 was too small). RLRLLL's column-sweeper signature S does not occur in them.
+- Q23. What triggers the late spiral onset, and why does RLLLLRRL's revolution constant have period 19 while RLLLRLRLLL's has period 2? Both look like the same
+  mechanism as the board fillers `R^k L R R...` (Q20: 2(k+1) steps per cell) and the sqrt(t) frame builders (Q15) entered late from a blob; Q15, Q20 and Q23 may be one
+  question. A cell-level test already done (99.2-99.7% of sampled band cells equal after 5 revolutions, outward shift 1 per revolution, depth 0-64) says the outer band is a
+  steady profile; the ant reads up to 76 cells into the territory, so the macro-family needs a band of depth >= 77 and eight straight/diagonal segments. Not proved to persist.
+- Q24. The rectangle translated-cycler certificate (`decide.py`) certified 571/571 census highways at the first snapshot tried in 568 cases. It is conservative (it needs the
+  untouched window cells to be shift-periodic). What is the smallest class of non-highway attractors it can be extended to (periodic ahead background: the side of a spiral)?
