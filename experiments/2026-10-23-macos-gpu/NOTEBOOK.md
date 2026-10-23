@@ -19,3 +19,19 @@ All seven Metal integration tests, two CLI parser tests, shader validation, inva
 ## 2026-10-23T12:15:49.551Z — decision — c0c93c981811ef96074791c0a96d439029a05ecc
 
 Keep this as native census support. Do not claim a Mac speedup from correctness evidence. Future work should first measure lane count, slice length, readback and host detection costs; compare an optional native wgpu 64-bit shader before committing to a separate Metal implementation. CUDA hardware, hosted CI and other GPU platforms remain untested here.
+
+## 2026-10-23 — intent / deviation (f3c8aae)
+
+Measure end-to-end Metal speed relative to both CPU runners. Registered cases and predictions in README before running. CodSpeed exec harness is unavailable on Apple ARM; user explicitly authorized local wall-clock timing. Use monotonic Node timing, rotating backend order, output equality and five measured repetitions. No runtime implementation changes. Desktop applications are active; record this confounder.
+
+## 2026-10-23T12:56:39.801Z — observation (f3c8aae860e2c8f3db8715b697132aba14e03a74)
+
+Completed small: five samples per backend, one warmup each, rotating order. Every CSV matched SHA-256 186ba51b60017135b6695af3f20f37a63fd0ad0ed20ca68725aaa58e269fa2cd. Median seconds: fast=0.00515525, lean=0.006230708, Metal=0.040484834. See results/benchmark-small.json for all samples and provenance.
+
+## 2026-10-23T12:57:19.060Z — observation (f3c8aae860e2c8f3db8715b697132aba14e03a74)
+
+Completed batch: five samples per backend, one warmup each, rotating order. Every CSV matched SHA-256 7034cff93e7238bbdf7f551b5506b6ba05db3e365967c17487e64d1dbe4a145e. Median seconds: fast=1.313243167, lean=2.573710375, Metal=0.712973875. See results/benchmark-batch.json for all samples and provenance.
+
+## 2026-10-23T12:58:25.291Z — observation (f3c8aae860e2c8f3db8715b697132aba14e03a74)
+
+Completed long: five samples per backend, one warmup each, rotating order. Every CSV matched SHA-256 c747b55d4d8cabbc641c30939e858a5b46807681a7e85b3570a2f5ac484641d3. Median seconds: fast=2.8472575, lean=2.572413709, Metal=4.099581417. See results/benchmark-long.json for all samples and provenance.
