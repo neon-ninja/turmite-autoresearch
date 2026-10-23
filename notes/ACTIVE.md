@@ -1,13 +1,79 @@
 # Active work and open items
 
-Living index, last updated 2026-10-22 (invariant-mining and single-cell-gates committed, `5df7de6`..`9b2b739`; earlier: boundary return map added 2026-10-21; lattice c-law result 2026-10-20; earlier items as of 2026-10-19 after merging `worktree-paper-figure-proposals`, `8f4b978`, and the lead-effect
-reconciliation, `5d866ce`). One line per item: what is open, where it lives, what would close it. Remove an item when it is
+Living index, last updated 2026-10-23: priorities narrowed after reviewing the record at
+`ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
+the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Science: open questions
+## Next phase: boundary access, regime validation, closure
 
-- **Proof track (parallel, started 2026-10-20):** turn simulated regularities into checked macro-transitions
+**Central question:** what makes boundary access settle into the scaling needed
+for cube-root growth, and when does it fail? Start with square-grid ants.
+One substantial new experiment at a time. Planning allocation: 70% boundary-access
+research, 20% regime validation, 10% consolidation and bounded closure. These are
+priorities, not a preregistered protocol or new scientific results.
+
+| Priority | Scope | Completion or stopping criterion |
+|---|---|---|
+| 1. Explain boundary access | One independently testable account of interior returns and boundary occupation. | Predict later occupation or drift on separate trajectories, beating persistence with the same permitted inputs. Stop a design that cannot distinguish explanations or only reconstructs its target from the target trajectory. |
+| 2. Establish the regime | Audit the main cohort for board effects, transitions, censoring and selection bias; retain drifting cases as challenges. | State the finite-time regime covered and retain failures. Do not expand this into a general census or unlimited highway search. |
+| 3. Close existing claims | Reconcile paper, notes and homepage; bound any RLRLLL proof-closure task before starting. | Separate observation, prediction, explanation and proof. Do not turn closure into a new proof programme. |
+
+### Ordered sequence
+
+1. **Consolidate existing evidence.** Make a compact claim ledger for boundary
+   occupation, return dynamics and regime changes: supported observation, failed
+   explanation, unresolved question, next decision. Read the
+   [accounting audit](accounting-identity-response-2026-10-16.md),
+   [first-passage corrections](../experiments/2026-10-20-kappa-first-passage/README.md),
+   [boundary return map](../experiments/2026-10-21-boundary-return-map/README.md) and
+   [single-cell gates](../experiments/2026-10-22-single-cell-gates/README.md).
+   Include the gate sampler's unknown eligibility; do not treat its null result
+   as a rejection of all gate mechanisms.
+2. **Choose one discriminating test.** The feasibility deliverable is two
+   distinguishable explanations, an observable on which they disagree, and an
+   instrument capable of resolving that disagreement. Use a small development
+   cohort, reserve fresh starts and whole rule families where transfer is claimed,
+   and freeze baselines and allowed inputs before outcomes. A fitted return-time
+   exponent or an accounting identity alone does not meet this gate.
+3. **Calibrate and run an excluded pilot.** Resolve precision, state support,
+   censoring and cohort eligibility before scaling up. The earlier tail estimator
+   failed calibration; detailed contexts rarely repeated; richer states did not
+   independently predict mean returns. Stop or revise an inadequate design
+   rather than adding features or trajectories without a discrimination argument.
+4. **Run one confirmation study only if the gates pass.** Register the protocol,
+   seeds, windows, compute budget and stopping criteria in its experiment README;
+   maintain its lab and shareable notebooks. Report transitions, escapes, caps and
+   non-reaching runs. End with a retain/revise/retire decision on the explanation.
+
+Success for this phase is an independently successful explanation of a specific
+transport feature, or a controlled rejection that narrows the possibilities.
+Neither requires claiming that the cube-root exponent has been derived.
+
+### Deferred this phase
+
+- New lattices, dimensions and walker families, except controls needed by the
+  selected test.
+- Further prefix lookups without a specific transferable mechanism to test.
+- Non-additive invariant mining until it has an explicit bridge to transport.
+- A blanket fourth decade of the survivor census; validate the main cohort first.
+- Extending formal proofs to more patterns; any existing RLRLLL closure work must
+  have a bounded deliverable and budget.
+- Other c-law, renewal, mutation and gate follow-ups below, unless selected through
+  the feasibility gate above. Existing ownership and unopened-cohort safeguards remain.
+
+These are scheduling decisions, not scientific exclusions. Pruning-index preflight
+at `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`: searched `return|kappa|boundary|phase|additive`
+and read the sole entry, `NR-20261022-additive-laws-order-blind`, including its
+membership predicate. Defer duplicate additive-law discrimination within its
+recorded scope; it excludes neither transport mechanisms nor non-additive laws.
+No transport-specific signature matched. Before an actual run, repeat the query
+for its exact conditions and record the decision in its README and NOTEBOOK.
+
+## Science: retained backlog (not an execution queue)
+
+- **Proof track (bounded closure only this phase; started 2026-10-20):** turn simulated regularities into checked macro-transitions
   (`notes/proof-track-2026-10-20.md`). First target: is the `RLRLLL` column sweeper `C(L) -> C(L+g)` for all heights?
   `experiments/2026-10-20-rlrlll-macro-transition/`: P1-P5 held and the family is checked closed for all even m >= 2
   (cycle law 12m + (934, 1058, 898), |x|^2/t -> 3/4). Task C (2026-10-21): an independent second checker (stdlib Python, own ant, different proof architecture) reproduces every constant and agrees on 150 brute-force cycles; the two shift lemmas are Lean-checked for all n (core Lean, kernel decide, no sorry); the exact base-case criterion (real dump equals the ideal initial configuration on every cell the ideal ant visits) passes in 50 of 50 windows, but Task A's 3-row cone was too small (visited cells up to 7 rows outside it). Open: multi-cycle padding, entry seed, other escapes, a census-wide
@@ -97,7 +163,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Uncommitted work in progress (do not lose)
 
 - As of 2026-10-22 the main working tree is clean (everything committed on local `main`, not pushed). Only worktree-held gitignored data remains at risk (see housekeeping).
-- **c-law renewal work is active in its owning session:** instrument and oracle tests committed (`ccbd9cd`), release suite passes,
+- **c-law renewal work has an owning session (new runs deferred under the sequence above):** instrument and oracle tests committed (`ccbd9cd`), release suite passes,
   finite-memory model/clock (`c826721`) and failures (`a878d5e`) committed. All own jobs are terminal. Do not replace its pilot
   families, relaunch completed pilots, or open main outcomes before the next mechanism is registered.
 - The n-rotor reference, uniform-baseline notebook edit and blog index/post listed here earlier are committed (`18b79d7`,
