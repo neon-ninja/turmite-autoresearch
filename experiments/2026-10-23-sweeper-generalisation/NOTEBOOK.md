@@ -34,3 +34,21 @@ already at 1e8; the other two escapes have about 1e6 and 4.8e5 non-zero cells at
 ### 2026-10-23 18:40 (+13:00) · 1461cb9 · decision
 Launch Stage 1 as registered and amended (`scripts/run_stage1.sh`): five parallel single-core runs, 65536 board for the three targets,
 32768 for the controls. Machine otherwise idle (parent Task D finished).
+
+### 2026-10-23 18:01 (+13:00) · 6ecd317 · deviation
+corrects: the timestamps 18:05 (registration, README header and first notebook entries), 18:15 (README amendment) and 18:40 (oracle
+and launch entries). I wrote those from memory of the plan instead of reading the clock; they are wrong. The authoritative times are
+the git commit times: registration `7aed7de` 17:51:16, amendment + front-log example + oracle scripts `1461cb9` 17:52:06, oracle result
++ analysis scripts + Task D result `6ecd317` 17:54:04, Stage 1 launched immediately after `6ecd317`. The order (registration and amendment
+before any Stage 1 run) is unaffected. Ordering of the oracle outputs relative to `6ecd317` is as logged in `results/oracle.txt`.
+
+### 2026-10-23 18:01 (+13:00) · 6ecd317 · deviation
+Mid-run peek, not the registered analysis. While Stage 1 was still running I read partial `windows.csv` files to see whether the runs
+were alive. This revealed (a) the positive control left the board at step 12,974,495,927 at (-16384, -5895), exactly as in the
+parent's run; (b) new cells are sparse: most 1e6-step windows of the three rules contain 0 new cells (sampling every 1000th window),
+and the windows that do contain new cells have boxes as wide as the whole territory. So growth is by thin, territory-wide shells,
+not by a narrow front. Maximum |coordinate| of new cells (largest per 2000-window block): RLLLLRRL 7823 (t = 2.0e9), 11643 (6.0e9),
+14016 (1.0e10), 15788 (1.24e10); RLLLLRLRRL 3008 (1.9e9), 5486 (5.9e9), 7499 (9.7e9), 10681 (1.35e10); RLLLRLRLLL 1039 (2.0e9),
+1517 (6.0e9), 1941 (1.0e10), 2141 (1.4e10), 2261 (1.7e10). The growth exponents between decades are about 0.36 for RLLLLRRL. This is a
+post-hoc glance; G1-G4 are still scored only from the registered analysis (`clock.py`, `windows.py`) once the runs finish. It does
+bear on the interpretation: RLLLLRRL's escape at the 32768 board looks like a t^(1/3)-class square reaching the edge, not a sweeper.
