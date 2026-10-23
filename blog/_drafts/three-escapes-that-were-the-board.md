@@ -41,3 +41,7 @@ and it is conservative; but it turns "the trace repeats" into "the configuration
 
 What would change my mind about the spirals: a revolution anywhere in the exact regime that breaks the clock, or a band profile that drifts by more than a seam.
 The registrations, the code and the failed predictions (the onset range and the phase-period cap) are in the experiment folders.
+
+**Addendum, same evening.** The certificate's soundness is now a Lean theorem for an arbitrary rule and every number of periods (`Sweeper.cycler`, standard axioms only), so the 571 results are
+checks of instances of a machine-checked statement. The remaining gaps are the ones I would want a reviewer to press on: the instance checks are computed by a Python program rather than replayed in Lean,
+and the Lean ant is my transcription of the rule, validated against the Rust ant only by comparison, not by proof.

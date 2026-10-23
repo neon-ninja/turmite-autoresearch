@@ -111,3 +111,5 @@ in the paper.
 - **Item 4, explain:** the wake's colour period 3 is the three-column advance: one visit profile (1,4,4,2,1) on offsets -2..2 for every interior bulk row, visits per cell 3, 5, 4, below 6, so colour = visit count
   (parent Task E, 1836/1836 cells). The profile itself (the descent lemma's footprint) is not explained.
 - **Item 3, entry:** untouched this session.
+- **Addendum 2026-10-23 (later):** `Sweeper.cycler` (`lean/Cycler.lean`) proves the rectangle translated-cycler theorem for a generic rule and every number of periods, so the highway decider is a sound checker of instances of a
+  machine-checked theorem (instance clauses are still computed by `decide.py`; the Lean ant is not proved equal to the Rust ant). `experiments/2026-10-23-highway-decider/README.md`, "Lean soundness".
