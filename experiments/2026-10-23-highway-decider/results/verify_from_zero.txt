@@ -406,4 +406,4 @@ verify RRLRRLLRRRRR T=92 reference-from-zero identical=true
 verify RLRLRLRRRRRR T=3277 reference-from-zero identical=true
 verify RRLRRLRRRRRR T=92 reference-from-zero identical=true
 verify RRLLLRRRRRRR T=5228 reference-from-zero identical=true
-TOTAL 408 of 408 identical (grep for lowercase true; the first summary line of this file said 0 because the driver looked for 'True')
+TOTAL 408 of 408 identical

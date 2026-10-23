@@ -239,3 +239,6 @@ Task E (registered 1370bd3 at 18:15:39, script 035e32a, run after): one visit pr
 
 ### 2026-10-23 18:18 +1300 · 035e32a · deviation
 corrects: the time 18:15 on the two L5 entries above (written at about 18:08 by the commit clock: `1035e5f` is 18:08:06) and the line "18:15" in the L5 README section header text: I wrote those times from the plan, not the clock. Order of events is unaffected (L5 files `642b4f4` at 18:05:43 precede the L5 notes).
+
+### 2026-10-23 18:49 +1300 · 652e517 · deviation
+corrects: the time "18:18" on the Task E entries (Task E results commit `354eab7` is 18:16:47) and "18:15" on the two L5 entries (`1035e5f` is 18:08:06; already corrected once). The README header "registered 2026-10-23 18:16" for Task E is also late: registration commit `1370bd3` is 18:15:39. Commit times govern.

@@ -142,3 +142,16 @@ Prediction (about 55%) held: the proof needed no extra hypothesis beyond (a)-(d)
 
 **What this changes.** The decider is now a sound *checker of an instance* of a machine-checked theorem: if `decide.py` reports clauses (a)-(d) for (rule, dump, P, v), the Lean theorem gives persistence for all `k` for the abstract ant.
 **What it does not change.** (i) The instance checks (a)-(d) are still computed by the Python program (validated against `reference::Ant` on the dumps), not replayed inside Lean. (ii) The abstract ant (`gstep`) is not proved to be the Rust ant: its `dx`/`dy` tables and update order are the model's, and agree with the oracle runs only empirically (`oracle`/D4 and the parent's C1a). (iii) The dump is the output of a plain simulation from a blank board, so each persistence statement is "from step t1 on", conditional on that simulation.
+
+## Corrections and additions after review (appended 2026-10-23 18:49 +1300; nothing above is edited)
+
+1. **The from-zero verification is now a committed script.** `scripts/verify_from_zero.py DUMPER OUT` regenerates `results/verify_from_zero.txt`, including its summary line (which now counts the lowercase `true` the Rust program prints); I removed the hand-replaced TOTAL line: the file is a clean regeneration, 408 of 408 identical (command:
+   `python3 experiments/2026-10-23-highway-decider/scripts/verify_from_zero.py ~/turmite-target-hd2/release/examples/highway_decider_dump experiments/2026-10-23-highway-decider/results/verify_from_zero.txt`, binary sha256 in `results/verify_binary.sha256`).
+2. **Scope of the claim, restated.** 571 rules (the `confirmed_v2` highways with onset <= 1e8); the plain-loop dump was compared with `reference::Ant` from step 0 for the 408 with onset <= 3e5, and the dumped configuration was stepped by `reference::Ant` for all of them (D4); the instance clauses (a)-(d) are computed by Python, not replayed in Lean; the Lean theorem is for the abstract ant.
+3. **Falsification harness.** The highway statements here are certificates for a specific configuration, not classification claims about a rule; they were not attacked with `src/falsify*` (a perturbed start would produce a different configuration and need its own certificate).
+4. **Timestamps.** The registration header says 18:12 and the registration commit `220aac1` is 18:11:47; the commit time governs (I wrote the header time from the plan, not the clock).
+
+## Pruning-index outcome and next question
+
+Result: 571/571 certified, controls and oracle pass. This is a positive result and a proof artefact, not a dead end, so no signature is warranted. Related existing signature checked again: `NR-20261022-additive-laws-order-blind` (unrelated objective).
+Next question: the same architecture with a periodic ahead background (Q24 in `notes/open-questions-hypotheses.md`), applied first to a side of the RLLLRLRLLL spiral; the pruning-index query to be repeated for that family before any run.
