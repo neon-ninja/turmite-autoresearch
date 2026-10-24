@@ -1,0 +1,155 @@
+P2/P3 analysis: 25 census board fillers, blank 8192 board, 2^27 steps; window [2^26, 2^27]
+
+RLRRRRLLR k=1 stop=budget visited=33573182 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-86, -62]
+   xmax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-78, -70]
+   ymin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-66, -34]
+   ymax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-70, -30]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRRRLLL k=1 stop=budget visited=33573114 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-62, -86]
+   xmax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-110, -38]
+   ymin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-66, -34]
+   ymax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-46, -54]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRRL k=1 stop=budget visited=33572936 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-86, -62]
+   xmax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-78, -70]
+   ymin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-66, -34]
+   ymax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-70, -30]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRLLR k=1 stop=budget visited=33573221 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-42, -90]
+   xmax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-78, -54]
+   ymin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-54, -62]
+   ymax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-42, -74]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRLLLLR k=1 stop=budget visited=33573225 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-42, -58]
+   xmax: cycles=848 p=1 a=16 (8(k+1)=16) exact=1.0000 b=[-50]
+   ymin: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-70, -78]
+   ymax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-46, -102]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRRRLLR k=1 stop=budget visited=33573075 steps/visited=3.9978
+   xmin: cycles=848 p=1 a=16 (8(k+1)=16) exact=1.0000 b=[-50]
+   xmax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-18, -82]
+   ymin: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-78, -70]
+   ymax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-58, -90]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRRRRLL k=1 stop=budget visited=33572902 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-34, -66]
+   xmax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-26, -74]
+   ymin: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-110, -38]
+   ymax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-42, -106]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRRRRL k=1 stop=budget visited=33548374 steps/visited=4.0007
+   xmin: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-46, -102]
+   xmax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-78, -70]
+   ymin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-66, -34]
+   ymax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-2, -98]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00048, share of 2k+2 = 0.000063, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRRRRRL k=1 stop=budget visited=33547591 steps/visited=4.0008
+   xmin: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-42, -58]
+   xmax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-22, -78]
+   ymin: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-78, -70]
+   ymax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-50, -98]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRRLLLL k=1 stop=budget visited=33573228 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-54, -62]
+   xmax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-78, -38]
+   ymin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-50, -82]
+   ymax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-46, -86]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRLLRRR k=1 stop=budget visited=33573189 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-54, -62]
+   xmax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-78, -38]
+   ymin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-50, -82]
+   ymax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-46, -86]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RLRRRRLRL k=1 stop=budget visited=33573044 steps/visited=3.9978
+   xmin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-34, -66]
+   xmax: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-66, -34]
+   ymin: cycles=848 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-54, -94]
+   ymax: cycles=849 p=2 a=16 (8(k+1)=16) exact=1.0000 b=[-86, -62]
+   P2 HELD (p<=2: True); footprint: max read 4, max rel dev of shares 0..2k+1 = 0.00043, share of 2k+2 = 0.000051, new-cell rate x(2k+2) = 1.00033 -> P3 HELD
+RRLRRRRRLR k=2 stop=budget visited=22384477 steps/visited=5.9960
+   xmin: cycles=692 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-78, -22]
+   xmax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-94, -6]
+   ymin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-154, -114]
+   ymax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-150, -118]
+   P2 HELD (p<=2: True); footprint: max read 6, max rel dev of shares 0..2k+1 = 0.00066, share of 2k+2 = 0.000062, new-cell rate x(2k+2) = 1.00039 -> P3 HELD
+RRLRRRRRLL k=2 stop=budget visited=22384436 steps/visited=5.9960
+   xmin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-98, -122]
+   xmax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-130, -90]
+   ymin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-70, -78]
+   ymax: cycles=692 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-66, -82]
+   P2 HELD (p<=2: True); footprint: max read 6, max rel dev of shares 0..2k+1 = 0.00054, share of 2k+2 = 0.000041, new-cell rate x(2k+2) = 1.00039 -> P3 HELD
+RRLRRRRLL k=2 stop=budget visited=22384540 steps/visited=5.9960
+   xmin: cycles=692 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-102, -94]
+   xmax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-94, -102]
+   ymin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-114, -58]
+   ymax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-94, -78]
+   P2 HELD (p<=2: True); footprint: max read 6, max rel dev of shares 0..2k+1 = 0.00054, share of 2k+2 = 0.000041, new-cell rate x(2k+2) = 1.00039 -> P3 HELD
+RRLRR k=2 stop=budget visited=22384491 steps/visited=5.9960
+   xmin: cycles=692 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-66, -82]
+   xmax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-102, -46]
+   ymin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-130, -90]
+   ymax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-102, -118]
+   P2 HELD (p<=2: True); footprint: max read 6, max rel dev of shares 0..2k+1 = 0.00054, share of 2k+2 = 0.000041, new-cell rate x(2k+2) = 1.00039 -> P3 HELD
+RRLRRRRLLR k=2 stop=budget visited=22384463 steps/visited=5.9960
+   xmin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-62, -86]
+   xmax: cycles=692 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-58, -90]
+   ymin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-106, -114]
+   ymax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-94, -126]
+   P2 HELD (p<=2: True); footprint: max read 6, max rel dev of shares 0..2k+1 = 0.00054, share of 2k+2 = 0.000041, new-cell rate x(2k+2) = 1.00039 -> P3 HELD
+RRLRRRRLLL k=2 stop=budget visited=22392272 steps/visited=5.9939
+   xmin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-134, -126]
+   xmax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-122, -138]
+   ymin: cycles=692 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-86, -102]
+   ymax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-70, -118]
+   P2 HELD (p<=2: True); footprint: max read 6, max rel dev of shares 0..2k+1 = 0.00083, share of 2k+2 = 0.000083, new-cell rate x(2k+2) = 1.00060 -> P3 HELD
+RRLRRRR k=2 stop=budget visited=22384447 steps/visited=5.9960
+   xmin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-98, -74]
+   xmax: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-110, -62]
+   ymin: cycles=693 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-94, -102]
+   ymax: cycles=692 p=2 a=24 (8(k+1)=24) exact=1.0000 b=[-94, -102]
+   P2 HELD (p<=2: True); footprint: max read 6, max rel dev of shares 0..2k+1 = 0.00054, share of 2k+2 = 0.000041, new-cell rate x(2k+2) = 1.00039 -> P3 HELD
+RRRLRRRRR k=3 stop=budget visited=16789742 steps/visited=7.9940
+   xmin: cycles=600 p=1 a=32 (8(k+1)=32) exact=1.0000 b=[-98]
+   xmax: cycles=600 p=2 a=32 (8(k+1)=32) exact=1.0000 b=[-110, -86]
+   ymin: cycles=600 p=2 a=32 (8(k+1)=32) exact=1.0000 b=[-158, -134]
+   ymax: cycles=600 p=2 a=32 (8(k+1)=32) exact=1.0000 b=[-122, -170]
+   P2 HELD (p<=2: True); footprint: max read 8, max rel dev of shares 0..2k+1 = 0.00063, share of 2k+2 = 0.000036, new-cell rate x(2k+2) = 1.00045 -> P3 HELD
+RRRLRRRRRR k=3 stop=budget visited=16789782 steps/visited=7.9940
+   xmin: cycles=600 p=2 a=32 (8(k+1)=32) exact=1.0000 b=[-166, -62]
+   xmax: cycles=600 p=2 a=32 (8(k+1)=32) exact=1.0000 b=[-122, -106]
+   ymin: cycles=600 p=2 a=32 (8(k+1)=32) exact=1.0000 b=[-154, -106]
+   ymax: cycles=600 p=2 a=32 (8(k+1)=32) exact=1.0000 b=[-102, -158]
+   P2 HELD (p<=2: True); footprint: max read 8, max rel dev of shares 0..2k+1 = 0.00063, share of 2k+2 = 0.000036, new-cell rate x(2k+2) = 1.00045 -> P3 HELD
+RRRRLRRRR k=4 stop=budget visited=13433047 steps/visited=9.9916
+   xmin: cycles=536 p=2 a=40 (8(k+1)=40) exact=1.0000 b=[-166, -158]
+   xmax: cycles=537 p=2 a=40 (8(k+1)=40) exact=1.0000 b=[-190, -134]
+   ymin: cycles=537 p=2 a=40 (8(k+1)=40) exact=1.0000 b=[-130, -154]
+   ymax: cycles=536 p=2 a=40 (8(k+1)=40) exact=1.0000 b=[-134, -150]
+   P2 HELD (p<=2: True); footprint: max read 10, max rel dev of shares 0..2k+1 = 0.00070, share of 2k+2 = 0.000032, new-cell rate x(2k+2) = 1.00050 -> P3 HELD
+RRRRLRRR k=4 stop=budget visited=13432859 steps/visited=9.9917
+   xmin: cycles=536 p=2 a=40 (8(k+1)=40) exact=1.0000 b=[-134, -190]
+   xmax: cycles=537 p=2 a=40 (8(k+1)=40) exact=1.0000 b=[-206, -118]
+   ymin: cycles=537 p=2 a=40 (8(k+1)=40) exact=1.0000 b=[-98, -186]
+   ymax: cycles=536 p=2 a=40 (8(k+1)=40) exact=1.0000 b=[-102, -182]
+   P2 HELD (p<=2: True); footprint: max read 10, max rel dev of shares 0..2k+1 = 0.00070, share of 2k+2 = 0.000032, new-cell rate x(2k+2) = 1.00050 -> P3 HELD
+RRRRRLRR k=5 stop=budget visited=11194976 steps/visited=11.9891
+   xmin: cycles=490 p=2 a=48 (8(k+1)=48) exact=1.0000 b=[-158, -278]
+   xmax: cycles=489 p=2 a=48 (8(k+1)=48) exact=1.0000 b=[-238, -198]
+   ymin: cycles=490 p=2 a=48 (8(k+1)=48) exact=1.0000 b=[-106, -186]
+   ymax: cycles=490 p=2 a=48 (8(k+1)=48) exact=1.0000 b=[-102, -190]
+   P2 HELD (p<=2: True); footprint: max read 12, max rel dev of shares 0..2k+1 = 0.00077, share of 2k+2 = 0.000029, new-cell rate x(2k+2) = 1.00054 -> P3 HELD
+RRRRRLRRRR k=5 stop=budget visited=11195050 steps/visited=11.9890
+   xmin: cycles=490 p=2 a=48 (8(k+1)=48) exact=1.0000 b=[-178, -210]
+   xmax: cycles=490 p=2 a=48 (8(k+1)=48) exact=1.0000 b=[-154, -234]
+   ymin: cycles=490 p=2 a=48 (8(k+1)=48) exact=1.0000 b=[-174, -166]
+   ymax: cycles=489 p=1 a=48 (8(k+1)=48) exact=1.0000 b=[-170]
+   P2 HELD (p<=2: True); footprint: max read 12, max rel dev of shares 0..2k+1 = 0.00077, share of 2k+2 = 0.000029, new-cell rate x(2k+2) = 1.00054 -> P3 HELD
+
+P2 (exact clock, a = 8(k+1), all four directions): 25/25; of these with p <= 2: 25
+P3 (footprint): 25/25

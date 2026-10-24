@@ -64,3 +64,13 @@ corrects: 10:52, 10:58, 11:05. Those three timestamps were estimated, not read f
 Real times: the P1 run and its entry were made at about 10:33-10:35, the oracle at about 10:35, and the commit `c2db106` at
 10:36 (+13:00) (git commit time is authoritative). Order of events is as written. From here on every entry's time is read from
 `date` when it is written.
+
+### 2026-10-25 10:38 (+13:00) · 8080b28 · observation
+P2/P3 run (`scripts/p23_run.sh`, 48 s, binary hashes in `results/p23_run.log`) and analysis (`scripts/p23_analyse.py` ->
+`results/p23_analysis.txt`). **P2 held 25/25**: every census board filler has an exact clock (100.00% zero residual, 489-1,450
+cycles per direction in [2^26, 2^27]) with slope a = 8(k+1) in all four directions, phase period p in {1, 2} everywhere.
+**P3 held 25/25**: max read 2k+2; shares of 0..2k+1 within 0.08% (relative) of 1/(2k+2); count 2k+2 below 0.007% of reads;
+new-cell rate within 0.06% of 1/(2k+2). Steps per visited cell at 2^27: 3.998 (k=1), 5.996, 7.994, 9.992, 11.989 (k=5).
+The offsets b differ between rules with the same k (seed-dependent ring aspect, as registered: not predicted).
+Note on earlier entries: the 10:05-10:28 entries were written at 10:31 from memory; exploration preceded the first clock read
+(10:29), so those four times are approximate.
