@@ -171,7 +171,7 @@ All runs are deterministic (no seeds except P1's suffix generator, seed 20261025
 | P3 footprint | **held 25/25** | `results/p23_analysis.txt` |
 | P4 exit steps | **held**: alpha = 2(k+1) exactly; 12/12 exit steps exact | `results/p4_predictions.txt`, `results/p4_analysis.txt` |
 | P5 corner needs T(2k+2) = R | **held 3/3** (and 3/3 controls identical) | `results/p5_analysis.txt` |
-| P6 census membership | see P6 section | `results/p6_analysis.txt` |
+| P6 census membership | (a) necessity **failed** (2 exceptions); (b) sufficiency **held** (60.4%); (c) ring majority of builders **held** (72.4%), two-visit band **failed** (6.6%) | `results/p6_analysis.txt`, `results/p6_classes.csv` |
 
 ### The crawler lemma (proof for all k >= 1)
 
@@ -230,3 +230,49 @@ evidence for it.
   exits on 8192/16384/32768 boards and the 3 census records (h1e10 chunks 57, 50, 33) to the step, e.g. RRRLRRRRR leaves the
   32768 board at 8,587,807,035. The registered B1 failure of the late-highway board check was the `beta G` term: relative
   shortfall `-beta / (2(k+1) G)` = 1.20%, 0.60%, 0.30% for RLRRRRL at G = 1024, 2048, 4096.
+
+### Census membership (P6) and what else fills the plane
+
+446 blank-board runs (the 304 census builders and the 361 rules of length <= 12 satisfying Pi, 219 in both), 2^27 steps on a
+16384 board, classified on the last 2^24 steps (`results/p6_analysis.txt`). 12 runs left the board.
+
+- **(a) Necessity failed.** 220 runs show the ring(k) footprint; 218 satisfy Pi(k) and 2 do not: `RRLLLRLLLRLL` (12 visits per cell,
+  reads 0..11 uniform, a square anchored at the start cell rather than centred on it) and `RRRLRRLLRRRR` (6 visits per cell with turn
+  table `RRRLRR` on counts 0..5). The footprint fixes the visit budget, not the turn table: other crawlers spend the same budget.
+- **(b) Sufficiency held:** 218 of 361 Pi rules (60.4%) are rings at 2^27 (by k: 159/256, 42/65, 9/18, 3/7, 3/5, 1/4, 1/3, 0/2, 0/1).
+  The other 143 are census blobs (136), log growers (2), escapes (4) and one recognised highway. Which seeds find the ring is not
+  predicted here.
+- **(c) Q15:** 220 of 304 builders (72.4%) are rings (all of them Pi rules except the two above), 20 (6.6%, below the registered
+  10-30%) are two-visit, 64 (21.1%) other.
+
+**Post hoc** (`scripts/posthoc_p6.py` -> `results/posthoc_p6.txt`; criterion chosen after seeing P6: new-cell rate 1/v* and counts
+0..v*-1 uniform, nothing required above v*). 272 of the 446 runs are integer-cost fillers. By turn table on counts 0..v*-1:
+
+| v* | table | runs | reading |
+|---|---|---|---|
+| 2 | `RL` | 20 | the two-visit builders; every one starts `RLL`. `C_0` (one row of 1s over 2s) translates iff `T(0) = L, T(1) = R` (all 124 rules of length 2..6, `results/posthoc_k0.txt`), so in mirror image these edges are the k = 0 crawler. `RLLLRRRL`'s north edge is a row of 1s over 2s with a corner diagonal of 3s (scratch inspection) |
+| 2k+2 | `R^k L R^(k+1)` | 218 (k = 1..7) | the proved family |
+| 4, 6, 8 | `RRLR`, `RRRLRR`, `RRRRLRRR` | 1, 13, 3 | **a second family with the reversed table `R^(k+1) L R^k`** at the same cost 2(k+1); `RRRLRRLLL`'s edge reads rows `3311 / 4466 / 6666`, not `C_2` |
+| 4-26 | `RLLR`, `RLLRLL`, `RRLRLRRR`, seven singletons | 3, 3, 3, 7 | unexamined |
+
+So the proved crawler is the majority mechanism of the census builders but not the only one; the census "builders" are at least four
+crawler families plus 64 non-integer cases (spirals with deep bands, rules that left the board, slow fillers).
+
+## Limitations
+
+- Only the straight edge is proved. The corner gadget and hence the ring's persistence are observed exact (hundreds of revolutions,
+  25 rules, three transplants), not proved; nothing guarantees the same corner phase structure at larger sizes.
+- P6 classifies one window at 2^27 steps per rule: a Pi rule that has not reached the ring by then counts as a non-ring; late ring
+  onsets are not excluded (the 25 board fillers were all rings by 2^26).
+- The k = 0 and reversed-table observations are post hoc and only partly inspected. The octagonal spirals of
+  `experiments/2026-10-23-sweeper-generalisation/` (deep outer band) are not shown to be the k = 0 crawler.
+- A brief literature search (OpenAlex semantic query on generalised ants and square filling, 2026-10-25) found no mechanism for
+  square filling; that is not an exhaustive review.
+
+## Pruning-index outcome and next question
+
+No dead-end signature: the results are positive (a mechanism, a proof for the edge, exact predictions) and the negative part (P6 (a))
+is a failed classification criterion, not an excluded rule family. Next questions, unregistered: (1) a corner lemma per k (finite
+trace at a fixed corner phase) to make the ring a proved macro-transition; (2) the reversed family `R^(k+1) L R^k`: its crawler
+configuration and whether it is related to the first by a symmetry; (3) onset: why 60% of Pi rules find the ring from a blank board
+and 40% do not, given that the ring never reads the letters that decide it.

@@ -365,3 +365,29 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
   steady profile; the ant reads up to 76 cells into the territory, so the macro-family needs a band of depth >= 77 and eight straight/diagonal segments. Not proved to persist.
 - Q24. The rectangle translated-cycler certificate (`decide.py`) certified 571/571 census highways at the first snapshot tried in 568 cases. It is conservative (it needs the
   untouched window cells to be shift-periodic). What is the smallest class of non-highway attractors it can be extended to (periodic ahead background: the side of a spiral)?
+
+## Added 2026-10-25: square-ring fillers (Q15, Q20 answered in part; Q23 linked)
+
+`experiments/2026-10-25-square-ring-fillers/` (registered P1-P6 before the runs; README has the proof and all numbers).
+- **Q20 answered for the straight edge.** The board fillers' boundary is a three-row profile (with `a = k, b = k+1, c = 2k+1, d = 2k+2`
+  visits: a-pairs, (c, b)-pairs, d) walked by a crawler that is a chain of 2x2 square loops. Lemma, proved by hand for every k >= 1 and
+  checked for k <= 64: from that profile the ant moves 4 cells per `8(k+1)` steps, reads each count 0..2k+1 exactly four times, and
+  needs exactly `T = R^k L R^(k+1)` on those counts. Every cell ends with `2(k+1)` visits: that is the `2(k+1)` law. Corners read
+  the interior count 2k+2 once per revolution and need `T(2k+2) = R` (flipping it breaks the ring at the first corner); the corner is
+  observed, not proved. All 25 census board fillers have an exact clock `8(k+1) swing + b_(r mod 2)`, and `E(G) = 2(k+1)G^2 + beta G
+  + gamma` fitted on three boards predicts every later exit to the step (B1 of the board check failed on the `beta G` term).
+- **Q15 answered in counts, not "one class".** 220 of the 304 census builders are rings of this family (k = 1..7), 20 are two-visit
+  builders (all `RLL...`; post hoc, their edge is the mirrored k = 0 crawler), and the rest include a second integer-cost family with the
+  reversed table `R^(k+1) L R^k` (post hoc) and non-integer cases. The registered "footprint implies family" prediction failed (2
+  exceptions). Answer to Q15's second half from the existing record: the D1 sqrt(t) turmite cluster builds one-dimensional lines
+  (`notes/frontier-2026-10-13-results.md`, W2 entry), while the rings fill 2D (area ~ t); same extent exponent 1/2, different class.
+- **Onset is a separate question.** `RLRR`, `RLRRR`, `RRLRRR` read the right turns but never fill from a blank board; given a ring
+  they run it with a bit-identical visit field for 1e8 steps. 218 of 361 rules of length <= 12 with the right turns reach the ring
+  by 2^27 steps. As for highways, a few letters certify the structure and the seed decides whether it is found.
+- Q25. Why do 60% of the `Pi(k)` rules find the ring from a blank board and 40% not, given that the ring never reads the letters
+  that decide it? Is the seed's chance of emitting a ring structured like highway onset (`experiments/2026-10-21-highway-preconditions/`)?
+- Q26. What is the reversed family `R^(k+1) L R^k` (edge rows `3311 / 4466 / 6666` for k = 2): a different crawler or a symmetry image
+  of the first? And can the corner be proved for every k, closing the ring as a macro-transition (the same shape of argument as the
+  edge lemma, a finite trace per corner phase)?
+- Q23 link: the two-visit builders' straight edges match the mirrored k = 0 crawler (one row of 1s over 2s), which exists for every rule
+  starting `RL`; whether the octagonal spirals with an 80-cell band are the same thing is not checked.

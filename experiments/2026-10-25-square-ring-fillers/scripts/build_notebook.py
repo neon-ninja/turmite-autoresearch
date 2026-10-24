@@ -1,9 +1,8 @@
-# /// script
-# dependencies = ["nbformat"]
-# ///
 """Builds notebook.ipynb for this experiment. usage: uv run --frozen experiments/2026-10-25-square-ring-fillers/scripts/build_notebook.py
-Execute (reads committed results only): uv run --frozen jupyter nbconvert --to notebook --execute --inplace \\
-    experiments/2026-10-25-square-ring-fillers/notebook.ipynb"""
+Execute (reads committed results only), from the experiment folder:
+    uv run --frozen python -c "import nbformat; from nbclient import NotebookClient; nb = nbformat.read('notebook.ipynb', 4); \\
+    NotebookClient(nb, timeout=120, kernel_name='python3').execute(); nbformat.write(nb, 'notebook.ipynb')"
+"""
 from pathlib import Path
 
 import nbformat as nbf

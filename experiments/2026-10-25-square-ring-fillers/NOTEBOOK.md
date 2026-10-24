@@ -131,3 +131,13 @@ The proved crawler is the majority mechanism of the census builders (218 of 304 
 one: there is at least a second family with the reversed table R^(k+1) L R^k at the same cost 2(k+1), and the two-visit spirals fit
 the mirrored k = 0 crawler. Q15's "one class" fails. The footprint criterion was too weak to separate crawler families; the right
 membership test is the turn table plus a crawler check, not read uniformity.
+
+### 2026-10-25 10:57 (+13:00) · 3b13695 · observation
+`PROPTEST_RNG_SEED=20261019 cargo test --release --locked`: 205 passed, 0 failed (no src/ changes in this experiment; two new
+examples only). Notebook built (`scripts/build_notebook.py`) and executed from a clean kernel with nbclient: 19 cells, 0 errors.
+Figure `results/fig_square_ring.png` from `scripts/figure.py` (deterministic). Notes updated: open questions (Q15, Q20 in part,
+Q25, Q26), ACTIVE backlog, atlas (persistent-structures evidence, late-highways also) and experiment guide row.
+
+### 2026-10-25 10:57 (+13:00) · 3b13695 · decision
+End of the registered programme. Not started: the corner lemma, the reversed family, onset statistics (Q25, Q26). These need their
+own registrations. No pruning-index signature (positive mechanism; the failed P6 (a) is a criterion failure, not a dead family).
