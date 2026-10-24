@@ -81,3 +81,15 @@ on boards 1024/2048/4096 are E = 4G^2 - 49G + 1420 (RLRRRRL), 6G^2 - 49G + 773 (
 held**: alpha = 2(k+1) exactly, and all coefficients are integers. Predictions for G = 8192, 16384, 32768 are in the file,
 committed before the 8192/16384 runs and before looking at the census 32768 rows. B1's shortfall is 49/(4G), 49/(6G), 65/(8G):
 1.20%, 0.80%, 0.79% at G = 1024 (the old README quoted 1.3%, 0.6%, 0.3% relative to 2(k+1)G^2(1 - 0.0003)).
+
+### 2026-10-25 10:44 (+13:00) · 9614c69 · observation
+P4 step 2/3 (`scripts/p4_run.sh`, sweep_lean sha256 in `results/p4_run.log`, 4.4 min; `scripts/p4_compare.py` ->
+`results/p4_analysis.txt`): **P4 held, 12/12 exact**. The committed quadratics predict the exit step to the step on 8192, 16384
+and 32768 boards for all three rules, and the census 32768 records (h1e10 chunks 57, 50, 33) agree, e.g. RRRLRRRRR exits at
+8,587,807,035 = 8G^2 - 65G + 2363. Correction to my 11:3x entry's parenthesis: the old README's 1.3%, 0.6%, 0.3% are one rule
+(RLRRRRL) across G = 1024, 2048, 4096; the quadratic gives 49/(4G) = 1.20%, 0.60%, 0.30% (+ gamma), consistent.
+
+### 2026-10-25 10:44 (+13:00) · 9614c69 · interpretation
+The 25 board-filler "late highways" are now fully predicted: their census escape steps follow from an exact two-phase revolution
+clock, and the registered B1 failure was the -beta G term (beta = -49, -49, -65). The census period 8(k+1) and dx/dy = 4 they were
+reported with are the crawler of P1 running along the board edge.
