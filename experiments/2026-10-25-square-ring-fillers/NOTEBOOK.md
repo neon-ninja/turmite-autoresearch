@@ -74,3 +74,10 @@ new-cell rate within 0.06% of 1/(2k+2). Steps per visited cell at 2^27: 3.998 (k
 The offsets b differ between rules with the same k (seed-dependent ring aspect, as registered: not predicted).
 Note on earlier entries: the 10:05-10:28 entries were written at 10:31 from memory; exploration preceded the first clock read
 (10:29), so those four times are approximate.
+
+### 2026-10-25 10:38 (+13:00) · c281996 · observation
+P4 step 1 (`scripts/p4_predict.py` -> `results/p4_predictions.txt`): the exact quadratics through the committed exit steps
+on boards 1024/2048/4096 are E = 4G^2 - 49G + 1420 (RLRRRRL), 6G^2 - 49G + 773 (RRLRR), 8G^2 - 65G + 2363 (RRRLRRRRR). **P4 (i)
+held**: alpha = 2(k+1) exactly, and all coefficients are integers. Predictions for G = 8192, 16384, 32768 are in the file,
+committed before the 8192/16384 runs and before looking at the census 32768 rows. B1's shortfall is 49/(4G), 49/(6G), 65/(8G):
+1.20%, 0.80%, 0.79% at G = 1024 (the old README quoted 1.3%, 0.6%, 0.3% relative to 2(k+1)G^2(1 - 0.0003)).
