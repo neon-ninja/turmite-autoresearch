@@ -49,7 +49,7 @@ def main():
                              share01=f"{(reads.get(0,0)+reads.get(1,0))/W:.4f}", maxread=row["win_maxread"],
                              sweep_stop=m["sweep_stop"], census_cls=m["census_cls"]))
     with open(EXP / "results/p6_classes.csv", "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(out_rows[0]))
+        w = csv.DictWriter(f, fieldnames=list(out_rows[0]), lineterminator="\n")
         w.writeheader()
         w.writerows(out_rows)
     ring = [o for o in out_rows if o["cls"].startswith("ring")]

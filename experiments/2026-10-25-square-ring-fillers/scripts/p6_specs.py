@@ -23,7 +23,7 @@ def main():
     pis = {r for r in sweep if pi_k(r) is not None}
     union = sorted(builders | pis, key=lambda r: (len(r), r))
     with open(EXP / "results/p6_membership.csv", "w", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(["rule", "n", "in_builders", "pi_k", "sweep_stop", "sweep_period", "census_cls", "census_spc"])
         for r in union:
             s, c = sweep.get(r, {}), census.get(r, {})
