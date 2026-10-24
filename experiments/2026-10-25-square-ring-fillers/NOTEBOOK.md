@@ -93,3 +93,17 @@ and 32768 boards for all three rules, and the census 32768 records (h1e10 chunks
 The 25 board-filler "late highways" are now fully predicted: their census escape steps follow from an exact two-phase revolution
 clock, and the registered B1 failure was the -beta G term (beta = -49, -49, -65). The census period 8(k+1) and dx/dy = 4 they were
 reported with are the crawler of P1 running along the board edge.
+
+### 2026-10-25 10:45 (+13:00) · 2182bbf · observation
+P5 (`scripts/p5_run.sh`, 10 s; `scripts/p5_analyse.py` -> `results/p5_analysis.txt`). **P5 held.** (a) Switching at t0 to
+RLRR, RRLRRR, RRRLRRRR (same turns on counts 0..2k+2) gives the identical visit field, position and heading after 1e8 more steps:
+the first two never fill from a blank board, yet run the ring forever once given it. (b) Flipping only T(2k+2) to L breaks the
+ring at the first corner: first read above 2k+2 at t0 + 2,956 / 1,962 / 3,477 steps against revolutions of about 8,000 / 13,900 /
+19,700; visited cells at the end 0.76M / 0.87M / 0.79M against 25.3M / 17.0M / 12.9M. Also: the originals first read above 2k+2
+at steps 60, 96, 132 (the seed), never later in the window. Correction to the 10:44 entry: "my 11:3x entry" means the 10:38
+P4-step-1 entry.
+
+### 2026-10-25 10:45 (+13:00) · 2182bbf · interpretation
+The ring is an attractor whose existence depends exactly on T(0..2k+2) = R^k L R^(k+2) (P1 for the edge, P5 for the corner),
+while reaching it from a blank board depends on the seed, i.e. on letters the ring never reads. Same logical structure as a
+highway: the structure is certified by finitely many letters, its onset is not.
