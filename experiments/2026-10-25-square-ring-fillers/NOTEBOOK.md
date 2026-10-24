@@ -141,3 +141,8 @@ Q25, Q26), ACTIVE backlog, atlas (persistent-structures evidence, late-highways 
 ### 2026-10-25 10:57 (+13:00) · 3b13695 · decision
 End of the registered programme. Not started: the corner lemma, the reversed family, onset statistics (Q25, Q26). These need their
 own registrations. No pruning-index signature (positive mechanism; the failed P6 (a) is a criterion failure, not a dead family).
+
+### 2026-10-25 10:57 (+13:00) · e773b00 · deviation
+`results/p1_crawler_runs.txt` was 2.9 MB (full read histograms for 4,288 control runs). `scripts/p1_crawler.py` now writes one
+compact line per run (periods_ok, first_fail, reads_as_expected); P1 rerun, `results/p1_crawler.txt` byte-identical to the committed
+summary, runs file 0.75 MB. Notebook re-executed.

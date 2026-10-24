@@ -86,14 +86,14 @@ def main():
         expect_reads = ",".join(f"{v}:{4 * PERIODS}" for v in range(2 * k + 2))
         for r in [base] + suffixed:
             ok, ff, reads, out = run(k, r)
-            lines.append("main " + out)
+            lines.append(f"main k={k} rule={r} periods_ok={ok} first_fail={ff} reads_as_expected={reads == expect_reads}")
             n_main += 1
             if ok != PERIODS or reads != expect_reads:
                 fails.append(f"main k={k} rule={r}: {out}")
         for i in range(2 * k + 2):  # control: each letter read by the crawler must matter
             r = flip(base, i)
             ok, ff, reads, out = run(k, r)
-            lines.append("flip_read " + out)
+            lines.append(f"flip_read k={k} v={i} rule={r} periods_ok={ok} first_fail={ff}")
             n_flip_bad += 1
             if ok != 0:
                 fails.append(f"flip_read k={k} v={i} rule={r} survived {ok} periods")
@@ -101,7 +101,7 @@ def main():
         for i in range(2 * k + 2, len(s)):  # control: letters never read must not matter
             r = flip(s, i)
             ok, ff, reads, out = run(k, r)
-            lines.append("flip_unread " + out)
+            lines.append(f"flip_unread k={k} v={i} rule={r} periods_ok={ok} first_fail={ff} reads_as_expected={reads == expect_reads}")
             n_flip_ok += 1
             if ok != PERIODS or reads != expect_reads:
                 fails.append(f"flip_unread k={k} v={i} rule={r}: {out}")
