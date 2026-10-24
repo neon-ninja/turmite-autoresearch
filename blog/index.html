@@ -31,6 +31,15 @@ preliminary_results: true
   <div class="section-heading"><h2 id="results-heading">Results worth a look</h2><span>From the experiments</span></div>
   <div class="highlight-grid">
     <article>
+      <p class="eyebrow">Board fillers · A mechanism with a proof</p>
+      <h3>The ants that fill the plane walk a chain of tiny square loops</h3>
+      <p>RLRRRL, RRLRR and the other board fillers grow a square in which every cell is visited exactly 2(k+1) times. Their edge is a three-row profile crossed by a crawler that loops around a fresh 2×2 block while its new cells read below k, and is thrown into the next block by the one L turn at count k. That forces the turn table R<sup>k</sup>L R<sup>k+1</sup> and the cost 2(k+1), and it is proved by hand for every k. A quadratic fitted on three small boards predicted every later board exit to the step: RRRLRRRRR leaves the 32768 board at step 8,587,807,035, as the census recorded.</p>
+      <p class="homepage-note">Only the straight edge is proved; the corners are observed exact over hundreds of revolutions. RLRR runs a ring forever when given one but never builds it from a blank board. Rings are most of the census builders, but a registered test failed: other crawler families (a reversed table, two-visit spirals) fill at integer costs too.</p>
+      <a class="text-link" href="{{ '/2026/10/25/the-ant-that-fills-by-looping-in-place/' | relative_url }}">Read the post ↗</a>
+      <a class="text-link" href="{{ '/experiments/2026-10-25-square-ring-fillers/' | relative_url }}">Experiment page ↗</a>
+      <a class="evidence-link" href="{{ site.repository_url }}/blob/c6ff9d18213ceb78ff44885041e9135f015e88a3/experiments/2026-10-25-square-ring-fillers/README.md">Registration, proof, results and the failed test</a>
+    </article>
+    <article>
       <p class="eyebrow">Invariants · A negative result</p>
       <h3>Every exact conservation law of an ant ignores the order of the colours</h3>
       <p>For all 508 rules of length 2 to 8 we solved for every weighted sum of position, heading, time and cell colours that no step can change: checkerboard and heading parity, colour clocks, and for some rules heading equal to the number of cells of one colour mod 4. Each law is a proof, and all 14,416 generators held over 2000 steps of the reference ant. The law group of a rule depends only on its length, its net turn (#R − #L) mod 4 and whether it is trivial, so RRLL and RLRL have the same laws, and so do a rule's reverse and rotations. One registered prediction failed: heading parity is fixed by the tape for every even length, not only when the net turn is 0 mod 4.</p>
