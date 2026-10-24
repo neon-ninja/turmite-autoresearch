@@ -107,3 +107,27 @@ P4-step-1 entry.
 The ring is an attractor whose existence depends exactly on T(0..2k+2) = R^k L R^(k+2) (P1 for the edge, P5 for the corner),
 while reaching it from a blank board depends on the seed, i.e. on letters the ring never reads. Same logical structure as a
 highway: the structure is certified by finitely many letters, its onset is not.
+
+### 2026-10-25 10:54 (+13:00) · 5cce04f · observation
+P6 run (`scripts/p6_run.sh`, 7.5 min on 3 threads; specs sha256 and binary in `results/p6_run.log`; launched at commit 4d7cb78) and
+registered analysis (`scripts/p6_analyse.py` -> `results/p6_analysis.txt`, `results/p6_classes.csv`). 446 runs (12 left the 16384
+board). Disclosure: building the run list printed the overlap of builders and Pi rules (219) before classification.
+- (a) necessity **FAILED**: 220 runs are ring(k); 2 of them do not satisfy Pi(k): RRLLLRLLLRLL (classed ring(5): 12 visits per cell,
+  reads 0..11 uniform, max read 11) and RRRLRRLLRRRR (ring(2): table RRRLRR on counts 0..5, 6 visits, reads of 6 at 0.17%).
+- (b) sufficiency **held**: 218/361 Pi rules = 60.4% are ring(k) (band 30-90%, point guess 60%). By k: 159/256, 42/65, 9/18, 3/7, 3/5,
+  1/4, 1/3, 0/2, 0/1. The 143 others are 136 census blobs, 2 log growers, 4 escapes, 1 highway.
+- (c) Q15: ring(k) = 72.4% of the 304 builders (>= 50%, **held**); two-visit 6.6% (band 10-30%, **failed**); other 21.1%.
+
+### 2026-10-25 10:54 (+13:00) · 5cce04f · surprise
+The registered necessity failed because the footprint does not pin the turn table: other crawlers spend the same integer number of
+visits per cell. Post hoc (`scripts/posthoc_p6.py` -> `results/posthoc_p6.txt`, criterion chosen after seeing P6): 272 of 446 runs
+are integer-cost fillers (new-cell rate 1/v*, counts 0..v*-1 uniform). Tables: RLRR 159, RRLRRR 43, RRRLRRRR 9, ... (the proved family,
+k = 1..7, 218 rules); RL 20 (two-visit, the mirrored k = 0 member); **RRLR 1, RRRLRR 13, RRRRLRRR 3**, i.e. the reversed table
+R^(k+1) L R^k with the same 2(k+1) cost; and RLLR 3, RLLRLL 3, RRLRLRRR 3 and seven singletons (v* up to 26). RRRLRRLLL's north
+edge (scratch Python) reads rows 3311 / 4466 / 6666: a different profile from C_2.
+
+### 2026-10-25 10:54 (+13:00) · 5cce04f · interpretation
+The proved crawler is the majority mechanism of the census builders (218 of 304 builders are ring(k), all Pi), but not the only
+one: there is at least a second family with the reversed table R^(k+1) L R^k at the same cost 2(k+1), and the two-visit spirals fit
+the mirrored k = 0 crawler. Q15's "one class" fails. The footprint criterion was too weak to separate crawler families; the right
+membership test is the turn table plus a crawler check, not read uniformity.
