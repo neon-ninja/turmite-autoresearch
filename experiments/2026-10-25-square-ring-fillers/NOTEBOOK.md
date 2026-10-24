@@ -58,3 +58,9 @@ Footprint instrument `examples/square_ring_fillers_footprint.rs` oracle (`script
 fingerprint equal to `fast::run` (via `rlrlll_macro_transition_resim`) for RLRRRL, RRLRRRR, RLLR, RRLLLRLLLRR, RLRR at 1e6 and 1e7
 steps (4096 board); independent Python ant reproduces histogram, visited, window new cells, first_gt, fronts_after for six 2e5-step
 specs including two rule switches. Instrument accepted.
+
+### 2026-10-25 10:36 (+13:00) · c2db106 · deviation
+corrects: 10:52, 10:58, 11:05. Those three timestamps were estimated, not read from the clock, and are later than the real time.
+Real times: the P1 run and its entry were made at about 10:33-10:35, the oracle at about 10:35, and the commit `c2db106` at
+10:36 (+13:00) (git commit time is authoritative). Order of events is as written. From here on every entry's time is read from
+`date` when it is written.
