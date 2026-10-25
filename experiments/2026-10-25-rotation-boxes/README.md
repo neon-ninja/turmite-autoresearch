@@ -26,3 +26,9 @@ Between 3 and 10 is reported as mixed, with the pair list. **Control C1:** each 
 **Control C2:** the shape hash of a rule against its own mirror image must be equal (the hash is symmetry-canonical): must always hold.
 **Instrument.** `prefix_horizon::touched_shape` (canonical hash of the touched set over the 8 symmetries and translation), oracle-tested against the reference ant (count, bounding box and hash invariance under transforms of the reference set) in `tests/prefix_horizon.rs`.
 **Pruning index.** Index revision `decae71`; `rg -n -i -e rotation -e "cyclic" -e background notes/pruning-index/entries`: expected no candidate (the only entry concerns additive laws); decision run.
+
+### Preflight correction (appended before the run)
+The query for "rotation|cyclic|background" matches `NR-20261022-additive-laws-order-blind`, which *tested* complement, reversal and cyclic rotations and found the additive-law fingerprint preserved by them. Its objective (additive local conservation-law groups) and observable differ from this one (touched-cell footprint after a fixed number of steps), so it neither supports nor excludes this test. Decision: run. My line above that predicted "no candidate" was wrong.
+
+### Instrument fix before the run
+The first `touched_shape` oracle test failed (bounding box 8 against 7): the tracker counted the cell the ant stands on after the last step, which is not yet written. Size is now measured on the touched cells; the test passes on 150 random rules up to 6,000 steps and the hash is invariant under translation and two symmetries (test also checks that line and L shapes hash differently).

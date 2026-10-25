@@ -4,7 +4,7 @@
 
 use proptest::prelude::*;
 use std::collections::HashMap;
-use turmite::prefix_horizon::{PairRun, first_mismatch, first_position_difference, horizon};
+use turmite::prefix_horizon::{PairRun, canonical_hash, first_mismatch, first_position_difference, horizon, touched_shape};
 use turmite::reference::Ant;
 use turmite::Rule;
 
@@ -164,4 +164,45 @@ proptest! {
         let w2 = rule_from((y & !mask | x & mask) & ((1u32 << b) - 1), b);
         let _ = check_pair(&w, &w2);
     }
+}
+
+/// Visited cells of the reference ant (positions before each step), with the cell the ant stands on after the last step excluded,
+/// matching `touched_shape`, which marks a cell when the ant writes it.
+fn visited_ref(rule: &Rule, steps: u64) -> Vec<(i64, i64)> {
+    let mut a = Ant::new(rule.clone());
+    let mut seen = std::collections::HashSet::new();
+    for _ in 0..steps {
+        seen.insert((a.pos.0 as i64, a.pos.1 as i64));
+        a.step();
+    }
+    seen.into_iter().collect()
+}
+
+proptest! {
+    #![proptest_config(ProptestConfig::with_cases(150))]
+    #[test]
+    fn touched_shape_matches_reference_and_is_symmetry_invariant(n in 2usize..=10, bits in any::<u32>(), steps in 1u64..=6_000) {
+        let r = rule_from(bits & ((1u32 << n) - 1), n);
+        let cells = visited_ref(&r, steps);
+        let s = touched_shape(&r, steps, 2 * steps as usize + 7).expect("cannot leave this board");
+        prop_assert_eq!(s.cells, cells.len());
+        let (xs, ys): (Vec<i64>, Vec<i64>) = cells.iter().cloned().unzip();
+        prop_assert_eq!(s.width as i64, xs.iter().max().unwrap() - xs.iter().min().unwrap() + 1);
+        prop_assert_eq!(s.height as i64, ys.iter().max().unwrap() - ys.iter().min().unwrap() + 1);
+        prop_assert_eq!(s.hash, canonical_hash(&cells));
+        // translation and the eight symmetries must not change the hash
+        let moved: Vec<(i64, i64)> = cells.iter().map(|&(x, y)| (-y + 17, x - 5)).collect();
+        prop_assert_eq!(canonical_hash(&moved), s.hash);
+        let flipped: Vec<(i64, i64)> = cells.iter().map(|&(x, y)| (y, x)).collect();
+        prop_assert_eq!(canonical_hash(&flipped), s.hash);
+    }
+}
+
+#[test]
+fn canonical_hash_separates_different_shapes() {
+    let line: Vec<(i64, i64)> = (0..5).map(|i| (i, 0)).collect();
+    let ell: Vec<(i64, i64)> = (0..5).map(|i| (i, 0)).chain([(0, 1)]).collect();
+    assert_ne!(canonical_hash(&line), canonical_hash(&ell));
+    let vertical: Vec<(i64, i64)> = (0..5).map(|i| (0, i)).collect();
+    assert_eq!(canonical_hash(&line), canonical_hash(&vertical));
 }

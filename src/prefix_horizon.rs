@@ -118,3 +118,78 @@ pub fn first_position_difference(a: &Rule, b: &Rule, max_steps: u64, board: usiz
     }
     PairRun::Same(max_steps)
 }
+
+/// Footprint of the cells an ant has written (visited), summarised so that two runs can be compared up to translation and the
+/// eight symmetries of the square. `hash` is the minimum over those symmetries of an FNV-1a hash of the sorted, origin-shifted cell list.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Shape {
+    pub width: usize,
+    pub height: usize,
+    pub cells: usize,
+    pub hash: u64,
+}
+
+/// Canonical (translation- and dihedral-invariant) hash of a set of lattice cells.
+pub fn canonical_hash(cells: &[(i64, i64)]) -> u64 {
+    let maps: [fn(i64, i64) -> (i64, i64); 8] = [
+        |x, y| (x, y),
+        |x, y| (-x, y),
+        |x, y| (x, -y),
+        |x, y| (-x, -y),
+        |x, y| (y, x),
+        |x, y| (-y, x),
+        |x, y| (y, -x),
+        |x, y| (-y, -x),
+    ];
+    maps.iter()
+        .map(|m| {
+            let mut t: Vec<(i64, i64)> = cells.iter().map(|&(x, y)| m(x, y)).collect();
+            let (mx, my) = (t.iter().map(|c| c.0).min().unwrap_or(0), t.iter().map(|c| c.1).min().unwrap_or(0));
+            t.iter_mut().for_each(|c| *c = (c.0 - mx, c.1 - my));
+            t.sort_unstable();
+            let mut h = 0xcbf2_9ce4_8422_2325u64;
+            for (x, y) in t {
+                for b in x.to_le_bytes().into_iter().chain(y.to_le_bytes()) {
+                    h = (h ^ b as u64).wrapping_mul(0x0100_0000_01b3);
+                }
+            }
+            h
+        })
+        .min()
+        .unwrap_or(0)
+}
+
+/// Run `steps` steps and summarise the visited cells; `None` if the ant left the board.
+pub fn touched_shape(rule: &Rule, steps: u64, board: usize) -> Option<Shape> {
+    const TOUCHED: u8 = 0x80;
+    let n = rule.len();
+    assert!((1..100).contains(&n) && board >= 3);
+    let side = board as i64;
+    let mut grid = vec![0u8; board * board];
+    let (mut x, mut y, mut h) = (side / 2, side / 2, 0u8);
+    let (mut x0, mut x1, mut y0, mut y1) = (x, x, y, y);
+    for _ in 0..steps {
+        let cell = &mut grid[(y * side + x) as usize];
+        let c = (*cell & !TOUCHED) as usize;
+        h = (h + rule.0[c].delta()) % 4;
+        *cell = TOUCHED | if c + 1 == n { 0 } else { (c + 1) as u8 };
+        let (dx, dy) = DIRS[h as usize];
+        x += dx as i64;
+        y += dy as i64;
+        if x < 0 || y < 0 || x >= side || y >= side {
+            return None;
+        }
+        (x0, x1, y0, y1) = (x0.min(x), x1.max(x), y0.min(y), y1.max(y));
+    }
+    let mut cells = Vec::new();
+    for yy in y0..=y1 {
+        for xx in x0..=x1 {
+            if grid[(yy * side + xx) as usize] & TOUCHED != 0 {
+                cells.push((xx, yy));
+            }
+        }
+    }
+    // The scan window also holds the cell the ant stands on, which is not written yet, so measure the touched cells themselves.
+    let span = |f: fn(&(i64, i64)) -> i64| cells.iter().map(f).max().unwrap_or(0) - cells.iter().map(f).min().unwrap_or(0) + 1;
+    Some(Shape { width: span(|c| c.0) as usize, height: span(|c| c.1) as usize, cells: cells.len(), hash: canonical_hash(&cells) })
+}

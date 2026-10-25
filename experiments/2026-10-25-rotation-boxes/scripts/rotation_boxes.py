@@ -79,3 +79,5 @@ print(f"\nthe {len(both)} pairs form {len(comp)} independent groups of sizes {so
 n_classes = len({min(rots(r) | rots(mirror(r))) for r in surv})
 print(f"rotation/mirror classes among the survivors: {n_classes}; classes with >= 2 survivors: "
       f"{sum(1 for c in collections.Counter(min(rots(r) | rots(mirror(r))) for r in surv).values() if c > 1)}")
+
+(pathlib.Path(__file__).resolve().parents[1] / "results/rotation_pairs_1e11.txt").write_text("".join(f"{a} {b}\n" for a, b in sorted(both)))
