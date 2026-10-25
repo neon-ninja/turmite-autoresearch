@@ -89,3 +89,9 @@ so it is inconclusive rather than a dead end.
 ### 2026-10-25 23:25 (+13:00) · bb2801d · deviation
 corrects: Stage 1 results header "23:25". Like the earlier entries, it ran ahead of the clock: `date` read 23:22 at
 the Stage 2 registration, which came after it. Git commit times govern the order (285497a, then be07015, then bb2801d).
+
+### 2026-10-25 23:27 (+13:00) · 25bf366 · deviation
+Commit 25bf366 appended the Stage 2 results through an unquoted shell heredoc, which stripped every backtick-quoted
+span. The next commit rewrites only those just-appended sections (README "Stage 2 results", "Overall verdict",
+"Pruning-index outcome", and the four NOTEBOOK entries above) with the intended text. No registered text and no
+numbers changed. The git diff shows exactly what was restored.

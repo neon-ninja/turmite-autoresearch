@@ -295,26 +295,26 @@ across both stages). K3 tracks them at m <= 4, which is consistent with Stage 1'
 
 ## Overall verdict (Stage 1 + 2)
 
-- **Established.** The crawler gives an exact, proved reference point for the edge-cost instruments: ,
-  , chains {1, 3}. It is reproduced to 0.1% by the tracer. The crawler line works as an
+- **Established.** The crawler gives an exact, proved reference point for the edge-cost instruments: `1/c = k + 5/4`,
+  `r_j = 1, ..., 1, 1/4`, chains {1, 3}. It is reproduced to 0.1% by the tracer. The crawler line works as an
   empirical **ceiling** for chaotic rules with the same turn table (6 exceedances in 129), and those rules recover
   roughly 50-65% of the gap between the lead law and the crawler (n = 40 census, 89 fresh).
-- **Refuted, at this scope.** A positional shared-cell window  that moves with  (W2) and acts
+- **Refuted, at this scope.** A positional shared-cell window `[m+1, 2m+1]` that moves with `m` (W2) and acts
   letter by letter (W3). Also refuted: a support-specific steepening of the lead slope (S1).
-- **Not distinguished from K3.** At m <= 4 the fitted K3 kernel predicts the Pi rules'  as well as the crawler
+- **Not distinguished from K3.** At m <= 4 the fitted K3 kernel predicts the Pi rules' `c` as well as the crawler
   picture does, so H-crawl adds a ceiling and an interpretation, not extra predictive power.
-- **Unexplained.** Why support is collective: one added  letter in the window lowers  more often than it
+- **Unexplained.** Why support is collective: one added `s_0` letter in the window lowers `1/c` more often than it
   raises it, while a full window raises it. Also why about two-thirds of fresh Pi rules become filler-like, and the
   coefficients a ~ 1.36 and b ~ 0.70 themselves, which remain open (b is still not derived).
 
 ## Pruning-index outcome and next question
 
-New empirical signature . It is scoped to single-letter flips of these 90
+New empirical signature `NR-20261025-crawler-window-single-letter`. It is scoped to single-letter flips of these 90
 parents at this horizon and instrument: no lead-dependent window and no consistent sign. It does not exclude
 whole-table support effects, which P1 confirms, or other horizons or backgrounds. The crawler-limit and ceiling
 results are positive and need no signature.
 
 Next question worth a registration: **what makes support collective?** The crawler needs *every* shared-cell read
-to turn . If chaotic circulation is an all-or-nothing chain,  should depend on the *product* of window
+to turn `s_0`. If chaotic circulation is an all-or-nothing chain, `phi` should depend on the *product* of window
 letters, not their sum. A discriminating design: compare rules whose window is complete except for one gap at each
 position (dose of 0, 1, 2 gaps) on the flat band, where geometry is controlled.
