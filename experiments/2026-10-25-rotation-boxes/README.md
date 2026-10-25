@@ -32,3 +32,16 @@ The query for "rotation|cyclic|background" matches `NR-20261022-additive-laws-or
 
 ### Instrument fix before the run
 The first `touched_shape` oracle test failed (bounding box 8 against 7): the tracker counted the cell the ant stands on after the last step, which is not yet written. Size is now measured on the touched cells; the test passes on 150 random rules up to 6,000 steps and the hash is invariant under translation and two symmetries (test also checks that line and L shapes hash differently).
+
+## Part 2 result at 1e8 (appended; `results/rotation_shapes_1e8.csv`, `examples/rotation_shapes.rs`, 2048 board, commit `b79b485`)
+
+* **P1 (at most 2 of 21 identical) FAILED narrowly; A1 (at least 11) also failed: mixed.** 4 of the 21 pairs have identical canonical footprints after 1e8 steps. They come from just two rotation classes: `RRRRRRLLR`, `RRRRRLLRR` and `RRRRRRRLL`
+  (22x22, 428 cells; 3 pairs) and `RRRRRRRLLR` with `RRRRRRRRLL` (19x20, 346 cells; 1 pair). The other 17 pairs differ, often slightly (for example 22x22:428 against 22x22:444 cells for `RRRRRRLLR` and `RRRRLLRRR`).
+* **C2 held:** a rule's footprint equals its mirror image's in 21 of 21 cases (the hash is symmetry-canonical).
+* **C1 as registered was ill-posed:** every footprint is unchanged between 1e8 and 1e8 + 1000 steps, so the control cannot show that the test says "different". These patterns grow far too slowly for 1000 steps to matter (boxes go from about 22 at 1e8 to 28-32 at 1e11). A usable control needs a long interval; see F1.
+* Limits: a touched-cell set ignores colours and the ant's phase, so equal footprints are necessary for "the same object", not sufficient; and 4 of 21 comes from 2 classes, not 4 independent cases.
+
+### Follow-up F1 (registered before running; extends the plan, logged as a deviation)
+Classes: the two with identical footprints at 1e8 (5 rules above). Run `rotation_shapes` on their pairs at 1e9 and 1e10 steps (and each rule's own 1e8 vs 1e9 vs 1e10 footprint as the repaired C1).
+**Prediction F1a (60%):** the three-rule class stays identical at 1e9; the two-rule class too. **F1b (45%):** still identical at 1e10. **Repaired C1:** footprints at 1e8, 1e9, 1e10 of the same rule all differ (boxes grow ~0.1 decades per decade).
+Reading: staying identical over two more decades would show the rotated rules build the same object up to symmetry (a shared attractor, not a box coincidence); separating would show the 1e8 equality was an early coincidence.
