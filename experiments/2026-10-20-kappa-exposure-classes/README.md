@@ -312,3 +312,23 @@ exposed-edge return rate does not distinguish the ant. The signature defers only
 the 256 patched specs at 2^26 steps, board 8192, windows k = 17..26, with this instrument (`1593b61`;
 the per-step check at `181b0b8` reproduces it byte for byte). It covers neither age, phase or depth
 splits, nor other cohorts or horizons, nor the post hoc flat-edge reading.
+
+## Wording qualification from the classifier check — appended 2026-10-25 09:39 UTC
+
+The sections above are not edited. The exposure classifier used here was checked independently
+in [`../2026-10-25-exposure-classifier-check/`](https://github.com/timClicks/turmite-autoresearch/blob/421d4772dd5cb0fb08258820bd1e0f271e84ee2d/experiments/2026-10-25-exposure-classifier-check/README.md) (pinned at `421d477`): 65/65 z3 checks as
+expected, including six negative controls rejected. The classifier equals its documented spec
+(class u = number of unvisited 4-neighbours) for every local pattern and visit order, so b_u, f_u,
+p_u, Q and the P3/P4 verdicts stand as recorded. Its P6/P7 qualify only the labels:
+
+- **"2+" is in practice u ∈ {2, 3}.** u = 4 cannot occur once the visited set is 4-connected with
+  at least two cells; p4 = b4 = f4 = 0 in all 6,154 rows of `results/classes.csv`.
+- **u = 2 is not "corners".** It includes one-cell-wide strips (the two open neighbours opposite)
+  as well as convex corners. No part of this run measured the strip/corner mix.
+- **u = 1 is not only "flat edge".** It includes T-junction-like cells whose diagonal cells are open;
+  the class ignores diagonals.
+
+Wherever this README, the NOTEBOOK or the posts say "flat edge" read "u = 1 (one open neighbour)",
+and for "corners, bays and tips" or "exposed" read "u ∈ {2, 3}". The pruning-index entry
+`NR-20261025-kappa-exposure-classes-exposed-edge` is unaffected in scope (it is defined by the
+instrument and cohort, not by shape).

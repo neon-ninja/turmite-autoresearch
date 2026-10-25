@@ -200,3 +200,10 @@ flat-edge reading is excluded from the claim (post hoc, composition).
 
 ### 2026-10-25 09:34 (+00:00) · 10ee953 · cross-reference
 The exposure classifier was checked independently in `experiments/2026-10-25-exposure-classifier-check/`: 65/65 z3 checks as expected (incl. 6 negative controls). P3/P4 verdicts here stand; only wording is qualified (u = 2 includes one-cell strips, u = 1 includes T-junctions, u = 4 never occurs).
+
+### 2026-10-25 09:39 (+00:00) · 05de7b2 · interpretation
+Wording qualification after merging `turmite-research-agent/formal-checks` (`421d477`) into this
+branch. Checker P6/P7: class labels are exposure counts, not shapes. "2+" is u ∈ {2, 3} (u = 4
+absent in all committed rows); u = 2 includes one-cell strips; u = 1 includes T-junctions. Appended
+to README ("Wording qualification from the classifier check") and to the 25 October corrections in
+both 2026-10-20 posts. No number, verdict or registered text changed.

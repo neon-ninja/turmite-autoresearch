@@ -47,3 +47,9 @@ rows of the 2026-10-20 classes.csv. Impact on the 2026-10-20 P3/P4: verdicts sta
 ### 2026-10-25 09:32 (+00:00) · 99d0a3c · correction
 Timestamps of the 09:14 and 09:15 entries were written from memory and are approximate (both written
 between 09:13:37 and 09:16 UTC); from here on each heading uses `date -u`. No content changes.
+
+### 2026-10-25 09:39 (+00:00) · 05de7b2 · observation
+Merged into the onboarding branch (`05de7b2`). The verbatim guard now fails there, because `0a010ff`
+changed the instrument (Shadow check, clippy). Scratch re-dump with the post-review instrument body:
+table/walks/paths byte-identical to the committed dumps. Recorded in README ("Reproduction on later
+revisions"); reproduce the committed dumps at `421d477`.

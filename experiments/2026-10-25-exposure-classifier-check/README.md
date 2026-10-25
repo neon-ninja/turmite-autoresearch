@@ -166,3 +166,15 @@ configuration of a centre cell and its 4 neighbours appears), but the incrementa
 scripted walks and by the P5 induction, whose frame step for cells outside the diamond is a paper argument. The checker
 validates the instrument's classification, not the 2026-10-20 statistics pipeline (`analyse.py`) downstream of it. Level on
 the proof track: an instrument check (level 3 for the classifier lemma), not a result about ants.
+
+## Reproduction on later revisions — appended 2026-10-25 09:39 UTC
+
+The harness guard (`main.rs`: `instrument_body.rs` must be a verbatim substring of
+`examples/kappa_exposure_classes.rs`) pins the instrument as it was at `52bcd60`, i.e. the code that
+produced the 2026-10-20 data. On `turmite-research-agent/onboarding` the review commit `0a010ff`
+added the `Shadow` per-step check and a clippy rewrite of one loop, so after merging this branch
+there (`05de7b2`) the guard refuses to run, by design. To reproduce the dumps, check out `421d477`.
+Scratch cross-check (not committed): at `05de7b2`, with `instrument_body.rs` replaced in a temporary
+worktree by lines 25-309 of the post-review instrument, a fresh-target build of the harness wrote
+`table.csv`, `walks.csv` and `paths.csv` byte-identical (`cmp` silent) to the committed ones. So the
+post-review instrument classifies identically on all 512 patterns and 224 scripted walks.

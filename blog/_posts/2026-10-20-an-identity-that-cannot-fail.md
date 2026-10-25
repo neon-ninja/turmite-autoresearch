@@ -142,3 +142,16 @@ is false: returns and births share it roughly equally. This is a post hoc
 decomposition of the committed run
 ([review statistics](https://github.com/timClicks/turmite-autoresearch/blob/599ec931f0ed0bbd78c2c2a9bad08b776eb410da/experiments/2026-10-20-kappa-exposure-classes/results/review.txt)).
 The "birth tax" conjecture is still unmeasured.
+
+### Qualification, 25 October 2026 (class labels are counts, not shapes)
+
+An independent z3 check of the exposure classifier
+([classifier check](https://github.com/timClicks/turmite-autoresearch/blob/421d4772dd5cb0fb08258820bd1e0f271e84ee2d/experiments/2026-10-25-exposure-classifier-check/README.md), 65/65 checks, six negative controls rejected)
+found no instrument bug, so every number and verdict above stands. It does qualify
+the words I attached to the classes. A boundary cell's class u is just its number of
+unvisited 4-neighbours. In practice "2+" means u = 2 or 3: u = 4 never occurs once the
+visited set has two cells, and it is zero in every committed window. The u = 2 class
+includes one-cell-wide strips (open on opposite sides) as well as corners, and u = 1
+includes T-junction-like cells, not only straight flat edge. Read "flat edge" as
+"one open neighbour" and "corners and tips" as "two or three open neighbours". The run
+did not measure how u = 2 splits between strips and corners.
