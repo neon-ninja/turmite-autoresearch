@@ -226,6 +226,41 @@
       ]
     },
     {
+      "slug": "board-fillers",
+      "question": "Why do some ants fill the board at a fixed cost per cell?",
+      "state": "partial-formal",
+      "state_summary": "The straight edge of the square-ring fillers is proved by hand for every k and fixes their cost per cell, and a fit on small boards predicts their later exits to the step; the corner, the ring's persistence and which blank-board starts reach the ring are observed, not proved. Other crawler families fill at the same costs, so the turn table is not the only route.",
+      "reviewed": "2026-10-25",
+      "claims": ["RG-02"],
+      "evidence": [
+        {"ref": "2026-10-25-square-ring-fillers"},
+        {"ref": "2026-10-21-late-highway-board-check", "why": "Identifies the census board fillers and their fill-rate escape law; its registered board-area prediction missed only by a perimeter term."},
+        {"ref": "2026-10-25-prefix-causal-horizon", "why": "Fillers with equal onsets separate within a few hundred steps: equal onsets come from a shared fill rate, not a shared trajectory."}
+      ],
+      "counter": [
+        {"ref": "2026-10-25-square-ring-fillers", "why": "The registered necessity test failed: other crawler families, a reversed table and two-visit spirals, fill at the same integer costs."}
+      ],
+      "also": [
+        "2026-10-20-kappa-exposure-classes", "2026-10-23-sweeper-generalisation", "2026-10-13-census-sweeps",
+        "2026-10-13-b4-unfitted-rules", "2026-10-13-d1-turmite-sqrt-cluster", "2026-10-crystal-rules",
+        "2026-10-13-highways-unresolved-rules-1e10-1e11", "2026-10-21-highway-preconditions"
+      ],
+      "posts": ["2026-10-25-the-ant-that-fills-by-looping-in-place.md", "2026-10-22-half-the-late-highways-were-the-board.md", "2026-10-23-three-escapes-that-were-the-board.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md"],
+      "open": [
+        {"text": "Q20: can the whole ring be closed as a proved macro-transition, corner and persistence included? A proof plan is drafted, nothing run.", "source": "notes/q20-filler-proof-plan-2026-10-25.md"},
+        {"text": "Q26 (square-ring fillers): can the corner be proved for every k, and is the reversed family a different crawler or a symmetry image of the first?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Q25 (square-ring fillers): why do only some rules with the ring's turn table find it from a blank board, when the ring never reads the letters that decide it?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Q23: are the late spirals and the two-visit builders the same edge mechanism as the rings, and what triggers their late onset?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Q15: what are the census builders that are neither rings nor two-visit crawlers, including the non-integer cases?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "How often does a small starting patch switch a rule that is stationary from a blank board into a filler?", "source": "notes/open-questions-hypotheses.md"}
+      ],
+      "turns": [
+        {"ref": "2026-10-21-late-highway-board-check", "change": "Half the reported late highways turn out to be board fillers with a fixed cost per cell."},
+        {"ref": "2026-10-25-prefix-causal-horizon", "change": "Equal filler onsets are a shared fill rate, not a shared trajectory."},
+        {"ref": "2026-10-25-square-ring-fillers", "change": "The square-ring edge is proved for every k, but the ring footprint does not fix the turn table."}
+      ]
+    },
+    {
       "slug": "edge-roughness",
       "question": "Why is the ant's edge broader than a rotor's?",
       "state": "inconclusive",
