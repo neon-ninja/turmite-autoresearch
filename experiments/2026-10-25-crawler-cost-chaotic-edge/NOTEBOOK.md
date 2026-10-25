@@ -95,3 +95,8 @@ Commit 25bf366 appended the Stage 2 results through an unquoted shell heredoc, w
 span. The next commit rewrites only those just-appended sections (README "Stage 2 results", "Overall verdict",
 "Pruning-index outcome", and the four NOTEBOOK entries above) with the intended text. No registered text and no
 numbers changed. The git diff shows exactly what was restored.
+
+### 2026-10-25 23:33 (+13:00) · a5f994b · decision
+Filed the experiment in the atlas under boundary-return (evidence, with the failures named), added a reader-guide row,
+built the figure and the shareable notebook (executed clean, 0 errors). Pruning entry
+`NR-20261025-crawler-window-single-letter` committed with evidence at b4798f8. Q27 added to the open questions.

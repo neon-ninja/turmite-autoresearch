@@ -67,7 +67,8 @@
         {"ref": "2026-10-21-boundary-return-map"},
         {"ref": "2026-10-20-kappa-spread-budget"},
         {"ref": "2026-10-23-evidence-ledger"},
-        {"ref": "2026-10-23-hidden-phase-return", "why": "A fixed next-turn map permits different returns under phase edits; the pilot stopped at its support gate, so the comparison is unresolved."}
+        {"ref": "2026-10-23-hidden-phase-return", "why": "A fixed next-turn map permits different returns under phase edits; the pilot stopped at its support gate, so the comparison is unresolved."},
+        {"ref": "2026-10-25-crawler-cost-chaotic-edge", "why": "The square-ring crawler gives an exact edge birth cost; chaotic rules carrying its turn table move most of the way from the lead law toward it and almost never pass it, but a positional letter window and a steeper lead slope both failed."}
       ],
       "counter": [
         {"ref": "2026-10-20-kappa-first-passage", "why": "First-passage test: registered forecast failed and was worse than persistence."},

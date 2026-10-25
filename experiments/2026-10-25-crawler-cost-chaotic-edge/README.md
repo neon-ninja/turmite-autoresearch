@@ -318,3 +318,10 @@ Next question worth a registration: **what makes support collective?** The crawl
 to turn `s_0`. If chaotic circulation is an all-or-nothing chain, `phi` should depend on the *product* of window
 letters, not their sum. A discriminating design: compare rules whose window is complete except for one gap at each
 position (dose of 0, 1, 2 gaps) on the flat band, where geometry is controlled.
+
+Figure and shareable notebook (read committed results only):
+
+```bash
+uv run --frozen $E/scripts/figure.py           # -> results/fig_crawler_ceiling.png
+uv run --frozen $E/scripts/build_notebook.py   # -> notebook.ipynb; execute it with the command in that script's docstring
+```
