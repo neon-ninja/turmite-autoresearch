@@ -27,7 +27,7 @@ reserved where relevant. No new sweep is proposed or registered by this ledger.
 | Reader's question | Read first | Then inspect |
 |---|---|---|
 | Does this explain cube-root growth? | BO-01, RD-02 | Accounting audit and first-passage corrections |
-| What does kappa below uniform mean? | BO-02 | Exact window/geometry baseline |
+| What does kappa below uniform mean? | BO-02, BO-04 | Exact window/geometry baseline; seed-disjoint 2^26-step replication |
 | Can the rule predict occupation? | BO-03, RD-01 | Family split and persistence comparator |
 | Are long returns local? | RD-03, RD-04, RD-05 | Calibration, weighting, shuffle intervention and missing eligibility |
 | Is the ant still in the modeled regime? | RG-01, RG-02, RG-03 | Censoring, second-board checks, calibrated windows |

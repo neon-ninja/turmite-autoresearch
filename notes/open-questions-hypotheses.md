@@ -319,6 +319,46 @@ Next proposal is one coupled phase edit preserving two turns, to separate delaye
 future-clock release from accumulated geometry changes under repeated resets.
 It needs its own registration/oracle; no such causal branch test has run.
 
+### Boundary occupation by exposure class — 2026-10-20 (`experiments/2026-10-20-kappa-exposure-classes`)
+Registered (README, commit `1593b61`, before measuring) and run; results at `1c9ac05`. New instrument
+`examples/kappa_exposure_classes.rs` (every window checked against `probe::probe_walker` and a board scan)
+splits boundary steps by the cell's number of unvisited neighbours u, and divides by the *time-integrated*
+class share, rho_u = sum b_u / sum_t P_u(t)/A(t), which is exactly 1 for an instantaneously uniform walker
+without the probe's end-of-window 1.11 reference. 64 stationary census rules x 4 patched starts + blank board,
+mf/rotor/rw x 8 seeds, 2^26 steps, board 8192, windows k = 17..26.
+- **Held:** P0 (blank runs reproduce 1152 committed census windows exactly), P1 (mean-field rho_u = 1 within
+  0.006), P2 (convention-free deficit: ant median rho 0.874, rotor 1.798, rw 1.315), P2b (kappa/1.105 equals rho
+  rule by rule to a median 3.6%; so kappa/kappa_unif is a sound rule-level proxy).
+- **Failed:** P3, the H-exposed picture (median Q = rho_1^ret/rho_2+^ret 1.349 [1.09, 1.59] but Q > 1 in only
+  64% of rules, needed 75%); P4 (Spearman(rho, exposed share) +0.20, registered <= -0.4, wrong sign).
+- Post hoc: returns to exposed cells are below uniform for every non-uniform walker (rotor 0.71, rw 0.76, ant
+  0.41), so Q > 1 is not ant-specific. The ant-specific shortfall is **returns to flat edge** (rho_1^ret 0.59
+  vs rotor 1.14, rw 0.78; every ant rule <= 1.01), and across rules rho tracks rho_1^ret (Spearman 0.92) not Q
+  (0.00). Flat cells are ~72% of the time-averaged boundary, so part is composition; age/colour/depth not recorded.
+- Surprise: 3 of 256 patched runs (RLLLRLLL@2; RLRRRRLRR@1 and @3, identical births/step 0.250116) became
+  board fillers without escaping, although both rules are stationary blobs from a blank board. Sensitivity
+  excluding them changes no verdict. Open: how often does a 5x5 patch switch a stationary rule to a filler?
+- Next (proposed, not registered): age-resolved flat-edge returns on a fresh rule sample (short-horizon vs
+  long-excursion deficit).
+Reproduce: `scripts/run.sh`, then `uv run` `scripts/analyse.py`, `scripts/explore.py`, `scripts/build_notebook.py`.
+- Cross-reference (appended 2026-10-25 at the merge of upstream `origin/main`; nothing above changed): the
+  hidden-phase pilot (`experiments/2026-10-23-hidden-phase-return`, support gate failed, P1 not testable) found that
+  preserving every interior cell's next turn does not fix long return paths on its edited fields: future colour
+  phases matter. Any age-resolved flat-edge test should therefore record the colour phase (full future turn word)
+  of edge cells alongside age and depth, since age and phase are confounded. The two RLRRRRLRR fillers fill at
+  ~4.0 steps per new cell, matching the `R^k L R R...` filler law `2(k+1)` with k = 1 (Q20); post hoc, two runs.
+- Review correction (appended 2026-10-25; nothing above changed; README "Review addendum"; post hoc, unregistered):
+  P1 covers u = 1-3 only and is uniform by construction. P3's registered outcomes were not exhaustive, and the
+  result fits none of them (fraction Q > 1 is 41/64, Wilson 95% 0.52-0.75). P4 is **unscored**, not failed: its
+  condition (H-exposed) did not hold, and its Spearman is +0.20 [-0.09, 0.48]. P2b is a proxy to about +-7-9%
+  (5-95% ratio 0.93-1.09), not "sound" rule by rule. The flat-edge reading above is weaker than stated. The 0.92 is
+  part-whole; with class weights fixed at 1/2, exposed returns carry more between-rule variance than flat
+  returns (0.43 vs 0.29); and relative to the rotor the ant is short by a similar factor in both classes (0.51 flat,
+  0.55 exposed). About half (51%) of the rotor-ant rho gap is birth steps. Any follow-up must state its criterion at
+  fixed class weights. Dead end committed: `NR-20261025-kappa-exposure-classes-exposed-edge` (empirical; exact repeat
+  of the H-exposed test only). The mf controls replicate BO-02's uniform kappa_unif at 2^26 steps (1.110, SD 0.007):
+  ledger BO-04.
+
 ## Added 2026-10-21: highway preconditions (causal seeds)
 
 `experiments/2026-10-21-highway-preconditions/`: in all 406 independent census highway onsets (<= 1e9) the future's
@@ -338,6 +378,7 @@ consistent with flat. Q16 is reopened in a sharper form:
   702 survivors (checkpointed runner exists), with the board-independence check, would distinguish flat from slowly falling.
 - Q20. The board fillers `R^k L R R...` fill at exactly `2(k+1)` steps per cell (to within a perimeter term). What is the
   filling mechanism, and is it the same class as the sqrt(t) frame builders (Q15)?
+  Q20 plan (2026-10-25, PLAN only, nothing run): `notes/q20-filler-proof-plan-2026-10-25.md`.
 - Q19 update (2026-10-22): all 28 non-artefact late highways confirmed on a 65536 board; final yields 1.41%, 1.98%, 1.64% for the three decades.
 
 ## Added 2026-10-22: invariant mining (additive local laws)

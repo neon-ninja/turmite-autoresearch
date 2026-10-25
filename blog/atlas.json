@@ -76,9 +76,11 @@
         {"ref": "2026-10-22-single-cell-gates", "why": "Neither registered prediction held; the cohort is too small to exclude sparse gates."},
         {"ref": "2026-10-16-kappa-square-loop", "why": "The square-loop explanation failed its test."},
         {"ref": "2026-10-20-c-law-renewal", "why": "Compressed memory fails native return criteria too."},
-        {"ref": "2026-10-15-chirality-baselines", "why": "The edge model is compared with a lookup table."}
+        {"ref": "2026-10-15-chirality-baselines", "why": "The edge model is compared with a lookup table."},
+        {"ref": "2026-10-20-kappa-exposure-classes", "why": "Exposure test: the deficit survives a reference-free measure, but the registered exposed-edge explanation failed; the flat-edge reading is post hoc."}
       ],
       "also": [
+        "2026-10-25-exposure-classifier-check",
         "2026-10-13-a1-kappa", "2026-10-13-arm-kappa-depletion-arms", "2026-10-13-w1", "2026-10-13-k1-necklace-icc",
         "2026-10-13-colourstats", "2026-10-13-c3-edge-colour-shares", "2026-10-13-edge-statistics",
         "2026-10-13-transport-forecast", "2026-10-14-t1-excursion-tomography", "2026-10-14-kappa-matched-area",
