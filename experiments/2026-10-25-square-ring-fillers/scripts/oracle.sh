@@ -20,4 +20,6 @@ for R in RLRRRL RRLRRRR RLLR RRLLLRLLLRR RLRR; do
 done
 python3 $E/scripts/oracle_footprint.py $FP
 echo "ORACLE PASSED"
-} | tee $E/results/oracle.txt
+} | tee "$E/results/oracle.txt.new"
+# Written via a temporary name so the header's dirty count does not see the output file itself being rewritten.
+mv "$E/results/oracle.txt.new" "$E/results/oracle.txt"
