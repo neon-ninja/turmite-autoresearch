@@ -1,6 +1,8 @@
 # Turmite
 
-An empirical study of generalised Langton's ants. Rules are strings over
+A computational research project on generalised Langton's ants: their growth,
+the memory they leave in the grid, and the structures that can be checked to
+persist forever. Rules are strings over
 `{L, R}`: the current cell's colour selects a turn, the colour advances modulo
 the rule length, and the ant steps forward. Classic Langton's ant is `RL`.
 
@@ -19,11 +21,85 @@ measurements, hypotheses and unresolved explanations live together here.
 > tested, so treat the claims with the same scrutiny as any other result and
 > check them against the code and data.
 
-Start with [the open questions](notes/open-questions-hypotheses.md),
-[the experiments guide](experiments/README.md), and
-[the research blog guide](blog/README.md). The Rust simulation code is in
-[`src/`](src/), the browser simulator in [`web/`](web/), and the manuscript and
-figure scripts in [`research-outputs/`](research-outputs/).
+## Where the research stands
+
+The project has grown from a rule census into a collection of controlled
+experiments, field interventions, comparisons with other walkers, and a
+parallel proof track. The cube-root growth law remains an empirical pattern
+for a class of ants, not a theorem about all rules. Late highways, tethered
+motion, crystal growth and column builders make that distinction important.
+
+Some useful entry points into the current evidence:
+
+- **Growth and classification.** The [census](experiments/2026-10-13-census-sweeps/)
+  and [draft synthesis](research-outputs/cube-root-growth-paper/README.md)
+  bring together growth measurements and the diversity of behaviours. A
+  finite run without a highway does not establish that one will never appear.
+- **The cost of fresh ground.** The opening run of identical turns predicts
+  how many boundary steps an ant spends per new cell. The
+  [mechanism tests](experiments/2026-10-19-c-law-mechanism/README.md) support
+  part of this picture, but broader validation misses its accuracy target
+  and the fitted constants remain unexplained.
+- **Returning to the boundary.** Rule prefixes predict boundary occupation
+  within familiar families, but [fail to transfer to held-out families](experiments/2026-10-20-kappa-prefix-family-holdout/README.md).
+  A [first-passage model](experiments/2026-10-20-kappa-first-passage/README.md)
+  also fails to predict larger territories from smaller ones. Explaining
+  return times, rather than redescribing their scaling, remains an open problem.
+- **Memory in the field.** [Local colour interventions](experiments/2026-10-12-knockout-maps/)
+  identify patches that help hold tethered ants near home. The proposed
+  explanation in terms of excursion routes did not survive an occupancy control.
+- **From simulation to proof.** The [RLRLLL column sweeper](experiments/2026-10-20-rlrlll-macro-transition/README.md)
+  has a checked repeating construction and independently reproduced constants;
+  two shift lemmas are machine-checked in Lean. This is not yet an end-to-end
+  formal proof of the trajectory from a blank grid: the bridge to the observed
+  state still depends on a long simulation. See the [proof-track plan](notes/proof-track-2026-10-20.md).
+
+The linked records distinguish registered predictions, observations, failed
+tests and interpretation. [Open questions](notes/open-questions-hypotheses.md)
+are an append-only history; read the later corrections before taking an older
+claim as current.
+
+## Find your way around
+
+| Start here | What you will find |
+|---|---|
+| [Research blog](blog/index.html) · [publishing guide](blog/README.md) | Current highlights, active questions and reflections on failed explanations |
+| [Experiments guide](experiments/README.md) | Investigations with protocols, lab notebooks, shareable notebooks, scripts and results |
+| [Research notes](notes/) | Cross-cutting hypotheses, audits and unresolved questions |
+| [Synthesis manuscript](research-outputs/cube-root-growth-paper/README.md) · [focused papers](research-outputs/focused-papers/README.md) | Draft writing and scripts that turn results into figures and numerical claims |
+| [Browser explorer](web/) | Interactive simulations and census exploration; build instructions below |
+| [Rust library and tools](src/) · [tests](tests/) | Reference and fast simulators, growth probes, highway detection and calibration walkers |
+
+CPU simulations are checked against a reference implementation. Optional CUDA
+batch runners accelerate large ant sweeps and probes, with separate CPU/GPU
+equality tests. Rotor and random-walk controls help calibrate measurements;
+neither passing software tests nor matching a control proves an ant mechanism.
+
+## Try it locally
+
+Use Rust with edition 2024 support and Python 3.12 or newer with `uv`.
+Run commands from the repository root. The examples below use POSIX shell
+syntax; adapt the pipeline and directory creation for your shell. See
+[`AGENTS.md`](AGENTS.md) for environment and reproducibility guidance.
+
+```bash
+uv sync --frozen
+cargo test --release --locked
+
+# A small probe: run to 2^16 steps on a 512 x 512 grid, printing CSV.
+# @1 selects a seeded random patch at the origin; rotor:1 is a control.
+printf 'RLR\nRLR@1\nrotor:1\n' | cargo run --release --locked --bin probe -- 16 512
+
+# Build the browser explorer from the committed census results.
+mkdir -p web/dist
+uv run --frozen web/build.py web/dist/explorer.html
+```
+
+Open `web/dist/explorer.html` in a browser. The small probe is a demonstration,
+not enough data to estimate an asymptotic exponent. For research runs, follow
+the relevant experiment's exact recipe and record the revision, inputs,
+seeds, grid size and step budget. CUDA setup and batch-run guidance are in
+[the experiments guide](experiments/README.md).
 
 ## Contributing with your agent
 
@@ -38,9 +114,9 @@ mechanism or a GPU to get started.
 
 1. Fork and clone the repository, then open the clone in your agent's workspace.
 2. Have it read [`AGENTS.md`](AGENTS.md) first. That file contains the working
-   conventions, validation requirements and reproducibility standards. Its
-   Windows paths and hardware details describe the original research machine;
-   adapt paths to your checkout and use WSL for toolchains on Windows.
+   conventions, validation requirements and reproducibility standards. Have
+   it inspect the available toolchains and resources before choosing commands
+   and run sizes for your environment.
 3. Pick one bounded task. Read the relevant notes and the latest entries in the
    linked experiments before treating an older question as still open. Check
    GitHub issues and pull requests for overlapping work; for a substantial
@@ -81,21 +157,11 @@ For deeper research, choose an unresolved question and design a test that
 distinguishes competing explanations. Record speculation separately from
 observations, and preserve predictions when appending corrections.
 
-## Running checks
+## Reproducibility
 
-Use Rust with edition 2024 support and Python 3.12 or newer with `uv` for
-analysis. From the checkout in a Linux or WSL shell:
-
-```bash
-cargo test --release
-uv sync --frozen
-```
-
-On the original Windows/WSL setup, set
-`UV_PROJECT_ENVIRONMENT=$HOME/.venvs/turmite` and `UV_LINK_MODE=copy` as described
-in [`AGENTS.md`](AGENTS.md). Run Python scripts with `uv run`; use release builds
-for simulations. CUDA is optional and has separate setup and oracle checks in
-[the experiments guide](experiments/README.md).
+Use release builds for simulations and `uv run --frozen` for Python analyses.
+[CI documentation](.github/CI.md) lists the CPU oracle tests, deterministic
+output checks, simulator checks and separate GPU validation commands.
 
 For new experiments, copy [`experiments/_template/`](experiments/_template/) to
 `experiments/YYYY-MM-DD-slug/`. Include the registered predictions, append-only

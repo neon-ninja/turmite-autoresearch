@@ -1,0 +1,13 @@
+{
+ "command": "experiments/2026-10-22-invariant-mining-snf/scripts/cross_check_peer.py --exe C:/Users/User/.claude/jobs/289f028f/tmp/target/release/invariants.exe",
+ "rules": 508,
+ "comparisons": 1016,
+ "mismatches": 0,
+ "examples": [],
+ "peer_src_sha256": {
+  "src/invariants.rs": "72c9f874bbbceb7bb06fdaf116bb72de772f1646fb3fbeb8182b1c381cefef95",
+  "src/bin/invariants.rs": "015e51ffe28a7543d1953b042ec644f3187fb41c2592fc5fd48e0eefacb1793e"
+ },
+ "peer_files_committed": true,
+ "git_head": "53778d11804917ece5a1287635e92f16059e72e1"
+}

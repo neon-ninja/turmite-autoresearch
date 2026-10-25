@@ -1,0 +1,72 @@
+# first checker (examples/rlrlll_macro_transition_check.rs) re-run in Task C on the regenerated control inputs
+# binary sha256 74c0e75a65291712f2c3cacdfe7342f4ebadd6b2f20e7f7f220c4d2eb0f649b5 (fresh CARGO_TARGET_DIR=~/turmite-target-c1)
+## RLRLLL on results/canonical_k0_mut46.txt
+phase 0 -> 1:
+  FAILED: result is not C(m', 1): segments differ
+phase 1 -> 2:
+  FAILED: result is not C(m', 2): segments differ
+phase 2 -> 0:
+  FAILED: result is not C(m', 0): segments differ
+  concrete check phase 0, m = 2: 958 steps, result MISMATCH
+  concrete check phase 0, m = 4: 982 steps, result MISMATCH
+  concrete check phase 0, m = 6: 1006 steps, result MISMATCH
+  concrete check phase 0, m = 8: 1030 steps, result MISMATCH
+  concrete check phase 0, m = 10: 1054 steps, result MISMATCH
+  concrete check phase 0, m = 20: 1174 steps, result MISMATCH
+  concrete check phase 0, m = 50: 1534 steps, result MISMATCH
+  concrete check phase 0, m = 100: 2134 steps, result MISMATCH
+  concrete check phase 0, m = 434: 6142 steps, result MISMATCH
+  concrete check phase 1, m = 2: 1082 steps, result MISMATCH
+  concrete check phase 1, m = 4: 1106 steps, result MISMATCH
+  concrete check phase 1, m = 6: 1130 steps, result MISMATCH
+  concrete check phase 1, m = 8: 1154 steps, result MISMATCH
+  concrete check phase 1, m = 10: 1178 steps, result MISMATCH
+  concrete check phase 1, m = 20: 1298 steps, result MISMATCH
+  concrete check phase 1, m = 50: 1658 steps, result MISMATCH
+  concrete check phase 1, m = 100: 2258 steps, result MISMATCH
+  concrete check phase 1, m = 434: 6266 steps, result MISMATCH
+  concrete check phase 2, m = 2: 922 steps, result MISMATCH
+  concrete check phase 2, m = 4: 946 steps, result MISMATCH
+  concrete check phase 2, m = 6: 970 steps, result MISMATCH
+  concrete check phase 2, m = 8: 994 steps, result MISMATCH
+  concrete check phase 2, m = 10: 1018 steps, result MISMATCH
+  concrete check phase 2, m = 20: 1138 steps, result MISMATCH
+  concrete check phase 2, m = 50: 1498 steps, result MISMATCH
+  concrete check phase 2, m = 100: 2098 steps, result MISMATCH
+  concrete check phase 2, m = 434: 6106 steps, result MISMATCH
+NOT CLOSED
+## RLRLLR on results/canonical_k0.txt
+phase 0 -> 1:
+  FAILED: left the strip at column 52
+phase 1 -> 2:
+  FAILED: left the strip at column 52
+phase 2 -> 0:
+  FAILED: result is not C(m', 0): segment counts differ: 50 vs 47
+  concrete check phase 0, m = 2: MISMATCH (left the strip or no front advance)
+  concrete check phase 0, m = 4: MISMATCH (left the strip or no front advance)
+  concrete check phase 0, m = 6: MISMATCH (left the strip or no front advance)
+  concrete check phase 0, m = 8: MISMATCH (left the strip or no front advance)
+  concrete check phase 0, m = 10: MISMATCH (left the strip or no front advance)
+  concrete check phase 0, m = 20: MISMATCH (left the strip or no front advance)
+  concrete check phase 0, m = 50: MISMATCH (left the strip or no front advance)
+  concrete check phase 0, m = 100: MISMATCH (left the strip or no front advance)
+  concrete check phase 0, m = 434: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 2: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 4: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 6: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 8: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 10: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 20: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 50: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 100: MISMATCH (left the strip or no front advance)
+  concrete check phase 1, m = 434: MISMATCH (left the strip or no front advance)
+  concrete check phase 2, m = 2: 5894 steps, result MISMATCH
+  concrete check phase 2, m = 4: 6046 steps, result MISMATCH
+  concrete check phase 2, m = 6: 6198 steps, result MISMATCH
+  concrete check phase 2, m = 8: 6350 steps, result MISMATCH
+  concrete check phase 2, m = 10: 6502 steps, result MISMATCH
+  concrete check phase 2, m = 20: 7262 steps, result MISMATCH
+  concrete check phase 2, m = 50: 9542 steps, result MISMATCH
+  concrete check phase 2, m = 100: 13342 steps, result MISMATCH
+  concrete check phase 2, m = 434: 38726 steps, result MISMATCH
+NOT CLOSED

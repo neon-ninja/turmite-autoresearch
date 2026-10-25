@@ -1,0 +1,5 @@
+# commit ac8d88d (+ uncommitted example if dirty); sha256 4de9a375ad29e8f906b76586080fcfff133c43e99f60480a82030f13948acaac  /home/tim/turmite-target-resim/release/examples/rlrlll_macro_transition_resim
+# /home/tim/turmite-target-resim/release/examples/rlrlll_macro_transition_resim RLRLLL 12676237591 32768
+fast  steps=12676237591 stop=Budget pos=(-1552, -951) h=3 hash=27245db416b98a32 nonzero=7811102 secs=87
+plain steps=12676237591 pos=(-1552, -951) h=3 hash=27245db416b98a32 nonzero=7811102 secs=87
+identical: true

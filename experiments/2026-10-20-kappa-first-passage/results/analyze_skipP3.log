@@ -1,0 +1,106 @@
+Reading inline script metadata from `experiments/2026-10-20-kappa-first-passage/scripts/analyze.py`
+{
+  "subdir": "confirm",
+  "n_runs": 768,
+  "stop_counts": {
+    "budget": 32,
+    "complete": 734,
+    "escaped": 2
+  },
+  "unresolved_share_max": 0.001184073423641373,
+  "depth_decreases": 0,
+  "overflowed": 0,
+  "deep_dominance": {
+    "threshold": 0.5,
+    "n_rules_deep_share_gt_threshold": 35,
+    "n_rules": 46,
+    "closure_uninformative_about_locality": true,
+    "rule": "frozen: depth-64 share of fitted E[T] > 0.5 for more than half the rules => P2/P4 cannot be read as evidence about local closure"
+  },
+  "P2": {
+    "n_rules": 46,
+    "median_rel_err": {
+      "M2": 1.0709513202711096,
+      "M0": 1.0709595224149826,
+      "M1": 1.0709390703495871,
+      "B1_trainmean": 4.118012950043774,
+      "B2_geometry": 6.3088740189542944,
+      "B3_persist": 0.9862603009580129,
+      "B4_ET_extrap": 0.9333339891795893
+    },
+    "mean_abs_err": {
+      "M2": 0.03715163478042369,
+      "M0": 0.037152079396826375,
+      "M1": 0.03715173035843764,
+      "B1_trainmean": 0.050209662105416004,
+      "B2_geometry": 0.057387496118417806,
+      "B3_persist": 0.027721873065663573,
+      "B4_ET_extrap": 0.03649387010776922
+    },
+    "strongest_baseline": "B3_persist",
+    "improvement_mean_abs": -0.009429761714760117,
+    "improvement_ci95_family_bootstrap": [
+      -0.02340873696847497,
+      0.0009146438248523938
+    ],
+    "criteria": {
+      "median_rel_err_le_0p20": false,
+      "abs_err_ge_10pct_smaller_than_strongest": false,
+      "ci_excludes_zero_in_favour": false
+    },
+    "verdict": "FAIL",
+    "median_rel_err_M2_stationary": 1.0935771277063933,
+    "median_rel_err_M2_drifting": 1.0223733566969186,
+    "M0_M1_M2_ET_max_rel_diff": 0.0008323267533928425,
+    "obs_over_pred_M2_quartiles": [
+      0.4403824222958417,
+      0.48286997686088795,
+      1.7409895971974572
+    ],
+    "frac_pred_above_obs": 0.7391304347826086,
+    "deep_share_quartiles": [
+      0.5169620255876115,
+      0.551965939560193,
+      0.6913051132219254
+    ],
+    "ET_pred_over_obs_quartiles": [
+      0.41993960108173634,
+      0.4533593004117659,
+      0.48613316973954457
+    ]
+  },
+  "P3": {
+    "verdict": "untested (exploratory pooled-chain numbers skipped for runtime: FP_SKIP_P3=1)"
+  },
+  "P4": {
+    "verdict": "untested (instrument v1 does not record radius-4 context)",
+    "exploratory_logloss_per_segment_mean_over_rules": {
+      "M0": 0.5002081865595518,
+      "M1": 0.4738737124306215,
+      "M2": 0.34464338579862513
+    },
+    "exploratory_note": "out-of-band (kernel bands 0,1 -> outcome band 2) log-loss of next-milestone direction; not a registered prediction"
+  },
+  "delta": {
+    "descriptive": "slope of ln E[D] (entered complete boundary episodes) on ln(A/P) over the three bands, outcome seeds",
+    "n": 46,
+    "quartiles": [
+      -0.0034808763728084073,
+      -0.000659756042177692,
+      0.004475843068821222
+    ]
+  },
+  "P1": {
+    "verdict": "untested (no tail estimator was calibrated; the earlier truncated-power-law fit failed its calibration)",
+    "descriptive_observed_dlogkappa_dlogL": {
+      "n": 46,
+      "quartiles": [
+        -0.11265794776445645,
+        -0.003232792761516146,
+        0.1346025597650867
+      ],
+      "frac_abs_le_0p15": 0.5434782608695652
+    }
+  }
+}
+eligible 46 / 48

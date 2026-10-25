@@ -93,7 +93,7 @@ In continuum diffusion problems, a reflecting boundary with partial penetration 
 In Phase 2, three major anomalies in asymptotic confinement were discovered:
 1. `RLRLLL` (one of the 14 core rules tested to $2^{34}$) escaped a $32768^2$ board at $\approx 1.3 \times 10^{10}$ steps with **no highway** (Q8). It built an anomalous $\sim 10^4$-cell thin ribbon structure along the boundary (bounding box jumped from 3,377 at $10^{10}$ to 18,175 at $1.3 \times 10^{10}$).
 2. In `RRLLLLLLR` (A7c), 1 of 62 runs at $2^{32}$ suffered a massive 14x area blowout. About 5% of random rules exhibit rising seed-to-seed CV, heavily concentrated in `RLLL...` prefixes.
-3. In the 1e10–1e11 decade, the highway onset rate fell from 4.7% to 1.25% (3/240), but 3 additional rules escaped the board as unclassified non-highway frame/ribbon builders (B5).
+3. In the 1e10–1e11 decade, the highway onset rate fell from 4.7% to 1.25% (3/240), but 3 additional rules escaped the board as unclassified non-highway frame/ribbon builders (B5). **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/2026-10-21-late-highway-board-check/README.md`.]**
 
 ---
 
@@ -609,6 +609,19 @@ For each site, the number of departures fixes its colour increment modulo $n$. G
 **Proposed conjecture.** A subset of ordinary blob rules has a coarse flux discrepancy that grows with boundary size rather than visited area, while fast-tail and tethered examples violate the same bound or satisfy a different one. Specify the candidate observable before a large sweep; searching many weights and reporting the best cancellation would be exploratory.
 
 **Payoff if true.** A bound on flux imbalance could explain why a noisy-looking field still redistributes visits evenly. The proof target would be a discrepancy bound under explicit assumptions, not a direct proof of the cube-root exponent. If no extra cancellation survives tiny counterexamples, stop this branch cheaply.
+
+**Update 2026-10-22 (appended; the text above is the 2026-10-13 proposal).** The algebraic first experiment was run twice
+with different search strategies: an enumerative miner at moduli 2 and 4 (`experiments/2026-10-22-invariant-mining/`) and a
+Smith-normal-form solver for all moduli with sublattice families (`experiments/2026-10-22-invariant-mining-snf/`, solver
+`experiments/_lib/lawmod.py`). They agree exactly (508 rules, 1016 cells). Result: within additive local laws
+(`a x + b y + e t + Phi(h, class) + sum w(class, colour)`) the whole law group of a rule is a function of
+`(n, ±D mod 4, trivial?)`, `D = #R - #L`; it is **blind to the order of the colours**, so `RRLL` and `RLRL` have isomorphic
+groups. The laws are checkerboard parity, heading parity, the colour clock mod `n`, sublattice colour clocks (universal
+order at `m = n`: F3 = n^2 x F2 for n = 2..8, unexplained), and for `D = 0 mod 4` heading = tape mod 4 (Langton: heading =
+number of colour-1 cells mod 4). So the "extra cancellation" this section hoped for does not exist in the additive
+ansatz; flux discrepancy, if it constrains transport at all, has to come from laws that couple the ant to neighbouring
+colours. Registered `P4` (heading from tape iff `D = 0 mod 4`) failed: heading *parity* is tape-determined for every even
+`n`. No claim about growth, highways or the exponent. Signature `NR-20261022-additive-laws-order-blind`.
 
 ## U. Rare reorganizations: nucleation, susceptibility and ageing
 

@@ -1,0 +1,89 @@
+[
+ {
+  "file": "RLR_8192_t6.tkpt",
+  "rule": "RLR",
+  "steps": 100000000,
+  "colour_bits": 2,
+  "tiles": 216,
+  "packed_total_bytes": 331776,
+  "raw_total_bytes": 884736,
+  "deflate1": {
+   "total_bytes": 172420,
+   "ratio_vs_packed": 1.924,
+   "tiles_compressed": 216
+  },
+  "deflate9": {
+   "total_bytes": 170404,
+   "ratio_vs_packed": 1.947,
+   "tiles_compressed": 216
+  },
+  "xz0": {
+   "total_bytes": 193697,
+   "ratio_vs_packed": 1.713,
+   "tiles_compressed": 216
+  },
+  "xz6": {
+   "total_bytes": 190554,
+   "ratio_vs_packed": 1.741,
+   "tiles_compressed": 216
+  }
+ },
+ {
+  "file": "RRRRRRRLLRRR_8192_t6.tkpt",
+  "rule": "RRRRRRRLLRRR",
+  "steps": 100000000,
+  "colour_bits": 4,
+  "tiles": 4,
+  "packed_total_bytes": 10240,
+  "raw_total_bytes": 16384,
+  "deflate1": {
+   "total_bytes": 429,
+   "ratio_vs_packed": 23.869,
+   "tiles_compressed": 4
+  },
+  "deflate9": {
+   "total_bytes": 364,
+   "ratio_vs_packed": 28.132,
+   "tiles_compressed": 4
+  },
+  "xz0": {
+   "total_bytes": 391,
+   "ratio_vs_packed": 26.189,
+   "tiles_compressed": 4
+  },
+  "xz6": {
+   "total_bytes": 365,
+   "ratio_vs_packed": 28.055,
+   "tiles_compressed": 4
+  }
+ },
+ {
+  "file": "RLLRLLLRRRLL_8192_t6.tkpt",
+  "rule": "RLLRLLLRRRLL",
+  "steps": 100000000,
+  "colour_bits": 4,
+  "tiles": 12544,
+  "packed_total_bytes": 32112640,
+  "raw_total_bytes": 51380224,
+  "deflate1": {
+   "total_bytes": 504817,
+   "ratio_vs_packed": 63.612,
+   "tiles_compressed": 12544
+  },
+  "deflate9": {
+   "total_bytes": 399140,
+   "ratio_vs_packed": 80.455,
+   "tiles_compressed": 12544
+  },
+  "xz0": {
+   "total_bytes": 434825,
+   "ratio_vs_packed": 73.852,
+   "tiles_compressed": 12544
+  },
+  "xz6": {
+   "total_bytes": 433982,
+   "ratio_vs_packed": 73.995,
+   "tiles_compressed": 12544
+  }
+ }
+]

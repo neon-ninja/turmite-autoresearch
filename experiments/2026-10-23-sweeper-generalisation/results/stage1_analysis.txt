@@ -1,0 +1,41 @@
+# commit cd802ed8b014f0368826e2ec3cf50bf29423c8c1
+=== ctl_pos_RLRLLL [12677100000, 12974495927] positive control, post-switch part
+ymax P=8: cycles=293 distinct_swing=4 best p=5 a=-7652 exact=0.0341 b=[866924, 853100, 862316, 871532, 857708]
+candidates tried (direction x P x p): 138
+BEST EXACT_CLOCK: dir=xmin P=3 p=3 a=12 exact_fraction=1.0000 cycles=4714 b=[326, 342, 482] kind=swing-dependent
+windows=297 S_holds=281 (0.946) median_spc=4.022 median_aspect=126.31
+=== ctl_neg_RRLLLLRRL [2800000000, 3000000000] negative control (log growth)
+ymax P=8: only 0 cycles in window, skipped
+candidates tried (direction x P x p): 0
+BEST NO_DATA
+windows=0 S_holds=0 (0.000) median_spc=nan median_aspect=nan
+=== RLLLLRRL [12401085717, 12601085717] census-escape window
+ymax P=8: cycles=77 distinct_swing=77 best p=6 a=1059 exact=0.0909 b=[-31135118, -31378538, -30984198, -31342574, -31170082, -31319534]
+candidates tried (direction x P x p): 192
+BEST NO_EXACT_CLOCK: dir=xmax P=1 p=6 a=8 exact_fraction=0.1547 cycles=614 b=[90, 90, 82, 90, 90, 90] kind=swing-dependent
+windows=182 S_holds=0 (0.000) median_spc=2.089 median_aspect=1.00
+=== RLLLLRRL [20045062163, 20245062163] last 2e8 of run
+ymax P=8: cycles=48 distinct_swing=48 best p=6 a=64 exact=0.1667 b=[2388, 3536, 1736, 1736, 1736, 1104]
+candidates tried (direction x P x p): 192
+BEST NO_EXACT_CLOCK: dir=xmax P=8 p=6 a=49 exact_fraction=0.1875 cycles=48 b=[973641, 973833, 974909, 979469, 984029, 974941] kind=swing-dependent
+windows=200 S_holds=0 (0.000) median_spc=2.001 median_aspect=1.00
+=== RLLLRLRLLL [28227043780, 28427043780] census-escape window
+ymax P=8: cycles=98 distinct_swing=98 best p=1 a=64 exact=1.0000 b=[2256]
+candidates tried (direction x P x p): 48
+BEST EXACT_CLOCK: dir=xmin P=1 p=2 a=8 exact_fraction=1.0000 cycles=782 b=[-218, -186] kind=swing-dependent
+windows=200 S_holds=0 (0.000) median_spc=2.001 median_aspect=1.00
+=== RLLLRLRLLL [34663498538, 34863498538] last 2e8 of run
+ymax P=8: cycles=48 distinct_swing=48 best p=1 a=64 exact=1.0000 b=[2256]
+candidates tried (direction x P x p): 48
+BEST EXACT_CLOCK: dir=xmin P=1 p=2 a=8 exact_fraction=1.0000 cycles=384 b=[-186, -218] kind=swing-dependent
+windows=200 S_holds=0 (0.000) median_spc=2.000 median_aspect=1.00
+=== RLLLLRLRRL [39419909558, 39619909558] census-escape window
+ymax P=8: only 17 cycles in window, skipped
+candidates tried (direction x P x p): 96
+BEST NO_EXACT_CLOCK: dir=xmin P=4 p=6 a=-17320635 exact_fraction=0.2059 cycles=34 b=[562558056841, 560202337089, 560345422573, 560482381213, 560622494689, 560763405813] kind=swing-dependent
+windows=48 S_holds=0 (0.000) median_spc=2.352 median_aspect=1.01
+=== RLLLLRLRRL [59800000000, 60000000000] last 2e8 of run
+ymax P=8: only 4 cycles in window, skipped
+candidates tried (direction x P x p): 24
+BEST NO_EXACT_CLOCK: dir=xmin P=1 p=6 a=-14009363 exact_fraction=0.2188 cycles=32 b=[496478175371, 496344081169, 496366374635, 496394064857, 496422063751, 496450083801] kind=swing-dependent
+windows=22 S_holds=0 (0.000) median_spc=7.051 median_aspect=1.01

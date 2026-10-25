@@ -1,0 +1,31 @@
+Reading inline script metadata from `experiments/2026-10-13-b5-late-highways/scripts/b5_stats.py`
+chunks complete: 61 (chunk index >= 0; 61 exist, 12 rules each); rules: 732; still unresolved at 1e11: 702; new highways: 16; escaped the 32768 board without a recognised highway: 14
+flat rate (4.7% of survivors per decade) expects 34.4; falling rate (1%) expects 7.3
+observed 16: P(X <= obs | flat) = 0.000; P(X >= obs | falling) = 0.004; P(X >= obs | flat) = 1.000
+rate per decade among survivors: 2.2% (+- 0.5% Poisson); the 10^10 decade had 38/807 = 4.7% (previous decades 11-26 per decade out of ~850)
+
+new highways (rule, onset, period, drift):
+  RRLLLRLLRL     onset 1.063e+10  period 260  dx,dy -2,-2  n=10
+  RRRRLRRRR      onset 1.073e+10  period 40  dx,dy 0,4  n=9
+  RRRRLRRR       onset 1.073e+10  period 40  dx,dy 0,4  n=8
+  RRRLLRLRRL     onset 1.248e+10  period 114  dx,dy -1,1  n=10
+  RRRRRLRR       onset 1.288e+10  period 48  dx,dy 0,4  n=8
+  RRRRRLRRRR     onset 1.288e+10  period 48  dx,dy 0,4  n=10
+  RLRRRLRLRR     onset 1.387e+10  period 248  dx,dy 2,2  n=10
+  RRLLLRLRRR     onset 2.6e+10  period 488  dx,dy -2,-2  n=10
+  RLLRLRRLLL     onset 3.15e+10  period 264  dx,dy 2,2  n=10
+  RRLRLRLLR      onset 3.229e+10  period 260  dx,dy 2,2  n=9
+  RLLLRLLLL      onset 3.302e+10  period 832  dx,dy -4,4  n=9
+  RRRLRLLLLL     onset 4.593e+10  period 416  dx,dy 2,-2  n=10
+  RRRLLLRRL      onset 4.792e+10  period 232  dx,dy 2,2  n=9
+  RRRLRRLRRL     onset 5.917e+10  period 288  dx,dy 2,2  n=10
+  RRRRLRLLR      onset 6.14e+10  period 484  dx,dy -2,2  n=9
+  RRLLLRLRL      onset 8.14e+10  period 17552  dx,dy 42,42  n=9
+
+escaped without highway: [('RLLLLRRL', 12601085717), ('RLLLLRLRRL', 39619909558), ('RLLLRLRLLL', 28427043780), ('RLRLLL', 12974496077), ('RLLRLLLLLL', 19919468592), ('RLLLLLLLRR', 13047353697), ('RLLLRRLRLR', 29848873204), ('RLLLLRRLLL', 12769123760), ('RRRRLRRRLL', 10269617280), ('RRRLRRLLR', 41190013501), ('RLLLLLRR', 44874034884), ('RLLLRRLRLL', 38148732368), ('RLLLLLLRR', 30171607658), ('RRLRLRRLLR', 67532645241)]
+escaped-without-highway rate 1.9% of this sample over (1e10, 1e11] (the 10^10 run had 4.6% over (1e9, 1e10])
+
+prefix test on 54 highway onsets (38 from the 10^10 run + new): median |delta log10 onset| for pairs sharing the first L letters vs pairs that do not
+  L=4: sharing pairs 255, median 0.2214; non-sharing pairs 1176, median 0.3979; ratio 0.556
+  L=6: sharing pairs 95, median 0.0001; non-sharing pairs 1336, median 0.3936; ratio 0.000
+  L=8: sharing pairs 14, median 0.0000; non-sharing pairs 1417, median 0.3870; ratio 0.000

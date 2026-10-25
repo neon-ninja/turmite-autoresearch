@@ -1,0 +1,130 @@
+# Command: bash experiments/2026-10-20-rlrlll-macro-transition/scripts/l4_check.sh
+# Source commit: f90733c412c95029da2eafeaa8923a69339bc2a6; working source hashes below
+# Deterministic finite certificates; no randomness; n universally quantified.
+e6aba0ba81fa46c4ecf8e416ec32c7c9a8c854eae142c9cac1773a50ad1a8dc5  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/results/canonical_k0.txt
+e51bd431bb6cc5674a81bd9b90ea0aa5dec837083bb6ed60af3beec01c5054c8  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/scripts/l4_gen.py
+32ff9b1f8bdbdafdaa00615dd642517b0384b0876d2674eb07ba19011aa86b30  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/scripts/c1b.py
+deae1b29a58c4e5450d5124a647d9491446bd5f2877bd2b279b56d5fe1ee4519  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/scripts/c1_ant.py
+8cab7a38586e49fdfca3bce8b7057a404fd779f9d25dcc8d7a4d0501741488c2  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/scripts/l4_check.sh
+bb8e2c71c81615732acfdc8303db04e00f0d4f1c8c03e1976a48550f5c9f3803  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/Bounded.lean
+0c656d88e9167b808998d5add32dbf8b6246266c0c4774604228b77605ded36b  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/Check.lean
+ce9e45ac06a9fd5c033b729ff2a6ba597a4ea4b989b3e45d566a7c29fec9f5ff  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/Composition.lean
+9098e542db758cd59b410426f1e86c7ae6f3407cd5ec1376e1e427b3bb0d885d  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/Cycle.lean
+f49cad05297d4d6384fc4f014ec45ee8b272e2806fb431a472be9186e8cdd468  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/Data.lean
+ac38c283d2b2d75bbda8c3e79d19ffbcf8bac8afe4c79fe035ab9339e1219b7e  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/Iter.lean
+20d68d3294b5290bbdfe787b21b5caa653459df6e198319c106f4d54c111d033  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/IterB.lean
+9394c41017a2a70aaff84a3535ba153ebeb4ebb0443770372b76c60cf72c46a5  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/L4Data.lean
+e87b3cdf21d491cc2eb5a04b0c37786b7df8265853f4dba284bd5d0f60d59ef0  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/Model.lean
+5fd3b1099024367e5812ad9dff685c78c16725abb50cba314c262248f01034e1  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/lakefile.toml
+9fc30a86af51b3315cef02ae8d057d1386889ecaf58deb80c6827ebd1b55e3e2  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/lake-manifest.json
+ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c  /mnt/f/Code/turmite/experiments/2026-10-20-rlrlll-macro-transition/lean/lean-toolchain
+Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)
+⚠ [2/10] Built Model (5.7s)
+warning: Model.lean:68:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: Model.lean:74:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: Model.lean:82:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [3/10] Built Bounded (1.0s)
+warning: Bounded.lean:43:16: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [4/10] Built Composition (1.9s)
+warning: Composition.lean:13:17: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp [Nat.succ_add, List.replicate_succ]
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [5/10] Built Iter (2.1s)
+warning: Iter.lean:75:65: This simp argument is unused:
+  List.singleton_append
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [emb, List.length_append, hF, List.append_assoc, List.cons_append, St.mk.injEq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Iter.lean:79:101: This simp argument is unused:
+  Option.some.injEq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc, St.mk.injEq,
+    true_and, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Iter.lean:80:6: This simp argument is unused:
+  St.mk.injEq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, true_and, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Iter.lean:80:19: This simp argument is unused:
+  true_and
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, St.mk.injEq, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: Iter.lean:80:29: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, St.mk.injEq, true_and]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [6/10] Built IterB (2.3s)
+warning: IterB.lean:75:65: This simp argument is unused:
+  List.singleton_append
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [emb, List.length_append, hF, List.append_assoc, List.cons_append, St.mk.injEq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: IterB.lean:79:101: This simp argument is unused:
+  Option.some.injEq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc, St.mk.injEq,
+    true_and, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: IterB.lean:80:6: This simp argument is unused:
+  St.mk.injEq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, true_and, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: IterB.lean:80:19: This simp argument is unused:
+  true_and
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, St.mk.injEq, and_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: IterB.lean:80:29: This simp argument is unused:
+  and_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [List.replicate_succ', List.flatten_append, List.flatten_singleton, List.append_assoc,
+    Option.some.injEq, St.mk.injEq, true_and]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [7/10] Built Data (2.8s)
+✔ [8/10] Built Cycle (2.4s)
+✔ [9/10] Built L4Data (32s)
+Build completed successfully (10 jobs).

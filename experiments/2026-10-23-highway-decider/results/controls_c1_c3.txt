@@ -1,0 +1,6 @@
+in_strip vs brute force: 0 mismatches in 20000 random cases
+certified rules used: 50
+C1: tested 50, rejected 50
+C2: tested 38, rejected 38
+C3: tested 50, rejected 50
+escapes: []

@@ -1,0 +1,55 @@
+Reading inline script metadata from `experiments/2026-10-20-rlrlll-macro-transition/scripts/window_cone.py`
+-1549 m=   2 q=0 rect_colour=False rect_flag=False cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=34
+-1552 m=   4 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=34
+-1555 m=   6 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=33
+-1558 m=   8 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=32
+-1561 m=  10 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=31
+-1564 m=  12 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=31
+-1567 m=  14 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=31
+-1570 m=  16 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=34
+-1573 m=  18 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=34
+-1576 m=  20 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=35
+-1579 m=  22 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=49
+-1582 m=  24 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=57
+-1585 m=  26 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=56
+-1588 m=  28 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=57
+-1591 m=  30 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=57
+-1594 m=  32 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=57
+-1597 m=  34 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=60
+-1600 m=  36 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=62
+-1603 m=  38 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=65
+-1606 m=  40 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=66
+-1609 m=  42 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=65
+-1612 m=  44 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=64
+-1615 m=  46 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=64
+-1618 m=  48 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=63
+-1621 m=  50 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=65
+-1624 m=  52 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=104
+-1627 m=  54 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=103
+-1630 m=  56 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=105
+-1633 m=  58 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=107
+-1636 m=  60 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=107
+-1639 m=  62 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=106
+-1642 m=  64 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=107
+-1645 m=  66 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=108
+-1648 m=  68 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=109
+-1651 m=  70 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=119
+-1654 m=  72 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=126
+-1657 m=  74 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=125
+-1660 m=  76 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=125
+-1663 m=  78 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=125
+-1666 m=  80 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=125
+-1669 m=  82 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=131
+-1672 m=  84 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=130
+-1675 m=  86 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=129
+-1678 m=  88 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=128
+-1681 m=  90 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=127
+-1684 m=  92 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=126
+-1687 m=  94 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=125
+-1690 m=  96 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=131
+-1693 m=  98 q=0 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=137
+-1696 m= 100 q=1 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=137
+-1699 m= 102 q=2 rect_colour=True rect_flag=True cone_violations=0 nearest_outside_cell_rows_from_rect(behind-front cols)=278
+
+rect colour+flag+ant and zero cone violations: 50 of 51; eastmost -1552
+rect only: 50 of 51 ; failing: [-1549]

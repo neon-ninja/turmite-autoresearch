@@ -1,0 +1,8 @@
+=== neg_RLLLLRRLL
+candidates tried (direction x P x p): 192
+BEST NO_EXACT_CLOCK: dir=xmax P=8 p=6 a=726582 exact_fraction=0.1373 cycles=51 b=[-1122083476, -1202704288, -1182478826, -1201533870, -1239771968, -1252977906] kind=swing-dependent
+windows=117 S_holds=0 (0.000) median_spc=37.269 median_aspect=1.00
+=== neg_RLRLLLLRRL
+candidates tried (direction x P x p): 162
+BEST NO_EXACT_CLOCK: dir=xmin P=7 p=6 a=86469 exact_fraction=0.2258 cycles=31 b=[-32081883, -39545798, -58021093, -48853885, -42773107, -24971145] kind=swing-dependent
+windows=1958 S_holds=0 (0.000) median_spc=2739.726 median_aspect=2.05

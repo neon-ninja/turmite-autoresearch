@@ -1,0 +1,27 @@
+# cmd: falsify experiments/2026-10-22-falsification-harness/claims.txt F:/Code/turmite/experiments/2026-10-22-falsification-harness/results/rerun-clean
+# commit: 047e395a743a073bcf1e389824f997af42f2c7f0
+# claims file blob: a18d162e978440f86a69de7027613d30df6c36be
+# claim: id=C5-RRLR-chaotic kind=chaotic rule=RRLR horizon=100000 ladder=2 size=2048 trials=64 seed=105 registered=2026-10-22T21:35+13:00
+claim C5-RRLR-chaotic (Chaotic, rule RRLR, registered 2026-10-22T21:35+13:00)
+baseline (blank start): Highway(Highway { period: 384, dx: -4, dy: -4 }), canon Some((384, 4, 4))
+
+class         n  hw_same hw_other   edge unresolved
+blank         1        1        0      0          0
+heading       4        4        0      0          0
+boundary     64       36        0     28          0
+patch       126      106        0      0         20
+mono        116      106        0      0         10
+half        125      116        0      0          9
+stripe      133      107        0      0         26
+sparse      100       82        0      0         18
+obstacle    136      102        0      0         34
+adaptive    448      355        0      0         93
+baseline highway onset (exact, blank board): step 256240
+
+confirmed escapes by horizon (attack trials only; an escape lags its onset by the board-crossing time; survival is not proof):
+  h =       100000: 14/1185
+  h =       400000: 505/1185
+  h =      1600000: 975/1185
+note: horizon-sensitive: the blank-board highway starts at step 256240 > stated horizon 100000
+counterexamples: 975 found, 5 reproduced on a second geometry
+VERDICT C5-RRLR-chaotic: Falsified

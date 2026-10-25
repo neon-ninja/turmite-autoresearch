@@ -1,0 +1,243 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 760 518' width='760' height='518' font-family='system-ui,Segoe UI,Helvetica,Arial,sans-serif' role='img'>
+<title>Law fingerprint is constant along each row; census outcome is not</title>
+<rect width='760' height='518' fill='#ffffff'/>
+<text x='70' y='30' font-size='14' font-weight='600' fill='#1f2328'>Law-group fingerprint (additive local laws, family F1)</text>
+<rect x='70' y='38' width='10' height='10' fill='#1f77b4'/><text x='84' y='47' font-size='11' fill='#59636e'>net turn 0 mod 4</text>
+<rect x='206' y='38' width='10' height='10' fill='#e69f00'/><text x='220' y='47' font-size='11' fill='#59636e'>net turn 2 mod 4</text>
+<text x='62' y='75' font-size='11' text-anchor='end' fill='#59636e'>1 R</text>
+<rect x='70' y='60' width='10' height='19' fill='#e69f00'><title>RLLLLLLL</title></rect>
+<text x='62' y='97' font-size='11' text-anchor='end' fill='#59636e'>2 R</text>
+<rect x='70' y='82' width='10' height='19' fill='#1f77b4'><title>RLLLLLLR</title></rect>
+<rect x='81' y='82' width='10' height='19' fill='#1f77b4'><title>RLLLLLRL</title></rect>
+<rect x='92' y='82' width='10' height='19' fill='#1f77b4'><title>RLLLLRLL</title></rect>
+<rect x='103' y='82' width='10' height='19' fill='#1f77b4'><title>RLLLRLLL</title></rect>
+<rect x='114' y='82' width='10' height='19' fill='#1f77b4'><title>RLLRLLLL</title></rect>
+<rect x='125' y='82' width='10' height='19' fill='#1f77b4'><title>RLRLLLLL</title></rect>
+<rect x='136' y='82' width='10' height='19' fill='#1f77b4'><title>RRLLLLLL</title></rect>
+<text x='62' y='119' font-size='11' text-anchor='end' fill='#59636e'>3 R</text>
+<rect x='70' y='104' width='10' height='19' fill='#e69f00'><title>RLLLLLRR</title></rect>
+<rect x='81' y='104' width='10' height='19' fill='#e69f00'><title>RLLLLRLR</title></rect>
+<rect x='92' y='104' width='10' height='19' fill='#e69f00'><title>RLLLLRRL</title></rect>
+<rect x='103' y='104' width='10' height='19' fill='#e69f00'><title>RLLLRLLR</title></rect>
+<rect x='114' y='104' width='10' height='19' fill='#e69f00'><title>RLLLRLRL</title></rect>
+<rect x='125' y='104' width='10' height='19' fill='#e69f00'><title>RLLLRRLL</title></rect>
+<rect x='136' y='104' width='10' height='19' fill='#e69f00'><title>RLLRLLLR</title></rect>
+<rect x='147' y='104' width='10' height='19' fill='#e69f00'><title>RLLRLLRL</title></rect>
+<rect x='158' y='104' width='10' height='19' fill='#e69f00'><title>RLLRLRLL</title></rect>
+<rect x='169' y='104' width='10' height='19' fill='#e69f00'><title>RLLRRLLL</title></rect>
+<rect x='180' y='104' width='10' height='19' fill='#e69f00'><title>RLRLLLLR</title></rect>
+<rect x='191' y='104' width='10' height='19' fill='#e69f00'><title>RLRLLLRL</title></rect>
+<rect x='202' y='104' width='10' height='19' fill='#e69f00'><title>RLRLRLLL</title></rect>
+<rect x='213' y='104' width='10' height='19' fill='#e69f00'><title>RLRRLLLL</title></rect>
+<rect x='224' y='104' width='10' height='19' fill='#e69f00'><title>RRLLLLLR</title></rect>
+<rect x='235' y='104' width='10' height='19' fill='#e69f00'><title>RRLLLLRL</title></rect>
+<rect x='246' y='104' width='10' height='19' fill='#e69f00'><title>RRLLLRLL</title></rect>
+<rect x='257' y='104' width='10' height='19' fill='#e69f00'><title>RRLLRLLL</title></rect>
+<rect x='268' y='104' width='10' height='19' fill='#e69f00'><title>RRLRLLLL</title></rect>
+<rect x='279' y='104' width='10' height='19' fill='#e69f00'><title>RRRLLLLL</title></rect>
+<text x='62' y='141' font-size='11' text-anchor='end' fill='#59636e'>4 R</text>
+<rect x='70' y='126' width='10' height='19' fill='#1f77b4'><title>RLLLLRRR</title></rect>
+<rect x='81' y='126' width='10' height='19' fill='#1f77b4'><title>RLLLRLRR</title></rect>
+<rect x='92' y='126' width='10' height='19' fill='#1f77b4'><title>RLLLRRLR</title></rect>
+<rect x='103' y='126' width='10' height='19' fill='#1f77b4'><title>RLLLRRRL</title></rect>
+<rect x='114' y='126' width='10' height='19' fill='#1f77b4'><title>RLLRLLRR</title></rect>
+<rect x='125' y='126' width='10' height='19' fill='#1f77b4'><title>RLLRLRLR</title></rect>
+<rect x='136' y='126' width='10' height='19' fill='#1f77b4'><title>RLLRLRRL</title></rect>
+<rect x='147' y='126' width='10' height='19' fill='#1f77b4'><title>RLLRRLLR</title></rect>
+<rect x='158' y='126' width='10' height='19' fill='#1f77b4'><title>RLLRRLRL</title></rect>
+<rect x='169' y='126' width='10' height='19' fill='#1f77b4'><title>RLLRRRLL</title></rect>
+<rect x='180' y='126' width='10' height='19' fill='#1f77b4'><title>RLRLLLRR</title></rect>
+<rect x='191' y='126' width='10' height='19' fill='#1f77b4'><title>RLRLLRLR</title></rect>
+<rect x='202' y='126' width='10' height='19' fill='#1f77b4'><title>RLRLLRRL</title></rect>
+<rect x='213' y='126' width='10' height='19' fill='#1f77b4'><title>RLRLRLLR</title></rect>
+<rect x='224' y='126' width='10' height='19' fill='#1f77b4'><title>RLRLRRLL</title></rect>
+<rect x='235' y='126' width='10' height='19' fill='#1f77b4'><title>RLRRLLLR</title></rect>
+<rect x='246' y='126' width='10' height='19' fill='#1f77b4'><title>RLRRLLRL</title></rect>
+<rect x='257' y='126' width='10' height='19' fill='#1f77b4'><title>RLRRLRLL</title></rect>
+<rect x='268' y='126' width='10' height='19' fill='#1f77b4'><title>RLRRRLLL</title></rect>
+<rect x='279' y='126' width='10' height='19' fill='#1f77b4'><title>RRLLLLRR</title></rect>
+<rect x='290' y='126' width='10' height='19' fill='#1f77b4'><title>RRLLLRRL</title></rect>
+<rect x='301' y='126' width='10' height='19' fill='#1f77b4'><title>RRLLRLLR</title></rect>
+<rect x='312' y='126' width='10' height='19' fill='#1f77b4'><title>RRLLRLRL</title></rect>
+<rect x='323' y='126' width='10' height='19' fill='#1f77b4'><title>RRLLRRLL</title></rect>
+<rect x='334' y='126' width='10' height='19' fill='#1f77b4'><title>RRLRLLLR</title></rect>
+<rect x='345' y='126' width='10' height='19' fill='#1f77b4'><title>RRLRLRLL</title></rect>
+<rect x='356' y='126' width='10' height='19' fill='#1f77b4'><title>RRRLLLLR</title></rect>
+<rect x='367' y='126' width='10' height='19' fill='#1f77b4'><title>RRRLLLRL</title></rect>
+<rect x='378' y='126' width='10' height='19' fill='#1f77b4'><title>RRRLLRLL</title></rect>
+<rect x='389' y='126' width='10' height='19' fill='#1f77b4'><title>RRRLRLLL</title></rect>
+<rect x='400' y='126' width='10' height='19' fill='#1f77b4'><title>RRRRLLLL</title></rect>
+<text x='62' y='163' font-size='11' text-anchor='end' fill='#59636e'>5 R</text>
+<rect x='70' y='148' width='10' height='19' fill='#e69f00'><title>RLLLRRRR</title></rect>
+<rect x='81' y='148' width='10' height='19' fill='#e69f00'><title>RLLRLRRR</title></rect>
+<rect x='92' y='148' width='10' height='19' fill='#e69f00'><title>RLLRRLRR</title></rect>
+<rect x='103' y='148' width='10' height='19' fill='#e69f00'><title>RLLRRRLR</title></rect>
+<rect x='114' y='148' width='10' height='19' fill='#e69f00'><title>RLLRRRRL</title></rect>
+<rect x='125' y='148' width='10' height='19' fill='#e69f00'><title>RLRLLRRR</title></rect>
+<rect x='136' y='148' width='10' height='19' fill='#e69f00'><title>RLRLRRLR</title></rect>
+<rect x='147' y='148' width='10' height='19' fill='#e69f00'><title>RLRLRRRL</title></rect>
+<rect x='158' y='148' width='10' height='19' fill='#e69f00'><title>RLRRLLRR</title></rect>
+<rect x='169' y='148' width='10' height='19' fill='#e69f00'><title>RLRRLRLR</title></rect>
+<rect x='180' y='148' width='10' height='19' fill='#e69f00'><title>RLRRLRRL</title></rect>
+<rect x='191' y='148' width='10' height='19' fill='#e69f00'><title>RLRRRLLR</title></rect>
+<rect x='202' y='148' width='10' height='19' fill='#e69f00'><title>RLRRRLRL</title></rect>
+<rect x='213' y='148' width='10' height='19' fill='#e69f00'><title>RLRRRRLL</title></rect>
+<rect x='224' y='148' width='10' height='19' fill='#e69f00'><title>RRLLRLRR</title></rect>
+<rect x='235' y='148' width='10' height='19' fill='#e69f00'><title>RRLLRRLR</title></rect>
+<rect x='246' y='148' width='10' height='19' fill='#e69f00'><title>RRLLRRRL</title></rect>
+<rect x='257' y='148' width='10' height='19' fill='#e69f00'><title>RRLRLRLR</title></rect>
+<rect x='268' y='148' width='10' height='19' fill='#e69f00'><title>RRLRLRRL</title></rect>
+<rect x='279' y='148' width='10' height='19' fill='#e69f00'><title>RRRLLLRR</title></rect>
+<rect x='290' y='148' width='10' height='19' fill='#e69f00'><title>RRRLRLLR</title></rect>
+<rect x='301' y='148' width='10' height='19' fill='#e69f00'><title>RRRLRLRL</title></rect>
+<rect x='312' y='148' width='10' height='19' fill='#e69f00'><title>RRRLRRLL</title></rect>
+<rect x='323' y='148' width='10' height='19' fill='#e69f00'><title>RRRRLLRL</title></rect>
+<rect x='334' y='148' width='10' height='19' fill='#e69f00'><title>RRRRLRLL</title></rect>
+<text x='62' y='185' font-size='11' text-anchor='end' fill='#59636e'>6 R</text>
+<rect x='70' y='170' width='10' height='19' fill='#1f77b4'><title>RLLRRRRR</title></rect>
+<rect x='81' y='170' width='10' height='19' fill='#1f77b4'><title>RLRLRRRR</title></rect>
+<rect x='92' y='170' width='10' height='19' fill='#1f77b4'><title>RLRRLRRR</title></rect>
+<rect x='103' y='170' width='10' height='19' fill='#1f77b4'><title>RLRRRLRR</title></rect>
+<rect x='114' y='170' width='10' height='19' fill='#1f77b4'><title>RLRRRRLR</title></rect>
+<rect x='125' y='170' width='10' height='19' fill='#1f77b4'><title>RLRRRRRL</title></rect>
+<rect x='136' y='170' width='10' height='19' fill='#1f77b4'><title>RRLLRRRR</title></rect>
+<rect x='147' y='170' width='10' height='19' fill='#1f77b4'><title>RRLRLRRR</title></rect>
+<rect x='158' y='170' width='10' height='19' fill='#1f77b4'><title>RRLRRRRL</title></rect>
+<rect x='169' y='170' width='10' height='19' fill='#1f77b4'><title>RRRLLRRR</title></rect>
+<rect x='180' y='170' width='10' height='19' fill='#1f77b4'><title>RRRLRLRR</title></rect>
+<rect x='191' y='170' width='10' height='19' fill='#1f77b4'><title>RRRLRRLR</title></rect>
+<rect x='202' y='170' width='10' height='19' fill='#1f77b4'><title>RRRRLLRR</title></rect>
+<rect x='213' y='170' width='10' height='19' fill='#1f77b4'><title>RRRRLRLR</title></rect>
+<rect x='224' y='170' width='10' height='19' fill='#1f77b4'><title>RRRRLRRL</title></rect>
+<rect x='235' y='170' width='10' height='19' fill='#1f77b4'><title>RRRRRLLR</title></rect>
+<rect x='246' y='170' width='10' height='19' fill='#1f77b4'><title>RRRRRLRL</title></rect>
+<rect x='257' y='170' width='10' height='19' fill='#1f77b4'><title>RRRRRRLL</title></rect>
+<text x='62' y='207' font-size='11' text-anchor='end' fill='#59636e'>7 R</text>
+<rect x='70' y='192' width='10' height='19' fill='#e69f00'><title>RLRRRRRR</title></rect>
+<rect x='81' y='192' width='10' height='19' fill='#e69f00'><title>RRLRRRRR</title></rect>
+<rect x='92' y='192' width='10' height='19' fill='#e69f00'><title>RRRLRRRR</title></rect>
+<rect x='103' y='192' width='10' height='19' fill='#e69f00'><title>RRRRLRRR</title></rect>
+<rect x='114' y='192' width='10' height='19' fill='#e69f00'><title>RRRRRLRR</title></rect>
+<rect x='125' y='192' width='10' height='19' fill='#e69f00'><title>RRRRRRLR</title></rect>
+<text x='70' y='254' font-size='14' font-weight='600' fill='#1f2328'>Census outcome</text>
+<rect x='70' y='262' width='10' height='10' fill='#b8bec6'/><text x='84' y='271' font-size='11' fill='#59636e'>blob</text>
+<rect x='122' y='262' width='10' height='10' fill='#009e73'/><text x='136' y='271' font-size='11' fill='#59636e'>log</text>
+<rect x='167' y='262' width='10' height='10' fill='#cc3311'/><text x='181' y='271' font-size='11' fill='#59636e'>builder</text>
+<text x='62' y='299' font-size='11' text-anchor='end' fill='#59636e'>1 R</text>
+<rect x='70' y='284' width='10' height='19' fill='#b8bec6'><title>RLLLLLLL</title></rect>
+<text x='62' y='321' font-size='11' text-anchor='end' fill='#59636e'>2 R</text>
+<rect x='70' y='306' width='10' height='19' fill='#009e73'><title>RLLLLLLR</title></rect>
+<rect x='81' y='306' width='10' height='19' fill='#009e73'><title>RLLLLLRL</title></rect>
+<rect x='92' y='306' width='10' height='19' fill='#b8bec6'><title>RLLLLRLL</title></rect>
+<rect x='103' y='306' width='10' height='19' fill='#b8bec6'><title>RLLLRLLL</title></rect>
+<rect x='114' y='306' width='10' height='19' fill='#b8bec6'><title>RLLRLLLL</title></rect>
+<rect x='125' y='306' width='10' height='19' fill='#009e73'><title>RLRLLLLL</title></rect>
+<rect x='136' y='306' width='10' height='19' fill='#009e73'><title>RRLLLLLL</title></rect>
+<text x='62' y='343' font-size='11' text-anchor='end' fill='#59636e'>3 R</text>
+<rect x='70' y='328' width='10' height='19' fill='#b8bec6'><title>RLLLLLRR</title></rect>
+<rect x='81' y='328' width='10' height='19' fill='#b8bec6'><title>RLLLLRLR</title></rect>
+<rect x='92' y='328' width='10' height='19' fill='#cc3311'><title>RLLLLRRL</title></rect>
+<rect x='103' y='328' width='10' height='19' fill='#b8bec6'><title>RLLLRLLR</title></rect>
+<rect x='114' y='328' width='10' height='19' fill='#b8bec6'><title>RLLLRLRL</title></rect>
+<rect x='125' y='328' width='10' height='19' fill='#b8bec6'><title>RLLLRRLL</title></rect>
+<rect x='136' y='328' width='10' height='19' fill='#b8bec6'><title>RLLRLLLR</title></rect>
+<rect x='147' y='328' width='10' height='19' fill='#b8bec6'><title>RLLRLLRL</title></rect>
+<rect x='158' y='328' width='10' height='19' fill='#b8bec6'><title>RLLRLRLL</title></rect>
+<rect x='169' y='328' width='10' height='19' fill='#b8bec6'><title>RLLRRLLL</title></rect>
+<rect x='180' y='328' width='10' height='19' fill='#b8bec6'><title>RLRLLLLR</title></rect>
+<rect x='191' y='328' width='10' height='19' fill='#b8bec6'><title>RLRLLLRL</title></rect>
+<rect x='202' y='328' width='10' height='19' fill='#b8bec6'><title>RLRLRLLL</title></rect>
+<rect x='213' y='328' width='10' height='19' fill='#b8bec6'><title>RLRRLLLL</title></rect>
+<rect x='224' y='328' width='10' height='19' fill='#b8bec6'><title>RRLLLLLR</title></rect>
+<rect x='235' y='328' width='10' height='19' fill='#b8bec6'><title>RRLLLLRL</title></rect>
+<rect x='246' y='328' width='10' height='19' fill='#b8bec6'><title>RRLLLRLL</title></rect>
+<rect x='257' y='328' width='10' height='19' fill='#b8bec6'><title>RRLLRLLL</title></rect>
+<rect x='268' y='328' width='10' height='19' fill='#b8bec6'><title>RRLRLLLL</title></rect>
+<rect x='279' y='328' width='10' height='19' fill='#b8bec6'><title>RRRLLLLL</title></rect>
+<text x='62' y='365' font-size='11' text-anchor='end' fill='#59636e'>4 R</text>
+<rect x='70' y='350' width='10' height='19' fill='#b8bec6'><title>RLLLLRRR</title></rect>
+<rect x='81' y='350' width='10' height='19' fill='#b8bec6'><title>RLLLRLRR</title></rect>
+<rect x='92' y='350' width='10' height='19' fill='#009e73'><title>RLLLRRLR</title></rect>
+<rect x='103' y='350' width='10' height='19' fill='#cc3311'><title>RLLLRRRL</title></rect>
+<rect x='114' y='350' width='10' height='19' fill='#009e73'><title>RLLRLLRR</title></rect>
+<rect x='125' y='350' width='10' height='19' fill='#b8bec6'><title>RLLRLRLR</title></rect>
+<rect x='136' y='350' width='10' height='19' fill='#b8bec6'><title>RLLRLRRL</title></rect>
+<rect x='147' y='350' width='10' height='19' fill='#b8bec6'><title>RLLRRLLR</title></rect>
+<rect x='158' y='350' width='10' height='19' fill='#b8bec6'><title>RLLRRLRL</title></rect>
+<rect x='169' y='350' width='10' height='19' fill='#009e73'><title>RLLRRRLL</title></rect>
+<rect x='180' y='350' width='10' height='19' fill='#b8bec6'><title>RLRLLLRR</title></rect>
+<rect x='191' y='350' width='10' height='19' fill='#b8bec6'><title>RLRLLRLR</title></rect>
+<rect x='202' y='350' width='10' height='19' fill='#b8bec6'><title>RLRLLRRL</title></rect>
+<rect x='213' y='350' width='10' height='19' fill='#b8bec6'><title>RLRLRLLR</title></rect>
+<rect x='224' y='350' width='10' height='19' fill='#b8bec6'><title>RLRLRRLL</title></rect>
+<rect x='235' y='350' width='10' height='19' fill='#009e73'><title>RLRRLLLR</title></rect>
+<rect x='246' y='350' width='10' height='19' fill='#b8bec6'><title>RLRRLLRL</title></rect>
+<rect x='257' y='350' width='10' height='19' fill='#b8bec6'><title>RLRRLRLL</title></rect>
+<rect x='268' y='350' width='10' height='19' fill='#cc3311'><title>RLRRRLLL</title></rect>
+<rect x='279' y='350' width='10' height='19' fill='#b8bec6'><title>RRLLLLRR</title></rect>
+<rect x='290' y='350' width='10' height='19' fill='#009e73'><title>RRLLLRRL</title></rect>
+<rect x='301' y='350' width='10' height='19' fill='#009e73'><title>RRLLRLLR</title></rect>
+<rect x='312' y='350' width='10' height='19' fill='#b8bec6'><title>RRLLRLRL</title></rect>
+<rect x='323' y='350' width='10' height='19' fill='#b8bec6'><title>RRLLRRLL</title></rect>
+<rect x='334' y='350' width='10' height='19' fill='#b8bec6'><title>RRLRLLLR</title></rect>
+<rect x='345' y='350' width='10' height='19' fill='#b8bec6'><title>RRLRLRLL</title></rect>
+<rect x='356' y='350' width='10' height='19' fill='#b8bec6'><title>RRRLLLLR</title></rect>
+<rect x='367' y='350' width='10' height='19' fill='#b8bec6'><title>RRRLLLRL</title></rect>
+<rect x='378' y='350' width='10' height='19' fill='#009e73'><title>RRRLLRLL</title></rect>
+<rect x='389' y='350' width='10' height='19' fill='#b8bec6'><title>RRRLRLLL</title></rect>
+<rect x='400' y='350' width='10' height='19' fill='#b8bec6'><title>RRRRLLLL</title></rect>
+<text x='62' y='387' font-size='11' text-anchor='end' fill='#59636e'>5 R</text>
+<rect x='70' y='372' width='10' height='19' fill='#b8bec6'><title>RLLLRRRR</title></rect>
+<rect x='81' y='372' width='10' height='19' fill='#b8bec6'><title>RLLRLRRR</title></rect>
+<rect x='92' y='372' width='10' height='19' fill='#b8bec6'><title>RLLRRLRR</title></rect>
+<rect x='103' y='372' width='10' height='19' fill='#b8bec6'><title>RLLRRRLR</title></rect>
+<rect x='114' y='372' width='10' height='19' fill='#b8bec6'><title>RLLRRRRL</title></rect>
+<rect x='125' y='372' width='10' height='19' fill='#b8bec6'><title>RLRLLRRR</title></rect>
+<rect x='136' y='372' width='10' height='19' fill='#b8bec6'><title>RLRLRRLR</title></rect>
+<rect x='147' y='372' width='10' height='19' fill='#b8bec6'><title>RLRLRRRL</title></rect>
+<rect x='158' y='372' width='10' height='19' fill='#b8bec6'><title>RLRRLLRR</title></rect>
+<rect x='169' y='372' width='10' height='19' fill='#b8bec6'><title>RLRRLRLR</title></rect>
+<rect x='180' y='372' width='10' height='19' fill='#b8bec6'><title>RLRRLRRL</title></rect>
+<rect x='191' y='372' width='10' height='19' fill='#cc3311'><title>RLRRRLLR</title></rect>
+<rect x='202' y='372' width='10' height='19' fill='#b8bec6'><title>RLRRRLRL</title></rect>
+<rect x='213' y='372' width='10' height='19' fill='#cc3311'><title>RLRRRRLL</title></rect>
+<rect x='224' y='372' width='10' height='19' fill='#cc3311'><title>RRLLRLRR</title></rect>
+<rect x='235' y='372' width='10' height='19' fill='#b8bec6'><title>RRLLRRLR</title></rect>
+<rect x='246' y='372' width='10' height='19' fill='#b8bec6'><title>RRLLRRRL</title></rect>
+<rect x='257' y='372' width='10' height='19' fill='#b8bec6'><title>RRLRLRLR</title></rect>
+<rect x='268' y='372' width='10' height='19' fill='#b8bec6'><title>RRLRLRRL</title></rect>
+<rect x='279' y='372' width='10' height='19' fill='#b8bec6'><title>RRRLLLRR</title></rect>
+<rect x='290' y='372' width='10' height='19' fill='#b8bec6'><title>RRRLRLLR</title></rect>
+<rect x='301' y='372' width='10' height='19' fill='#b8bec6'><title>RRRLRLRL</title></rect>
+<rect x='312' y='372' width='10' height='19' fill='#b8bec6'><title>RRRLRRLL</title></rect>
+<rect x='323' y='372' width='10' height='19' fill='#b8bec6'><title>RRRRLLRL</title></rect>
+<rect x='334' y='372' width='10' height='19' fill='#b8bec6'><title>RRRRLRLL</title></rect>
+<text x='62' y='409' font-size='11' text-anchor='end' fill='#59636e'>6 R</text>
+<rect x='70' y='394' width='10' height='19' fill='#009e73'><title>RLLRRRRR</title></rect>
+<rect x='81' y='394' width='10' height='19' fill='#009e73'><title>RLRLRRRR</title></rect>
+<rect x='92' y='394' width='10' height='19' fill='#b8bec6'><title>RLRRLRRR</title></rect>
+<rect x='103' y='394' width='10' height='19' fill='#b8bec6'><title>RLRRRLRR</title></rect>
+<rect x='114' y='394' width='10' height='19' fill='#b8bec6'><title>RLRRRRLR</title></rect>
+<rect x='125' y='394' width='10' height='19' fill='#cc3311'><title>RLRRRRRL</title></rect>
+<rect x='136' y='394' width='10' height='19' fill='#009e73'><title>RRLLRRRR</title></rect>
+<rect x='147' y='394' width='10' height='19' fill='#009e73'><title>RRLRLRRR</title></rect>
+<rect x='158' y='394' width='10' height='19' fill='#b8bec6'><title>RRLRRRRL</title></rect>
+<rect x='169' y='394' width='10' height='19' fill='#009e73'><title>RRRLLRRR</title></rect>
+<rect x='180' y='394' width='10' height='19' fill='#009e73'><title>RRRLRLRR</title></rect>
+<rect x='191' y='394' width='10' height='19' fill='#b8bec6'><title>RRRLRRLR</title></rect>
+<rect x='202' y='394' width='10' height='19' fill='#009e73'><title>RRRRLLRR</title></rect>
+<rect x='213' y='394' width='10' height='19' fill='#009e73'><title>RRRRLRLR</title></rect>
+<rect x='224' y='394' width='10' height='19' fill='#b8bec6'><title>RRRRLRRL</title></rect>
+<rect x='235' y='394' width='10' height='19' fill='#009e73'><title>RRRRRLLR</title></rect>
+<rect x='246' y='394' width='10' height='19' fill='#009e73'><title>RRRRRLRL</title></rect>
+<rect x='257' y='394' width='10' height='19' fill='#009e73'><title>RRRRRRLL</title></rect>
+<text x='62' y='431' font-size='11' text-anchor='end' fill='#59636e'>7 R</text>
+<rect x='70' y='416' width='10' height='19' fill='#b8bec6'><title>RLRRRRRR</title></rect>
+<rect x='81' y='416' width='10' height='19' fill='#b8bec6'><title>RRLRRRRR</title></rect>
+<rect x='92' y='416' width='10' height='19' fill='#b8bec6'><title>RRRLRRRR</title></rect>
+<rect x='103' y='416' width='10' height='19' fill='#cc3311'><title>RRRRLRRR</title></rect>
+<rect x='114' y='416' width='10' height='19' fill='#cc3311'><title>RRRRRLRR</title></rect>
+<rect x='125' y='416' width='10' height='19' fill='#b8bec6'><title>RRRRRRLR</title></rect>
+<text x='70' y='492' font-size='11' fill='#59636e'>108 canonical primitive census rules of length 8, one column per rule, one row per number of R.</text>
+<text x='70' y='508' font-size='11' fill='#59636e'>Sources: results/fingerprints.csv and the census sweep's census.csv.</text>
+</svg>

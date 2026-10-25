@@ -1,0 +1,2 @@
+spec,stop,t_final,area,perimeter,jump_steps,lipschitz_violations,depth_decreases,depth_raises,pair_rows,overflowed,seconds
+RLRLRLLL@202610208006,complete,8060422,139265,2710,3142,0,0,3840403,25371,0,1.569

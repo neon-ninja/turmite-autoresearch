@@ -1,0 +1,54 @@
+{
+ "command": "experiments/2026-10-22-invariant-mining-snf/scripts/oracle.py --exe C:/Users/User/.claude/jobs/289f028f/tmp/target/release/examples/invariant_mining_snf_verify.exe --nmax 6 --steps 2000 --starts 16",
+ "exe_sha256": "fa993496f5c720b790ddc4fa4b9979377fa38f547429e8050f90684098e3f847",
+ "laws_csv_sha256": "321dc30f52a4b965952665902a204810c4f9ad2bff9572ee63c85ab7caf823fd",
+ "git_head": "53778d11804917ece5a1287635e92f16059e72e1",
+ "steps": 2000,
+ "starts_per_rule": 16,
+ "seed": 20261022,
+ "by_family": {
+  "A0:control": {
+   "lines": 1640,
+   "lines_with_violation": 1640,
+   "applications": 26240
+  },
+  "A0:law": {
+   "lines": 2280,
+   "lines_with_violation": 0,
+   "applications": 36480
+  },
+  "F1:control": {
+   "lines": 1640,
+   "lines_with_violation": 1640,
+   "applications": 26240
+  },
+  "F1:law": {
+   "lines": 2816,
+   "lines_with_violation": 0,
+   "applications": 45056
+  },
+  "F2:control": {
+   "lines": 1640,
+   "lines_with_violation": 1640,
+   "applications": 13120
+  },
+  "F2:law": {
+   "lines": 3672,
+   "lines_with_violation": 0,
+   "applications": 29376
+  },
+  "F3:control": {
+   "lines": 1640,
+   "lines_with_violation": 1640,
+   "applications": 13120
+  },
+  "F3:law": {
+   "lines": 5648,
+   "lines_with_violation": 0,
+   "applications": 45184
+  }
+ },
+ "law_violations_total": 0,
+ "control_detection_rate": 1.0,
+ "violating_law_examples": []
+}

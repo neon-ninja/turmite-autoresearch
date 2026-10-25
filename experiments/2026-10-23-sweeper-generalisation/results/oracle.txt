@@ -1,0 +1,74 @@
+   Compiling libc v0.2.190
+   Compiling cfg-if v1.0.5
+   Compiling getrandom v0.3.4
+   Compiling crossbeam-utils v0.8.23
+   Compiling crossbeam-epoch v0.9.21
+   Compiling getrandom v0.4.3
+   Compiling zerocopy v0.8.62
+   Compiling crossbeam-deque v0.8.8
+   Compiling rustix v1.1.5
+   Compiling bitflags v2.13.2
+   Compiling linux-raw-sys v0.12.1
+   Compiling autocfg v1.5.1
+   Compiling rayon-core v1.13.0
+   Compiling num-traits v0.2.19
+   Compiling fastrand v2.5.0
+   Compiling once_cell v1.21.4
+   Compiling bit-vec v0.8.0
+   Compiling quick-error v1.2.3
+   Compiling fnv v1.0.7
+   Compiling either v1.19.0
+   Compiling bit-set v0.8.0
+   Compiling wait-timeout v0.2.1
+   Compiling rand_core v0.9.5
+   Compiling rayon v1.12.0
+   Compiling rand v0.9.5
+   Compiling rand_xorshift v0.4.0
+   Compiling tempfile v3.27.0
+   Compiling rusty-fork v0.3.1
+   Compiling regex-syntax v0.8.11
+   Compiling unarray v0.1.4
+   Compiling turmite v0.1.0 (/mnt/f/Code/turmite)
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_chacha v0.9.0
+   Compiling proptest v1.11.0
+    Finished `release` profile [optimized] target(s) in 14.38s
+# commit 1461cb9 dirty=5
+7d135c9bc49b5c919b012d85c11f063537919ad7f49bb3c259e64cfb4bcd3ab9  /home/tim/turmite-target-sg/release/examples/sweeper_generalisation_frontlog
+4de9a375ad29e8f906b76586080fcfff133c43e99f60480a82030f13948acaac  /home/tim/turmite-target-sg/release/examples/rlrlll_macro_transition_resim
+FINGERPRINT RLLLLRRL 10000000 identical (12d684dc1b39ba4f 2036562)
+FINGERPRINT RLLLLRRL 100000000 identical (c75d9ef62d0f0fc1 24689433)
+xmin: 76 rust events, 76 python events, identical=True
+xmax: 77 rust events, 77 python events, identical=True
+ymin: 76 rust events, 76 python events, identical=True
+ymax: 79 rust events, 79 python events, identical=True
+ORACLE_LOG PASS
+FINGERPRINT RLLLLRLRRL 10000000 identical (b0b824cd59c8aaa7 304924)
+FINGERPRINT RLLLLRLRRL 100000000 identical (ff34f0f251632ef3 1059431)
+xmin: 42 rust events, 42 python events, identical=True
+xmax: 38 rust events, 38 python events, identical=True
+ymin: 38 rust events, 38 python events, identical=True
+ymax: 41 rust events, 41 python events, identical=True
+ORACLE_LOG PASS
+FINGERPRINT RLLLRLRLLL 10000000 identical (4d618be908a7dee1 119698)
+FINGERPRINT RLLLRLRLLL 100000000 identical (7ab6ab618e923575 481944)
+xmin: 43 rust events, 43 python events, identical=True
+xmax: 42 rust events, 42 python events, identical=True
+ymin: 41 rust events, 41 python events, identical=True
+ymax: 40 rust events, 40 python events, identical=True
+ORACLE_LOG PASS
+FINGERPRINT RLRLLL 10000000 identical (43981c39204c2e81 60054)
+FINGERPRINT RLRLLL 100000000 identical (13190f3b2cc218af 293394)
+xmin: 43 rust events, 43 python events, identical=True
+xmax: 56 rust events, 56 python events, identical=True
+ymin: 37 rust events, 37 python events, identical=True
+ymax: 38 rust events, 38 python events, identical=True
+ORACLE_LOG PASS
+FINGERPRINT RRLLLLRRL 10000000 identical (ea71a43ec41c8347 1767)
+FINGERPRINT RRLLLLRRL 100000000 identical (2594e85c0e05eff6 2832)
+xmin: 14 rust events, 14 python events, identical=True
+xmax: 14 rust events, 14 python events, identical=True
+ymin: 14 rust events, 14 python events, identical=True
+ymax: 14 rust events, 14 python events, identical=True
+ORACLE_LOG PASS
+exit=0

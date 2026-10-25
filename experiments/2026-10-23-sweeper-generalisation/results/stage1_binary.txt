@@ -1,0 +1,2 @@
+commit 6ecd31735b10d229ed44dc896974cff052e0fbc6 dirty=0
+7d135c9bc49b5c919b012d85c11f063537919ad7f49bb3c259e64cfb4bcd3ab9  /home/tim/turmite-target-sg1/release/examples/sweeper_generalisation_frontlog

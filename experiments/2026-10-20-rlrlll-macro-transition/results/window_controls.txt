@@ -1,0 +1,41 @@
+Reading inline script metadata from `experiments/2026-10-20-rlrlll-macro-transition/scripts/window_compare.py`
+C1 x=-2197 t=12677007177 (cycles.csv 12677007177: equal) primary=True flag=True ant_heading_ok=True n_in=0 n_out=0
+   C2 against q=0 m=432: primary=False n_in=178 n_out=7
+   C2 against q=0 m=436: primary=False n_in=185 n_out=0
+   C2 against q=1 m=432: primary=False n_in=506 n_out=7
+   C2 against q=1 m=434: primary=False n_in=328 n_out=0
+   C2 against q=1 m=436: primary=False n_in=513 n_out=0
+   C2 against q=2 m=432: primary=False n_in=490 n_out=7
+   C2 against q=2 m=434: primary=False n_in=312 n_out=0
+   C2 against q=2 m=436: primary=False n_in=497 n_out=0
+   C3 perturb top cell (row 14, col 30): primary=False first=canon(row 14, col 30) abs(-2167,-1158) exp 0 got 1 in-rect old=None -> exactly that cell
+   C3 perturb bulk cell (row 246, col 23): primary=False first=canon(row 246, col 23) abs(-2174,-926) exp 5 got 0 in-rect old=None -> exactly that cell
+   C3 perturb bottom cell (row 471, col 5): primary=False first=canon(row 471, col 5) abs(-2192,-701) exp 5 got 0 in-rect old=None -> exactly that cell
+   C3b stray cell 3 rows above the rectangle, apron column 5: primary=False n_in=0 n_out=1
+C1 x=-2200 t=12677013319 (cycles.csv 12677013319: equal) primary=True flag=True ant_heading_ok=True n_in=0 n_out=0
+   C2 against q=0 m=434: primary=False n_in=502 n_out=11
+   C2 against q=0 m=436: primary=False n_in=324 n_out=4
+   C2 against q=0 m=438: primary=False n_in=509 n_out=4
+   C2 against q=1 m=434: primary=False n_in=178 n_out=7
+   C2 against q=1 m=438: primary=False n_in=185 n_out=0
+   C2 against q=2 m=434: primary=False n_in=508 n_out=11
+   C2 against q=2 m=436: primary=False n_in=330 n_out=4
+   C2 against q=2 m=438: primary=False n_in=515 n_out=4
+   C3 perturb top cell (row 15, col 30): primary=False first=canon(row 15, col 30) abs(-2170,-1159) exp 4 got 5 in-rect old=None -> exactly that cell
+   C3 perturb bulk cell (row 248, col 23): primary=False first=canon(row 248, col 23) abs(-2177,-926) exp 5 got 0 in-rect old=None -> exactly that cell
+   C3 perturb bottom cell (row 474, col 5): primary=False first=canon(row 474, col 5) abs(-2195,-700) exp 5 got 0 in-rect old=None -> exactly that cell
+   C3b stray cell 3 rows above the rectangle, apron column 5: primary=False n_in=0 n_out=1
+C1 x=-2203 t=12677019609 (cycles.csv 12677019609: equal) primary=True flag=True ant_heading_ok=True n_in=0 n_out=0
+   C2 against q=0 m=436: primary=False n_in=490 n_out=7
+   C2 against q=0 m=438: primary=False n_in=312 n_out=0
+   C2 against q=0 m=440: primary=False n_in=497 n_out=0
+   C2 against q=1 m=436: primary=False n_in=512 n_out=7
+   C2 against q=1 m=438: primary=False n_in=334 n_out=0
+   C2 against q=1 m=440: primary=False n_in=519 n_out=0
+   C2 against q=2 m=436: primary=False n_in=178 n_out=7
+   C2 against q=2 m=440: primary=False n_in=185 n_out=0
+   C3 perturb top cell (row 14, col 30): primary=False first=canon(row 14, col 30) abs(-2173,-1160) exp 4 got 5 in-rect old=None -> exactly that cell
+   C3 perturb bulk cell (row 248, col 23): primary=False first=canon(row 248, col 23) abs(-2180,-926) exp 5 got 0 in-rect old=None -> exactly that cell
+   C3 perturb bottom cell (row 475, col 5): primary=False first=canon(row 475, col 5) abs(-2198,-699) exp 5 got 0 in-rect old=None -> exactly that cell
+   C3b stray cell 3 rows above the rectangle, apron column 5: primary=False n_in=0 n_out=1
+CONTROLS ALL PASS

@@ -97,3 +97,29 @@ End of session. Release tests pass after adding the example (144 passed, 0 faile
 `test_ants.js` pass; Jekyll build, `check.rb` and `test_results.js` not run (no Ruby on this box).
 Nothing running. Open: register the age-resolved flat-edge test; filler-switch frequency of patched starts.
 Not pushed (no GitHub access from this box).
+
+### 2026-10-25 08:55 (+00:00) · 3b0abc9 (merging origin/main df07dfe) · question
+Merged upstream `main` (184 commits) by merge, not rebase, so `1593b61` (registration) and `1c9ac05`
+(results) keep their hashes. Read `experiments/2026-10-23-hidden-phase-return` (Rob Ede): it shows,
+via one independently reproduced witness, that keeping every interior cell's next turn does not fix
+a long return path; its support gate failed (17/24 start/band groups under eight long episodes), so
+P1 there is untestable. Relation to this experiment: ours locates the ant-specific shortfall in
+*returns to flat edge* (post hoc); theirs says the interior state controlling return timing
+includes hidden colour phases. Question: is the flat-edge shortfall a timing effect (long
+excursions set by phase organisation) or a targeting effect (fewer returns
+reach flat cells at all)? Our data cannot separate these: we recorded neither cell age nor
+colour phase. Any registered age-resolved follow-up must record phase too, or age and phase are
+confounded. Registered predictions P0-P4 are unchanged.
+Post hoc aside: the two `RLRRRRLRR` fillers (births/step 0.250116, about 4.0 steps per new cell)
+match the `R^k L R R...` board-filler law `2(k+1)` steps per cell with k = 1 (Q20 in
+`notes/open-questions-hypotheses.md`, `experiments/2026-10-21-late-highway-board-check`); the
+`RLLLRLLL@2` filler (0.4998, about 2 steps per cell) is not in that family. Two runs, not a finding.
+
+### 2026-10-25 08:56 (+00:00) · 3b0abc9 (merging origin/main df07dfe) · decision
+Retrospective pruning preflight at `df07dfe`: no matching signature (queries in README addendum).
+No dead-end signature committed: P3/P4 are failed registered predictions in one cohort with
+age/phase/depth confounded, not a disproved mechanism; an `empirical` signature deferring an exact
+repeat is a candidate for review. Upstream's narrowed plan (`notes/ACTIVE.md`, 2026-10-23) defers
+side follow-ups: the age-resolved flat-edge test is not scheduled and must pass the priority-1
+feasibility gate first. Homepage card and ACTIVE entry reworded to say so; experiment filed in
+`blog/atlas.json` under boundary-return (counter).

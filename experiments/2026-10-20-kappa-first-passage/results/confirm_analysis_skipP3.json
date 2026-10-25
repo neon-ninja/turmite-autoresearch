@@ -1,0 +1,400 @@
+{
+  "subdir": "confirm",
+  "n_runs": 768,
+  "stop_counts": {
+    "budget": 32,
+    "complete": 734,
+    "escaped": 2
+  },
+  "unresolved_share_max": 0.001184073423641373,
+  "depth_decreases": 0,
+  "overflowed": 0,
+  "eligibility": {
+    "n_rules": 48,
+    "n_eligible": 46,
+    "fraction": 0.9583333333333334,
+    "gate_ge_0p8": true,
+    "per_rule": {
+      "RLLLLRLLRLRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 2230,
+        "eligible": true
+      },
+      "RLLLLRRRLRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1752,
+        "eligible": true
+      },
+      "RLLLLRRLLRRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 26448,
+        "eligible": true
+      },
+      "RLLLLRRLLRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 3128,
+        "eligible": true
+      },
+      "RLRLRRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1828,
+        "eligible": true
+      },
+      "RLRLRRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1764,
+        "eligible": true
+      },
+      "RLRLRRLLLLLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 3136,
+        "eligible": true
+      },
+      "RLRLRRLRRRRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 760,
+        "eligible": true
+      },
+      "RRLRRRLRRLRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1276,
+        "eligible": true
+      },
+      "RRLRRRLLRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1674,
+        "eligible": true
+      },
+      "RRLRRRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1170,
+        "eligible": true
+      },
+      "RRLRRRRRRRRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1012,
+        "eligible": true
+      },
+      "RLLLRRLRRRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 2616,
+        "eligible": true
+      },
+      "RLLLRRRLLLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 916,
+        "eligible": true
+      },
+      "RLLLRRRLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 922,
+        "eligible": true
+      },
+      "RLLLRRLRLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 868,
+        "eligible": true
+      },
+      "RLRLLLRRRLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 2770,
+        "eligible": true
+      },
+      "RLRLLLLLLRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 4882,
+        "eligible": true
+      },
+      "RLRLLLL": {
+        "kernel_seeds_ok": 0,
+        "outcome_seeds_ok": 0,
+        "deep_segments": 0,
+        "eligible": false
+      },
+      "RLRLLLLLRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 8760,
+        "eligible": true
+      },
+      "RLRRRLRLLLLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 2210,
+        "eligible": true
+      },
+      "RLRRRLRRLRLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1392,
+        "eligible": true
+      },
+      "RLRRRLLLLRRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 948,
+        "eligible": true
+      },
+      "RLRRRLLLLLRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1424,
+        "eligible": true
+      },
+      "RRLLRRLRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 4416,
+        "eligible": true
+      },
+      "RRLLRRRRLRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 3602,
+        "eligible": true
+      },
+      "RRLLRRLLLLRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 10074,
+        "eligible": true
+      },
+      "RRLLRRLLRRLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 29018,
+        "eligible": true
+      },
+      "RLRLRLRRLRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 786,
+        "eligible": true
+      },
+      "RLRLRLLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 710,
+        "eligible": true
+      },
+      "RLRLRLLRRLRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 756,
+        "eligible": true
+      },
+      "RLRLRLLLRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 928,
+        "eligible": true
+      },
+      "RLLRRLLLLLLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 834,
+        "eligible": true
+      },
+      "RLLRRLLLLRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1702,
+        "eligible": true
+      },
+      "RLLRRLRLLLLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 856,
+        "eligible": true
+      },
+      "RLLRRLLLLRLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1204,
+        "eligible": true
+      },
+      "RLRRLLRRRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1812,
+        "eligible": true
+      },
+      "RLRRLLRLRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1468,
+        "eligible": true
+      },
+      "RLRRLLLLRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1088,
+        "eligible": true
+      },
+      "RLRRLLRRRRRR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 1096,
+        "eligible": true
+      },
+      "RRRLLRLRLRLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 4496,
+        "eligible": true
+      },
+      "RRRLLRLRRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 3930,
+        "eligible": true
+      },
+      "RRRLLRLRRRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 3244,
+        "eligible": true
+      },
+      "RRRLLRRLLLLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 38960,
+        "eligible": true
+      },
+      "RRRRRRLRRRLL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 2140,
+        "eligible": true
+      },
+      "RRRRRRRLR": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 6,
+        "deep_segments": 1264,
+        "eligible": true
+      },
+      "RRRRRRLLLLLL": {
+        "kernel_seeds_ok": 0,
+        "outcome_seeds_ok": 0,
+        "deep_segments": 0,
+        "eligible": false
+      },
+      "RRRRRRRLLRRL": {
+        "kernel_seeds_ok": 8,
+        "outcome_seeds_ok": 8,
+        "deep_segments": 4268,
+        "eligible": true
+      }
+    }
+  },
+  "deep_dominance": {
+    "threshold": 0.5,
+    "n_rules_deep_share_gt_threshold": 35,
+    "n_rules": 46,
+    "closure_uninformative_about_locality": true,
+    "rule": "frozen: depth-64 share of fitted E[T] > 0.5 for more than half the rules => P2/P4 cannot be read as evidence about local closure"
+  },
+  "P2": {
+    "n_rules": 46,
+    "median_rel_err": {
+      "M2": 1.0709513202711096,
+      "M0": 1.0709595224149826,
+      "M1": 1.0709390703495871,
+      "B1_trainmean": 4.118012950043774,
+      "B2_geometry": 6.3088740189542944,
+      "B3_persist": 0.9862603009580129,
+      "B4_ET_extrap": 0.9333339891795893
+    },
+    "mean_abs_err": {
+      "M2": 0.03715163478042369,
+      "M0": 0.037152079396826375,
+      "M1": 0.03715173035843764,
+      "B1_trainmean": 0.050209662105416004,
+      "B2_geometry": 0.057387496118417806,
+      "B3_persist": 0.027721873065663573,
+      "B4_ET_extrap": 0.03649387010776922
+    },
+    "strongest_baseline": "B3_persist",
+    "improvement_mean_abs": -0.009429761714760117,
+    "improvement_ci95_family_bootstrap": [
+      -0.02340873696847497,
+      0.0009146438248523938
+    ],
+    "criteria": {
+      "median_rel_err_le_0p20": false,
+      "abs_err_ge_10pct_smaller_than_strongest": false,
+      "ci_excludes_zero_in_favour": false
+    },
+    "verdict": "FAIL",
+    "median_rel_err_M2_stationary": 1.0935771277063933,
+    "median_rel_err_M2_drifting": 1.0223733566969186,
+    "M0_M1_M2_ET_max_rel_diff": 0.0008323267533928425,
+    "obs_over_pred_M2_quartiles": [
+      0.4403824222958417,
+      0.48286997686088795,
+      1.7409895971974572
+    ],
+    "frac_pred_above_obs": 0.7391304347826086,
+    "deep_share_quartiles": [
+      0.5169620255876115,
+      0.551965939560193,
+      0.6913051132219254
+    ],
+    "ET_pred_over_obs_quartiles": [
+      0.41993960108173634,
+      0.4533593004117659,
+      0.48613316973954457
+    ]
+  },
+  "P3": {
+    "verdict": "untested (exploratory pooled-chain numbers skipped for runtime: FP_SKIP_P3=1)"
+  },
+  "P4": {
+    "verdict": "untested (instrument v1 does not record radius-4 context)",
+    "exploratory_logloss_per_segment_mean_over_rules": {
+      "M0": 0.5002081865595518,
+      "M1": 0.4738737124306215,
+      "M2": 0.34464338579862513
+    },
+    "exploratory_note": "out-of-band (kernel bands 0,1 -> outcome band 2) log-loss of next-milestone direction; not a registered prediction"
+  },
+  "delta": {
+    "descriptive": "slope of ln E[D] (entered complete boundary episodes) on ln(A/P) over the three bands, outcome seeds",
+    "n": 46,
+    "quartiles": [
+      -0.0034808763728084073,
+      -0.000659756042177692,
+      0.004475843068821222
+    ]
+  },
+  "P1": {
+    "verdict": "untested (no tail estimator was calibrated; the earlier truncated-power-law fit failed its calibration)",
+    "descriptive_observed_dlogkappa_dlogL": {
+      "n": 46,
+      "quartiles": [
+        -0.11265794776445645,
+        -0.003232792761516146,
+        0.1346025597650867
+      ],
+      "frac_abs_le_0p15": 0.5434782608695652
+    }
+  }
+}

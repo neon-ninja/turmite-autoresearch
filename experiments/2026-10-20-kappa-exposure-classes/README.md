@@ -174,3 +174,49 @@ between-rule variance of ln rho than the exposed-return term after removing the 
 effect (hold w_1 fixed by reweighting); (ii) resolve flat-edge returns by the age of the edge
 cell (steps since birth), to test whether the ant's flat-edge shortfall is concentrated in
 recently born edge (a short-horizon effect) or spread over old edge (a long-excursion effect).
+
+## Addendum after merging upstream `main` — appended 2026-10-25 08:55 UTC
+
+Appended when `origin/main` at `df07dfe58faa93579d1b27a2436c4f0f7c0141db` was merged into this branch
+(registration `1593b61` and results `1c9ac05` keep their hashes; nothing above was changed). Upstream
+adopted two conventions after this experiment ran: a pruning-index preflight and outcome
+(`notes/pruning-index/README.md`, `experiments/_template/README.md`), and a narrowed research plan
+(`notes/ACTIVE.md`, 2026-10-23). They are recorded here retrospectively.
+
+### Pruning-index preflight (retrospective)
+
+The index did not exist when this experiment was registered (it was added in upstream `1863a3d`,
+2026-10-22), so no preflight could gate the run. Checked at merge time:
+
+- Index revision: `df07dfe58faa93579d1b27a2436c4f0f7c0141db`. Commands:
+  `rg --files notes/pruning-index/entries`;
+  `rg -n -i -e exposure -e exposed -e flat -e corner -e occupation -e kappa -e boundary -e return notes/pruning-index/entries`;
+  `rg -n -i -F -e RLLLRLLL -e RLRRRRLRR notes/pruning-index/entries`.
+- Candidate signature IDs: none by text search. The sole entry, `NR-20261022-additive-laws-order-blind`,
+  was read: its membership is additive local conservation laws; it excludes statements about growth
+  and boundary dynamics, so it does not cover this objective.
+- Decision: no conflict; the run would have been RUN.
+
+### Pruning-index outcome
+
+No dead-end signature is committed with this merge. P3 failed on its frequency criterion (Q > 1 in
+64% of rules, needed 75%) while the median Q was in the predicted direction, and P4 failed with the
+wrong sign; exposure is confounded with cell age, colour phase and depth, which were not recorded.
+That is a failed registered prediction at one cohort, horizon and board, not a disproved mechanism.
+An `empirical` signature deferring an exact repeat (same 64 rules, starts, 2^26 steps, board 8192,
+instrument `examples/kappa_exposure_classes.rs` at `1c9ac05`) is a candidate for review; it would
+not exclude other rules, horizons or an age/phase-resolved exposure test. Reopen on a corrected
+instrument, an age- or phase-resolved split, or a different cohort.
+
+### Relation to the hidden-phase pilot (`../2026-10-23-hidden-phase-return/README.md`)
+
+That pilot (registered 2026-10-23, support gate failed, so its P1 is not testable) edits interior
+colour phases at boundary departures while keeping every cell's next turn, and shows through an
+independently checked example that the next-turn map alone does not fix a long return path on
+edited fields. This experiment measured *where* returns land (flat versus exposed edge), not what
+interior state sets their timing. The two meet in the proposed follow-up above: an age-resolved
+flat-edge split would confound cell age with colour phase, so any registered version must record
+each edge cell's colour (full future turn word) alongside age and depth. Under the narrowed plan
+in `notes/ACTIVE.md` that follow-up is not scheduled; it would have to pass the priority-1
+feasibility gate (two explanations, an observable on which they disagree, a persistence comparator)
+before it runs.

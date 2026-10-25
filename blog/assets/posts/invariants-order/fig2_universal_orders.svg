@@ -1,0 +1,50 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 340' width='520' height='340' font-family='system-ui,Segoe UI,Helvetica,Arial,sans-serif' role='img'>
+<title>Universal law group order at modulus n for families F1, F2, F3</title>
+<rect width='520' height='340' fill='#ffffff'/>
+<text x='60' y='18' font-size='14' font-weight='600' fill='#1f2328'>Laws true of every rule: group order at modulus n</text>
+<line x1='60' x2='410' y1='253.21839997235443' y2='253.21839997235443' stroke='#e5e7eb'/><text x='54' y='257.2183999723544' font-size='10' text-anchor='end' fill='#59636e'>4</text>
+<line x1='60' x2='410' y1='216.43679994470884' y2='216.43679994470884' stroke='#e5e7eb'/><text x='54' y='220.43679994470884' font-size='10' text-anchor='end' fill='#59636e'>16</text>
+<line x1='60' x2='410' y1='179.6551999170633' y2='179.6551999170633' stroke='#e5e7eb'/><text x='54' y='183.6551999170633' font-size='10' text-anchor='end' fill='#59636e'>64</text>
+<line x1='60' x2='410' y1='142.8735998894177' y2='142.8735998894177' stroke='#e5e7eb'/><text x='54' y='146.8735998894177' font-size='10' text-anchor='end' fill='#59636e'>256</text>
+<line x1='60' x2='410' y1='106.09199986177212' y2='106.09199986177212' stroke='#e5e7eb'/><text x='54' y='110.09199986177212' font-size='10' text-anchor='end' fill='#59636e'>1024</text>
+<line x1='60' x2='410' y1='69.31039983412657' y2='69.31039983412657' stroke='#e5e7eb'/><text x='54' y='73.31039983412657' font-size='10' text-anchor='end' fill='#59636e'>4096</text>
+<line x1='60' x2='410' y1='32.528799806481' y2='32.528799806481' stroke='#e5e7eb'/><text x='54' y='36.528799806481' font-size='10' text-anchor='end' fill='#59636e'>16384</text>
+<text x='60.0' y='306' font-size='11' text-anchor='middle' fill='#59636e'>2</text>
+<text x='118.33333333333334' y='306' font-size='11' text-anchor='middle' fill='#59636e'>3</text>
+<text x='176.66666666666669' y='306' font-size='11' text-anchor='middle' fill='#59636e'>4</text>
+<text x='235.0' y='306' font-size='11' text-anchor='middle' fill='#59636e'>5</text>
+<text x='293.33333333333337' y='306' font-size='11' text-anchor='middle' fill='#59636e'>6</text>
+<text x='351.6666666666667' y='306' font-size='11' text-anchor='middle' fill='#59636e'>7</text>
+<text x='410.0' y='306' font-size='11' text-anchor='middle' fill='#59636e'>8</text>
+<text x='235.0' y='328' font-size='11' text-anchor='middle' fill='#59636e'>number of colours n (solid: even n, dashed: odd n, where orders are n, n², n⁴)</text>
+<polyline points='60.0,234.82759995853166 176.66666666666669,198.04599993088607 293.33333333333337,205.6788715783604 410.0,179.6551999170633' fill='none' stroke='#1f77b4' stroke-width='2'/>
+<polyline points='118.33333333333334,260.85127161982876 235.0,247.29788476045 351.6666666666667,238.37049706061757' fill='none' stroke='#1f77b4' stroke-width='2' stroke-dasharray='5 4'/>
+<circle cx='60.0' cy='234.82759995853166' r='3.5' fill='#1f77b4'><title>F1, n=2: 8</title></circle>
+<circle cx='118.33333333333334' cy='260.85127161982876' r='3.5' fill='#1f77b4'><title>F1, n=3: 3</title></circle>
+<circle cx='176.66666666666669' cy='198.04599993088607' r='3.5' fill='#1f77b4'><title>F1, n=4: 32</title></circle>
+<circle cx='235.0' cy='247.29788476045' r='3.5' fill='#1f77b4'><title>F1, n=5: 5</title></circle>
+<circle cx='293.33333333333337' cy='205.6788715783604' r='3.5' fill='#1f77b4'><title>F1, n=6: 24</title></circle>
+<circle cx='351.6666666666667' cy='238.37049706061757' r='3.5' fill='#1f77b4'><title>F1, n=7: 7</title></circle>
+<circle cx='410.0' cy='179.6551999170633' r='3.5' fill='#1f77b4'><title>F1, n=8: 64</title></circle>
+<text x='418' y='183.6551999170633' font-size='12' fill='#1f77b4'>F1</text>
+<polyline points='60.0,216.43679994470884 176.66666666666669,179.6551999170633 293.33333333333337,158.13934318436637 410.0,142.8735998894177' fill='none' stroke='#e69f00' stroke-width='2'/>
+<polyline points='118.33333333333334,231.70254323965753 235.0,204.59576952089998 351.6666666666667,186.7409941212351' fill='none' stroke='#e69f00' stroke-width='2' stroke-dasharray='5 4'/>
+<circle cx='60.0' cy='216.43679994470884' r='3.5' fill='#e69f00'><title>F2, n=2: 16</title></circle>
+<circle cx='118.33333333333334' cy='231.70254323965753' r='3.5' fill='#e69f00'><title>F2, n=3: 9</title></circle>
+<circle cx='176.66666666666669' cy='179.6551999170633' r='3.5' fill='#e69f00'><title>F2, n=4: 64</title></circle>
+<circle cx='235.0' cy='204.59576952089998' r='3.5' fill='#e69f00'><title>F2, n=5: 25</title></circle>
+<circle cx='293.33333333333337' cy='158.13934318436637' r='3.5' fill='#e69f00'><title>F2, n=6: 144</title></circle>
+<circle cx='351.6666666666667' cy='186.7409941212351' r='3.5' fill='#e69f00'><title>F2, n=7: 49</title></circle>
+<circle cx='410.0' cy='142.8735998894177' r='3.5' fill='#e69f00'><title>F2, n=8: 256</title></circle>
+<text x='418' y='146.8735998894177' font-size='12' fill='#e69f00'>F2</text>
+<polyline points='60.0,179.6551999170633 176.66666666666669,106.09199986177212 293.33333333333337,63.06028639637833 410.0,32.528799806481' fill='none' stroke='#cc3311' stroke-width='2'/>
+<polyline points='118.33333333333334,173.40508647931503 235.0,119.19153904179994 351.6666666666667,83.48198824247018' fill='none' stroke='#cc3311' stroke-width='2' stroke-dasharray='5 4'/>
+<circle cx='60.0' cy='179.6551999170633' r='3.5' fill='#cc3311'><title>F3, n=2: 64</title></circle>
+<circle cx='118.33333333333334' cy='173.40508647931503' r='3.5' fill='#cc3311'><title>F3, n=3: 81</title></circle>
+<circle cx='176.66666666666669' cy='106.09199986177212' r='3.5' fill='#cc3311'><title>F3, n=4: 1024</title></circle>
+<circle cx='235.0' cy='119.19153904179994' r='3.5' fill='#cc3311'><title>F3, n=5: 625</title></circle>
+<circle cx='293.33333333333337' cy='63.06028639637833' r='3.5' fill='#cc3311'><title>F3, n=6: 5184</title></circle>
+<circle cx='351.6666666666667' cy='83.48198824247018' r='3.5' fill='#cc3311'><title>F3, n=7: 2401</title></circle>
+<circle cx='410.0' cy='32.528799806481' r='3.5' fill='#cc3311'><title>F3, n=8: 16384</title></circle>
+<text x='418' y='36.528799806481' font-size='12' fill='#cc3311'>F3</text>
+</svg>

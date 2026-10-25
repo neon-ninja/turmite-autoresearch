@@ -1,0 +1,66 @@
+Reading inline script metadata from `experiments/2026-10-20-rlrlll-macro-transition/scripts/window_compare.py`
+55 scan events; x from -1537 to -1699
+x      t            m    q  dt        primary flag  21col  n_in n_out  first differing cell | kinds(all diffs)
+-1537  12676233137   -6 2  FAIL(678!=826) False False False    -1    -1  m<2: family undefined | {}
+-1540  12676233815   -4 0  ok         False False False    -1    -1  m<2: family undefined | {}
+-1543  12676234701   -2 1  ok         False False False    -1    -1  m<2: family undefined | {}
+-1546  12676235735    0 2  ok         False False False    -1    -1  m<2: family undefined | {}
+-1549  12676236633    2 0  ok         False False False    17 36079  canon(row 24, col 46) abs(-1503,-932) exp 5 got 0 in-rect old=True | {'old': 36096, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1552  12676237591    4 1  ok         False False False     0 35031  canon(row 84, col 36) abs(-1516,-874) exp 255 got 1 out-rect old=True | {'old': 35031, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1555  12676238697    6 2  ok         False False False     0 33980  canon(row 84, col 39) abs(-1516,-874) exp 255 got 1 out-rect old=True | {'old': 33980, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1558  12676239667    8 0  ok         False False False     0 32912  canon(row 85, col 42) abs(-1516,-874) exp 255 got 1 out-rect old=True | {'old': 32912, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1561  12676240697   10 1  ok         False False False     0 31875  canon(row 87, col 45) abs(-1516,-874) exp 255 got 1 out-rect old=True | {'old': 31875, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1564  12676241875   12 2  ok         False False False     0 30856  canon(row 88, col 45) abs(-1519,-873) exp 255 got 1 out-rect old=True | {'old': 30856, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1567  12676242917   14 0  ok         False False False     0 29831  canon(row 90, col 47) abs(-1520,-872) exp 255 got 1 out-rect old=True | {'old': 29831, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1570  12676244019   16 1  ok         False False False     0 28792  canon(row 96, col 46) abs(-1524,-868) exp 255 got 1 out-rect old=True | {'old': 28792, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1573  12676245269   18 2  ok         False False False     0 27799  canon(row 97, col 46) abs(-1527,-867) exp 255 got 1 out-rect old=True | {'old': 27799, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1576  12676246383   20 0  ok         False False False     0 26766  canon(row 100, col 47) abs(-1529,-865) exp 255 got 1 out-rect old=True | {'old': 26766, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1579  12676247557   22 1  ok         False False False     0 25792  canon(row 117, col 47) abs(-1532,-850) exp 255 got 1 out-rect old=True | {'old': 25792, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1582  12676248879   24 2  ok         False False False     0 24838  canon(row 126, col 43) abs(-1539,-841) exp 255 got 1 out-rect old=True | {'old': 24838, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1585  12676250065   26 0  ok         False False False     0 23905  canon(row 127, col 46) abs(-1539,-841) exp 255 got 1 out-rect old=True | {'old': 23905, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1588  12676251311   28 1  ok         False False False     0 22986  canon(row 131, col 47) abs(-1541,-839) exp 255 got 1 out-rect old=True | {'old': 22986, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1591  12676252705   30 2  ok         False False False     0 22080  canon(row 132, col 45) abs(-1546,-838) exp 255 got 1 out-rect old=True | {'old': 22080, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1594  12676253963   32 0  ok         False False False     0 21186  canon(row 134, col 47) abs(-1547,-837) exp 255 got 1 out-rect old=True | {'old': 21186, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1597  12676255281   34 1  ok         False False False     0 20308  canon(row 140, col 46) abs(-1551,-833) exp 255 got 1 out-rect old=True | {'old': 20308, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1600  12676256747   36 2  ok         False False False     0 19421  canon(row 143, col 46) abs(-1554,-830) exp 255 got 1 out-rect old=True | {'old': 19421, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1603  12676258077   38 0  ok         False False False     0 18573  canon(row 148, col 47) abs(-1556,-826) exp 255 got 1 out-rect old=True | {'old': 18573, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1606  12676259467   40 1  ok         False False False     0 17739  canon(row 152, col 40) abs(-1566,-824) exp 255 got 1 out-rect old=True | {'old': 17739, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1609  12676261005   42 2  ok         False False False     0 16903  canon(row 152, col 43) abs(-1566,-824) exp 255 got 1 out-rect old=True | {'old': 16903, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1612  12676262407   44 0  ok         False False False     0 16058  canon(row 153, col 46) abs(-1566,-824) exp 255 got 1 out-rect old=True | {'old': 16058, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1615  12676263869   46 1  ok         False False False     0 15220  canon(row 156, col 44) abs(-1571,-823) exp 255 got 1 out-rect old=True | {'old': 15220, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1618  12676265479   48 2  ok         False False False     0 14425  canon(row 156, col 47) abs(-1571,-823) exp 255 got 1 out-rect old=True | {'old': 14425, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1621  12676266953   50 0  ok         False False False     0 13639  canon(row 160, col 47) abs(-1574,-820) exp 255 got 1 out-rect old=True | {'old': 13639, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1624  12676268487   52 1  ok         False False False     0 12897  canon(row 202, col 44) abs(-1580,-780) exp 255 got 1 out-rect old=True | {'old': 12897, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1627  12676270169   54 2  ok         False False False     0 12194  canon(row 202, col 47) abs(-1580,-780) exp 255 got 1 out-rect old=True | {'old': 12194, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1630  12676271715   56 0  ok         False False False     0 11501  canon(row 206, col 47) abs(-1583,-777) exp 255 got 1 out-rect old=True | {'old': 11501, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1633  12676273321   58 1  ok         False False False     0 10817  canon(row 211, col 45) abs(-1588,-774) exp 255 got 1 out-rect old=True | {'old': 10817, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1636  12676275075   60 2  ok         False False False     0 10156  canon(row 212, col 43) abs(-1593,-773) exp 255 got 1 out-rect old=True | {'old': 10156, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1639  12676276693   62 0  ok         False False False     0  9487  canon(row 213, col 46) abs(-1593,-773) exp 255 got 1 out-rect old=True | {'old': 9487, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1642  12676278371   64 1  ok         False False False     0  8816  canon(row 217, col 47) abs(-1595,-771) exp 255 got 1 out-rect old=True | {'old': 8816, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1645  12676280197   66 2  ok         False False False     0  8154  canon(row 219, col 46) abs(-1599,-769) exp 255 got 1 out-rect old=True | {'old': 8154, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1648  12676281887   68 0  ok         False False False     0  7511  canon(row 222, col 47) abs(-1601,-767) exp 255 got 1 out-rect old=True | {'old': 7511, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1651  12676283637   70 1  ok         False False False     0  6896  canon(row 235, col 47) abs(-1604,-756) exp 255 got 1 out-rect old=True | {'old': 6896, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1654  12676285535   72 2  ok         False False False     0  6289  canon(row 243, col 42) abs(-1612,-748) exp 255 got 1 out-rect old=True | {'old': 6289, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1657  12676287297   74 0  ok         False False False     0  5689  canon(row 244, col 45) abs(-1612,-748) exp 255 got 1 out-rect old=True | {'old': 5689, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1660  12676289119   76 1  ok         False False False     0  5115  canon(row 247, col 47) abs(-1613,-747) exp 255 got 1 out-rect old=True | {'old': 5115, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1663  12676291089   78 2  ok         False False False     0  4552  canon(row 248, col 47) abs(-1616,-746) exp 255 got 1 out-rect old=True | {'old': 4552, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1666  12676292923   80 0  ok         False False False     0  3992  canon(row 250, col 47) abs(-1619,-745) exp 255 got 1 out-rect old=True | {'old': 3992, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1669  12676294817   82 1  ok         False False False     0  3473  canon(row 259, col 29) abs(-1640,-738) exp 255 got 1 out-rect old=True | {'old': 3473, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1672  12676296859   84 2  ok         False False False     0  3041  canon(row 259, col 32) abs(-1640,-738) exp 255 got 1 out-rect old=True | {'old': 3041, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1675  12676298765   86 0  ok         False False False     0  2641  canon(row 260, col 35) abs(-1640,-738) exp 255 got 1 out-rect old=True | {'old': 2641, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1678  12676300731   88 1  ok         False False False     0  2243  canon(row 262, col 38) abs(-1640,-738) exp 255 got 1 out-rect old=True | {'old': 2243, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1681  12676302845   90 2  ok         False False False     0  1852  canon(row 262, col 41) abs(-1640,-738) exp 255 got 1 out-rect old=True | {'old': 1852, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1684  12676304823   92 0  ok         False False False     0  1533  canon(row 263, col 44) abs(-1640,-738) exp 255 got 1 out-rect old=True | {'old': 1533, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1687  12676306861   94 1  ok         False False False     0  1242  canon(row 265, col 47) abs(-1640,-738) exp 255 got 1 out-rect old=True | {'old': 1242, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1690  12676309047   96 2  ok         False False False     0   962  canon(row 272, col 47) abs(-1643,-731) exp 255 got 1 out-rect old=True | {'old': 962, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1693  12676311097   98 0  ok         False False False     0   733  canon(row 280, col 45) abs(-1648,-724) exp 255 got 1 out-rect old=True | {'old': 733, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1696  12676313207  100 1  ok         False False True      0   520  canon(row 283, col 47) abs(-1649,-723) exp 255 got 1 out-rect old=True | {'old': 520, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+-1699  12676315465  102 2  n/a        False False True      0   356  canon(row 425, col 46) abs(-1653,-581) exp 255 got 1 out-rect old=True | {'old': 356, 'col>=-1546': 0, 'other': 0, 'unknown_old': 0}
+
+A1 clock law on 51 pairs with x <= -1552: all hold = True
+   clock failures, east to west (first 10): [-1537]
+A2 targets x <= -1594: 36, failing primary: [-1594, -1597, -1600, -1603, -1606, -1609, -1612, -1615, -1618, -1621, -1624, -1627, -1630, -1633, -1636, -1639, -1642, -1645, -1648, -1651, -1654, -1657, -1660, -1663, -1666, -1669, -1672, -1675, -1678, -1681, -1684, -1687, -1690, -1693, -1696, -1699]
+A3 targets -1591..-1552: 14, passing primary: []; diff cells outside the two named sources (other, unknown_old) per target: {}
+A4 (exploratory) 21-column window: eastmost failing target: -1549 ; passing 21-col targets: 2 of 51
+primary 48-col: eastmost passing target None ; passing 0 of 51
+secondary (visited flag too): passing 0 of 51

@@ -86,14 +86,14 @@ impl Default for Config {
 }
 
 /// Ring buffer of recent positions.
-struct Trail {
+pub(crate) struct Trail {
     buf: Vec<(i32, i32)>,
     head: usize,
     len: usize,
 }
 
 impl Trail {
-    fn new(cap: usize) -> Trail {
+    pub(crate) fn new(cap: usize) -> Trail {
         Trail {
             buf: vec![(0, 0); cap],
             head: 0,
@@ -101,7 +101,7 @@ impl Trail {
         }
     }
     #[inline(always)]
-    fn push(&mut self, p: (i32, i32)) {
+    pub(crate) fn push(&mut self, p: (i32, i32)) {
         self.buf[self.head] = p;
         self.head += 1;
         if self.head == self.buf.len() {
@@ -111,7 +111,7 @@ impl Trail {
             self.len += 1;
         }
     }
-    fn ordered(&self) -> Vec<(i32, i32)> {
+    pub(crate) fn ordered(&self) -> Vec<(i32, i32)> {
         let cap = self.buf.len();
         let start = (self.head + cap - self.len) % cap;
         (0..self.len).map(|i| self.buf[(start + i) % cap]).collect()

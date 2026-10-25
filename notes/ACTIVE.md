@@ -1,14 +1,97 @@
 # Active work and open items
 
-Living index, last updated 2026-10-20 (lattice c-law result added; earlier items as of 2026-10-19 after merging `worktree-paper-figure-proposals`, `8f4b978`, and the lead-effect
-reconciliation, `5d866ce`). One line per item: what is open, where it lives, what would close it. Remove an item when it is
+Living index, last updated 2026-10-23: priorities narrowed after reviewing the record at
+`ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
+the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
 `notes/open-questions-hypotheses.md`; this file only tracks what is unfinished.
 
-## Science: open questions
+## Next phase: boundary access, regime validation, closure
 
-- **First-passage closure (prospective, 2026-10-20):** can depth-crossing kernels predict kappa on independent starts and unseen families, and its size drift? `experiments/2026-10-20-kappa-first-passage/`. Scaffold only; next is oracle/accounting and synthetic calibration, then feasibility. No new measurements or frozen confirmation manifest.
-  Proposed work list for it (added 2026-10-20, none started; register predictions in the README before measuring):
+**Central question:** what makes boundary access settle into the scaling needed
+for cube-root growth, and when does it fail? Start with square-grid ants.
+One substantial new experiment at a time. Planning allocation: 70% boundary-access
+research, 20% regime validation, 10% consolidation and bounded closure. These are
+priorities, not a preregistered protocol or new scientific results.
+
+| Priority | Scope | Completion or stopping criterion |
+|---|---|---|
+| 1. Explain boundary access | One independently testable account of interior returns and boundary occupation. | Predict later occupation or drift on separate trajectories, beating persistence with the same permitted inputs. Stop a design that cannot distinguish explanations or only reconstructs its target from the target trajectory. |
+| 2. Establish the regime | Audit the main cohort for board effects, transitions, censoring and selection bias; retain drifting cases as challenges. | State the finite-time regime covered and retain failures. Do not expand this into a general census or unlimited highway search. |
+| 3. Close existing claims | Reconcile paper, notes and homepage; bound any RLRLLL proof-closure task before starting. | Separate observation, prediction, explanation and proof. Do not turn closure into a new proof programme. |
+
+### Ordered sequence
+
+1. **Use the consolidated evidence.** The [claim ledger and access guide](evidence-ledger.md)
+   now separate observations, failed explanations, unresolved questions and next
+   decisions, with pinned sources and a queryable JSON catalogue. Gate baseline
+   eligibility remains unknown; its null does not reject all gate mechanisms.
+   Consolidation is complete for this initial transport scope; choose the next
+   test from those constraints rather than expanding the catalogue indefinitely.
+2. **Choose one discriminating test.** The feasibility deliverable is two
+   distinguishable explanations, an observable on which they disagree, and an
+   instrument capable of resolving that disagreement. Use a small development
+   cohort, reserve fresh starts and whole rule families where transfer is claimed,
+   and freeze baselines and allowed inputs before outcomes. A fitted return-time
+   exponent or an accounting identity alone does not meet this gate.
+3. **Calibrate and run an excluded pilot.** Resolve precision, state support,
+   censoring and cohort eligibility before scaling up. The earlier tail estimator
+   failed calibration; detailed contexts rarely repeated; richer states did not
+   independently predict mean returns. Stop or revise an inadequate design
+   rather than adding features or trajectories without a discrimination argument.
+4. **Run one confirmation study only if the gates pass.** Register the protocol,
+   seeds, windows, compute budget and stopping criteria in its experiment README;
+   maintain its lab and shareable notebooks. Report transitions, escapes, caps and
+   non-reaching runs. End with a retain/revise/retire decision on the explanation.
+
+Success for this phase is an independently successful explanation of a specific
+transport feature, or a controlled rejection that narrows the possibilities.
+Neither requires claiming that the cube-root exponent has been derived.
+
+### Engineering support (not a research priority)
+
+- **Tiled CPU grid backend (2026-10-23, done for the stepping runner):** `TURMITE_GRID=tiled` for `sweep_lean`
+  (`src/tiled.rs`, `experiments/2026-10-23-tiled-grid-backend/`). Exact (all benchmark CSVs byte-identical to dense; oracle tests
+  pass). Sparse tiles cut peak RSS to ~0.1x dense on compact/thin workloads and 12 MiB against 4.2 GiB on a 65536 board; packing
+  helps little unless a large footprint has a big cache; LZ4 gave 0.19x dense on one structured rule only. Dense stays the default.
+  Open follow-ups, each optional: tiled `probe` (two dense arrays remain), tile-grid offset for compact starts. No scientific
+  classification changed and no sweep was run.
+
+### Deferred this phase
+
+- New lattices, dimensions and walker families, except controls needed by the
+  selected test.
+- Further prefix lookups without a specific transferable mechanism to test.
+- Non-additive invariant mining until it has an explicit bridge to transport.
+- A blanket fourth decade of the survivor census; validate the main cohort first.
+- Extending formal proofs to more patterns; any existing RLRLLL closure work must
+  have a bounded deliverable and budget.
+- Other c-law, renewal, mutation and gate follow-ups below, unless selected through
+  the feasibility gate above. Existing ownership and unopened-cohort safeguards remain.
+
+These are scheduling decisions, not scientific exclusions. Pruning-index preflight
+at `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`: searched `return|kappa|boundary|phase|additive`
+and read the sole entry, `NR-20261022-additive-laws-order-blind`, including its
+membership predicate. Defer duplicate additive-law discrimination within its
+recorded scope; it excludes neither transport mechanisms nor non-additive laws.
+No transport-specific signature matched. Before an actual run, repeat the query
+for its exact conditions and record the decision in its README and NOTEBOOK.
+
+## Science: retained backlog (not an execution queue)
+
+- **Proof track (bounded closure only this phase; started 2026-10-20):** turn simulated regularities into checked macro-transitions
+  (`notes/proof-track-2026-10-20.md`). First target: is the `RLRLLL` column sweeper `C(L) -> C(L+g)` for all heights?
+  `experiments/2026-10-20-rlrlll-macro-transition/`: P1-P5 held and the family is checked closed for all even m >= 2
+  (cycle law 12m + (934, 1058, 898), |x|^2/t -> 3/4). Task C (2026-10-21): an independent second checker (stdlib Python, own ant, different proof architecture) reproduces every constant and agrees on 150 brute-force cycles; the two shift lemmas are Lean-checked for all n (core Lean, kernel decide, no sorry); the exact base-case criterion (real dump equals the ideal initial configuration on every cell the ideal ant visits) passes in 50 of 50 windows, but Task A's 3-row cone was too small (visited cells up to 7 rows outside it). Open: multi-cycle padding, entry seed, other escapes, a census-wide
+  sweeper decider (`notes/proof-track-2026-10-20.md`, Next steps). L4 update (2026-10-22): end runs, composition for all n, bounded band inductions and the full single-cycle clocks/first arrival are now Lean-checked (`f90733c`, experiment README and `results/c3_l4_*.txt`). Multi-cycle padding and infinite-plane closure remain open; no Lean proof of persistence forever. Entry (2026-10-21): the cell-level family C(m,q) holds from step 12,676,237,591 (C(4,1), x = -1552), 184k steps before the edge crossing (rectangle exact, light-cone margin 3 rows chosen from observation, not derived); the clock formula extends exactly to m = -24 (x = -1510, column height 19); the wedge starts at height ~19, not zero; E1, A2, B2 failed as registered. Open: what at the blob NW corner makes the first column, why the formula holds at m < 2, deriving the cone margin. Single-core runs only; no conflict with the census. **Update 2026-10-23:** Task D ran (fast::run = plain loop at the base case); the Lean plane chain (`forever`, `forever_ideal`) closes multi-cycle padding for the ideal plane (the real board is not `Good`; plane-agreement lemma not proved); Task E explains the colour period 3 (one visit profile, visits 3,5,4); the other three "escapes" are two square spirals with exact clocks (RLLLRLRLLL from 2.635e10, p = 2; RLLLLRRL from ~1.47e10, p = 19 post hoc) and one blob, so the sweeper checker does not transfer and Stage 2 for the spirals is not started; a rectangle translated-cycler decider certifies 571/571 census highways (`experiments/2026-10-23-highway-decider/`, `experiments/2026-10-23-sweeper-generalisation/`, `notes/proof-track-2026-10-20.md` status update). Proof work stops here for this phase unless a bounded deliverable is registered.
+
+- **Boundary return map (confirmation done 2026-10-21, `1998e7d`..`e1d6fc9`):** colour-shuffle intervention at boundary departures, 72/72 runs, 8252 departures. P1 (no compact state) falsified: the typical excursion is local (median r*/L 0.096 and 0.053, gamma 0.12). P2, P3, P4 met; P5 (time-weighted reach, registered after the pilot, so not blind) met: r*_t/L about 1.16, gamma_t about 1. So short loops have a compact local return map, but the interior time that sets E[T] and kappa depends on structure out to ~L. Cap censoring is 0.05% and does not drive it; shuffle-induced trapped replicas are not excluded. Open (all unregistered): single-cell flips on long excursions only (structure vs a few gate cells), a depth-resolved gate descriptor judged by this intervention, the same instrument on tethered/crystal rules. `experiments/2026-10-21-boundary-return-map/README.md` ("Confirmation results"). (2026-10-22: the stray root `NOTEBOOK.md` held the 07:10-08:10 entries missing from the experiment notebook; merged there, root file removed.)
+
+- **Single-cell gates (run 2026-10-22, registered, `3ec3cef`; committed `7e80168`):** 3 rules x 4 seeds, 213 ant departures, 617 matched pairs; exactness controls passed. Traffic-selected candidate cells show no resolved advantage over exposure-matched cells (time contrast -0.047 [-0.407, 0.290], reach 0.096 [-0.105, 0.301]); single cells often change outcomes, rule heterogeneity is large, 1.22% of interventions censored. Not a family-wide exclusion; the parent's sampler silently skips overflowing baselines, so eligibility is unknown. Open: other rules/more seeds, depth-resolved gate descriptor. `experiments/2026-10-22-single-cell-gates/`.
+- **Exact invariant mining (2026-10-22, `5df7de6`, `9bbfad4`, `849272d`):** additive modular miner (`src/invariants.rs`, `bin/invariants`; `cargo test --release --locked --test invariants` passes, run 2026-10-22 with a toolchain) and stage 2 (Smith normal form for all moduli, sublattice families, universal quotient; `experiments/_lib/lawmod.py`, README/NOTEBOOK/notebook.ipynb complete). Result: the law group of a rule is a function of `(n, ±D mod 4, trivial?)` only, so additive laws are blind to colour order (`NR-20261022-additive-laws-order-blind`); registered stage-2 P4 falsified (heading parity is tape-determined for even n); the two miners agree on 508 rules at m = 2, 4; no tile-free law is violated by the 582 confirmed highways. These are necessary constraints, not growth or highway certificates. **Open:** a non-additive family (pair potentials, ant potential reading the entered colour) with a null-functional quotient, Q21 in `notes/open-questions-hypotheses.md`; the full `cargo test --release --locked` suite result is in the stage-2 NOTEBOOK. Blog drafts (`blog/_drafts/`) are unpublished.
+
+- **First-passage closure (done 2026-10-21):** P2 failed, P1/P3/P4 uninformative (stage V2; the tail fit failed calibration, so its theta and z are not reported as findings); boundary dwell is flat over L (delta ~ 0), so constant kappa is equivalent to E[T] tracking L (renewal identity, not a mechanism). Open: why E[T] tracks L; a calibrated tail estimator; deeper milestones; whether the large-B/S rules are highway onsets. `experiments/2026-10-20-kappa-first-passage/` (README "Correction after review"), `notes/kappa-mechanisms-2026-10-15.md`.
+  Proposed work list for it (added 2026-10-20; the calibration and the E[T]-versus-L measurement were done by the first-passage experiment, the rest is open; register predictions in the README before measuring):
   - *Instrument calibration (before trusting any exponent).* Known-answer walkers for theta and z: run the nested-depth and
     survival-tail estimator on the rotor walker (known t^(1/3) radius), a random walk on a growing cluster (theta = 1/2 at fixed
     geometry, negative control) and the mean-field walker (repo mean-field kappa 1.118); reproduce the probe's window-averaging
@@ -60,8 +143,9 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3 results).
 - **Where the ant's boundary deficit lives (2026-10-20, `experiments/2026-10-20-kappa-exposure-classes/`, Turmite Research Agent):** registered
   H-exposed (P3) and P4 FAILED; P0-P2b held (convention-free rho: ant 0.874, rotor 1.80, rw 1.31; kappa/1.105 matches rho rule by rule to 3.6%).
-  Post hoc: the ant-specific shortfall is returns to flat-edge cells (rho_1^ret 0.59 vs rotor 1.14). Next: register age-resolved flat-edge
-  returns on fresh rules. Side question: 3/256 patched starts of two stationary rules became board fillers within 2^26 steps.
+  Post hoc: the ant-specific shortfall is returns to flat-edge cells (rho_1^ret 0.59 vs rotor 1.14). Candidate observable for the priority-1
+  discriminating test, not scheduled: an age-resolved flat-edge follow-up must pass that feasibility gate and record edge-cell colour phase
+  (see `experiments/2026-10-23-hidden-phase-return/`); adapted 2026-10-25 at merge to the narrowed plan. Side question: 3/256 patched starts of two stationary rules became board fillers within 2^26 steps.
 - **kappa/kappa_unif distribution, location (open):** why the median is 0.81 x kappa_unif (below every walker reference).
   `experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt`, `notes/open-questions-hypotheses.md`.
 - **kappa spread, remainder (open):** budgeted 2026-10-20 (post hoc, `experiments/2026-10-20-kappa-spread-budget/`): about 0.15 start
@@ -78,7 +162,8 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
   held-out 6-letter prefix families (lookup 0.59 -> -0.16; pairwise 0.30 -> -0.69): the signal is family membership, not a
   transferable letter-level rule. Still open: a family random effect plus within-family letter structure, other family
   granularities (4, 8 letters), and what the unexplained third is (middle letters, dynamics).
-- **CLAIMED 2026-10-20 (compute-heaviest item): the 10^11 survivor census is running.** Chunks 20-27 were killed ~2026-10-14 (only 20-26 had `.done`); resumed with `run_1e11b.sh`, then restarted at 21:36 with checkpointing (`run_1e11c.sh`, `TURMITE_CKPT_EVERY=5e9`, checkpoints in gitignored `scratch/ckpt/`, binary sha in `results/h1e11/resume_binary_ckpt.sha256`, log `run5.log`; a kill now loses <=5e9 steps per rule; rerun the same script to resume), ~33 chunks x 35-50 min, i.e. roughly a day of all cores. Do not start other heavy jobs. Prediction already registered in `notes/frontier-2026-10-13-results.md` (~6 highways in 492, range 2-11); `b5_stats.py` must be re-pointed at all chunks before analysis.
+- **Late-highway counts corrected (final 2026-10-22):** 25 of the 54 reported late highways are board fillers (`R^k L R R...`, escape at ~(k+1)·2^31 on the 32768 board, x4 per board doubling) and `RLLLRLRRR` is a ray truncated by the board; the other 28 all reproduce on a 65536 board (B2 held, 26/26 rechecks). Genuine yields: 16/807 = 1.98% in (1e9,1e10] (was 4.7%), 12/732 = 1.64% in (1e10,1e11] (was 2.2%). With (1e8,1e9] at 1.4%, the per-decade rate is consistent with flat ~2%: the "thinning tail" is withdrawn. Open: apply the board-independence check to the 1e8/1e9 census; a fourth decade on the 702 survivors (Q19); whether the 702 include bounded rules (RLLLLLR is 42x42 at 1e11). `experiments/2026-10-21-late-highway-board-check/`, `notes/frontier-2026-10-13-results.md` (Correction 2026-10-21).
+- **Highway preconditions (done 2026-10-21):** the grid the future depends on (`D(tau)`, nonzero cells read again) collapses from 10^3-10^5 cells to the highway's own trail ~0.1 period before onset; the pre-onset seed is that trail plus a median 3 cells (406 independent events, transplant-verified 566/566; a sufficient set, not shown minimal), and ~0.25 period later the ant heads away from its territory (402/406). No seed is shared across unrelated rules (P4 held only within prefix families); P5 (seed excess predicts onset) failed. Post hoc: onset grows with highway size (self-overlap rho 0.45, speed -0.54), ~0.018 decades per cell. Open: knock-out of the "+3" cells; out-of-sample test on the 54 late highways. `experiments/2026-10-21-highway-preconditions/`.
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).
   `experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/`, `experiments/2026-10-13-g1-ribbon-breakout/README.md`,
   `experiments/2026-10-13-census-sweeps/results/unresolved_le10.txt`.
@@ -88,7 +173,8 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 
 ## Uncommitted work in progress (do not lose)
 
-- **c-law renewal work is active in its owning session:** instrument and oracle tests committed (`ccbd9cd`), release suite passes,
+- As of 2026-10-22 the main working tree is clean (everything committed on local `main`, not pushed). Only worktree-held gitignored data remains at risk (see housekeeping).
+- **c-law renewal work has an owning session (new runs deferred under the sequence above):** instrument and oracle tests committed (`ccbd9cd`), release suite passes,
   finite-memory model/clock (`c826721`) and failures (`a878d5e`) committed. All own jobs are terminal. Do not replace its pilot
   families, relaunch completed pilots, or open main outcomes before the next mechanism is registered.
 - The n-rotor reference, uniform-baseline notebook edit and blog index/post listed here earlier are committed (`18b79d7`,
@@ -101,9 +187,7 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 ## Repository housekeeping
 
 - **Jupyter**: `ipykernel`, `nbformat`, `nbclient` added to `pyproject.toml`/`uv.lock` (`7df6d35`). The leadrun-fresh notebook's Proposal 2 bounds are not in it (rebuild with `scripts/build_notebook.py` if wanted).
-- **Refresh `blog/index.html`** (convention in `AGENTS.md`): the c-law and lattice results were already on it; a kappa-spread highlight (family hold-out) was added 2026-10-20. Not yet on it: lead-slope-by-colour. A null-result post
-  (`blog/_posts/2026-10-20-where-kappa-is-not.md`, with reader guides for the three 2026-10-20 kappa experiments) was added 2026-10-20;
-  the post itself is not linked from the index cards. The experiment pages were
+- **Blog index refreshed (done 2026-10-22):** c-law, lattice, lead-slope-by-colour and kappa-spread highlights and the null-result post link are on `blog/index.html`. The experiment pages were
   re-rendered 2026-10-20 (from a worktree under WSL set `GIT_DIR=/mnt/f/Code/turmite/.git/worktrees/<name>` and `GIT_WORK_TREE=$PWD`).
 - **Stale worktrees and branches** (nothing deleted). On 2026-10-20 tracked work was committed on their own branches
   (`agent-a810708e829d8af34` as `4cb0261`, `g1-builder-structure` as `b985636`, rulepat as `275d52b`), but **gitignored data
@@ -130,3 +214,18 @@ done or dropped; record the outcome in the experiment's NOTEBOOK and the relevan
 - `experiments/2026-10-16-kappa-square-loop/`: H-loop dead at this scale (P2 failed).
 - `experiments/2026-10-16-kappa-loop-surgery/`: closed unrun on 2026-10-19 (gate failed; premise further weakened by the collider result).
 
+
+## Completed excluded pilot: hidden phase (2026-10-23)
+
+[Hidden-phase return](../experiments/2026-10-23-hidden-phase-return/README.md)
+tested one-time interior shuffles that preserve every cell's next turn and
+per-depth-bin colour counts. All 640 k=1 paths/return tuples changed (near-certain
+for ~10^4 relabelled cells; full-word shams matched). 17/24 start/area groups failed minimum
+long-episode support, so P1 is untestable under the frozen rules and its ratios
+(two of six below 0.5) are descriptive. All baseline
+eligibility was counted; no censoring occurred. Stop at this pilot. Evidence:
+`1c0d631a1745f3bf12ab9e7a1d87d9d0bb9b6974`. No new confirmation run or family
+exclusion is justified. Next-turn maps alone are insufficient on these edited
+fields; a predictor of natural occupation still needs a separate-trajectory
+comparison against persistence. The older gate experiment's eligibility warning
+is not repaired retroactively by this different cohort.

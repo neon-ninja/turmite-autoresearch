@@ -1,0 +1,12 @@
+stopped at step 12676236274, ant at (-1545, -909)
+Reading inline script metadata from `experiments/2026-10-20-rlrlll-macro-transition/scripts/entry_seed.py`
+law holds (x-3, ymax+1, T-12*swing=358) on every cycle from max #72: t=12676235220 x=-1542 y_max=-910 swing=45
+cycles checked: 1; last t in log 12676235762
+the 6 cycles before the break:
+(12676232486, -1533, -913, 1) False
+(12676233016, -1532, -938, 1) False
+(12676233468, -1536, -912, 1) False
+(12676233842, -1535, -939, 1) False
+(12676234318, -1539, -911, 1) False
+(12676234728, -1538, -940, 1) False
+(12676235220, -1542, -910, 1) False

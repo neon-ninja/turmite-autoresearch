@@ -1,0 +1,94 @@
+POST HOC: RLLLLRRL, xmax P=1: residual dt - 8*swing by block of 400 cycles (cycle, t_end, swing, share of residual in 80..110, median, min)
+cycles 32748 swing range 3 65505
+cycle     0 t=          11 swing=     3 share(80..110)=0.03 median=118 min=-134
+cycle   400 t=     2446675 swing=   806 share(80..110)=0.02 median=266 min=-7026
+cycle   800 t=    12977671 swing=  1608 share(80..110)=0.03 median=110 min=-7250
+cycle  1200 t=    25271703 swing=  2411 share(80..110)=0.02 median=122 min=-14426
+cycle  1600 t=    48584351 swing=  3209 share(80..110)=0.00 median=322 min=-4238
+cycle  2000 t=    67488931 swing=  4004 share(80..110)=0.00 median=126 min=-14
+cycle  2400 t=    89732039 swing=  4805 share(80..110)=0.01 median=750 min=-14
+cycle  2800 t=   136939307 swing=  5609 share(80..110)=0.01 median=262 min=-10
+cycle  3200 t=   167962475 swing=  6411 share(80..110)=0.00 median=438 min=-14
+cycle  3600 t=   209826195 swing=  7213 share(80..110)=0.00 median=546 min=-5246
+cycle  4000 t=   279429543 swing=  8017 share(80..110)=0.01 median=242 min=-22
+cycle  4400 t=   341701915 swing=  8817 share(80..110)=0.01 median=126 min=-10446
+cycle  4800 t=   432656395 swing=  9616 share(80..110)=0.01 median=3346 min=-22
+cycle  5200 t=   597486583 swing= 10419 share(80..110)=0.00 median=4774 min=-14
+cycle  5600 t=   772819539 swing= 11221 share(80..110)=0.01 median=5370 min=22
+cycle  6000 t=  1073352783 swing= 12025 share(80..110)=0.02 median=12458 min=38
+cycle  6400 t=  1269439587 swing= 12810 share(80..110)=0.00 median=478 min=-4330
+cycle  6800 t=  1330318803 swing= 13610 share(80..110)=0.01 median=458 min=2
+cycle  7200 t=  1440487707 swing= 14409 share(80..110)=0.00 median=34470 min=98
+cycle  7600 t=  1852135723 swing= 15208 share(80..110)=0.03 median=7002 min=-18622
+cycle  8000 t=  2210979999 swing= 16010 share(80..110)=0.04 median=5430 min=-10594
+cycle  8400 t=  2595921667 swing= 16806 share(80..110)=0.03 median=5598 min=30
+cycle  8800 t=  2876522679 swing= 17608 share(80..110)=0.03 median=8838 min=42
+cycle  9200 t=  3265330547 swing= 18405 share(80..110)=0.01 median=11418 min=50
+cycle  9600 t=  3679806479 swing= 19207 share(80..110)=0.00 median=29078 min=170
+cycle 10000 t=  4379276787 swing= 20008 share(80..110)=0.00 median=9846 min=110
+cycle 10400 t=  5385910107 swing= 20809 share(80..110)=0.33 median=214 min=74
+cycle 10800 t=  5591394227 swing= 21609 share(80..110)=0.05 median=254 min=30
+cycle 11200 t=  5672076563 swing= 22409 share(80..110)=0.02 median=766 min=30
+cycle 11600 t=  5930972543 swing= 23211 share(80..110)=0.16 median=1458 min=70
+cycle 12000 t=  6200279243 swing= 24011 share(80..110)=0.04 median=6018 min=78
+cycle 12400 t=  6640496055 swing= 24812 share(80..110)=0.00 median=89970 min=-64014
+cycle 12800 t=  7346479727 swing= 25610 share(80..110)=0.00 median=64146 min=366
+cycle 13200 t=  8538159947 swing= 26409 share(80..110)=0.00 median=51106 min=182
+cycle 13600 t=  9389731255 swing= 27207 share(80..110)=0.00 median=20114 min=158
+cycle 14000 t= 10104287779 swing= 28006 share(80..110)=0.00 median=34714 min=262
+cycle 14400 t= 11392925727 swing= 28805 share(80..110)=0.00 median=3022 min=178
+cycle 14800 t= 11709758747 swing= 29605 share(80..110)=0.00 median=278 min=150
+cycle 15200 t= 12118152711 swing= 30406 share(80..110)=0.09 median=234 min=98
+cycle 15600 t= 12307086635 swing= 31206 share(80..110)=0.44 median=222 min=82
+cycle 16000 t= 12475033051 swing= 32006 share(80..110)=0.44 median=218 min=74
+cycle 16400 t= 12611172319 swing= 32808 share(80..110)=0.24 median=234 min=98
+cycle 16800 t= 12759494199 swing= 33608 share(80..110)=0.20 median=310 min=-76026
+cycle 17200 t= 13092315691 swing= 34407 share(80..110)=0.20 median=782 min=86
+cycle 17600 t= 14135372379 swing= 35211 share(80..110)=0.47 median=226 min=86
+cycle 18000 t= 14249538403 swing= 36011 share(80..110)=0.47 median=226 min=86
+cycle 18400 t= 14366262571 swing= 36811 share(80..110)=0.24 median=210 min=70
+cycle 18800 t= 14485542255 swing= 37611 share(80..110)=0.16 median=210 min=70
+cycle 19200 t= 14607380015 swing= 38411 share(80..110)=0.04 median=186 min=38
+cycle 19600 t= 14731770731 swing= 39211 share(80..110)=0.00 median=178 min=38
+cycle 20000 t= 14858715699 swing= 40011 share(80..110)=0.00 median=178 min=38
+cycle 20400 t= 14988221319 swing= 40811 share(80..110)=0.00 median=178 min=38
+cycle 20800 t= 15120286287 swing= 41611 share(80..110)=0.00 median=178 min=38
+cycle 21200 t= 15254911819 swing= 42411 share(80..110)=0.00 median=178 min=38
+cycle 21600 t= 15392096791 swing= 43211 share(80..110)=0.00 median=178 min=38
+cycle 22000 t= 15531842623 swing= 44011 share(80..110)=0.00 median=178 min=38
+cycle 22400 t= 15674147607 swing= 44811 share(80..110)=0.00 median=178 min=38
+cycle 22800 t= 15819013399 swing= 45611 share(80..110)=0.00 median=178 min=38
+cycle 23200 t= 15966440431 swing= 46411 share(80..110)=0.00 median=178 min=38
+cycle 23600 t= 16116425415 swing= 47211 share(80..110)=0.00 median=178 min=38
+cycle 24000 t= 16268970711 swing= 48011 share(80..110)=0.00 median=178 min=38
+cycle 24400 t= 16424075671 swing= 48811 share(80..110)=0.00 median=178 min=38
+cycle 24800 t= 16581740771 swing= 49611 share(80..110)=0.00 median=178 min=38
+cycle 25200 t= 16741965731 swing= 50411 share(80..110)=0.00 median=178 min=38
+cycle 25600 t= 16904752555 swing= 51211 share(80..110)=0.00 median=178 min=38
+cycle 26000 t= 17070097523 swing= 52011 share(80..110)=0.00 median=178 min=38
+cycle 26400 t= 17238002751 swing= 52811 share(80..110)=0.00 median=178 min=38
+cycle 26800 t= 17408467711 swing= 53611 share(80..110)=0.00 median=178 min=38
+cycle 27200 t= 17581493131 swing= 54411 share(80..110)=0.00 median=178 min=38
+cycle 27600 t= 17757078099 swing= 55211 share(80..110)=0.00 median=178 min=38
+cycle 28000 t= 17935223719 swing= 56011 share(80..110)=0.00 median=178 min=38
+cycle 28400 t= 18115928687 swing= 56811 share(80..110)=0.00 median=178 min=38
+cycle 28800 t= 18299194219 swing= 57611 share(80..110)=0.00 median=178 min=38
+cycle 29200 t= 18485019191 swing= 58411 share(80..110)=0.00 median=178 min=38
+cycle 29600 t= 18673405023 swing= 59211 share(80..110)=0.00 median=178 min=38
+cycle 30000 t= 18864350007 swing= 60011 share(80..110)=0.00 median=178 min=38
+cycle 30400 t= 19057855799 swing= 60811 share(80..110)=0.00 median=178 min=38
+cycle 30800 t= 19253922831 swing= 61611 share(80..110)=0.00 median=178 min=38
+cycle 31200 t= 19452547815 swing= 62411 share(80..110)=0.00 median=178 min=38
+cycle 31600 t= 19653733111 swing= 63211 share(80..110)=0.00 median=178 min=38
+cycle 32000 t= 19857478071 swing= 64011 share(80..110)=0.00 median=178 min=38
+cycle 32400 t= 20063783171 swing= 64811 share(80..110)=0.00 median=178 min=38
+
+POST HOC: RLLLLRRL late regime, all four directions: distinct residuals dt - 8*swing and smallest period of the residual sequence (cycles 28000..32000)
+xmin cycles 32766 distinct residuals 14 top [(46, 631), (38, 630), (62, 422), (698, 211), (610, 211), (50, 211)] exact period of residual sequence: 19
+   first 24: [698, 46, 610, 50, 910, 62, 870, 2110, 62, 374, 38, 178, 38, 1902, 46, 306, 38, 498, 46, 698, 46, 610, 50, 910]
+xmax cycles 32748 distinct residuals 14 top [(46, 631), (38, 630), (62, 422), (698, 211), (610, 211), (50, 211)] exact period of residual sequence: 19
+   first 24: [698, 46, 610, 50, 910, 62, 870, 2110, 62, 374, 38, 178, 38, 1902, 46, 306, 38, 498, 46, 698, 46, 610, 50, 910]
+ymin cycles 32743 distinct residuals 14 top [(-54, 632), (-46, 631), (-30, 422), (778, 211), (2018, 211), (282, 211)] exact period of residual sequence: 19
+   first 24: [-30, 778, 2018, -30, 282, -54, 86, -54, 1810, -46, 214, -54, 406, -46, 606, -46, 518, -42, 818, -30, 778, 2018, -30, 282]
+ymax cycles 32760 distinct residuals 14 top [(-54, 633), (-46, 631), (-30, 421), (2018, 211), (282, 211), (86, 211)] exact period of residual sequence: 19
+   first 24: [2018, -30, 282, -54, 86, -54, 1810, -46, 214, -54, 406, -46, 606, -46, 518, -42, 818, -30, 778, 2018, -30, 282, -54, 86]

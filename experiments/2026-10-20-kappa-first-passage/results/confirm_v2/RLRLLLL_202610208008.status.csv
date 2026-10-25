@@ -1,0 +1,2 @@
+spec,stop,t_final,area,perimeter,jump_steps,lipschitz_violations,depth_decreases,depth_raises,pair_rows,overflowed,seconds
+RLRLLLL@202610208008,budget,4294967296,99722,1258,1771,0,0,3701809,12456,0,59.280

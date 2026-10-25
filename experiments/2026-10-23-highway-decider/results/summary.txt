@@ -1,0 +1,9 @@
+rules 571 rows 3426
+C4 pre-onset certificates: 0 []
+D4 oracle False rows: 0 of 3426 ; error rows: 3
+D1 certified at some K: 571 of 571 (1.0000)
+first K that passes: {'3': 568, '10': 2, '100': 1}
+passes per K: {'3': 568, '10': 570, '30': 570, '100': 571, '300': 568}
+window area of the first passing K: min 12 median 54 max 3190
+D5 uncertified rules: 0
+clauses among uncertified rows: {}

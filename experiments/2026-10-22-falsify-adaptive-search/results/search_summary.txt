@@ -1,0 +1,29 @@
+# cmd: falsify_search experiments\2026-10-22-falsify-adaptive-search\results
+# commit: b0c9e8a3be66d75176fb27d0b54d758b17558272
+# uncommitted src/tests files: M src/bin/falsify.rs |  M src/falsify.rs |  M src/lib.rs |  M tests/falsify.rs | ?? src/bin/falsify_search.rs | ?? src/bin/invariants.rs | ?? src/invariants.rs | ?? tests/invariants.rs
+# reps=30 budget=200
+max score per replicate = longest escape step; 2*horizon = unresolved; 4*horizon = different highway type
+
+C1-RL-highway (rule RL)
+  random  median max    124144  max    164313  replicates with a different-type highway: 0/30
+  old     median max     90350  max    176777  replicates with a different-type highway: 0/30
+  evolve  median max    154172  max    308448  replicates with a different-type highway: 0/30
+  evolve > random  P(x>y)=0.909  one-sided p=2.66e-8
+  old > random     P(x>y)=0.107  one-sided p=1.00e0
+  evolve > old     P(x>y)=0.971  one-sided p=1.83e-10
+
+C2-RRL-highway (rule RRL)
+  random  median max     37712  max     62438  replicates with a different-type highway: 0/30
+  old     median max     20648  max     23015  replicates with a different-type highway: 0/30
+  evolve  median max     45996  max     81285  replicates with a different-type highway: 0/30
+  evolve > random  P(x>y)=0.727  one-sided p=1.28e-3
+  old > random     P(x>y)=0.006  one-sided p=1.00e0
+  evolve > old     P(x>y)=1.000  one-sided p=1.44e-11
+
+C3-RRRL-highway (rule RRRL)
+  random  median max   8000000  max   8000000  replicates with a different-type highway: 30/30
+  old     median max     29526  max   8000000  replicates with a different-type highway: 11/30
+  evolve  median max   8000000  max   8000000  replicates with a different-type highway: 22/30
+  evolve > random  P(x>y)=0.367  one-sided p=9.99e-1
+  old > random     P(x>y)=0.183  one-sided p=1.00e0
+  evolve > old     P(x>y)=0.768  one-sided p=4.77e-5

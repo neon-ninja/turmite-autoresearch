@@ -1,0 +1,21 @@
+# C1a: independent ant vs reference::Ant; per-step FNV-1a fold of (x, y, colour read, heading after turn)
+# driver sha256 in results/c1_driver.sha256; python 3.12.3
+blank board 1000000 steps, ant rule RLRLLL (correct), reference rule RLRLLL: 1000 checkpoints; IDENTICAL
+   final: steps 1000000 pos (-4, -22) heading 2 ncells 12699 cellhash a606cfd8f7d59482
+blank board 1000000 steps, ant rule control 1a: colour 3 L->R, RLRRLL, reference rule RLRLLL: 1000 checkpoints; DISAGREE: first differing checkpoint at step 1000: 15b1ee54ff3dc167 vs 641e2e97d2b8a65e; final pos: mine -38 62 vs reference -4 -22; final heading: mine 0 vs reference 2; final ncells: mine 19358 vs reference 12699; final cellhash: mine 41d928ecd507f0cf vs reference a606cfd8f7d59482; final acc: mine 1855b0fa2535ad37 vs reference 7ec73971f79352e6
+   final: steps 1000000 pos (-38, 62) heading 0 ncells 19358 cellhash 41d928ecd507f0cf
+blank board 1000000 steps, ant rule control 1b: colour 0 R->L, LLRLLL, reference rule RLRLLL: 1000 checkpoints; DISAGREE: first differing checkpoint at step 1000: 0ee156572efbcad4 vs 641e2e97d2b8a65e; final pos: mine -4 54 vs reference -4 -22; final ncells: mine 14760 vs reference 12699; final cellhash: mine 4198f92677dc3363 vs reference a606cfd8f7d59482; final acc: mine 4694c6018df89035 vs reference 7ec73971f79352e6
+   final: steps 1000000 pos (-4, 54) heading 2 ncells 14760 cellhash 4198f92677dc3363
+window q=0 m=  2: 958 steps, 9 checkpoints, final 1758 cells, min x -3: IDENTICAL
+window q=0 m=  4: 982 steps, 9 checkpoints, final 1858 cells, min x -3: IDENTICAL
+window q=0 m= 10: 1054 steps, 10 checkpoints, final 2158 cells, min x -3: IDENTICAL
+window q=0 m= 50: 1534 steps, 15 checkpoints, final 4158 cells, min x -3: IDENTICAL
+window q=1 m=  2: 1082 steps, 10 checkpoints, final 1768 cells, min x -3: IDENTICAL
+window q=1 m=  4: 1106 steps, 11 checkpoints, final 1868 cells, min x -3: IDENTICAL
+window q=1 m= 10: 1178 steps, 11 checkpoints, final 2168 cells, min x -3: IDENTICAL
+window q=1 m= 50: 1658 steps, 16 checkpoints, final 4168 cells, min x -3: IDENTICAL
+window q=2 m=  2: 922 steps, 9 checkpoints, final 1756 cells, min x -3: IDENTICAL
+window q=2 m=  4: 946 steps, 9 checkpoints, final 1856 cells, min x -3: IDENTICAL
+window q=2 m= 10: 1018 steps, 10 checkpoints, final 2156 cells, min x -3: IDENTICAL
+window q=2 m= 50: 1498 steps, 14 checkpoints, final 4156 cells, min x -3: IDENTICAL
+C1a RESULT: all correct-rule comparisons identical

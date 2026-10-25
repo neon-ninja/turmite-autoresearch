@@ -1,0 +1,8 @@
+== start 2026-10-21T03:24:32+13:00 git f31ff57 dirty(src,tests,Cargo.toml)=0
+sha256 8e0807f002298220b3cb80866749374654a09cd804c9f7b11ea825558c59b49e
+specs sha256 892241f259278551b384bad790916ed82bb3077a74e98a1e66d0791eeed589ad
+loadavg: 11.26 7.99 7.54
+cmd: FP_CTX4_ROWS=400000 /home/tim/turmite-target-fp/release/examples/kappa_first_passage_sampler experiments/2026-10-20-kappa-first-passage/results/confirm_v2 experiments/2026-10-20-kappa-first-passage/scratch/confirm_v2/pairs 4294967296 8192 32768-34816,131072-139264 confirm-v2 3 < confirm_v2_specs.txt
+exit 0 2026-10-21T03:43:02+13:00
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 17:27.26
+	Maximum resident set size (kbytes): 800888

@@ -1,0 +1,8 @@
+{"checked": "2026-10-21T03:57:06+13:00", "git": "27853e0", "sampler_sha256": "8e0807f002298220b3cb80866749374654a09cd804c9f7b11ea825558c59b49e",
+ "threads_1_vs_4_files_identical_except_status": true,
+ "threads_1_vs_4_status_without_seconds_identical": true,
+ "resume_skipped_specs": 5, "resume_bytes_unchanged": true,
+ "changed_recipe_refused": true,
+ "in_memory_checkpoint_test": "tests/first_passage.rs::checkpoint_by_clone_is_exact",
+ "on_disk_mid_trajectory_checkpoint": "implemented in stage V2; see results/resume_check.json and tests/first_passage.rs::disk_checkpoint_roundtrip_is_exact",
+ "full_release_tests": "results/release-tests-v2.log (155 passed, 0 failed)"}

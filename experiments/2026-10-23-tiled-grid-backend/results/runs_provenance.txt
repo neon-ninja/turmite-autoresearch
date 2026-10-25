@@ -1,0 +1,26 @@
+date: 2026-10-23T19:00:44+13:00
+uname: Linux 6.18.54.1-microsoft-standard-WSL2 #1 SMP PREEMPT_DYNAMIC Tue Oct  6 19:13:07 UTC 2026 x86_64
+cpu: Model name: Intel(R) Xeon(R) W-2125 CPU @ 4.00GHz
+mem: MemTotal:       49334364 kB MemAvailable:   48377456 kB 
+rustc: rustc 1.98.1 (48a229cea 2026-09-01)  cargo: cargo 1.98.1 (797e8a9bc 2026-08-05)
+bench commit: e93d4c7c18a428e07f2a7f1621ca27798fd1f0d2
+sha256:
+43ee4e00aafb4662d8ccdf0f7eca121cae3f36fd7183d51de3cc8bc3035a9a9c  /home/tim/bench-e93d4c7c18a428e07f2a7f1621ca27798fd1f0d2/target/release/sweep_lean
+715aed5291240c4bb4c86362410fa7fd90bf7ae95d9b04f4e3cfeaa513ef8d9b  /home/tim/bench-e93d4c7c18a428e07f2a7f1621ca27798fd1f0d2/target/release/examples/tiled_grid_backend_codec
+loadavg at start: 0.72 0.15 0.05 2/323 3010
+top cpu at start:
+    PID %CPU COMMAND
+    149 39.7 snapfuse /var/lib/snapd/snaps/snapd_28254.snap /snap/snapd/28254 -o ro,nodev,allow_other,suid
+   2442 23.0 -bash
+    326 20.1 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+   2233 18.6 /usr/lib/systemd/systemd --user
+      1 14.7 /sbin/init
+command: experiments/2026-10-23-tiled-grid-backend/scripts/bench.sh /home/tim/bench-e93d4c7c18a428e07f2a7f1621ca27798fd1f0d2 experiments/2026-10-23-tiled-grid-backend/results/runs
+loadavg at end: 1.00 0.65 0.29 1/297 4279
+top cpu at end:
+    PID %CPU COMMAND
+    149  0.6 snapfuse /var/lib/snapd/snaps/snapd_28254.snap /snap/snapd/28254 -o ro,nodev,allow_other,suid
+      1  0.3 /sbin/init
+    252  0.3 /snap/snapd/current/usr/lib/snapd/snapd
+    326  0.2 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+    290  0.1 /usr/bin/containerd

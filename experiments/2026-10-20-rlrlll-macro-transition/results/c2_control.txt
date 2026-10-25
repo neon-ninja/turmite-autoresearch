@@ -1,0 +1,4 @@
+unmodified dump: mismatches 0
+change real colour at visited cell outside the rectangle (-289, -12) -> 3: mismatches 1
+change real colour at visited cell inside the rectangle (1, 11) (ideal 1) -> 2: mismatches 1
+change real colour at a cell the ideal ant never visits (-100, -60): mismatches 0 (must stay 0)

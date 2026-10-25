@@ -3,15 +3,16 @@
 # ///
 """B5: highway onsets in (1e10, 1e11] for a 240-rule unbiased sample of the rules still unresolved at 1e10 (experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/h1e11/chunk_*.csv with .done markers).
 Decision rule and pre-stated expectations: notes/frontier-2026-10-13-results.md. Scales the Poisson expectations to the number of rules actually completed.
-usage: uv run experiments/2026-10-13-b5-late-highways/scripts/b5_stats.py"""
-import glob, math, numpy as np, polars as pl
-files = [f for f in sorted(glob.glob("experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/h1e11/chunk_*.csv")) if glob.glob(f.replace(".csv", ".done"))]
+usage: uv run experiments/2026-10-13-b5-late-highways/scripts/b5_stats.py [FIRST_CHUNK]   (20 = the 492-rule extension; default all 61 chunks = all 732 survivors)"""
+import glob, math, re, sys, numpy as np, polars as pl
+FIRST = int(sys.argv[1]) if len(sys.argv) > 1 else 0  # first chunk index to include (20 = the 492-rule extension only)
+files = [f for f in sorted(glob.glob("experiments/2026-10-13-highways-unresolved-rules-1e10-1e11/results/h1e11/chunk_*.csv")) if glob.glob(f.replace(".csv", ".done")) and int(re.search(r"chunk_([0-9]+)", f).group(1)) >= FIRST]
 d = pl.concat([pl.read_csv(f, schema_overrides={"period": pl.Utf8, "dx": pl.Utf8, "dy": pl.Utf8, "onset": pl.Utf8, "tail_period": pl.Utf8}) for f in files])
 N = d.height
 hw = d.filter(pl.col("period").is_not_null() & (pl.col("period") != "")).with_columns(onset_i=pl.col("onset").cast(pl.Float64))
 esc = d.filter((pl.col("stop") == "escaped") & (pl.col("period").is_null() | (pl.col("period") == "")))
 bud = d.filter(pl.col("stop") == "budget")
-print(f"chunks complete: {len(files)} of 20; rules: {N}; still unresolved at 1e11: {bud.height}; new highways: {hw.height}; escaped the 32768 board without a recognised highway: {esc.height}")
+print(f"chunks complete: {len(files)} (chunk index >= {FIRST}; 61 exist, 12 rules each); rules: {N}; still unresolved at 1e11: {bud.height}; new highways: {hw.height}; escaped the 32768 board without a recognised highway: {esc.height}")
 def pois_cdf(k, mu): return sum(math.exp(-mu) * mu ** i / math.factorial(i) for i in range(0, k + 1))
 def pois_sf(k, mu): return 1 - pois_cdf(k - 1, mu)
 mu_flat, mu_fall = 0.047 * N, 0.01 * N

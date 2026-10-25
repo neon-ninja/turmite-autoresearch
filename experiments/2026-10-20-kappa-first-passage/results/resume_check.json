@@ -1,0 +1,5 @@
+{"checked": "2026-10-21T03:17:32+13:00", "git": "5af0ae7", "sampler_sha256": "8e0807f002298220b3cb80866749374654a09cd804c9f7b11ea825558c59b49e", "spec": "RLLLRLLRLL@202610207001", "bands": "32768-34816,131072-139264,262144-278528",
+ "checkpoint_every_steps": 2000000, "killed_after_seconds": 1.5, "checkpoint_present_when_killed": true, "checkpoint_bytes": 7874790,
+ "outputs_present_when_killed": 0, "resumed_from_checkpoint": true,
+ "all_files_identical_except_status_seconds": true, "status_without_seconds_identical": true,
+ "recipe_mismatch_and_truncation_refused": "tests/first_passage.rs::disk_checkpoint_roundtrip_is_exact"}

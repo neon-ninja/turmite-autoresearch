@@ -1,0 +1,457 @@
+{
+  "n_runs": 32,
+  "n_complete": 31,
+  "seconds_per_run": {
+    "mean": 9.478218750000002,
+    "max": 14.15
+  },
+  "t_final_max": 341779748,
+  "unresolved_share_max": 0.0,
+  "pair_rows_max": 288440,
+  "overflowed_total": 0,
+  "depth_decreases_total": 0,
+  "lipschitz_violations_total": 0,
+  "seg_overlap_equals_steps": true,
+  "rules": [
+    {
+      "rule": "RLLLLLRRLRLR",
+      "n_seeds": 4,
+      "deep_segments": 3474,
+      "skipped": 1,
+      "jumps": 1,
+      "bs_band": [
+        0.14755944225348272,
+        0.012281230523316734,
+        0.005515939591108927
+      ],
+      "bs_band_sd": [
+        0.271445099307737,
+        0.014887873210546885,
+        0.004468197725692906
+      ],
+      "kappa_band": [
+        6.921813192369791,
+        1.1482069153002907,
+        1.0312355624129577
+      ],
+      "M0": {
+        "status": "ok",
+        "n_states": 13,
+        "ED": 2.985730758143557,
+        "ET": 470.64096281349066,
+        "pred_BS": 0.0063039748364435814,
+        "deep_share": 0.7643929549860603,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M1": {
+        "status": "ok",
+        "n_states": 173,
+        "ED": 2.985730758143557,
+        "ET": 470.62779408070475,
+        "pred_BS": 0.006304150117249041,
+        "deep_share": 0.7643928486392366,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M2": {
+        "status": "ok",
+        "n_states": 181,
+        "ED": 2.985730758143557,
+        "ET": 470.6386306896811,
+        "pred_BS": 0.006304005877181785,
+        "deep_share": 0.7643929338675761,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      }
+    },
+    {
+      "rule": "RLLLRLLRLL",
+      "n_seeds": 4,
+      "deep_segments": 4970,
+      "skipped": 1855,
+      "jumps": 1235,
+      "bs_band": [
+        0.024792509433547806,
+        0.012414883002385257,
+        0.006717909434066556
+      ],
+      "bs_band_sd": [
+        0.006484632772429127,
+        0.002040371974993499,
+        0.0008021346076724457
+      ],
+      "kappa_band": [
+        0.8585657365662673,
+        0.8496891373297399,
+        0.8537596674370009
+      ],
+      "M0": {
+        "status": "ok",
+        "n_states": 13,
+        "ED": 2.2261053248002676,
+        "ET": 162.13569247500746,
+        "pred_BS": 0.013543933898263015,
+        "deep_share": 0.5294448552156275,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M1": {
+        "status": "ok",
+        "n_states": 156,
+        "ED": 2.2261053248002676,
+        "ET": 162.13560271105985,
+        "pred_BS": 0.013543941295101291,
+        "deep_share": 0.5294448611988103,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M2": {
+        "status": "ok",
+        "n_states": 2048,
+        "ED": 2.2261053248002676,
+        "ET": 162.13470820493046,
+        "pred_BS": 0.013544015005727592,
+        "deep_share": 0.5294447222845471,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      }
+    },
+    {
+      "rule": "RLLRRRRLRLRL",
+      "n_seeds": 4,
+      "deep_segments": 5642,
+      "skipped": 159,
+      "jumps": 99,
+      "bs_band": [
+        0.12535176838641346,
+        0.009009232881140215,
+        0.003382371613344302
+      ],
+      "bs_band_sd": [
+        0.19682403816870617,
+        0.002350428955358218,
+        0.0006787707343768418
+      ],
+      "kappa_band": [
+        5.56519725242686,
+        0.7791845554811169,
+        0.5620116930855128
+      ],
+      "M0": {
+        "status": "ok",
+        "n_states": 13,
+        "ED": 2.773604301755496,
+        "ET": 270.5348726870147,
+        "pred_BS": 0.010148255671811669,
+        "deep_share": 0.6348436681569921,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M1": {
+        "status": "ok",
+        "n_states": 197,
+        "ED": 2.773604301755496,
+        "ET": 270.53248540843623,
+        "pred_BS": 0.010148344314964112,
+        "deep_share": 0.6348436469644247,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M2": {
+        "status": "ok",
+        "n_states": 306,
+        "ED": 2.773604301755496,
+        "ET": 270.5281060757189,
+        "pred_BS": 0.010148506930032362,
+        "deep_share": 0.6348436039715848,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      }
+    },
+    {
+      "rule": "RRLLLLLLRRLR",
+      "n_seeds": 4,
+      "deep_segments": 1926,
+      "skipped": 0,
+      "jumps": 0,
+      "bs_band": [
+        0.018950446223634353,
+        0.03573804996731125,
+        0.13030395974349804
+      ],
+      "bs_band_sd": [
+        0.009323928643783523,
+        0.051226250304160545,
+        0.24459850436881408
+      ],
+      "kappa_band": [
+        0.9013266099051229,
+        3.384053215271597,
+        24.44326057974044
+      ],
+      "M0": {
+        "status": "ok",
+        "n_states": 13,
+        "ED": 2.4795539906103286,
+        "ET": 195.91661971830973,
+        "pred_BS": 0.012497993001862242,
+        "deep_share": 0.7190496627865068,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M1": {
+        "status": "ok",
+        "n_states": 180,
+        "ED": 2.4795539906103286,
+        "ET": 195.91657585541097,
+        "pred_BS": 0.012497995765011916,
+        "deep_share": 0.7190497084758183,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M2": {
+        "status": "ok",
+        "n_states": 214,
+        "ED": 2.4795539906103286,
+        "ET": 195.91657616287392,
+        "pred_BS": 0.01249799574564324,
+        "deep_share": 0.7190496601527727,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      }
+    },
+    {
+      "rule": "RRLLRLRRLLL",
+      "n_seeds": 4,
+      "deep_segments": 8790,
+      "skipped": 179,
+      "jumps": 148,
+      "bs_band": [
+        0.017992230389600447,
+        0.008277834382443321,
+        0.003637218151185984
+      ],
+      "bs_band_sd": [
+        0.0035516552689066586,
+        0.0011156050766197693,
+        0.00031098634030045055
+      ],
+      "kappa_band": [
+        0.8698765628472495,
+        0.7689222262166092,
+        0.6604457184271394
+      ],
+      "M0": {
+        "status": "ok",
+        "n_states": 13,
+        "ED": 2.3218547480689673,
+        "ET": 251.3681995360739,
+        "pred_BS": 0.009152328634327928,
+        "deep_share": 0.5581022776656038,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M1": {
+        "status": "ok",
+        "n_states": 208,
+        "ED": 2.3218547480689673,
+        "ET": 251.3673729093487,
+        "pred_BS": 0.009152358456482842,
+        "deep_share": 0.5581022236609963,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M2": {
+        "status": "ok",
+        "n_states": 1358,
+        "ED": 2.3218547480689673,
+        "ET": 251.38942236734167,
+        "pred_BS": 0.009151563046260571,
+        "deep_share": 0.5581022342882228,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      }
+    },
+    {
+      "rule": "RRLRLLRLRRL",
+      "n_seeds": 4,
+      "deep_segments": 3700,
+      "skipped": 1016,
+      "jumps": 664,
+      "bs_band": [
+        0.11406699944531358,
+        NaN,
+        NaN
+      ],
+      "bs_band_sd": [
+        0.17343921606767873,
+        NaN,
+        NaN
+      ],
+      "kappa_band": [
+        1.5904675197351446,
+        NaN,
+        NaN
+      ],
+      "M0": {
+        "status": "ok",
+        "n_states": 13,
+        "ED": 2.4048709233405434,
+        "ET": 148.5461389364869,
+        "pred_BS": 0.015931466278852308,
+        "deep_share": 0.5511545369654933,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M1": {
+        "status": "ok",
+        "n_states": 194,
+        "ED": 2.4048709233405434,
+        "ET": 148.54171733184876,
+        "pred_BS": 0.015931932951507882,
+        "deep_share": 0.551154470011695,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M2": {
+        "status": "ok",
+        "n_states": 737,
+        "ED": 2.4048709233405434,
+        "ET": 148.53034605952288,
+        "pred_BS": 0.01593313324360598,
+        "deep_share": 0.5511545001994812,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      }
+    },
+    {
+      "rule": "RRRLLLLLRLRR",
+      "n_seeds": 4,
+      "deep_segments": 12092,
+      "skipped": 209,
+      "jumps": 136,
+      "bs_band": [
+        0.015389441592848488,
+        0.007655614484731005,
+        0.004116330423932954
+      ],
+      "bs_band_sd": [
+        0.002593569731032163,
+        0.0007318902121318513,
+        0.00010092027909271216
+      ],
+      "kappa_band": [
+        0.6461723455056236,
+        0.6383568039695426,
+        0.6781869531608016
+      ],
+      "M0": {
+        "status": "ok",
+        "n_states": 13,
+        "ED": 2.2163379576770885,
+        "ET": 260.80576192189244,
+        "pred_BS": 0.008426432450702386,
+        "deep_share": 0.5494978812169338,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M1": {
+        "status": "ok",
+        "n_states": 208,
+        "ED": 2.2163379576770885,
+        "ET": 260.7974493386294,
+        "pred_BS": 0.008426698769141722,
+        "deep_share": 0.5494977700669567,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M2": {
+        "status": "ok",
+        "n_states": 2354,
+        "ED": 2.2163379576770885,
+        "ET": 260.8039248046429,
+        "pred_BS": 0.008426491306792957,
+        "deep_share": 0.5494979368647063,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      }
+    },
+    {
+      "rule": "RRRLRLRLRLRL",
+      "n_seeds": 4,
+      "deep_segments": 7864,
+      "skipped": 1744,
+      "jumps": 1186,
+      "bs_band": [
+        0.02676634171432555,
+        0.01379159971447619,
+        0.006143640314454961
+      ],
+      "bs_band_sd": [
+        0.004216710503533441,
+        0.0006162993885212713,
+        0.0007960822797474795
+      ],
+      "kappa_band": [
+        0.9724852585315411,
+        0.939668039438063,
+        0.8179157108301269
+      ],
+      "M0": {
+        "status": "ok",
+        "n_states": 13,
+        "ED": 2.3252571087888976,
+        "ET": 150.15419246028014,
+        "pred_BS": 0.015249642593545824,
+        "deep_share": 0.5063544256611482,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M1": {
+        "status": "ok",
+        "n_states": 156,
+        "ED": 2.3252571087888976,
+        "ET": 150.15570386735072,
+        "pred_BS": 0.015249491437509739,
+        "deep_share": 0.5063546623129578,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      },
+      "M2": {
+        "status": "ok",
+        "n_states": 3100,
+        "ED": 2.3252571087888976,
+        "ET": 150.15466934222533,
+        "pred_BS": 0.015249594900191081,
+        "deep_share": 0.506354552973171,
+        "dead_end_mass": 0.0,
+        "entry_lost": 0.0,
+        "unreachable_states": 0
+      }
+    }
+  ]
+}

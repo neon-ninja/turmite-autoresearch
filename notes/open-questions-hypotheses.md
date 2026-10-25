@@ -68,7 +68,7 @@ New, unexplained:
 - Q13. Why does the corruption of the most-visited cells hurt most, with rare colours doubling the damage at equal visit quartile (A6)? How much of "visit rate" is just distance from home?
 - Q14. Does contiguity reduce the damage per critical cell (patch ~0.65x the loss per rare cell of a swap, E4), or is that a location effect?
 - Q15. The census "builders" (304) are mostly non-highway frame builders with steps per bounding-box cell ~2-6; are they one class, and does it match the sqrt(t) turmite cluster (D1)?
-- Q16. The late-highway onset rate fell from 4.7% to 1.25% per decade at 1e10-1e11 (B5): is the set of late highways finite, and what is the distribution of onset times within a prefix family?
+- Q16. The late-highway onset rate fell from 4.7% to 1.25% per decade at 1e10-1e11 (B5): is the set of late highways finite, and what is the distribution of onset times within a prefix family? **[Corrected 2026-10-21: 22 of the 38 (1e9,1e10] and 4+ of the 16 (1e10,1e11] "highways" are board artefacts; genuine yields 1.98% and 0.68-1.64% (1.64% if the 7 pending rechecks confirm); see `experiments/2026-10-21-late-highway-board-check/README.md`.]**
 
 See `notes/research-frontier-2026-10-13-pm.md` for the Phase 3 hypotheses, tests, and pre-registered predictions addressing Q8–Q16 and the open mechanisms of kappa.
 
@@ -341,3 +341,56 @@ mf/rotor/rw x 8 seeds, 2^26 steps, board 8192, windows k = 17..26.
 - Next (proposed, not registered): age-resolved flat-edge returns on a fresh rule sample (short-horizon vs
   long-excursion deficit).
 Reproduce: `scripts/run.sh`, then `uv run` `scripts/analyse.py`, `scripts/explore.py`, `scripts/build_notebook.py`.
+- Cross-reference (appended 2026-10-25 at the merge of upstream `origin/main`; nothing above changed): the
+  hidden-phase pilot (`experiments/2026-10-23-hidden-phase-return`, support gate failed, P1 not testable) found that
+  preserving every interior cell's next turn does not fix long return paths on its edited fields: future colour
+  phases matter. Any age-resolved flat-edge test should therefore record the colour phase (full future turn word)
+  of edge cells alongside age and depth, since age and phase are confounded. The two RLRRRRLRR fillers fill at
+  ~4.0 steps per new cell, matching the `R^k L R R...` filler law `2(k+1)` with k = 1 (Q20); post hoc, two runs.
+
+## Added 2026-10-21: highway preconditions (causal seeds)
+
+`experiments/2026-10-21-highway-preconditions/`: in all 406 independent census highway onsets (<= 1e9) the future's
+dependence on the grid collapses, within about one period of onset, to a fragment of the highway itself plus a few cells
+(median 3) at the territory edge. Seeds are not shared across unrelated rules. Open, unregistered so far:
+- Q17. Why does onset time grow with highway size (self-overlap, period, slowness), at only ~0.018 decades per cell?
+  A random colour search would cost ~log10(n) decades per cell. What in the chaotic phase pre-builds highway fragments?
+- Q18. Are the "+3" non-highway cells of the pre-onset seed a trigger (knock-out kills the launch) or incidental?
+
+## Added 2026-10-21: late-highway rate after removing board artefacts
+
+`experiments/2026-10-21-late-highway-board-check/`: 26 of 54 reported late highways were artefacts of the 32768 board.
+Corrected, the per-decade highway yield among survivors is ~1.4%, 1.98%, 0.68-1.64% for (1e8,1e9], (1e9,1e10], (1e10,1e11]:
+consistent with flat. Q16 is reopened in a sharper form:
+- Q19. Is the late-highway yield per decade really constant (~2%)? If so, the unresolved set never stops leaking and
+  "chaotic" is a transient for a fixed fraction of rules per decade, without end. A third decade (1e11, 1e12] on the
+  702 survivors (checkpointed runner exists), with the board-independence check, would distinguish flat from slowly falling.
+- Q20. The board fillers `R^k L R R...` fill at exactly `2(k+1)` steps per cell (to within a perimeter term). What is the
+  filling mechanism, and is it the same class as the sqrt(t) frame builders (Q15)?
+- Q19 update (2026-10-22): all 28 non-artefact late highways confirmed on a 65536 board; final yields 1.41%, 1.98%, 1.64% for the three decades.
+
+## Added 2026-10-22: invariant mining (additive local laws)
+
+`experiments/2026-10-22-invariant-mining-snf/`: every additive local law (position, heading, time, site and sublattice colour potentials)
+has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`. Signature `NR-20261022-additive-laws-order-blind`.
+- Q21. Does any non-additive local law (pair potentials on adjacent cells, an ant potential that reads the colour of the cell it
+  enters, edge flux) exist whose existence depends on the *order* of the colours? Prior 60% no. Needs a quotient by functionals that
+  vanish on every finite field (telescoping and site-duplicate terms) before group orders mean anything; register before running.
+- Q22. Why is the universal group order at modulus `n` exactly `n^2` times larger for the `(x mod 2, y mod 2)` class potentials (F3) than for
+  the `(x+y) mod 2` ones (F2), for all n = 2..8? Post hoc. Candidate for odd n (3, 5, 7: orders n, n^2, n^4 for F1, F2, F3):
+  one colour clock per site class, because the move axis alternates so the class sequence has period 4. Unproved, and incomplete for
+  even n, where F2/F1 is n or n/2.
+
+## Added 2026-10-23: the three no-highway escapes, and the highway decider
+
+`experiments/2026-10-23-sweeper-generalisation/` (Stage 1, instrument oracle-tested) and `experiments/2026-10-23-highway-decider/`.
+- The census "escape" of RLLLLRRL, RLLLLRLRRL, RLLLRLRLLL only meant the 32768 board's edge was reached. On a 65536 board: RLLLRLRLLL and RLLLLRRL
+  become **spiral builders** (a filled, octagon-like territory whose outer band, about 80 cells deep, is rewritten once per revolution; new-cell box = the whole territory, 2.0 steps per new cell, revolution time `8 swing + b`; unattacked by the falsification harness) after late onsets (2.635e10 and about
+  1.47e10 steps); RLLLLRLRRL is still a blob-like grower at 6e10. The spirals have exact clocks (RLLLRLRLLL: phase period 2, 29,854 revolutions to the exit;
+  RLLLLRRL: phase period 19, post hoc because the registered cap p <= 6 was too small). RLRLLL's column-sweeper signature S does not occur in them.
+- Q23. What triggers the late spiral onset, and why does RLLLLRRL's revolution constant have period 19 while RLLLRLRLLL's has period 2? Both look like the same
+  mechanism as the board fillers `R^k L R R...` (Q20: 2(k+1) steps per cell) and the sqrt(t) frame builders (Q15) entered late from a blob; Q15, Q20 and Q23 may be one
+  question. A cell-level test already done (99.2-99.7% of sampled band cells equal after 5 revolutions, outward shift 1 per revolution, depth 0-64) says the outer band is a
+  steady profile; the ant reads up to 76 cells into the territory, so the macro-family needs a band of depth >= 77 and eight straight/diagonal segments. Not proved to persist.
+- Q24. The rectangle translated-cycler certificate (`decide.py`) certified 571/571 census highways at the first snapshot tried in 568 cases. It is conservative (it needs the
+  untouched window cells to be shift-periodic). What is the smallest class of non-highway attractors it can be extended to (periodic ahead background: the side of a spiral)?

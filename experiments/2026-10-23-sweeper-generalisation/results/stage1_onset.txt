@@ -1,0 +1,7 @@
+# commit 2ee0086; onset of the exact clock, derived patterns
+xmin P=1 a=8 phase period 2: 32730 cycles; exact clock from cycle 2876 (of 32730); cycles in the exact regime 29854
+onset: cycle 2876 ends t = 26351953955, swing 5809; the cycle before it ends t = 26351907669, swing 5807, residual -210
+xmin P=1 a=8 phase period 19: 32766 cycles; exact clock from cycle 19596 (of 32766); cycles in the exact regime 13170
+onset: cycle 19596 ends t = 14724680227, swing 39166; the cycle before it ends t = 14724364997, swing 39164, residual 46
+xmax P=1 a=8 phase period 19: 32748 cycles; exact clock from cycle 19578 (of 32748); cycles in the exact regime 13170
+onset: cycle 19578 ends t = 14724863567, swing 39167; the cycle before it ends t = 14724550185, swing 39165, residual 1910

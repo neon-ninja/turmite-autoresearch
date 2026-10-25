@@ -15,3 +15,12 @@ Fact, with the command and file that produced it.
 
 ### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · interpretation
 What I think it means; confidence; the alternative explanations I have not excluded.
+
+### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · decision
+Pruning preflight: index revision, exact queries, candidate signature IDs (or no
+matches), scope comparison, run/skip/reopen decision and compute budget. Repeat
+when scope changes. See `notes/pruning-index/README.md`.
+
+### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · dead-end
+Criterion tested, evidence commit, limits, shared signature ID or reason no
+signature is warranted, and what would reopen the question. Append corrections.

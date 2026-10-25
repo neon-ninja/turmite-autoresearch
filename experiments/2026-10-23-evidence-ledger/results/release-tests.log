@@ -1,0 +1,585 @@
+   Compiling turmite v0.1.0 (/mnt/f/Code/turmite)
+warning: unused variable: `g`
+  --> examples/equiv.rs:53:9
+   |
+53 |     for g in &coll {
+   |         ^ help: if this is intentional, prefix it with an underscore: `_g`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `turmite` (example "equiv") generated 1 warning (run `cargo fix --example "equiv" -p turmite` to apply 1 suggestion)
+warning: value assigned to `current_exc_steps_in_window` is never read
+   --> tests/../examples/excursions.rs:151:43
+    |
+151 |     let mut current_exc_steps_in_window = 0u64;
+    |                                           ^^^^ this value is reassigned later and never used
+...
+163 |         current_exc_steps_in_window = 0;
+    |         ------------------------------- `current_exc_steps_in_window` is overwritten here before the previous value is read
+    |
+    = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: multiple fields are never read
+  --> tests/../examples/excursions.rs:26:9
+   |
+24 | pub struct ExcursionWindow {
+   |            --------------- fields in this struct
+25 |     pub k: u32,
+26 |     pub t_end: u64,
+   |         ^^^^^
+27 |     pub area: u64,
+   |         ^^^^
+28 |     pub perimeter: u64,
+   |         ^^^^^^^^^
+29 |     pub new_cells: u64,
+   |         ^^^^^^^^^
+...
+33 |     pub l_mean: f64,
+   |         ^^^^^^
+34 |     pub l_med: f64,
+   |         ^^^^^
+35 |     pub l_p90: f64,
+   |         ^^^^^
+36 |     pub l_p99: f64,
+   |         ^^^^^
+37 |     pub l_max: u64,
+38 |     pub top1_share: f64,
+   |         ^^^^^^^^^^
+39 |     pub top5_share: f64,
+   |         ^^^^^^^^^^
+40 |     pub unresolved_steps: u64,
+   |         ^^^^^^^^^^^^^^^^
+41 |     pub unresolved_share: f64,
+   |         ^^^^^^^^^^^^^^^^
+42 |     pub disp_med: f64,
+   |         ^^^^^^^^
+43 |     pub disp_mean: f64,
+   |         ^^^^^^^^^
+44 |     pub depth_med: f64,
+   |         ^^^^^^^^^
+45 |     pub depth_mean: f64,
+   |         ^^^^^^^^^^
+46 |     pub edge_episodes: u64,
+   |         ^^^^^^^^^^^^^
+47 |     pub edge_dwell_mean: f64,
+   |         ^^^^^^^^^^^^^^^
+48 |     pub kappa: f64,
+   |         ^^^^^
+49 |     pub c: f64,
+   |         ^
+   |
+   = note: `ExcursionWindow` has derived impls for the traits `Debug` and `Clone`, but these are intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `main` is never used
+   --> tests/../examples/excursions.rs:358:4
+    |
+358 | fn main() {
+    |    ^^^^
+
+warning: `turmite` (test "excursions") generated 3 warnings
+warning: variable does not need to be mutable
+  --> examples/dump.rs:24:9
+   |
+24 |     let mut push = |x: usize, y: usize, traj: &mut Vec<u8>| {
+   |         ----^^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: `turmite` (example "dump") generated 1 warning (run `cargo fix --example "dump" -p turmite` to apply 1 suggestion)
+warning: unused import: `self`
+ --> src/bin/sweep_lean.rs:9:21
+  |
+9 | use turmite::fast::{self, Config, Stop};
+  |                     ^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `turmite` (bin "sweep_lean" test) generated 1 warning (run `cargo fix --bin "sweep_lean" -p turmite --tests` to apply 1 suggestion)
+warning: value assigned to `current_exc_steps_in_window` is never read
+   --> examples/excursions.rs:151:43
+    |
+151 |     let mut current_exc_steps_in_window = 0u64;
+    |                                           ^^^^ this value is reassigned later and never used
+...
+163 |         current_exc_steps_in_window = 0;
+    |         ------------------------------- `current_exc_steps_in_window` is overwritten here before the previous value is read
+    |
+    = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: `turmite` (example "excursions") generated 1 warning
+warning: variable does not need to be mutable
+  --> examples/lastvisits.rs:26:9
+   |
+26 |     let mut step = |idx: &mut usize, seen: &mut Vec<bool>, area: &mut u64, cnt: Option<&mut Vec<u16>>, w: &mut W...
+   |         ----^^^^
+   |         |
+   |         help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: `turmite` (example "lastvisits") generated 1 warning (run `cargo fix --example "lastvisits" -p turmite` to apply 1 suggestion)
+warning: variable `W` should have a snake case name
+   --> examples/tetherlab.rs:428:17
+    |
+428 |             let W: u64 = 1 << w_log;
+    |                 ^ help: convert the identifier to snake case (notice the capitalization): `w`
+    |
+    = note: `#[warn(non_snake_case)]` (part of `#[warn(nonstandard_style)]`) on by default
+
+warning: `turmite` (example "tetherlab") generated 1 warning
+warning: `turmite` (bin "sweep_lean") generated 1 warning (1 duplicate)
+    Finished `release` profile [optimized] target(s) in 4m 11s
+     Running unittests src/lib.rs (/home/tim/turmite-target/release/deps/turmite-8dcb4f63cfda13a8)
+
+running 5 tests
+test detect::tests::exit_direction ... ok
+test synth::tests::a_wrong_window_is_caught ... ok
+test synth::tests::annealing_reaches_target_on_a_small_field ... ok
+test synth::tests::incremental_cost_matches_recount ... ok
+test synth::tests::radial_shuffle_keeps_ring_contents ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.42s
+
+     Running unittests src/bin/colourstats.rs (/home/tim/turmite-target/release/deps/colourstats-2479cf327824a061)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/confirm.rs (/home/tim/turmite-target/release/deps/confirm-afef57ea52986c61)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/ext.rs (/home/tim/turmite-target/release/deps/ext-96776515ff20d903)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/falsify.rs (/home/tim/turmite-target/release/deps/falsify-b4291083eec50bef)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/falsify_search.rs (/home/tim/turmite-target/release/deps/falsify_search-d3d0ef54cba382e7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/growth.rs (/home/tim/turmite-target/release/deps/growth-2d08b4ed72d907b2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/invariants.rs (/home/tim/turmite-target/release/deps/invariants-49d2f12834e51a1a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/probe.rs (/home/tim/turmite-target/release/deps/probe-60f9568d7a670fa3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/sweep.rs (/home/tim/turmite-target/release/deps/sweep-7a900763b762f508)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/sweep_lean.rs (/home/tim/turmite-target/release/deps/sweep_lean-41ce1d47bf3e16fb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/ant.rs (/home/tim/turmite-target/release/deps/ant-c6a3abb2e0379ff1)
+
+running 13 tests
+test canonical_and_trivial ... ok
+test fast_grid_reset_is_clean ... ok
+test fast_matches_reference ... ok
+test first_steps_of_langtons_ant ... ok
+test langton_highway_confirmed_by_escape ... ok
+test langtons_ant_builds_its_highway ... ok
+test llrr_is_bilaterally_symmetric_when_home ... ok
+test mirror_rules_are_mirror_images ... ok
+test no_highway_during_langtons_chaos ... ok
+test reversible ... ok
+test square_builder_edge_is_not_a_highway ... ok
+test square_builder_hitting_the_wall_is_not_a_highway ... ok
+test square_builder_leaving_mid_pass_is_not_a_highway ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.58s
+
+     Running tests/biased_rotor.rs (/home/tim/turmite-target/release/deps/biased_rotor-c850289ce9638779)
+
+running 1 test
+test area_matches_brute_force ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 8.35s
+
+     Running tests/colourflux.rs (/home/tim/turmite-target/release/deps/colourflux-f287d12304ec5d08)
+
+running 6 tests
+test colour_counts_match_reference_ant ... ok
+test patched_ant_matches_oracle_and_probe ... ok
+test persistent_walk_matches_oracle_and_probe ... ok
+test plain_ant_matches_oracle_and_probe ... ok
+test rl_first_steps_by_colour ... ok
+test rotor_matches_oracle_and_probe ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.41s
+
+     Running tests/colours.rs (/home/tim/turmite-target/release/deps/colours-a37050e5f218771d)
+
+running 1 test
+test matches_reference ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.31s
+
+     Running tests/edge_renewal.rs (/home/tim/turmite-target/release/deps/edge_renewal-a3d741933768c4aa)
+
+running 4 tests
+test band_features_and_accounting ... ok
+test blank_ant_features_and_accounting ... ok
+test calibration_walkers ... ok
+test empty_and_censored_streams_are_explicit ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+     Running tests/edge_trace.rs (/home/tim/turmite-target/release/deps/edge_trace-8e42a357b5573e75)
+
+running 5 tests
+test ant_matches_probe_and_brute ... ok
+test random_walk_matches ... ok
+test rotor_matches ... ok
+test sparse_bg_matches ... ok
+test torus_band_matches_brute ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.14s
+
+     Running tests/equiv.rs (/home/tim/turmite-target/release/deps/equiv-da5c141ad5f48bda)
+
+running 2 tests
+test repeat_equals_root ... ok
+test root_examples ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+     Running tests/excursions.rs (/home/tim/turmite-target/release/deps/excursions-75487cbe034ea12c)
+
+running 4 tests
+test langton_excursions_match_brute_force ... ok
+test random_walk_excursions_match_brute_force ... ok
+test rotor_excursions_match_brute_force ... ok
+test various_rules_match_brute_force ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.73s
+
+     Running tests/ext.rs (/home/tim/turmite-target/release/deps/ext-2325220b9767b453)
+
+running 9 tests
+test cube_matches_reference ... ok
+test hex_matches_reference ... ok
+test many_ants ... ok
+test noise_and_background ... ok
+test rotor3_matches_reference ... ok
+test sq_matches_reference_ant ... ok
+test tri_matches_geometric_reference ... ok
+test turmite_tables ... ok
+test turn3_group_laws ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.12s
+
+     Running tests/falsify.rs (/home/tim/turmite-target/release/deps/falsify-469dc5072c65ae21)
+
+running 19 tests
+test adaptive_attacks_do_not_produce_binomial_confidence ... ok
+test attacks_are_deterministic_and_seed_sensitive ... ok
+test baseline_matches_the_census ... ok
+test claim_lines_round_trip_and_reject_typos ... ok
+test cli_rejects_missing_arguments_and_unregistered_claims ... ok
+test clopper_pearson_matches_known_values ... ok
+test counterexample_shrinks_and_still_falsifies ... ok
+test evolve_beats_one_cell_climb_on_a_planted_tail ... ok
+test evolve_chain_is_deterministic_and_spends_exactly_its_budget ... ok
+test false_chaos_claim_is_falsified ... ok
+test heading_is_a_rotation ... ok
+test highway_claim_on_a_chaotic_rule_is_not_supported ... ok
+test instrument_controls_pass_on_a_highway_rule ... ok
+test late_highway_is_flagged_as_horizon_sensitive ... ok
+test malformed_claims_are_rejected_without_lossy_numeric_casts ... ok
+test perturbation_matches_reference ... ok
+test simulate_matches_reference ... ok
+test true_chaos_claim_survives_only_at_the_horizon ... ok
+test uniform_background_is_a_rotated_rule ... ok
+
+test result: ok. 19 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.04s
+
+     Running tests/field_age.rs (/home/tim/turmite-target/release/deps/field_age-d649e6fa36ab350c)
+
+running 4 tests
+test controls_match_reference_and_existing_accounting ... ok
+test follows_open_tail_beyond_band_and_reports_unresolved_mass ... ok
+test histories_and_census_match_sparse_reference ... ok
+test tail_fragments_match_offline ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.50s
+
+     Running tests/first_passage.rs (/home/tim/turmite-target/release/deps/first_passage-087ab7ac15efbc8d)
+
+running 11 tests
+test checkpoint_by_clone_is_exact ... ok
+test clamp_and_deep_depths ... ok
+test ctx4_recording_is_passive_and_consistent ... ok
+test depth_matches_bfs_every_step_ants ... ok
+test depth_matches_bfs_every_step_walkers ... ok
+test disk_checkpoint_roundtrip_is_exact ... ok
+test geometry_jumps_occur_and_physics_is_lipschitz ... ok
+test matches_fixed_area ... ok
+test matches_offline_recomputation ... ok
+test one_cell_and_straight_line ... ok
+test square_fixture ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.06s
+
+     Running tests/fixed_area.rs (/home/tim/turmite-target/release/deps/fixed_area-4057d4f62cad7de1)
+
+running 13 tests
+test a_fresh_area_hit_can_fill_an_interior_hole ... ok
+test accountant_matches_offline ... ok
+test ant_pipeline_matches_oracle ... ok
+test budget_stop_leaves_partial_band_and_unreached_band_is_null ... ok
+test escape_ends_the_run_at_the_first_edge_state ... ok
+test hand_worked_band ... ok
+test nearest_rank_quantile ... ok
+test oracle_positions_match_reference_walkers ... ok
+test patched_ant_pipeline_matches_oracle ... ok
+test random_walk_pipeline_matches_oracle ... ok
+test rotor_pipeline_matches_oracle ... ok
+test single_episode_spanning_both_edges_and_no_cycles ... ok
+test transition_exactly_at_band_hit_times ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.63s
+
+     Running tests/gpu.rs (/home/tim/turmite-target/release/deps/gpu-3b1e9b089b9fa936)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/gpu_probe.rs (/home/tim/turmite-target/release/deps/gpu_probe-867c383b41223baf)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/invariants.rs (/home/tim/turmite-target/release/deps/invariants-510d174ea772f738)
+
+running 2 tests
+test all_small_rules_against_oracle ... ok
+test controls_and_completeness ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/kappa_first_passage.rs (/home/tim/turmite-target/release/deps/kappa_first_passage-f991ad3342aefe43)
+
+running 4 tests
+test property_ant_budget_conservation_and_valid_milestones ... ok
+test test_empty_or_one_cell_territory ... ok
+test test_square_loop_creates_depth_1_interior ... ok
+test test_straight_line_no_interior ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/kappa_rs_bulk.rs (/home/tim/turmite-target/release/deps/kappa_rs_bulk-38ae06c787d20551)
+
+running 5 tests
+test fingerprint_matches_brute ... ok
+test fingerprint_matches_brute_long_lags ... ok
+test first_hit_of_a0_agrees_with_probe ... ok
+test rotor_and_pw_trajectories_are_self_consistent ... ok
+test run_bulk_matches_reference_ant ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.72s
+
+     Running tests/kappa_square_loop.rs (/home/tim/turmite-target/release/deps/kappa_square_loop-46c684867e655eb3)
+
+running 7 tests
+test blank_board_lead_k_trap_is_exactly_k_laps ... ok
+test lead_rules_match_probe_and_path_reference ... ok
+test one_and_six_threads_give_identical_bytes ... ok
+test persistent_walk_loop_fraction_matches_exact_value ... ok
+test random_rules_match_probe_and_path_reference ... ok
+test rotor_has_exactly_zero_loop_steps ... ok
+test walkers_match_probe_and_path_reference ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.77s
+
+     Running tests/lattice_probe.rs (/home/tim/turmite-target/release/deps/lattice_probe-4317cdc2b3e4e81c)
+
+running 8 tests
+test ant_area_matches_ext_sims ... ok
+test g1_square_matches_probe ... ok
+test g2_hex_ant ... ok
+test g2_moore_ant ... ok
+test g2_random_movers ... ok
+test g2_square_ant ... ok
+test g2_tri_ant ... ok
+test g3_loop_lengths ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.08s
+
+     Running tests/lattice_trace.rs (/home/tim/turmite-target/release/deps/lattice_trace-701f286dee570cbf)
+
+running 5 tests
+test g1_square_matches_edge_trace ... ok
+test g2_hex ... ok
+test g2_moore ... ok
+test g2_square ... ok
+test g2_tri ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.67s
+
+     Running tests/lean.rs (/home/tim/turmite-target/release/deps/lean-ce5728be80873888)
+
+running 3 tests
+test flat_onset_matches_hashmap_onset ... ok
+test langton_highway_matches ... ok
+test lean_equals_fast ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s
+
+     Running tests/lean_ckpt.rs (/home/tim/turmite-target/release/deps/lean_ckpt-228b6dfa4d814dd8)
+
+running 2 tests
+test extend_and_resume_match_straight_run ... ok
+test foreign_or_damaged_checkpoint_is_ignored ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.07s
+
+     Running tests/local_memory.rs (/home/tim/turmite-target/release/deps/local_memory-c49dd279339ab7b6)
+
+running 7 tests
+test boundary_clock_equals_offline_prefix_selection ... ok
+test evicted_phase_aliases_with_same_word_have_identical_futures ... ok
+test full_mode_equals_ant ... ok
+test known_loop_and_no_eviction_controls ... ok
+test ring_equals_independent_retention ... ok
+test turning_path_return_bound ... ok
+test unique_complete_words_recover_full_ant_even_without_cache ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+
+     Running tests/memory_walkers.rs (/home/tim/turmite-target/release/deps/memory_walkers-f68165634b7df9e3)
+
+running 3 tests
+test cookies_match_reference ... ok
+test reinforced_edges_match_reference ... ok
+test zero_cookie_bias_is_identical_to_random_walk ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+
+     Running tests/onset.rs (/home/tim/turmite-target/release/deps/onset-c496b55ea9f61844)
+
+running 1 test
+test reused_scratch_matches_flat_onset ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.56s
+
+     Running tests/prefix_exposure.rs (/home/tim/turmite-target/release/deps/prefix_exposure-1a6feaf00b74d3cc)
+
+running 11 tests
+test accountant_hand_worked ... ok
+test accountant_matches_offline ... ok
+test band_invariants_and_clone_identity ... ok
+test boundary_stream_matches_fixed_area ... ok
+test control_walkers_obey_the_invariants ... ok
+test depth_known_answer_on_a_filled_block ... ok
+test joint_relabelling_reproduces_trajectories ... ok
+test mutant_diverges_exactly_at_first_read ... ok
+test producer_matches_oracle ... ok
+test unresolved_windows_are_censored_not_counted ... ok
+test update_radius_is_sufficient_and_the_test_has_power ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 36.77s
+
+     Running tests/probe.rs (/home/tim/turmite-target/release/deps/probe-61eadc36e5847415)
+
+running 9 tests
+test accounting_identity ... ok
+test langton_first_windows ... ok
+test patched_ant_seeds_differ ... ok
+test patched_ant_with_blank_patch_is_the_plain_ant ... ok
+test probe_matches_brute_force ... ok
+test random_walk_probe_matches_brute_force ... ok
+test rotor_follows_kapri_dhar_rule ... ok
+test rotor_probe_matches_brute_force ... ok
+test rotor_visits_every_site_of_a_small_disc ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.72s
+
+     Running tests/return_gates.rs (/home/tim/turmite-target/release/deps/return_gates-87c2f3f2aa435095)
+
+running 5 tests
+test concentration_rejects_uniform_flow_and_detects_planted_gates ... ok
+test hole_split_matches_set_flood_fill ... ok
+test incremental_depth_and_crossings_match_from_scratch_oracle ... ok
+test return_spread_needs_two_headings ... ok
+test state_struct_is_still_constructible ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.65s
+
+     Running tests/sectors.rs (/home/tim/turmite-target/release/deps/sectors-ab47d50fa81f5dfd)
+
+running 5 tests
+test angle_known_values ... ok
+test langton_matches_brute ... ok
+test random_walk_matches_brute ... ok
+test rotor_matches_brute ... ok
+test rules_match_brute ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s
+
+     Running tests/seed.rs (/home/tim/turmite-target/release/deps/seed-3bdc6c2ec70a2d89)
+
+running 5 tests
+test ant_frame_puts_heading_north ... ok
+test counts_match_brute_force ... ok
+test least_rotation_is_canonical ... ok
+test seed_is_sufficient ... ok
+test tracked_matches_reference ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.89s
+
+     Running tests/sparse_bg.rs (/home/tim/turmite-target/release/deps/sparse_bg-f83381678bf10ce9)
+
+running 1 test
+test area_matches_brute_force ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.65s
+
+     Running tests/turmite_walker.rs (/home/tim/turmite-target/release/deps/turmite_walker-038dc444083d1311)
+
+running 1 test
+test turmite_walker_matches_sqsim ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+   Doc-tests turmite
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

@@ -1,0 +1,12 @@
+M=60 cycles=24 q0=0 steps per cycle (first 6): [1654, 1802, 1666, 1726, 1874, 1738]
+E-a: interior rows 36 x cycles 24; row-cycles with count != 12: 0 {}
+E-b: deep interior cells 1836; visits == colour: 1836; visits < 6: 1836
+     visits by x mod 3: {0: {4: 612}, 1: {3: 612}, 2: {5: 612}}
+E-c: distinct profiles per (cycle phase, row parity): {(2, 1): 1, (2, 0): 1, (0, 1): 1, (0, 0): 1, (1, 1): 1, (1, 0): 1}; offsets covered: min -2 max 2
+     phase 0 parity 0: 90 of 90 rows have a(d) = {-2: 1, -1: 4, 0: 4, 1: 2, 2: 1}
+     phase 0 parity 1: 90 of 90 rows have a(d) = {-2: 1, -1: 4, 0: 4, 1: 2, 2: 1}
+     phase 1 parity 0: 72 of 72 rows have a(d) = {-2: 1, -1: 4, 0: 4, 1: 2, 2: 1}
+     phase 1 parity 1: 72 of 72 rows have a(d) = {-2: 1, -1: 4, 0: 4, 1: 2, 2: 1}
+     phase 2 parity 0: 90 of 90 rows have a(d) = {-2: 1, -1: 4, 0: 4, 1: 2, 2: 1}
+     phase 2 parity 1: 90 of 90 rows have a(d) = {-2: 1, -1: 4, 0: 4, 1: 2, 2: 1}
+E-d: total visits predicted from the per-phase profiles equal the measured count for 1836 of 1836 deep cells (jj outside 2..15 use the same representative profiles)

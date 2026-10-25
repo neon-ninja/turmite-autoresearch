@@ -32,6 +32,7 @@ pub struct Geom {
 
 /// The visited region on a dense board. Same bookkeeping as `probe::Region`
 /// (kept separate: that one is private and window-oriented).
+#[derive(Clone)]
 pub struct Region {
     unv: Vec<u8>,
     nbr: [isize; 4],
@@ -84,6 +85,46 @@ impl Region {
         self.sxx += x * x + y * y;
         self.min = (self.min.0.min(x), self.min.1.min(y));
         self.max = (self.max.0.max(x), self.max.1.max(y));
+    }
+
+    pub fn size(&self) -> usize {
+        self.nbr[2] as usize
+    }
+
+    /// Bounding box of the visited cells as (row lo, row hi, col lo, col hi) board indices; None if empty.
+    pub fn bbox(&self) -> Option<(usize, usize, usize, usize)> {
+        if self.area == 0 {
+            return None;
+        }
+        let size = self.nbr[2] as usize;
+        let c = (size / 2) as i64;
+        Some(((c + self.min.1) as usize, (c + self.max.1) as usize, (c + self.min.0) as usize, (c + self.max.0) as usize))
+    }
+
+    /// Checkpoint form: scalars plus the board cropped to the visited bounding box.
+    pub fn snap(&self, w: &mut crate::snap::Wr) {
+        let size = self.nbr[2] as usize;
+        w.u64(size as u64);
+        w.u64(self.area);
+        w.u64(self.perimeter);
+        for v in [self.sx, self.sy, self.sxx, self.min.0, self.min.1, self.max.0, self.max.1] {
+            w.i64(v);
+        }
+        crate::snap::put_crop(w, &self.unv, size, self.bbox());
+    }
+
+    pub fn unsnap(r: &mut crate::snap::Rd) -> Result<Region, String> {
+        let size = r.u64()? as usize;
+        let mut reg = Region::new(size);
+        reg.area = r.u64()?;
+        reg.perimeter = r.u64()?;
+        reg.sx = r.i64()?;
+        reg.sy = r.i64()?;
+        reg.sxx = r.i64()?;
+        reg.min = (r.i64()?, r.i64()?);
+        reg.max = (r.i64()?, r.i64()?);
+        crate::snap::get_crop(r, &mut reg.unv, size)?;
+        Ok(reg)
     }
 
     pub fn geom(&self) -> Geom {
@@ -315,8 +356,8 @@ impl Accountant {
             _ => {}
         }
         // 3. Band boundaries at this state.
-        if let Some(k) = self.active {
-            if st.area >= self.bands[k].hi {
+        if let Some(k) = self.active
+            && st.area >= self.bands[k].hi {
                 assert_eq!(st.area, self.bands[k].hi);
                 let b = &mut self.bands[k];
                 b.reached_hi = true;
@@ -332,7 +373,6 @@ impl Accountant {
                 self.bands[k].add_clipped(from, st.t, z);
                 self.active = None;
             }
-        }
         if self.active.is_none() && self.started < self.bands.len() && st.area >= self.bands[self.started].lo {
             let k = self.started;
             assert_eq!(st.area, self.bands[k].lo);
@@ -370,11 +410,10 @@ impl Accountant {
         let mut cycle: Option<(u64, u64, u64)> = None; // (start, end, D)
         if z {
             self.last_b = Some((s, start_obs));
-        } else if start_obs && end_obs {
-            if let Some((bs, true)) = self.last_b {
+        } else if start_obs && end_obs
+            && let Some((bs, true)) = self.last_b {
                 cycle = Some((bs, e, s - bs));
             }
-        }
         for k in 0..self.started {
             let band = &mut self.bands[k];
             if credited >> k & 1 == 1 {
@@ -390,13 +429,12 @@ impl Accountant {
             } else {
                 band.add_clipped(lo_i, hi_i, z);
             }
-            if let Some((cs, ce, d)) = cycle {
-                if cs >= band.t_start && ce <= t_end {
+            if let Some((cs, ce, d)) = cycle
+                && cs >= band.t_start && ce <= t_end {
                     band.cycles += 1;
                     band.cycle_d_sum += d;
                     band.cycle_t_sum += e - s;
                 }
-            }
         }
     }
 }

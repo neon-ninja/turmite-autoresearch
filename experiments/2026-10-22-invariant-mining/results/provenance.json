@@ -1,0 +1,57 @@
+{
+  "commit": "253adabb532fbfc41ebd05fdaaf7c856be8f0aa5",
+  "command": [
+    "uv",
+    "run",
+    "--frozen",
+    "experiments/2026-10-22-invariant-mining/scripts/mine.py",
+    "RL",
+    "RR",
+    "RLRR"
+  ],
+  "rules": [
+    "RL",
+    "RR",
+    "RLRR"
+  ],
+  "moduli": [
+    2,
+    4
+  ],
+  "seed": null,
+  "colour_shift_symmetries": {
+    "RL": {
+      "preserving": [
+        0
+      ],
+      "with_reflection": [
+        1
+      ]
+    },
+    "RR": {
+      "preserving": [
+        0,
+        1
+      ],
+      "with_reflection": []
+    },
+    "RLRR": {
+      "preserving": [
+        0
+      ],
+      "with_reflection": []
+    }
+  },
+  "binary_sha256": "d27fd242b495450f1d1bb6c3dbd389d14b345b04ca95f8ad88b078f853cb0999",
+  "source_sha256": {
+    "src/invariants.rs": "72c9f874bbbceb7bb06fdaf116bb72de772f1646fb3fbeb8182b1c381cefef95",
+    "src/bin/invariants.rs": "015e51ffe28a7543d1953b042ec644f3187fb41c2592fc5fd48e0eefacb1793e",
+    "src/rule.rs": "8e91cedbf7d6491b8aeb5e20296f153cc6ee24ccb9ca7eaa5d1278d236264bbc",
+    "src/lib.rs": "3bdd56e12e5fa6d3b4cf8c94c5b08d3745f1256bec00d4e08d77a6034db13346",
+    "Cargo.lock": "10e4dd6eb9399e13617dadc91fe871cd730673109b6977c6f9659ea91b3fb6f1",
+    "Cargo.toml": "6c79cef37d9d63b0b6c6beaa145c2a5151823424d346431f5e405adf786b689e",
+    "experiments/2026-10-22-invariant-mining/scripts/mine.py": "133fd6233b6858c7922e2eb19784fdf84e627316a949170275e0a80e6d2bb121"
+  },
+  "output_sha256": "465c78fef14aaec6d9052fdc7956f31b78d6a5c5dfdab352d4e28e5760be03c4",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)"
+}

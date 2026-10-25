@@ -1,5 +1,14 @@
 # What could explain kappa? Mechanisms and discriminating experiments
 
+## Evidence consolidation — 2026-10-23
+
+The [claim ledger](evidence-ledger.md) reads the completed studies and their
+corrections together. It separates calibrated occupation accounting, failed
+out-of-sample closure, uninformative tail/context tests, shuffle reach and the
+single-cell gate eligibility gap. No new measurements or predictions are added.
+Use its pinned sources and next decisions before reading the historical plans
+below as a current execution queue.
+
 ## Prospective first-passage follow-up — 2026-10-20 21:10 +13:00
 
 [New scaffold](../experiments/2026-10-20-kappa-first-passage/README.md), base
@@ -228,3 +237,61 @@ not attempted. Lesson for the other plans: a baseline built from depth-profile r
 accounting identity with occupation; use baselines from quantities that precede the window.
 
 - Square-loop mechanism for the lead effect (H-loop) tested and rejected at this scale (and the fixed-area lead effect itself is reproduced by a collider model with no direct effect, `experiments/2026-10-19-c-law-mechanism` Stage 4, see the reconciliation at the end of `open-questions-hypotheses.md`): see `open-questions-hypotheses.md` ("Kappa square-loop test", 2026-10-16) and `experiments/2026-10-16-kappa-square-loop/README.md`.
+
+## First-passage closure outcome — 2026-10-21
+
+[experiments/2026-10-20-kappa-first-passage](../experiments/2026-10-20-kappa-first-passage/README.md) ("Results" at the bottom; frozen before the run, 768 runs, 46 of 48 rules eligible).
+**P2 FAILED** (median relative error 1.07 against a 0.20 threshold; a band-1 persistence baseline was better; family-bootstrap interval for the improvement [-0.023, +0.001]).
+P1, P3 and P4 were **not tested** (no calibrated tail estimator; no rule-conditional input for unseen families; radius-4 context not recorded), and a frozen deep-dominance rule
+(depth-64 carries > 0.5 of E[T] in 35 of 46 rules) declares the milestone closure uninformative about locality.
+Two methodological findings: (i) for a maximum-likelihood chain scored on its own data, predicted E[T] equals the sample mean regardless of the state partition (M0, M1, M2 agreed to 0.08%), so
+in-sample "closure" cannot be wrong and a closure test must be out-of-sample (the synthetic control that detects failure did so only with a shifted entry law); (ii) interior episodes cannot change the territory, so frozen and evolving depth coincide.
+Post-hoc, descriptive: over 46 rules the slope of ln E[T] on ln(A/P) is 0.998 (quartiles 0.88-1.10) and that of ln E[D] is about 0, so the registered condition 1 + delta - z(1-theta) = 0 holds in the median
+(1 + delta - slope = 0.002 against a measured kappa slope of -0.003). This says kappa is constant because interior returns scale with the boundary scale; it does not say why, and 26% of rules drift strongly.
+Next: a calibrated tail estimator (theta, z) on entry-conditioned T, a test of E[T] ~ L on new starts at larger bands, deeper milestones and radius-4 context in the recorder.
+
+### Correction to the first-passage entry — 2026-10-21 03:06 +13:00
+
+The sentence above that kappa is "constant because interior returns scale with the boundary scale" is bookkeeping, not a finding: with B/S of 0.005-0.05, f ~ E[D]/E[T], so ln kappa = ln L + ln E[D] - ln E[T] and slope_ET = 1 + slope_ED - slope_kappa is the renewal identity (per-rule residual median 0.036, but up to 1.6 for high-B/S rules). The new measurement is delta ~ 0 (E[D] flat over a 4x range of L), and the open question is only restated: why does E[T] track L.
+The P2 failure follows for the same reason (B/S ~ 1/L misses any small-band persistence by about the L ratio). A post hoc geometry-conditional kappa persistence (own band-1 kappa times band-2 P/A) has median relative error 0.097: the null the design lacked. The 26% large-drift rules are unchecked as a class (possible highway onset). See the experiment README "Correction after review".
+
+### First-passage stage V2 — 2026-10-21 03:58 +13:00
+
+P1, P3 and P4 were run in a registered stage V2 (experiment README "Stage V2 results"); all three are **uninformative**, P2's FAIL stands. P1: the tail estimator failed its calibration (cutoff bias 0.24 against a 0.2 limit, theta coverage 0.893 against 0.90) and only 72% of rules were identifiable; its fitted exponents are not reported as findings (z comes from tau, the parameter whose calibration failed, and z(1-theta) ~ 1 is forced by E[T] tracking L). P3: the only frozen unseen-family model is a constant per fold; out-of-fold R2 -0.132 at every state level. P4: radius-4 contexts have training support for 0.5% of held-out segments (needs 30%), so no test. The on-disk mid-trajectory checkpoint gate is met (SIGKILL, resume, byte-identical). Open: a tail estimator that passes calibration, then z(1-theta) = 1 + delta.
+
+### Boundary return map: colour-intervention outcome — 2026-10-21
+
+[experiments/2026-10-21-boundary-return-map](../experiments/2026-10-21-boundary-return-map/README.md) (registered before running; 36 rules x 2 seeds, plus a 12-rule pilot).
+Replacing colours outside radius r (within-depth shuffle) at boundary departures: the typical excursion's duration is fixed by colours within a few cells
+(population-weighted r*/L about 0.05-0.1, almost flat in L; registered P1 "no compact state" falsified), but weighted by interior time the reach is about L
+(median r*_t/L 1.16, scaling exponent about 1). So a compact boundary state describes the many short loops, not the time budget that sets kappa.
+The pasted diffusive heuristic (return time ~ L^2) is not supported: it would give t^(1/4); the census kappa ~ const already excludes it.
+Limits: the shuffle removes structure, not single cells; P5 was added after the pilot; the C2 random-walk control ran in the pilot only.
+
+## 2026-10-23: same next-turn map, different return (excluded pilot)
+
+[Protocol and results](../experiments/2026-10-23-hidden-phase-return/README.md),
+evidence revision `1c0d631a1745f3bf12ab9e7a1d87d9d0bb9b6974`.
+A one-time shuffle of interior phases within depth bins and next-turn classes
+preserves every current turn and the depth-bin colour histogram. In 160 selected
+long departures (three rules, four new patched starts, two area bands), all 640
+k=1 replays changed path and return tuple. All full-word shams matched. The mean
+absolute log2 time effect was 3.06–7.14 across six rule/area cells; the ratio to
+unrestricted shuffling was 0.32–0.62. This ratio is not an information fraction:
+permutation classes and spatial edits differ between arms.
+
+Minimum episode support failed in 17/24 start/area groups, so the pilot stopped
+without confirmation and the registered all-six threshold (missed in two cells)
+is descriptive, not a test. Sample: 160 episodes, four starts per rule.
+All 9,680 baseline departures were accounted for, with no overflows or unfinished
+episodes; no replay was censored. A post hoc extreme example (86,030 -> 6 steps)
+was independently reproduced from its initial patch, with first divergence on
+a cell's second read. It is a many-cell intervention, not single-cell attribution.
+
+This is evidence against exact next-turn-map sufficiency on the tested edited
+fields, not an explanation of kappa, natural-state insufficiency, a growth law
+or a population mean effect. Current-turn versus future-clock distinctions and
+the delayed-divergence argument already occur in the c-law renewal record.
+The new result motivates distinguishing collective phase organisation from
+individual delayed instructions, with adequate preconfirmed episode support
+and a future occupation prediction. No such follow-up was run.
