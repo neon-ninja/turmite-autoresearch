@@ -1,0 +1,5 @@
+rule_a,rule_b,steps,shape_a,shape_b,equal,self_shift_a,self_shift_b,mirror_a
+RRRRRRLLR,RRRRRLLRR,1000000000,26x26:568:038a4c3e664cd905,26x26:576:f6b76fc404c7b225,false,false,false,true
+RRRRRRLLR,RRRRRRRLL,1000000000,26x26:568:038a4c3e664cd905,26x26:554:0234dd6ab07fd340,false,false,false,true
+RRRRRRRLL,RRRRRLLRR,1000000000,26x26:554:0234dd6ab07fd340,26x26:576:f6b76fc404c7b225,false,false,false,true
+RRRRRRRLLR,RRRRRRRRLL,1000000000,23x24:470:3378b2b3bb9c7f02,23x24:462:93361e63d9a5db82,false,false,false,true

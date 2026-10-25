@@ -45,3 +45,10 @@ The first `touched_shape` oracle test failed (bounding box 8 against 7): the tra
 Classes: the two with identical footprints at 1e8 (5 rules above). Run `rotation_shapes` on their pairs at 1e9 and 1e10 steps (and each rule's own 1e8 vs 1e9 vs 1e10 footprint as the repaired C1).
 **Prediction F1a (60%):** the three-rule class stays identical at 1e9; the two-rule class too. **F1b (45%):** still identical at 1e10. **Repaired C1:** footprints at 1e8, 1e9, 1e10 of the same rule all differ (boxes grow ~0.1 decades per decade).
 Reading: staying identical over two more decades would show the rotated rules build the same object up to symmetry (a shared attractor, not a box coincidence); separating would show the 1e8 equality was an early coincidence.
+
+## F1 result at 1e9 (appended; `results/f1_shapes_1000000000.csv`, commit of this entry)
+
+**F1a FAILED:** all four pairs that had identical footprints at 1e8 differ at 1e9 (cells 568 / 576 / 554 for the three-rule class; 470 / 462 for the two-rule class, 26x26 and 23x24 boxes respectively).
+The footprints stay close in size but are not the same object, so the 1e8 equality was an early coincidence, not a shared attractor. Repaired C1: each rule's own footprint changes from 1e8 to 1e9
+(for example `RRRRRRLLR` 22x22:428 -> 26x26:568), so the test can say "different". (The `self_shift` columns in the CSVs still compare against +1000 steps and are uninformative; ignore them.)
+F1b (identical at 1e10) is conditional on F1a and is now moot; the 1e10 run (`results/f1_shapes_10000000000.csv`) was still in progress when this was committed, so that file is **incomplete until a later commit says otherwise**.
