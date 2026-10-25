@@ -160,3 +160,29 @@ exit 0: all 344 specs pass the per-step checks. Output sha256
 `50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79`, byte-identical to
 `results/classes.csv` (`cmp` silent). So the committed data have no hidden class mis-split, and the
 edit is behaviour-neutral on the registered output.
+
+### 2026-10-25 09:20 (+00:00) · 599ec93 · observation
+Post hoc review statistics (`scripts/posthoc_review.py`, committed in `599ec93`; unregistered,
+no claims scored). P3 fraction Q > 1: 41/64, Wilson [0.518, 0.747], bootstrap P(>= 0.75) 0.037.
+P4 Spearman +0.197 [-0.094, 0.475]. Spearman(rho, rho_1^ret) +0.934 [0.866, 0.966], part-whole.
+P2b ratio 5-95% 0.931-1.086 (23/64 beyond 5%). Exact split rho = birth + w_1 rho_1^ret +
+(1 - w_1) rho_2+^ret (max residual 7e-15). Fillers removed, variance shares birth 0.34 / flat 0.44
+/ exposed 0.22; at w_1 = 1/2 they become 0.28 / 0.29 / 0.43. Rotor-ant gap 0.924: birth 51%,
+flat 40%, exposed 11%; ant/rotor ratios 0.51 flat and 0.55 exposed, ant/rw 0.75 and 0.52.
+Mean-field probe kappa 1.110 (SD 0.007, 8 seeds).
+
+### 2026-10-25 09:20 (+00:00) · 599ec93 · interpretation
+corrects: 2026-10-20 post hoc exploration (README) and progress post. "Flat-edge returns carry the
+rule-to-rule variation, and that is where the ant differs most" does not survive the composition
+check. The 0.93 is part-whole. The flat-edge share of variance comes from flat cells being ~72%
+of the boundary, and relative to the rotor the ant is equally short in both classes. Still
+standing: ant rho_1^ret <= 1.01 in every non-filler rule, and about half the rotor gap is births.
+Scoring corrections: P3's outcome set was not exhaustive (the result fits no registered outcome);
+P4 is unscored, not failed (its condition, H-exposed, did not hold); P1 covers classes 1-3 and is
+uniform by construction. The welcome post's "most of the gap sits in returns" is wrong: births are
+about half. Corrections were appended to the README (review addendum), the posts (dated
+headings), `notes/open-questions-hypotheses.md` and `notes/ACTIVE.md`. The homepage card and
+reader guide were reworded. `scripts/build_notebook.py` gained a review section, the corrected
+scoring and caveats, and was rebuilt with `uv run --frozen`. The rebuild re-rendered
+`results/returns_by_class.png` with different bytes (same data, plotting stack differs from
+2026-10-20). The committed PNG was restored and is unchanged.

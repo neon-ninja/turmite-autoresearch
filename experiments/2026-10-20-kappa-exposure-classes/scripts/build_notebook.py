@@ -1,5 +1,5 @@
 """Build and execute notebook.ipynb for 2026-10-20-kappa-exposure-classes from committed results.
-Run: uv run experiments/2026-10-20-kappa-exposure-classes/scripts/build_notebook.py
+Run: uv run --frozen experiments/2026-10-20-kappa-exposure-classes/scripts/build_notebook.py
 """
 from pathlib import Path
 
@@ -37,7 +37,7 @@ np.random.seed(SEED)
 ROOT = next(p for p in [Path.cwd(), *Path.cwd().parents] if (p / "AGENTS.md").exists())
 EXP = ROOT / "experiments/2026-10-20-kappa-exposure-classes"
 INPUTS = [EXP / "results/classes.csv", EXP / "results/specs.txt", EXP / "results/rule_stats.csv",
-          EXP / "results/analysis.json", EXP / "results/run.log"]
+          EXP / "results/analysis.json", EXP / "results/run.log", EXP / "results/review.json"]
 missing = [p for p in INPUTS if not p.exists()]
 assert not missing, f"missing inputs: {missing}"
 sha = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip()
@@ -48,16 +48,20 @@ for p in INPUTS:
 `scripts/run.sh` ran `examples/kappa_exposure_classes.rs` (`26 8192 --check`) on 64 stationary census
 rules (blank board + 4 patched starts each) and 8 seeds each of the mean-field walker, rotor and
 random walk; every window was checked against `probe::probe_walker` and a board scan.
-`scripts/analyse.py` scores the registered predictions; `scripts/explore.py` is post hoc."""),
+`scripts/analyse.py` scores the registered predictions; `scripts/explore.py` and
+`scripts/posthoc_review.py` (2026-10-25 review) are post hoc.
+Scoring as corrected on 2026-10-25 (README review addendum): P3's three registered outcomes were not
+exhaustive, and median Q >= 1.18 with Q > 1 in 64% fits none of them, so H-exposed failed and no
+alternative is supported; P4 was conditional on H-exposed and is therefore unscored."""),
     code("""summary = json.loads((EXP / "results/analysis.json").read_text())
 rows = [("P0 reproduction (1152 census windows)", summary["P0_reproduction_held"]),
         ("P1 mean-field calibration", summary["P1_held"]),
         ("P2 deficit survives convention-free ratio", summary["P2_held"]),
         ("P2b kappa/1.105 converts rule by rule", summary["P2b_held"]),
         ("P3 H-exposed (median Q >= 1.18 and Q>1 in >= 75%)", summary["P3_held"]),
-        ("P4 Spearman(rho, exposed share) <= -0.4", summary["P4_spearman"] <= -0.4)]
+        ("P4 Spearman(rho, exposed share) <= -0.4 (only if H-exposed held)", None if not summary["P3_held"] else summary["P4_spearman"] <= -0.4)]
 for name, ok in rows:
-    print(f"{'HELD  ' if ok else 'FAILED'}  {name}")
+    print(f"{'UNSCORED' if ok is None else 'HELD    ' if ok else 'FAILED  '}  {name}")
 print("median Q", round(summary["median_Q"], 3), "CI", [round(x, 3) for x in summary["median_Q_ci95"]],
       "frac Q>1", round(summary["frac_Q_gt_1"], 3), "| P4 rho", round(summary["P4_spearman"], 3))"""),
     md("## Results"),
@@ -98,17 +102,36 @@ fig.savefig(EXP / "results/returns_by_class.png", dpi=110)
 plt.show()"""),
     md("""Each point is one ant rule (mean over complete patched starts, three board-filler runs excluded post hoc) or one calibration-walker seed; Q is the
 horizontal-to-vertical ratio (points below the dotted line have Q > 1). The rotor and random walk
-also sit below the line, so Q > 1 is not ant-specific; the ants are distinguished by being far
-left (low flat-edge returns). The plot does not show why."""),
+also sit below the line, so Q > 1 is not ant-specific. The ants sit far left (low flat-edge
+returns) but also low (low exposed returns): relative to the rotor they are about half in both
+classes (review below), so the plot does not single out the flat edge, and it does not show why."""),
+    md("""## Post hoc review (2026-10-25, unregistered)
+Intervals (rule bootstrap, seed 20261020), the exact composition split
+rho = birth + w_1 rho_1^ret + (1 - w_1) rho_2+^ret, and the rotor-ant gap, from
+`scripts/posthoc_review.py` -> `results/review.json`."""),
+    code("""rv = json.loads((EXP / "results/review.json").read_text())
+print("filler runs dropped in the composition split:", rv["filler_runs"])
+print("rotor - ant gap at medians:", {k: round(v, 3) for k, v in rv["gap"].items()})
+print("mean-field probe kappa, 8 seeds: mean %.4f, SD %.4f" % (rv["mf_kappa"]["mean"], rv["mf_kappa"]["sd"]))
+txt = (EXP / "results/review.txt").read_text().splitlines()
+for line in txt:
+    if line.startswith(("-- ", "P3 fraction", "Spearman(rho, exposed", "P2b", "  fixed weights", "  Cov(")):
+        print(line)"""),
     md("""## Caveats and controls
-- Positive control: mean-field walker rho_u = 1 in every class (P1 held). Reproduction: blank-board
+- Positive control: mean-field walker (uniform by construction) rho_u = 1 within 0.006 for the
+  registered classes u = 1-3 (P1 held; an instrument check, not evidence about the ants). Reproduction: blank-board
   windows identical to the committed census (P0). Thread count: byte-identical at 3 vs 8 threads.
-- **Failed:** P3 (Q > 1 in only 64% of rules) and P4 (wrong sign). Post hoc readings are labelled.
+- **Failed:** P3 (Q > 1 in only 64% of rules, Wilson 95% 0.52-0.75). P4 unscored (its condition
+  failed; descriptive Spearman +0.20, 95% -0.09 to +0.48). Post hoc readings are labelled.
 - One cohort, windows (2^16, 2^26], board 8192; 5/256 patched runs escaped and were excluded."""),
     md("""## What this changes, next steps, open questions
-- kappa/1.105 is a good rule-level proxy for the time-averaged occupation ratio (median deviation 3.6%).
-- Edge exposure does not locate the deficit; flat-edge returns carry its rule-to-rule variation
-  (post hoc, Spearman 0.93). Next (unregistered): age-resolved flat-edge returns on fresh rules."""),
+- kappa/1.105 tracks the time-averaged occupation ratio rule by rule to a median 3.6%, but the
+  5-95% range of the ratio is 0.93-1.09 (23/64 rules beyond 5%): a proxy to roughly +-7-9%.
+- Edge exposure does not locate the deficit. Post hoc, rho correlates with flat-edge returns
+  (Spearman 0.93), but that is part-whole and mostly composition: with class weights frozen at
+  1/2, exposed returns account for more between-rule variance than flat returns (0.43 vs 0.29).
+  About half the rotor-ant gap is birth steps. Next (unregistered, unscheduled): age- and
+  phase-resolved returns on fresh rules, stated at fixed class weights."""),
 ]
 nb = nbformat.v4.new_notebook(cells=cells, metadata={"kernelspec": {"display_name": "Python 3", "language": "python", "name": "python3"},
                                                      "language_info": {"name": "python"}})

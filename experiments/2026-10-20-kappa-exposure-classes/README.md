@@ -220,3 +220,80 @@ each edge cell's colour (full future turn word) alongside age and depth. Under t
 in `notes/ACTIVE.md` that follow-up is not scheduled; it would have to pass the priority-1
 feasibility gate (two explanations, an observable on which they disagree, a persistence comparator)
 before it runs.
+
+## Review addendum (post hoc, unregistered) — appended 2026-10-25 09:20 UTC
+
+Adversarial review of the branch (PR #14). Nothing above is edited; registered predictions P0-P4
+stand as written. New statistics come from `scripts/posthoc_review.py` (committed results only,
+seed 20261020, 4000 rule-level bootstrap resamples) -> `results/review.txt`, `results/review.json`.
+They are descriptive and score nothing.
+
+### Scoring corrections
+
+- **P3 outcome set was not exhaustive.** H-proportional and H-flat are defined on the median of Q
+  alone, H-exposed on the median *and* the 75% frequency. Median Q 1.349 with Q > 1 in 64% falls
+  in none of the three. `analyse.py` printed "outcome H-exposed" and then "FAILED"; the correct
+  reading is: H-exposed as registered **failed**, and the result is outside the registered outcome
+  set. It is not evidence for H-proportional or H-flat.
+- **P4 is unscored, not failed.** P4 was registered conditional on H-exposed; that condition is
+  unmet, so P4 does not apply (`analyse.py` printed "applies"; the table above says "failed (wrong
+  sign)"). The Spearman +0.197 is descriptive only: bootstrap 95% [-0.094, 0.475], and 0 of 4000
+  resamples reach the registered -0.4. Fillers removed: +0.207 [-0.087, 0.476].
+- **P1 is an instrument check, not evidence about walkers.** The mean-field walker is uniform by
+  construction. "rho_u = 1 in every class" (progress post, notebook) holds for the registered
+  classes 1-3 (within 0.0054); class 4 was not registered or reported.
+- **P2b precision.** The median |ln deviation| is 0.036 [0.029, 0.049], but the 5-95% range of
+  rho_blank * 1.105 / kappa_26 is 0.931-1.086: 23 of 64 rules deviate by more than 5%, 4 by more
+  than 10%. kappa/1.105 converts rule by rule to roughly +-7-9%, not to 3.6%.
+
+### Uncertainty that was not reported
+
+- P3 frequency: 41/64 = 0.641, Wilson 95% [0.518, 0.747], bootstrap [0.516, 0.750]; bootstrap
+  P(frac >= 0.75) = 0.037. Reaching 75% needs 48 rules (7 more). No rule's four patched-start Q
+  values straddle 1; 8 rules have mean Q in [0.9, 1.1]. Each start alone: 0.645, 0.641, 0.645,
+  0.635. Median Q 1.349 [1.091, 1.598].
+- P2: median rho 0.874 [0.824, 0.926]; fraction rho >= 1 0.312, Wilson [0.212, 0.434].
+- Spearman(rho, rho_1^ret) +0.934 [0.866, 0.966] (fillers removed +0.922 [0.847, 0.959]);
+  Spearman(rho, rho_2+^ret) +0.664 [0.503, 0.784] (+0.610 [0.431, 0.735]). Both are **part-whole**
+  correlations: rho contains w_1 rho_1^ret and (1 - w_1) rho_2+^ret, so a large value is expected
+  and is not by itself evidence that flat-edge returns "carry" the variation.
+
+### Composition confound (the post hoc flat-edge reading)
+
+Per run, exactly (max residual 7e-15), rho = birth + w_1 rho_1^ret + (1 - w_1) rho_2+^ret with
+birth = sum f / sum m and w_1 = m_1 / m. Fillers removed (3 runs; 64 rules kept):
+
+- Share of between-rule Var(rho) (Cov(term, rho)/Var(rho)): birth 0.337, flat returns 0.444,
+  exposed returns 0.220. Median w_1 0.718 (5-95% 0.58-0.93); Spearman(rho, w_1) -0.22.
+- Weights frozen at the cohort median w_1: shares 0.334 / 0.473 / 0.193 (rho_fixed tracks rho,
+  Spearman 0.993). Weights frozen at w_1 = 1/2: shares 0.284 / **0.289 / 0.426**. At equal weight,
+  exposed returns vary more between rules than flat returns: the flat-edge dominance is largely
+  a composition effect of flat cells being ~72% of the boundary.
+- Rotor minus ant (medians, gap 0.924): birth 0.476 (51%), flat returns 0.375 (40%), exposed
+  returns 0.104 (11%), composition -0.027. As ratios of medians the ant is 0.51 of the rotor on
+  flat returns and 0.55 on exposed returns, and 0.75 / 0.52 of the random walk. So the ant is
+  below both controls in both classes, by similar factors relative to the rotor and by a *larger*
+  factor on exposed edge relative to the random walk. **"The ant-specific feature is the flat
+  edge" (Post hoc exploration; Interpretation) is not supported.** What stands: every ant rule
+  has rho_1^ret <= 1.01 (fillers removed) while the rotor is at 1.14, and about half of the
+  rotor-ant gap is birth steps per unit boundary share (cf. the welcome post's "most of the gap
+  sits in returns", corrected in the posts).
+- Consequence for the proposed next test (i): any variance criterion must be stated at fixed
+  class weights, and at equal weights it already points the other way on this cohort. Not
+  registered; not scheduled.
+
+### Instrument and process
+
+- `--check` did not cover a per-step class mis-split that preserves window sums; fixed with an
+  independent per-step recount, and the full run reproduced byte-identically
+  (`results/classes.csv` sha256 `50ca6573...84f79`, rustc 1.98.1). Details in the NOTEBOOK,
+  2026-10-25 09:17 and 09:18.
+- The registration commit was amended (timestamps only) before the run; see NOTEBOOK
+  2026-10-25 09:16.
+
+### Mean-field kappa (for the evidence ledger)
+
+The eight `mf` calibration runs (seeds 1..8, 2^26 steps, board 8192) give window-mean probe kappa
+1.110 over k = 17..26 (between-seed SD 0.0069, range 1.102-1.120), against 1.118 (SD 0.009) in
+`../2026-10-16-kappa-uniform-baseline` (seeds 2026101601..08, 2^23 steps). Recorded as ledger
+claim BO-04 (seed-disjoint, longer-horizon replication of BO-02).
