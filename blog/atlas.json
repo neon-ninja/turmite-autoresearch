@@ -177,7 +177,7 @@
         {"text": "What triggers the switch inside the blob, and can entry from a blank board be proved at all?", "source": "notes/proof-track-2026-10-20.md"},
         {"text": "Does the base case need an independent re-simulation to be trusted?", "source": "experiments/2026-10-20-rlrlll-macro-transition/NOTEBOOK.md"},
         {"text": "How far does the Lean model, a transcription of the rule, depend on agreement with the Rust ant?", "source": "experiments/2026-10-23-highway-decider/README.md"},
-        {"text": "Q26 (square-ring fillers): can the corner of the square ring be proved for every k, closing the ring as a macro-transition?", "source": "experiments/2026-10-25-square-ring-fillers/README.md"}
+        {"text": "Q29: can the corner of the square ring be proved for every k, closing the ring as a macro-transition?", "source": "experiments/2026-10-25-square-ring-fillers/README.md"}
       ],
       "turns": [
         {"ref": "2026-10-13-g1-ribbon-breakout", "change": "RLRLLL is seen to switch from blob to column sweeper."},
@@ -214,8 +214,8 @@
         {"text": "Is the set of late highways finite, or does a fixed fraction of survivors keep escaping every decade?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "Q19: does the registered prediction for the next decade hold when the survivors are run on, with the second-board check?", "source": "experiments/2026-10-25-late-highway-fourth-decade/README.md"},
         {"text": "The earlier sweeps have not had the board-size check.", "source": "experiments/2026-10-21-late-highway-board-check/README.md"},
-        {"text": "Q25 (rotation boxes): why do cyclic rotations of a survivor share a bounding box though their trajectories separate early?", "source": "notes/open-questions-hypotheses.md"},
-        {"text": "Q26 (prefix causal horizon): is the first-read time of a rule's last colour bounded for every rule, and can that be proved?", "source": "notes/open-questions-hypotheses.md"}
+        {"text": "Q25: why do cyclic rotations of a survivor share a bounding box though their trajectories separate early?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Q26: is the first-read time of a rule's last colour bounded for every rule, and can that be proved?", "source": "notes/open-questions-hypotheses.md"}
       ],
       "turns": [
         {"ref": "2026-10-13-b5-late-highways", "change": "The tail is first read as thinning, with some unclassified escapes."},
@@ -249,8 +249,8 @@
       "posts": ["2026-10-25-the-ant-that-fills-by-looping-in-place.md", "2026-10-22-half-the-late-highways-were-the-board.md", "2026-10-23-three-escapes-that-were-the-board.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md"],
       "open": [
         {"text": "Q20: can the whole ring be closed as a proved macro-transition, corner and persistence included? A proof plan is drafted, nothing run.", "source": "notes/q20-filler-proof-plan-2026-10-25.md"},
-        {"text": "Q26 (square-ring fillers): can the corner be proved for every k, and is the reversed family a different crawler or a symmetry image of the first?", "source": "notes/open-questions-hypotheses.md"},
-        {"text": "Q25 (square-ring fillers): why do only some rules with the ring's turn table find it from a blank board, when the ring never reads the letters that decide it?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Q29: can the corner be proved for every k, and is the reversed family a different crawler or a symmetry image of the first?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Q27: why do only some rules with the ring's turn table find it from a blank board, when the ring never reads the letters that decide it?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "Q23: are the late spirals and the two-visit builders the same edge mechanism as the rings, and what triggers their late onset?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "Q15: what are the census builders that are neither rings nor two-visit crawlers, including the non-integer cases?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "How often does a small starting patch switch a rule that is stationary from a blank board into a filler?", "source": "notes/open-questions-hypotheses.md"}

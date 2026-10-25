@@ -438,9 +438,9 @@ Exact result (z3 step proofs with controls, oracle-tested on all pairs up to len
 - **Onset is a separate question.** `RLRR`, `RLRRR`, `RRLRRR` read the right turns but never fill from a blank board; given a ring
   they run it with a bit-identical visit field for 1e8 steps. 218 of 361 rules of length <= 12 with the right turns reach the ring
   by 2^27 steps. As for highways, a few letters certify the structure and the seed decides whether it is found.
-- Q25. Why do 60% of the `Pi(k)` rules find the ring from a blank board and 40% not, given that the ring never reads the letters
+- Q27. Why do 60% of the `Pi(k)` rules find the ring from a blank board and 40% not, given that the ring never reads the letters
   that decide it? Is the seed's chance of emitting a ring structured like highway onset (`experiments/2026-10-21-highway-preconditions/`)?
-- Q26. What is the reversed family `R^(k+1) L R^k` (edge rows `3311 / 4466 / 6666` for k = 2): a different crawler or a symmetry image
+- Q29. What is the reversed family `R^(k+1) L R^k` (edge rows `3311 / 4466 / 6666` for k = 2): a different crawler or a symmetry image
   of the first? And can the corner be proved for every k, closing the ring as a macro-transition (the same shape of argument as the
   edge lemma, a finite trace per corner phase)?
 - Q23 link: the two-visit builders' straight edges match the mirrored k = 0 crawler (one row of 1s over 2s), which exists for every rule
@@ -451,7 +451,7 @@ independently in two branches: in the square-ring section above (PR #11) Q25 = r
 family / corner proof; in the prefix-causal-horizon section (PR #15) Q25 = rotation-related bounding boxes and Q26 = bound on the
 first-read time of the last colour. Until a maintainer renumbers, cite them with their section (e.g. "Q25 (rotation boxes)").
 
-## Added 2026-10-25: the crawler as a ceiling for the chaotic c law (c-law coefficients; Q25 linked)
+## Added 2026-10-25: the crawler as a ceiling for the chaotic c law (c-law coefficients; Q27 linked)
 
 `experiments/2026-10-25-crawler-cost-chaotic-edge/` (Stage 1 registered at `a387d27`, Stage 2 at `be07015`, both before their runs).
 - **Exact reference for the edge-cost instruments.** The square-ring crawler's edge accounting is derived and checked: `1/c = k + 5/4`,
@@ -470,5 +470,12 @@ first-read time of the last colour. Until a maintainer renumbers, cite them with
   steepening of the lead slope failed on fresh rules (S1: Pi 0.83 vs controls 0.78 on 42 pairs, CI includes 0).
 - Q28. Why is support collective? Is circulation an all-or-nothing chain (phi set by the *product* of window letters), and does
   that explain why b sits at 0.70, i.e. 70% of the crawler's 1? Proposed test: a gap-dose design on the flat band.
-- Link to the ring-onset question in the square-ring section above: 65% of fresh `Pi(m)` rules of lengths 13-18 already grow faster than t^(2/3) by 2^24 steps (filler-like), against 4% of
+- Q27 link: 65% of fresh `Pi(m)` rules of lengths 13-18 already grow faster than t^(2/3) by 2^24 steps (filler-like), against 4% of
   composition-matched controls. The table that makes the crawler possible also makes finding it likely.
+
+**Numbering resolved (appended 2026-10-25, PR #17, at the maintainer's request; question numbers stay plain integers).**
+The rotation-boxes and prefix-causal-horizon questions keep Q25 (rotation-related bounding boxes) and Q26 (bound on the
+first-read time of the last colour), because experiment titles, scripts and append-only notebooks already cite them that
+way. The square-ring questions are renumbered: ring onset from a blank board is now **Q27**, and the reversed family and
+corner proof is now **Q29**. The crawler-support question is Q28. Older append-only records keep the numbers they were
+written with; read "Q25/Q26" in `experiments/2026-10-25-square-ring-fillers/NOTEBOOK.md` as Q27/Q29.

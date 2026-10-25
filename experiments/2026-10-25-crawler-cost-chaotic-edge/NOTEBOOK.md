@@ -105,3 +105,8 @@ built the figure and the shareable notebook (executed clean, 0 errors). Pruning 
 corrects: 23:33 entry ("Q27 added"). At Tim's request the question is numbered Q28 in
 `notes/open-questions-hypotheses.md`; question numbers stay plain integers. The cross-reference to the square-ring
 ring-onset question is now worded without a number, because `main` currently has two questions numbered Q25.
+
+### 2026-10-25 (+13:00) · PR #17 · deviation
+corrects: the previous entry's "worded without a number". The duplicate question numbers are now resolved: the square-ring
+ring-onset question is Q27 and its reversed-family/corner question is Q29; rotation boxes keep Q25 and Q26; this
+experiment's question stays Q28. The note's cross-reference now reads "Q27 link".

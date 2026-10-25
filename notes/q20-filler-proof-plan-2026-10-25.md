@@ -26,11 +26,11 @@ other count is read.
 - The exact revolution clock `dt = 8(k+1)·swing + b_(r mod 2)` (P2, 25/25 rules).
 - The exit quadratics `E(G) = 2(k+1)G² + βG + γ`, which predict 12/12 exits to the step (P4). β and γ are fitted, not derived.
 
-**Open (#11's own list, plus Q25 and Q26):**
+**Open (#11's own list, plus Q27 and Q29):**
 - the corner lemma
 - the ring as a proved macro-transition
-- onset from a blank board (218/361 Pi rules reach the ring by 2^27; Q25)
-- the reversed family `R^(k+1) L R^k` (Q26)
+- onset from a blank board (218/361 Pi rules reach the ring by 2^27; Q27)
+- the reversed family `R^(k+1) L R^k` (Q29)
 - 2 ring-footprint rules outside Pi
 - the k = 0 / two-visit builders
 
@@ -163,7 +163,7 @@ as O1–O4's explicit cell lists. Done together with them, it is not a separate 
 
 - **Entry.** Nothing above says a run from a blank board, or from a 5×5 random patch, ever reaches `R(L0, δ, q)`. #11 P6:
   only 218 of 361 Pi rules (length ≤ 12) are rings at 2^27 from a blank board, and some never fill from a blank board
-  (`RLRR`, `RLRRR`, `RRLRRR`). Entry is Q25 and needs a separate certificate per seed: a long-transient "entry problem" in
+  (`RLRR`, `RLRRR`, `RRLRRR`). Entry is Q27 and needs a separate certificate per seed: a long-transient "entry problem" in
   the vocabulary table. At best it is a finite replay of one seed up to the base case, as the RLRLLL base case was done.
 - **`RLRRRRLRR` in particular.**
   - *Turn table:* it **is** in the family. `T(0..4) = R L R R R` satisfies `Pi(1)`, and its prefix is `R^1 L R^3`, which is
@@ -173,12 +173,12 @@ as O1–O4's explicit cell lists. Done together with them, it is not a separate 
   - *Patched starts:* the 2026-10-20 kappa run found that its patched starts `@1` and `@3` fill at exactly 0.250116
     births/step, about 3.998 steps per cell. That matches the k = 1 rate, and #11 reports 3.998–4.001 steps per cell for
     k = 1 rings.
-  - *Conclusion:* it is a Pi(1) rule whose ring entry depends on the seed. It is a concrete instance of Q25, not a different
+  - *Conclusion:* it is a Pi(1) rule whose ring entry depends on the seed. It is a concrete instance of Q27, not a different
     filler. However, the kappa instrument recorded no read histogram or clock, so "the patched fill is the ring(1) crawler"
     is **inferred from one number and not observed**. Draft prediction F1 below makes it checkable.
 - **`RLLLRLLL@2`** (0.4998 births/step, about 2 steps per cell; 2026-10-20). It is not in `Pi(k)` for any k ≥ 1. It
   starts `RLL`, the mirror-image k = 0 two-visit edge of #11's post hoc table, so it is outside this theorem.
-- **Other families:** the reversed family `R^(k+1) L R^k` (Q26), the two ring-footprint rules outside Pi (`RRLLLRLLLRLL`,
+- **Other families:** the reversed family `R^(k+1) L R^k` (Q29), the two ring-footprint rules outside Pi (`RRLLLRLLLRLL`,
   `RRRLRRLLRRRR`), and the spiral builders (Q23).
 - **Finite boards.** The plane theorem plus an exit event gives E(G), but the exit itself (which side, which parity) is a
   separate finite check per G. #11 P4 observed it to be stable for G = 2^j.
@@ -222,12 +222,12 @@ as O1–O4's explicit cell lists. Done together with them, it is not a separate 
   macrostate needs a larger phase variable or the plan fails as stated.
 - **O4:** about one day once O3 exists. Risk: the aspect δ may drift, so `R(L, δ, q)` would need δ(L). The definition of
   `ΔA` at corners is easy to get off by one, and F3 is the guard against that.
-- **Entry (Q25):** not in scope. Any claim about blank-board fillers needs a per-seed base case.
+- **Entry (Q27):** not in scope. Any claim about blank-board fillers needs a per-seed base case.
 - **Cost of not doing it:** the 2(k+1) law and the exit quadratics remain level-2 regularities with a level-3 edge.
 
 ## Links
 
-Q20, Q25, Q26 and Q24 in `notes/open-questions-hypotheses.md`; `notes/proof-track-2026-10-20.md`; PR #11
+Q20, Q27, Q29 and Q24 in `notes/open-questions-hypotheses.md`; `notes/proof-track-2026-10-20.md`; PR #11
 (`experiments/2026-10-25-square-ring-fillers/`); PR #15 (`experiments/2026-10-25-prefix-causal-horizon/`, z3 conventions);
 `experiments/2026-10-23-highway-decider/`; `experiments/2026-10-20-rlrlll-macro-transition/` (Task C2 cone criterion, L5
 `Good`); `experiments/2026-10-20-kappa-exposure-classes/` (RLRRRRLRR@1/@3 numbers);
