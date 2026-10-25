@@ -123,3 +123,40 @@ repeat is a candidate for review. Upstream's narrowed plan (`notes/ACTIVE.md`, 2
 side follow-ups: the age-resolved flat-edge test is not scheduled and must pass the priority-1
 feasibility gate first. Homepage card and ACTIVE entry reworded to say so; experiment filed in
 `blog/atlas.json` under boundary-return (counter).
+
+### 2026-10-25 09:16 (+00:00) · 0a010ff · deviation
+Adversarial review of this branch (owner request, PR #14). Two process facts not recorded at the
+time. (1) Toolchain: the 2026-10-20 run used rustc 1.85.1 (`results/run.log`); upstream now pins
+`RUSTUP_TOOLCHAIN: 1.98.1` in CI, and every command from the merge (`8a073b7`) onwards uses
+rustc 1.98.1 (48a229cea 2026-09-01). (2) The registration commit was amended before the run: local
+commit `9d011fc` (09:46:25 UTC) was amended 7 s later into `1593b61`, changing only timestamps that
+had been written ahead of the clock: README "Registered 09:50 UTC (22:50 +13:00)" became 09:46
+(22:46), and NOTEBOOK headings 09:46 -> 09:45 (instrument validation) and 09:50 -> 09:46
+(registration decision). No prediction, threshold, sample or code changed (`git diff 9d011fc 1593b61`:
+3 lines, timestamps only). The run started at 09:46:44 UTC, after `1593b61`. Neither commit was
+pushed before 2026-10-25.
+
+### 2026-10-25 09:17 (+00:00) · 0a010ff · observation
+Oracle coverage gap. `--check` compared window sums (area, perimeter, new_cells, boundary_steps,
+fresh_nbrs = sum u b_u) and the end-of-window class counts p_u, so a per-step class mis-split that
+preserves both sums passes. Demonstrated with a scratch mutant (not committed) that reports one
+class-1 step as class 2 and the next class-3 step as class 2: on `RLLR@1`, 2^20 steps, grid 2048,
+the committed instrument's `--check` exited 0 (output differs from the true one from line 2). Fix in
+`examples/kappa_exposure_classes.rs`: `--check` now keeps an independent visited bitmap and class
+counts (`Shadow`) and asserts at every step the start cell's class, the newborn flag behind f_u and
+the class shares summed into m_u. The same mutant now panics on `RLLR@1`, `RL@2`, `RLR@1` (exit 101,
+"start-cell class"). Also fixed the module doc (windows are (2^j, 2^(j+1)] with output k = j + 1,
+as in the README, not (2^k, 2^(k+1)]) and the two clippy warnings (`doc_lazy_continuation`,
+`needless_range_loop`, the latter by an iterator over the same indices 1..5 in the same order).
+`cargo clippy --release --all-targets` reports no warning in this example.
+
+### 2026-10-25 09:18 (+00:00) · 0a010ff · observation
+Full reproduction with the corrected instrument, as `scripts/run.sh` but into gitignored
+`scratch/recheck/` (`results/run.log` and `classes.done` untouched): fresh target dir
+`$HOME/turmite-target-exposure-recheck`, rustc 1.98.1, binary sha256
+`926d57d3fe47897533cd81e691e33014c3225e001981701bf182f7213b79c229` (working tree: only this example
+modified), `RAYON_NUM_THREADS=8`, `26 8192 --check < results/specs.txt`, started 09:11:38 UTC, 105 s,
+exit 0: all 344 specs pass the per-step checks. Output sha256
+`50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79`, byte-identical to
+`results/classes.csv` (`cmp` silent). So the committed data have no hidden class mis-split, and the
+edit is behaviour-neutral on the registered output.

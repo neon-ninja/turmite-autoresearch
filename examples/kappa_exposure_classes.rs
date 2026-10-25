@@ -1,15 +1,16 @@
 //! kappa_exposure_classes MAX_LOG2 [GRID] [--check] < specs.txt > out.csv
 //!
 //! Boundary occupation split by exposure class (experiment 2026-10-20-kappa-exposure-classes).
-//! A boundary cell's class u (1..4) is its number of unvisited 4-neighbours. Per octave window
-//! (2^k, 2^(k+1)] it records, for each u:
+//! A boundary cell's class u (1..4) is its number of unvisited 4-neighbours. Per octave window of
+//! S = 2^j steps, t in (2^j, 2^(j+1)] (output column `k` = j + 1, the window-end exponent, as in
+//! the probe census; `steps` = S), it records for each u:
 //! - b_u: steps starting on a class-u cell (sum over u = the probe's `boundary_steps`),
 //! - f_u: those steps that start on the cell the walker entered as a new cell on the previous step
 //!   (the forced first departure from a newborn cell),
 //! - m_u: the sum over the same steps of P_u(t)/A(t) at step start, i.e. S times the time-averaged
 //!   class-u share. b_u / m_u is a convention-free occupation ratio: exactly 1 in expectation for a
-//!   walker uniform over the visited set at every instant, with no end-of-window reference.
-//! and p_u, the class-u count at window end.
+//!   walker uniform over the visited set at every instant, with no end-of-window reference;
+//! - p_u: the class-u count at window end.
 //!
 //! Specs: `RULE` (blank board), `RULE@SEED` (5x5 random patch, as bin/probe), `rotor:SEED`,
 //! `rw:SEED`, `mf:SEED` (mean-field walker of examples/kappa_uniform_baseline.rs: each step resample
@@ -17,6 +18,10 @@
 //! Stepping and region bookkeeping copy src/probe.rs (same escape rule). `--check` additionally
 //! compares every window with probe::probe_walker (area, perimeter, new_cells, boundary_steps,
 //! fresh_nbrs = sum u b_u) and recounts p_u by scanning the board, panicking on any mismatch.
+//! Those sums cannot see a mis-split between classes (a 1->2 and a 3->2 error cancel), so `--check`
+//! also re-derives, at every step and from a separate visited bitmap, the start cell's class, the
+//! newborn flag behind f_u and the class counts behind the shares summed into m_u (added
+//! 2026-10-25; output unchanged, see the experiment NOTEBOOK).
 use rayon::prelude::*;
 use std::io::Write;
 use turmite::probe::probe_walker;
@@ -69,6 +74,51 @@ impl Region {
             }
         }
         pc
+    }
+}
+
+/// Independent recount used only by `--check`: its own visited bitmap and class counts, updated
+/// without reading `Region`, so a bookkeeping error in `Region::visit` cannot hide in both.
+struct Shadow {
+    vis: Vec<bool>,
+    nbr: [isize; 4],
+    pc: [u64; 5],
+    area: u64,
+    born: usize,
+}
+
+impl Shadow {
+    fn new(size: usize, start: usize) -> Shadow {
+        let s = size as isize;
+        let mut sh = Shadow { vis: vec![false; size * size], nbr: [-s, 1, s, -1], pc: [0; 5], area: 0, born: usize::MAX };
+        sh.mark(start);
+        sh.born = usize::MAX;
+        sh
+    }
+    fn class(&self, idx: usize) -> usize {
+        self.nbr.iter().filter(|&&d| !self.vis[(idx as isize + d) as usize]).count()
+    }
+    /// Mark the step-end cell; remember it as newborn when it was unvisited.
+    fn mark(&mut self, idx: usize) {
+        self.born = usize::MAX;
+        if self.vis[idx] {
+            return;
+        }
+        let around: Vec<usize> = self.nbr.iter().map(|&d| (idx as isize + d) as usize).filter(|&j| self.vis[j]).collect();
+        for &j in &around {
+            self.pc[self.class(j)] -= 1;
+        }
+        self.vis[idx] = true;
+        for &j in &around {
+            self.pc[self.class(j)] += 1;
+        }
+        self.pc[self.class(idx)] += 1;
+        self.area += 1;
+        self.born = idx;
+    }
+    fn shares(&self) -> [f64; 5] {
+        let a = self.area as f64;
+        [0.0, self.pc[1] as f64 / a, self.pc[2] as f64 / a, self.pc[3] as f64 / a, self.pc[4] as f64 / a]
     }
 }
 
@@ -146,14 +196,21 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32, che
     let mut wins = vec![];
     let mut escaped = false;
     let mut t: u64 = 0;
+    let mut shadow = check.then(|| Shadow::new(size, idx));
     for k in 0..max_log2 {
         let t_end = 1u64 << (k + 1);
         let mut w = Win { k, ..Default::default() };
         while t < t_end {
             let at = mv.start_cell(idx, &region);
             let u = region.unv[at] as usize;
-            for v in 1..5 {
-                w.m[v] += share[v];
+            if let Some(sh) = &shadow {
+                assert!(sh.vis[at], "step starts on an unvisited cell at t={t}");
+                assert_eq!(sh.class(at), u, "start-cell class at t={t}");
+                assert_eq!(sh.born == at, at == newborn, "newborn flag at t={t}");
+                assert_eq!((sh.area, sh.shares()), (region.area, share), "class shares at t={t}");
+            }
+            for (m, s) in w.m.iter_mut().zip(share).skip(1) {
+                *m += s;
             }
             if u > 0 {
                 w.b[u] += 1;
@@ -163,6 +220,9 @@ fn run<M: Mover>(mut mv: M, mut colour: Vec<u8>, size: usize, max_log2: u32, che
             }
             let (j, x, y) = mv.advance(at, &mut colour, size);
             idx = j;
+            if let Some(sh) = &mut shadow {
+                sh.mark(j);
+            }
             t += 1;
             newborn = usize::MAX;
             if !region.visited(idx) {
