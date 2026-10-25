@@ -374,4 +374,5 @@ Exact result (z3 step proofs with controls, oracle-tested on all pairs up to len
 - A causal-horizon account of the kappa prefix effects fails: every letter of every length <= 10 survivor has acted by step ~1000.
 - Q25. Why do cyclic rotations of a rule (19 of 42 equal-box pairs among the 702 survivors; boxes 30-118 cells at 1e11) share a bounding box though their trajectories separate within 45 steps? A rotation is the same rule on a uniform non-zero background. Exploratory, unregistered; would need a background-swap test with rules matched on box size.
 - Q26. Is the first-read time of the last colour bounded for every rule (here max 389 over 702 survivors)? Provable? (A bound on the maximum cell-visit record time.)
+- Correction to the bullet above (2026-10-25): the equal-onset pairs are not exactly equal (25 distinct onsets clustered within ~1e-4), the `frontier-results.md` shared-trajectory reading was a hedged open question that the lockstep runs now test negatively, and the "causal-horizon account of kappa" is my construction, not a prior claim. The solid statement is: all 51 near-equal-onset filler pairs have different trajectories from step <= 205.
 
