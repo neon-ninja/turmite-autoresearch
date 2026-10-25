@@ -1,0 +1,12 @@
+1013 rules (length<=10 census); kinds: {'highway': 196, 'censored': 724, 'escape': 93}; excluded as artefacts: 26
+     decade  at risk  highways  hazard %  escapes   95% Poisson
+1e1-1e2       1013        42      4.15        0   +-1.25
+1e2-1e3        971        26      2.68        0   +-1.03
+1e3-1e4        945        17      1.80        0   +-0.86
+1e4-1e5        928        17      1.83        0   +-0.87
+1e5-1e6        911        15      1.65        0   +-0.83
+1e6-1e7        896        17      1.90        0   +-0.90
+1e7-1e8        879        23      2.62        0   +-1.07
+1e8-1e9        856        11      1.29       16   +-0.76
+1e9-1e10       807        16      1.98       59   +-0.97
+1e10-1e11       732        12      1.64       18   +-0.93

@@ -1,0 +1,22 @@
+decades 0-2 as counted: k=[12, 16, 12]  f_hat=1.08  95% interval [0.74, 1.58]  (f=1 is flat; LR vs flat: 0.16 on 1 df)
+genuine highways by decade (listed): [12, 16, 12], distinct onsets: [12, 16, 12]
+decades 0-2 distinct onsets only: f_hat=1.08  95% interval [0.74, 1.58]
+
+Projection: add decade 3 with m rules run to 1e12 (2000 simulated outcomes per row, seed 20261025)
+ truth f    m    median 95% interval  median width  P(interval excludes 1)
+     1.0    0           [0.69, 1.47]          0.79                    0.06
+     1.0   48           [0.70, 1.44]          0.74                    0.05
+     1.0  200           [0.73, 1.37]          0.64                    0.05
+     1.0  702           [0.78, 1.28]          0.49                    0.04
+     0.5    0           [0.32, 0.75]          0.43                    0.92
+     0.5   48           [0.32, 0.74]          0.42                    0.94
+     0.5  200           [0.33, 0.72]          0.39                    0.97
+     0.5  702           [0.35, 0.68]          0.33                    1.00
+
+Part 4 (EXPLORATORY: windows chosen after seeing the table; shown for sensitivity). Hazard = highways / at-risk per decade of onset.
+ decades (k) n decades  f_hat   95% interval  p at last decade  predicted next decade
+       2..10         9   0.97   [0.91, 1.03]             1.69%          1.63% (11.5 of 702)
+       3..10         8   1.00   [0.92, 1.08]             1.82%          1.82% (12.8 of 702)
+       1..10        10   0.92   [0.88, 0.97]             1.44%          1.33% (9.3 of 702)
+       5..10         6   0.98   [0.87, 1.11]             1.78%          1.75% (12.3 of 702)
+       8..10         3   1.13   [0.76, 1.66]             1.84%          2.06% (14.5 of 702)
