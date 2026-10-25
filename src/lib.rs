@@ -37,6 +37,7 @@ pub mod lattice_trace;
 pub mod lean;
 pub mod local_memory;
 pub mod onset;
+pub mod prefix_horizon;
 pub mod prefix_exposure;
 pub mod probe;
 pub mod reference;

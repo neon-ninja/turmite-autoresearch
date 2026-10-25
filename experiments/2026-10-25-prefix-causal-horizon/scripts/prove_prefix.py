@@ -10,7 +10,7 @@ simulation-relation proof: base case (equal blank boards) is trivial; the *step*
 step in both runs", checked by asking z3 for a counterexample (unsat = proved). The outer induction on the number of steps and the
 definition of F_p as the first step that violates the guard are the pen-and-paper part (README).
 
-Negative controls (NC*) weaken a premise; z3 must then return `sat` with a counterexample, otherwise the instrument proves nothing.
+Negative controls live in prove_controls.py (quantifier-free, so z3 can return a model).
 
 Run: uv run experiments/2026-10-25-prefix-causal-horizon/scripts/prove_prefix.py
 """
@@ -92,7 +92,6 @@ def main():
     results.append(check("A   Inv & read colour < p  =>  Inv after one step  (n, n', p symbolic)", base + [c < p], eq_after, unsat))
     results.append(check("A   read colour == p & D[p] != E[p]  =>  positions differ", base + [c == p, Select(D, p) != Select(E, p)],
                          Not(same_pos(stepA, stepB)), unsat))
-    results.append(check("NC1 A with guard widened to colour <= p  (must fail)", base + [c <= p], eq_after, sat))
 
     # ---- Lemma B (prefix case, n < n'): at w' 's first read of colour n, w reads its wrapped cell (colour 0), w' reads n ----
     # Equal-state premise only on the ant (position, heading); the grid relation up to that step is Lemma L's.
@@ -125,26 +124,6 @@ def main():
             ok_all &= check(f"L   lift step, n={n_:>2} n'={m_:>2}  (letters symbolic)", valid, inv_after, unsat)
     results.append(ok_all)
 
-    # NC2: drop the turn-agreement premise -> positions can differ
-    n_, m_ = 3, 5
-    sl, tl = State("n1"), State("n2")
-    wr = Array("wrap2", Z, ArraySort(Z, Z))
-    a, b = Int("a"), Int("b")
-    inv = And(sl.x == tl.x, sl.y == tl.y, sl.h == tl.h, 0 <= sl.h, sl.h < 4,
-              ForAll([a, b], Implies(get(wr, a, b) == 0, get(sl.g, a, b) == get(tl.g, a, b) % n_)),
-              ForAll([a, b], And(0 <= get(tl.g, a, b), get(tl.g, a, b) < m_)), ForAll([a, b], And(0 <= get(sl.g, a, b), get(sl.g, a, b) < n_)))
-    sw, tw = step(sl, n_, D), step(tl, m_, E)
-    results.append(check("NC2 L without turn agreement  (must fail)", [rule_ok(n_, D), rule_ok(m_, E), inv, get(wr, tl.x, tl.y) == 0],
-                         same_pos(sw, tw), sat))
-    # NC3: drop the wrap flag, n does not divide n': the lifted grid relation is not preserved by a wrap step
-    invnf = And(sl.x == tl.x, sl.y == tl.y, sl.h == tl.h, 0 <= sl.h, sl.h < 4,
-                ForAll([a, b], get(sl.g, a, b) == get(tl.g, a, b) % n_),
-                ForAll([a, b], And(0 <= get(tl.g, a, b), get(tl.g, a, b) < m_)), ForAll([a, b], And(0 <= get(sl.g, a, b), get(sl.g, a, b) < n_)))
-    ct = tl.colour()
-    after = ForAll([Int("a3"), Int("b3")], get(step(sl, n_, D)[3], Int("a3"), Int("b3")) == get(step(tl, m_, E)[3], Int("a3"), Int("b3")) % n_)
-    results.append(check("NC3 L grid relation across a wrap, n=3 n'=5, no flag  (must fail)",
-                         [rule_ok(n_, D), rule_ok(m_, E), invnf, ct == m_ - 1, Select(D, ct % n_) == Select(E, ct)], after, sat))
-
     # ---- Lemma R: n | n' and w' = w repeated: relation g_w == g_w' mod n holds through the wrap, no flag needed ----
     for n_, m_ in ((1, 3), (2, 4), (3, 6), (4, 12), (5, 10)):
         sl, tl = State("r1"), State("r2")
@@ -155,19 +134,10 @@ def main():
         sw, tw = step(sl, n_, D), step(tl, m_, E)
         goal = And(same_pos(sw, tw), sw[2] == tw[2], ForAll([Int("a4"), Int("b4")], get(sw[3], Int("a4"), Int("b4")) == get(tw[3], Int("a4"), Int("b4")) % n_))
         results.append(check(f"R   w' = w^{m_ // n_} (n={n_}, n'={m_}) step keeps trajectories equal incl. wrap", [rule_ok(n_, D), rule_ok(m_, E), invr, per], goal, unsat))
-    # NC4: the same relation when n does not divide n' (periodic extension but wrong length): must fail
-    n_, m_ = 3, 5
-    sl, tl = State("q1"), State("q2")
-    invq = And(sl.x == tl.x, sl.y == tl.y, sl.h == tl.h, 0 <= sl.h, sl.h < 4,
-               ForAll([a, b], get(sl.g, a, b) == get(tl.g, a, b) % n_),
-               ForAll([a, b], And(0 <= get(tl.g, a, b), get(tl.g, a, b) < m_)), ForAll([a, b], And(0 <= get(sl.g, a, b), get(sl.g, a, b) < n_)))
-    perq = ForAll([i], Implies(And(0 <= i, i < m_), Select(E, i) == Select(D, i % n_)))
-    sw, tw = step(sl, n_, D), step(tl, m_, E)
-    goalq = And(same_pos(sw, tw), sw[2] == tw[2], ForAll([Int("a5"), Int("b5")], get(sw[3], Int("a5"), Int("b5")) == get(tw[3], Int("a5"), Int("b5")) % n_))
-    results.append(check("NC4 R relation with n=3, n'=5 (n does not divide n')  (must fail)", [rule_ok(n_, D), rule_ok(m_, E), invq, perq], goalq, sat))
-
     print(f"\n{sum(results)}/{len(results)} checks as expected")
     sys.exit(0 if all(results) else 1)
 
 
-main()
+
+if __name__ == "__main__":
+    main()
