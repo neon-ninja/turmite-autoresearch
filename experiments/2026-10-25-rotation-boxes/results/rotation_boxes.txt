@@ -1,0 +1,16 @@
+702 survivors; equal-length pairs 82322: 2012 rotation-related, 80310 other
+24411 of the other pairs have matching composition (control).
+ horizon  rot equal  rot n  other equal  other n  odds ratio  Fisher p   | composition-matched: equal/n  odds ratio  p
+     1e8         17   2012            8    80310        85.5  3.3e-22   |     4/24411         52.0  4.1e-16
+     1e9         36   2012            9    80310       162.6  4.9e-50   |     6/24411         74.1  1.4e-34
+    1e10         21   2012            7    80310       121.0  1.3e-28   |     2/24411        128.7  6.5e-22
+    1e11         21   2012           10    80310        84.7  4.5e-27   |     4/24411         64.4  2.8e-20
+
+rotation pairs sharing a box at 1e11: 21
+  also equal at 1e10: 9 of 21 with data
+  also equal at 1e9: 13 of 21 with data
+  also equal at 1e8: 8 of 21 with data
+  widths at 1e11: [28, 28, 28, 29, 30, 32, 32, 32, 32, 32, 32, 34, 34, 34, 34, 36, 40, 65, 85, 90, 118]
+
+the 21 pairs form 12 independent groups of sizes [2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 4]
+rotation/mirror classes among the survivors: 115; classes with >= 2 survivors: 114
