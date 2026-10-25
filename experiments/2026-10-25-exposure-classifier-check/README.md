@@ -118,7 +118,7 @@ From the repository root (Rust 1.98.1, uv; CPU only, about 7 minutes total, almo
 CARGO_TARGET_DIR_FRESH=$(mktemp -d) sh experiments/2026-10-25-exposure-classifier-check/scripts/run_dump.sh
 uv run --script experiments/2026-10-25-exposure-classifier-check/scripts/check_classifier.py \
   > experiments/2026-10-25-exposure-classifier-check/results/check.txt
-uv run experiments/2026-10-25-exposure-classifier-check/scripts/build_notebook.py
+uv run --frozen experiments/2026-10-25-exposure-classifier-check/scripts/build_notebook.py
 ```
 
 - Harness: `examples/exposure_classifier_check_dump/` (`main.rs` + `instrument_body.rs`, a verbatim copy of lines 20-248 of
