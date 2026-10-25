@@ -1,0 +1,40 @@
+P0 reproduction: 1152 shared windows over 64 of 64 blank-board rules; mismatches 0
+
+P1 mean-field calibration (per seed):
+  mf:1: nwin 10 rho 1.0020 rho1 1.0018 rho2 1.0022 rho3 1.0030 first_share 0.00000 ok
+  mf:2: nwin 10 rho 0.9993 rho1 1.0005 rho2 0.9986 rho3 0.9946 first_share 0.00000 ok
+  mf:3: nwin 10 rho 0.9994 rho1 0.9992 rho2 0.9994 rho3 1.0000 first_share 0.00000 ok
+  mf:4: nwin 10 rho 0.9985 rho1 0.9993 rho2 0.9968 rho3 0.9984 first_share 0.00001 ok
+  mf:5: nwin 10 rho 1.0014 rho1 1.0020 rho2 1.0019 rho3 0.9968 first_share 0.00000 ok
+  mf:6: nwin 10 rho 0.9996 rho1 1.0002 rho2 0.9997 rho3 0.9960 first_share 0.00000 ok
+  mf:7: nwin 10 rho 0.9990 rho1 0.9971 rho2 1.0012 rho3 1.0034 first_share 0.00001 ok
+  mf:8: nwin 10 rho 1.0010 rho1 1.0017 rho2 1.0002 rho3 0.9993 first_share 0.00000 ok
+P1 HELD
+
+Ants: 256 patched runs, 5 excluded (escaped before window 26 complete)
+rules with >=1 complete patched run: 64; seeds per rule: min 1
+  rho            q05/25/50/75/95 = [0.513, 0.719, 0.874, 1.072, 1.453]
+  rho1           q05/25/50/75/95 = [0.26, 0.52, 0.66, 0.778, 1.179]
+  rho2p          q05/25/50/75/95 = [0.686, 1.135, 1.57, 1.914, 16.662]
+  rho1_ret       q05/25/50/75/95 = [0.226, 0.451, 0.591, 0.68, 0.986]
+  rho2p_ret      q05/25/50/75/95 = [0.243, 0.299, 0.411, 0.651, 1.193]
+  Q              q05/25/50/75/95 = [0.575, 0.891, 1.349, 1.873, 2.381]
+  first_share    q05/25/50/75/95 = [0.25, 0.33, 0.413, 0.44, 0.582]
+  exposed_share  q05/25/50/75/95 = [0.063, 0.226, 0.285, 0.344, 0.426]
+  median between-seed sd: rho 0.0231, Q 0.0108, rho1_ret 0.0142, rho2p_ret 0.0112
+
+P2: ant median rho 0.8741, fraction rho>=1 0.312; rotor median rho 1.7984 (8/8 complete, sd 0.0042); rw median rho 1.3149 (8/8 usable, windows [7, 7, 8, 7, 8, 7, 8, 8])
+P2 HELD (ant + rotor clauses); rw clause: True
+
+P2b: 64 blank runs; median |ln(rho_blank/(kappa26/1.105))| = 0.0360; q05/50/95 of ratio rho*1.105/kappa26 = [0.931, 0.9893, 1.0862]
+P2b HELD
+
+P3: median Q 1.3493 [rule bootstrap 95% 1.0910, 1.5926], fraction Q>1 0.641 -> outcome H-exposed
+P3 (H-exposed as registered) FAILED
+  rotor Q median 1.5985 (sd 0.0030); rw Q median 1.0302; mf Q median 1.0014
+  rotor: rho1 1.4096 rho2+ 2.4574 rho1_ret 1.1373 rho2p_ret 0.7126 first_share 0.4549 exposed_share 0.3707
+  rw: rho1 0.9103 rho2+ 2.1009 rho1_ret 0.7758 rho2p_ret 0.7563 first_share 0.4119 exposed_share nan
+
+P4: Spearman(rho, exposed share at k=26) = 0.1965 (p 0.12); applies; not met
+
+provenance {"git": "181742c77549d6ea1e9b308584cc5048bcaa3ae7", "inputs": {"experiments/2026-10-20-kappa-exposure-classes/results/classes.csv": "50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79", "experiments/2026-10-20-kappa-exposure-classes/results/specs.txt": "b55889c9866770196a024811437c34aabf6ceb9baa1d997e3485d57bf53b93b5", "experiments/2026-10-13-probe-growth-census/results/probe_all.csv": "b1f1c4a2d87b82c1b5cddcb73d0100c8ea1233e55dcb2e83b54625348ab43d15"}, "windows": [17, 26], "bootstrap_seed": 20261020}

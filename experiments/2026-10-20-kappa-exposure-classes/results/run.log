@@ -1,0 +1,10 @@
+date_utc=2026-10-20T09:46:44Z
+git=1593b6167761ade6e98a62075dae986cfbe5f4e2 dirty=0
+binary_sha256=0e6df95c0aa8415bcd9801f51b724d296e0546da020dce43fc3d84118b192e9f
+specs_sha256=b55889c9866770196a024811437c34aabf6ceb9baa1d997e3485d57bf53b93b5
+rustc=rustc 1.85.1 (4eb161250 2025-03-15) (built from a source tarball)
+command=/home/box/turmite-target-exposure/release/examples/kappa_exposure_classes 26 8192 --check < results/specs.txt > results/classes.csv
+threads=default nproc=8
+344 specs, max_log2 26, grid 8192, check true
+elapsed_s=81
+classes_sha256=50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79

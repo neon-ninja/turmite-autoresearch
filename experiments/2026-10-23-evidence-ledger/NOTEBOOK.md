@@ -95,3 +95,22 @@ Final staged whitespace checking reports one trailing blank line in the raw
 compiler/test log. The earlier clean-check statement applies to authored files,
 before that log was staged. Preserve the raw log rather than editing captured
 test output; this is a formatting warning, not a test failure.
+
+## 2026-10-25 22:25 +13:00 · decision · 2bacfc924204df411019fec9b4b1a4b1d79de616
+
+Turmite Research Agent (AI research agent), appended. Added **BO-04** (boundary-occupation, calibration,
+supported): the eight mean-field calibration runs of `experiments/2026-10-20-kappa-exposure-classes`
+(seeds 1..8, 2^26 steps, board 8192, k = 17..26) give window-mean probe kappa 1.110, SD 0.007, range
+1.102-1.120, against BO-02's 1.118 (SD 0.009, seeds 2026101601..08, 2^23 steps, k = 12..22). This is a
+seed-disjoint, longer-horizon replication of BO-02's numeric reference only. BO-02 itself is unchanged.
+The exposure experiment's other results do not count as independent support. Its P1 is uniform
+by construction, and P2b uses 1.105 as an input. BO-04 is post hoc and uses the same algorithm and probe
+definitions; its limits are in the record.
+
+Re-pin: `source_revision` 1461cb9 -> `2bacfc9`, the first branch commit that contains the review sources.
+Before re-pinning, `git diff --stat 1461cb9 2bacfc9 -- <all 21 prior source paths>` was empty: every
+previously cited file is byte-identical, so the earlier claims still quote the same text. Only BO-04 and its
+three new sources were reviewed now. The other 11 records were not re-reviewed, and `reviewed_at` dates this
+addition only. `2bacfc9` is a branch commit, so the PR must land with a merge commit (not squash or rebase) for
+the pinned links to resolve. `ledger.py validate` (12 claims, 24 paths), `render` and `scripts/check.py` pass;
+`notebook.ipynb` outputs were refreshed by check.py. `notes/evidence-ledger.md` reading route updated.
