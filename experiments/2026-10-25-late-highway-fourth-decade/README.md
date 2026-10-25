@@ -133,3 +133,6 @@ contradict this extrapolation. Incremental value of that run: it would move the 
 so the stages above are **not recommended** unless the decade is wanted for its own sake (as an out-of-sample check, or to catalogue the highways, which would be new data). Stage runner and sample order stay in place.
 
 Q19 status: **partly answered, exploratory**: flat to within about +-8% per decade (95%) over 1e2-1e11 on length <= 10; the 1e11-1e12 decade is a registered, un-run prediction.
+
+*Appended 2026-10-25 (prefix-causal-horizon):* the 52 rules in 21 equal-box groups mentioned in point 1 above are **not** shared trajectories: all 42 pairs separate by step 45 (prefix lemma, `experiments/2026-10-25-prefix-causal-horizon/`). The possible 4% saving is therefore zero; the equal boxes are a separate, unexplained coincidence (Q25).
+

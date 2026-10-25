@@ -24,3 +24,30 @@ when scope changes. See `notes/pruning-index/README.md`.
 ### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · dead-end
 Criterion tested, evidence commit, limits, shared signature ID or reason no
 signature is warranted, and what would reopen the question. Append corrections.
+
+### 2026-10-25 · a25ab35 · intent
+User: analysis of prefixes may be amenable to formal methods. Aim: exact statement of how long rules sharing a prefix share a trajectory, a machine-checked step proof, and an application to the Q19 data. Registered before running (commit 20291ed).
+
+### 2026-10-25 · 20291ed · assumption
+Colour c is first read on a cell's (c+1)-th visit, so divergence time is a visit-count record, a function of the common prefix only. Status: confirmed by R1.
+
+### 2026-10-25 · 20291ed · deviation
+First z3 run: NC1 returned `unknown`, not `sat`, because quantified range premises prevent a model. The control proved nothing. Rewrote the controls quantifier-free with twins (prove_controls.py) before using any lemma result. Registered S2 amended in the README addendum before the rewritten controls ran.
+
+### 2026-10-25 · 20291ed · decision
+Unified the three registered lemmas into (i)-(iii) after noticing W > F_c always. Registered as an addendum before running R1. Not a post-hoc fit.
+
+### 2026-10-25 · 20291ed · surprise
+Test passed first time. Checked that it was not vacuous: branch tally (7,761 exact / 152 repeated / 88 wrap-bound) and two manual mutants (one step late; strict wrap bound) both fail it. The strict mutant showed RL vs RLR differ exactly at the wrapped read (step 17).
+
+### 2026-10-25 · 20291ed · observation
+R2 FAILED: median F_c of the 702 survivors 5, 9, 17, 29, 33, 41, 53, 57, 73 for c = 1..9; slope 1.33 (registered 2.5-3.5). Max F_(n-1) = 389, max wrapped read 1009. My analogy to the cube-root law was wrong.
+
+### 2026-10-25 · 20291ed · observation
+R3: 42 pairs in the 21 equal-box groups all separate by step 45. R4: all 51 equal-onset late-highway pairs (exactly the 25 board fillers) separate within 205 steps (46 by lemma, 5 by lockstep run). Registered R4 prediction failed: it was the notes' shared-trajectory reading that was wrong.
+
+### 2026-10-25 · 5a9da7d · interpretation
+The lemma is exact but nearly useless as a sharing device: every letter of every length <= 10 rule acts within ~10^3 steps. It also kills a causal-horizon account of the kappa prefix effects. Doubts: only length <= 10; the F_c bound is observed, not proved; the z3 part proves one-step obligations only; the outer induction is not mechanised.
+
+### 2026-10-25 · 5a9da7d · question
+Why do rotations of a rule (19 of 42 equal-box pairs) reach the same bounding box when their trajectories separate within 45 steps? Rotation = same rule on a uniform background of non-zero colour. See Q25.
