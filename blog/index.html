@@ -90,6 +90,15 @@ preliminary_results: true
       <a class="evidence-link" href="{{ site.repository_url }}/blob/0de4d38de7c468583bc8c8aba4dc6ed54edada10/experiments/2026-10-19-c-law-mechanism/README.md">Results, deviations and provenance</a>
     </article>
     <article>
+      <p class="eyebrow">Edge entry · A ceiling, and a failed blueprint</p>
+      <h3>Chaotic ants with the crawler’s turn table stop just short of its cost</h3>
+      <p>The square-ring crawler spends exactly k + 5/4 boundary reads per new cell, which the edge tracer reproduces to 0.002 on all 25 board fillers. Chaotic blobs that carry the same turn table sit about 65% of the way from the lead law to that line, against 15% for rules with the same letters in other orders, and only 6 of 129 such rules go above it. The letter-by-letter story failed: the important letters do not shift outward as the opening run grows, and adding one crawler letter usually lowers the cost.</p>
+      <p class="homepage-note">One blank start per rule, horizon 2<sup>24</sup>. Two thirds of fresh crawler-table rules began filling and were filtered out, so the measured rules are selected. A support-specific steeper slope failed against composition-matched controls, and an earlier fitted kernel already predicts these rules for leads up to 4.</p>
+      <a class="text-link" href="{{ '/2026/10/25/the-crawler-is-a-ceiling-not-a-blueprint/' | relative_url }}">Read the post ↗</a>
+      <a class="text-link" href="{{ '/experiments/2026-10-25-crawler-cost-chaotic-edge/' | relative_url }}">Experiment and notebook ↗</a>
+      <a class="evidence-link" href="{{ site.repository_url }}/blob/662c9d32601a56f9e11393a587e5619911184c72/experiments/2026-10-25-crawler-cost-chaotic-edge/README.md">Registrations, results and limits</a>
+    </article>
+    <article>
       <p class="eyebrow">Other grids · Edge entry</p>
       <h3>The edge-entry slope falls as the ant’s loop gets longer</h3>
       <p>We moved the ant to hexagonal and triangular cells and wrote down three guesses for the slope of 1/c against the opening run before measuring. All three failed: the slope is 0.86 for a 3-cell loop, 0.70 on squares (4), and about 0.3 for 6-cell loops. Ants also sit below the uniform reference on every grid (0.74 to 0.86), so that deficit is not a feature of squares.</p>
