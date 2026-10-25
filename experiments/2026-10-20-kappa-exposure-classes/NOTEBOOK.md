@@ -123,3 +123,6 @@ repeat is a candidate for review. Upstream's narrowed plan (`notes/ACTIVE.md`, 2
 side follow-ups: the age-resolved flat-edge test is not scheduled and must pass the priority-1
 feasibility gate first. Homepage card and ACTIVE entry reworded to say so; experiment filed in
 `blog/atlas.json` under boundary-return (counter).
+
+### 2026-10-25 09:34 (+00:00) · 10ee953 · cross-reference
+The exposure classifier was checked independently in `experiments/2026-10-25-exposure-classifier-check/`: 65/65 z3 checks as expected (incl. 6 negative controls). P3/P4 verdicts here stand; only wording is qualified (u = 2 includes one-cell strips, u = 1 includes T-junctions, u = 4 never occurs).
