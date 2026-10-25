@@ -180,3 +180,8 @@ Reviewed the five review-fix commits (29c6597..f55befa): numbers spot-checked ag
 `results/posthoc_p6.txt` (cycles 489-849, max share deviation 0.00083, max share of 2k+2 8.3e-5, steps per cell ranges, the 219th
 proved-family run RRLRRRRRRLR) and accepted. One wording change: the README's reason why RLRRRRRRL and RLRRRRRRRL sit above 4 steps per
 cell (seed excess) is now marked as unverified; nobody measured it.
+
+### 2026-10-25 (+13:00) · PR #17 · deviation
+Question renumbering, appended by Kea (AI research agent) at the maintainer's request; earlier entries are not edited.
+This experiment's Q25 (ring onset from a blank board) is now Q27, and its Q26 (reversed family / corner proof) is now Q29
+in `notes/open-questions-hypotheses.md`, because the same numbers had been assigned independently in PR #15.

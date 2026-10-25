@@ -1,0 +1,17 @@
+commit 082fb7bb29463fb5cf1d6a19ad95a6137355302b
+dirty files (src/ examples/): 0
+binary sha256 e1bd80b819c3827bc54c25cd35ff7cb2df7411055d97be0ff802671a0919f780
+rustc rustc 1.97.0 (2d8144b78 2026-07-07)
+RAYON_NUM_THREADS=4
+2026-10-25T10:16:02Z start trace_p0_fillers.jsonl: blank 27 8192
+2026-10-25T10:17:03Z done trace_p0_fillers.jsonl sha256 7adcd3751920e2bcc792c3dd37140e671f34a36a881555357b99ae8f9ed083a7
+2026-10-25T10:17:03Z start trace_p2_parents_24.jsonl: blank 24 4096
+2026-10-25T10:17:11Z done trace_p2_parents_24.jsonl sha256 bb7f6a19514d829aee6eeb7ae292e3d64af4589430e79e434bb91a09c4512b8e
+2026-10-25T10:17:11Z start trace_p2_parents_25.jsonl: blank 25 4096
+2026-10-25T10:17:24Z done trace_p2_parents_25.jsonl sha256 b2d4d03f2c28ad5a325a51fd6b6979b133647dca2f6e168076450da5e482ed81
+2026-10-25T10:17:24Z start trace_p2_mutants.jsonl: blank 24 4096
+2026-10-25T10:18:28Z done trace_p2_mutants.jsonl sha256 a6e798ee8be1424662c7baf68c685d7ea59eae0818ba3235c918a1540e86d9b3
+2026-10-25T10:18:28Z start trace_p3_pi.jsonl: blank 24 4096
+2026-10-25T10:18:32Z done trace_p3_pi.jsonl sha256 9cb914bb0cc75292e0f246c656bc5d26c6d78bd078836ec87602b8890904ca5d
+2026-10-25T10:18:32Z start trace_p3_ctrl.jsonl: blank 24 4096
+2026-10-25T10:18:38Z done trace_p3_ctrl.jsonl sha256 7e90db50b6dc5a62a5aecd3905255e6e01bd5539ce9aad00a840305b5bc58a6f

@@ -1,0 +1,6 @@
+commit bb2801dea1067cf7cad13a286e685eabf9190828
+dirty files (src/ examples/): 0
+binary sha256 e1bd80b819c3827bc54c25cd35ff7cb2df7411055d97be0ff802671a0919f780
+rustc rustc 1.97.0 (2d8144b78 2026-07-07)
+2026-10-25T10:23:07Z start trace_s2.jsonl: blank 24 4096
+2026-10-25T10:24:04Z done sha256 63b4574832f9bf45ee3a57cd2f9957db2446a1481da1ae09784db6ac3cb4f82c
