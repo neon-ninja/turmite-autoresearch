@@ -1,26 +1,29 @@
-# Lab notebook: <experiment title>
+# Lab notebook: formal check of the exposure classifier
 
 Append-only. Newest entry last. Never edit an old entry; correct it with a new one
 (`corrects: <timestamp>`). Tags: intent, assumption, observation, interpretation,
 surprise, decision, dead-end, question, deviation. See `experiments/README.md`.
 
-### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · intent
-What I am about to do, why, and which decision it informs.
+### 2026-10-25 09:12 (+00:00) · 8a073b7 · intent
+Close off the "instrument bug" explanation for the failed P3/P4 of 2026-10-20-kappa-exposure-classes
+with a checker written separately from the Rust (proof-track architecture rule). Plan: a Rust
+example that calls the instrument's own `Region` / `run` code on every 3x3 pattern and every visit
+order and on scripted walks, dumps the tables to `results/`; a PEP 723 z3 script that proves the
+documentation-level spec and checks the dumped tables against it.
 
-### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · assumption
-Statement. How it could be checked / what would show it false. Status: untested.
+### 2026-10-25 09:13 (+00:00) · 8a073b7 · decision
+Pruning preflight at `8a073b75aab339e492863eaa6303a7d035906162`: `rg --files notes/pruning-index/entries`
+(one entry); `rg -n -i -e exposure -e classifier -e "exposure class" -e z3 -e formal notes/pruning-index/entries`:
+no matches. Decision RUN (finite check, seconds of compute).
 
-### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · observation
-Fact, with the command and file that produced it.
+### 2026-10-25 09:14 (+00:00) · 66b8ddb · deviation
+The registration text says "09:14 UTC"; the registration commit `66b8ddb` is stamped 09:13:37 UTC.
+Both precede any harness or checker code. No other change.
 
-### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · interpretation
-What I think it means; confidence; the alternative explanations I have not excluded.
-
-### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · decision
-Pruning preflight: index revision, exact queries, candidate signature IDs (or no
-matches), scope comparison, run/skip/reopen decision and compute budget. Repeat
-when scope changes. See `notes/pruning-index/README.md`.
-
-### YYYY-MM-DD HH:MM (+TZ) · <git short hash> · dead-end
-Criterion tested, evidence commit, limits, shared signature ID or reason no
-signature is warranted, and what would reopen the question. Append corrections.
+### 2026-10-25 09:15 (+00:00) · 66b8ddb · assumption
+The instrument's private `Region` and `run` cannot be reached from another example: `include!` rejects
+the file's `//!` header and a `#[path]` module hides private items from the parent. The harness
+therefore carries a byte-for-byte copy of lines 20-248 of `examples/kappa_exposure_classes.rs`
+(everything except the doc header and `main`) and asserts at runtime that the instrument source
+(`include_str!`) contains that copy verbatim, so the code exercised is the code that ran.
+Status: enforced by the harness; would fail loudly if the instrument changed.
