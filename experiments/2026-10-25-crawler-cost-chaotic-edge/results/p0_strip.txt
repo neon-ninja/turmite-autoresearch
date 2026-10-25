@@ -1,0 +1,10 @@
+P0a: crawler C_k on a strip, 64 periods, first 2 skipped; r_j = boundary reads at colour j per birth
+k=1 RLRR: translation True; births 248; 1/c = 9/4 (k+5/4 = 9/4); r = ['1', '1', '1/4', '0']; chains {1: '1/2', 3: '1/2'} -> PASS
+k=2 RRLRRR: translation True; births 248; 1/c = 13/4 (k+5/4 = 13/4); r = ['1', '1', '1', '1/4', '0', '0']; chains {1: '1/2', 3: '1/2'} -> PASS
+k=3 RRRLRRRR: translation True; births 248; 1/c = 17/4 (k+5/4 = 17/4); r = ['1', '1', '1', '1', '1/4', '0', '0', '0']; chains {1: '1/2', 3: '1/2'} -> PASS
+k=4 RRRRLRRRRR: translation True; births 248; 1/c = 21/4 (k+5/4 = 21/4); r = ['1', '1', '1', '1', '1', '1/4', '0', '0', '0', '0']; chains {1: '1/2', 3: '1/2'} -> PASS
+k=5 RRRRRLRRRRRR: translation True; births 248; 1/c = 25/4 (k+5/4 = 25/4); r = ['1', '1', '1', '1', '1', '1', '1/4', '0', '0', '0', '0', '0']; chains {1: '1/2', 3: '1/2'} -> PASS
+k=6 RRRRRRLRRRRRRR: translation True; births 248; 1/c = 29/4 (k+5/4 = 29/4); r = ['1', '1', '1', '1', '1', '1', '1', '1/4', '0', '0', '0', '0', '0', '0']; chains {1: '1/2', 3: '1/2'} -> PASS
+k=7 RRRRRRRLRRRRRRRR: translation True; births 248; 1/c = 33/4 (k+5/4 = 33/4); r = ['1', '1', '1', '1', '1', '1', '1', '1', '1/4', '0', '0', '0', '0', '0', '0', '0']; chains {1: '1/2', 3: '1/2'} -> PASS
+k=8 RRRRRRRRLRRRRRRRRR: translation True; births 248; 1/c = 37/4 (k+5/4 = 37/4); r = ['1', '1', '1', '1', '1', '1', '1', '1', '1', '1/4', '0', '0', '0', '0', '0', '0', '0', '0']; chains {1: '1/2', 3: '1/2'} -> PASS
+P0a HELD

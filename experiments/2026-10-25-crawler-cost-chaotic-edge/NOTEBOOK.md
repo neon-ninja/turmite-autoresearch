@@ -30,3 +30,16 @@ square-ring P6. W parents are drawn from 1045 / 417 / 276 stationary blobs (m = 
 
 ### 2026-10-25 23:30 (+13:00) · 56aac50 · intent
 Registering H-crawl, P0-P3 and the decision rule in the README, then committing before any list or run.
+
+### 2026-10-25 23:22 (+13:00) · a387d27 · deviation
+corrects: 23:30 registration time. The README header says "Registered 2026-10-25 23:30". That was the time I
+planned, not a clock reading. The registration commit `a387d27` is timestamped 10:14:17 UTC (23:14 +13:00), and the
+commit time governs. From here on, times are read from `date`.
+
+### 2026-10-25 23:22 (+13:00) · a387d27 · observation
+P0a (`scripts/p0_strip.py` -> `results/p0_strip.txt`, written after the registration): HELD exactly for k = 1..8,
+`1/c = k + 5/4` in exact rationals, with r and chains as derived. Lists (`scripts/make_lists.py` -> `results/lists/`):
+25 fillers, 40 Pi rules, 73 control draws (56 distinct), 90 parents, 748 mutants (664 distinct). Two Pi rules
+(`RRRRRRRRLRRR`, m = 8; `RRRRRRRRRLRR`, m = 9) have no composition-matched control at any relaxation, because no
+non-Pi stationary blob has lead 8 or 9 at those lengths and R-counts. P1b is therefore scored over the 38 Pi rules that
+have controls. This is a consequence of the frozen matching rule, not a choice I made after seeing data.
