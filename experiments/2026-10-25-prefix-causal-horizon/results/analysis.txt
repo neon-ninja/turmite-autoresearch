@@ -1,0 +1,79 @@
+R2: first-read times F_c over the 702 survivors (steps; every survivor read every colour: wrapped read exists)
+  max F_(n-1) = 389, max wrapped read = 1009, escaped = 0
+  c   rules   median   p90    max
+  1   702     5        5      5
+  2   702     9        9      9
+  3   700     17       25     25
+  4   696     29       53     53
+  5   684     33       57     61
+  6   664     41       74     105
+  7   620     53       109    154
+  8   531     57       145    285
+  9   349     73       186    389
+  slope of log(median F_c) on log c, c = 2..9: 1.33  (registered: 2.5-3.5; FAILED)
+
+R3: 21 groups of survivors with identical (width, height) at 1e11, 52 rules, 42 pairs
+  pairs by theorem class: (i) diverge exactly at F_q: 42, (ii) identical forever: 0, (iii) agree at least until the wrapped read: 0
+  largest divergence time over the (i) pairs: 45 steps; groups holding a pair the lemma does not separate: 0 (registered: at most 3)
+
+R4: late-highway pairs with equal onset (within 1e-4): theorem class and the lemma's divergence time against the onset
+  rule A       rule B                onset class   q   F_q or W (longer rule)  verdict
+  RLRRRRLLR    RLRRRRRLLL    4,293,232,129     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRLLR    RLRRRRL       4,293,232,129     i   7                       69  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRLLR    RLRRRLLR      4,293,232,129     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRLLL   RLRRRRL       4,293,232,129     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRLLL   RLRRRLLR      4,293,232,129     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRL      RLRRRLLR      4,293,232,129     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLR     RLRRRLLLLR    4,293,360,978     i   7                       69  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLR     RLRRRRRLLR    4,293,360,978     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLR     RLRRRRRRLL    4,293,360,978     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLLLR   RLRRRRRLLR    4,293,756,115     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLLLR   RLRRRRRRLL    4,293,756,115     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLLLR   RLRRRRRRL     4,293,756,115     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLLLR   RLRRRRRRRL    4,293,756,115     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLLLR   RLRRRRLLLL    4,293,756,115     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLLLR   RLRRRLLRRR    4,293,756,115     i   7                       69  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLLLR   RLRRRRLRL     4,293,756,115     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRLLR   RLRRRRRRLL    4,293,756,115     i   7                       69  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRLLR   RLRRRRRRL     4,293,756,115     i   7                       69  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRLLR   RLRRRRRRRL    4,293,756,115     i   7                       69  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRLLR   RLRRRRLLLL    4,293,756,115     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRLLR   RLRRRLLRRR    4,293,756,115     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRLLR   RLRRRRLRL     4,293,756,115     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRLL   RLRRRRRRL     4,293,756,115     i   9                       77  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRLL   RLRRRRRRRL    4,293,756,115     i   8                       73  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRLL   RLRRRRLLLL    4,293,756,115     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRLL   RLRRRLLRRR    4,293,756,115     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRLL   RLRRRRLRL     4,293,756,115     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRL    RLRRRRRRRL    4,293,854,899     i   8                       73  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRL    RLRRRRLLLL    4,293,854,899     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRL    RLRRRLLRRR    4,293,854,899     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRL    RLRRRRLRL     4,293,854,899     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRRL   RLRRRRLLLL    4,293,857,047     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRRL   RLRRRLLRRR    4,293,857,047     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRRRRL   RLRRRRLRL     4,293,857,047     i   6                       65  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRLLLL   RLRRRLLRRR    4,293,887,112     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRRLLLL   RLRRRRLRL     4,293,887,112     i   7                       69  diverged long before the onset (equal onset is not a shared trajectory)
+  RLRRRLLRRR   RLRRRRLRL     4,293,887,112     i   5                       61  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRRRRRLR   RRLRRRRRLL    6,439,470,237     i   9                      105  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRRRRRLR   RRLRRRRLL     6,439,470,237     i   7                       97  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRRRRRLL   RRLRRRRLL     6,439,863,226     i   7                       97  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRRRRLL    RRLRR         6,440,058,647     i   8                      101  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRRRRLL    RRLRRRRLLR    6,440,058,647   iii   -                      109  wrapped-read bound is before the onset (inconclusive)
+  RRLRR        RRLRRRRLLR    6,440,649,205     i   8                      101  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRR        RRLRRRRLLL    6,440,649,205     i   8                      101  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRR        RRLRRRR       6,440,649,205   iii   -                       97  wrapped-read bound is before the onset (inconclusive)
+  RRLRRRRLLR   RRLRRRRLLL    6,440,649,205     i   9                      105  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRRRRLLR   RRLRRRR       6,440,649,205     i   7                       97  diverged long before the onset (equal onset is not a shared trajectory)
+  RRLRRRRLLL   RRLRRRR       6,440,715,777     i   7                       97  diverged long before the onset (equal onset is not a shared trajectory)
+  RRRLRRRRR    RRRLRRRRRR    8,587,544,443   iii   -                      137  wrapped-read bound is before the onset (inconclusive)
+  RRRRLRRRR    RRRRLRRR     10,733,453,985   iii   -                       53  wrapped-read bound is before the onset (inconclusive)
+  RRRRRLRR     RRRRRLRRRR   12,879,760,812   iii   -                       41  wrapped-read bound is before the onset (inconclusive)
+  pairs whose lemma bound lies before the onset: 51 of 51
+
+  class (iii) pairs: the lemma gives only a lower bound, so the first position difference was measured (lockstep, 32768 board):
+    RRLRRRRLL  RRLRRRRLLR   differ  after   113 steps
+    RRLRR      RRLRRRR      differ  after    97 steps
+    RRRLRRRRR  RRRLRRRRRR   differ  after   145 steps
+    RRRRLRRRR  RRRRLRRR     differ  after   173 steps
+    RRRRRLRR   RRRRRLRRRR   differ  after   205 steps

@@ -37,6 +37,7 @@ pub mod lattice_trace;
 pub mod lean;
 pub mod local_memory;
 pub mod onset;
+pub mod prefix_horizon;
 #[cfg(feature = "wgpu")]
 pub mod portable_gpu;
 pub mod prefix_exposure;
