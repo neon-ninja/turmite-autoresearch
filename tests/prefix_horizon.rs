@@ -4,7 +4,7 @@
 
 use proptest::prelude::*;
 use std::collections::HashMap;
-use turmite::prefix_horizon::{PairRun, canonical_hash, first_mismatch, first_position_difference, horizon, touched_shape};
+use turmite::prefix_horizon::{PairRun, canonical_hash, first_mismatch, first_position_difference, horizon, touched_shape, touched_shape_bg};
 use turmite::reference::Ant;
 use turmite::Rule;
 
@@ -205,4 +205,42 @@ fn canonical_hash_separates_different_shapes() {
     assert_ne!(canonical_hash(&line), canonical_hash(&ell));
     let vertical: Vec<(i64, i64)> = (0..5).map(|i| (0, i)).collect();
     assert_eq!(canonical_hash(&line), canonical_hash(&vertical));
+}
+
+/// Independent reference for a uniform background: HashMap with default colour `k` (the reference Ant has default 0).
+fn visited_ref_bg(rule: &Rule, steps: u64, k: u8) -> Vec<(i64, i64)> {
+    let n = rule.len() as u8;
+    let mut cells: HashMap<(i32, i32), u8> = HashMap::new();
+    let (mut pos, mut heading) = ((0i32, 0i32), 0u8);
+    let mut seen = std::collections::HashSet::new();
+    for _ in 0..steps {
+        seen.insert((pos.0 as i64, pos.1 as i64));
+        let c = *cells.get(&pos).unwrap_or(&k);
+        heading = (heading + rule.0[c as usize].delta()) % 4;
+        cells.insert(pos, (c + 1) % n);
+        let (dx, dy) = turmite::DIRS[heading as usize];
+        pos = (pos.0 + dx, pos.1 + dy);
+    }
+    seen.into_iter().collect()
+}
+
+fn rotated(w: &Rule, k: usize) -> Rule {
+    Rule((0..w.len()).map(|c| w.0[(c + k) % w.len()]).collect())
+}
+
+proptest! {
+    #![proptest_config(ProptestConfig::with_cases(200))]
+    /// The uniform-background identity: w on background k == rot_k(w) on a blank board, and both match an independent reference.
+    #[test]
+    fn uniform_background_equals_rotated_rule(n in 2usize..=10, bits in any::<u32>(), k_raw in any::<usize>(), steps in 1u64..=5_000) {
+        let w = rule_from(bits & ((1u32 << n) - 1), n);
+        let k = k_raw % n;
+        let board = 2 * steps as usize + 7;
+        let on_bg = touched_shape_bg(&w, steps, board, k).expect("cannot leave");
+        let rot = touched_shape(&rotated(&w, k), steps, board).expect("cannot leave");
+        prop_assert_eq!(on_bg, rot);
+        let cells = visited_ref_bg(&w, steps, k as u8);
+        prop_assert_eq!(on_bg.cells, cells.len());
+        prop_assert_eq!(on_bg.hash, canonical_hash(&cells));
+    }
 }

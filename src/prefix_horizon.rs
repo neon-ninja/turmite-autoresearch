@@ -161,11 +161,17 @@ pub fn canonical_hash(cells: &[(i64, i64)]) -> u64 {
 
 /// Run `steps` steps and summarise the visited cells; `None` if the ant left the board.
 pub fn touched_shape(rule: &Rule, steps: u64, board: usize) -> Option<Shape> {
+    touched_shape_bg(rule, steps, board, 0)
+}
+
+/// As `touched_shape`, but every cell starts at colour `background` (< n) instead of 0. A uniform background `k` is the same
+/// dynamics as the rule rotated by `k` (`rot_k(w)[c] = w[(c + k) mod n]`) on a blank board, which `tests/prefix_horizon.rs` checks.
+pub fn touched_shape_bg(rule: &Rule, steps: u64, board: usize, background: usize) -> Option<Shape> {
     const TOUCHED: u8 = 0x80;
     let n = rule.len();
-    assert!((1..100).contains(&n) && board >= 3);
+    assert!((1..100).contains(&n) && board >= 3 && background < n);
     let side = board as i64;
-    let mut grid = vec![0u8; board * board];
+    let mut grid = vec![background as u8; board * board];
     let (mut x, mut y, mut h) = (side / 2, side / 2, 0u8);
     let (mut x0, mut x1, mut y0, mut y1) = (x, x, y, y);
     for _ in 0..steps {
