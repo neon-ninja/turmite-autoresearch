@@ -73,3 +73,23 @@ Footprint (box : touched cells) of each rule at 1e8, 1e9, 1e10 steps:
 * **Q25 summary.** (1) Rotation-related pairs share bounding boxes far more often than composition-matched controls (real, concentrated in about 10% of rotation classes). (2) That is not a persistent shared structure: box equality at earlier horizons holds for 8-13 of the 21 pairs, and
   footprints coincide at 1e8 for two classes, separate at 1e9, and (one pair) coincide again at 1e10. (3) The background-independence idea (a rotation is the same rule on a uniform non-zero background) is neither supported nor excluded; the direct test (run the original rule on each uniform background and compare to the rotation) was not done.
   No pruning-index signature: the evidence is observational and the one re-coincidence is unexplained.
+
+## Part 3: the uniform-background test (registered 2026-10-25 before any code or run for it; base `663c0d1`)
+
+**Identity.** `rot_k(w)[c] = w[(c + k) mod n]`: the rotated rule on a blank board *is* `w` on a board whose every cell starts at colour `k` (colour `c` of the rotated rule is colour `(c + k) mod n` of `w`).
+So the rotation-pair footprints above were already uniform-background runs. What part 3 adds: (a) the identity checked directly against an oracle; (b) **all `n` backgrounds** of each rule, which includes rotations that are not census survivors or not canonical;
+(c) a **length-matched control population**, because the 12 groups of box-sharing pairs were selected for sharing a box, so their coincidence rate cannot be read as a base rate.
+
+**Design.** Classes (rotation or mirror-rotation equivalence; representative = least rotation of the rule or its mirror): *test* = the 8 classes that contain the 21 box-sharing pairs (`results/uniform_bg_classes.txt`, lines `A`);
+*control* = 8 other classes with at least two survivors, one per test class of the same length, chosen by sha256("q25-control:" + representative) order (lines `B`). For each class representative `w` of length `n` and each background `k = 0..n-1` run `w` on a uniform background `k` for 1e8 and 1e9 steps (2048 board) and take the canonical footprint (`touched_shape`, up to translation and the 8 symmetries).
+A pair of backgrounds *coincides* if the footprints are identical. Mirror partners need no separate runs (the hash is mirror-invariant, control C2 above).
+
+**Registered predictions.**
+* **U0 (identity, certain if I have the semantics right):** the footprint of `w` on background `k` equals that of `rot_k(w)` on a blank board, exactly, for every rule, `k` and step count tested; and the footprint of `w` on background `k` equals an independent HashMap reference with default colour `k`.
+* **U1 (55%):** at 1e8, at least 4 of the 8 test classes contain a coincident pair of backgrounds.
+* **U2 (60%):** at 1e8, at most 1 of the 8 control classes does. If the control rate is as high as the test rate, the coincidences are generic to small slowly-growing rules and not special to rotation classes selected for box equality.
+* **U3 (92%):** no class of the 16 has identical footprints for all `n` backgrounds at 1e8 (strong background independence is false).
+* **U4 (75%):** at least 70% of the coincident background pairs found at 1e8 are no longer coincident at 1e9 (as the four known pairs were).
+* Decision: if U1 and U2 hold, the box enrichment is a property of the selected classes (reading: some rules reach nearly the same footprint on different backgrounds early on); if the control rate matches the test rate, the box sharing carries no information beyond "small slow growers". Background-independence is supported only by U3 failing.
+
+**Pruning index.** Index revision `663c0d1`; same queries as above ("rotation", "cyclic", "background"): one candidate, `NR-20261022-additive-laws-order-blind`, whose objective (additive law fingerprints) differs; no exclusion. Decision: run.
