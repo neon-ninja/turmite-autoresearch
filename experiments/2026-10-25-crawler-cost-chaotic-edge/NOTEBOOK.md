@@ -43,3 +43,24 @@ P0a (`scripts/p0_strip.py` -> `results/p0_strip.txt`, written after the registra
 (`RRRRRRRRLRRR`, m = 8; `RRRRRRRRRLRR`, m = 9) have no composition-matched control at any relaxation, because no
 non-Pi stationary blob has lead 8 or 9 at those lengths and R-counts. P1b is therefore scored over the 38 Pi rules that
 have controls. This is a consequence of the frozen matching rule, not a choice I made after seeing data.
+
+### 2026-10-25 23:25 (+13:00) · 082fb7b · deviation
+corrects: 23:22 entries. Their times were estimates. `date` read 23:12 before the registration commit and 23:21 after
+the runs, so those entries ran a few minutes ahead of the clock. Order of events, from git and run.log (UTC):
+registration commit 10:14:17, lists and P0a commit after it, tracer runs 10:16-10:18, analysis after that.
+
+### 2026-10-25 23:25 (+13:00) · 082fb7b · observation
+Registered scoring (`results/analysis.txt`): P0b, P1a, P1b, P1c, W1 (all m), R1, R2 and R3 held; W2 and W3 failed;
+N0 passed. The full table is in the README.
+
+### 2026-10-25 23:25 (+13:00) · 082fb7b · surprise
+W3 went the wrong way. Making one window letter `s_0` lowers `1/c` more often than it raises it (31% raise), yet a
+table with all window letters `s_0` sits far above the lead law. Support is collective. One extra `s_0` letter in an
+otherwise broken window does not buy circulation, and may cost some, perhaps by changing which cells end up shared.
+
+### 2026-10-25 23:25 (+13:00) · 082fb7b · interpretation
+Post hoc K3 check (`results/posthoc_k3.txt`): K3 predicts the Pi cohort's census `c` almost exactly at m = 2-3. So the
+P1 "crawler limit" there is not new information; it is K3's post-kill run term seen from another angle. What K3 misses
+is the high-lead Pi rules (m >= 4), where `1/c` keeps climbing at about 0.87 per lead step while K3 saturates. That is
+the part of H-crawl still standing, and it rests on 1-4 rules per lead. Next step: register a fresh-rule test of the
+slope.

@@ -1,0 +1,57 @@
+P0b: edge tracer on the 25 census board fillers (blank 27 8192, window [2^26, 2^27])
+  RLRRRRLLR    k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRRRLLL   k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRRL      k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRLLR     k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRLLLLR   k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRRRLLR   k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRRRRLL   k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRRRRL    k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRRRRRL   k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRRLLLL   k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRLLRRR   k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RLRRRRLRL    k=1 1/c=2.2496 (k+5/4=2.25) chain2=0.0000 escaped=False ok
+  RRLRRRRRLR   k=2 1/c=3.2490 (k+5/4=3.25) chain2=0.0005 escaped=False ok
+  RRLRRRRRLL   k=2 1/c=3.2491 (k+5/4=3.25) chain2=0.0005 escaped=False ok
+  RRLRRRRLL    k=2 1/c=3.2490 (k+5/4=3.25) chain2=0.0006 escaped=False ok
+  RRLRR        k=2 1/c=3.2493 (k+5/4=3.25) chain2=0.0002 escaped=False ok
+  RRLRRRRLLR   k=2 1/c=3.2492 (k+5/4=3.25) chain2=0.0004 escaped=False ok
+  RRLRRRRLLL   k=2 1/c=3.2481 (k+5/4=3.25) chain2=0.0007 escaped=False ok
+  RRLRRRR      k=2 1/c=3.2492 (k+5/4=3.25) chain2=0.0004 escaped=False ok
+  RRRLRRRRR    k=3 1/c=4.2490 (k+5/4=4.25) chain2=0.0003 escaped=False ok
+  RRRLRRRRRR   k=3 1/c=4.2489 (k+5/4=4.25) chain2=0.0004 escaped=False ok
+  RRRRLRRRR    k=4 1/c=5.2484 (k+5/4=5.25) chain2=0.0006 escaped=False ok
+  RRRRLRRR     k=4 1/c=5.2482 (k+5/4=5.25) chain2=0.0008 escaped=False ok
+  RRRRRLRR     k=5 1/c=6.2479 (k+5/4=6.25) chain2=0.0007 escaped=False ok
+  RRRRRLRRRR   k=5 1/c=6.2479 (k+5/4=6.25) chain2=0.0007 escaped=False ok
+P0b HELD
+
+P1: crawler limit on census c (probe_summary.csv); phi = (1/c - LL(m)) / (m + 5/4 - LL(m))
+  n = 40; median phi = 0.647; without the 3 seen rules (n = 37): 0.642
+P1a HELD
+  Pi with controls n = 38, control draws 73: median phi Pi 0.644, controls 0.149, difference 0.494, 95% CI [0.329, 0.627]
+P1b HELD
+  1/c > m + 5/4 + 0.10: 2 of 40 ['RRLRRRRRR', 'RRLRRRRRRR']
+P1c HELD
+
+P2: single-letter flips (blank 24 4096, window [2^23, 2^24]); e = |1/c_mut - 1/c_par| / (1/c_par)
+  N0: parents kept at 24 and usable at 25: 90; median relative 1/c change 2^24 -> 2^25 = 0.0026; median e(W) = 0.0699; gate (noise <= 0.5 e(W)) PASSES
+  kept fraction (mutant and parent kept) by m and class:
+    m=1: W 44/59, corner 21/29, F 152/192
+    m=2: W 54/87, corner 20/29, F 91/134
+    m=3: W 76/117, corner 21/30, F 51/71
+  W1 m=1: parents 28, median mean e(W)/mean e(F) = 5.504 -> HELD
+  W1 m=2: parents 25, median mean e(W)/mean e(F) = 3.435 -> HELD
+  W1 m=3: parents 25, median mean e(W)/mean e(F) = 2.782 -> HELD
+  W2: q in {3,4}: median e m=3 0.0342 (n=40), m=1 0.0621 (n=43); ratio 0.551 -> FAILED
+  W3: s_bar->s_0 flips with Delta>0: 0.313 (n=67); s_0->s_bar with Delta<0: 0.444 (n=63) -> FAILED
+  reported: median e and mean signed Delta by m and q (kept):
+    m=1: q=1 W e=0.199 d=-0.110 n=22; q=2 W e=0.123 d=-0.001 n=22; q=3 corner e=0.091 d=-0.102 n=21; q=4 F e=0.053 d=-0.023 n=22; q=5 F e=0.023 d=-0.139 n=22; q=6 F e=0.014 d=-0.109 n=24; q=7 F e=0.017 d=+0.006 n=24; q=8 F e=0.007 d=-0.022 n=24; q=9 F e=0.004 d=-0.044 n=22; q=10 F e=0.005 d=-0.048 n=14
+    m=2: q=1 W e=0.109 d=+0.031 n=16; q=2 W e=0.024 d=+0.014 n=17; q=3 W e=0.080 d=-0.141 n=21; q=4 corner e=0.034 d=-0.019 n=20; q=5 F e=0.031 d=-0.037 n=20; q=6 F e=0.032 d=-0.001 n=22; q=7 F e=0.029 d=-0.004 n=16; q=8 F e=0.008 d=-0.014 n=21; q=9 F e=0.015 d=+0.030 n=12
+    m=3: q=1 W e=0.058 d=-0.001 n=19; q=2 W e=0.070 d=+0.015 n=17; q=3 W e=0.037 d=-0.032 n=23; q=4 W e=0.024 d=-0.021 n=17; q=5 corner e=0.031 d=+0.034 n=21; q=6 F e=0.023 d=-0.015 n=23; q=7 F e=0.016 d=-0.007 n=15; q=8 F e=0.014 d=+0.003 n=13
+
+P3: tracer on the Pi cohort and its controls (blank 24 4096); kept filter as P2
+  kept: Pi 40/40, control draws 73/73
+  R1: median rbar Pi 0.901, controls 0.848, diff 0.054 -> HELD
+  R2: median chain-2 share Pi 0.279, controls 0.537 -> HELD
+  R3: median phi (tracer 1/c) Pi 0.655 -> HELD

@@ -166,3 +166,66 @@ window `W = [m+1, 2m+1]`, corner `2m+2`, far `F = [2m+3, n-1]`.
 ## Commands
 
 Filled in as run.
+
+## Commands and results, Stage 1 (appended 2026-10-25 23:25 +13:00; the registration above is not edited)
+
+From the repository root (Rust 1.97.0, uv; CPU only, about 3 minutes on 4 cores):
+
+```bash
+E=experiments/2026-10-25-crawler-cost-chaotic-edge
+python3 $E/scripts/p0_strip.py > $E/results/p0_strip.txt                  # P0a (stdlib, exact rationals)
+uv run --frozen $E/scripts/make_lists.py                                   # frozen lists -> results/lists/
+CARGO_TARGET_DIR_FRESH=$(mktemp -d) sh $E/scripts/run.sh                   # tracer runs -> results/trace_*.jsonl, run.log
+uv run --frozen $E/scripts/analyse.py                                      # registered scoring -> results/analysis.{txt,json}
+uv run --frozen $E/scripts/posthoc_k3.py > $E/results/posthoc_k3.txt       # POST HOC, labelled
+```
+
+Provenance: `results/run.log` (commit `082fb7b`, clean `src/` and `examples/`, binary sha256 `e1bd80b8…f780`, and an
+output sha256 per file). Deterministic. The census `c` comes from `experiments/2026-10-13-probe-growth-census/results/probe_summary.csv`.
+
+| Prediction | Verdict | Numbers (`results/analysis.txt`) |
+|---|---|---|
+| P0a exact strip | **held** | k = 1..8: `1/c = k + 5/4`, r = (1, ..., 1, 1/4, 0, ...), chains {1, 3} half each, exact rationals |
+| P0b tracer on 25 fillers | **held** | `1/c` within 0.0021 of `k + 5/4` for all 25 (k = 1..5); chain-2 share <= 0.0008 |
+| P1a crawler limit | **held** | median phi 0.647 (n = 40); 0.642 without the 3 seen rules |
+| P1b vs composition-matched controls | **held** | median phi 0.644 (38 Pi rules) vs 0.149 (73 control draws), difference 0.494, 95% CI [0.329, 0.627] |
+| P1c crawler as ceiling | **held** | 2 of 40 exceed `m + 5/4 + 0.10` (`RRLRRRRRR`, `RRLRRRRRRR`) |
+| N0 noise gate | passes | median relative change of `1/c` from 2^24 to 2^25 is 0.0026; median e(W) is 0.070 |
+| W1 near letters matter more than far letters | **held** for m = 1, 2, 3 | median e(W)/e(F) = 5.50, 3.44, 2.78 (28, 25, 25 parents) |
+| W2 the window moves outward with m | **failed** | at q in {3, 4}: median e 0.034 (m = 3) vs 0.062 (m = 1), ratio 0.55 (needed >= 1.5) |
+| W3 sign of window flips | **failed** | `s_bar -> s_0` raised `1/c` in only 31% (n = 67); `s_0 -> s_bar` lowered it in only 44% (n = 63) |
+| R1 circulating reads stay on the boundary | **held** (barely) | median rbar 0.901 (Pi) vs 0.848 (controls), difference 0.054 |
+| R2 crawler-like plaquettes | **held** | median chain-2 share 0.279 (Pi) vs 0.537 (controls); the crawler's is 0 |
+| R3 P1a on the tracer | **held** | median phi 0.655 (40/40 kept) |
+
+**What this shows.**
+- The crawler's accounting is now an exact calibration point for the edge tracer. `1/c = k + 5/4` is derived, checked
+  with exact rationals and reproduced by the tracer to 0.1% on all 25 census fillers.
+- Chaotic rules that carry the crawler's full turn table sit about 65% of the way from the lead law to the crawler
+  line. Composition-matched rules sit at 15%, and only 2 of 40 overshoot the crawler. Their edges look more like the
+  crawler: half as many two-cell birth chains, and slightly more circulating reads on the boundary.
+- The positional version of H-crawl is wrong. Near letters do matter more than far letters (W1), but the influence
+  decays with distance from the lead rather than tracking a window `[m+1, 2m+1]` that moves outward with m (W2). A
+  single letter inside the window does not reliably move `1/c` in the predicted direction (W3). By the registered
+  decision rule (P1 holds, W fails), **support acts as a property of the whole table, not through a sharp window**.
+- W1 alone does not discriminate H-crawl from K3-generic, since a smooth decay passes it too.
+
+**Post hoc, not registered (`results/posthoc_k3.txt`).** These checks were written after reading the results.
+1. The fitted K3 survival kernel (c-law-mechanism Stage 1, refit on the full census) already predicts most of the Pi
+   excess. The median residual `1/c - K3` is +0.029 for the Pi rules (against +0.520 for the lead law) and -0.056 for
+   the controls. At m = 2 and 3, H-crawl's crawler limit adds nothing that K3's "s_0 letters after the kill" term
+   does not already carry.
+2. At high lead, K3 falls short and the Pi rules track the crawler's slope. The median `1/c` for m = 2..9 is 3.08,
+   3.96, 4.92, 5.86, 6.64, 7.52, 8.34, 9.17, a slope of about 0.87 per lead step, against 0.70 for the lead law, 1 for
+   the crawler, and a K3 prediction that saturates (4.56, 5.03, 5.61, 6.30, 6.94 for m = 4..8). n is 1-4 per lead above
+   m = 3, so this is a lead to test, not a finding.
+3. Across all stationary census blobs, the residual from the lead law rises with the second run `j` (the `s_0` letters
+   straight after the first opposite letter) at every m: about -0.2 at `j = 0` (for m >= 2) up to +0.3 to +0.8 at
+   `j >= m + 2`.
+
+**Limitations.** P1 uses census `c` that has been used in earlier fits (the lead law itself), although never for this
+cohort. The 40 Pi rules are a convenience sample of what the census contains: 17 of them have m = 2, and the high-m
+rules are nearly all-R strings. Three were seen in exploration (results unchanged without them). The tracer horizon is
+2^24 on a 4096 board, and survivor filtering removed 20-38% of P2 mutants unevenly across position classes (table in
+`analysis.txt`). There is one ant per rule and one blank start; between-start variance is not measured here (N0
+bounds only the finite-window drift).
