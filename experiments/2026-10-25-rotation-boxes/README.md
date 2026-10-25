@@ -102,3 +102,22 @@ A pair of backgrounds *coincides* if the footprints are identical. Mirror partne
   (`LLLLLLLRR`: backgrounds 0, 1, 2 all identical; `LLLLLLLLRR`: backgrounds 0 and 1) — the two classes already known from F1. So with the refinement the coincidences are specific to those two classes, not generic; without it the registered U1/U2 say they are not.
 * Unplanned observation: far more backgrounds leave the 2048 board within 1e8 steps in the control classes (23 of 74 backgrounds) than in the test classes (3 of 70). The test classes were chosen for small boxes at 1e11, which apparently selects classes whose members mostly stay bounded on every background. Not tested further.
 * U4 (do the coincidences vanish by 1e9) is pending the 1e9 run.
+
+### Part 3 final (1e9 finished; `results/uniform_bg_shapes_1000000000.csv`, `results/uniform_bg_analysis.txt`, commit/binary hash in `results/uniform_bg_provenance.txt`)
+
+| prediction | outcome |
+|---|---|
+| U0 identity | **held** (oracle test, 200 random cases) |
+| U1 at least 4 of 8 test classes with a coincident pair at 1e8 | **failed** as registered: 2 of 8 |
+| U2 at most 1 of 8 control classes | **failed** as registered: 2 of 8 (both forced by mirror-rotation symmetry; post hoc refinement: 0 non-trivial) |
+| U3 no class with all backgrounds identical | **held** (0 of 16, at 1e8 and 1e9) |
+| U4 at least 70% of 1e8 coincidences gone at 1e9 | **held**: 4 of 4 non-trivial pairs gone (symmetric pairs excluded as post hoc, they coincide at every horizon by construction) |
+
+* At 1e9 the test classes show 1 non-trivial coincident pair (`LLLLLLLLRR`, backgrounds 8 and 9), a different pair from the 1e8 one (0, 1); the controls show none beyond the symmetric ones. Coincidences come and go, as the 1e10 pair in F1 also did. Counts this small (1-4 pairs, 2 classes) support no rate estimate.
+* Escapes of the 2048 board: test classes 3 of 71 backgrounds at 1e8 and 3 of 71 at 1e9; control classes 23 of 71 at 1e8 and 36 of 71 at 1e9. (The interim note above gave 70 and 74 as denominators; both populations have 71 backgrounds: corrected here, no data touched.) A control class such as `LLRLRLRLR` leaves the board from 7 of its 9 backgrounds by 1e9, so the background decides whether the rule builds a highway at all.
+* **Conclusion for Q25.**
+  1. Strong background-independence (U3) is false everywhere tested, and for typical survivor classes the background changes the outcome qualitatively (bounded versus escaping).
+  2. The rotation-pair box association from part 1 is real but concentrated in classes whose members stay small and bounded on nearly every background; there footprints are close and occasionally identical, but identity does not persist across decades (1e8 -> 1e9: 4 of 4 lost; one pair regained at 1e10).
+  3. I found no evidence that a rotation is "the same object on a different background" beyond early-time footprint coincidences. A mechanism for the 1e10 re-coincidence is still missing.
+  4. Limits: 8 test classes, 8 length-matched controls, lengths 7-10, footprints only (colours and ant phase ignored), horizons 1e8/1e9 (1e10 only for the F1 pairs), a 2048 board (escape means only "beyond 2048"), one representative per class.
+  5. No pruning-index signature (observational; the one non-persistent coincidence pattern is not a dead-end claim).

@@ -32,3 +32,24 @@ The association is real but the "same object" reading is not supported. Possibly
 
 ### 2026-10-25 · 9525e73 · question
 Is the 28x28:684 shape an envelope that rotation-class partners converge to? Test: footprints of these rules at 3e10 and 1e11, and the original rule on a uniform background k.
+
+### 2026-10-25 · 2a2f8d7 · intent
+Part 3: run each class representative on every uniform background (identity: background k == rotation by k). Registered U0-U4 and the 8 test / 8 length-matched control classes before the code existed. Note: the 12 groups merge into 8 classes, so the registration uses 8, not 12.
+
+### 2026-10-25 · 22b7bc2 · observation
+U0 held (200-case oracle test with an independent HashMap reference). At 1e8: U1 failed (2 of 8), U2 failed as registered (2 of 8), U3 held.
+
+### 2026-10-25 · 22b7bc2 · surprise
+The control coincidences are all forced by symmetry (the rule is its own mirror after rotation by n/2). I had not thought of this when registering. Scoring both ways; the symmetry exclusion is flagged post hoc in the README and the analysis script.
+
+### 2026-10-25 · 22b7bc2 · observation
+Many more backgrounds of the control classes leave the 2048 board (23 of 71 at 1e8, 36 of 71 at 1e9) than of the test classes (3 of 71 at both).
+
+### 2026-10-25 · 22b7bc2 · observation
+U4 held: 4 of 4 non-trivial 1e8 coincidences are gone at 1e9; one new non-trivial pair appears in the same class.
+
+### 2026-10-25 · 22b7bc2 · interpretation
+No evidence that a rotation builds the same object on a different background beyond early coincidences. The box association of part 1 sits in classes whose members stay small and bounded on nearly all backgrounds. Doubts: 8 + 8 classes, footprints only, one representative per class, 2048 board.
+
+### 2026-10-25 · 22b7bc2 · deviation
+corrects: the interim README note gave denominators of 70 and 74 for the number of backgrounds; both populations have 71. Fixed in the final README section; no data touched.
