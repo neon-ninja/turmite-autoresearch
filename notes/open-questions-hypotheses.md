@@ -432,3 +432,25 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
   edge lemma, a finite trace per corner phase)?
 - Q23 link: the two-visit builders' straight edges match the mirrored k = 0 crawler (one row of 1s over 2s), which exists for every rule
   starting `RL`; whether the octagonal spirals with an 80-cell band are the same thing is not checked.
+
+## Added 2026-10-25: the crawler as a ceiling for the chaotic c law (c-law coefficients; Q25 linked)
+
+`experiments/2026-10-25-crawler-cost-chaotic-edge/` (Stage 1 registered at `a387d27`, Stage 2 at `be07015`, both before their runs).
+- **Exact reference for the edge-cost instruments.** The square-ring crawler's edge accounting is derived and checked: `1/c = k + 5/4`,
+  boundary reads per birth `r_j = 1` for `j <= k`, `1/4` at `k+1`, 0 beyond; birth chains of 1 and 3, half each. This holds in exact
+  rationals on a strip (k = 1..8), and the edge tracer reproduces it to 0.002 on all 25 census fillers. It is the first walker with a
+  *proved* c, next to the rotor and random-walk controls.
+- **Crawler line versus lead law.** Crawler `1/c = 1.25 + 1.00 m`; chaotic `1.36 + 0.70 m`. The intercepts nearly agree, and the
+  chaotic edge spends about 0.3 fewer boundary reads per lead step.
+- **Rules with the crawler's table are pulled toward it, and stop below it.** Census stationary blobs with `Pi(m)`, m >= 2, sit at
+  phi = 0.65 (0 = lead law, 1 = crawler line), against 0.15 for composition-matched controls (difference 0.49, CI [0.33, 0.63]). Fresh
+  Pi rules at lengths 13-18 give phi 0.49-0.68 per lead. Only 6 of 129 exceed the crawler line by more than 0.1. Their edges have half
+  as many two-cell birth chains as the controls.
+- **Not positional.** Single-letter flips show no shared-cell window `[m+1, 2m+1]` that moves with m, and no consistent sign inside it
+  (`NR-20261025-crawler-window-single-letter`). Support is collective: one added `s_0` letter in the window more often lowers `1/c`.
+- **Not beyond K3 at m <= 4.** The fitted K3 kernel predicts the Pi rules' census c (median residual +0.03). A support-specific
+  steepening of the lead slope failed on fresh rules (S1: Pi 0.83 vs controls 0.78 on 42 pairs, CI includes 0).
+- Q27. Why is support collective? Is circulation an all-or-nothing chain (phi set by the *product* of window letters), and does
+  that explain why b sits at 0.70, i.e. 70% of the crawler's 1? Proposed test: a gap-dose design on the flat band.
+- Q25 link: 65% of fresh `Pi(m)` rules of lengths 13-18 already grow faster than t^(2/3) by 2^24 steps (filler-like), against 4% of
+  composition-matched controls. The table that makes the crawler possible also makes finding it likely.
