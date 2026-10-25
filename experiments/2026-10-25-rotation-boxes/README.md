@@ -93,3 +93,12 @@ A pair of backgrounds *coincides* if the footprints are identical. Mirror partne
 * Decision: if U1 and U2 hold, the box enrichment is a property of the selected classes (reading: some rules reach nearly the same footprint on different backgrounds early on); if the control rate matches the test rate, the box sharing carries no information beyond "small slow growers". Background-independence is supported only by U3 failing.
 
 **Pruning index.** Index revision `663c0d1`; same queries as above ("rotation", "cyclic", "background"): one candidate, `NR-20261022-additive-laws-order-blind`, whose objective (additive law fingerprints) differs; no exclusion. Decision: run.
+
+### Part 3 interim result at 1e8 (committed while the 1e9 run is in progress; `results/uniform_bg_shapes_100000000.csv`, `results/uniform_bg_analysis.txt`)
+
+* **U0 held:** `tests/prefix_horizon.rs::uniform_background_equals_rotated_rule` (200 random cases, up to 5,000 steps): the footprint of `w` on background `k` equals that of `rot_k(w)` on a blank board and matches an independent HashMap reference with default colour `k`. Not a surprise: it is a relabelling.
+* **U1 FAILED as registered:** 2 of 8 test classes (needed at least 4) have two backgrounds with identical footprints. **U2 FAILED as registered:** 2 of 8 control classes do (allowed at most 1). **U3 held:** no class has all backgrounds identical.
+* **Post hoc refinement (not registered; flagged):** every control coincidence is forced by symmetry. `LLRLRRLR` and `LLLLLRRRRR` are their own mirror image after rotating by n/2, so backgrounds `k` and `k + n/2` give mirror-image footprints. Excluding those, the controls have **0** coincident pairs and the test classes keep **2 classes with 4 non-trivial pairs**
+  (`LLLLLLLRR`: backgrounds 0, 1, 2 all identical; `LLLLLLLLRR`: backgrounds 0 and 1) — the two classes already known from F1. So with the refinement the coincidences are specific to those two classes, not generic; without it the registered U1/U2 say they are not.
+* Unplanned observation: far more backgrounds leave the 2048 board within 1e8 steps in the control classes (23 of 74 backgrounds) than in the test classes (3 of 70). The test classes were chosen for small boxes at 1e11, which apparently selects classes whose members mostly stay bounded on every background. Not tested further.
+* U4 (do the coincidences vanish by 1e9) is pending the 1e9 run.

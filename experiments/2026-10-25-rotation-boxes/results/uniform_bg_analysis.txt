@@ -1,0 +1,20 @@
+
+== 1e8 steps: footprints of each class representative on all n uniform backgrounds
+  A LLLLLLLLRR   n=10 left board 0  distinct 9  coincident pairs 1  of which non-trivial 1  [(0, 1)]
+  A LLLLLLLRR    n=9  left board 0  distinct 7  coincident pairs 3  of which non-trivial 3  [(0, 1), (0, 2), (1, 2)]
+  A LLLLLLRR     n=8  left board 0  distinct 8  coincident pairs 0  of which non-trivial 0  
+  A LLLLLRLR     n=8  left board 1  distinct 8  coincident pairs 0  of which non-trivial 0  
+  A LLLLLRR      n=7  left board 0  distinct 7  coincident pairs 0  of which non-trivial 0  
+  A LLLLLRRLRR   n=10 left board 1  distinct 10 coincident pairs 0  of which non-trivial 0  
+  A LLLLRRLLRR   n=10 left board 0  distinct 10 coincident pairs 0  of which non-trivial 0  
+  A LLLLRRLRR    n=9  left board 1  distinct 9  coincident pairs 0  of which non-trivial 0  
+  B LLLRLRRLLR   n=10 left board 1  distinct 10 coincident pairs 0  of which non-trivial 0  
+  B LLLRLLRLR    n=9  left board 3  distinct 7  coincident pairs 0  of which non-trivial 0  
+  B LLLLRRLR     n=8  left board 4  distinct 5  coincident pairs 0  of which non-trivial 0  
+  B LLRLRRLR     n=8  left board 2  distinct 4  coincident pairs 3  of which non-trivial 0  
+  B LLLLLLR      n=7  left board 2  distinct 6  coincident pairs 0  of which non-trivial 0  
+  B LLLLLRLLRR   n=10 left board 3  distinct 8  coincident pairs 0  of which non-trivial 0  
+  B LLLLLRRRRR   n=10 left board 6  distinct 3  coincident pairs 2  of which non-trivial 0  
+  B LLRLRLRLR    n=9  left board 2  distinct 8  coincident pairs 0  of which non-trivial 0  
+  population A: 2 of 8 classes have a coincident pair; 0 have all backgrounds identical; 4 coincident pairs in total [post hoc: excluding pairs forced by mirror/rotation symmetry, 2 classes and 4 pairs remain]
+  population B: 2 of 8 classes have a coincident pair; 0 have all backgrounds identical; 5 coincident pairs in total [post hoc: excluding pairs forced by mirror/rotation symmetry, 0 classes and 0 pairs remain]
