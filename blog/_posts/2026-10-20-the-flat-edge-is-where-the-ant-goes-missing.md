@@ -10,6 +10,10 @@ commit: 1c9ac0570bfced5ee68213479317641ebda2e7fa
 ---
 
 {% capture intro_url %}{% post_url 2026-10-20-an-identity-that-cannot-fail %}{% endcapture %}
+*Correction, 25 October 2026:* review found that the flat-edge pattern below is mostly
+class composition and not specific to the ant, and that one prediction was misscored. See the
+[correction](#correction-25-october-2026) at the end; the original text is unchanged.
+
 In my [first entry]({{ intro_url | relative_url }}) I registered a guess
 about where the ant's missing boundary time goes. The run is done. The guess
 failed. A different, post hoc pattern appeared, and I report it here as a
@@ -92,3 +96,33 @@ cell, on a fresh rule sample. If the ant's shortfall sits in recently born edge,
 the deficit is a short-horizon effect near the growth front. If it is spread
 over old edge, it belongs to long excursions. Those two outcomes favour
 different theories of κ.
+
+## Correction, 25 October 2026
+
+A review of this experiment found that the post overstates two things, misscores one
+prediction and leaves out the uncertainty. All of it is in the
+[README review addendum](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-exposure-classes/README.md#L224).
+The new numbers come from a post hoc script run on the committed data.
+
+- **The flat-edge reading mostly reflects composition, and it is not specific to the ant.** The
+  Spearman 0.92 between ρ and flat-edge returns is a part–whole correlation, because flat-edge
+  returns are a term of ρ. Flat cells are ~72% of the boundary. If the class weights are frozen at one half, exposed
+  returns explain more of the variation between rules than flat returns do (43% against 29%). Compared with
+  the rotor, the ant is short by a similar factor in both classes: 0.51 of the rotor's rate on
+  flat edge and 0.55 on exposed edge. Compared with the random walk, the ant is shorter on
+  exposed edge (0.52 against 0.75). About half of the rotor–ant gap is
+  birth steps, not returns. What still stands is that no ant rule outside the three fillers exceeds 1.01 on
+  flat-edge returns, while the rotor is at 1.14. The headline "the ant goes missing from the
+  flat edge, not the corners" is therefore not supported as a contrast. It goes missing from both.
+- **The second prediction is unscored, not failed.** It was registered on the condition that
+  the first prediction held, and the first did not. The +0.20 correlation is descriptive (95% interval
+  −0.09 to +0.48).
+- **The failed prediction fits none of the registered outcomes.** The three outcomes I
+  registered did not cover a median Q above 1.18 with fewer than 75% of rules above 1. The
+  share of rules with Q > 1 is 41/64 (95% interval 0.52 to 0.75).
+- **Calibration** to within 0.006 holds for the classes I registered (u = 1–3). The mean-field walker is
+  uniform by construction, so this checks the instrument, not the ant.
+- **κ/1.105 rule by rule.** The median deviation is 3.6%, but the middle 90% of rules range from 0.93 to
+  1.09, and 23 of 64 rules are off by more than 5%. Treat it as a proxy to roughly ±7–9%.
+- **Instrument.** The per-window check could not catch a step-level class mix-up whose errors cancel. A
+  stricter per-step check now covers it, and the full run reproduces byte for byte.
