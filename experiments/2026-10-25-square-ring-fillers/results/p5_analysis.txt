@@ -1,0 +1,13 @@
+P5: transplant of mid-fill states (8192 board, t0 + 1e8 steps)
+k=1 t0=1000000: original RLRRRL#4 visited=25266200
+  (a) RLRRRL>RLRR@1000000#4: identical position/heading/vhash/visited = True
+  (b) RLRRRL>RLRRLL@1000000#4: first read > 4 at t0+2956; revolution at t0 = 8058 steps -> broke within one revolution = True; visited at end 763683 vs 25266200; last-window max read 64+, new cells 5780 vs 262227
+k=2 t0=2000000: original RRLRRRR#6 visited=17012906
+  (a) RRLRRRR>RRLRRR@2000000#6: identical position/heading/vhash/visited = True
+  (b) RRLRRRR>RRLRRRL@2000000#6: first read > 6 at t0+1962; revolution at t0 = 13882 steps -> broke within one revolution = True; visited at end 871650 vs 17012906; last-window max read 64+, new cells 7875 vs 174831
+k=3 t0=3000000: original RRRLRRRRR#8 visited=12885938
+  (a) RRRLRRRRR>RRRLRRRR@3000000#8: identical position/heading/vhash/visited = True
+  (b) RRRLRRRRR>RRRLRRRRL@3000000#8: first read > 8 at t0+3477; revolution at t0 = 19690 steps -> broke within one revolution = True; visited at end 785041 vs 12885938; last-window max read 64+, new cells 1720 vs 131129
+(a) controls identical: 3/3
+(b) ring broken within one revolution: 3/3
+VERDICT: P5 HELD
