@@ -219,7 +219,8 @@ evidence for it.
 - **Footprint (P3).** Reads in [2^26, 2^27] are confined to 0..2k+2; shares of 0..2k+1 are uniform to within 0.09% (max relative
   deviation 0.00083); count 2k+2 is read in at most 0.0083% of steps (about one read per corner per revolution); steps per visited
   cell at 2^27 are 3.998-4.001, 5.994-5.996, 7.994, 9.992, 11.989 for k = 1..5 (the seed and the corner diagonals; two k = 1 rules,
-  `RLRRRRRRL` and `RLRRRRRRRL`, sit slightly above 2(k+1) because their seeds hold more excess visits than the corners lack).
+  `RLRRRRRRL` and `RLRRRRRRRL`, sit slightly above 2(k+1), presumably because their seeds hold more excess visits than the corners
+  lack; not checked).
 - **Corner (P5).** At a convex corner the crawler reads one interior cell (count 2k+2) per revolution, leaving a diagonal
   trail of cells with 2k+3 visits (at the other corners a diagonal with 2k+1; seen in snapshots, not counted). Flipping only
   `T(2k+2)` to L destroys the ring within the first corner (first read above 2k+2 at t0 + 2,956 / 1,962 / 3,477 steps against

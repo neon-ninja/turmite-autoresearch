@@ -174,3 +174,9 @@ run; `scripts/oracle.sh` writes its report through a temporary name so a rerun's
 steps (same hashes as the 10:35 run; binary sha256 unchanged, `ae619384...`), all 10 Python-reference comparisons OK, ORACLE PASSED
 (`results/oracle.txt` regenerated). The notebook was re-executed from a clean kernel with the documented command: 19 cells, 0 errors;
 only the oracle cell and the provenance hash of `oracle.txt` changed. No change to any verdict or number from the instrument review.
+
+### 2026-10-25 15:19 (+13:00) · f55befa · deviation
+Reviewed the five review-fix commits (29c6597..f55befa): numbers spot-checked against `results/p23_analysis.txt` and
+`results/posthoc_p6.txt` (cycles 489-849, max share deviation 0.00083, max share of 2k+2 8.3e-5, steps per cell ranges, the 219th
+proved-family run RRLRRRRRRLR) and accepted. One wording change: the README's reason why RLRRRRRRL and RLRRRRRRRL sit above 4 steps per
+cell (seed excess) is now marked as unverified; nobody measured it.
