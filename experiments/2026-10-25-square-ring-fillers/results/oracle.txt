@@ -1,4 +1,4 @@
-# commit b0ba3a1 dirty=0
+# commit d709628 dirty=0
 ae619384fcf6cb6d28ca59f60930cc47c903546305352d6a1c6b23585a5ef092  target/release/examples/square_ring_fillers_footprint
 c121329f5dbb8b59a5c8bf5f3aab66e3cf1cf147c6e8d22b6e2be92a3bb5684f  target/release/examples/rlrlll_macro_transition_resim
 FINGERPRINT RLRRRL 1000000 identical (cdf341356679f163 251468)
@@ -11,10 +11,14 @@ FINGERPRINT RRLLLRLLLRR 1000000 identical (35787bccd67efefe 18375)
 FINGERPRINT RRLLLRLLLRR 10000000 identical (2e2020f19bd6a001 892007)
 FINGERPRINT RLRR 1000000 identical (5f06b3ee33d3f191 17024)
 FINGERPRINT RLRR 10000000 identical (49dd882c522be141 86561)
-RLRRRL: OK
-RRLRRRR: OK
-RLLR: OK
-RLRRRL>RLRRLL@100000#4: OK
-RRLRRRR>RRLRRRL@120000#6: OK
-RL: OK
+RL (512 board, window 65536, stop=escaped, steps=22381): OK
+RLRRRL (512 board, window 65536, stop=budget, steps=200000): OK
+RRLRRRR (512 board, window 65536, stop=budget, steps=200000): OK
+RLLR (512 board, window 65536, stop=budget, steps=200000): OK
+RLRRRL>RLRRLL@100000#4 (512 board, window 65536, stop=budget, steps=200000): OK
+RRLRRRR>RRLRRRL@120000#6 (512 board, window 65536, stop=budget, steps=200000): OK
+RL (256 board, window 4096, stop=escaped, steps=15725): OK
+RLRRRL>RLRR@30000#4 (256 board, window 4096, stop=budget, steps=200000): OK
+RL (256 board, window 4096, stop=escaped, steps=15725): OK
+RRLRRRR#6 (256 board, window 4096, stop=budget, steps=200000): OK
 ORACLE PASSED

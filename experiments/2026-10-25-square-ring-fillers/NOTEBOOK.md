@@ -163,3 +163,14 @@ of the whole visited rows; four reads per count) for k = 1..40; `scripts/p6_spec
 `p6_membership.csv` and prints 361 canonical Pi rules of length <= 12; a build of the two examples into a fresh `CARGO_TARGET_DIR`
 reproduces the sha256 logged in `results/*_run.log` (footprint `ae619384...`, crawler `2ddf4d94...`), so the committed runs used the
 committed source; `cargo build --release --locked --examples` succeeds; `blog/scripts/atlas.py --check` passes.
+
+### 2026-10-25 15:16 (+13:00) · d709628 · observation
+Review, instrument oracle. The committed oracle ran its six specs on four rayon threads with the one escaping run (`RL`) last and
+shorter than the window, so neither an escape after the ring buffer had started dropping reads nor a run starting in a buffer left
+by an earlier run was exercised, although P6 has 12 escaped runs and 446 reuses. `scripts/oracle_footprint.py` now runs on one
+thread with `RL` first and adds a 256-board, 4096-step-window case in which `RL` escapes at step 15,725 before and after a switched
+run; `scripts/oracle.sh` writes its report through a temporary name so a rerun's dirty count does not see its own output.
+`bash scripts/oracle.sh` at `d709628`, clean tree: fingerprints identical to `fast::run` for the same five rules at 1e6 and 1e7
+steps (same hashes as the 10:35 run; binary sha256 unchanged, `ae619384...`), all 10 Python-reference comparisons OK, ORACLE PASSED
+(`results/oracle.txt` regenerated). The notebook was re-executed from a clean kernel with the documented command: 19 cells, 0 errors;
+only the oracle cell and the provenance hash of `oracle.txt` changed. No change to any verdict or number from the instrument review.
