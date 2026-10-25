@@ -1,0 +1,68 @@
+POST HOC review (2026-10-25), unregistered. Inputs: committed results only.
+identity rho = birth + w1*r1 + (1-w1)*r2 per run: max |residual| 7.11e-15
+rule means reproduce rule_stats.csv: 64 rules, max |dQ| 5.0e-07, max |drho| 5.0e-07
+
+== 1. Uncertainty (rule = resampling unit, seed 20261020, 4000 resamples) ==
+P3 fraction Q>1: 41/64 = 0.641; Wilson 95% [0.518, 0.747]; bootstrap 95% [0.5156, 0.75]; bootstrap P(frac >= 0.75) = 0.037
+  the 0.75 threshold needs 48/64; 7 more rules would have to cross Q = 1
+  rules whose patched-start Q range straddles 1: 0 ([])
+  rules with mean Q in [0.9, 1.1]: 8
+  start @1 alone: 62 rules, frac Q>1 0.645, median Q 1.354
+  start @2 alone: 64 rules, frac Q>1 0.641, median Q 1.326
+  start @3 alone: 62 rules, frac Q>1 0.645, median Q 1.356
+  start @4 alone: 63 rules, frac Q>1 0.635, median Q 1.363
+P3 median Q 1.3493, bootstrap 95% [1.091, 1.5976] (re-derived; analysis.txt used its own draw)
+-- all 64 rules
+Spearman(rho, exposed share [P4]) = +0.197, bootstrap 95% [-0.0942, 0.4749], P(boot <= -0.4) = 0.000
+Spearman(rho, rho1_ret [post hoc; part-whole]) = +0.934, bootstrap 95% [0.8659, 0.9661], P(boot <= -0.4) = 0.000
+Spearman(rho, rho2p_ret [post hoc; part-whole]) = +0.664, bootstrap 95% [0.503, 0.7836], P(boot <= -0.4) = 0.000
+Spearman(rho, Q [post hoc]) = +0.045, bootstrap 95% [-0.2161, 0.295], P(boot <= -0.4) = 0.000
+-- fillers removed
+Spearman(rho, exposed share [P4]) = +0.207, bootstrap 95% [-0.0869, 0.4762], P(boot <= -0.4) = 0.000
+Spearman(rho, rho1_ret [post hoc; part-whole]) = +0.922, bootstrap 95% [0.847, 0.9589], P(boot <= -0.4) = 0.000
+Spearman(rho, rho2p_ret [post hoc; part-whole]) = +0.610, bootstrap 95% [0.4309, 0.7351], P(boot <= -0.4) = 0.000
+Spearman(rho, Q [post hoc]) = +0.002, bootstrap 95% [-0.2536, 0.2562], P(boot <= -0.4) = 0.001
+P2 ant median rho 0.8741 bootstrap 95% [0.8239, 0.9262]; frac rho>=1 0.312 Wilson [0.212, 0.434] bootstrap [0.2031, 0.4375]
+P2b 64 blank runs: median |ln dev| 0.0360 bootstrap 95% [0.029, 0.0491]; ratio rho*1.105/kappa26 q05/50/95 [0.931, 0.9893, 1.0862], |ln dev| > 0.05 in 23/64, > 0.10 in 4/64
+
+== 2. Composition (post hoc). rho = birth + w1*r1 + (1-w1)*r2, exact per run and in rule means ==
+-- fillers removed (primary; fillers have rho ~140 and dominate variances): n = 64 rules (filler runs with birth_rate > 0.05 dropped: ['RLLLRLLL@2', 'RLRRRRLRR@1', 'RLRRRRLRR@3']; each rule keeps its other starts)
+  Cov(birth, rho)/Var(rho) = +0.337
+  Cov(w1*r1 (flat returns), rho)/Var(rho) = +0.444
+  Cov((1-w1)*r2 (exposed returns), rho)/Var(rho) = +0.220
+  sum = 1.000; median w1 = 0.718 (q05-q95 [0.583, 0.93])
+  Spearman(rho, w1) = -0.220; Spearman(w1, r1) = -0.453
+  fixed weights (cohort median w1 = 0.718): Spearman(rho_fixed, rho) +0.993; Cov share birth +0.334, flat +0.473, exposed +0.193; Spearman(rho_fixed, r1) +0.926, (rho_fixed, r2) +0.606
+  fixed weights (w1 = 1/2 = 0.500): Spearman(rho_fixed, rho) +0.974; Cov share birth +0.284, flat +0.289, exposed +0.426; Spearman(rho_fixed, r1) +0.887, (rho_fixed, r2) +0.725
+-- all 64 rules: n = 64 rules
+  Cov(birth, rho)/Var(rho) = +0.549
+  Cov(w1*r1 (flat returns), rho)/Var(rho) = +0.392
+  Cov((1-w1)*r2 (exposed returns), rho)/Var(rho) = +0.059
+  sum = 1.000; median w1 = 0.718 (q05-q95 [0.57, 0.93])
+  Spearman(rho, w1) = -0.209; Spearman(w1, r1) = -0.413
+  fixed weights (cohort median w1 = 0.718): Spearman(rho_fixed, rho) +0.994; Cov share birth +0.502, flat +0.433, exposed +0.065; Spearman(rho_fixed, r1) +0.934, (rho_fixed, r2) +0.662
+  fixed weights (w1 = 1/2 = 0.500): Spearman(rho_fixed, rho) +0.979; Cov share birth +0.554, flat +0.319, exposed +0.127; Spearman(rho_fixed, r1) +0.902, (rho_fixed, r2) +0.762
+
+-- ant vs rotor gap (medians of rule means, fillers removed; rotor 8 seeds)
+  ant  : rho 0.874 birth 0.342 w1 0.718 r1 0.581 r2 0.395
+  rotor: rho 1.798 birth 0.818 w1 0.629 r1 1.137 r2 0.713
+  rw   : rho 1.315 birth 0.542 w1 0.664 r1 0.776 r2 0.756
+  rotor - ant median rho = 0.924; split (symmetric, at medians; medians do not add exactly): birth 0.476, flat returns 0.375, exposed returns 0.104, composition -0.027, sum 0.927
+  birth share of the summed gap 0.51; flat-return share 0.40; exposed-return share 0.11
+  ant/rotor ratio of medians: rho 0.49, birth 0.42, flat r1 0.51, exposed r2 0.55
+  ant/rw ratio of medians: rho 0.66, birth 0.63, flat r1 0.75, exposed r2 0.52
+
+== 3. Mean-field kappa replication (post hoc; for evidence-ledger BO-04) ==
+  probe kappa per window = (sum_u b_u / steps) / (sum_u p_u / area) at the window end (end reference), k = 17..26
+  mf:1: 10 windows, mean kappa 1.1026
+  mf:2: 10 windows, mean kappa 1.1071
+  mf:3: 10 windows, mean kappa 1.1017
+  mf:4: 10 windows, mean kappa 1.1042
+  mf:5: 10 windows, mean kappa 1.1141
+  mf:6: 10 windows, mean kappa 1.1141
+  mf:7: 10 windows, mean kappa 1.1151
+  mf:8: 10 windows, mean kappa 1.1204
+  8 seeds: mean 1.1099, between-seed SD 0.0069, SE 0.0024, range [1.1017, 1.1204]; all windows complete: True
+  comparison (evidence ledger BO-02, not recomputed here): 1.118 (SD 0.009), seeds 2026101601..08, 2^23 steps, k = 12..22; formula 1.107. This run: seeds 1..8, 2^26 steps, board 8192, k = 17..26, instrument examples/kappa_exposure_classes.rs
+
+provenance {"git": "181b0b8722dbb8b142c1e1fbd410d9968f03ec0a", "inputs": {"experiments/2026-10-20-kappa-exposure-classes/results/classes.csv": "50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79", "experiments/2026-10-20-kappa-exposure-classes/results/rule_stats.csv": "ead2bf878ffaae4600bb3e02bdd12b946fa47f271debb04f82014d37579c28ee"}}
