@@ -52,3 +52,24 @@ Reading: staying identical over two more decades would show the rotated rules bu
 The footprints stay close in size but are not the same object, so the 1e8 equality was an early coincidence, not a shared attractor. Repaired C1: each rule's own footprint changes from 1e8 to 1e9
 (for example `RRRRRRLLR` 22x22:428 -> 26x26:568), so the test can say "different". (The `self_shift` columns in the CSVs still compare against +1000 steps and are uninformative; ignore them.)
 F1b (identical at 1e10) is conditional on F1a and is now moot; the 1e10 run (`results/f1_shapes_10000000000.csv`) was still in progress when this was committed, so that file is **incomplete until a later commit says otherwise**.
+
+## F1 final: 1e10 (appended; `results/f1_shapes_10000000000.csv` is now complete, 4 pairs; binary sha256 `9be39882b1dd1539...`, built at `b79b485`)
+
+Footprint (box : touched cells) of each rule at 1e8, 1e9, 1e10 steps:
+
+| rule | 1e8 | 1e9 | 1e10 |
+|---|---|---|---|
+| `RRRRRRLLR` | 22x22:428 | 26x26:568 | 28x28:684 |
+| `RRRRRLLRR` | 22x22:428 | 26x26:576 | 28x29:701 |
+| `RRRRRRRLL` | 22x22:428 | 26x26:554 | 28x28:684 |
+| `RRRRRRRLLR` | 19x20:346 | 23x24:470 | 26x26:602 |
+| `RRRRRRRRLL` | 19x20:346 | 23x24:462 | 25x26:584 |
+
+* **Repaired C1 held:** every rule's own footprint changes at each decade, so the test can say "different".
+* **F1b (identical at 1e10) FAILED as stated:** three of the four pairs differ. **But one pair re-coincides:** `RRRRRRLLR` and `RRRRRRRLL` have exactly the same canonical footprint (28x28, 684 cells) at 1e10 after differing at 1e9 (568 against 554 cells).
+  The touched set only grows, so two different growth histories ended on the same canonical shape. By hash that is not a collision risk (64-bit FNV over a 684-cell set), but it is **one pair at one time**, and I have no mechanism.
+* What this does and does not show. It does not support "rotated rules build the same object": three of four pairs differ at 1e9 and 1e10, and the 1e8 equalities were early coincidences. It leaves open that distinct rules may fill toward a common envelope at different paces
+  (suggested only by the 1e8 and 1e10 coincidences of one class; untested). A footprint ignores colours and the ant's phase, so even exact equality of footprints would not make the objects equal.
+* **Q25 summary.** (1) Rotation-related pairs share bounding boxes far more often than composition-matched controls (real, concentrated in about 10% of rotation classes). (2) That is not a persistent shared structure: box equality at earlier horizons holds for 8-13 of the 21 pairs, and
+  footprints coincide at 1e8 for two classes, separate at 1e9, and (one pair) coincide again at 1e10. (3) The background-independence idea (a rotation is the same rule on a uniform non-zero background) is neither supported nor excluded; the direct test (run the original rule on each uniform background and compare to the rotation) was not done.
+  No pruning-index signature: the evidence is observational and the one re-coincidence is unexplained.
