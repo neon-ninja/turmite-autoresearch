@@ -197,3 +197,6 @@ H-exposed test only (the 256 patched specs, 2^26 steps, board 8192, k = 17..26, 
 Wilson level and has bootstrap P(>= 0.75) = 0.037. The controls have Q > 1, the instrument gap was
 closed with a byte-identical rerun, and P4 is unscored, so the entry does not rest on it. The
 flat-edge reading is excluded from the claim (post hoc, composition).
+
+### 2026-10-25 09:34 (+00:00) · 10ee953 · cross-reference
+The exposure classifier was checked independently in `experiments/2026-10-25-exposure-classifier-check/`: 65/65 z3 checks as expected (incl. 6 negative controls). P3/P4 verdicts here stand; only wording is qualified (u = 2 includes one-cell strips, u = 1 includes T-junctions, u = 4 never occurs).
