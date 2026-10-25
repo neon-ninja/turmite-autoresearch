@@ -1,0 +1,10 @@
+ok   A  n=3 n'=4 p=2, twin: colour read 1 < p=2: Inv after one step unsat (proved)
+ok   A  n=3 n'=4 p=2, NC1 : colour read 2 == p, guard widened: Inv after one step sat (counterexample)
+ok   L  n=3 n'=5, twin: D[1] == E[1]: positions equal after the step unsat (proved)
+ok   L  n=3 n'=5, NC2 : turn agreement dropped: positions equal after the step sat (counterexample)
+ok   L  wrap step, twin: n=3 divides n'=6: relation g_w = g_w' mod n kept unsat (proved)
+ok   L  wrap step, NC3 : n=3 does not divide n'=5, no wrap flag: relation g_w = g_w' mod n kept sat (counterexample)
+ok   R  n=2 n'=4, twin: w' = w w: trajectories equal through the wrap unsat (proved)
+ok   R  n=3 n'=5, NC4 : w' = w + 2 letters of w: trajectories equal through the wrap sat (counterexample)
+
+8/8 controls as expected

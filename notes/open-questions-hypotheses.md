@@ -406,6 +406,19 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
   steady profile; the ant reads up to 76 cells into the territory, so the macro-family needs a band of depth >= 77 and eight straight/diagonal segments. Not proved to persist.
 - Q24. The rectangle translated-cycler certificate (`decide.py`) certified 571/571 census highways at the first snapshot tried in 568 cases. It is conservative (it needs the
   untouched window cells to be shift-periodic). What is the smallest class of non-highway attractors it can be extended to (periodic ahead background: the side of a spiral)?
+- Q19 update (2026-10-25, `experiments/2026-10-25-late-highway-fourth-decade/`, exploratory): over the whole length <= 10 census the hazard per at-risk rule is flat, f = 0.97 [0.91, 1.03] per decade (onset decades 1e2..1e11, windows chosen post hoc), with 15-23 highways per decade (11-12 in 1e8-1e9 by two binnings); "halving per decade" is already excluded. Registered, un-run prediction for (1e11, 1e12]: about 12 of the 702 survivors (5 or fewer would reject flat). A full 702 rerun (~1,000-2,000 core-hours) would shrink the interval only from [0.92, 1.08] to about [0.93, 1.07], so it is not recommended. Open: does log-uniform onset persist, and does a finite pool (28% depleted) hide heterogeneity?
+
+## Added 2026-10-25: prefix causal horizon (`experiments/2026-10-25-prefix-causal-horizon/`)
+
+Exact result (z3 step proofs with controls, oracle-tested on all pairs up to length 6): for rules `w`, `w'` with `n <= n'`, positions agree until the first read of colour `q`, the least index where `w'` differs from the periodic extension of `w`; `n | n'` and no mismatch means identical forever. Colour `c` is first read on a cell's (c+1)-th visit. For the 702 survivors that is by step 389 (all colours) and 1009 (first wrapped read).
+- **Correction (appended, 2026-10-25):** the statements "rules sharing a prefix have identical onsets when the extra letters are unused at that time" (`notes/frontier-2026-10-13-results.md`, B5 extension) and "related rules sharing one trajectory until a late colour is reached" (`notes/frontier-results.md`) are refuted: all 51 equal-onset late-highway pairs (exactly the 25 board fillers) separate within 205 steps. Equal onsets are a common board-fill rate, 2(k+1) G^2. No two genuine late highways share an onset.
+- A causal-horizon account of the kappa prefix effects fails: every letter of every length <= 10 survivor has acted by step ~1000.
+- Q25. Why do cyclic rotations of a rule (19 of 42 equal-box pairs among the 702 survivors; boxes 30-118 cells at 1e11) share a bounding box though their trajectories separate within 45 steps? A rotation is the same rule on a uniform non-zero background. Exploratory, unregistered; would need a background-swap test with rules matched on box size.
+- Q26. Is the first-read time of the last colour bounded for every rule (here max 389 over 702 survivors)? Provable? (A bound on the maximum cell-visit record time.)
+- Correction to the bullet above (2026-10-25): the equal-onset pairs are not exactly equal (25 distinct onsets clustered within ~1e-4), the `frontier-results.md` shared-trajectory reading was a hedged open question that the lockstep runs now test negatively, and the "causal-horizon account of kappa" is my construction, not a prior claim. The solid statement is: all 51 near-equal-onset filler pairs have different trajectories from step <= 205.
+- Q25 update (2026-10-25, `experiments/2026-10-25-rotation-boxes/`): rotation-related survivor pairs share a bounding box 52-129x more often than composition-matched controls (real, in about 10% of rotation classes), but it is not a persistent shared object: footprints of 4 pairs coincide at 1e8, separate at 1e9, and one pair (`RRRRRRLLR`, `RRRRRRRLL`) coincides again at 1e10 (28x28, 684 cells). Mechanism unknown; the uniform-background reading is neither supported nor excluded (direct test not run).
+- Q25 update 2 (2026-10-25, uniform-background test, `experiments/2026-10-25-rotation-boxes/`): a rotation is exactly the same rule on a uniform background (oracle-tested). Strong background-independence is false (0 of 16 classes have identical footprints on all backgrounds); typical survivor classes escape the board from many backgrounds (36 of 71 at 1e9) while the box-sharing classes stay bounded on nearly all (3 of 71). Footprint coincidences between backgrounds are few, non-persistent (4 of 4 gone from 1e8 to 1e9) and mostly forced by mirror-rotation symmetry in controls. No evidence for "same object on a different background"; the 1e10 re-coincidence of `RRRRRRLLR` and `RRRRRRRLL` stays unexplained. Registered U1/U2 failed as written.
+
 
 ## Added 2026-10-25: square-ring fillers (Q15, Q20 answered in part; Q23 linked)
 
@@ -433,6 +446,11 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
 - Q23 link: the two-visit builders' straight edges match the mirrored k = 0 crawler (one row of 1s over 2s), which exists for every rule
   starting `RL`; whether the octagonal spirals with an 80-cell band are the same thing is not checked.
 
+**Numbering note (appended 2026-10-25 when merging PR #15 after PR #11; no content changed).** Q25 and Q26 were assigned
+independently in two branches: in the square-ring section above (PR #11) Q25 = ring onset from a blank board and Q26 = reversed
+family / corner proof; in the prefix-causal-horizon section (PR #15) Q25 = rotation-related bounding boxes and Q26 = bound on the
+first-read time of the last colour. Until a maintainer renumbers, cite them with their section (e.g. "Q25 (rotation boxes)").
+
 ## Added 2026-10-25: the crawler as a ceiling for the chaotic c law (c-law coefficients; Q25 linked)
 
 `experiments/2026-10-25-crawler-cost-chaotic-edge/` (Stage 1 registered at `a387d27`, Stage 2 at `be07015`, both before their runs).
@@ -452,5 +470,5 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
   steepening of the lead slope failed on fresh rules (S1: Pi 0.83 vs controls 0.78 on 42 pairs, CI includes 0).
 - Q27. Why is support collective? Is circulation an all-or-nothing chain (phi set by the *product* of window letters), and does
   that explain why b sits at 0.70, i.e. 70% of the crawler's 1? Proposed test: a gap-dose design on the flat band.
-- Q25 link: 65% of fresh `Pi(m)` rules of lengths 13-18 already grow faster than t^(2/3) by 2^24 steps (filler-like), against 4% of
+- Q25 (ring onset) link: 65% of fresh `Pi(m)` rules of lengths 13-18 already grow faster than t^(2/3) by 2^24 steps (filler-like), against 4% of
   composition-matched controls. The table that makes the crawler possible also makes finding it likely.
