@@ -57,3 +57,7 @@ Completed wide-pool: five samples per backend, one warmup each, rotating order. 
 On this M4 Max, the 4083-rule, one-million-step batch was 1.84x faster on Metal than the faster CPU runner. At ten million steps, the default 256 MiB pool caused 1650–2118 retries and Metal was 2.00x slower. A 1 GiB pool removed retries and made the same workload 2.01x faster (5.068 s versus 10.192 s). The 57-rule case was 7.85x slower, and the 1013-rule, ten-million-step case was 1.59x slower. All ratios use five-run medians and the best CPU baseline per case. Desktop applications remained active. These are end-to-end measurements, not shader-only timings.
 
 The default-pool wide-case prediction failed. The registered pool increase removed retries. Keep defaults unchanged: the useful pool size depends on the workload. Save both winning and losing cases. No CUDA comparison or kernel profiling was performed.
+
+## 2026-10-25T05:26:49Z — decision (a2e860d)
+
+Review follow-up. `scripts/bench.mjs` now resolves `CARGO_TARGET_DIR` once for hashing and execution, and refuses to replace an existing `results/benchmark-<case>.json` (preflight check plus exclusive write); reruns take a tag and get their own file. No measurements were re-run and no committed result changed. Not addressed here because they need Metal hardware to verify: concurrency recovery after pool back-off, a `reference`-based seeded oracle, trimmed `required_limits`, seeded tile fill cost.

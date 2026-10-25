@@ -278,7 +278,12 @@ shareable notebook and `notes/`; they do not replace them.
 - Read the relevant note in `notes/` before starting an investigation, and
   update it when you finish. Link data files and the command that made them.
 - Keep Rust deterministic and dependency-light (currently only `rayon`, plus
-  `proptest` for dev). Justify new crates.
+  `proptest` for dev, and the optional `wgpu` feature's `wgpu`, `pollster`
+  and `bytemuck`). Justify new crates. The `wgpu` trio is needed to reach
+  Metal (and Vulkan/DX12) without CUDA: `wgpu` is the only portable native
+  GPU API, `pollster` blocks on its async adapter/readback calls, and
+  `bytemuck` casts the `#[repr(C)]` lane/param structs to bytes for upload.
+  All three are optional, so default builds do not compile them.
 - Match surrounding style; comments explain *why*, not what.
 - **Attack classification claims before asserting them.** A "chaotic", "stabilised" or "forms highway X from every start" statement in
   `notes/`, the blog or the paper should have survived the falsification harness (`experiments/2026-10-22-falsification-harness/GUIDE.md`),

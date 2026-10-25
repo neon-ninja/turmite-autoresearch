@@ -1,4 +1,8 @@
 //! Hardware oracle checks. Run with `--features wgpu --test portable_gpu`.
+//!
+//! These deliberately panic when no adapter is available (`GpuSweeper::new`
+//! is unwrapped): a missing GPU must not read as a pass, so hosted CI builds
+//! with `--lib --bin` instead of running this target.
 #![cfg(feature = "wgpu")]
 
 use proptest::prelude::*;
