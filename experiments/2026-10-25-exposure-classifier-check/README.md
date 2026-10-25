@@ -109,3 +109,60 @@ confounded with cell age, colour phase and depth. A clean pass here removes only
 ## Results, uncertainty and limitations
 
 (Appended after the run; the registration above is not edited.)
+
+## Reproduction (appended 2026-10-25 09:32 UTC; the sections above are not edited)
+
+From the repository root (Rust 1.98.1, uv; CPU only, about 7 minutes total, almost all in z3's P3 table checks):
+
+```bash
+CARGO_TARGET_DIR_FRESH=$(mktemp -d) sh experiments/2026-10-25-exposure-classifier-check/scripts/run_dump.sh
+uv run --script experiments/2026-10-25-exposure-classifier-check/scripts/check_classifier.py \
+  > experiments/2026-10-25-exposure-classifier-check/results/check.txt
+uv run experiments/2026-10-25-exposure-classifier-check/scripts/build_notebook.py
+```
+
+- Harness: `examples/exposure_classifier_check_dump/` (`main.rs` + `instrument_body.rs`, a verbatim copy of lines 20-248 of
+  `examples/kappa_exposure_classes.rs`; the binary asserts at run time that the instrument contains it byte for byte).
+  `results/dump.log`: commit `52bcd60`, clean `src/` and `examples/`, binary sha256 `bade9373…5dc4` (identical in two fresh
+  target dirs), instrument sha256 `5ad6e2f3…2cb3`.
+- Outputs: `results/table.csv` (512 patterns, sha256 `f9e0ae56…cdeb`), `results/walks.csv` (576 windows of 224 walks,
+  `b1d9cc6f…a99a`), `results/paths.csv` (the walks' step directions, `fe9a58da…2a7f`).
+- Checker: `scripts/check_classifier.py`, PEP 723, `z3-solver==4.13.4.0` (the pin of PR #15's `prove_prefix.py`, so the
+  two z3 artefacts agree; z3 reports 4.13.4, Python 3.12.15). It reads only the dumps and the committed 2026-10-20
+  `classes.csv` (sha256 `50ca6573…4f79`) and imports nothing from the repository. Its own sha256 and all input hashes are
+  the first lines of `results/check.txt`.
+
+## Results (appended 2026-10-25 09:32 UTC)
+
+**65/65 checks as expected (`results/check.txt`): P1-P7 hold, and all six negative controls are rejected.**
+
+| Property | Result | How |
+|---|---|---|
+| P1 totality/partition | **held** | z3, 9 cells × all 512 patterns; class from a count and from a subset enumeration agree; boundary ⇔ exactly one of C1..C4 |
+| P2 Rust table == spec | **held** | z3: table (as a 512-way ite) == spec for all 9 cells and pc[0..4]; 986,410 visit orders enumerated, one outcome each, pc == scan() every time |
+| P3 D4 equivariance | **held** | z3, 8 symmetries, spec and Rust table |
+| P4a count identities | **held** | z3: Σ p_u = P; per boundary cell Σ u[C_u] = #unvisited neighbours |
+| P4b replay | **held** | own replay of 224 walks (160 tours + 64 bounded random walks), 576 windows: area, p_u, new_cells, b_u, f_u and the probe's area, P, new_cells, boundary_steps, fresh_nbrs all exact; 0 mismatches |
+| P5 `Region::visit` induction | **held** | z3 code transcription on the radius-2 diamond: invariant and pc bookkeeping preserved, no u8 underflow, pc index in 0..4 (frame for far cells by argument) |
+| P6 counts, not shapes | **held** (as predicted) | diagonals irrelevant (spec and table); witnesses: u = 2 strip `000111000`, u = 1 T-junction `010011010` |
+| P7 no u = 4 | **held** | p4 = b4 = f4 = 0 in all 576 walk windows and in all 6,154 rows of 2026-10-20 `classes.csv` (k = 9..26). Reason: the visited set is 4-connected with ≥ 2 cells after the first step |
+| N1 clip-at-2 table | rejected (sat) | |
+| N2 one flipped entry | rejected (sat) | |
+| N3 walk row b2 + 1 | rejected (1 mismatch) | |
+| N4 asymmetric N,E,S spec | rejected (not equivariant) | |
+| N5 Moore 8-count spec | rejected (≠ table) | |
+| N6 mutant `visit()` (E neighbour not decremented) | rejected (sat) | added beyond the registration, as a control on P5 |
+
+**Impact on 2026-10-20 P3/P4 (registered predictions not edited).** The classifier is correct against its documented spec,
+so the computed b_u, f_u, p_u and hence Q and the P3/P4 verdicts stand as recorded (P3 failed on its 75% clause; P4 had the
+wrong sign). Two qualifications concern only the *words* attached to the classes: (i) "2+" is in practice u ∈ {2, 3}
+(P7), so "tips" (u = 3) are the only extreme class; (ii) u = 2 includes one-cell-wide strips (opposite open neighbours)
+as well as convex corners, and u = 1 includes T-junction-like cells whose diagonals are open (P6). "Flat edge vs corners,
+bays, tips" is therefore a reading of an exposure count, not a shape classification. Nothing in the record measured the
+mix of strips vs corners within u = 2.
+
+**Limitations.** P2 is exhaustive on a 3x3 window (the class depends only on the 4-neighbourhood, so every local
+configuration of a centre cell and its 4 neighbours appears), but the incremental counters are tested end-to-end only on the
+scripted walks and by the P5 induction, whose frame step for cells outside the diamond is a paper argument. The checker
+validates the instrument's classification, not the 2026-10-20 statistics pipeline (`analyse.py`) downstream of it. Level on
+the proof track: an instrument check (level 3 for the classifier lemma), not a result about ants.

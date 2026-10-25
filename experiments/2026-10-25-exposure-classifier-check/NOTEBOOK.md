@@ -27,3 +27,23 @@ therefore carries a byte-for-byte copy of lines 20-248 of `examples/kappa_exposu
 (everything except the doc header and `main`) and asserts at runtime that the instrument source
 (`include_str!`) contains that copy verbatim, so the code exercised is the code that ran.
 Status: enforced by the harness; would fail loudly if the instrument changed.
+
+### 2026-10-25 09:16 (+00:00) · 52bcd60 · result
+Harness run (`scripts/run_dump.sh`, fresh target dir, binary sha256 bade9373...5dc4, identical to the
+earlier fresh build). 512 table rows, every pattern one outcome over all orders, scan_ok everywhere;
+224 walks, 576 windows. CSVs committed with the harness in `52bcd60` (same bytes as the logged run).
+
+### 2026-10-25 09:31 (+00:00) · 99d0a3c · decision
+z3 pinned to `z3-solver==4.13.4.0` to match PR #15's `prove_prefix.py` (not the newest PyPI release),
+same `check(name, premises, goal, expect)` / "ok|FAIL name verdict" layout, single script with the
+controls at the end. Added N6 (mutant `visit()`) as an extra control for P5; noted as beyond the
+registration.
+
+### 2026-10-25 09:31 (+00:00) · 99d0a3c · result
+65/65 as expected (results/check.txt, 6m46s). P1-P7 held; N1-N6 rejected. P7 holds on all 6,154
+rows of the 2026-10-20 classes.csv. Impact on the 2026-10-20 P3/P4: verdicts stand; only the
+"corners, bays, tips" wording is qualified (README Results). Registered predictions not edited.
+
+### 2026-10-25 09:32 (+00:00) · 99d0a3c · correction
+Timestamps of the 09:14 and 09:15 entries were written from memory and are approximate (both written
+between 09:13:37 and 09:16 UTC); from here on each heading uses `date -u`. No content changes.
