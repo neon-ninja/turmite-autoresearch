@@ -18,13 +18,14 @@
       "question": "Why cube-root growth?",
       "state": "empirical-unexplained",
       "state_summary": "Many chaotic rules cluster at the same width exponent, matching a calibrated rotor walker at finite windows; every accounting of the growth reproduces it without explaining it.",
-      "reviewed": "2026-10-23",
+      "reviewed": "2026-10-25",
       "claims": ["BO-01"],
       "evidence": [
         {"ref": "2026-10-13-probe-growth-census"},
         {"ref": "2026-10-13-b1-exact-exponent"},
         {"ref": "2026-10-13-item4-exponent-rotor-calibrated"},
-        {"ref": "2026-10-13-a3-background-cone-control"}
+        {"ref": "2026-10-13-a3-background-cone-control"},
+        {"ref": "2026-10-13-b3-long-rules", "why": "Registered extension: sampled rules much longer than the census keep the width exponent near a third."}
       ],
       "counter": [
         {"ref": "2026-10-13-memory-walkers", "why": "Mechanism test: adding memory to a simple walker does not recover the ant."},
@@ -34,14 +35,14 @@
         {"ref": "2026-10-13-a7-rrllllllr-self-averaging", "why": "Rare breakouts can dominate averages, so a typical-trajectory exponent need not describe the ensemble."}
       ],
       "also": [
-        "2026-10-13-census-sweeps", "2026-10-13-b2-between-rule-variance", "2026-10-13-b3-long-rules",
+        "2026-10-13-census-sweeps", "2026-10-13-b2-between-rule-variance",
         "2026-10-13-b4-unfitted-rules", "2026-10-13-item21-slow-outliers", "2026-10-15-alpha-gap",
         "2026-10-13-shape-limit", "2026-10-13-h1-lacunarity-decomposition", "2026-10-13-edge-statistics",
         "2026-10-13-transport-forecast", "2026-10-13-log-growers", "2026-10-13-snapshots",
         "2026-10-13-occupancy-pages", "2026-10-13-mixing", "2026-10-13-layers-colours",
         "2026-10-13-c2-arrow-bias", "2026-10-15-literature-review", "2026-10-16-kappa-uniform-baseline"
       ],
-      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md"],
+      "posts": ["2026-10-19-the-ant-below-every-walker.md", "2026-10-20-an-exponent-hiding-in-a-product.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md"],
       "open": [
         {"text": "Is the shared exponent exact asymptotically, or only within the windows we can reach?", "source": "notes/cube-root-hypothesis.md"},
         {"text": "Which factor of the growth identity carries the amplitude, and why does the area exponent move when the width exponent does not?", "source": "notes/open-questions-hypotheses.md"},
@@ -58,14 +59,15 @@
       "slug": "boundary-return",
       "question": "What controls boundary return?",
       "state": "models-rejected",
-      "state_summary": "Boundary occupation is accounted for and its uniform baseline is calibrated, but prefix, tail, return-map and single-cell gate explanations each failed or stayed uninformative when tested on fresh data.",
-      "reviewed": "2026-10-23",
-      "claims": ["BO-01", "BO-02", "BO-03", "RD-01", "RD-02", "RD-03", "RD-04", "RD-05"],
+      "state_summary": "Boundary occupation is accounted for and its uniform baseline is calibrated, but prefix, launch-rate, tail, return-map and gate explanations each failed or stayed uninformative when tested on fresh data.",
+      "reviewed": "2026-10-25",
+      "claims": ["BO-01", "BO-02", "BO-03", "BO-04", "RD-01", "RD-02", "RD-03", "RD-04", "RD-05"],
       "evidence": [
         {"ref": "2026-10-16-kappa-uniform-baseline"},
         {"ref": "2026-10-19-kappa-chiral-edge"},
         {"ref": "2026-10-21-boundary-return-map"},
         {"ref": "2026-10-20-kappa-spread-budget"},
+        {"ref": "2026-10-19-kappa-walker-reference", "why": "Each comparison walker sits above its own growth-adjusted reference while the typical ant sits below, so the deficit is not a reference artefact."},
         {"ref": "2026-10-23-evidence-ledger"},
         {"ref": "2026-10-23-hidden-phase-return", "why": "A fixed next-turn map permits different returns under phase edits; the pilot stopped at its support gate, so the comparison is unresolved."}
       ],
@@ -77,31 +79,36 @@
         {"ref": "2026-10-16-kappa-square-loop", "why": "The square-loop explanation failed its test."},
         {"ref": "2026-10-20-c-law-renewal", "why": "Compressed memory fails native return criteria too."},
         {"ref": "2026-10-15-chirality-baselines", "why": "The edge model is compared with a lookup table."},
-        {"ref": "2026-10-20-kappa-exposure-classes", "why": "Exposure test: the deficit survives a reference-free measure, but the registered exposed-edge explanation failed; the flat-edge reading is post hoc."}
+        {"ref": "2026-10-20-kappa-exposure-classes", "why": "Exposure test: the deficit survives a reference-free measure, but the registered exposed-edge explanation failed; the flat-edge reading is post hoc."},
+        {"ref": "2026-10-15-kappa-cutoff-mixed-effects", "why": "Rule-level model: the registered excursion-cutoff association and prediction criteria fail."},
+        {"ref": "2026-10-15-kappa-prefix-exposure", "why": "Launch-rate mechanism: the key held-out prediction criteria fail."},
+        {"ref": "2026-10-15-kappa-return-gates", "why": "Gate features add no registered predictive value over the baseline; the intervention stage was not run."},
+        {"ref": "2026-10-19-c-law-mechanism", "why": "The fixed-area occupation effect of the opening run is reproduced by conditioning, without a direct effect on kappa."}
       ],
       "also": [
         "2026-10-25-exposure-classifier-check",
         "2026-10-13-a1-kappa", "2026-10-13-arm-kappa-depletion-arms", "2026-10-13-w1", "2026-10-13-k1-necklace-icc",
         "2026-10-13-colourstats", "2026-10-13-c3-edge-colour-shares", "2026-10-13-edge-statistics",
         "2026-10-13-transport-forecast", "2026-10-14-t1-excursion-tomography", "2026-10-14-kappa-matched-area",
-        "2026-10-15-kappa-cutoff-mixed-effects", "2026-10-15-independent-area", "2026-10-15-fixed-area-cycles",
-        "2026-10-15-kappa-field-age", "2026-10-15-kappa-prefix-exposure", "2026-10-15-kappa-return-gates",
+        "2026-10-15-independent-area", "2026-10-15-fixed-area-cycles", "2026-10-15-kappa-field-age",
         "2026-10-16-kappa-growth-clock", "2026-10-16-kappa-leadrun-fresh", "2026-10-16-kappa-loop-surgery",
-        "2026-10-16-kappa-prefix-decode", "2026-10-19-c-law-mechanism", "2026-10-19-kappa-walker-reference",
-        "2026-10-20-kappa-spread-features", "2026-10-20-kappa-prefix-runs", "2026-10-20-kappa-prefix-ablation",
+        "2026-10-16-kappa-prefix-decode", "2026-10-20-kappa-spread-features", "2026-10-20-kappa-prefix-runs", "2026-10-20-kappa-prefix-ablation",
         "2026-10-20-kappa-prefix-additive", "2026-10-kappa-rule-space"
       ],
-      "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md"],
+      "posts": ["2026-10-20-making-kappa-a-consequence.md", "2026-10-20-where-kappa-is-not.md", "2026-10-20-the-wrong-waits-survive-a-change-of-clock.md", "2026-10-23-what-the-evidence-can-carry.md", "2026-10-23-the-turn-map-hides-a-clock.md", "2026-10-20-an-identity-that-cannot-fail.md", "2026-10-20-the-flat-edge-is-where-the-ant-goes-missing.md", "2026-10-20-joining-the-hunt-for-mechanisms.md", "2026-10-20-the-short-loops-kept-their-clocks.md", "2026-10-20-what-the-new-experiments-change-in-the-paper.md", "2026-10-23-cost-of-a-new-cell.md", "2026-10-23-fewer-questions-open-at-once.md", "2026-10-23-learning-to-ask-the-ant.md"],
       "open": [
         {"text": "Gate baseline eligibility is unknown, so the single-cell null does not reject gate mechanisms in general.", "source": "notes/evidence-ledger.md"},
-        {"text": "What is the next test that has two explanations disagreeing on a time-weighted outcome, an excluded pilot, and a persistence comparator frozen in advance?", "source": "notes/ACTIVE.md"}
+        {"text": "What is the next test that has two explanations disagreeing on a time-weighted outcome, an excluded pilot, and a persistence comparator frozen in advance?", "source": "notes/ACTIVE.md"},
+        {"text": "Why does the interior return time track the territory's size, and why does the typical ant sit below every walker's own reference?", "source": "notes/ACTIVE.md"},
+        {"text": "Exposure classes are counts of unvisited neighbours, not shapes; does a shape-resolved classifier change where the deficit lives?", "source": "experiments/2026-10-25-exposure-classifier-check/README.md"}
       ],
       "turns": [
         {"ref": "2026-10-16-kappa-uniform-baseline", "change": "The uniform reference is corrected away from one."},
         {"ref": "2026-10-16-kappa-square-loop", "change": "The square-loop story fails its test."},
         {"ref": "2026-10-20-kappa-prefix-family-holdout", "change": "Prefix transfer to unseen families fails."},
         {"ref": "2026-10-21-boundary-return-map", "change": "Typical excursions have a compact state; time-weighted returns do not."},
-        {"ref": "2026-10-22-single-cell-gates", "change": "Single-cell gates are not resolved."}
+        {"ref": "2026-10-22-single-cell-gates", "change": "Single-cell gates are not resolved."},
+        {"ref": "2026-10-25-exposure-classifier-check", "change": "The exposure classes are checked exact; their corner and flat-edge wording is shown to be a loose reading."}
       ]
     },
     {
@@ -109,7 +116,7 @@
       "question": "Can field memory tether ants?",
       "state": "partially-supported",
       "state_summary": "Interventions show that the colour field the ant wrote matters for confinement and that small regions are sensitive; the proposed repair, route and fixed-set explanations did not survive.",
-      "reviewed": "2026-10-23",
+      "reviewed": "2026-10-25",
       "claims": [],
       "evidence": [
         {"ref": "2026-10-13-formage-age"},
@@ -169,7 +176,7 @@
         {"text": "What triggers the switch inside the blob, and can entry from a blank board be proved at all?", "source": "notes/proof-track-2026-10-20.md"},
         {"text": "Does the base case need an independent re-simulation to be trusted?", "source": "experiments/2026-10-20-rlrlll-macro-transition/NOTEBOOK.md"},
         {"text": "How far does the Lean model, a transcription of the rule, depend on agreement with the Rust ant?", "source": "experiments/2026-10-23-highway-decider/README.md"},
-        {"text": "Can the corner of the square ring be proved for every k, closing the ring as a macro-transition?", "source": "experiments/2026-10-25-square-ring-fillers/README.md"}
+        {"text": "Q26 (square-ring fillers): can the corner of the square ring be proved for every k, closing the ring as a macro-transition?", "source": "experiments/2026-10-25-square-ring-fillers/README.md"}
       ],
       "turns": [
         {"ref": "2026-10-13-g1-ribbon-breakout", "change": "RLRLLL is seen to switch from blob to column sweeper."},
@@ -183,32 +190,39 @@
       "slug": "late-highways",
       "question": "Does apparent chaos end in a highway?",
       "state": "revised",
-      "state_summary": "Late highways exist but about half of those first reported were the board, and the onset rate falls with time; whether every survivor eventually escapes is not known.",
-      "reviewed": "2026-10-23",
+      "state_summary": "Late highways exist but about half of those first reported were the board; once those are removed the onset rate shows no clear fall per decade, an exploratory refit finds it flat, and whether every survivor eventually escapes is not known.",
+      "reviewed": "2026-10-25",
       "claims": ["RG-01", "RG-02", "RG-03"],
       "evidence": [
         {"ref": "2026-10-21-late-highway-board-check"},
         {"ref": "2026-10-13-highways-unresolved-rules-1e10-1e11"},
         {"ref": "2026-10-23-highway-decider"},
-        {"ref": "2026-10-21-highway-preconditions"}
+        {"ref": "2026-10-21-highway-preconditions"},
+        {"ref": "2026-10-25-late-highway-fourth-decade", "why": "Exploratory refit of the existing census: the onset rate per decade looks flat; fit windows were chosen post hoc and the registered fourth-decade prediction is un-run."}
       ],
       "counter": [
         {"ref": "2026-10-13-b5-late-highways", "why": "Corrected by the board check: several of its late highways were board fillers."},
         {"ref": "2026-10-23-sweeper-generalisation", "why": "Board edges decided when the census stopped, not what the ants were."},
         {"ref": "2026-10-22-falsification-harness", "why": "Claims about highway type can depend on the start; attacks found counterexamples."},
-        {"ref": "2026-10-22-falsify-adaptive-search", "why": "The adaptive attacker did not beat random sampling as a counterexample finder."}
+        {"ref": "2026-10-22-falsify-adaptive-search", "why": "The adaptive attacker did not beat random sampling as a counterexample finder."},
+        {"ref": "2026-10-25-prefix-causal-horizon", "why": "Registered test: equal late onsets are board fillers sharing a fill rate, not prefix rules sharing a trajectory, so that reading in the notes is refuted."}
       ],
-      "also": ["2026-10-13-b4-unfitted-rules", "2026-10-13-g1-ribbon-breakout", "2026-10-13-item21-slow-outliers", "2026-10-25-square-ring-fillers", "2026-10-25-late-highway-fourth-decade", "2026-10-25-prefix-causal-horizon", "2026-10-25-rotation-boxes"],
+      "also": ["2026-10-13-b4-unfitted-rules", "2026-10-13-g1-ribbon-breakout", "2026-10-13-item21-slow-outliers", "2026-10-25-square-ring-fillers", "2026-10-25-rotation-boxes"],
       "posts": ["2026-10-22-half-the-late-highways-were-the-board.md", "2026-10-23-three-escapes-that-were-the-board.md", "2026-10-25-the-ant-that-fills-by-looping-in-place.md"],
       "open": [
-        {"text": "Is the set of late highways finite, and how are onset times distributed within a prefix family?", "source": "notes/open-questions-hypotheses.md"},
-        {"text": "The earlier sweeps have not had the board-size check.", "source": "experiments/2026-10-21-late-highway-board-check/README.md"}
+        {"text": "Is the set of late highways finite, or does a fixed fraction of survivors keep escaping every decade?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Q19: does the registered prediction for the next decade hold when the survivors are run on, with the second-board check?", "source": "experiments/2026-10-25-late-highway-fourth-decade/README.md"},
+        {"text": "The earlier sweeps have not had the board-size check.", "source": "experiments/2026-10-21-late-highway-board-check/README.md"},
+        {"text": "Q25 (rotation boxes): why do cyclic rotations of a survivor share a bounding box though their trajectories separate early?", "source": "notes/open-questions-hypotheses.md"},
+        {"text": "Q26 (prefix causal horizon): is the first-read time of a rule's last colour bounded for every rule, and can that be proved?", "source": "notes/open-questions-hypotheses.md"}
       ],
       "turns": [
         {"ref": "2026-10-13-b5-late-highways", "change": "The tail is first read as thinning, with some unclassified escapes."},
         {"ref": "2026-10-21-late-highway-board-check", "change": "Half the late highways are shown to be board fillers."},
         {"ref": "2026-10-22-falsification-harness", "change": "The claim attack harness finds start-dependent highway type."},
-        {"ref": "2026-10-23-highway-decider", "change": "Highways are certified on the configuration, not just a repeating trace."}
+        {"ref": "2026-10-23-highway-decider", "change": "Highways are certified on the configuration, not just a repeating trace."},
+        {"ref": "2026-10-25-prefix-causal-horizon", "change": "Equal late onsets are traced to a shared fill rate, not shared trajectories."},
+        {"ref": "2026-10-25-late-highway-fourth-decade", "change": "An exploratory refit finds a flat onset rate per decade, so onset times look log-uniform."}
       ]
     },
     {
@@ -243,7 +257,7 @@
       "question": "Do exact conservation laws constrain growth?",
       "state": "bounded-null",
       "state_summary": "Additive local laws are computed exactly, depend only on rule length and turn balance, and cannot tell chaos from highways; non-additive laws are untested.",
-      "reviewed": "2026-10-23",
+      "reviewed": "2026-10-25",
       "claims": [],
       "evidence": [
         {"ref": "2026-10-22-invariant-mining-snf"},
@@ -266,7 +280,7 @@
       "question": "Does the picture travel beyond the square lattice?",
       "state": "exploratory",
       "state_summary": "Noise, extra dimensions, stateful ants, other lattices and several ants show related behaviour, but only some of these were run to registered bands.",
-      "reviewed": "2026-10-23",
+      "reviewed": "2026-10-25",
       "claims": [],
       "evidence": [
         {"ref": "2026-10-13-d2-three-dimensions"},
@@ -274,9 +288,11 @@
         {"ref": "2026-10-13-d1-turmite-sqrt-cluster"}
       ],
       "counter": [
-        {"ref": "2026-10-20-lattice-c-law", "why": "Registered plan only; no lattice measurements had been run at registration."}
+        {"ref": "2026-10-20-lattice-c-law", "why": "Registered plan only; no lattice measurements had been run at registration."},
+        {"ref": "2026-10-13-w3", "why": "Away from the cube-root regime occupation stops being uniform and the visit-profile formula fails."},
+        {"ref": "2026-10-20-lattice-c-law-colours", "why": "The registered circulation decomposition of the lead slope fails; its headline comparison is not interpretable."}
       ],
-      "also": ["2026-10-13-d4-many-ants", "2026-10-13-ext-other-lattices-turmites-noise", "2026-10-13-w2", "2026-10-13-w3", "2026-10-20-lattice-c-law-colours"],
+      "also": ["2026-10-13-d4-many-ants", "2026-10-13-ext-other-lattices-turmites-noise", "2026-10-13-w2"],
       "posts": ["2026-10-20-does-the-ant-know-its-grid.md"],
       "open": [
         {"text": "What is the three-dimensional limit shape, given a filling fraction that is still drifting?", "source": "notes/open-questions-hypotheses.md"}
@@ -291,7 +307,7 @@
       "question": "How do ants draw diagonal crystals?",
       "state": "exploratory",
       "state_summary": "Ray anatomy is partly described and one motif prediction was falsified; the key transplant and ray-end interventions have not run.",
-      "reviewed": "2026-10-23",
+      "reviewed": "2026-10-25",
       "claims": [],
       "evidence": [{"ref": "2026-10-crystal-rules"}],
       "counter": [{"ref": "2026-10-14-rulepat", "why": "One plateau-and-rectangles rule is described but not explained."}],
@@ -307,7 +323,7 @@
       "question": "Can we trust the instruments?",
       "state": "instrument",
       "state_summary": "Estimators are calibrated on walkers with known answers, fast code is byte-identical to the oracle, and attacks on claims are automated; the calibration is window-specific and must be redone when a window changes.",
-      "reviewed": "2026-10-23",
+      "reviewed": "2026-10-25",
       "claims": [],
       "evidence": [
         {"ref": "2026-10-13-calib-instrument-calibration"},
@@ -315,12 +331,13 @@
         {"ref": "2026-10-16-gpu-probe"},
         {"ref": "2026-10-23-tiled-grid-backend"},
         {"ref": "2026-10-24-lean-tiled-ci-identity", "why": "Enforces on every push that sweep_lean matches sweep and tiled storage matches dense, byte for byte; it compares fast paths with each other, not with the oracle."},
-        {"ref": "2026-10-22-falsification-harness"}
+        {"ref": "2026-10-22-falsification-harness"},
+        {"ref": "2026-10-25-exposure-classifier-check", "why": "An independent checker written from the docs accepts the boundary exposure classifier and rejects every mutated control; an instrument check, not a result about ants."}
       ],
       "counter": [
         {"ref": "2026-10-22-falsify-adaptive-search", "why": "The adaptive attacker is weaker than random sampling at falsification."}
       ],
-      "also": ["2026-10-13-misc-instruments", "2026-10-13-frontier-code-patch", "2026-10-15-literature-review", "2026-10-23-evidence-ledger"],
+      "also": ["2026-10-13-misc-instruments", "2026-10-13-frontier-code-patch", "2026-10-15-literature-review", "2026-10-23-evidence-ledger", "2026-10-23-macos-gpu"],
       "posts": ["2026-10-21-the-kernel-that-knew-the-wrong-size.md", "2026-10-23-making-the-board-pay-only-for-what-the-ant-touched.md"],
       "open": [
         {"text": "Which estimator changes need fresh calibration, and who checks that they got it?", "source": "notes/calibration.md"}
@@ -331,7 +348,5 @@
       ]
     }
   ],
-  "unfiled": {
-    "2026-10-23-macos-gpu": "Native GPU implementation and oracle validation; no new scientific claim or throughput measurement."
-  }
+  "unfiled": {}
 }
