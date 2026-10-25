@@ -1,0 +1,95 @@
+{
+ "seed": 20261020,
+ "nboot": 4000,
+ "filler_runs": [
+  "RLLLRLLL@2",
+  "RLRRRRLRR@1",
+  "RLRRRRLRR@3"
+ ],
+ "frac_Q_gt_1": {
+  "k": 41,
+  "n": 64,
+  "wilson95": [
+   0.5182085051234868,
+   0.7471159778227758
+  ],
+  "boot95": [
+   0.5156,
+   0.75
+  ],
+  "boot_p_ge_075": 0.03675,
+  "straddle": 0
+ },
+ "P4_spearman_all": {
+  "obs": 0.19652014652014652,
+  "boot95": [
+   -0.0942,
+   0.4749
+  ]
+ },
+ "sp_rho_r1_all": {
+  "obs": 0.9335164835164834,
+  "boot95": [
+   0.8659,
+   0.9661
+  ]
+ },
+ "P4_spearman_nf": {
+  "obs": 0.20686813186813183,
+  "boot95": [
+   -0.0869,
+   0.4762
+  ]
+ },
+ "sp_rho_r1_nf": {
+  "obs": 0.921657509157509,
+  "boot95": [
+   0.847,
+   0.9589
+  ]
+ },
+ "P2b": {
+  "median_abs_ln_dev": 0.035998237647313566,
+  "boot95": [
+   0.029,
+   0.0491
+  ],
+  "n_gt_005": 23,
+  "n": 64
+ },
+ "fixed_half_flat_share": 0.2893167360039017,
+ "cov_shares_nf": {
+  "birth": 0.33683305759580034,
+  "w1*r1 (flat returns)": 0.4436228771546439,
+  "(1-w1)*r2 (exposed returns)": 0.21954406524955597
+ },
+ "median_w1_nf": 0.7179754310393022,
+ "gap": {
+  "total_at_medians": 0.9242738116390976,
+  "birth": 0.4758709912019816,
+  "flat": 0.3747191945770431,
+  "exposed": 0.10371618824633445,
+  "composition": -0.02721121754218041
+ },
+ "mf_kappa": {
+  "per_seed": {
+   "mf:1": 1.102571,
+   "mf:2": 1.10705,
+   "mf:3": 1.101721,
+   "mf:4": 1.104202,
+   "mf:5": 1.114121,
+   "mf:6": 1.11409,
+   "mf:7": 1.115103,
+   "mf:8": 1.120353
+  },
+  "mean": 1.109901453593491,
+  "sd": 0.006896214742062765
+ },
+ "provenance": {
+  "git": "181b0b8722dbb8b142c1e1fbd410d9968f03ec0a",
+  "inputs": {
+   "experiments/2026-10-20-kappa-exposure-classes/results/classes.csv": "50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79",
+   "experiments/2026-10-20-kappa-exposure-classes/results/rule_stats.csv": "ead2bf878ffaae4600bb3e02bdd12b946fa47f271debb04f82014d37579c28ee"
+  }
+ }
+}

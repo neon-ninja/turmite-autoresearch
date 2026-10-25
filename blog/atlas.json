@@ -76,9 +76,11 @@
         {"ref": "2026-10-22-single-cell-gates", "why": "Neither registered prediction held; the cohort is too small to exclude sparse gates."},
         {"ref": "2026-10-16-kappa-square-loop", "why": "The square-loop explanation failed its test."},
         {"ref": "2026-10-20-c-law-renewal", "why": "Compressed memory fails native return criteria too."},
-        {"ref": "2026-10-15-chirality-baselines", "why": "The edge model is compared with a lookup table."}
+        {"ref": "2026-10-15-chirality-baselines", "why": "The edge model is compared with a lookup table."},
+        {"ref": "2026-10-20-kappa-exposure-classes", "why": "Exposure test: the deficit survives a reference-free measure, but the registered exposed-edge explanation failed; the flat-edge reading is post hoc."}
       ],
       "also": [
+        "2026-10-25-exposure-classifier-check",
         "2026-10-13-a1-kappa", "2026-10-13-arm-kappa-depletion-arms", "2026-10-13-w1", "2026-10-13-k1-necklace-icc",
         "2026-10-13-colourstats", "2026-10-13-c3-edge-colour-shares", "2026-10-13-edge-statistics",
         "2026-10-13-transport-forecast", "2026-10-14-t1-excursion-tomography", "2026-10-14-kappa-matched-area",
@@ -146,32 +148,35 @@
       "slug": "persistent-structures",
       "question": "Can persistent structures be proved?",
       "state": "partial-formal",
-      "state_summary": "One column sweeper is checked for every even height, with Lean proofs of a single cycle and of the ideal plane, and census highways carry a certificate with a Lean soundness theorem; entry from a blank board and the real board's agreement with the ideal plane are not proved.",
-      "reviewed": "2026-10-23",
+      "state_summary": "One column sweeper is checked for every even height, with Lean proofs of a single cycle and of the ideal plane, and census highways carry a certificate with a Lean soundness theorem. The straight edge of the square-ring fillers is proved for every k by hand; their corners are only observed. Entry from a blank board and the real board's agreement with the ideal plane are not proved.",
+      "reviewed": "2026-10-25",
       "claims": [],
       "evidence": [
         {"ref": "2026-10-20-rlrlll-macro-transition"},
         {"ref": "2026-10-23-highway-decider"},
         {"ref": "2026-10-21-highway-preconditions"},
         {"ref": "2026-10-13-g1-ribbon-breakout"},
-        {"ref": "2026-10-21-rlrlll-portrait"}
+        {"ref": "2026-10-21-rlrlll-portrait"},
+        {"ref": "2026-10-25-square-ring-fillers"}
       ],
       "counter": [
         {"ref": "2026-10-23-sweeper-generalisation", "why": "The other census escapes are not further sweepers."},
         {"ref": "2026-10-13-g1-ribbon-breakout", "why": "The shared global geometry proposed for other escapes failed its registered test."}
       ],
       "also": ["2026-10-22-falsification-harness", "2026-10-22-invariant-mining-snf", "2026-10-crystal-rules"],
-      "posts": ["2026-10-20-the-sweeper-that-cannot-stop.md", "2026-10-23-proving-an-ant-never-stops.md", "2026-10-23-the-blank-rows-a-proof-spends.md", "2026-10-23-three-escapes-that-were-the-board.md", "2026-10-21-a-highway-needs-almost-nothing.md"],
+      "posts": ["2026-10-20-the-sweeper-that-cannot-stop.md", "2026-10-23-proving-an-ant-never-stops.md", "2026-10-23-the-blank-rows-a-proof-spends.md", "2026-10-23-three-escapes-that-were-the-board.md", "2026-10-21-a-highway-needs-almost-nothing.md", "2026-10-25-the-ant-that-fills-by-looping-in-place.md"],
       "open": [
         {"text": "What triggers the switch inside the blob, and can entry from a blank board be proved at all?", "source": "notes/proof-track-2026-10-20.md"},
         {"text": "Does the base case need an independent re-simulation to be trusted?", "source": "experiments/2026-10-20-rlrlll-macro-transition/NOTEBOOK.md"},
-        {"text": "How far does the Lean model, a transcription of the rule, depend on agreement with the Rust ant?", "source": "experiments/2026-10-23-highway-decider/README.md"}
+        {"text": "How far does the Lean model, a transcription of the rule, depend on agreement with the Rust ant?", "source": "experiments/2026-10-23-highway-decider/README.md"},
+        {"text": "Can the corner of the square ring be proved for every k, closing the ring as a macro-transition?", "source": "experiments/2026-10-25-square-ring-fillers/README.md"}
       ],
       "turns": [
         {"ref": "2026-10-13-g1-ribbon-breakout", "change": "RLRLLL is seen to switch from blob to column sweeper."},
         {"ref": "2026-10-20-rlrlll-macro-transition", "change": "A registered macro-transition family is checked for every even height."},
         {"ref": "2026-10-23-highway-decider", "change": "Census highways are certified against a machine-checked soundness theorem."},
-        {"ref": "2026-10-23-sweeper-generalisation", "change": "Three other escapes turn out to be different things."}
+        {"ref": "2026-10-23-sweeper-generalisation", "change": "Three other escapes turn out to be different things."},
+        {"ref": "2026-10-25-square-ring-fillers", "change": "The board fillers' edge crawler is proved for every k and their exits are predicted exactly."}
       ]
     },
     {
@@ -193,8 +198,8 @@
         {"ref": "2026-10-22-falsification-harness", "why": "Claims about highway type can depend on the start; attacks found counterexamples."},
         {"ref": "2026-10-22-falsify-adaptive-search", "why": "The adaptive attacker did not beat random sampling as a counterexample finder."}
       ],
-      "also": ["2026-10-13-b4-unfitted-rules", "2026-10-13-g1-ribbon-breakout", "2026-10-13-item21-slow-outliers"],
-      "posts": ["2026-10-22-half-the-late-highways-were-the-board.md", "2026-10-23-three-escapes-that-were-the-board.md"],
+      "also": ["2026-10-13-b4-unfitted-rules", "2026-10-13-g1-ribbon-breakout", "2026-10-13-item21-slow-outliers", "2026-10-25-square-ring-fillers"],
+      "posts": ["2026-10-22-half-the-late-highways-were-the-board.md", "2026-10-23-three-escapes-that-were-the-board.md", "2026-10-25-the-ant-that-fills-by-looping-in-place.md"],
       "open": [
         {"text": "Is the set of late highways finite, and how are onset times distributed within a prefix family?", "source": "notes/open-questions-hypotheses.md"},
         {"text": "The earlier sweeps have not had the board-size check.", "source": "experiments/2026-10-21-late-highway-board-check/README.md"}
@@ -309,6 +314,7 @@
         {"ref": "2026-10-16-gpu-ant-sweep"},
         {"ref": "2026-10-16-gpu-probe"},
         {"ref": "2026-10-23-tiled-grid-backend"},
+        {"ref": "2026-10-24-lean-tiled-ci-identity", "why": "Enforces on every push that sweep_lean matches sweep and tiled storage matches dense, byte for byte; it compares fast paths with each other, not with the oracle."},
         {"ref": "2026-10-22-falsification-harness"}
       ],
       "counter": [
