@@ -1,0 +1,7 @@
+P1: explicit crawler C_k, k = 1..64, 16 periods each (registered in README)
+main runs (minimal + 4 random-suffix rules per k, seed 20261025): 320
+control flips of letters 0..2k+1 (must fail within one period): 4288
+control flips of unread suffix letters (must be unchanged): 293
+independent Python oracle comparisons (k <= 10): 140
+failures: 0
+VERDICT: P1 HELD
