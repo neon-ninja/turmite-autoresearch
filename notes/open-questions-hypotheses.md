@@ -367,6 +367,7 @@ consistent with flat. Q16 is reopened in a sharper form:
   702 survivors (checkpointed runner exists), with the board-independence check, would distinguish flat from slowly falling.
 - Q20. The board fillers `R^k L R R...` fill at exactly `2(k+1)` steps per cell (to within a perimeter term). What is the
   filling mechanism, and is it the same class as the sqrt(t) frame builders (Q15)?
+  Q20 plan (2026-10-25, PLAN only, nothing run): `notes/q20-filler-proof-plan-2026-10-25.md`.
 - Q19 update (2026-10-22): all 28 non-artefact late highways confirmed on a 65536 board; final yields 1.41%, 1.98%, 1.64% for the three decades.
 
 ## Added 2026-10-22: invariant mining (additive local laws)
