@@ -229,3 +229,36 @@ rules are nearly all-R strings. Three were seen in exploration (results unchange
 2^24 on a 4096 board, and survivor filtering removed 20-38% of P2 mutants unevenly across position classes (table in
 `analysis.txt`). There is one ant per rule and one blank start; between-start variance is not measured here (N0
 bounds only the finite-window drift).
+
+## Stage 2: does full support push the lead slope toward 1? (registered 2026-10-25 23:22 (+13:00), before any Stage 2 run)
+
+Motivation: post hoc item 2 above. Among census Pi rules, `1/c` climbs at about 0.87 per lead step up to m = 9, and K3
+saturates. With only 1-4 rules per lead above m = 3, this has to be tested on rules the census never saw.
+
+**Hypothesis H-slope.** The lead law's slope, 0.70, is an average over how well each rule supports circulation. With
+full crawler support (`Pi(m)`), each extra lead step costs nearly one boundary read per birth, as in the crawler.
+K3's multiplicative kernel cannot represent that collective support.
+
+**Rules (fresh; the census stops at length 12).** All primitive `Pi(m)` rules with n in 13..18 and m in 2..6 (prefix
+`R^m L R^(m+2)` and a free suffix). Sample up to 60 per m (seed 20261026, `numpy.random.default_rng`). Each gets one
+composition-matched control: a random primitive non-`Pi` rule with the same n, the same lead m and the same number of
+`R`s, drawn from the full enumeration with the same generator. Same tracer, horizon and keep filter as P2/P3
+(`blank 24 4096`, not escaped, births >= 200, 1.3 <= area/area_t0 <= 1.9). The filter also drops ring fillers, whose
+area doubles per octave. I report how many runs each filter clause drops, by m. Any m with fewer than 6 kept Pi rules
+is reported but not scored in S2 or S3.
+
+**Predictions (my odds).**
+- **S1.** OLS slope of `1/c` on m over the kept Pi rules lies in [0.85, 1.10], **and** the slope difference
+  (Pi minus controls) is >= 0.10 with a 95% bootstrap CI above 0 (2000 resamples over Pi rules, controls carried with
+  their Pi rule, seed 20261026). ~45%.
+- **S2.** For each scored m, the median phi of the kept Pi rules is >= 0.5. ~55%.
+- **S3.** K3 (full-census refit: e = 1.1215, rho = 0.6922, psi = 0.16) under-predicts at high lead: median
+  `1/c - K3` >= +0.25 for the kept Pi rules with m in {4, 5, 6} pooled, and lies within ±0.10 at m = 2. ~45%.
+- **S4.** At most 10% of the kept Pi rules exceed `m + 5/4 + 0.10`. ~60%.
+
+**Readings.** If S1 and S3 hold, full support restores most of the crawler's slope, and the c law's b = 0.70 is a
+support-averaged slope that K3's kernel cannot produce. That would call for a support variable in any closed formula
+for b. If S1 fails with a slope below 0.85, the high-lead pattern in the census was small-n noise, and H-crawl
+retains only P1 at m = 2-3, which K3 already explains. If S4 fails, the crawler is not a ceiling.
+
+Budget: at most 600 tracer runs at 2^24 steps (about 1e10 steps), a few minutes.

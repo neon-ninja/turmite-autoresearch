@@ -64,3 +64,8 @@ P1 "crawler limit" there is not new information; it is K3's post-kill run term s
 is the high-lead Pi rules (m >= 4), where `1/c` keeps climbing at about 0.87 per lead step while K3 saturates. That is
 the part of H-crawl still standing, and it rests on 1-4 rules per lead. Next step: register a fresh-rule test of the
 slope.
+
+### 2026-10-25 23:22 (+13:00) · 285497a · decision
+Stage 2 registered in the README (H-slope, S1-S4) before writing its list script or running anything. Pruning
+preflight unchanged (same revision family, no new entries since 56aac50). The rule family changes (fresh lengths
+13-18), so I repeated the query: `rg --files notes/pruning-index/entries` still lists the same two unrelated entries.
