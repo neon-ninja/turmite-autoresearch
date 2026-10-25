@@ -51,3 +51,6 @@ The lemma is exact but nearly useless as a sharing device: every letter of every
 
 ### 2026-10-25 · 5a9da7d · question
 Why do rotations of a rule (19 of 42 equal-box pairs) reach the same bounding box when their trajectories separate within 45 steps? Rotation = same rule on a uniform background of non-zero colour. See Q25.
+
+### 2026-10-25 · 1b7e996 · observation
+corrects: the 2026-10-25 R4 results text in README. 205 steps against onsets of 4.3e9-1.3e10 is about seven orders of magnitude (not nine), and the largest class (i) bound is 105 (109 is a class (iii) wrapped-read bound). README text fixed; no data or code touched.

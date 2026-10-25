@@ -118,8 +118,8 @@ A cyclic rotation of a rule from a blank board is the original rule on a uniform
 
 **R4 FAILED as registered, and what failed is an earlier interpretation, not the lemma.** The 51 late-highway pairs with equal onset (< 1e-4 relative; onsets 4.29e9-1.29e10) are the pairs among
 exactly the 25 board fillers of `late-highway-board-check` (the 25 equal-onset rules are that set); none of the 28 genuine late highways shares an onset with another. For 46 pairs (class i) the lemma
-gives positions that differ at step F_q <= 109. For the 5 class (iii) pairs the lemma gives only a lower bound, so the first difference was measured by lockstep run (`results/r4_iii_pair_diff.csv`):
-97, 113, 145, 173, 205 steps. So **all 51 pairs separate within 205 steps**, nine orders of magnitude before their identical onsets. Equal onsets there reflect a common fill rate of the board
+gives positions that differ at step F_q <= 105. For the 5 class (iii) pairs the lemma gives only a lower bound, so the first difference was measured by lockstep run (`results/r4_iii_pair_diff.csv`):
+97, 113, 145, 173, 205 steps. So **all 51 pairs separate within 205 steps**, seven orders of magnitude before their identical onsets. Equal onsets there reflect a common fill rate of the board
 (onset = 2(k+1) G^2, k the number of leading R's), as the board check found; they are not evidence of shared trajectories.
 Registered prediction (70% that no pair would contradict the notes' reading) was wrong on that reading.
 
