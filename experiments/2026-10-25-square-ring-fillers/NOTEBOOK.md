@@ -146,3 +146,20 @@ own registrations. No pruning-index signature (positive mechanism; the failed P6
 `results/p1_crawler_runs.txt` was 2.9 MB (full read histograms for 4,288 control runs). `scripts/p1_crawler.py` now writes one
 compact line per run (periods_ok, first_fail, reads_as_expected); P1 rerun, `results/p1_crawler.txt` byte-identical to the committed
 summary, runs file 0.75 MB. Notebook re-executed.
+
+### 2026-10-25 15:14 (+13:00) · e14f67a · deviation
+Independent review of this experiment (reviewing AI agent, Claude Fable; not Corvid). corrects: 10:38 (P2/P3 numbers) and 10:54
+(post hoc table). Checked against `results/p23_analysis.txt`: the cycles per direction in [2^26, 2^27] are 489-849 (k = 5 down
+to k = 1), not 489-1,450; the share of count 2k+2 is at most 0.0083% (`RRLRRRRLLL`), not below 0.007%; the largest relative
+deviation of the shares 0..2k+1 is 0.083%, so "within 0.08%" should read 0.09%; steps per visited cell for k = 1 are 3.998-4.001
+(`RLRRRRRRL` 4.0007 and `RLRRRRRRRL` 4.0008 lie *above* 2(k+1), so "the deficit is the seed and the corners" is not the whole story:
+those seeds hold more excess visits than the corners lack) and for k = 2 5.994-5.996. Against `results/posthoc_p6.txt`: the proved
+family's row in the post hoc table counts 219 integer fillers (159 + 43 + 9 + 3 + 3 + 1 + 1), not 218; the rule beyond the 218 ring(k)
+Pi rules is `RRLRRRRRRLR` (Pi(2), census builder, v* = 6, table `RRLRRR`, max read 24, reads >= 6 at 0.082%), which the registered
+ring(2) test rejects; with 219 the rows sum to 272. README results edited to these values (registration untouched); the README
+command block now also lists the post hoc, figure and notebook commands. Other checks made in the review, all agreeing with the
+record: the crawler lemma re-traced by a separate script (phase-by-phase cell, value read, turn and heading; final values; translation
+of the whole visited rows; four reads per count) for k = 1..40; `scripts/p6_specs.py` rerun gives byte-identical `p6_specs.txt` and
+`p6_membership.csv` and prints 361 canonical Pi rules of length <= 12; a build of the two examples into a fresh `CARGO_TARGET_DIR`
+reproduces the sha256 logged in `results/*_run.log` (footprint `ae619384...`, crawler `2ddf4d94...`), so the committed runs used the
+committed source; `cargo build --release --locked --examples` succeeds; `blog/scripts/atlas.py --check` passes.

@@ -157,6 +157,9 @@ python3 $E/scripts/p4_predict.py                          # P4 predictions (comm
 bash $E/scripts/p4_run.sh && python3 $E/scripts/p4_compare.py        # P4 -> results/p4_analysis.txt
 bash $E/scripts/p5_run.sh && python3 $E/scripts/p5_analyse.py        # P5 -> results/p5_analysis.txt
 python3 $E/scripts/p6_specs.py && bash $E/scripts/p6_run.sh && uv run --frozen $E/scripts/p6_analyse.py   # P6
+python3 $E/scripts/posthoc_p6.py && python3 $E/scripts/posthoc_k0.py   # post hoc tables -> results/posthoc_p6.txt, results/posthoc_k0.txt
+uv run --frozen $E/scripts/figure.py                      # results/fig_square_ring.png (also copied to blog/assets/posts/...)
+uv run --frozen $E/scripts/build_notebook.py              # notebook.ipynb; execute it with the command in that script's docstring
 ```
 
 All runs are deterministic (no seeds except P1's suffix generator, seed 20261025); binary sha256 and commit are in each
@@ -210,12 +213,13 @@ evidence for it.
 ### The ring: corners, clock and exit (P2-P5)
 
 - **Clock (P2).** In all 25 census board fillers the revolution time is exactly `dt = 8(k+1) * swing + b_(r mod 2)` in all
-  four directions (100% of 489-1,450 cycles per direction in [2^26, 2^27]). The slope is the lemma's 2(k+1) steps per cell times
+  four directions (100% of 489-849 cycles per direction in [2^26, 2^27]). The slope is the lemma's 2(k+1) steps per cell times
   the four sides; the two-phase offsets b (e.g. RRLRRRR xmax: -110, -62) differ between rules with the same k (seed-dependent
   aspect of the ring), as registered.
-- **Footprint (P3).** Reads in [2^26, 2^27] are confined to 0..2k+2; shares of 0..2k+1 are uniform to within 0.08%; count
-  2k+2 is read in < 0.007% of steps (about one read per corner per revolution); steps per visited cell at 2^27 are 3.998, 5.996,
-  7.994, 9.992, 11.989 for k = 1..5 (the deficit is the seed and the corner diagonals).
+- **Footprint (P3).** Reads in [2^26, 2^27] are confined to 0..2k+2; shares of 0..2k+1 are uniform to within 0.09% (max relative
+  deviation 0.00083); count 2k+2 is read in at most 0.0083% of steps (about one read per corner per revolution); steps per visited
+  cell at 2^27 are 3.998-4.001, 5.994-5.996, 7.994, 9.992, 11.989 for k = 1..5 (the seed and the corner diagonals; two k = 1 rules,
+  `RLRRRRRRL` and `RLRRRRRRRL`, sit slightly above 2(k+1) because their seeds hold more excess visits than the corners lack).
 - **Corner (P5).** At a convex corner the crawler reads one interior cell (count 2k+2) per revolution, leaving a diagonal
   trail of cells with 2k+3 visits (at the other corners a diagonal with 2k+1; seen in snapshots, not counted). Flipping only
   `T(2k+2)` to L destroys the ring within the first corner (first read above 2k+2 at t0 + 2,956 / 1,962 / 3,477 steps against
@@ -251,7 +255,7 @@ evidence for it.
 | v* | table | runs | reading |
 |---|---|---|---|
 | 2 | `RL` | 20 | the two-visit builders; every one starts `RLL`. `C_0` (one row of 1s over 2s) translates iff `T(0) = L, T(1) = R` (all 124 rules of length 2..6, `results/posthoc_k0.txt`), so in mirror image these edges are the k = 0 crawler. `RLLLRRRL`'s north edge is a row of 1s over 2s with a corner diagonal of 3s (scratch inspection) |
-| 2k+2 | `R^k L R^(k+1)` | 218 (k = 1..7) | the proved family |
+| 2k+2 | `R^k L R^(k+1)` | 219 (k = 1..7) | the proved family: the 218 ring(k) Pi rules plus `RRLRRRRRRLR` (v* = 6, table `RRLRRR`), which the registered ring(2) test rejected for its reads above 6 (max 24, 0.08% of reads) |
 | 4, 6, 8 | `RRLR`, `RRRLRR`, `RRRRLRRR` | 1, 13, 3 | **a second family with the reversed table `R^(k+1) L R^k`** at the same cost 2(k+1); `RRRLRRLLL`'s edge reads rows `3311 / 4466 / 6666`, not `C_2` |
 | 4-26 | `RLLR`, `RLLRLL`, `RRLRLRRR`, seven singletons | 3, 3, 3, 7 | unexamined |
 
