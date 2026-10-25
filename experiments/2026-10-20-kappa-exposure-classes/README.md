@@ -297,3 +297,18 @@ The eight `mf` calibration runs (seeds 1..8, 2^26 steps, board 8192) give window
 1.110 over k = 17..26 (between-seed SD 0.0069, range 1.102-1.120), against 1.118 (SD 0.009) in
 `../2026-10-16-kappa-uniform-baseline` (seeds 2026101601..08, 2^23 steps). Recorded as ledger
 claim BO-04 (seed-disjoint, longer-horizon replication of BO-02).
+
+### Pruning-index outcome, revisited — appended 2026-10-25 09:23 UTC
+
+This supersedes the "candidate for review" paragraph above; that paragraph is unchanged. After
+the review (addendum above) the scoped claim still holds, and it is committed as the empirical signature
+[`NR-20261025-kappa-exposure-classes-exposed-edge`](../../notes/pruning-index/entries/NR-20261025-kappa-exposure-classes-exposed-edge.md)
+at evidence revision `2bacfc924204df411019fec9b4b1a4b1d79de616`. Index revision checked first:
+`2bacfc9` (one entry, no match for `exposure|exposed|corner|flat|occupation|kappa`, no ID
+collision). The review changes two things. The fraction of rules with Q > 1 is 0.641, Wilson 95%
+[0.518, 0.747], and the rule bootstrap gives P(>= 0.75) = 0.037, so the failure is not a near
+miss within resampling noise. Q > 1 in the rotor (1.60) and random walk (1.03) also means a low
+exposed-edge return rate does not distinguish the ant. The signature defers only an exact repeat on
+the 256 patched specs at 2^26 steps, board 8192, windows k = 17..26, with this instrument (`1593b61`;
+the per-step check at `181b0b8` reproduces it byte for byte). It covers neither age, phase or depth
+splits, nor other cohorts or horizons, nor the post hoc flat-edge reading.

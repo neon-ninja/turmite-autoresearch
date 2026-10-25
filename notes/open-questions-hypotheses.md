@@ -347,6 +347,17 @@ Reproduce: `scripts/run.sh`, then `uv run` `scripts/analyse.py`, `scripts/explor
   phases matter. Any age-resolved flat-edge test should therefore record the colour phase (full future turn word)
   of edge cells alongside age and depth, since age and phase are confounded. The two RLRRRRLRR fillers fill at
   ~4.0 steps per new cell, matching the `R^k L R R...` filler law `2(k+1)` with k = 1 (Q20); post hoc, two runs.
+- Review correction (appended 2026-10-25; nothing above changed; README "Review addendum"; post hoc, unregistered):
+  P1 covers u = 1-3 only and is uniform by construction. P3's registered outcomes were not exhaustive, and the
+  result fits none of them (fraction Q > 1 is 41/64, Wilson 95% 0.52-0.75). P4 is **unscored**, not failed: its
+  condition (H-exposed) did not hold, and its Spearman is +0.20 [-0.09, 0.48]. P2b is a proxy to about +-7-9%
+  (5-95% ratio 0.93-1.09), not "sound" rule by rule. The flat-edge reading above is weaker than stated. The 0.92 is
+  part-whole; with class weights fixed at 1/2, exposed returns carry more between-rule variance than flat
+  returns (0.43 vs 0.29); and relative to the rotor the ant is short by a similar factor in both classes (0.51 flat,
+  0.55 exposed). About half (51%) of the rotor-ant rho gap is birth steps. Any follow-up must state its criterion at
+  fixed class weights. Dead end committed: `NR-20261025-kappa-exposure-classes-exposed-edge` (empirical; exact repeat
+  of the H-exposed test only). The mf controls replicate BO-02's uniform kappa_unif at 2^26 steps (1.110, SD 0.007):
+  ledger BO-04.
 
 ## Added 2026-10-21: highway preconditions (causal seeds)
 

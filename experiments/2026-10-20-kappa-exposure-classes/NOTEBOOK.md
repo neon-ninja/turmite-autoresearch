@@ -186,3 +186,14 @@ reader guide were reworded. `scripts/build_notebook.py` gained a review section,
 scoring and caveats, and was rebuilt with `uv run --frozen`. The rebuild re-rendered
 `results/returns_by_class.png` with different bytes (same data, plotting stack differs from
 2026-10-20). The committed PNG was restored and is unchanged.
+
+### 2026-10-25 09:23 (+00:00) · 2bacfc9 · decision
+Pruning index: queried at `2bacfc9` (`rg --files notes/pruning-index/entries`; `rg -n -i -e exposure
+-e exposed -e corner -e flat -e occupation -e kappa notes/pruning-index/entries`). Result: one entry
+(`NR-20261022-additive-laws-order-blind`, conservation laws, no overlap) and no ID collision. Added
+`NR-20261025-kappa-exposure-classes-exposed-edge`, empirical. It defers an exact repeat of the
+H-exposed test only (the 256 patched specs, 2^26 steps, board 8192, k = 17..26, instrument
+`1593b61`/`181b0b8`). Why it still holds after the review: the P3 fraction CI excludes 0.75 at the
+Wilson level and has bootstrap P(>= 0.75) = 0.037. The controls have Q > 1, the instrument gap was
+closed with a byte-identical rerun, and P4 is unscored, so the entry does not rest on it. The
+flat-edge reading is excluded from the claim (post hoc, composition).

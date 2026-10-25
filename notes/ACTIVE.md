@@ -146,6 +146,9 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   Post hoc: the ant-specific shortfall is returns to flat-edge cells (rho_1^ret 0.59 vs rotor 1.14). Candidate observable for the priority-1
   discriminating test, not scheduled: an age-resolved flat-edge follow-up must pass that feasibility gate and record edge-cell colour phase
   (see `experiments/2026-10-23-hidden-phase-return/`); adapted 2026-10-25 at merge to the narrowed plan. Side question: 3/256 patched starts of two stationary rules became board fillers within 2^26 steps.
+  Review 2026-10-25 (README addendum): P4 is unscored, not failed; P2b is a proxy to about +-7-9%. The flat-edge reading is
+  mostly composition and is not ant-specific: the ant/rotor ratio is 0.51 flat vs 0.55 exposed, and about half the gap is births. A follow-up needs
+  fixed-weight criteria. Dead end `NR-20261025-kappa-exposure-classes-exposed-edge`; ledger BO-04 (mf kappa_unif 1.110 at 2^26).
 - **kappa/kappa_unif distribution, location (open):** why the median is 0.81 x kappa_unif (below every walker reference).
   `experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt`, `notes/open-questions-hypotheses.md`.
 - **kappa spread, remainder (open):** budgeted 2026-10-20 (post hoc, `experiments/2026-10-20-kappa-spread-budget/`): about 0.15 start
