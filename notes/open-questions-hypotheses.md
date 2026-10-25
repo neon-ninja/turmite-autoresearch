@@ -376,9 +376,9 @@ has a rule-dependence that reduces to `(n, ±D mod 4, trivial?)`, `D = #R - #L`.
   the interior count 2k+2 once per revolution and need `T(2k+2) = R` (flipping it breaks the ring at the first corner); the corner is
   observed, not proved. All 25 census board fillers have an exact clock `8(k+1) swing + b_(r mod 2)`, and `E(G) = 2(k+1)G^2 + beta G
   + gamma` fitted on three boards predicts every later exit to the step (B1 of the board check failed on the `beta G` term).
-- **Q15 answered in counts, not "one class".** 220 of the 304 census builders are rings of this family (k = 1..7), 20 are two-visit
-  builders (all `RLL...`; post hoc, their edge is the mirrored k = 0 crawler), and the rest include a second integer-cost family with the
-  reversed table `R^(k+1) L R^k` (post hoc) and non-integer cases. The registered "footprint implies family" prediction failed (2
+- **Q15 answered in counts, not "one class".** 220 of the 304 census builders have the ring(k) footprint, 218 of them with this family's
+  turn table (k = 1..7) and 2 with other tables; 20 are two-visit builders (all `RLL...`; post hoc, their edge is the mirrored k = 0
+  crawler), and the rest include a second integer-cost family with the reversed table `R^(k+1) L R^k` (post hoc) and non-integer cases. The registered "footprint implies family" prediction failed (2
   exceptions). Answer to Q15's second half from the existing record: the D1 sqrt(t) turmite cluster builds one-dimensional lines
   (`notes/frontier-2026-10-13-results.md`, W2 entry), while the rings fill 2D (area ~ t); same extent exponent 1/2, different class.
 - **Onset is a separate question.** `RLRR`, `RLRRR`, `RRLRRR` read the right turns but never fill from a blank board; given a ring

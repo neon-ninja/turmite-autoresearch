@@ -158,7 +158,7 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   transferable letter-level rule. Still open: a family random effect plus within-family letter structure, other family
   granularities (4, 8 letters), and what the unexplained third is (middle letters, dynamics).
 - **Square-ring fillers, open follow-ups (2026-10-25; experiment done, record in its README):** the board fillers' edge is a crawler of 2x2 square loops, proved for every k; exact clock
-  `8(k+1) swing + b`, board exits predicted to the step, corner needs `T(2k+2) = R`; rings are 220/304 census builders, but the registered
+  `8(k+1) swing + b`, board exits predicted to the step, corner needs `T(2k+2) = R`; the ring footprint is 220/304 census builders (218 with this family's table), but the registered
   footprint-implies-family test failed (other integer-cost crawler families exist). Open: corner lemma, the reversed family `R^(k+1) L R^k`,
   why 40% of the right-turn rules never find the ring (Q25, Q26). Use the `Pi(k)` predicate (`experiments/2026-10-25-square-ring-fillers/scripts/ring.py`)
   to exclude ring rules from transport cohorts rather than a steps-per-cell threshold. `experiments/2026-10-25-square-ring-fillers/`.
