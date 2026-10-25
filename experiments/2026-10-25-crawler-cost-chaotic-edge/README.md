@@ -262,3 +262,59 @@ for b. If S1 fails with a slope below 0.85, the high-lead pattern in the census 
 retains only P1 at m = 2-3, which K3 already explains. If S4 fails, the crawler is not a ceiling.
 
 Budget: at most 600 tracer runs at 2^24 steps (about 1e10 steps), a few minutes.
+
+## Stage 2 results (appended 2026-10-25 23:25 (+13:00); the registration above is not edited)
+
+```bash
+uv run --frozen $E/scripts/stage2_lists.py                                  # -> results/lists/s2_cohort.csv, s2_specs.txt
+CARGO_TARGET_DIR_FRESH=$(mktemp -d) sh $E/scripts/run_stage2.sh              # -> results/trace_s2.jsonl, run_stage2.log
+uv run --frozen $E/scripts/stage2_analyse.py                                # -> results/stage2_analysis.{txt,json}, stage2_rules.csv
+```
+
+Provenance: `results/run_stage2.log` (commit `bb2801d`, clean tree; the binary sha256 `e1bd80b8…f780` is identical to
+Stage 1). 256 Pi rules (60/60/60/60/16 for m = 2..6) and 236 controls (21 Pi rules had no composition-matched non-Pi
+rule).
+
+| Prediction | Verdict | Numbers (`results/stage2_analysis.txt`) |
+|---|---|---|
+| S1 slope in [0.85, 1.10] and Pi-specific | **failed** | Pi slope 0.884 (n = 89 kept) is in range, but on the 42 pairs where both runs were kept the slopes are 0.828 (Pi) vs 0.784 (controls), difference 0.044, 95% CI [-0.023, 0.114] |
+| S2 median phi >= 0.5 at every m | **failed** (narrowly) | phi 0.675, 0.496, 0.493, 0.570, 0.589 for m = 2..6 (kept 19, 24, 14, 26, 6) |
+| S3 K3 under-predicts at high lead | **failed** | median `1/c - K3` +0.182 for m in {4, 5, 6} (needed +0.25); -0.034 at m = 2 (within ±0.10). By m: about 0, +0.29, +0.61 for m = 4, 5, 6 |
+| S4 crawler as ceiling | **held** | 4 of 89 exceed `m + 5/4 + 0.10` |
+
+Filter outcomes: **166 of 256 fresh Pi rules (65%) grew faster than t^(2/3) within 2^24 steps** (area ratio > 1.9;
+these are filler-like), against 9 of 236 controls. The kept Pi rules are therefore the minority that stayed blob-like,
+not a random sample of the family.
+
+**Reading (H-slope).** The registered failure stands: full crawler support does not measurably steepen the lead
+slope beyond what composition does. Fresh, R-rich controls at lengths 13-18 also climb at about 0.78 per lead step
+(above the census 0.70), so the census pattern in post hoc item 2 was mostly composition plus small n. What *does*
+replicate across both stages: Pi rules sit at a roughly constant **half to two-thirds of the way from the lead law to
+the crawler line** (phi 0.65 in the census, 0.49-0.68 per lead on fresh rules), and almost never above it (6 of 129
+across both stages). K3 tracks them at m <= 4, which is consistent with Stage 1's post hoc check.
+
+## Overall verdict (Stage 1 + 2)
+
+- **Established.** The crawler gives an exact, proved reference point for the edge-cost instruments: ,
+  , chains {1, 3}. It is reproduced to 0.1% by the tracer. The crawler line works as an
+  empirical **ceiling** for chaotic rules with the same turn table (6 exceedances in 129), and those rules recover
+  roughly 50-65% of the gap between the lead law and the crawler (n = 40 census, 89 fresh).
+- **Refuted, at this scope.** A positional shared-cell window  that moves with  (W2) and acts
+  letter by letter (W3). Also refuted: a support-specific steepening of the lead slope (S1).
+- **Not distinguished from K3.** At m <= 4 the fitted K3 kernel predicts the Pi rules'  as well as the crawler
+  picture does, so H-crawl adds a ceiling and an interpretation, not extra predictive power.
+- **Unexplained.** Why support is collective: one added  letter in the window lowers  more often than it
+  raises it, while a full window raises it. Also why about two-thirds of fresh Pi rules become filler-like, and the
+  coefficients a ~ 1.36 and b ~ 0.70 themselves, which remain open (b is still not derived).
+
+## Pruning-index outcome and next question
+
+New empirical signature . It is scoped to single-letter flips of these 90
+parents at this horizon and instrument: no lead-dependent window and no consistent sign. It does not exclude
+whole-table support effects, which P1 confirms, or other horizons or backgrounds. The crawler-limit and ceiling
+results are positive and need no signature.
+
+Next question worth a registration: **what makes support collective?** The crawler needs *every* shared-cell read
+to turn . If chaotic circulation is an all-or-nothing chain,  should depend on the *product* of window
+letters, not their sum. A discriminating design: compare rules whose window is complete except for one gap at each
+position (dose of 0, 1, 2 gaps) on the flat band, where geometry is controlled.

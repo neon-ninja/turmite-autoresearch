@@ -69,3 +69,23 @@ slope.
 Stage 2 registered in the README (H-slope, S1-S4) before writing its list script or running anything. Pruning
 preflight unchanged (same revision family, no new entries since 56aac50). The rule family changes (fresh lengths
 13-18), so I repeated the query: `rg --files notes/pruning-index/entries` still lists the same two unrelated entries.
+
+### 2026-10-25 23:25 (+13:00) · bb2801d · observation
+Stage 2 (`results/stage2_analysis.txt`): S1, S2 and S3 failed; S4 held. The Pi slope is 0.884, but paired controls
+reach 0.784 (difference 0.044, CI [-0.023, 0.114]). 166 of 256 fresh Pi rules were filler-like (area ratio > 1.9) by
+2^24 steps, against 9 of 236 controls.
+
+### 2026-10-25 23:25 (+13:00) · bb2801d · interpretation
+The census high-lead "slope 0.87" (post hoc) was mostly composition and small n. Fresh R-rich controls also climb
+faster than the census lead law. What survives across both stages: phi of about 0.5-0.65 for Pi rules, and the crawler
+line as a ceiling. I hold this at moderate confidence. The selection is heavy (two-thirds of fresh Pi rules fill), and
+I have not checked whether phi depends on how close a kept rule is to filling.
+
+### 2026-10-25 23:25 (+13:00) · bb2801d · decision
+Write a dead-end signature for the single-letter window (W2/W3, well controlled: N0 passed, 78 parents scored).
+Do not write one for H-slope: S1 failed on a paired subset of 42 with a CI that includes 0, which is underpowered,
+so it is inconclusive rather than a dead end.
+
+### 2026-10-25 23:25 (+13:00) · bb2801d · deviation
+corrects: Stage 1 results header "23:25". Like the earlier entries, it ran ahead of the clock: `date` read 23:22 at
+the Stage 2 registration, which came after it. Git commit times govern the order (285497a, then be07015, then bb2801d).
