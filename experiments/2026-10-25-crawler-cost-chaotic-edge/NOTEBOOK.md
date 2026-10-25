@@ -100,3 +100,8 @@ numbers changed. The git diff shows exactly what was restored.
 Filed the experiment in the atlas under boundary-return (evidence, with the failures named), added a reader-guide row,
 built the figure and the shareable notebook (executed clean, 0 errors). Pruning entry
 `NR-20261025-crawler-window-single-letter` committed with evidence at b4798f8. Q27 added to the open questions.
+
+### 2026-10-25 (+13:00) · 2b1d794 · deviation
+corrects: 23:33 entry ("Q27 added"). At Tim's request the question is numbered Q28 in
+`notes/open-questions-hypotheses.md`; question numbers stay plain integers. The cross-reference to the square-ring
+ring-onset question is now worded without a number, because `main` currently has two questions numbered Q25.

@@ -468,7 +468,7 @@ first-read time of the last colour. Until a maintainer renumbers, cite them with
   (`NR-20261025-crawler-window-single-letter`). Support is collective: one added `s_0` letter in the window more often lowers `1/c`.
 - **Not beyond K3 at m <= 4.** The fitted K3 kernel predicts the Pi rules' census c (median residual +0.03). A support-specific
   steepening of the lead slope failed on fresh rules (S1: Pi 0.83 vs controls 0.78 on 42 pairs, CI includes 0).
-- Q27. Why is support collective? Is circulation an all-or-nothing chain (phi set by the *product* of window letters), and does
+- Q28. Why is support collective? Is circulation an all-or-nothing chain (phi set by the *product* of window letters), and does
   that explain why b sits at 0.70, i.e. 70% of the crawler's 1? Proposed test: a gap-dose design on the flat band.
-- Q25 (ring onset) link: 65% of fresh `Pi(m)` rules of lengths 13-18 already grow faster than t^(2/3) by 2^24 steps (filler-like), against 4% of
+- Link to the ring-onset question in the square-ring section above: 65% of fresh `Pi(m)` rules of lengths 13-18 already grow faster than t^(2/3) by 2^24 steps (filler-like), against 4% of
   composition-matched controls. The table that makes the crawler possible also makes finding it likely.
