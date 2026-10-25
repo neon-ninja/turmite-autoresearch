@@ -1,0 +1,44 @@
+# NR-20261025-kappa-exposure-classes-exposed-edge: for 64 stationary census rules (patched starts, 2^26 steps), the boundary-occupation deficit is not concentrated on exposed boundary cells (corners, bays, tips)
+
+- Schema: 1
+- ID: NR-20261025-kappa-exposure-classes-exposed-edge
+- Registered: 2026-10-25T22:23+13:00
+- Author: Turmite Research Agent (AI research agent)
+- Initial status: active
+- Evidence class: empirical (a registered test that failed, on one pinned cohort; it is not a proof, and nothing is excluded beyond the tested specs)
+- Objective and search keywords: locate the ant's boundary-occupation deficit (kappa/kappa_unif < 1) by boundary-cell exposure, i.e. the number u of unvisited 4-neighbours. The question is whether the deficit sits on exposed cells (u >= 2: corners, bays, tips) rather than on flat edge (u = 1). Keywords: kappa, boundary occupation, exposure class, unvisited neighbours, flat edge, corners, tips, rho_u, rho_1^ret, rho_2+^ret, Q, H-exposed, roughness.
+- Claim and permitted pruning decision: Claim: on the tested specs, the registered H-exposed picture failed. It required median Q = rho_1^ret / rho_2+^ret >= 1.18 and Q > 1 for at least 75% of rules, and only 41/64 rules have Q > 1. In addition, Q > 1 also holds for the rotor (1.60) and the random walk (1.03), so a low exposed-edge return rate does not single out the ant. Permitted: defer an exact repeat of this test for the same objective, with the same 64 rules, the same patched starts @1..4, the same horizon, board, windows and instrument (below). Not permitted: excluding exposure-class questions for other rules, other backgrounds or seeds, longer horizons, other windows, other lattices, or for age-, phase- or depth-resolved versions of the observable. "The deficit is on flat edge" is also not established (see Exclusions).
+
+## Topological dead-end signature
+
+- Model and update semantics: one ant on Z^2 (board 8192 x 8192, run ends on escape), colours 0..n-1. On colour c the ant turns by rule[c] (R = +1, L = -1 quarter turn), sets the colour to (c+1) mod n and steps. Stepping and region bookkeeping copy `src/probe.rs`.
+- Rule-space vertices and adjacency: the 64 rule strings listed in `experiments/2026-10-20-kappa-exposure-classes/results/specs.txt`, drawn from the 2185 stationary census rules (blob, |g_k| < 0.05) by `scripts/select_rules.py` (numpy `default_rng(20261020)`). Adjacency not used.
+- Membership predicate: a spec belongs if and only if it is one of the 256 patched specs `RULE@1..4` in `results/specs.txt` (sha256 below). The rule-level statistic is the mean over those of the four starts that completed window 26 (5 of 256 runs escaped earlier and were excluded as registered; every rule kept at least one run).
+- Canonicalization/equivalences: none. Mirror images, rotations and other members of the same family are not covered.
+- Invariants: not used.
+- Scope: blank colour-0 background, plus a 5x5 random patch seeded by the `@s` index as in `bin/probe`, s = 1..4. The blank-board runs and the controls (mf, rotor, rw x 8 seeds) are calibration only.
+- Observable and instrument: per window, b_u (steps starting on a class-u cell), f_u (forced first departures from newborn cells) and m_u = sum over steps of P_u/A. rho_u^ret = sum (b_u - f_u) / sum m_u, and Q = rho_1^ret / rho_2+^ret (pooling u = 2..4). Instrument `examples/kappa_exposure_classes.rs` at `1593b6167761ade6e98a62075dae986cfbe5f4e2` (binary sha256 0e6df95c0aa8415bcd9801f51b724d296e0546da020dce43fc3d84118b192e9f, rustc 1.85.1). Every window was checked against `probe::probe_walker` and a board scan. The stricter per-step check added at `181b0b8` (rustc 1.98.1) reproduces `classes.csv` byte for byte.
+- Horizon and windows: 2^26 steps; octave windows k = 17..26 (t in (2^16, 2^26]), pooled sums.
+- Exclusions: classification of cells by age since birth, colour phase or depth into the territory. Other rules, seeds or patches, other horizons and windows, non-pooled or per-window statistics, other lattices and turmites with states. The claim also does not cover the post hoc reading that the deficit "lives on flat edge". That reading is unregistered and mostly composition: with class weights fixed at 1/2, exposed returns account for more between-rule variance than flat returns. Relative to the rotor, the ant is short by a similar factor in both classes (0.51 flat, 0.55 exposed).
+
+## Evidence and limits
+
+- Preregistered criterion: `experiments/2026-10-20-kappa-exposure-classes/README.md`, P3 (H-exposed: median Q >= 1.18 and Q > 1 for >= 75% of rules), registered at `1593b6167761ade6e98a62075dae986cfbe5f4e2` before measuring. P4 was conditional on H-exposed and is unscored. Note that the three registered P3 outcomes were not exhaustive. The result (median Q 1.35, 64% above 1) fits none of them, so no alternative outcome is supported.
+- Evidence revision: `2bacfc924204df411019fec9b4b1a4b1d79de616` (the run results are unchanged since `1c9ac0570bfced5ee68213479317641ebda2e7fa`; the post hoc review and README addendum were added after the run).
+- Inputs/results (SHA-256): `results/specs.txt` b55889c9866770196a024811437c34aabf6ceb9baa1d997e3485d57bf53b93b5; `results/classes.csv` 50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79; `results/rule_stats.csv` ead2bf878ffaae4600bb3e02bdd12b946fa47f271debb04f82014d37579c28ee; `results/analysis.json` f0f58d4e194cd2a6d4fbe5dbc96ab638f4f76dbc4dc4df86061138061422d1a9; `results/run.log` 11971a101ccaf86bb8128219bae03b1416c64cee9c683b051ff02558e7502ace; `results/review.txt` 3f6c5159961c20a148d3d828ae1c33d77fb83d2d62351d68a68bb1cf9dbc254b; `results/review.json` befbec33230be9ab9207ba008854fdf0e9fb8b5ab76d189b1390ef9f75f32d81 (all under `experiments/2026-10-20-kappa-exposure-classes/`).
+- Recipe: `experiments/2026-10-20-kappa-exposure-classes/scripts/run.sh` (builds into a fresh target and runs `kappa_exposure_classes 26 8192 --check < results/specs.txt`), then `uv run --frozen experiments/2026-10-20-kappa-exposure-classes/scripts/analyse.py` and `scripts/posthoc_review.py` (bootstrap seed 20261020).
+- Proof or measured result: 64 rules, 251 of 256 patched runs complete (5 escaped and were excluded as registered). Median Q 1.349, bootstrap 95% [1.09, 1.59]; fraction Q > 1 is 41/64 = 0.641, Wilson 95% [0.518, 0.747], rule bootstrap P(fraction >= 0.75) = 0.037. Median between-seed sd of Q is 0.011. P4 (unscored): Spearman(rho, exposed share) +0.197, 95% [-0.094, 0.475], the opposite sign to the registered <= -0.4. Controls: Q is 1.60 for the rotor and 1.03 for the random walk, and the median rho_2+^ret is below 1 for each non-uniform walker type (rotor 0.71, rw 0.76, ant 0.41).
+- Controls and oracle checks: P0 held (64 blank-board runs reproduce 1152 committed census windows exactly); P1 held (mean-field rho_u = 1 within 0.006 for u = 1..3; uniform by construction, so this is an instrument check). Every spec passed `--check`. Known gap: the original per-window check could not catch a balanced class mix-up within a window. This was closed at `181b0b8`, and the rerun was byte-identical, so the evidence stands.
+- Confounds: exposure is entangled with cell age, colour phase and depth, none of which were recorded. Three patched runs became board fillers (RLLLRLLL@2, RLRRRRLRR@1, RLRRRRLRR@3); excluding them changes no verdict. The result covers a finite horizon only, and stationary rules may change regime later. The rules form a single cohort.
+- Why the evidence covers the predicate: the membership is exactly the 256 tested specs. All of them ran; 251 completed window 26, and the 5 that escaped earlier were excluded under the registered rule. Nothing is claimed for untested rules or conditions.
+
+## Reopening and cross-references
+
+- Reopen if: the instrument is corrected (a class or window bookkeeping error is found); the observable is split by cell age, colour phase or depth; a different cohort or background is used; the horizon is extended beyond 2^26; or the test is restated at fixed class weights so that composition no longer drives it.
+- Discriminating next test: age- and phase-resolved return rates at fixed class weights on a fresh stationary-rule sample, with the edge-cell colour phase recorded (see `experiments/2026-10-23-hidden-phase-return/`). It must be registered with its budget and must pass the narrowed-plan feasibility gate. Not scheduled.
+- Experiment / lab notebook / scientific note: `experiments/2026-10-20-kappa-exposure-classes/README.md` (results and review addendum), `NOTEBOOK.md`, `notebook.ipynb`; `notes/open-questions-hypotheses.md` ("Boundary occupation by exposure class"); `notes/ACTIVE.md`.
+- Related signature IDs: none. `NR-20261022-additive-laws-order-blind` concerns conservation laws, not occupation, and does not overlap.
+
+## Amendments (append only)
+
+None.

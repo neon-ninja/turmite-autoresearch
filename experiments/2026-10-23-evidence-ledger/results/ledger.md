@@ -1,7 +1,7 @@
 # Claim ledger: boundary access and regime changes
 
 Generated from human-authored `claims.json` by `scripts/ledger.py render`.
-Reviewed 2026-10-23T17:55:00+13:00; all evidence pinned at `1461cb96bbc64c396344979d2e81a6f430a485d0`.
+Reviewed 2026-10-25T22:25:00+13:00; all evidence pinned at `2bacfc924204df411019fec9b4b1a4b1d79de616`.
 No new measurements. Verdicts apply to the stated test and scope, not entire mechanisms.
 
 ## Compact decision view
@@ -11,6 +11,7 @@ No new measurements. Verdicts apply to the stated test and scope, not entire mec
 | [BO-01](#bo-01) / accounting-only | The growth-factor decomposition and renewal ratio account for growth/occupation. They do not independently explain why occupation stabilizes. | Reconstructing the exponent or kappa from factors or return budgets on the same trajectory validates a mechanism. | What independently predicts the level and drift of boundary access? | Require a frozen out-of-sample prediction beating persistence with the same permitted inputs; score causal intervention separately. |
 | [BO-02](#bo-02) / supported | Uniform instantaneous sampling gives octave-probe kappa about 1.11, not 1. Mean-field control measured 1.118 with between-seed SD 0.009; formula using measured exponents gives 1.107. | Treating kappa=1 as the uniform reference for growing octave windows. | Why do the tested ants spend less boundary time than the appropriate uniform reference? | Use the matching window and geometry baseline before interpreting any occupation deficit. |
 | [BO-03](#bo-03) / failed | Prefix lookup predicts within represented families, but whole six-letter-family holdout gives strict R2 -0.162 for P8, versus +0.591 in random CV. Tested additive and pairwise models also fall below the training mean. | The tested prefix models learn a transport rule that transfers to unseen prefix families. | Can an independently motivated transport feature transfer beyond family membership? | Reserve whole families wherever transfer is claimed; do not extend lookup features without a discriminating mechanism. |
+| [BO-04](#bo-04) / supported | A seed-disjoint, longer-horizon replication of the BO-02 control gives the same uniform reference. Eight mean-field seeds 1..8 run to 2^26 steps on board 8192 give a window-mean octave-probe kappa over k=17..26 of 1.110 (between-seed SD 0.007, range 1.102-1.120), against BO-02's 1.118 (SD 0.009) and the formula value of 1.107. | That the ~1.11 uniform reference in BO-02 is specific to its seeds or to the 2^23-step horizon. | Is the 0.008 difference from BO-02 a horizon or window effect (k=17..26 against k=12..22) or seed noise? | Keep kappa_unif at about 1.105-1.11 for square-grid, end-reference octave windows in this growth regime. Recompute it for any other exponent, window convention or lattice. |
 | [RD-01](#rd-01) / mixed | Tail-budget T1 fails its both-band criterion. T2 meets its absolute accuracy threshold (median relative error 0.123) but persistence is better (0.072). | A passing absolute forecast threshold establishes a useful explanation of return dynamics. | What sets mean interior return time beyond what persistence already predicts? | Carry the stronger persistence comparator into the next design and freeze its allowed inputs. |
 | [RD-02](#rd-02) / failed | First-passage P2 fails: M2 median relative error 1.07; mean absolute error 0.0372 versus 0.0277 for band-1 persistence. Boundary dwell has descriptive median slope -0.0007 over L=A/P. | Richer fitted state partitions independently close the mean return budget; E[T] tracking L itself explains constant kappa. | Why does mean interior duration track L where boundary dwell is flat and kappa stable? | Separate in-sample identities from predictive tests; compare against geometry-adjusted persistence only if geometry is equally available to all models. |
 | [RD-03](#rd-03) / uninformative | First-passage V2 P1 tail test fails calibration/identifiability; P3 has no rule-conditional input; P4 has median supported context share 0.005 against required 0.30. | These tests establish tail exponents, prove a local state sufficient, or reject all local closures. | Can an instrument identify return structure at the available sample sizes? | Require known-answer calibration and context support in an excluded pilot before a new confirmation test. |
@@ -33,7 +34,7 @@ Scope: Probe boundary = visited cells with an unvisited four-neighbour, includin
 
 Limits: Conditional cube-root scaling additionally assumes geometry and stable factors. The small-f approximation f~E[D]/E[T] can fail at large f.
 
-Evidence: [accounting](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/notes/accounting-identity-response-2026-10-16.md); [passage](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/README.md).
+Evidence: [accounting](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/notes/accounting-identity-response-2026-10-16.md); [passage](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/README.md).
 
 ### BO-02
 
@@ -43,7 +44,7 @@ Scope: Eight mean-field seeds 2026101601..08; 2^23 steps; fits k=12..22; square-
 
 Limits: A calibrated reference is not a mechanism. Do not transfer this numeric baseline unchanged to other growth exponents or window conventions.
 
-Evidence: [uniform](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-16-kappa-uniform-baseline/README.md); [uniform_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-16-kappa-uniform-baseline/results/analysis.txt).
+Evidence: [uniform](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-16-kappa-uniform-baseline/README.md); [uniform_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-16-kappa-uniform-baseline/results/analysis.txt).
 
 ### BO-03
 
@@ -53,7 +54,17 @@ Scope: 2185 selected stationary census rules; 43 families; eight folds, seed 202
 
 Limits: Uneven families, selected stationary cohort and untuned ridge. Failure of these models does not exclude all letter-level structure; rule bootstrap is not between-family uncertainty.
 
-Evidence: [prefix](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-prefix-family-holdout/README.md); [prefix_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-prefix-family-holdout/results/holdout.json); [accounting](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/notes/accounting-identity-response-2026-10-16.md).
+Evidence: [prefix](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-prefix-family-holdout/README.md); [prefix_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-prefix-family-holdout/results/holdout.json); [accounting](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/notes/accounting-identity-response-2026-10-16.md).
+
+### BO-04
+
+**boundary-occupation · calibration · supported**
+
+Scope: Mean-field walker mf:1..8 (uniform over the visited set by construction); 2^26 steps; board 8192; octave windows k=17..26 (t in (2^16, 2^26]); square grid; instrument examples/kappa_exposure_classes.rs, whose windows were checked against probe::probe_walker.
+
+Limits: Post hoc and unregistered: these are the calibration runs of the exposure-class experiment, summarised in its 2026-10-25 review. It uses the same mean-field algorithm (reimplemented in the exposure instrument) and the same probe definitions as BO-02, so it does not test the definitional choice. Growth exponents were not refitted, so the formula value was not recomputed for these windows. The difference of about 2 combined standard errors is not interpreted. This is a calibration, not a mechanism.
+
+Evidence: [exposure](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-exposure-classes/README.md); [exposure_review](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-exposure-classes/results/review.txt); [exposure_review_script](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-exposure-classes/scripts/posthoc_review.py); [uniform](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-16-kappa-uniform-baseline/README.md); [uniform_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-16-kappa-uniform-baseline/results/analysis.txt).
 
 ### RD-01
 
@@ -63,7 +74,7 @@ Scope: 44 rules, 32 starts each (16 predictor/16 outcome), seeds 2026101801..183
 
 Limits: T1 lower interval bound is -0.018 in band 0 despite positive point gain; analysis script written after run. Empirical binned mean used because parametric calibration failed. Decomposition is accounting, not intervention.
 
-Evidence: [tail](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-15-kappa-tail-budget/README.md); [tail_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.analysis.json).
+Evidence: [tail](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-15-kappa-tail-budget/README.md); [tail_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-15-kappa-tail-budget/results/confirm-v1.analysis.json).
 
 ### RD-02
 
@@ -73,7 +84,7 @@ Scope: 48 rules/12 families, eight kernel seeds 202610208001..8 and eight outcom
 
 Limits: Depth-64 component dominates in 35/46 rules; locality not tested by P2. Geometry-adjusted comparator is post hoc and uses outcome geometry. High-f rules invalidate the small-f identity approximation; dwell slope is descriptive, not a universal law.
 
-Evidence: [passage](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/README.md); [passage_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/results/confirm_analysis_skipP3.json); [dwell_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/results/describe.json).
+Evidence: [passage](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/README.md); [passage_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/results/confirm_analysis_skipP3.json); [dwell_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/results/describe.json).
 
 ### RD-03
 
@@ -83,7 +94,7 @@ Scope: Same first-passage cohort; P4 trains on kernel seeds 8001..8004 and holds
 
 Limits: Cutoff log-bias reaches 0.238 versus <0.2 gate; theta coverage 0.893 versus >=0.90. Do not publish fitted theta/z as findings. Context folding did not cause low support; support is heterogeneous.
 
-Evidence: [passage](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/README.md); [tail_calibration](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/results/calibration_c6.json); [context_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/results/p4_test.json).
+Evidence: [passage](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/README.md); [tail_calibration](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/results/calibration_c6.json); [context_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/results/p4_test.json).
 
 ### RD-04
 
@@ -93,7 +104,7 @@ Scope: 36 confirmation rules x seeds 202610208001..2, 72 runs, 8252 departures; 
 
 Limits: P5 was informed by pilot; time-weighted thresholds unreached in 9/36 and 13/36 rule-bands. Gamma_t uses only 22 finite pairs. Shuffle changes colours and spatial structure together; successive-return memory untested. Deep/shallow split conditions on outcome.
 
-Evidence: [return_map](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-21-boundary-return-map/README.md); [return_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-21-boundary-return-map/results/confirm_analysis.json).
+Evidence: [return_map](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-21-boundary-return-map/README.md); [return_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-21-boundary-return-map/results/confirm_analysis.json).
 
 ### RD-05
 
@@ -103,7 +114,7 @@ Scope: Three rules x four seeds 202610208001..004; 213 ant departures, 617 match
 
 Limits: Only three rule clusters. Baseline undo-log overflow silently skipped: full eligibility unknown. Intervention censoring 15/1234 (1.22%) limits claims to capped time/path reach. Traffic ranking does not define all possible gates.
 
-Evidence: [gate_design](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-22-single-cell-gates/README.md); [gates](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-22-single-cell-gates/NOTEBOOK.md); [gate_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-22-single-cell-gates/results/analysis.json).
+Evidence: [gate_design](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-22-single-cell-gates/README.md); [gates](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-22-single-cell-gates/NOTEBOOK.md); [gate_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-22-single-cell-gates/results/analysis.json).
 
 ### RG-01
 
@@ -113,7 +124,7 @@ Scope: First-passage 48-rule cohort at 2^32 cap and board 8192; caps concentrate
 
 Limits: No new transition detector or classification attack here. RLLLRRRLL and RLLRRLLLLLLL are inspection candidates, not diagnosed highway onsets. Stationary selection is not an explanation of stationarity.
 
-Evidence: [passage](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/README.md); [passage_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/results/confirm_analysis_skipP3.json); [dwell_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-20-kappa-first-passage/results/describe.json).
+Evidence: [passage](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/README.md); [passage_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/results/confirm_analysis_skipP3.json); [dwell_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-20-kappa-first-passage/results/describe.json).
 
 ### RG-02
 
@@ -123,7 +134,7 @@ Scope: Blank starts, late reported onsets (1e9,1e11], recheck board 65536. Corre
 
 Limits: Finite board agreement does not prove infinite-time persistence or all-start classification; this audit supplies no falsification-harness verdict. Three decades with few events cannot exclude slow decline. Earlier 1e8/1e9 cohorts were not all subjected to the second-board check.
 
-Evidence: [boards](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-21-late-highway-board-check/README.md); [board_data](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/experiments/2026-10-21-late-highway-board-check/results/classify.txt).
+Evidence: [boards](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-21-late-highway-board-check/README.md); [board_data](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/experiments/2026-10-21-late-highway-board-check/results/classify.txt).
 
 ### RG-03
 
@@ -133,4 +144,4 @@ Scope: 64 rotor seeds to 2^27; fitted windows ending 2^20..2^26. Patched-ant cal
 
 Limits: Calibration on this walker/window does not license a universal bias correction. A patched start is not an infinite random background. No universal ant exponent established by this audit.
 
-Evidence: [calibration](https://github.com/timClicks/turmite-autoresearch/blob/1461cb96bbc64c396344979d2e81a6f430a485d0/notes/calibration.md).
+Evidence: [calibration](https://github.com/timClicks/turmite-autoresearch/blob/2bacfc924204df411019fec9b4b1a4b1d79de616/notes/calibration.md).

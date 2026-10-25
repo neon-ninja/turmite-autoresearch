@@ -1,0 +1,43 @@
+{
+ "P0_reproduction_held": true,
+ "P0_shared_windows": 1152,
+ "P0_mismatches": 0,
+ "P1_held": true,
+ "P2_held": true,
+ "ant_median_rho": 0.8741123113479756,
+ "ant_frac_rho_ge_1": 0.3125,
+ "rotor_median_rho": 1.7983861229870732,
+ "rw_median_rho": 1.3149017053092453,
+ "rw_clause": true,
+ "patched_runs_excluded": 5,
+ "n_rules": 64,
+ "P2b_held": true,
+ "P2b_median_abs_ln_dev": 0.03599823764731362,
+ "P3_held": false,
+ "median_Q": 1.349315409299372,
+ "median_Q_ci95": [
+  1.0910160384070684,
+  1.5925640003421677
+ ],
+ "frac_Q_gt_1": 0.640625,
+ "P3_outcome": "H-exposed",
+ "P4_spearman": 0.19652014652014652,
+ "P4_scored": true,
+ "median_between_seed_sd": {
+  "rho": 0.02312303473267159,
+  "Q": 0.010761861267596248
+ },
+ "provenance": {
+  "git": "181742c77549d6ea1e9b308584cc5048bcaa3ae7",
+  "inputs": {
+   "experiments/2026-10-20-kappa-exposure-classes/results/classes.csv": "50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79",
+   "experiments/2026-10-20-kappa-exposure-classes/results/specs.txt": "b55889c9866770196a024811437c34aabf6ceb9baa1d997e3485d57bf53b93b5",
+   "experiments/2026-10-13-probe-growth-census/results/probe_all.csv": "b1f1c4a2d87b82c1b5cddcb73d0100c8ea1233e55dcb2e83b54625348ab43d15"
+  },
+  "windows": [
+   17,
+   26
+  ],
+  "bootstrap_seed": 20261020
+ }
+}

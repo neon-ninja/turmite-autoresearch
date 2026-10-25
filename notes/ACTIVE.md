@@ -1,6 +1,6 @@
 # Active work and open items
 
-Living index, last updated 2026-10-23: priorities narrowed after reviewing the record at
+Living index, last updated 2026-10-25 (square-ring filler follow-ups added to the backlog; priorities unchanged); before that 2026-10-23: priorities narrowed after reviewing the record at
 `ac8d88dd8cb047b1a46fecdbade8b633b9165d59`. The sequence below governs new work;
 the retained backlog is context, not a list of simultaneous commitments. Remove an item when it is
 done or dropped; record the outcome in the experiment's NOTEBOOK and the relevant note, not here. Scientific claims belong in
@@ -141,6 +141,14 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   `experiments/2026-10-16-kappa-square-loop/NOTEBOOK.md` (22:58 end-of-session entry), `experiments/2026-10-16-kappa-square-loop/README.md` (Results).
 - **Blob-regime boundary** of the c law between sparse-background density 0.2 and 0.7 (kept fraction 0-2% at density 1).
   `experiments/2026-10-19-c-law-mechanism/README.md` (Stage 3 results).
+- **Where the ant's boundary deficit lives (2026-10-20, `experiments/2026-10-20-kappa-exposure-classes/`, Turmite Research Agent):** registered
+  H-exposed (P3) and P4 FAILED; P0-P2b held (convention-free rho: ant 0.874, rotor 1.80, rw 1.31; kappa/1.105 matches rho rule by rule to 3.6%).
+  Post hoc: the ant-specific shortfall is returns to flat-edge cells (rho_1^ret 0.59 vs rotor 1.14). Candidate observable for the priority-1
+  discriminating test, not scheduled: an age-resolved flat-edge follow-up must pass that feasibility gate and record edge-cell colour phase
+  (see `experiments/2026-10-23-hidden-phase-return/`); adapted 2026-10-25 at merge to the narrowed plan. Side question: 3/256 patched starts of two stationary rules became board fillers within 2^26 steps.
+  Review 2026-10-25 (README addendum): P4 is unscored, not failed; P2b is a proxy to about +-7-9%. The flat-edge reading is
+  mostly composition and is not ant-specific: the ant/rotor ratio is 0.51 flat vs 0.55 exposed, and about half the gap is births. A follow-up needs
+  fixed-weight criteria. Dead end `NR-20261025-kappa-exposure-classes-exposed-edge`; ledger BO-04 (mf kappa_unif 1.110 at 2^26).
 - **kappa/kappa_unif distribution, location (open):** why the median is 0.81 x kappa_unif (below every walker reference).
   `experiments/2026-10-16-kappa-uniform-baseline/results/census_spread.txt`, `notes/open-questions-hypotheses.md`.
 - **kappa spread, remainder (open):** budgeted 2026-10-20 (post hoc, `experiments/2026-10-20-kappa-spread-budget/`): about 0.15 start
@@ -157,6 +165,11 @@ for its exact conditions and record the decision in its README and NOTEBOOK.
   held-out 6-letter prefix families (lookup 0.59 -> -0.16; pairwise 0.30 -> -0.69): the signal is family membership, not a
   transferable letter-level rule. Still open: a family random effect plus within-family letter structure, other family
   granularities (4, 8 letters), and what the unexplained third is (middle letters, dynamics).
+- **Square-ring fillers, open follow-ups (2026-10-25; experiment done, record in its README):** the board fillers' edge is a crawler of 2x2 square loops, proved for every k; exact clock
+  `8(k+1) swing + b`, board exits predicted to the step, corner needs `T(2k+2) = R`; the ring footprint is 220/304 census builders (218 with this family's table), but the registered
+  footprint-implies-family test failed (other integer-cost crawler families exist). Open: corner lemma, the reversed family `R^(k+1) L R^k`,
+  why 40% of the right-turn rules never find the ring (Q25, Q26). Use the `Pi(k)` predicate (`experiments/2026-10-25-square-ring-fillers/scripts/ring.py`)
+  to exclude ring rules from transport cohorts rather than a steps-per-cell threshold. `experiments/2026-10-25-square-ring-fillers/`.
 - **Late-highway counts corrected (final 2026-10-22):** 25 of the 54 reported late highways are board fillers (`R^k L R R...`, escape at ~(k+1)·2^31 on the 32768 board, x4 per board doubling) and `RLLLRLRRR` is a ray truncated by the board; the other 28 all reproduce on a 65536 board (B2 held, 26/26 rechecks). Genuine yields: 16/807 = 1.98% in (1e9,1e10] (was 4.7%), 12/732 = 1.64% in (1e10,1e11] (was 2.2%). With (1e8,1e9] at 1.4%, the per-decade rate is consistent with flat ~2%: the "thinning tail" is withdrawn. Open: apply the board-independence check to the 1e8/1e9 census; a fourth decade on the 702 survivors (Q19); whether the 702 include bounded rules (RLLLLLR is 42x42 at 1e11). `experiments/2026-10-21-late-highway-board-check/`, `notes/frontier-2026-10-13-results.md` (Correction 2026-10-21).
 - **Highway preconditions (done 2026-10-21):** the grid the future depends on (`D(tau)`, nonzero cells read again) collapses from 10^3-10^5 cells to the highway's own trail ~0.1 period before onset; the pre-onset seed is that trail plus a median 3 cells (406 independent events, transplant-verified 566/566; a sufficient set, not shown minimal), and ~0.25 period later the ant heads away from its territory (402/406). No seed is shared across unrelated rules (P4 held only within prefix families); P5 (seed excess predicts onset) failed. Post hoc: onset grows with highway size (self-overlap rho 0.45, speed -0.54), ~0.018 decades per cell. Open: knock-out of the "+3" cells; out-of-sample test on the 54 late highways. `experiments/2026-10-21-highway-preconditions/`.
 - **Late-highway tail / unresolved rules** and why `RLRLLL` switches to a period-3 column sweeper (trigger unknown).

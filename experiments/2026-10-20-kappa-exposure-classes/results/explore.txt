@@ -1,0 +1,22 @@
+POST HOC, unregistered. 64 rules, rule means over complete patched starts.
+Spearman(rho, rho1_ret     ) = +0.934
+Spearman(rho, rho2p_ret    ) = +0.664
+Spearman(rho, rho1         ) = +0.912
+Spearman(rho, rho2p        ) = +0.509
+Spearman(rho, first_share  ) = -0.104
+Spearman(rho, exposed_share) = +0.197
+Spearman(rho, Q            ) = +0.045
+Spearman(Q, census c) = +0.398
+crust proxy c>=0.6: n=3 median Q 0.499, frac Q>1 0.00, median rho 0.622, rho1_ret 0.213, rho2p_ret 0.382
+c<0.6: n=61 median Q 1.378, frac Q>1 0.67, median rho 0.882, rho1_ret 0.595, rho2p_ret 0.412
+
+rho = first1 + first2p + ret1 + ret2p (contributions per unit of time-averaged P/A); w1 = flat share of P
+ant   (n=251) median: w1 0.718, first1 0.051, first2p 0.282, ret1 0.428, ret2p 0.113, sum 0.874
+rotor (n=8) median: w1 0.629, first1 0.171, first2p 0.646, ret1 0.716, ret2p 0.264, sum 1.798
+rw    (n=8) median: w1 0.664, first1 0.089, first2p 0.451, ret1 0.512, ret2p 0.255, sum 1.307
+mf    (n=8) median: w1 0.601, first1 0.000, first2p 0.000, ret1 0.601, ret2p 0.399, sum 1.000
+
+SENSITIVITY (post hoc): drop patched runs with births/step > 0.05 in window 26
+flagged runs: [('RLLLRLLL@2', 0.4997725486755371), ('RLRRRRLRR@1', 0.250116229057312), ('RLRRRRLRR@3', 0.250116229057312)]
+rules 64; median rho 0.8741, frac rho>=1 0.281; median Q 1.3493 [1.0987, 1.5939], frac Q>1 0.641; Spearman(rho, exposed share) +0.2069; Spearman(rho, rho1_ret) +0.9217, (rho, rho2p_ret) +0.6095, (rho, Q) +0.0021
+max rule-mean rho1_ret 1.009, rho2p_ret 1.939

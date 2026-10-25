@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "reviewed_at": "2026-10-23T17:55:00+13:00",
-  "source_revision": "1461cb96bbc64c396344979d2e81a6f430a485d0",
+  "reviewed_at": "2026-10-25T22:25:00+13:00",
+  "source_revision": "2bacfc924204df411019fec9b4b1a4b1d79de616",
   "sources": {
     "accounting": "notes/accounting-identity-response-2026-10-16.md",
     "calibration": "notes/calibration.md",
@@ -23,7 +23,10 @@
     "gate_data": "experiments/2026-10-22-single-cell-gates/results/analysis.json",
     "boards": "experiments/2026-10-21-late-highway-board-check/README.md",
     "board_data": "experiments/2026-10-21-late-highway-board-check/results/classify.txt",
-    "pruning": "notes/pruning-index/entries/NR-20261022-additive-laws-order-blind.md"
+    "pruning": "notes/pruning-index/entries/NR-20261022-additive-laws-order-blind.md",
+    "exposure": "experiments/2026-10-20-kappa-exposure-classes/README.md",
+    "exposure_review": "experiments/2026-10-20-kappa-exposure-classes/results/review.txt",
+    "exposure_review_script": "experiments/2026-10-20-kappa-exposure-classes/scripts/posthoc_review.py"
   },
   "claims": [
     {
@@ -55,6 +58,16 @@
       "scope": "2185 selected stationary census rules; 43 families; eight folds, seed 20261020; 2000 rule bootstraps. P8 intervals: random [0.468,0.691], grouped [-0.230,-0.107].",
       "limitations": "Uneven families, selected stationary cohort and untuned ridge. Failure of these models does not exclude all letter-level structure; rule bootstrap is not between-family uncertainty.",
       "sources": ["prefix", "prefix_data", "accounting"]
+    },
+    {
+      "id": "BO-04", "topic": "boundary-occupation", "kind": "calibration", "verdict": "supported",
+      "observation": "A seed-disjoint, longer-horizon replication of the BO-02 control gives the same uniform reference. Eight mean-field seeds 1..8 run to 2^26 steps on board 8192 give a window-mean octave-probe kappa over k=17..26 of 1.110 (between-seed SD 0.007, range 1.102-1.120), against BO-02's 1.118 (SD 0.009) and the formula value of 1.107.",
+      "failed_explanation": "That the ~1.11 uniform reference in BO-02 is specific to its seeds or to the 2^23-step horizon.",
+      "question": "Is the 0.008 difference from BO-02 a horizon or window effect (k=17..26 against k=12..22) or seed noise?",
+      "next_decision": "Keep kappa_unif at about 1.105-1.11 for square-grid, end-reference octave windows in this growth regime. Recompute it for any other exponent, window convention or lattice.",
+      "scope": "Mean-field walker mf:1..8 (uniform over the visited set by construction); 2^26 steps; board 8192; octave windows k=17..26 (t in (2^16, 2^26]); square grid; instrument examples/kappa_exposure_classes.rs, whose windows were checked against probe::probe_walker.",
+      "limitations": "Post hoc and unregistered: these are the calibration runs of the exposure-class experiment, summarised in its 2026-10-25 review. It uses the same mean-field algorithm (reimplemented in the exposure instrument) and the same probe definitions as BO-02, so it does not test the definitional choice. Growth exponents were not refitted, so the formula value was not recomputed for these windows. The difference of about 2 combined standard errors is not interpreted. This is a calibration, not a mechanism.",
+      "sources": ["exposure", "exposure_review", "exposure_review_script", "uniform", "uniform_data"]
     },
     {
       "id": "RD-01", "topic": "return-dynamics", "kind": "prediction", "verdict": "mixed",

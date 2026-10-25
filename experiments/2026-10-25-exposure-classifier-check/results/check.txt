@@ -1,0 +1,80 @@
+checker check_classifier.py sha256 f87cd850c70f52dca641b91b5e8138fedfe2cadbfee1dfe78488887a154c8a78
+z3 4.13.4  python 3.12.15
+input results/table.csv sha256 f9e0ae566c552685b9096889433a5c7dd3ec090985a88d4e6e22c386963bcdeb
+input results/walks.csv sha256 b1d9cc6f6d2cac0a5ae14774b170de88ee463254f43f8568b555c992084ca99a
+input results/paths.csv sha256 fe9a58da10ec2a55174d905f32e690bd74f2af9a35f519233e27a12bfe42ad7f
+input results/dump.log sha256 db2b6b0687104959b35328c5000062b43e8b75d98c42df3778293307ed9488a3
+input experiments/2026-10-20-kappa-exposure-classes/results/classes.csv sha256 50ca657398a6245ab76ac9d1fc7569d1203186926b8b6e5765b52acb9f284f79
+
+ok   P1  cell 0: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P1  cell 1: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P1  cell 2: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P1  cell 3: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P1  cell 4: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P1  cell 5: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P1  cell 6: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P1  cell 7: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P1  cell 8: boundary <=> exactly one of C1..C4 (two encodings)           unsat (proved)
+ok   P2  cell 0: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  cell 1: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  cell 2: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  cell 3: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  cell 4: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  cell 5: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  cell 6: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  cell 7: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  cell 8: Rust stored class == spec (forall 9-bit patterns)            unsat (proved)
+ok   P2  incremental pc[0] == spec count of class-0 cells                     unsat (proved)
+ok   P2  incremental pc[1] == spec count of class-1 cells                     unsat (proved)
+ok   P2  incremental pc[2] == spec count of class-2 cells                     unsat (proved)
+ok   P2  incremental pc[3] == spec count of class-3 cells                     unsat (proved)
+ok   P2  incremental pc[4] == spec count of class-4 cells                     unsat (proved)
+ok   P2  every visit order enumerated (n_orders == n_visited!), 986410 total  986410 orders
+ok   P2  all orders give one outcome; pc == scan() for every order            
+ok   P3  g0: spec class(g.m, g.c) == class(m, c), all 9 cells                 unsat (proved)
+ok   P3  g0: Rust table equivariant                                           unsat (proved)
+ok   P3  g1: spec class(g.m, g.c) == class(m, c), all 9 cells                 unsat (proved)
+ok   P3  g1: Rust table equivariant                                           unsat (proved)
+ok   P3  g2: spec class(g.m, g.c) == class(m, c), all 9 cells                 unsat (proved)
+ok   P3  g2: Rust table equivariant                                           unsat (proved)
+ok   P3  g3: spec class(g.m, g.c) == class(m, c), all 9 cells                 unsat (proved)
+ok   P3  g3: Rust table equivariant                                           unsat (proved)
+ok   P3  g4: spec class(g.m, g.c) == class(m, c), all 9 cells                 unsat (proved)
+ok   P3  g4: Rust table equivariant                                           unsat (proved)
+ok   P3  g5: spec class(g.m, g.c) == class(m, c), all 9 cells                 unsat (proved)
+ok   P3  g5: Rust table equivariant                                           unsat (proved)
+ok   P3  g6: spec class(g.m, g.c) == class(m, c), all 9 cells                 unsat (proved)
+ok   P3  g6: Rust table equivariant                                           unsat (proved)
+ok   P3  g7: spec class(g.m, g.c) == class(m, c), all 9 cells                 unsat (proved)
+ok   P3  g7: Rust table equivariant                                           unsat (proved)
+ok   P4a sum_{u=1..4} p_u == P (window)                                       unsat (proved)
+ok   P4a cell 0: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4a cell 1: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4a cell 2: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4a cell 3: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4a cell 4: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4a cell 5: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4a cell 6: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4a cell 7: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4a cell 8: boundary => sum_u u[C_u] == #unvisited nbrs (fresh_nbrs)     unsat (proved)
+ok   P4b replay == instrument == probe on 224 walks, 576 windows              0 mismatches
+ok   P5  visit(i): invariant & pc bookkeeping preserved, no u8 underflow      unsat (proved)
+ok   P6  centre class independent of the 4 diagonals (spec)                   unsat (proved)
+ok   P6  centre class independent of the 4 diagonals (Rust table)             unsat (proved)
+ok   P6  witness: u=2 with opposite unvisited nbrs (strip, not corner)        sat (counterexample/witness)
+ok   P6  witness: u=1 (E open) but both west diagonals unvisited (T-junction, not flat) sat (counterexample/witness)
+      strip witness mask = 000111000 (bit w = cell w, w = 3*(y+1)+(x+1))
+      T-junction witness mask = 010011010 (bit w = cell w, w = 3*(y+1)+(x+1))
+      u=2 4-neighbourhood patterns: 4 adjacent pairs (corners), 2 opposite pairs (strips)
+ok   P7  scripted walks: p4 = b4 = f4 = 0 in every emitted window             0 nonzero
+ok   P7  2026-10-20 classes.csv: p4 = b4 = f4 = 0 in all 6154 rows            0 nonzero; k range 9..26
+
+negative controls (each must be rejected; 'ok' means rejected as expected)
+ok   N1  table with class clipped at 2 == spec?                               sat (counterexample/witness)
+ok   N2  table with one flipped entry (mask 511 centre 0->1) == spec?         sat (counterexample/witness)
+ok   N3  walk row with b2 + 1 rejected by replay                              1 mismatch
+ok   N4  asymmetric spec (N, E, S only) D4-equivariant?                       sat (counterexample/witness)
+ok   N5  Moore-count spec (8 nbrs) == Rust table?                             sat (counterexample/witness)
+ok   N6  mutant visit() (E neighbour not decremented) preserves invariant?    sat (counterexample/witness)
+
+65/65 checks as expected
