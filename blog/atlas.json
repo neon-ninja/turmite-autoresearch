@@ -314,6 +314,7 @@
         {"ref": "2026-10-16-gpu-ant-sweep"},
         {"ref": "2026-10-16-gpu-probe"},
         {"ref": "2026-10-23-tiled-grid-backend"},
+        {"ref": "2026-10-24-lean-tiled-ci-identity", "why": "Enforces on every push that sweep_lean matches sweep and tiled storage matches dense, byte for byte; it compares fast paths with each other, not with the oracle."},
         {"ref": "2026-10-22-falsification-harness"}
       ],
       "counter": [
