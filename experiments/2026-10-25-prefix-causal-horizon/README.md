@@ -65,3 +65,21 @@ uv run --frozen experiments/2026-10-25-prefix-causal-horizon/scripts/prove_prefi
 cargo test --release --locked --test prefix_horizon
 cargo run --release --example prefix_horizon -- ...
 ```
+
+## Addendum 2026-10-25 (before R1-R4 or the Rust test were run): the sharper unified form
+
+Working through the Lift proof I noticed that `W` (first read of a wrapped cell, visit `n'+1`) always exceeds `F_c(w')` for every
+`c < n'` (a cell cannot have `n'+1` visits before it has `c+1`), and no wrap happens before `F_{n'-1} >= F_q`. So Lemmas A, B and L
+collapse into one statement. For `n <= n'` and `q` = least `c < n'` with `w'[c] != w[c mod n]` (infinity if none):
+
+* **(i)** if `q < n'`: the first step after which the positions differ is **exactly** `F_q(w')`;
+* **(ii)** if `q = infinity` and `n | n'`: the trajectories are identical forever;
+* **(iii)** if `q = infinity` and `n` does not divide `n'`: positions agree at least until `W(w')`, the first step that reads a cell
+  visited `n'` times before.
+
+(A is (i) with `q = p`; B is (i) with `q = n` when `w[0] != w'[n]`, otherwise (i) with a later `q` or (iii).) This is the form R1 tests;
+the registered lemmas are its special cases, so a failure of either is a failure of the registration. The z3 lift obligation is still
+needed for (iii) (the wrap flag), and for (i) up to `F_q`.
+**z3 note (first run, before this addendum):** the negative control NC1 returned `unknown` rather than `sat` because the quantified
+range premises stop z3 from building a model, so S2 as written is not yet a valid calibration. Controls will be restated with
+quantifier-free premises (the grid is the zero grid plus the cell under the ant) and rerun; this is a deviation from S2, not a result.
